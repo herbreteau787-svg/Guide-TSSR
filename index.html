@@ -23,6 +23,18 @@
   button.cp{position:absolute;top:6px;right:6px;font-size:.7rem;background:#334155;color:var(--txt);border:0;border-radius:4px;padding:3px 7px;cursor:pointer}
   label{display:flex;gap:8px;align-items:center;font-size:.85rem;color:var(--mut);margin-top:8px}
   @media(max-width:700px){body{flex-direction:column}nav{width:100%;height:auto;position:static}}
+
+  body{font-size:17px;line-height:1.65}
+  main{max-width:860px;padding:32px 28px}
+  h2{font-size:1.7rem;margin-bottom:6px}
+  .prog{color:var(--mut);font-size:.9rem;margin:0 0 20px}
+  .card{padding:18px 20px;border-left:4px solid var(--acc)}
+  .card h3{font-size:1.15rem;color:#fff;margin-bottom:10px}
+  .card p{font-size:.98rem}
+  ul.pts{margin:10px 0;padding-left:20px;color:var(--txt);font-size:.96rem}
+  ul.pts li{margin:5px 0}
+  .warn{background:#3b2a12;border-left:4px solid #fbbf24;color:#fde68a;padding:10px 12px;border-radius:6px;margin:10px 0;font-size:.92rem}
+  code{font-size:.9rem;line-height:1.55;white-space:pre}
 </style>
 </head>
 <body>
@@ -46,7 +58,10 @@ const CCPS = [
   { id:"ccp2", titre:"CCP2 · Windows & Active Directory", fiches:[
     { titre:"Utilisateurs et groupes en PowerShell", notes:"Module ActiveDirectory (RSAT). Créer, lire, ajouter à un groupe, débloquer.", cmd:"New-ADUser -Name \"Jean Dupont\" -SamAccountName jdupont -Path \"OU=Compta,DC=lab,DC=local\" -AccountPassword (Read-Host -AsSecureString) -Enabled $true\nGet-ADUser jdupont -Properties *\nAdd-ADGroupMember -Identity GG_Compta -Members jdupont\nUnlock-ADAccount jdupont" },
     { titre:"Les 5 rôles FSMO", notes:"Étendue forêt : Schema Master, Domain Naming Master. Étendue domaine : PDC Emulator, RID Master, Infrastructure Master.", cmd:"netdom query fsmo" },
-    { titre:"AGDLP & GPO", notes:"Comptes → Groupes globaux → Groupes de domaine local → Permissions. Les GPO s'appliquent dans l'ordre L-S-D-OU (local, site, domaine, OU), la dernière appliquée gagne.", cmd:"gpupdate /force\ngpresult /r" }
+    { titre:"AGDLP & GPO", notes:"Comptes → Groupes globaux → Groupes de domaine local → Permissions. Les GPO s'appliquent dans l'ordre L-S-D-OU (local, site, domaine, OU), la dernière appliquée gagne.", cmd:"gpupdate /force\ngpresult /r" },
+    { titre:"DNS et DHCP sous Windows Server", notes:"Active Directory dépend du DNS : sans DNS fonctionnel, pas d'ouverture de session de domaine.", points:["DNS : zone directe (nom → IP) et zone inversée (IP → nom)","DHCP : étendue (plage), exclusions, réservations par adresse MAC","Options DHCP utiles : 003 (passerelle) et 006 (serveur DNS)","Un serveur DHCP d'un domaine doit être autorisé dans AD"], piege:"un poste de domaine configuré avec un DNS public ne retrouve plus le contrôleur de domaine.", cmd:"Get-DnsServerZone\nGet-DhcpServerv4Scope\nAdd-DhcpServerv4Reservation -ScopeId 192.168.10.0 -IPAddress 192.168.10.50 -ClientId AA-BB-CC-DD-EE-FF\nnslookup -type=SRV _ldap._tcp.dc._msdcs.lab.local" },
+    { titre:"Permissions NTFS et permissions de partage", notes:"Deux couches qui se cumulent quand on accède à un dossier par le réseau.", points:["Partage : agit seulement via le réseau. NTFS : agit partout (local et réseau)","Si les deux existent, la plus restrictive l'emporte","Un « Refuser » l'emporte toujours sur un « Autoriser »","Méthode courante : partage large, puis gestion fine en NTFS avec des groupes (AGDLP)"], cmd:"icacls D:\\Partage /grant GG_Compta:(OI)(CI)M\nNew-SmbShare -Name Compta -Path D:\\Partage -ChangeAccess GG_Compta\nGet-SmbShareAccess Compta" },
+    { titre:"Procédure GUI : joindre un poste au domaine", notes:"Prérequis : le DNS du poste pointe vers le contrôleur de domaine, et le poste ping le serveur par son nom.", points:["Touche Windows + R, taper sysdm.cpl, Entrée","Onglet « Nom de l'ordinateur » → Modifier","Choisir « Domaine », saisir le nom (ex. lab.local), valider","Entrer les identifiants d'un compte autorisé, puis redémarrer","Vérifier : whoami affiche DOMAINE\\utilisateur après connexion"], cmd:"Add-Computer -DomainName lab.local -Credential lab\\admin -Restart" }
   ]},
   { id:"ccp3", titre:"CCP3 · Maintenance Linux", fiches:[
     { titre:"Commandes essentielles", notes:"Fichiers, recherche, droits.", cmd:"ls -la\ngrep -ri \"erreur\" /var/log\nfind / -name \"*.conf\" 2>/dev/null\nchmod 640 fichier\nchown user:groupe fichier" },
@@ -60,11 +75,17 @@ const CCPS = [
   ]},
   { id:"ccp5", titre:"CCP5 · Virtualisation (VMware)", fiches:[
     { titre:"Architecture vSphere", notes:"ESXi = hyperviseur (bare metal) sur chaque hôte. vCenter = gestion centralisée. Datastore (VMFS/NFS) = stockage des VM. Un cluster regroupe plusieurs hôtes.", cmd:"" },
-    { titre:"vMotion, HA, DRS", notes:"vMotion : migration à chaud d'une VM (stockage partagé requis). HA : redémarre les VM d'un hôte en panne sur un autre hôte. DRS : équilibrage automatique de charge. Snapshot ≠ sauvegarde.", cmd:"" }
+    { titre:"vMotion, HA, DRS", notes:"vMotion : migration à chaud d'une VM (stockage partagé requis). HA : redémarre les VM d'un hôte en panne sur un autre hôte. DRS : équilibrage automatique de charge. Snapshot ≠ sauvegarde.", cmd:"" },
+    { titre:"Réseau virtuel (vSwitch)", notes:"Le commutateur virtuel relie les VM aux cartes physiques de l'hôte.", points:["vSwitch standard : propre à un hôte. Distribué (vDS) : géré par vCenter pour tout le cluster","Groupe de ports : porte le VLAN ID appliqué aux VM","Adaptateurs VMkernel : gestion, vMotion, stockage (ne pas les confondre avec les ports VM)","VM injoignable : vérifier le groupe de ports, le VLAN et la carte réseau connectée"], cmd:"esxcli network vswitch standard list\nesxcli network nic list\nesxcli network ip interface list" },
+    { titre:"Procédure GUI : créer une VM", notes:"Dans le vSphere Client.", points:["Clic droit sur l'hôte ou le cluster → Nouvelle machine virtuelle","Créer une nouvelle VM, nommer, choisir l'emplacement","Choisir l'hôte puis le datastore de stockage","Choisir la compatibilité et le système invité","Régler CPU, RAM, disque, réseau, et monter l'ISO (cocher « Connecter au démarrage »)","Terminer, démarrer, installer l'OS, puis installer VMware Tools"] },
+    { titre:"Snapshots : bonnes pratiques", notes:"Un instantané conserve l'état d'une VM à un moment donné pour pouvoir y revenir.", points:["Utile juste avant une mise à jour ou un changement risqué","Ce n'est pas une sauvegarde : il dépend du disque d'origine","Plus il vieillit, plus le disque delta grossit et ralentit la VM","Supprimer un snapshot = consolider (fusionner) les changements"], piege:"laisser des snapshots pendant des semaines sur une VM de production." }
   ]},
   { id:"ccp6", titre:"CCP6 · Scripts & automatisation", fiches:[
     { titre:"Bash : squelette", notes:"Variables, test, boucle. Rendre exécutable avec chmod +x.", cmd:"#!/bin/bash\nDEST=\"/backup/$(date +%F)\"\nmkdir -p \"$DEST\"\nfor f in /etc/*.conf; do\n  [ -f \"$f\" ] && cp \"$f\" \"$DEST\"\ndone\necho \"Sauvegarde OK\"" },
-    { titre:"PowerShell : squelette", notes:"Pipeline objet : Get | Where | Select | Export.", cmd:"Import-Csv .\\users.csv | ForEach-Object {\n  New-ADUser -Name $_.Nom -SamAccountName $_.Login -Enabled $true\n}\nGet-Service | Where-Object Status -eq 'Stopped' | Select Name\nGet-ChildItem C:\\Logs | Export-Csv logs.csv -NoTypeInformation" }
+    { titre:"PowerShell : squelette", notes:"Pipeline objet : Get | Where | Select | Export.", cmd:"Import-Csv .\\users.csv | ForEach-Object {\n  New-ADUser -Name $_.Nom -SamAccountName $_.Login -Enabled $true\n}\nGet-Service | Where-Object Status -eq 'Stopped' | Select Name\nGet-ChildItem C:\\Logs | Export-Csv logs.csv -NoTypeInformation" },
+    { titre:"Bash : arguments et conditions", notes:"Un script doit vérifier ses entrées avant d'agir.", points:["$1, $2 : arguments · $# : nombre d'arguments · $0 : nom du script","$? : code retour de la dernière commande (0 = succès)","[ -f x ] : fichier existe · [ -d x ] : dossier existe","Toujours mettre les variables entre guillemets : \"$1\""], cmd:"#!/bin/bash\nif [ $# -ne 1 ]; then\n  echo \"Usage: $0 dossier\"; exit 1\nfi\nif [ -d \"$1\" ]; then\n  echo \"$1 existe\"\nelse\n  echo \"$1 introuvable\"\nfi" },
+    { titre:"PowerShell : gérer les erreurs", notes:"Par défaut, beaucoup d'erreurs ne sont pas interceptables : il faut -ErrorAction Stop.", points:["try / catch : intercepte les erreurs terminantes","-ErrorAction Stop transforme une erreur simple en erreur interceptable","$_ contient l'erreur dans le bloc catch","Politique d'exécution des scripts : Get-ExecutionPolicy / Set-ExecutionPolicy RemoteSigned -Scope CurrentUser"], cmd:"try {\n  Get-Content C:\\absent.txt -ErrorAction Stop\n} catch {\n  Write-Warning \"Erreur : $($_.Exception.Message)\"\n}" },
+    { titre:"Planifier un script", notes:"Cron sous Linux, planificateur de tâches sous Windows.", points:["cron : minute heure jour mois jour-de-semaine commande","Toujours tester le script à la main avant de le planifier","Utiliser des chemins absolus dans les tâches planifiées"], cmd:"# Linux : tous les jours à 2h30\n30 2 * * * /opt/backup.sh\n\n:: Windows\nschtasks /create /tn \"Sauvegarde\" /tr \"C:\\Scripts\\backup.cmd\" /sc daily /st 02:30" }
   ]},
   { id:"ccp7", titre:"CCP7 · Sécurisation accès Internet", fiches:[
     { titre:"Pare-feu pfSense : principes", notes:"Règles évaluées de haut en bas, par interface, la première qui correspond gagne. Tout ce qui n'est pas autorisé est bloqué. WAN : tout bloqué par défaut. LAN : tout autorisé par défaut (à restreindre).", cmd:"" },
@@ -130,6 +151,8 @@ function card(c, f, i){
   d.innerHTML = "<h3></h3>";
   d.querySelector("h3").textContent = f.titre;
   if(f.notes){ const p=document.createElement("p"); p.textContent=f.notes; d.appendChild(p); }
+  if(f.points){ const ul=document.createElement("ul"); ul.className="pts"; f.points.forEach(t=>{const li=document.createElement("li"); li.textContent=t; ul.appendChild(li);}); d.appendChild(ul); }
+  if(f.piege){ const w=document.createElement("div"); w.className="warn"; w.textContent="⚠️ Piège : "+f.piege; d.appendChild(w); }
   if(f.lien){ const a=document.createElement('a'); a.href=f.lien; a.target='_blank'; a.textContent='📄 Ouvrir '+f.lien; a.style.cssText='color:var(--acc);display:inline-block;margin:6px 0'; d.appendChild(a); }
   if(f.cmd){
     const pre=document.createElement("pre"), code=document.createElement("code"), b=document.createElement("button");
@@ -157,6 +180,8 @@ function render(){
   }
   const c = CCPS.find(x=>x.id===current);
   const h=document.createElement("h2"); h.textContent=c.titre; content.appendChild(h);
+  const ok=c.fiches.filter((f,i)=>store(c.id+"-"+i)==="1").length;
+  const pg=document.createElement("p"); pg.className="prog"; pg.textContent=c.fiches.length+" fiche(s) · "+ok+" maîtrisée(s)"; content.appendChild(pg);
   if(!c.fiches.length){ const p=document.createElement("p"); p.textContent="Pas encore de fiche ici."; content.appendChild(p); }
   c.fiches.forEach((f,i)=>content.appendChild(card(c,f,i)));
 }
