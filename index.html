@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guide TSSR</title>
+<style>
+  :root{--bg:#0f172a;--panel:#1e293b;--txt:#e2e8f0;--mut:#94a3b8;--acc:#38bdf8;--ok:#4ade80}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,sans-serif;background:var(--bg);color:var(--txt);display:flex;min-height:100vh}
+  nav{width:260px;background:var(--panel);padding:16px;position:sticky;top:0;height:100vh;overflow:auto}
+  nav h1{font-size:1.1rem;margin:0 0 12px;color:var(--acc)}
+  nav input{width:100%;padding:8px;border-radius:6px;border:1px solid #334155;background:var(--bg);color:var(--txt);margin-bottom:12px}
+  nav a{display:block;padding:8px;border-radius:6px;color:var(--txt);text-decoration:none;font-size:.9rem;cursor:pointer}
+  nav a:hover,nav a.on{background:#334155}
+  main{flex:1;padding:24px;max-width:900px}
+  h2{color:var(--acc);margin-top:0}
+  .card{background:var(--panel);border-radius:10px;padding:14px 16px;margin-bottom:14px}
+  .card h3{margin:0 0 8px;font-size:1rem}
+  .card p{margin:4px 0;color:var(--mut)}
+  pre{background:#020617;padding:10px;border-radius:6px;overflow-x:auto;position:relative;margin:8px 0}
+  code{color:var(--ok);font-size:.85rem}
+  button.cp{position:absolute;top:6px;right:6px;font-size:.7rem;background:#334155;color:var(--txt);border:0;border-radius:4px;padding:3px 7px;cursor:pointer}
+  label{display:flex;gap:8px;align-items:center;font-size:.85rem;color:var(--mut);margin-top:8px}
+  @media(max-width:700px){body{flex-direction:column}nav{width:100%;height:auto;position:static}}
+</style>
+</head>
+<body>
+<nav>
+  <h1>🛠️ Guide TSSR</h1>
+  <input id="q" placeholder="Rechercher (commande, mot-clé)…">
+  <div id="menu"></div>
+</nav>
+<main id="content"></main>
+
+<script>
+// ====== TON CONTENU : ajoute / modifie ici ======
+// Chaque CCP = { id, titre, fiches: [ { titre, notes, cmd } ] }
+const CCPS = [
+  { id:"ccp1", titre:"CCP1 · Support utilisateur", fiches:[
+    { titre:"Diagnostic réseau poste", notes:"Toujours partir de la couche 1 vers la 7.", cmd:"ipconfig /all\nping 8.8.8.8\nnslookup exemple.fr" }
+  ]},
+  { id:"ccp2", titre:"CCP2 · Windows & Active Directory", fiches:[
+    { titre:"Forcer la GPO", notes:"À lancer sur le poste client.", cmd:"gpupdate /force\ngpresult /r" }
+  ]},
+  { id:"ccp3", titre:"CCP3 · Maintenance Linux", fiches:[
+    { titre:"Services & logs", notes:"", cmd:"systemctl status ssh\njournalctl -u ssh -n 50\ndf -h" }
+  ]},
+  { id:"ccp4", titre:"CCP4 · Services réseau", fiches:[] },
+  { id:"ccp5", titre:"CCP5 · Virtualisation", fiches:[] },
+  { id:"ccp6", titre:"CCP6 · Scripts & automatisation", fiches:[] },
+  { id:"ccp7", titre:"CCP7 · Sécurisation accès Internet", fiches:[] },
+  { id:"ccp8", titre:"CCP8 · Sauvegardes & restaurations", fiches:[] },
+  { id:"ccp9", titre:"CCP9 · Déploiement de postes", fiches:[] },
+  { id:"ccp10", titre:"CCP10 · Téléphonie IP", fiches:[
+    { titre:"Ports & bonnes pratiques", notes:"VLAN voix dédié + QoS pour la qualité d'appel. Switchs PoE pour alimenter les postes.", cmd:"SIP : 5060 UDP/TCP (5061 en TLS)\nRTP (voix) : plage UDP configurable, ex. 10000-20000\nQoS : DSCP EF (46) pour la voix" },
+    { titre:"Diagnostic IPBX Asterisk", notes:"Vérifier l'enregistrement des postes et les appels en cours.", cmd:"asterisk -rvvv\npjsip show endpoints\ncore show channels" }
+  ]},
+  { id:"ccp11", titre:"CCP11 · Intranet & DMZ", fiches:[
+    { titre:"Serveur web interne (Apache)", notes:"Accessible uniquement depuis le LAN, avec un nom via le DNS interne.", cmd:"apt install apache2\nsystemctl status apache2\nss -tlnp | grep :80" },
+    { titre:"Restreindre l'accès au LAN", notes:"Dans la config du site Apache (adapter le réseau).", cmd:"<Directory /var/www/intranet>\n  Require ip 192.168.10.0/24\n</Directory>" },
+    { titre:"Principe & règles de flux", notes:"Zone intermédiaire entre Internet et le LAN. Internet → DMZ : uniquement les ports publiés. LAN → DMZ : autorisé. DMZ → LAN : interdit.", cmd:"" },
+    { titre:"Exemple de règles pare-feu (iptables)", notes:"À adapter à tes interfaces (wan / dmz / lan).", cmd:"iptables -A FORWARD -i wan -o dmz -p tcp --dport 443 -j ACCEPT\niptables -A FORWARD -i lan -o dmz -j ACCEPT\niptables -A FORWARD -i dmz -o lan -j DROP" }
+  ]}
+];
+// ================================================
+
+const menu = document.getElementById("menu");
+const content = document.getElementById("content");
+const q = document.getElementById("q");
+let current = CCPS[0].id;
+
+function store(k, v){ try{ if(v===undefined) return localStorage.getItem(k); localStorage.setItem(k,v); }catch(e){} }
+
+function renderMenu(){
+  menu.innerHTML = "";
+  CCPS.forEach(c=>{
+    const a = document.createElement("a");
+    a.textContent = c.titre;
+    if(c.id===current && !q.value) a.className="on";
+    a.onclick = ()=>{ current=c.id; q.value=""; render(); };
+    menu.appendChild(a);
+  });
+}
+
+function card(c, f, i){
+  const key = c.id+"-"+i;
+  const d = document.createElement("div");
+  d.className="card";
+  d.innerHTML = "<h3></h3>";
+  d.querySelector("h3").textContent = f.titre;
+  if(f.notes){ const p=document.createElement("p"); p.textContent=f.notes; d.appendChild(p); }
+  if(f.cmd){
+    const pre=document.createElement("pre"), code=document.createElement("code"), b=document.createElement("button");
+    code.textContent=f.cmd; b.className="cp"; b.textContent="Copier";
+    b.onclick=()=>{ navigator.clipboard.writeText(f.cmd); b.textContent="✓"; setTimeout(()=>b.textContent="Copier",1000); };
+    pre.append(b,code); d.appendChild(pre);
+  }
+  const l=document.createElement("label"), cb=document.createElement("input");
+  cb.type="checkbox"; cb.checked = store(key)==="1";
+  cb.onchange=()=>store(key, cb.checked?"1":"0");
+  l.append(cb,"Maîtrisé"); d.appendChild(l);
+  return d;
+}
+
+function render(){
+  renderMenu();
+  content.innerHTML="";
+  const term = q.value.trim().toLowerCase();
+  if(term){
+    const h=document.createElement("h2"); h.textContent="Résultats"; content.appendChild(h);
+    CCPS.forEach(c=>c.fiches.forEach((f,i)=>{
+      if((f.titre+f.notes+f.cmd).toLowerCase().includes(term)) content.appendChild(card(c,f,i));
+    }));
+    return;
+  }
+  const c = CCPS.find(x=>x.id===current);
+  const h=document.createElement("h2"); h.textContent=c.titre; content.appendChild(h);
+  if(!c.fiches.length){ const p=document.createElement("p"); p.textContent="Pas encore de fiche ici."; content.appendChild(p); }
+  c.fiches.forEach((f,i)=>content.appendChild(card(c,f,i)));
+}
+
+q.oninput = render;
+render();
+</script>
+</body>
+</html>
