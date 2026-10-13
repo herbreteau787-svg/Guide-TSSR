@@ -30,6 +30,7 @@
   <h1>🛠️ Guide TSSR</h1>
   <input id="q" placeholder="Rechercher (commande, mot-clé)…">
   <div id="menu"></div>
+  <p style="font-size:.7rem;color:var(--mut);margin-top:16px">Structure inspirée de SpyKeeR/PrepaExamTSSR (GPL-3.0). Fiches rédigées en reformulation.</p>
 </nav>
 <main id="content"></main>
 
@@ -38,20 +39,44 @@
 // Chaque CCP = { id, titre, fiches: [ { titre, notes, cmd } ] }
 const CCPS = [
   { id:"ccp1", titre:"CCP1 · Support utilisateur", fiches:[
-    { titre:"Diagnostic réseau poste", notes:"Toujours partir de la couche 1 vers la 7.", cmd:"ipconfig /all\nping 8.8.8.8\nnslookup exemple.fr" }
+    { titre:"Incident, problème, demande", notes:"Incident = service interrompu ou dégradé (on rétablit vite). Problème = cause racine de plusieurs incidents (on la cherche). Demande de service = besoin prévu (compte, matériel). Priorité = impact × urgence.", cmd:"" },
+    { titre:"Niveaux de support", notes:"N1 : accueil, prise en charge, solutions connues. N2 : analyse technique approfondie. N3 : expert / éditeur / développement. On escalade quand le délai ou la compétence dépasse le niveau.", cmd:"" },
+    { titre:"Diagnostic réseau poste", notes:"Toujours partir de la couche 1 vers la 7.", cmd:"ipconfig /all\nping 127.0.0.1\nping <passerelle>\nping 8.8.8.8\nnslookup exemple.fr\ntracert exemple.fr" }
   ]},
   { id:"ccp2", titre:"CCP2 · Windows & Active Directory", fiches:[
-    { titre:"Forcer la GPO", notes:"À lancer sur le poste client.", cmd:"gpupdate /force\ngpresult /r" }
+    { titre:"Utilisateurs et groupes en PowerShell", notes:"Module ActiveDirectory (RSAT). Créer, lire, ajouter à un groupe, débloquer.", cmd:"New-ADUser -Name \"Jean Dupont\" -SamAccountName jdupont -Path \"OU=Compta,DC=lab,DC=local\" -AccountPassword (Read-Host -AsSecureString) -Enabled $true\nGet-ADUser jdupont -Properties *\nAdd-ADGroupMember -Identity GG_Compta -Members jdupont\nUnlock-ADAccount jdupont" },
+    { titre:"Les 5 rôles FSMO", notes:"Étendue forêt : Schema Master, Domain Naming Master. Étendue domaine : PDC Emulator, RID Master, Infrastructure Master.", cmd:"netdom query fsmo" },
+    { titre:"AGDLP & GPO", notes:"Comptes → Groupes globaux → Groupes de domaine local → Permissions. Les GPO s'appliquent dans l'ordre L-S-D-OU (local, site, domaine, OU), la dernière appliquée gagne.", cmd:"gpupdate /force\ngpresult /r" }
   ]},
   { id:"ccp3", titre:"CCP3 · Maintenance Linux", fiches:[
-    { titre:"Services & logs", notes:"", cmd:"systemctl status ssh\njournalctl -u ssh -n 50\ndf -h" }
+    { titre:"Commandes essentielles", notes:"Fichiers, recherche, droits.", cmd:"ls -la\ngrep -ri \"erreur\" /var/log\nfind / -name \"*.conf\" 2>/dev/null\nchmod 640 fichier\nchown user:groupe fichier" },
+    { titre:"Utilisateurs & services", notes:"", cmd:"useradd -m -s /bin/bash alice\npasswd alice\nusermod -aG sudo alice\nsystemctl status|start|stop|enable ssh\njournalctl -u ssh -n 50" },
+    { titre:"Réseau, paquets, planification", notes:"Cron : minute heure jour mois jour-semaine.", cmd:"ip a ; ip r ; ss -tlnp\napt update && apt upgrade\ncrontab -e\n# 30 2 * * * /opt/backup.sh" }
   ]},
-  { id:"ccp4", titre:"CCP4 · Services réseau", fiches:[] },
-  { id:"ccp5", titre:"CCP5 · Virtualisation", fiches:[] },
-  { id:"ccp6", titre:"CCP6 · Scripts & automatisation", fiches:[] },
-  { id:"ccp7", titre:"CCP7 · Sécurisation accès Internet", fiches:[] },
-  { id:"ccp8", titre:"CCP8 · Sauvegardes & restaurations", fiches:[] },
-  { id:"ccp9", titre:"CCP9 · Déploiement de postes", fiches:[] },
+  { id:"ccp4", titre:"CCP4 · Services réseau", fiches:[
+    { titre:"Ports à connaître", notes:"Réflexe d'examen : service → port → TCP/UDP.", cmd:"FTP 20/21 · SSH 22 · Telnet 23 · SMTP 25 · DNS 53\nDHCP 67/68 UDP · HTTP 80 · POP3 110 · NTP 123 UDP\nIMAP 143 · SNMP 161 UDP · LDAP 389 · HTTPS 443\nSMB 445 · RDP 3389" },
+    { titre:"Subnetting / CIDR", notes:"Hôtes utilisables = 2^(32-CIDR) - 2. Taille du bloc = 256 - octet du masque. Ex. /26 = 255.255.255.192 → 64 adresses, 62 hôtes.", cmd:"/24 → 254 hôtes · /25 → 126 · /26 → 62\n/27 → 30 · /28 → 14 · /29 → 6 · /30 → 2\nPrivées : 10.0.0.0/8 · 172.16.0.0/12 · 192.168.0.0/16" },
+    { titre:"DHCP & DNS", notes:"DHCP : Discover, Offer, Request, Acknowledge (DORA). DNS : enregistrements A, AAAA, CNAME, MX, PTR, NS.", cmd:"ipconfig /release & ipconfig /renew\nnslookup -type=MX exemple.fr\nipconfig /flushdns" }
+  ]},
+  { id:"ccp5", titre:"CCP5 · Virtualisation (VMware)", fiches:[
+    { titre:"Architecture vSphere", notes:"ESXi = hyperviseur (bare metal) sur chaque hôte. vCenter = gestion centralisée. Datastore (VMFS/NFS) = stockage des VM. Un cluster regroupe plusieurs hôtes.", cmd:"" },
+    { titre:"vMotion, HA, DRS", notes:"vMotion : migration à chaud d'une VM (stockage partagé requis). HA : redémarre les VM d'un hôte en panne sur un autre hôte. DRS : équilibrage automatique de charge. Snapshot ≠ sauvegarde.", cmd:"" }
+  ]},
+  { id:"ccp6", titre:"CCP6 · Scripts & automatisation", fiches:[
+    { titre:"Bash : squelette", notes:"Variables, test, boucle. Rendre exécutable avec chmod +x.", cmd:"#!/bin/bash\nDEST=\"/backup/$(date +%F)\"\nmkdir -p \"$DEST\"\nfor f in /etc/*.conf; do\n  [ -f \"$f\" ] && cp \"$f\" \"$DEST\"\ndone\necho \"Sauvegarde OK\"" },
+    { titre:"PowerShell : squelette", notes:"Pipeline objet : Get | Where | Select | Export.", cmd:"Import-Csv .\\users.csv | ForEach-Object {\n  New-ADUser -Name $_.Nom -SamAccountName $_.Login -Enabled $true\n}\nGet-Service | Where-Object Status -eq 'Stopped' | Select Name\nGet-ChildItem C:\\Logs | Export-Csv logs.csv -NoTypeInformation" }
+  ]},
+  { id:"ccp7", titre:"CCP7 · Sécurisation accès Internet", fiches:[
+    { titre:"Pare-feu pfSense : principes", notes:"Règles évaluées de haut en bas, par interface, la première qui correspond gagne. Tout ce qui n'est pas autorisé est bloqué. WAN : tout bloqué par défaut. LAN : tout autorisé par défaut (à restreindre).", cmd:"" },
+    { titre:"NAT, VPN, proxy", notes:"NAT/PAT : partage d'une IP publique. VPN site-à-site (IPsec) ou nomade (OpenVPN). Proxy (Squid) : filtrage web et cache. DMZ : voir CCP11.", cmd:"" }
+  ]},
+  { id:"ccp8", titre:"CCP8 · Sauvegardes & restaurations", fiches:[
+    { titre:"Types et règle 3-2-1", notes:"Complète = tout. Incrémentielle = depuis la dernière sauvegarde (quelconque). Différentielle = depuis la dernière complète. Règle 3-2-1 : 3 copies, 2 supports différents, 1 hors site.", cmd:"" },
+    { titre:"PRA, PCA, RPO, RTO", notes:"PCA : continuer l'activité pendant l'incident. PRA : redémarrer après sinistre. RPO = perte de données acceptable (en temps). RTO = durée d'interruption acceptable.", cmd:"rsync -avz --delete /data/ backup@srv:/backup/data/\nwbadmin start backup -backupTarget:E: -include:C: -quiet" }
+  ]},
+  { id:"ccp9", titre:"CCP9 · Déploiement de postes", fiches:[
+    { titre:"Chaîne de déploiement", notes:"Image de référence → Sysprep (généralisation) → capture → déploiement par le réseau (PXE avec WDS/MDT) → postes finalisés par GPO/scripts. Un serveur DHCP doit répondre aux requêtes PXE.", cmd:"C:\\Windows\\System32\\Sysprep\\sysprep.exe /generalize /oobe /shutdown" }
+  ]},
   { id:"ccp10", titre:"CCP10 · Téléphonie IP", fiches:[
     { titre:"Ports & bonnes pratiques", notes:"VLAN voix dédié + QoS pour la qualité d'appel. Switchs PoE pour alimenter les postes.", cmd:"SIP : 5060 UDP/TCP (5061 en TLS)\nRTP (voix) : plage UDP configurable, ex. 10000-20000\nQoS : DSCP EF (46) pour la voix" },
     { titre:"Diagnostic IPBX Asterisk", notes:"Vérifier l'enregistrement des postes et les appels en cours.", cmd:"asterisk -rvvv\npjsip show endpoints\ncore show channels" }
@@ -61,6 +86,21 @@ const CCPS = [
     { titre:"Restreindre l'accès au LAN", notes:"Dans la config du site Apache (adapter le réseau).", cmd:"<Directory /var/www/intranet>\n  Require ip 192.168.10.0/24\n</Directory>" },
     { titre:"Principe & règles de flux", notes:"Zone intermédiaire entre Internet et le LAN. Internet → DMZ : uniquement les ports publiés. LAN → DMZ : autorisé. DMZ → LAN : interdit.", cmd:"" },
     { titre:"Exemple de règles pare-feu (iptables)", notes:"À adapter à tes interfaces (wan / dmz / lan).", cmd:"iptables -A FORWARD -i wan -o dmz -p tcp --dport 443 -j ACCEPT\niptables -A FORWARD -i lan -o dmz -j ACCEPT\niptables -A FORWARD -i dmz -o lan -j DROP" }
+  ]},
+  { id:"ccna1", titre:"🌐 CCNA 1 · Introduction aux réseaux", fiches:[
+    { titre:"Cours complet (PDF)", notes:"115 pages : chapitre 1 « Mise en réseau aujourd'hui » et suivants.", lien:"CCNA1.pdf", cmd:"" },
+    { titre:"Configuration de base d'un switch", notes:"À faire sur tout équipement neuf, puis sauvegarder.", cmd:"enable\nconfigure terminal\nhostname SW1\nenable secret MotDePasse\nline console 0\n password cisco\n login\nservice password-encryption\nbanner motd #Acces autorise uniquement#\nend\ncopy running-config startup-config" },
+    { titre:"Modèles OSI et TCP/IP", notes:"OSI : 7 Application, 6 Présentation, 5 Session, 4 Transport, 3 Réseau, 2 Liaison, 1 Physique. TCP/IP : Application, Transport, Internet, Accès réseau.", cmd:"" }
+  ]},
+  { id:"ccna2", titre:"🌐 CCNA 2 · Commutation, routage, sans-fil", fiches:[
+    { titre:"VLAN et trunk", notes:"Un VLAN = un domaine de diffusion. Port d'accès pour un poste, trunk (802.1Q) entre équipements.", cmd:"vlan 10\n name COMPTA\ninterface g0/1\n switchport mode access\n switchport access vlan 10\ninterface g0/24\n switchport mode trunk\nshow vlan brief\nshow interfaces trunk" },
+    { titre:"Routage inter-VLAN (router-on-a-stick)", notes:"Une sous-interface par VLAN sur le routeur.", cmd:"interface g0/0.10\n encapsulation dot1Q 10\n ip address 192.168.10.1 255.255.255.0" },
+    { titre:"À réviser aussi", notes:"STP (évite les boucles), EtherChannel (agrégation de liens), DHCPv4 sur routeur, HSRP (redondance de passerelle), bases du WLAN.", cmd:"show spanning-tree\nshow etherchannel summary\nshow ip dhcp binding" }
+  ]},
+  { id:"ccna3", titre:"🌐 CCNA 3 · Réseaux d'entreprise", fiches:[
+    { titre:"OSPF simple zone", notes:"Les voisins doivent partager la même zone et des paramètres compatibles. Masque générique (wildcard) dans la commande network.", cmd:"router ospf 1\n router-id 1.1.1.1\n network 192.168.10.0 0.0.0.255 area 0\nshow ip ospf neighbor\nshow ip route ospf" },
+    { titre:"ACL", notes:"Évaluées de haut en bas, deny implicite à la fin. Standard : près de la destination. Étendue : près de la source.", cmd:"access-list 10 permit 192.168.10.0 0.0.0.255\naccess-list 100 permit tcp 192.168.10.0 0.0.0.255 any eq 80\ninterface g0/1\n ip access-group 100 in\nshow access-lists" },
+    { titre:"NAT / PAT", notes:"PAT = overload : plusieurs adresses privées vers une IP publique.", cmd:"access-list 1 permit 192.168.10.0 0.0.0.255\nip nat inside source list 1 interface g0/1 overload\ninterface g0/0\n ip nat inside\ninterface g0/1\n ip nat outside\nshow ip nat translations" }
   ]}
 ];
 // ================================================
@@ -90,6 +130,7 @@ function card(c, f, i){
   d.innerHTML = "<h3></h3>";
   d.querySelector("h3").textContent = f.titre;
   if(f.notes){ const p=document.createElement("p"); p.textContent=f.notes; d.appendChild(p); }
+  if(f.lien){ const a=document.createElement('a'); a.href=f.lien; a.target='_blank'; a.textContent='📄 Ouvrir '+f.lien; a.style.cssText='color:var(--acc);display:inline-block;margin:6px 0'; d.appendChild(a); }
   if(f.cmd){
     const pre=document.createElement("pre"), code=document.createElement("code"), b=document.createElement("button");
     code.textContent=f.cmd; b.className="cp"; b.textContent="Copier";
