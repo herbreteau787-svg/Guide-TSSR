@@ -156,6 +156,7 @@ function renderActiveTab(){
   else if (state.tab === 'labos') renderLabos();
   else if (state.tab === 'glossaire') renderGlossary();
   else if (state.tab === 'cheat') renderCheat();
+  else if (state.tab === 'anglais') renderAnglais();
 }
 
 /* ---------- fiche matching ---------- */
@@ -607,6 +608,43 @@ function renderCheat(){
   panel.querySelectorAll('#cheatCats button').forEach(b=>{
     b.onclick = ()=>{ state.cheatCat = b.dataset.cat; renderCheat(); };
   });
+}
+
+/* ---------- vocabulaire anglais ---------- */
+function renderAnglais(){
+  const panel = document.querySelector('[data-panel="anglais"]');
+  const terms = [
+    ['hardware','matériel'],
+    ['software','logiciel'],
+    ['firmware','micrologiciel'],
+    ['network','réseau'],
+    ['bandwidth','débit / bande passante'],
+    ['latency','latence'],
+    ['throughput','débit utile'],
+    ['packet','paquet'],
+    ['firewall','pare-feu'],
+    ['router','routeur'],
+    ['switch','commutateur'],
+    ['bridge','pont'],
+    ['gateway','passerelle'],
+    ['subnet mask','masque de sous-réseau'],
+    ['public/private IP','IP publique/privée'],
+    ['hostname','nom d’hôte'],
+    ['DNS resolution','résolution de nom'],
+    ['gateway','passerelle par défaut'],
+    ['backup','sauvegarde'],
+    ['restore','restauration'],
+    ['snapshot','instantané'],
+    ['replication','réplication'],
+    ['load balancing','répartition de charge']
+  ];
+  const rows = terms.map(([a,b])=>`<tr><td><code>${escapeHtml(a)}</code></td><td>${escapeHtml(b)}</td></tr>`).join('');
+  panel.innerHTML = `
+  <div class="hero"><h1>🇬🇧 Vocabulaire Anglais technique</h1><p>Termes et phrases utiles pour lire une documentation ou suivre un cours en anglais.</p></div>
+  <div class="card"><h2>Termes IT essentiels</h2><table class="cheat-table"><thead><tr><th>Terme</th><th>Traduction</th></tr></thead><tbody>${rows}</tbody></table></div>
+  <div class="card"><h2>Verbes et actions</h2><p>deploy = déployer, configure = configurer, troubleshoot = dépanner, enforce = appliquer, monitor = surveiller, patch = mettre à jour/patcher, restore = restaurer, revoke = révoquer.</p></div>
+  <div class="card"><h2>Phrases pour la documentation</h2><ul><li><strong>If X, then Y</strong> = si X alors Y</li><li><strong>Ensure that...</strong> = s’assurer que...</li><li><strong>Deprecated</strong> = obsolète</li><li><strong>Required</strong> = obligatoire</li><li><strong>Supported platforms</strong> = plateformes prises en charge</li></ul></div>
+  <div class="card"><h2>Phrases pour l’oral et le support</h2><p><strong>Could you describe the issue?</strong> = pouvez-vous décrire le problème ?<br><strong>We’ll investigate and come back to you.</strong> = nous allons investiguer et revenir vers vous.</p></div>`;
 }
 
 /* ---------- methods ---------- */
