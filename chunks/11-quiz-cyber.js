@@ -15,11 +15,6 @@ Q('q150','ccp12','moyen',"Logs incident conservés ?",[" 1 jour"," 90+ jours"," 
 Q('q151','ccp10','facile',"SIP port ?",[" 5060"," 53"," 443"," 22"],0,"SIP.");
 Q('q152','ccp10','facile',"RTP range courant ?",[" 10000-20000 UDP"," 80-443"," 25-110"," 1-1024"],0,"RTP.");
 Q('q153','ccp10','moyen',"Audio unidirectionnel VoIP souvent dû à ?",[" DNS"," NAT"," CPU"," DHCP"],1,"NAT.");
-// --- CCP11 ---
-Q('q154','identite','moyen',"LDAP & signifie ?",[" OR"," AND"," NOT"," XOR"],1,"& = AND.");
-Q('q155','supervision','moyen',"SNMPv3 mode ?",[" Communauté"," authPriv"," noAuthNoPriv seulement"," v1"],1,"authPriv.");
-Q('q156','containers','facile',"Image Docker est ?",[" Instance en cours"," Modèle"," Réseau"," Volume"],1,"Image.");
-Q('q157','iac','moyen',"Terraform state sert à ?",[" Lancer VM"," Mapper ressources réelles"," Chiffrer"," Monitorer"],1,"State.");
 // --- exam MEP ---
 Q('q158','exam','moyen',"MEP phase 1 pratique dure (v2) ?",[" 30 min"," 90 min"," 4 h"," 15 min"],1,"90 min.");
 Q('q159','exam','moyen',"Matériel autorisé phase 2 MEP ?",[" Tout Internet"," Rien sauf Word"," Tel portable"," Montre connectée"],1,"Rien sauf Word.");

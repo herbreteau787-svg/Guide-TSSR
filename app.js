@@ -95,7 +95,7 @@ function toggleFav(key){
   const el = document.querySelector(`[data-key="${CSS.escape(key)}"]`);
   if (el) el.classList.toggle('favorite', set.has(key));
   const btn = el && el.querySelector('.favorite-btn');
-  if (btn){ btn.classList.toggle('on', set.has(key)); btn.textContent = set.has(key) ? '★ Favori' : '☆ Favori'; }
+  if (btn){ btn.classList.toggle('on', set.has(key)); btn.textContent = set.has(key) ? ' Favori' : ' Favori'; }
   renderProgress();
 }
 
@@ -118,7 +118,7 @@ function buildMenu(){
     const a = document.createElement('div');
     a.className = 'navlink' + (sec.id === state.section ? ' on' : '');
     a.dataset.section = sec.id;
-    a.innerHTML = `<span>${escapeHtml(sec.icon||'•')} ${escapeHtml(sec.title)}</span><span class="count">${ficheCount}</span>`;
+    a.innerHTML = `<span>${escapeHtml(sec.icon||'"')} ${escapeHtml(sec.title)}</span><span class="count">${ficheCount}</span>`;
     a.onclick = ()=> selectSection(sec.id);
     m.appendChild(a);
   });
@@ -177,7 +177,7 @@ function renderCours(){
   const done = doneSet(); const favs = favSet();
   let html = '';
   if (state.q.trim()){
-    html += `<div class="hero"><h1>🔎 Résultats de recherche</h1><p>Terme : <strong>${escapeHtml(state.q)}</strong></p></div>`;
+    html += `<div class="hero"><h1>= Résultats de recherche</h1><p>Terme : <strong>${escapeHtml(state.q)}</strong></p></div>`;
     let found=0;
     G.sections.forEach(sec=>{
       const ms = (sec.fiches||[]).filter(f=>matchesFiche(f,sec));
@@ -210,18 +210,18 @@ function renderFiche(sec, f, index, done, favs){
   const tags = (f.tags||[]).map(t=>`<span class="badge">${escapeHtml(t)}</span>`).join('');
   const gui = (f.g||[]).map(s=>`<li>${formatInline(s)}</li>`).join('');
   const pts = (f.p||[]).map(s=>`<li>${formatInline(s)}</li>`).join('');
-  const code = escapeHtml(f.c || '—');
+  const code = escapeHtml(f.c || '');
   return `
   <article class="card ${isDone?'read':''} ${isFav?'favorite':''}" data-key="${escapeHtml(key)}" data-index="${index}">
     <div class="badges">${badgeLevel(f.level)} ${tags}</div>
     <h3>${escapeHtml(f.t)}</h3>
     <p class="summary">${formatInline(f.r||'')}</p>
     <div class="tabs-mode">
-      <button class="on" data-mode="gui">🖱️ GUI</button>
-      <button data-mode="cli">⌨️ CLI</button>
+      <button class="on" data-mode="gui">=⚠️ GUI</button>
+      <button data-mode="cli">( CLI</button>
     </div>
     <div class="block-gui content-block">
-      <ol class="gui">${gui || '<li class="muted">—</li>'}</ol>
+      <ol class="gui">${gui || '<li class="muted"></li>'}</ol>
     </div>
     <div class="block-cli content-block" style="display:none">
       <div class="CodeBox">
@@ -233,7 +233,7 @@ function renderFiche(sec, f, index, done, favs){
     ${f.w ? `<div class="warn-box">⚠️ ${formatInline(f.w)}</div>` : ''}
     <div class="label-row">
       <label class="check"><input type="checkbox" data-key="${escapeHtml(key)}" ${isDone?'checked':''}> Marquer comme lue</label>
-      <button class="favorite-btn ${isFav?'on':''}" data-key="${escapeHtml(key)}">${isFav?'★ Favori':'☆ Favori'}</button>
+      <button class="favorite-btn ${isFav?'on':''}" data-key="${escapeHtml(key)}">${isFav?' Favori':' Favori'}</button>
     </div>
   </article>`;
 }
@@ -342,7 +342,7 @@ function renderQCM(){
   const sections = G.sections;
   const history = lsGet(STORAGE.qhistory, []);
   const best = history.length ? Math.max(...history.map(h=>h.score)) : 0;
-  let html = `<div class="hero"><h1>📝 QCM & entraînement</h1><p>Banque : ${G.quizzes.length} questions · Dernier score max : ${best}%</p></div>`;
+  let html = `<div class="hero"><h1>📝 QCM & entraénement</h1><p>Banque : ${G.quizzes.length} questions é Dernier score max : ${best}%</p></div>`;
   html += `<div class="qcm-setup">
     <h3>Configuration</h3>
     <div class="button-row" style="flex-wrap:wrap">
@@ -368,7 +368,7 @@ function renderQCM(){
     <div style="margin-top:12px"><button class="icon-btn" id="qcmStart" style="background:var(--acc);color:#020617;font-weight:700;border:0">Lancer le QCM</button></div>
   </div>`;
   if (history.length){
-    html += `<div class="card"><h3>📊 Historique</h3><ul class="pts">${history.slice(-8).reverse().map(h=>`<li>${new Date(h.date).toLocaleString('fr-FR')} — ${h.score}% (${h.correct}/${h.total}) · ${escapeHtml(h.section||'global')}</li>`).join('')}</ul></div>`;
+    html += `<div class="card"><h3>📌 Historique</h3><ul class="pts">${history.slice(-8).reverse().map(h=>`<li>${new Date(h.date).toLocaleString('fr-FR')}  ${h.score}% (${h.correct}/${h.total}) é ${escapeHtml(h.section||'global')}</li>`).join('')}</ul></div>`;
   }
   panel.innerHTML = html;
   document.getElementById('qcmStart').onclick = startQCM;
@@ -451,7 +451,7 @@ function markAnswer(ci){
   const isCorrect = ci === q.answer;
   if (isCorrect) state.qcm.score = (state.qcm.score||0)+1;
   expl.style.display = '';
-  expl.innerHTML = `<strong>${isCorrect?'✅ Correct':'❌ Incorrect'}${ci===-1?' (temps écoulé)':''}</strong> — Réponse : ${escapeHtml(correctText)}<br>${escapeHtml(q.explain||'')}`;
+  expl.innerHTML = `<strong>${isCorrect?' Correct':'L Incorrect'}${ci===-1?' (temps écoulé)':''}</strong>  Réponse : ${escapeHtml(correctText)}<br>${escapeHtml(q.explain||'')}`;
   document.getElementById('qcmNext').style.display = '';
 }
 function renderQCMResult(panel){
@@ -464,7 +464,7 @@ function renderQCMResult(panel){
   const history = lsGet(STORAGE.qhistory, []);
   history.push({ date: new Date().toISOString(), score, correct, total, section: document.getElementById('qcmSection')?.value || 'global' });
   lsSet(STORAGE.qhistory, history.slice(-50));
-  let html = `<div class="hero"><h1>🏆 Résultat</h1><p>Score : <strong>${score}%</strong> (${correct}/${total})</p></div>`;
+  let html = `<div class="hero"><h1><é Résultat</h1><p>Score : <strong>${score}%</strong> (${correct}/${total})</p></div>`;
   html += `<div class="qcm-result">
     <div class="stat-grid">
       <div class="stat"><div class="big">${score}%</div><div>Réussite</div></div>
@@ -488,13 +488,13 @@ function renderLabos(){
   const q = state.q.trim().toLowerCase();
   let labs = G.labs || [];
   if (q) labs = labs.filter(l=> (l.title+l.objective+(l.steps||[]).join(' ')).toLowerCase().includes(q));
-  let html = `<div class="hero"><h1>🧪 Labos pratiques</h1><p>${labs.length} labos · Objectifs, étapes, validation, dépannage.</p></div>`;
+  let html = `<div class="hero"><h1>>é Labos pratiques</h1><p>${labs.length} labos é Objectifs, étapes, validation, dépannage.</p></div>`;
   html += labs.map(l=>`
     <div class="lab-card">
       <h3>${escapeHtml(l.title)}</h3>
       <div class="badges">${badgeLevel(l.level)} <span class="badge">${escapeHtml(l.duration||'')}</span> <span class="badge">${escapeHtml(l.section||'')}</span></div>
       <p><strong>Objectif :</strong> ${escapeHtml(l.objective)}</p>
-      ${l.prerequisites?`<p class="muted small"><strong>Prérequis :</strong> ${escapeHtml((l.prerequisites||[]).join(', '))}</p>`:''}
+      ${l.prerequisites?`<p class="muted small"><strong>Préréquis :</strong> ${escapeHtml((l.prerequisites||[]).join(', '))}</p>`:''}
       <h4>Étapes</h4>
       <div>${(l.steps||[]).map((s,i)=>`<div class="step"><div class="num">${i+1}</div><div>${formatInline(s)}</div></div>`).join('')}</div>
       ${l.validation?`<h4>Validation</h4><ul class="pts">${(l.validation||[]).map(s=>`<li>${formatInline(s)}</li>`).join('')}</ul>`:''}
@@ -515,8 +515,8 @@ function renderGlossary(){
   // group by first letter
   const groups = {};
   items.forEach(g=>{ const k = (g.term||'?')[0].toUpperCase(); (groups[k]||(groups[k]=[])).push(g); });
-  let html = `<div class="hero"><h1>📖 Glossaire</h1><p>${items.length} termes · recherche par mot-clé dans la barre latérale ou ci-dessous.</p></div>`;
-  html += `<div style="margin:10px 0 16px"><input type="search" id="glossarySearch" class="search" placeholder="Rechercher un terme dans le glossaire…" value="${escapeHtml(state.glossaryQ||'')}"></div>`;
+  let html = `<div class="hero"><h1>📖 Glossaire</h1><p>${items.length} termes é recherche par mot-clé dans la barre latérale ou ci-dessous.</p></div>`;
+  html += `<div style="margin:10px 0 16px"><input type="search" id="glossarySearch" class="search" placeholder="Rechercher un terme dans le glossaire&" value="${escapeHtml(state.glossaryQ||'')}"></div>`;
   Object.keys(groups).sort().forEach(letter=>{
     html += `<h2>${letter}</h2>`;
     html += groups[letter].map(g=>`
@@ -570,8 +570,8 @@ function renderCheat(){
   const ordered = ['Tous', ...priority.filter(c=>allCats.has(c)), ...[...allCats].filter(c=> c!=='Tous' && !priority.includes(c)).sort((a,b)=>a.localeCompare(b,'fr'))];
   if (!ordered.includes(state.cheatCat)) state.cheatCat = 'Tous';
 
-  let html = `<div class="hero"><h1>🧾 Cheat sheets</h1><p>Aide-mémoire de commande. Recherchez une commande ci-dessous.</p></div>`;
-  html += `<div style="margin:10px 0 14px"><input type="search" id="cheatSearch" class="search" placeholder="Rechercher une commande (ex: nmap, systemctl, ipconfig)…" value="${escapeHtml(state.cheatQ||'')}"></div>`;
+  let html = `<div class="hero"><h1>>é Cheat sheets</h1><p>Aide-mémoire de commande. Recherchez une commande ci-dessous.</p></div>`;
+  html += `<div style="margin:10px 0 14px"><input type="search" id="cheatSearch" class="search" placeholder="Rechercher une commande (ex: nmap, systemctl, ipconfig)&" value="${escapeHtml(state.cheatQ||'')}"></div>`;
 
   if (q) {
     const matches = [];
@@ -581,7 +581,7 @@ function renderCheat(){
         if (hay.includes(q)) matches.push({ sheet: c.title, row: r });
       });
     });
-    html += `<div class="card"><h3>🔎 ${matches.length} commande(s) trouvée(s)</h3>
+    html += `<div class="card"><h3>= ${matches.length} commande(s) trouvée(s)</h3>
       <table class="cheat-table"><thead><tr><th>Commande</th><th>Usage</th><th>Source</th></tr></thead><tbody>
       ${matches.map(m=>`<tr><td>${formatInline(m.row[0]||'')}</td><td>${formatInline(m.row[1]||'')}</td><td class="muted small">${escapeHtml(m.sheet)}</td></tr>`).join('')}
       </tbody></table></div>`;
@@ -623,20 +623,20 @@ function renderAnglais(){
       [' escalate','escalader'],
       ['revoke / renew','révoquer / renouveler'],
       ['backup / restore / snapshot','sauvegarde, restauration, instantané'],
-      [' migrate / rollback','migrer / revenir en arrière'],
-      ['patch / upgrade / downgrade','patcher, mettre à jour, rétrograder'],
-      ['enforce / comply','faire respecter, être conforme'],
+      [' migrate / rollback','migrer / revenir en arriére'],
+      ['patch / upgrade / downgrade','patcher, mettre é jour, rétrograder'],
+      ['enforce / comply','faire respecter, étre conforme'],
       ['monitor / alert / log','superviser, alerter, journaliser'],
       ['provision / decommission','provisionner, mettre hors service'],
       ['audit / harden','auditer, durcir']
     ]},
     { title: 'Matériel, OS et virtualisation', rows: [
       ['hardware / firmware / driver','matériel, micrologiciel, pilote'],
-      ['host / guest / hypervisor','hôte, invité, hyperviseur'],
+      ['host / guest / hypervisor','héte, invité, hyperviseur'],
       ['bare metal','nu, machine physique'],
-      ['snapshot / clone / template','instantané, clone, modèle'],
+      ['snapshot / clone / template','instantané, clone, modéle'],
       ['thin / thick provisioning','provisionnement léger / réservé'],
-      ['vMotion / live migration','migration à chaud'],
+      ['vMotion / live migration','migration é chaud'],
       ['HA / DRS / cluster','haute disponibilité, équilibrage, cluster'],
       ['failover / fallback','bascule / repli'],
       ['latency / throughput / bandwidth','latence, débit utile, bande passante'],
@@ -645,55 +645,55 @@ function renderAnglais(){
     { title: 'Réseau et sécurité', rows: [
       ['subnet / CIDR / mask','sous-réseau / CIDR / masque'],
       ['gateway / router / switch','passerelle / routeur / commutateur'],
-      ['firewall / ACL / policy','pare-feu, liste de contrôle d’accès, politique'],
-      ['NAT / PAT / port forwarding','traduction d’adresses et ports'],
-      ['VPN / tunnel / site-to-site','VPN, tunnel, site à site'],
+      ['firewall / ACL / policy','pare-feu, liste de contréle daccés, politique'],
+      ['NAT / PAT / port forwarding','traduction dadresses et ports'],
+      ['VPN / tunnel / site-to-site','VPN, tunnel, site é site'],
       ['VLAN / trunk / tagging','VLAN, trunk, marquage 802.1Q'],
       ['MAC / ARP / ARP cache','MAC, ARP, cache ARP'],
       [' MTU / fragmentation / broadcast','MTU, fragmentation, diffusion'],
       [' certificate / CSR / CRL','certificat, demande de certificat, liste de révocation'],
       [' credentials / secret / token','identifiants, secret, jeton'],
-      [' least privilege / RBAC','moindre privilège, contrôle d’accès par rôle']
+      [' least privilege / RBAC','moindre privilége, contréle daccés par réle']
     ]},
     { title: 'Support, ticketing et communication', rows: [
-      ['incident / problem / request','incident, problème, demande'],
+      ['incident / problem / request','incident, probléme, demande'],
       ['root cause / workaround','cause racine, contournement'],
       ['escalate / handover','escalader, transférer'],
       ['SLA / ETA','engagement de niveau de service, délai estimé'],
       ['user impact / outage','impact utilisateur, panne'],
       ['known error / workaround KB','erreur connue, contournement selon KB'],
-      ['rollout plan / rollback plan','plan de déploiement, plan de retour arrière'],
-      ['root administrative questions','questions d’identification utilisateur']
+      ['rollout plan / rollback plan','plan de déploiement, plan de retour arriére'],
+      ['root administrative questions','questions didentification utilisateur']
     ]},
     { title: 'Documentation, journalisation et validation', rows: [
-      ['deprecated','obsolète'],
+      ['deprecated','obsoléte'],
       ['required / optional','obligatoire / facultatif'],
       ['supported platforms','plateformes prises en charge'],
-      ['prerequisites','prérequis'],
+      ['prerequisites','préréquis'],
       ['troubleshooting steps','étape de diagnostic'],
       ['workaround / mitigation','contournement, atténuation'],
       ['expected behavior / actual behavior','comportement attendu, comportement observé'],
-      ['impact assessment','analyse d’impact'],
-      ['change request / RFC / change window','demande de changement, RFC, fenêtre de changement']
+      ['impact assessment','analyse dimpact'],
+      ['change request / RFC / change window','demande de changement, RFC, fenétre de changement']
     ]}
   ];
-  const tableFromRows = rows => `<table class="cheat-table"><thead><tr><th>English</th><th>Français</th></tr></thead><tbody>${rows.map(([a,b])=>`<tr><td><code>${escapeHtml(a)}</code></td><td>${escapeHtml(b)}</td></tr>`).join('')}</tbody></table>`;
+  const tableFromRows = rows => `<table class="cheat-table"><thead><tr><th>English</th><th>Franéais</th></tr></thead><tbody>${rows.map(([a,b])=>`<tr><td><code>${escapeHtml(a)}</code></td><td>${escapeHtml(b)}</td></tr>`).join('')}</tbody></table>`;
   panel.innerHTML = `
-  <div class="hero"><h1>🇬🇧 Vocabulaire Anglais technique</h1><p>Termes, verbes, structures et phrases pour lire une documentation, suivre un cours, comprendre un ticket ou intervenir en support.</p></div>
+  <div class="hero"><h1><é<é Vocabulaire Anglais technique</h1><p>Termes, verbes, structures et phrases pour lire une documentation, suivre un cours, comprendre un ticket ou intervenir en support.</p></div>
   ${grouped.map(g=>`<div class="card"><h2>${escapeHtml(g.title)}</h2>${tableFromRows(g.rows)}</div>`).join('')}
   <div class="card"><h2>Phrases types et reformulations</h2>
     <ul>
       <li><strong>If X, then Y.</strong> = si X alors Y.</li>
-      <li><strong>Ensure that...</strong> = s’assurer que...</li>
+      <li><strong>Ensure that...</strong> = sassurer que...</li>
       <li><strong>Please provide...</strong> = veuillez fournir...</li>
       <li><strong>This service was restarted.</strong> = ce service a été redémarré.</li>
-      <li><strong>The issue persists after reboot.</strong> = le problème persiste après redémarrage.</li>
+      <li><strong>The issue persists after reboot.</strong> = le probléme persiste aprés redémarrage.</li>
       <li><strong>We will investigate and report back.</strong> = nous allons investiguer et revenir vers vous.</li>
-      <li><strong>Could you confirm the impact?</strong> = pouvez-vous confirmer l’impact ?</li>
-      <li><strong>The following ports must be open.</strong> = les ports suivants doivent être ouverts.</li>
+      <li><strong>Could you confirm the impact?</strong> = pouvez-vous confirmer limpact ?</li>
+      <li><strong>The following ports must be open.</strong> = les ports suivants doivent étre ouverts.</li>
     </ul>
   </div>
-  <div class="card"><h2>Abbréviations IT à garder en tête</h2><p><code>VM</code> machine virtuelle, <code>VLAN</code> réseau virtuel, <code>VPN</code> réseau privé virtuel, <code>SLA</code> accord de service, <code>RPO</code> perte acceptable, <code>RTO</code> temps de rétablissement, <code>AOC</code> accès hors pleine capacité (selon contexte), <code>ACL</code> liste de permissions, <code>MTU</code> taille max de trame.</p></div>`;
+  <div class="card"><h2>Abbréviations IT é garder en téte</h2><p><code>VM</code> machine virtuelle, <code>VLAN</code> réseau virtuel, <code>VPN</code> réseau privé virtuel, <code>SLA</code> accord de service, <code>RPO</code> perte acceptable, <code>RTO</code> temps de rétablissement, <code>AOC</code> accés hors pleine capacité (selon contexte), <code>ACL</code> liste de permissions, <code>MTU</code> taille max de trame.</p></div>`;
 }
 
 /* ---------- support cours ---------- */
@@ -702,7 +702,7 @@ function renderSupport(){
   panel.innerHTML = `
   <div class="hero"><h1>Support cours CCNA</h1><p>Ouvrez le PDF du support CCNA ci-dessous ou retéléchargez-le.</p></div>
   <div class="card">
-    <p class="muted">Fichier : CCNA1.pdf (15 Mo). L'affichage peut être lent selon le navigateur.</p>
+    <p class="muted">Fichier : CCNA1.pdf (15 Mo). L'affichage peut étre lent selon le navigateur.</p>
     <p><a href="CCNA1.pdf" target="_blank" rel="noopener">Ouvrir CCNA1.pdf dans un nouvel onglet</a></p>
   </div>
   <div class="card">
@@ -714,7 +714,7 @@ function renderSupport(){
 /* ---------- methods ---------- */
 function renderMethods(){
   const panel = document.querySelector('[data-panel="methodes"]');
-  let html = `<div class="hero"><h1>🧭 Méthodes & plans</h1><p>Démarches pour l'examen et le travail.</p></div>`;
+  let html = `<div class="hero"><h1>>é Méthodes & plans</h1><p>Démarches pour l'examen et le travail.</p></div>`;
   (G.methods||[]).forEach(m=>{
     html += `<div class="card"><h3>${escapeHtml(m.title)} <span class="badge">${escapeHtml(m.type||'')}</span></h3><ol class="gui">${(m.steps||[]).map(s=>`<li>${formatInline(s)}</li>`).join('')}</ol></div>`;
   });
@@ -724,7 +724,7 @@ function renderMethods(){
 /* ---------- resources ---------- */
 function renderResources(){
   const panel = document.querySelector('[data-panel="ressources"]');
-  let html = `<div class="hero"><h1>🔗 Ressources</h1><p>Liens utiles pour aller plus loin.</p></div>`;
+  let html = `<div class="hero"><h1>= Ressources</h1><p>Liens utiles pour aller plus loin.</p></div>`;
   (G.resources||[]).forEach(r=>{
     html += `<div class="card"><h3>${escapeHtml(r.title)}</h3><p class="muted">${escapeHtml(r.desc||'')}</p><p><a href="${escapeHtml(r.url)}" target="_blank" rel="noopener">Ouvrir ↗</a></p></div>`;
   });
