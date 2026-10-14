@@ -613,38 +613,86 @@ function renderCheat(){
 /* ---------- vocabulaire anglais ---------- */
 function renderAnglais(){
   const panel = document.querySelector('[data-panel="anglais"]');
-  const terms = [
-    ['hardware','matériel'],
-    ['software','logiciel'],
-    ['firmware','micrologiciel'],
-    ['network','réseau'],
-    ['bandwidth','débit / bande passante'],
-    ['latency','latence'],
-    ['throughput','débit utile'],
-    ['packet','paquet'],
-    ['firewall','pare-feu'],
-    ['router','routeur'],
-    ['switch','commutateur'],
-    ['bridge','pont'],
-    ['gateway','passerelle'],
-    ['subnet mask','masque de sous-réseau'],
-    ['public/private IP','IP publique/privée'],
-    ['hostname','nom d’hôte'],
-    ['DNS resolution','résolution de nom'],
-    ['gateway','passerelle par défaut'],
-    ['backup','sauvegarde'],
-    ['restore','restauration'],
-    ['snapshot','instantané'],
-    ['replication','réplication'],
-    ['load balancing','répartition de charge']
+  const grouped = [
+    { title: 'Verbes et actions (lecture de doc, procédures, diagnostic)', rows: [
+      ['deploy / rollout','déployer / déployer progressivement'],
+      [' configure / configuration','configurer / configuration'],
+      ['troubleshoot','dépanner, investiguer'],
+      ['investigate / root cause','investiguer, cause racine'],
+      [' escalate','escalader'],
+      ['revoke / renew','révoquer / renouveler'],
+      ['backup / restore / snapshot','sauvegarde, restauration, instantané'],
+      [' migrate / rollback','migrer / revenir en arrière'],
+      ['patch / upgrade / downgrade','patcher, mettre à jour, rétrograder'],
+      ['enforce / comply','faire respecter, être conforme'],
+      ['monitor / alert / log','superviser, alerter, journaliser'],
+      ['provision / decommission','provisionner, mettre hors service'],
+      ['audit / harden','auditer, durcir']
+    ]},
+    { title: 'Matériel, OS et virtualisation', rows: [
+      ['hardware / firmware / driver','matériel, micrologiciel, pilote'],
+      ['host / guest / hypervisor','hôte, invité, hyperviseur'],
+      ['bare metal','nu, machine physique'],
+      ['snapshot / clone / template','instantané, clone, modèle'],
+      ['thin / thick provisioning','provisionnement léger / réservé'],
+      ['vMotion / live migration','migration à chaud'],
+      ['HA / DRS / cluster','haute disponibilité, équilibrage, cluster'],
+      ['failover / fallback','bascule / repli'],
+      ['latency / throughput / bandwidth','latence, débit utile, bande passante'],
+      ['memory / CPU / IOPS','mémoire, processeur, opérations I/O par seconde']
+    ]},
+    { title: 'Réseau et sécurité', rows: [
+      ['subnet / CIDR / mask','sous-réseau / CIDR / masque'],
+      ['gateway / router / switch','passerelle / routeur / commutateur'],
+      ['firewall / ACL / policy','pare-feu, liste de contrôle d’accès, politique'],
+      ['NAT / PAT / port forwarding','traduction d’adresses et ports'],
+      ['VPN / tunnel / site-to-site','VPN, tunnel, site à site'],
+      ['VLAN / trunk / tagging','VLAN, trunk, marquage 802.1Q'],
+      ['MAC / ARP / ARP cache','MAC, ARP, cache ARP'],
+      [' MTU / fragmentation / broadcast','MTU, fragmentation, diffusion'],
+      [' certificate / CSR / CRL','certificat, demande de certificat, liste de révocation'],
+      [' credentials / secret / token','identifiants, secret, jeton'],
+      [' least privilege / RBAC','moindre privilège, contrôle d’accès par rôle']
+    ]},
+    { title: 'Support, ticketing et communication', rows: [
+      ['incident / problem / request','incident, problème, demande'],
+      ['root cause / workaround','cause racine, contournement'],
+      ['escalate / handover','escalader, transférer'],
+      ['SLA / ETA','engagement de niveau de service, délai estimé'],
+      ['user impact / outage','impact utilisateur, panne'],
+      ['known error / workaround KB','erreur connue, contournement selon KB'],
+      ['rollout plan / rollback plan','plan de déploiement, plan de retour arrière'],
+      ['root administrative questions','questions d’identification utilisateur']
+    ]},
+    { title: 'Documentation, journalisation et validation', rows: [
+      ['deprecated','obsolète'],
+      ['required / optional','obligatoire / facultatif'],
+      ['supported platforms','plateformes prises en charge'],
+      ['prerequisites','prérequis'],
+      ['troubleshooting steps','étape de diagnostic'],
+      ['workaround / mitigation','contournement, atténuation'],
+      ['expected behavior / actual behavior','comportement attendu, comportement observé'],
+      ['impact assessment','analyse d’impact'],
+      ['change request / RFC / change window','demande de changement, RFC, fenêtre de changement']
+    ]}
   ];
-  const rows = terms.map(([a,b])=>`<tr><td><code>${escapeHtml(a)}</code></td><td>${escapeHtml(b)}</td></tr>`).join('');
+  const tableFromRows = rows => `<table class="cheat-table"><thead><tr><th>English</th><th>Français</th></tr></thead><tbody>${rows.map(([a,b])=>`<tr><td><code>${escapeHtml(a)}</code></td><td>${escapeHtml(b)}</td></tr>`).join('')}</tbody></table>`;
   panel.innerHTML = `
-  <div class="hero"><h1>🇬🇧 Vocabulaire Anglais technique</h1><p>Termes et phrases utiles pour lire une documentation ou suivre un cours en anglais.</p></div>
-  <div class="card"><h2>Termes IT essentiels</h2><table class="cheat-table"><thead><tr><th>Terme</th><th>Traduction</th></tr></thead><tbody>${rows}</tbody></table></div>
-  <div class="card"><h2>Verbes et actions</h2><p>deploy = déployer, configure = configurer, troubleshoot = dépanner, enforce = appliquer, monitor = surveiller, patch = mettre à jour/patcher, restore = restaurer, revoke = révoquer.</p></div>
-  <div class="card"><h2>Phrases pour la documentation</h2><ul><li><strong>If X, then Y</strong> = si X alors Y</li><li><strong>Ensure that...</strong> = s’assurer que...</li><li><strong>Deprecated</strong> = obsolète</li><li><strong>Required</strong> = obligatoire</li><li><strong>Supported platforms</strong> = plateformes prises en charge</li></ul></div>
-  <div class="card"><h2>Phrases pour l’oral et le support</h2><p><strong>Could you describe the issue?</strong> = pouvez-vous décrire le problème ?<br><strong>We’ll investigate and come back to you.</strong> = nous allons investiguer et revenir vers vous.</p></div>`;
+  <div class="hero"><h1>🇬🇧 Vocabulaire Anglais technique</h1><p>Termes, verbes, structures et phrases pour lire une documentation, suivre un cours, comprendre un ticket ou intervenir en support.</p></div>
+  ${grouped.map(g=>`<div class="card"><h2>${escapeHtml(g.title)}</h2>${tableFromRows(g.rows)}</div>`).join('')}
+  <div class="card"><h2>Phrases types et reformulations</h2>
+    <ul>
+      <li><strong>If X, then Y.</strong> = si X alors Y.</li>
+      <li><strong>Ensure that...</strong> = s’assurer que...</li>
+      <li><strong>Please provide...</strong> = veuillez fournir...</li>
+      <li><strong>This service was restarted.</strong> = ce service a été redémarré.</li>
+      <li><strong>The issue persists after reboot.</strong> = le problème persiste après redémarrage.</li>
+      <li><strong>We will investigate and report back.</strong> = nous allons investiguer et revenir vers vous.</li>
+      <li><strong>Could you confirm the impact?</strong> = pouvez-vous confirmer l’impact ?</li>
+      <li><strong>The following ports must be open.</strong> = les ports suivants doivent être ouverts.</li>
+    </ul>
+  </div>
+  <div class="card"><h2>Abbréviations IT à garder en tête</h2><p><code>VM</code> machine virtuelle, <code>VLAN</code> réseau virtuel, <code>VPN</code> réseau privé virtuel, <code>SLA</code> accord de service, <code>RPO</code> perte acceptable, <code>RTO</code> temps de rétablissement, <code>AOC</code> accès hors pleine capacité (selon contexte), <code>ACL</code> liste de permissions, <code>MTU</code> taille max de trame.</p></div>`;
 }
 
 /* ---------- methods ---------- */
