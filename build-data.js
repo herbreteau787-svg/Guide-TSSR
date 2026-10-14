@@ -2,7 +2,6 @@
 const dir = 'C:\\Users\\Léo\\Documents\\Projet par défaut\\Guide-TSSR-Max';
 const chunks = [
  'chunks/01-sections-tssr-core.js',
- 'chunks/02-sections-extras.js',
  'chunks/03-labs.js',
  'chunks/04-quiz.js',
  'chunks/05-glossary.js',
