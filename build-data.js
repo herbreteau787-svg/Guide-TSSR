@@ -1,5 +1,5 @@
-﻿const fs = require('fs');
-const dir = 'C:\\Users\\Léo\\Documents\\Projet par défaut\\Guide-TSSR-Max';
+const fs = require('fs');
+const dir = '.';
 const chunks = [
  'chunks/01-sections-tssr-core.js',
  'chunks/03-labs.js',

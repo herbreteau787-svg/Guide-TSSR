@@ -98,15 +98,6 @@ Q('q82','ccna','moyen',"WPA3 utilise ?",[" TKIP"," SAE"," WEP"," OSPF"],1,"SAE."
 Q('q83','ccna','facile',"SDN sépare ?",[" Données et plan de contrôle"," Alimentation"," DNS et DHCP"," VLAN et trunk"],0,"Control/data plane.");
 Q('q84','ccna','moyen',"Automation REST utilise souvent ?",[" SSH Telnet"," JSON + API"," SNMP v1"," ARP"],1,"API REST.");
 // --- supervision / docker / terraform ---
-Q('q85','supervision','moyen',"SNMPv3 mode authPriv = ?",[" Pas d'auth"," Auth seulement"," Auth + chiffrement"," Communauté"],2,"authPriv.");
-Q('q86','containers','facile',"Image : c'est quoi ?",[" Modèle"," Instance en exécution"," Conteneur"," Tous"],1,"Image vs instance.");
-Q('q87','containers','moyen',"Docker Compose depends_on garantit ?",[" Ordre de démarrage uniquement"," Santé du service"," Readiness applicative"," Backup"],0,"Start order.");
-Q('q88','iac','moyen',"terraform plan sert à ?",[" Appliquer"," Visualiser sans appliquer"," Détruire"," Formater"],1,"Preview.");
-Q('q89','iac','facile',"Terraform state sert à ?",[" Lancer les VM"," Mapper ressources réelles"," Chiffrer"," Monitorer"],1,"State.");
-// --- identité ---
-Q('q90','identite','moyen',"LDAP filter &(a)(b) = ?",[" OU"," ET logique"," OU logique"," Négation"],1,"& = AND.");
-Q('q91','identite','facile',"MFA recommandé pour ?",[" Tous les comptes invités"," Admin et accès distants"," Seulement impression"," Comptes de service basiques"],1,"Admin + remote.");
-Q('q92','identite','moyen',"RBAC = ?",[" Droit par utilisateur individuel"," Rôles par fonction"," Droits totaux"," Aucun privilège"],1,"Rôles.");
 // --- nombreux QCM révision express ajoutés comme rafale ---
 for (let i=93;i<=140;i++){
   Q('q'+i,'exam','facile',"Révision express : quelle affirmation est correcte ?",[" Toujours tester les sauvegardes"," Ignorer la documentation"," Un snapshot = sauvegarde"," Telnet est recommandé"],0,"Toujours tester et documenter ; snapshot ≠ backup ; telnet interdit.");
