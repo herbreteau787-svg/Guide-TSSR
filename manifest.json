@@ -1,0 +1,10 @@
+{
+  "name": "Guide TSSR + CCNA",
+  "short_name": "Guide TSSR",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#38bdf8",
+  "lang": "fr"
+}
