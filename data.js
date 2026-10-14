@@ -3526,23 +3526,6 @@ sipcalc 10.0.0.0/24`, p:["/24=254, /25=126, /26=62, /27=30, /28=14, /29=6, /30=2
  ]
 },
 {
- id:"security", group:"TSSR", icon:"ðŸ›¡ï¸", title:"SÃ©curitÃ©, durcissement et RGPD", desc:"Pratiques recommandÃ©es (ANSSI).", fiches:[
-  { id:"sec-hygiene", t:"HygiÃ¨ne de base (ANSSI)", level:"debutant", r:"Patcher, moindre privilÃ¨ge, MFA, sauvegardes, supervision.", tags:["securite","anssi"], g:["Mettre Ã  jour OS/apps","Activer MFA admins","Chiffrer les disques","Durcir les services"], c:`# Linux
-ufw enable
-lynis audit system
-# Windows
-Get-MpComputerStatus`, p:["RÃ©fÃ©rentiel ANSSI","Sensibilisation rÃ©guliÃ¨re","Audit pÃ©riodique"], w:"La sÃ©curitÃ© est un processus continu." },
-  { id:"sec-passwords", t:"Mots de passe et MFA", level:"debutant", r:"Longs, uniques, coffre ; MFA obligatoire pour admin/distants.", tags:["mfa","password"], g:["Politique PW robuste","TOTP/FIDO2","Codes de secours","Revue d'accÃ¨s"], c:`# VÃ©rifier expiration
-chage -l user
-# AD PSO
-Get-ADFineGrainedPasswordPolicy -Filter *`, p:["FIDO2 recommandÃ©","Ã‰viter SMS pour admins","Break-glass documentÃ©"], w:"MFA sans secours bloque en cas de perte." },
-  { id:"sec-backup", t:"Sauvegarde 3-2-1 et anti-ransomware", level:"intermediaire", r:"Copies hors ligne, immuables, testÃ©es, comptes isolÃ©s.", tags:["backup","anti-ransom"], g:["Copies offsite","ImmutabilitÃ©","Test de restore","Alerte suppression"], c:`# Veeam immuable repository
-# Borg append-only`, p:["RPO/RTO documentÃ©s","Snapshots court terme + backup long terme","VÃ©rifier chaÃ®nes"], w:"Les sauvegardes connectÃ©es sont cibles prioritaires." },
-  { id:"sec-rgpd", t:"RGPD et donnÃ©es personnelles", level:"intermediaire", r:"Recenser, minimiser, sÃ©curiser, durÃ©e de conservation.", tags:["rgpd","conformite"], g:["Cartographier les donnÃ©es","Droits d'accÃ¨s","Chiffrement au repos","Politique de rÃ©tention"], c:`# VÃ©rifier partages et droits
-icacls D:\\Shares /grant ...`, p:["DPO","Registre des traitements","Notification incident 72h"], w:"La conformitÃ© n'est pas optionnelle." }
- ]
-},
-{
  id:"oral", group:"TSSR", icon:"ðŸŽ¤", title:"Oral et dossier professionnel", desc:"Pitch, questions types et prÃ©sentation.", fiches:[
   { id:"oral-pitch", t:"Pitch de 2 minutes", level:"intermediaire", r:"Contexte, besoin, choix, preuves, bilan.", tags:["oral","pitch"], g:["Situation client","Actions menÃ©es","RÃ©sultats mesurables","AmÃ©liorations"], c:`# Structure
 1. Contexte
