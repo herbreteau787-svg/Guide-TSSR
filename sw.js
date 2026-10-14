@@ -1,4 +1,4 @@
-const CACHE = 'guide-tssr-v2';
+const CACHE = 'guide-tssr-v4';
 const ASSETS = ['./','./index.html','./styles.css','./app.js','./data.js','./manifest.json'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));

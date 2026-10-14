@@ -157,6 +157,7 @@ function renderActiveTab(){
   else if (state.tab === 'glossaire') renderGlossary();
   else if (state.tab === 'cheat') renderCheat();
   else if (state.tab === 'anglais') renderAnglais();
+  else if (state.tab === 'support') renderSupport();
 }
 
 /* ---------- fiche matching ---------- */
@@ -693,6 +694,21 @@ function renderAnglais(){
     </ul>
   </div>
   <div class="card"><h2>Abbréviations IT à garder en tête</h2><p><code>VM</code> machine virtuelle, <code>VLAN</code> réseau virtuel, <code>VPN</code> réseau privé virtuel, <code>SLA</code> accord de service, <code>RPO</code> perte acceptable, <code>RTO</code> temps de rétablissement, <code>AOC</code> accès hors pleine capacité (selon contexte), <code>ACL</code> liste de permissions, <code>MTU</code> taille max de trame.</p></div>`;
+}
+
+/* ---------- support cours ---------- */
+function renderSupport(){
+  const panel = document.querySelector('[data-panel="support"]');
+  panel.innerHTML = `
+  <div class="hero"><h1>Support cours CCNA</h1><p>Ouvrez le PDF du support CCNA ci-dessous ou retéléchargez-le.</p></div>
+  <div class="card">
+    <p class="muted">Fichier : CCNA1.pdf (15 Mo). L'affichage peut être lent selon le navigateur.</p>
+    <p><a href="CCNA1.pdf" target="_blank" rel="noopener">Ouvrir CCNA1.pdf dans un nouvel onglet</a></p>
+  </div>
+  <div class="card">
+    <iframe src="CCNA1.pdf#view=FitH" title="Support CCNA" style="width:100%;height:75vh;border:1px solid #334155;border-radius:12px;" loading="lazy"></iframe>
+  </div>
+  <div class="card"><h2>Note</h2><p>Ce PDF inclut le cours et les questions. Le format compacté via le navigateur dépend de l'affichage PDF intégré.</p></div>`;
 }
 
 /* ---------- methods ---------- */
