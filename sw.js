@@ -1,16 +1,60 @@
-const CACHE = 'guide-tssr-v4';
-const ASSETS = ['./','./index.html','./styles.css','./app.js','./data.js','./manifest.json'];
-self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));
+const CACHE = 'guide-tssr-v6';
+const OFFLINE_URL = './index.html';
+const ASSETS = [
+  './',
+  './index.html',
+  './styles.css',
+  './app.js',
+  './data.js',
+  './manifest.json',
+  './sw.js'
+];
+
+// Installation : stocke une version fraîche du shell applicatif.
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE)
+      .then(cache => cache.addAll(ASSETS))
+      .then(() => self.skipWaiting())
+  );
 });
-self.addEventListener('activate', e => {
-  e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim()));
+
+// Activation : toutes les anciennes versions de cache sont supprimées.
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    (async () => {
+      const keys = await caches.keys();
+      await Promise.all(
+        keys
+          .filter(key => key !== CACHE)
+          .map(key => caches.delete(key))
+      );
+      await self.clients.claim();
+    })()
+  );
 });
-self.addEventListener('fetch', e => {
-  if (e.request.method !== 'GET') return;
-  e.respondWith(caches.match(e.request).then(r => r || fetch(e.request).then(res => {
-    const copy = res.clone();
-    caches.open(CACHE).then(c => c.put(e.request, copy));
-    return res;
-  }).catch(() => caches.match('./index.html'))));
+
+// Réseau en priorité, cache en secours offline.
+self.addEventListener('fetch', event => {
+  if (event.request.method !== 'GET') return;
+
+  const url = new URL(event.request.url);
+  if (url.origin !== self.location.origin) return;
+  // Ne pas intercepter les téléchargements lourds du PDF.
+  if (url.pathname.endsWith('.pdf')) return;
+
+  event.respondWith((async () => {
+    try {
+      // no-store force la récupération de la dernière version déployée.
+      const networkResponse = await fetch(event.request, { cache: 'no-store' });
+      if (networkResponse && networkResponse.ok) {
+        const cache = await caches.open(CACHE);
+        cache.put(event.request, networkResponse.clone());
+      }
+      return networkResponse;
+    } catch (error) {
+      const cached = await caches.match(event.request);
+      return cached || caches.match(OFFLINE_URL);
+    }
+  })());
 });

@@ -2,7 +2,7 @@ const G = window.GUIDE;
 G.cheats = G.cheats || [];
 G.cheats.push(
 {
- title:"Windows / PowerShell  –  fondamentaux",
+ title:"Windows / PowerShell    fondamentaux",
  intro:"Commandes clés pour l'administration Windows et PowerShell.",
  columns:["Commande","Usage"],
  rows:[
@@ -38,7 +38,7 @@ G.cheats.push(
  ]
 },
 {
- title:"PowerShell  –  Active Directory",
+ title:"PowerShell    Active Directory",
  intro:"Administration complète d'AD DS en cmdlets.",
  columns:["Commande","Usage"],
  rows:[
@@ -82,7 +82,7 @@ G.cheats.push(
  ]
 },
 {
- title:"PowerShell  –  DNS et DHCP (Windows)",
+ title:"PowerShell    DNS et DHCP (Windows)",
  intro:"Gestion des zones, enregistrements, étendues et baux.",
  columns:["Commande","Usage"],
  rows:[
@@ -110,7 +110,7 @@ G.cheats.push(
  ]
 },
 {
- title:"PowerShell  –  fichiers, partages, services et processus",
+ title:"PowerShell    fichiers, partages, services et processus",
  intro:"Gestion de fichiers, ACL, services Windows et processus.",
  columns:["Commande","Usage"],
  rows:[
@@ -148,7 +148,7 @@ G.cheats.push(
  ]
 },
 {
- title:"PowerShell  –  scripting et automatisation",
+ title:"PowerShell    scripting et automatisation",
  intro:"Bonnes pratiques et commandes utiles pour scripts.",
  columns:["Commande","Usage"],
  rows:[
@@ -184,7 +184,7 @@ G.cheats.push(
  ]
 },
 {
- title:"Linux  –  commandes essentielles",
+ title:"Linux    commandes essentielles",
  intro:"Base système, exploration et administration.",
  columns:["Commande","Usage"],
  rows:[
@@ -237,7 +237,7 @@ G.cheats.push(
  ]
 },
 {
- title:"Linux  –  utilisateurs, groupes et sudo",
+ title:"Linux    utilisateurs, groupes et sudo",
  intro:"Gestion d'identités et privilèges.",
  columns:["Commande","Usage"],
  rows:[
@@ -273,7 +273,7 @@ G.cheats.push(
  ]
 },
 {
- title:"Linux  –  services, systemd et journaux",
+ title:"Linux    services, systemd et journaux",
  intro:"Cycle de vie des services et logging.",
  columns:["Commande","Usage"],
  rows:[
@@ -351,7 +351,7 @@ G.cheats.push(
  ]
 },
 {
- title:"Linux  –  stockage, LVM et ZFS",
+ title:"Linux    stockage, LVM et ZFS",
  intro:"Gestion disques, partitions, LVM et ZFS.",
  columns:["Commande","Usage"],
  rows:[
@@ -422,7 +422,7 @@ G.cheats.push(
  ]
 },
 {
- title:"Cisco IOS  –  fondamentaux",
+ title:"Cisco IOS    fondamentaux",
  intro:"Modes, navigation et commandes de base.",
  columns:["Commande","Usage"],
  rows:[
@@ -458,7 +458,7 @@ G.cheats.push(
  ]
 },
 {
- title:"Cisco IOS  –  interfaces et VLAN",
+ title:"Cisco IOS    interfaces et VLAN",
  intro:"Configuration d'interfaces, VLAN et trunk.",
  columns:["Commande","Usage"],
  rows:[
@@ -499,7 +499,7 @@ G.cheats.push(
  ]
 },
 {
- title:"Cisco IOS  –  routage dynamique",
+ title:"Cisco IOS    routage dynamique",
  intro:"OSPF, EIGRP et BGP de base.",
  columns:["Commande","Usage"],
  rows:[
@@ -528,7 +528,7 @@ G.cheats.push(
  ]
 },
 {
- title:"Cisco IOS  –  ACL et NAT",
+ title:"Cisco IOS    ACL et NAT",
  intro:"Filtrage et traduction d'adresses.",
  columns:["Commande","Usage"],
  rows:[
@@ -727,7 +727,7 @@ G.cheats.push(
  ]
 },
 {
- title:"Web serveurs  –  Apache et Nginx",
+ title:"Web serveurs    Apache et Nginx",
  intro:"Commandes administration web.",
  columns:["Commande","Usage"],
  rows:[
@@ -782,7 +782,7 @@ G.cheats.push(
  ]
 },
 {
- title:"Infrastructure as Code  –  Ansible et Terraform",
+ title:"Infrastructure as Code    Ansible et Terraform",
  intro:"Automatisation d'infrastructure.",
  columns:["Commande","Usage"],
  rows:[
@@ -886,7 +886,7 @@ G.cheats.push(
  ]
 },
 {
- title:"Windows Server  –  administration courante",
+ title:"Windows Server    administration courante",
  intro:"Rôles, outils et services Windows Server.",
  columns:["Commande","Usage"],
  rows:[
@@ -955,7 +955,7 @@ G.cheats.push(
   ["ss -s","Statistiques sockets"],
   ["vmstat 1 5","VM stats"],
   ["iostat -xz 1 3","I/O"],
-  ["mpstat -P ALL 1 3","CPU par c – ur"],
+  ["mpstat -P ALL 1 3","CPU par c  ur"],
   ["free -h","Mémoire"],
   ["top -b -n1 | head","Snapshot top"],
   ["uptime","Charge moyenne"],
@@ -993,7 +993,7 @@ G.cheats.push(
  ]
 },
 {
- title:"Wireshark / tshark  –  capture et filtres",
+ title:"Wireshark / tshark    capture et filtres",
  intro:"Analyse de paquets en CLI.",
  columns:["Commande","Usage"],
  rows:[
@@ -1012,7 +1012,7 @@ G.cheats.push(
  ]
 },
 {
- title:"Ansible  –  rappels de playbook",
+ title:"Ansible    rappels de playbook",
  intro:"Extraits courants.",
  columns:["Extrait","Usage"],
  rows:[
@@ -1065,7 +1065,7 @@ G.cheats.push(
  ]
 },
 {
- title:"Logiciels de supervision  –  Zabbix, Centreon, Nagios",
+ title:"Logiciels de supervision    Zabbix, Centreon, Nagios",
  intro:"Surveillance d'infrastructures et alerting.",
  columns:["Commande","Usage"],
  rows:[
@@ -1082,7 +1082,7 @@ G.cheats.push(
 }
 ,
 {
- title:"Linux – Sauvegardes et cron",
+ title:"Linux  Sauvegardes et cron",
  intro:"Sauvegardes Linux automatisées et tâches planifiées.",
  columns:["Commande","Usage"],
  rows:[
