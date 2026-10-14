@@ -1172,242 +1172,242 @@ crypto keyring ...
 G.labs = G.labs || [];
 G.labs.push(...[
 {
- id:"lab-vlan", title:"Lab 1 · VLAN et trunk entre 2 switches", section:"ccp4", level:"intermediaire", duration:"45 min",
- objective:"Créer VLAN 10/20, trunk 802.1Q et vérifier la connectivité inter-VLAN via un routeur.",
- prerequisites:["Packet Tracer installé","Connaissance IP de base"],
+ id:"lab-vlan", title:"Lab 1 � VLAN et trunk entre 2 switches", section:"ccp4", level:"intermediaire", duration:"45 min",
+ objective:"Cr�er VLAN 10/20, trunk 802.1Q et v�rifier la connectivit� inter-VLAN via un routeur.",
+ prerequisites:["Packet Tracer install�","Connaissance IP de base"],
  steps:[
   "Topologie : 2 switches, 1 routeur, 4 PC.",
-  "Créer VLAN 10 (COMPTA) et 20 (INFO) sur les 2 switches.",
+  "Cr�er VLAN 10 (COMPTA) et 20 (INFO) sur les 2 switches.",
   "Assigner PC1/PC2 en VLAN 10, PC3/PC4 en VLAN 20.",
   "Configurer trunk sur le lien inter-switch (allowed vlan 10,20).",
   "Configurer sous-interfaces routeur 802.1Q pour inter-VLAN.",
   "Tester ping inter-VLAN et traceroute."
  ],
  validation:["show vlan brief affiche les VLAN","show interfaces trunk montre le lien","Ping inter-VLAN OK"],
- troubleshooting:["Vérifier native VLAN","Port en access non assigné","Trunk allowed list incomplète"]
+ troubleshooting:["V�rifier native VLAN","Port en access non assign�","Trunk allowed list incompl�te"]
 },
 {
- id:"lab-ospf", title:"Lab 2 · OSPF single-area", section:"ccp4", level:"avance", duration:"60 min",
- objective:"Mettre en place OSPF area 0 entre 3 routeurs et vérifier la table de routage.",
+ id:"lab-ospf", title:"Lab 2 � OSPF single-area", section:"ccp4", level:"avance", duration:"60 min",
+ objective:"Mettre en place OSPF area 0 entre 3 routeurs et v�rifier la table de routage.",
  prerequisites:["Notions de masque CIDR"],
  steps:[
   "Topologie 3 routeurs en triangle",
   "Configurer les IPs et le loopback",
-  "Activer OSPF process 1 et annoncer les réseaux",
-  "Vérifier voisins et LSDB",
-  "Injecter une route par défaut",
-  "Tester la convergence après coupure"
+  "Activer OSPF process 1 et annoncer les r�seaux",
+  "V�rifier voisins et LSDB",
+  "Injecter une route par d�faut",
+  "Tester la convergence apr�s coupure"
  ],
  validation:["show ip ospf neighbor = Full","show ip route O","Ping end-to-end"],
- troubleshooting:["Area mismatch","MTU mismatch","Passive-interface oublié"]
+ troubleshooting:["Area mismatch","MTU mismatch","Passive-interface oubli�"]
 },
 {
- id:"lab-acl", title:"Lab 3 · ACL étendue et test", section:"ccp4", level:"intermediaire", duration:"30 min",
- objective:"Créer une ACL pour bloquer SSH depuis un VLAN et autoriser HTTPS.",
+ id:"lab-acl", title:"Lab 3 � ACL �tendue et test", section:"ccp4", level:"intermediaire", duration:"30 min",
+ objective:"Cr�er une ACL pour bloquer SSH depuis un VLAN et autoriser HTTPS.",
  prerequisites:["Lab VLAN"],
  steps:[
-  "Définir l'ACL nommée LAN-FILTER",
+  "D�finir l'ACL nomm�e LAN-FILTER",
   "Ajouter deny tcp VLAN10 any eq 22",
   "Ajouter permit ip any any",
   "Appliquer inbound sur interface LAN",
-  "Tester SSH refusé et HTTPS autorisé",
+  "Tester SSH refus� et HTTPS autoris�",
   "Journaliser les refus"
  ],
  validation:["show access-lists compte les hits","SSH timeout, HTTPS OK"],
- troubleshooting:["Direction de l'ACL inversée","Ordre des règles","Masque wildcard erroné"]
+ troubleshooting:["Direction de l'ACL invers�e","Ordre des r�gles","Masque wildcard erron�"]
 },
 {
- id:"lab-ad", title:"Lab 4 · Forêt AD + DNS + jonction", section:"ccp2", level:"intermediaire", duration:"90 min",
- objective:"Installer AD DS sur S1, créer OU/groupes, puis joindre un poste et appliquer une GPO.",
+ id:"lab-ad", title:"Lab 4 � For�t AD + DNS + jonction", section:"ccp2", level:"intermediaire", duration:"90 min",
+ objective:"Installer AD DS sur S1, cr�er OU/groupes, puis joindre un poste et appliquer une GPO.",
  prerequisites:["VM Windows Server", "Client Windows"],
  steps:[
-  "Installer le rôle AD DS + DNS via PowerShell",
-  "Promouvoir en forêt tssr.local avec DSRM",
-  "Créer OU Structure et groupes (G/LD)",
+  "Installer le r�le AD DS + DNS via PowerShell",
+  "Promouvoir en for�t tssr.local avec DSRM",
+  "Cr�er OU Structure et groupes (G/LD)",
   "Joindre le poste PC01 au domaine",
-  "Créer GPO de fond d'écran et de script",
+  "Cr�er GPO de fond d'�cran et de script",
   "Tester gpupdate et gpresult"
  ],
  validation:["dcdiag /q OK","nslookup tssr.local","gpresult /r affiche la GPO"],
- troubleshooting:["Horloge > 5 min","DNS poste non pointé vers DC","Firewall AD non autorisé"]
+ troubleshooting:["Horloge > 5 min","DNS poste non point� vers DC","Firewall AD non autoris�"]
 },
 {
- id:"lab-gpo", title:"Lab 5 · GPO de déploiement logiciel", section:"ccp2", level:"intermediaire", duration:"40 min",
- objective:"Déployer 7-Zip par GPO et vérifier sur un poste pilote.",
+ id:"lab-gpo", title:"Lab 5 � GPO de d�ploiement logiciel", section:"ccp2", level:"intermediaire", duration:"40 min",
+ objective:"D�ployer 7-Zip par GPO et v�rifier sur un poste pilote.",
  prerequisites:["AD fonctionnel"],
  steps:[
   "Placer le MSI dans \\domaine\\NETLOGON",
-  "Créer GPO 'Deploy-7zip'",
+  "Cr�er GPO 'Deploy-7zip'",
   "Ajouter l'installation sous ordinateur",
   "Filtrer par OU Pilote",
-  "Forcer gpupdate /force et redémarrer",
-  "Vérifier dans Programmes"
+  "Forcer gpupdate /force et red�marrer",
+  "V�rifier dans Programmes"
  ],
- validation:["Événement 1033 Application","7zip installé"],
- troubleshooting:["Architecture x86/x64","GPO non liée à l'OU","Cache MSI corrompu"]
+ validation:["�v�nement 1033 Application","7zip install�"],
+ troubleshooting:["Architecture x86/x64","GPO non li�e � l'OU","Cache MSI corrompu"]
 },
 {
- id:"lab-linux-base", title:"Lab 6 · Administration Linux de base", section:"ccp3", level:"debutant", duration:"45 min",
- objective:"Créer utilisateurs/groupes, sécuriser SSH et gérer un service systemd.",
+ id:"lab-linux-base", title:"Lab 6 � Administration Linux de base", section:"ccp3", level:"debutant", duration:"45 min",
+ objective:"Cr�er utilisateurs/groupes, s�curiser SSH et g�rer un service systemd.",
  prerequisites:["VM Linux Ubuntu"],
  steps:[
-  "Mettre à jour les paquets",
-  "Créer l'utilisateur admin et le groupe dev",
-  "Générer et déployer une clé SSH",
-  "Désactiver le login root direct",
+  "Mettre � jour les paquets",
+  "Cr�er l'utilisateur admin et le groupe dev",
+  "G�n�rer et d�ployer une cl� SSH",
+  "D�sactiver le login root direct",
   "Installer nginx comme service",
-  "Vérifier le journal nginx"
+  "V�rifier le journal nginx"
  ],
- validation:["ssh par clé OK, password refusé","systemctl is-active nginx"],
- troubleshooting:["UFW bloque 22","Clé avec mauvaises permissions","SELinux si RHEL"]
+ validation:["ssh par cl� OK, password refus�","systemctl is-active nginx"],
+ troubleshooting:["UFW bloque 22","Cl� avec mauvaises permissions","SELinux si RHEL"]
 },
 {
- id:"lab-netplan", title:"Lab 7 · IP statique Netplan", section:"ccp3", level:"debutant", duration:"20 min",
+ id:"lab-netplan", title:"Lab 7 � IP statique Netplan", section:"ccp3", level:"debutant", duration:"20 min",
  objective:"Attribuer une IP statique via Netplan et tester.",
  prerequisites:["Lab Linux de base"],
  steps:[
-  "Éditer /etc/netplan/01-netcfg.yaml",
-  "Définir IP, gateway, DNS",
+  "�diter /etc/netplan/01-netcfg.yaml",
+  "D�finir IP, gateway, DNS",
   "netplan apply",
   "Tester IP, route, ping DNS",
   "Corriger en cas d'erreur YAML"
  ],
  validation:["ip a affiche la nouvelle IP","Resolv fonctionnel"],
- troubleshooting:["Indentation YAML","Interface nommée différemment","Perte de connexion SSH"]
+ troubleshooting:["Indentation YAML","Interface nomm�e diff�remment","Perte de connexion SSH"]
 },
 {
- id:"lab-lvm", title:"Lab 8 · LVM et montage", section:"ccp3", level:"avance", duration:"45 min",
- objective:"Créer PV/VG/LV, formater et monter avec fstab.",
- prerequisites:["Disque supplémentaire attaché"],
+ id:"lab-lvm", title:"Lab 8 � LVM et montage", section:"ccp3", level:"avance", duration:"45 min",
+ objective:"Cr�er PV/VG/LV, formater et monter avec fstab.",
+ prerequisites:["Disque suppl�mentaire attach�"],
  steps:[
   "lsblk pour identifier le disque",
   "pvcreate, vgcreate, lvcreate",
   "mkfs.ext4",
   "mount et test",
-  "Ajouter à fstab et mount -a",
-  "Créer un snapshot"
+  "Ajouter � fstab et mount -a",
+  "Cr�er un snapshot"
  ],
  validation:["df -h affiche le montage","mount -a sans erreur"],
- troubleshooting:["fstab mal renseigné","VG existant","Snapshot plein"]
+ troubleshooting:["fstab mal renseign�","VG existant","Snapshot plein"]
 },
 {
- id:"lab-pfsense", title:"Lab 9 · pfSense base + NAT", section:"ccp7", level:"intermediaire", duration:"60 min",
- objective:"Installer pfSense, créer LAN/WAN, NAT outbound et une règle de blocage.",
+ id:"lab-pfsense", title:"Lab 9 � pfSense base + NAT", section:"ccp7", level:"intermediaire", duration:"60 min",
+ objective:"Installer pfSense, cr�er LAN/WAN, NAT outbound et une r�gle de blocage.",
  prerequisites:["VM pfSense"],
  steps:[
-  "Installer pfSense et définir interfaces",
-  "Accéder à l'interface web",
+  "Installer pfSense et d�finir interfaces",
+  "Acc�der � l'interface web",
   "Configurer WAN (DHCP) et LAN (static)",
-  "Vérifier Outbound NAT automatique",
-  "Créer une règle pour bloquer Facebook",
+  "V�rifier Outbound NAT automatique",
+  "Cr�er une r�gle pour bloquer Facebook",
   "Tester depuis un poste LAN"
  ],
- validation:["Poste LAN obtient IP","Navigation HTTP/HTTPS OK sauf règle"],
- troubleshooting:["Interfaces inversées","DNS resolver non actif","Règle mal placée"]
+ validation:["Poste LAN obtient IP","Navigation HTTP/HTTPS OK sauf r�gle"],
+ troubleshooting:["Interfaces invers�es","DNS resolver non actif","R�gle mal plac�e"]
 },
 {
- id:"lab-vpn", title:"Lab 10 · VPN OpenVPN nomade", section:"ccp7", level:"avance", duration:"60 min",
+ id:"lab-vpn", title:"Lab 10 � VPN OpenVPN nomade", section:"ccp7", level:"avance", duration:"60 min",
  objective:"Configurer OpenVPN sur pfSense et connecter un client externe.",
  prerequisites:["Lab pfSense"],
  steps:[
-  "Créer une CA et certificat serveur",
+  "Cr�er une CA et certificat serveur",
   "Assistant OpenVPN wizard",
   "Exporter la configuration client",
   "Importer dans le client OpenVPN",
   "Tester depuis 4G",
-  "Vérifier la route vers LAN"
+  "V�rifier la route vers LAN"
  ],
- validation:["Tunnel établi","Ping serveur LAN via VPN"],
- troubleshooting:["Port 1194 bloqué ISP","Certificat invalide","Réseau client identique au LAN"]
+ validation:["Tunnel �tabli","Ping serveur LAN via VPN"],
+ troubleshooting:["Port 1194 bloqu� ISP","Certificat invalide","R�seau client identique au LAN"]
 },
 {
- id:"lab-esxi", title:"Lab 11 · ESXi : VM, vSwitch et snapshot", section:"ccp5", level:"intermediaire", duration:"60 min",
- objective:"Installer ESXi, créer VM Windows, vSwitch et tester un snapshot.",
- prerequisites:["Serveur physique/VM imbriquée"],
+ id:"lab-esxi", title:"Lab 11 � ESXi : VM, vSwitch et snapshot", section:"ccp5", level:"intermediaire", duration:"60 min",
+ objective:"Installer ESXi, cr�er VM Windows, vSwitch et tester un snapshot.",
+ prerequisites:["Serveur physique/VM imbriqu�e"],
  steps:[
-  "Installer ESXi et accéder au host client",
-  "Créer un vSwitch et portgroup",
-  "Créer VM avec disque thin",
+  "Installer ESXi et acc�der au host client",
+  "Cr�er un vSwitch et portgroup",
+  "Cr�er VM avec disque thin",
   "Installer Windows et VMware Tools",
   "Snapshot avant MAJ",
-  "Démontrer restore snapshot"
+  "D�montrer restore snapshot"
  ],
- validation:["VM démarre","Tools installés","Snapshot fonctionnel"],
- troubleshooting:["VT-x non activé","Réseau vmnic incorrect","Espace datastore insuffisant"]
+ validation:["VM d�marre","Tools install�s","Snapshot fonctionnel"],
+ troubleshooting:["VT-x non activ�","R�seau vmnic incorrect","Espace datastore insuffisant"]
 },
 {
- id:"lab-docker", title:"Lab 12 · Docker web + DB", section:"containers", level:"intermediaire", duration:"45 min",
- objective:"Déployer nginx + postgres avec Docker Compose et données persistantes.",
- prerequisites:["Docker installé"],
+ id:"lab-docker", title:"Lab 12 � Docker web + DB", section:"containers", level:"intermediaire", duration:"45 min",
+ objective:"D�ployer nginx + postgres avec Docker Compose et donn�es persistantes.",
+ prerequisites:["Docker install�"],
  steps:[
-  "Créer le fichier compose.yaml",
+  "Cr�er le fichier compose.yaml",
   "Lancer les services",
-  "Vérifier les logs",
-  "Créer une page web",
-  "Redémarrer et vérifier la persistance DB",
-  "Arrêter proprement"
+  "V�rifier les logs",
+  "Cr�er une page web",
+  "Red�marrer et v�rifier la persistance DB",
+  "Arr�ter proprement"
  ],
- validation:["docker compose ps healthy","Données DB persistantes"],
- troubleshooting:["Port déjà utilisé","Volume anonyme","Healthcheck mal configuré"]
+ validation:["docker compose ps healthy","Donn�es DB persistantes"],
+ troubleshooting:["Port d�j� utilis�","Volume anonyme","Healthcheck mal configur�"]
 },
 {
- id:"lab-terraform", title:"Lab 13 · Terraform basique", section:"iac", level:"avance", duration:"60 min",
+ id:"lab-terraform", title:"Lab 13 � Terraform basique", section:"iac", level:"avance", duration:"60 min",
  objective:"Provisionner une VM avec Terraform contre un hyperviseur local.",
  prerequisites:["Terraform + provider vSphere/vSphere"],
  steps:[
-  "Initialiser le répertoire",
-  "Définir provider et ressource VM",
+  "Initialiser le r�pertoire",
+  "D�finir provider et ressource VM",
   "terraform plan",
   "terraform apply",
   "Exporter l'IP en output",
-  "Détruire avec destroy"
+  "D�truire avec destroy"
  ],
- validation:["apply réussit","VM visible dans vCenter"],
+ validation:["apply r�ussit","VM visible dans vCenter"],
  troubleshooting:["Auth vCenter","State lock","Version provider"]
 },
 {
- id:"lab-sysprep", title:"Lab 14 · Sysprep et capture", section:"ccp9", level:"intermediaire", duration:"60 min",
- objective:"Préparer une image Windows de référence avec Sysprep et la capturer.",
- prerequisites:["VM Windows configurée"],
+ id:"lab-sysprep", title:"Lab 14 � Sysprep et capture", section:"ccp9", level:"intermediaire", duration:"60 min",
+ objective:"Pr�parer une image Windows de r�f�rence avec Sysprep et la capturer.",
+ prerequisites:["VM Windows configur�e"],
  steps:[
   "Installer OS de base et MAJ",
   "Installer apps standard",
-  "Exécuter Sysprep /oobe /generalize /shutdown",
+  "Ex�cuter Sysprep /oobe /generalize /shutdown",
   "Capturer avec DISM",
-  "Vérifier le WIM",
-  "Déployer via WDS"
+  "V�rifier le WIM",
+  "D�ployer via WDS"
  ],
- validation:["Sysprep terminé sans erreur","Image bootable"],
- troubleshooting:["Software protection service","Profil utilisateur résiduel","Erreur OOBE"]
+ validation:["Sysprep termin� sans erreur","Image bootable"],
+ troubleshooting:["Software protection service","Profil utilisateur r�siduel","Erreur OOBE"]
 },
 {
- id:"lab-backup", title:"Lab 15 · Sauvegarde et restore", section:"ccp8", level:"intermediaire", duration:"50 min",
+ id:"lab-backup", title:"Lab 15 � Sauvegarde et restore", section:"ccp8", level:"intermediaire", duration:"50 min",
  objective:"Sauvegarder un serveur et restaurer sur une VM distincte.",
  prerequisites:["2 VM"],
  steps:[
-  "Créer le job Veeam/WBadmin",
+  "Cr�er le job Veeam/WBadmin",
   "Lancer la sauvegarde",
   "Simuler panne (supprimer fichier)",
   "Restaurer le fichier",
-  "Restaurer VM entière vers autre host",
+  "Restaurer VM enti�re vers autre host",
   "Valider les services"
  ],
- validation:["Fichier restauré","VM bootable"],
- troubleshooting:["Licence Veeam","Chemin réseau","Point de restauration manquant"]
+ validation:["Fichier restaur�","VM bootable"],
+ troubleshooting:["Licence Veeam","Chemin r�seau","Point de restauration manquant"]
 },
 {
- id:"lab-qos", title:"Lab 16 · QoS sur routeur Cisco", section:"ccna", level:"avance", duration:"45 min",
+ id:"lab-qos", title:"Lab 16 � QoS sur routeur Cisco", section:"ccna", level:"avance", duration:"45 min",
  objective:"Marquer et prioriser le trafic voix avec CBWFQ/LLQ.",
  prerequisites:["Lab OSPF ou VLAN"],
  steps:[
-  "Créer une ACL pour le trafic RTP",
+  "Cr�er une ACL pour le trafic RTP",
   "Class-map et policy-map",
   "Appliquer service-policy sur l'interface WAN",
-  "Générer du trafic et vérifier les compteurs",
-  "Tuner les débits",
+  "G�n�rer du trafic et v�rifier les compteurs",
+  "Tuner les d�bits",
   "Documenter"
  ],
- validation:["show policy-map interface affiche des hits","Voix non dégradée sous charge"],
+ validation:["show policy-map interface affiche des hits","Voix non d�grad�e sous charge"],
  troubleshooting:["Bandwidth manquant","Place de la policy","MTU"]
 }
 ]);
@@ -1419,19 +1419,19 @@ G.quizzes = G.quizzes || [];
 const Q = (id, section, difficulty, q, choices, answer, explain) => G.quizzes.push({id, section, difficulty, q, choices, answer, explain});
 // --- CCP1 / support ---
 Q('q1','ccp1','facile',"Un ticket d'incident désigne ?",["Un besoin prévu par l'utilisateur","Un service coupé à rétablir rapidement","Une cause racine permanente","Un changement validé"],1,"Incident = dégradation/coupure à rétablir au plus vite.");
-Q('q2','ccp1','facile',"La priorité est généralement ?",["Impact uniquement","Urgence uniquement","Impact × Urgence","Le nom du manager"],2,"Priorité calcule impact et urgence.");
+Q('q2','ccp1','facile',"La priorité est généralement ?",["Impact uniquement","Urgence uniquement","Impact � Urgence","Le nom du manager"],2,"Priorité calcule impact et urgence.");
 Q('q3','ccp1','moyen',"Une adresse 169.254.x.x indique ?",["DNS défaillant","DHCP KO (APIPA)","Passerelle ko","Câble débranché"],1,"APIPA = pas de réponse DHCP.");
 Q('q4','ccp1','facile',"En entonnoir, la première couche à vérifier est ?",["DNS","Passerelle","Physique/câble/Wi-Fi","Internet"],2,"Méthode entonnoir : physique d'abord.");
 Q('q5','ccp1','moyen',"Pour réinitialiser un MDP AD, il faut ?",["Envoyer le MDP par mail"," Double vérif identité et canal séparé","Mettre le même pour tous"," Supprimer le compte"],1,"Vérifier identité et envoyer par canal séparé.");
 Q('q6','ccp1','facile',"Unlock-ADAccount sert à ?",["Déverrouiller un compte","Créer un compte","Supprimer un groupe","Lister les DC"],0,"Déblocage de compte verrouillé.");
-Q('q7','ccp1','facile',"EventID 4625 signifie ?",["Ouverture réussie"," Échec d'ouverture de session"," Compte créé"," GPO appliquée"],1,"4625 = logon failure.");
+Q('q7','ccp1','facile',"EventID 4625 signifie ?",["Ouverture réussie"," �0chec d'ouverture de session"," Compte créé"," GPO appliquée"],1,"4625 = logon failure.");
 // --- CCP2 / AD ---
 Q('q8','ccp2','moyen',"Un DC sans DNS fonctionne-t-il pour l'AD ?",["Oui"," Non"," Partiellement"," Seulement en local"],1,"AD dépend du DNS.");
 Q('q9','ccp2','facile',"Le rôle PDC émulateur gère ?",["Le TEMPS et les mots de passe prioritaires"," Le DNS"," Le DHCP"," Les imprimantes"],0,"PDC = temps + MDP prioritaire.");
-Q('q10','ccp2','moyen',"AGDLP signifie ?",["User → Global → DomainLocal → Permission","User → Local → Global → Right"," Account → Group → Domain → Log"," Ad → GPO → DNS → LDAP"],0,"AGDLP ordre canonique.");
+Q('q10','ccp2','moyen',"AGDLP signifie ?",["User �  Global �  DomainLocal �  Permission","User �  Local �  Global �  Right"," Account �  Group �  Domain �  Log"," Ad �  GPO �  DNS �  LDAP"],0,"AGDLP ordre canonique.");
 Q('q11','ccp2','facile',"LSDOU ordonne LSDou = ?",["Local, Site, Domaine, OU"," Local, System, Domaine, User"," Link, Site, Domaine, OU"," Ligne, Site, Domaine, Org"],0,"LSDOU.");
 Q('q12','ccp2','moyen',"Move-ADDirectoryServerOperationMasterRole avec -Force correspond à ?",[" Transfert gracieux"," Saisie (seize) de rôle"," Suppression"," Réplication forcée"],1,"-Force = seizure.");
-Q('q13','ccp2','facile',"Un bail DHCP est attribué par ?",[" Étendue"," Scope"," VLAN"," Les deux scope et étendue"],3,"Scope/étendue.");
+Q('q13','ccp2','facile',"Un bail DHCP est attribué par ?",[" �0tendue"," Scope"," VLAN"," Les deux scope et étendue"],3,"Scope/étendue.");
 Q('q14','ccp2','moyen',"Pour joindre un domaine, il faut ?",[" DNS pointant vers le DC"," IP fixe uniquement"," Workgroup"," Redémarrage inutile"],0,"DNS vers DC.");
 Q('q15','ccp2','facile',"gpupdate /force sert à ?",[" Forcer l'application des GPO"," Supprimer les GPO"," Lister les DC"," Réplication AD"],0,"Application immédiate.");
 Q('q16','ccp2','moyen',"dcdiag /q affiche ?",[" Tout le détail"," Uniquement les échecs"," Les utilisateurs"," Le DNS inverse"],1,"/q = quiet; seuls échecs.");
@@ -1445,7 +1445,7 @@ Q('q22','ccp3','facile',"ss remplace ?",[" netstat"," traceroute"," arp"," ip"],
 Q('q23','ccp3','moyen',"Netplan est sensible à ?",[" La couleur"," L'indentation YAML"," L'heure"," La casse du hostname"],1,"YAML indentation.");
 Q('q24','ccp3','facile',"Journalctl -u sshd filtre ?",[" Le service sshd"," L'utilisateur"," Le noyau"," Les erreurs DNS"],0,"-u unité.");
 Q('q25','ccp3','moyen',"SSH recommandé : ?",[" PasswordAuthentication yes"," PermitRootLogin yes"," Clés + root désactivé"," Telnet actif"],2,"Clés + root no.");
-Q('q26','ccp3','facile',"crontab -e ?",[" Édite la crontab user"," Liste"," Supprime tout"," Redémarre cron"],0,"Édite.");
+Q('q26','ccp3','facile',"crontab -e ?",[" �0dite la crontab user"," Liste"," Supprime tout"," Redémarre cron"],0,"�0dite.");
 Q('q27','ccp3','moyen',"apt autoremove sert à ?",[" Supprimer les paquets inutiles"," Mettre à jour"," Lister"," Réinstaller"],0,"Nettoyer.");
 // --- CCP4 / Cisco réseau ---
 Q('q28','ccp4','facile',"Un /26 donne combien d'hôtes ?",["62","30","126","254"],0,"2^6-2=62.");
@@ -1467,17 +1467,17 @@ Q('q42','ccp5','moyen',"vMotion nécessite ?",[" Stockage partagé + VMkernel","
 Q('q43','ccp5','facile',"Snapshot : c'est quoi ?",[" Sauvegarde"," Point de restauration locale"," Image de référence"," Template"],0,"Snapshot dépendant.");
 Q('q44','ccp5','moyen',"HA redémarre les VMs si ?",[" L'utilisateur le demande"," Panne d'un host"," Trop de CPU"," Budget dépassé"],1,"Haute dispo.");
 Q('q45','ccp5','facile',"VMware Tools fournit ?",[" Le DNS"," Les drivers et perf"," L'AD"," Le backup"],1,"Tools.");
-Q('q46','ccp5','moyen',"DRS sert à ?",[" Équilibrer la charge"," Chiffrer les VM"," Mettre à jour"," Supprimer le snapshot"],0,"Load balancing.");
+Q('q46','ccp5','moyen',"DRS sert à ?",[" �0quilibrer la charge"," Chiffrer les VM"," Mettre à jour"," Supprimer le snapshot"],0,"Load balancing.");
 // --- CCP6 / scripts ---
 Q('q47','ccp6','facile',"Shebang d'un script Bash =",[" #!/bin/bash"," //bin/bash"," <?php"," @echo off"],0,"Shebang.");
 Q('q48','ccp6','moyen',"set -euo pipefail sert à ?",[" Ignorer les erreurs"," Rendre le script strict"," Lancer en debug visuel"," Désactiver cron"],1,"Strict mode.");
 Q('q49','ccp6','facile',"PowerShell Get-Member sert à ?",[" Lister les méthodes/propriétés"," Modifier"," Supprimer"," Exporter"],0,"Introspection.");
 Q('q50','ccp6','moyen',"Pipeline PowerShell transporte ?",[" Du texte"," Des objets"," Des fichiers uniquement"," Des processus"],1,"Objets.");
 Q('q51','ccp6','moyen',"Ansible est ?",[" Agent-based"," Agentless (SSH) "," Un hyperviseur"," Un IDS"],1,"Agentless.");
-Q('q52','ccp6','facile',"Idempotence Ansible signifie ?",[" Toujours modifier"," État désiré atteint sans dupliquer"," Pas de logs"," Mode check obligatoire"],1,"Idempotence.");
+Q('q52','ccp6','facile',"Idempotence Ansible signifie ?",[" Toujours modifier"," �0tat désiré atteint sans dupliquer"," Pas de logs"," Mode check obligatoire"],1,"Idempotence.");
 Q('q53','ccp6','moyen',"Netmiko sert à ?",[" Superviser Zabbix"," Automatiser SSH multi-équipements"," Créer VLAN GUI"," Lire les PDF"],1,"Automatisation SSH.");
 // --- CCP7 / pf ---
-Q('q54','ccp7','facile',"Règles pare-feu évaluées ?",[" Bas → haut"," Haut → bas"," Aléatoirement"," Par port uniquement"],1,"Top-down.");
+Q('q54','ccp7','facile',"Règles pare-feu évaluées ?",[" Bas �  haut"," Haut �  bas"," Aléatoirement"," Par port uniquement"],1,"Top-down.");
 Q('q55','ccp7','facile',"PAT = ?",[" NAT 1:1"," Surchage (overload)"," Tunnel"," ACL"],1,"Overload.");
 Q('q56','ccp7','moyen',"OpenVPN par défaut utilise le port ?",[" 5060"," 1194"," 443"," 80"],1,"1194.");
 Q('q57','ccp7','moyen',"Squid est un ?",[" Routeur"," Proxy web"," DNS"," DHCP"],1,"Proxy.");
@@ -1498,7 +1498,7 @@ Q('q69','ccp9','moyen',"msiexec /quiet sert à ?",[" Installer en silencieux"," 
 // --- CCP10 / toip dmz ---
 Q('q70','ccp10','facile',"SIP utilise le port ?",[" 5060"," 53"," 80"," 22"],0,"5060.");
 Q('q71','ccp10','facile',"RTP range VoIP courant ?",[" 10000-20000 UDP"," 80-443"," 25-110"," 1-1024"],0,"RTP.");
-Q('q72','ccp10','moyen',"DMZ → LAN doit être ?",[" Allow all"," Deny by default"," Only ICMP"," Only DNS"],1,"Deny.");
+Q('q72','ccp10','moyen',"DMZ �  LAN doit être ?",[" Allow all"," Deny by default"," Only ICMP"," Only DNS"],1,"Deny.");
 Q('q73','ccp10','facile',"Require ip dans Apache filtre ?",[" User-agent"," IP source"," URL"," Cookies"],1,"IP source.");
 Q('q74','ccp10','moyen',"fail2ban sert à ?",[" Chiffrer disques"," Bannir IP après échecs"," Backup"," Proxy"],1,"Bannir.");
 // --- CCNA ---
@@ -1516,11 +1516,11 @@ Q('q84','ccna','moyen',"Automation REST utilise souvent ?",[" SSH Telnet"," JSON
 // --- supervision / docker / terraform ---
 // --- nombreux QCM révision express ajoutés comme rafale ---
 for (let i=93;i<=140;i++){
-  Q('q'+i,'exam','facile',"Révision express : quelle affirmation est correcte ?",[" Toujours tester les sauvegardes"," Ignorer la documentation"," Un snapshot = sauvegarde"," Telnet est recommandé"],0,"Toujours tester et documenter ; snapshot ≠ backup ; telnet interdit.");
+  Q('q'+i,'exam','facile',"Révision express : quelle affirmation est correcte ?",[" Toujours tester les sauvegardes"," Ignorer la documentation"," Un snapshot = sauvegarde"," Telnet est recommandé"],0,"Toujours tester et documenter ; snapshot �0� backup ; telnet interdit.");
 }
 // Remplacement du placeholder q77 invalide
 G.quizzes = G.quizzes.filter(q=>q.id!=='q77');
-Q('q77','ccna','moyen',"AD pour OSPF = ?",[" Routage distanciel vector"," État de lien"," Hybride"," Statique uniquement"],1,"Link state.");
+Q('q77','ccna','moyen',"AD pour OSPF = ?",[" Routage distanciel vector"," �0tat de lien"," Hybride"," Statique uniquement"],1,"Link state.");
 
 
 })(window.GUIDE);
@@ -1530,163 +1530,163 @@ Q('q77','ccna','moyen',"AD pour OSPF = ?",[" Routage distanciel vector"," État 
 G.glossary = G.glossary || [];
 function g(term, def, cat="General"){ G.glossary.push({term, def, cat}); }
 // A
-g("ACL","Liste de contrôle d'accès filtrant le trafic réseau selon des critères.","Réseau");
-g("AD (Active Directory)","Service d'annuaire Microsoft pour authentification et gestion centralisée.","Windows");
-g("AD DS","Rôle Windows Server fournissant Active Directory Domain Services.","Windows");
-g("AGDLP","Méthode de gestion des accès : User→Global→DomainLocal→Permission.","Windows");
-g("API","Interface de programmation permettant l'automatisation et l'intégration.","Dev");
-g("APIPA","Adresse 169.254.x.x auto-assignée sans DHCP.","Réseau");
+g("ACL","Liste de contr�le d'acc�s filtrant le trafic r�seau selon des crit�res.","R�seau");
+g("AD (Active Directory)","Service d'annuaire Microsoft pour authentification et gestion centralis�e.","Windows");
+g("AD DS","R�le Windows Server fournissant Active Directory Domain Services.","Windows");
+g("AGDLP","M�thode de gestion des acc�s : User�Global�DomainLocal�Permission.","Windows");
+g("API","Interface de programmation permettant l'automatisation et l'int�gration.","Dev");
+g("APIPA","Adresse 169.254.x.x auto-assign�e sans DHCP.","R�seau");
 g("Ansible","Outil d'automatisation agentless via SSH et playbooks YAML.","Automation");
 g("Apache","Serveur HTTP(S) open source.","Web");
-g("ARP","Protocole résolvant une adresse IP en adresse MAC.","Réseau");
+g("ARP","Protocole r�solvant une adresse IP en adresse MAC.","R�seau");
 g("Asterisk","PBX/VoIP open source.","VoIP");
-g("Ansible Role","Ensemble réutilisable de tâches et variables.","Automation");
+g("Ansible Role","Ensemble r�utilisable de t�ches et variables.","Automation");
 // B
-g("Backup","Copie de données pour restauration.","PRA");
+g("Backup","Copie de donn�es pour restauration.","PRA");
 g("Bash","Shell Unix/Linux pour scripts d'administration.","Linux");
-g("Bridge ID","Identifiant pour élire le root bridge STP.","Réseau");
-g("BPDU","Bridge Protocol Data Unit pour STP.","Réseau");
-g("Bare-metal","Installation directe sur le matériel sans host OS.","Virtualisation");
+g("Bridge ID","Identifiant pour �lire le root bridge STP.","R�seau");
+g("BPDU","Bridge Protocol Data Unit pour STP.","R�seau");
+g("Bare-metal","Installation directe sur le mat�riel sans host OS.","Virtualisation");
 // C
-g("CIDR","Notation de préfixe réseau (ex. /24).","Réseau");
-g("Cisco IOS","Système d'exploitation des équipements Cisco.","Réseau");
-g("CMD","Interpréteur de commandes Windows.","Windows");
-g("CPU","Unité centrale de traitement.","Matériel");
-g("cron","Planificateur de tâches Unix/Linux.","Linux");
-g("Commutateur (switch)","Équipement réseau de couche 2/3.","Réseau");
-g("Container","Instance légère partageant le noyau hôte.","Conteneurs");
-g("DHCP","Attribution automatique d'adresses IP et options.","Réseau");
-g("DNS","Résolution de noms en adresses IP.","Réseau");
-g("DRS","Dynamic Resource Scheduler VMware pour l'équilibrage.","Virtualisation");
-g("DFS","Distributed File System pour partages réseau.","Windows");
-g("DMZ","Zone démilitarisée entre WAN et LAN.","Sécurité");
+g("CIDR","Notation de pr�fixe r�seau (ex. /24).","R�seau");
+g("Cisco IOS","Syst�me d'exploitation des �quipements Cisco.","R�seau");
+g("CMD","Interpr�teur de commandes Windows.","Windows");
+g("CPU","Unit� centrale de traitement.","Mat�riel");
+g("cron","Planificateur de t�ches Unix/Linux.","Linux");
+g("Commutateur (switch)","�quipement r�seau de couche 2/3.","R�seau");
+g("Container","Instance l�g�re partageant le noyau h�te.","Conteneurs");
+g("DHCP","Attribution automatique d'adresses IP et options.","R�seau");
+g("DNS","R�solution de noms en adresses IP.","R�seau");
+g("DRS","Dynamic Resource Scheduler VMware pour l'�quilibrage.","Virtualisation");
+g("DFS","Distributed File System pour partages r�seau.","Windows");
+g("DMZ","Zone d�militaris�e entre WAN et LAN.","S�curit�");
 g("Docker","Plateforme de conteneurisation.","Conteneurs");
-g("Docker Compose","Outil déclaratif pour conteneurs multi-services.","Conteneurs");
-g("DSRM","Directory Services Restore Mode (récupération AD).","Windows");
+g("Docker Compose","Outil d�claratif pour conteneurs multi-services.","Conteneurs");
+g("DSRM","Directory Services Restore Mode (r�cup�ration AD).","Windows");
 // E
 g("ESXi","Hyperviseur bare-metal VMware.","Virtualisation");
-g("EtherChannel","Agrégation de liens réseau (LACP/PAgP).","Réseau");
-g("Event ID","Identifiant d'événement Windows.","Windows");
-g("FSMO","Flexible Single Master Operations, 5 rôles AD.","Windows");
+g("EtherChannel","Agr�gation de liens r�seau (LACP/PAgP).","R�seau");
+g("Event ID","Identifiant d'�v�nement Windows.","Windows");
+g("FSMO","Flexible Single Master Operations, 5 r�les AD.","Windows");
 g("GPO","Group Policy Object pour configurer postes/utilisateurs.","Windows");
 g("GPMC","Console de gestion des GPO.","Windows");
-g("Grafana","Plateforme de visualisation de métriques/logs.","Supervision");
+g("Grafana","Plateforme de visualisation de m�triques/logs.","Supervision");
 g("Hyperviseur","Logiciel de virtualisation.","Virtualisation");
-g("HA (High Availability)","Haute disponibilité par redémarrage automatique.","Virtualisation");
+g("HA (High Availability)","Haute disponibilit� par red�marrage automatique.","Virtualisation");
 g("Hyper-V","Hyperviseur Windows Server.","Virtualisation");
-g("IaC","Infrastructure as Code : infra déclarative et versionnée.","Automation");
-g("IDS/IPS","Détection/prévention d'intrusions.","Sécurité");
-g("IOS","Système réseau Cisco.","Réseau");
-g("IPsec","Suite de protocoles pour VPN sécurisés.","VPN");
-g("IPv4","Adressage 32 bits.","Réseau");
-g("IPv6","Adressage 128 bits.","Réseau");
+g("IaC","Infrastructure as Code : infra d�clarative et versionn�e.","Automation");
+g("IDS/IPS","D�tection/pr�vention d'intrusions.","S�curit�");
+g("IOS","Syst�me r�seau Cisco.","R�seau");
+g("IPsec","Suite de protocoles pour VPN s�curis�s.","VPN");
+g("IPv4","Adressage 32 bits.","R�seau");
+g("IPv6","Adressage 128 bits.","R�seau");
 g("ITIL","Cadre de bonnes pratiques ITSM.","Support");
-g("Journal (log)","Trace d'événements système/application.","Linux/Windows");
+g("Journal (log)","Trace d'�v�nements syst�me/application.","Linux/Windows");
 g("Kerberos","Protocole d'authentification du domaine AD.","Windows");
 g("KPI","Indicateur de performance.","Gestion");
-g("LDAP","Protocole d'accès aux annuaires.","Identité");
+g("LDAP","Protocole d'acc�s aux annuaires.","Identit�");
 g("Linux","Famille d'OS open source.","Linux");
 g("LVM","Logical Volume Manager pour le stockage.","Linux");
-g("Load balancer","Répartiteur de charge.","Réseau");
-g("MDT","Microsoft Deployment Toolkit.","Déploiement");
-g("MFA","Authentification multifacteur.","Sécurité");
+g("Load balancer","R�partiteur de charge.","R�seau");
+g("MDT","Microsoft Deployment Toolkit.","D�ploiement");
+g("MFA","Authentification multifacteur.","S�curit�");
 g("MIB","Base d'informations SNMP.","Supervision");
-g("MPLS","Technologie WAN de commutation d'étiquettes.","Réseau");
-g("MTU","Maximum Transmission Unit (taille max de trame).","Réseau");
-g("NAT","Network Address Translation.","Réseau");
-g("Netplan","Outil de config réseau Ubuntu (YAML).","Linux");
+g("MPLS","Technologie WAN de commutation d'�tiquettes.","R�seau");
+g("MTU","Maximum Transmission Unit (taille max de trame).","R�seau");
+g("NAT","Network Address Translation.","R�seau");
+g("Netplan","Outil de config r�seau Ubuntu (YAML).","Linux");
 g("NFS","Network File System (partage Unix).","Linux");
-g("NTP","Network Time Protocol (synchronisation heure).","Réseau");
+g("NTP","Network Time Protocol (synchronisation heure).","R�seau");
 g("OCI","Open Container Initiative.","Conteneurs");
 g("OpenVPN","VPN TLS open source.","VPN");
-g("OSPF","Open Shortest Path First, protocole de routage.","Réseau");
-g("OU (Unité d'Organisation)","Conteneur AD pour objets et GPO.","Windows");
+g("OSPF","Open Shortest Path First, protocole de routage.","R�seau");
+g("OU (Unit� d'Organisation)","Conteneur AD pour objets et GPO.","Windows");
 g("PAM","Pluggable Authentication Modules (Linux).","Linux");
-g("PAT","Port Address Translation (surchage).","Réseau");
-g("PDC Emulator","Rôle FSMO central pour temps/MDP.","Windows");
-g("pfSense","Pare-feu open source (FreeBSD).","Sécurité");
-g("Pipeline","Enchaînement de commandes/objets.","Scripting");
+g("PAT","Port Address Translation (surchage).","R�seau");
+g("PDC Emulator","R�le FSMO central pour temps/MDP.","Windows");
+g("pfSense","Pare-feu open source (FreeBSD).","S�curit�");
+g("Pipeline","Encha�nement de commandes/objets.","Scripting");
 g("PowerShell","Shell objet pour Windows/automation.","Scripting");
-g("Prometheus","Système de métriques time series.","Supervision");
+g("Prometheus","Syst�me de m�triques time series.","Supervision");
 g("Proxmox","Plateforme de virtualisation open source.","Virtualisation");
-g("PXE","Boot réseau (Preboot Execution Environment).","Déploiement");
-g("QoS","Quality of Service (priorisation trafic).","Réseau");
-g("RBAC","Role-Based Access Control.","Sécurité");
+g("PXE","Boot r�seau (Preboot Execution Environment).","D�ploiement");
+g("QoS","Quality of Service (priorisation trafic).","R�seau");
+g("RBAC","Role-Based Access Control.","S�curit�");
 g("RDP","Remote Desktop Protocol (port 3389).","Windows");
-g("RID Master","Rôle FSMO pour allocation RID.","Windows");
+g("RID Master","R�le FSMO pour allocation RID.","Windows");
 g("RPO","Recovery Point Objective (perte max).","PRA");
-g("RTO","Recovery Time Objective (durée panne max).","PRA");
-g("RSTP","Rapid Spanning Tree Protocol.","Réseau");
-g("rsync","Synchronisation incrémentale de fichiers.","Linux");
-g("SAML","Standard SSO pour l'identité fédérée.","Identité");
-g("SCP","Secure Copy Protocol.","Réseau");
-g("SDN","Software-Defined Networking.","Réseau");
+g("RTO","Recovery Time Objective (dur�e panne max).","PRA");
+g("RSTP","Rapid Spanning Tree Protocol.","R�seau");
+g("rsync","Synchronisation incr�mentale de fichiers.","Linux");
+g("SAML","Standard SSO pour l'identit� f�d�r�e.","Identit�");
+g("SCP","Secure Copy Protocol.","R�seau");
+g("SDN","Software-Defined Networking.","R�seau");
 g("SIP","Session Initiation Protocol (VoIP).","VoIP");
 g("SMB","Server Message Block (partage Windows).","Windows");
 g("SMTP","Simple Mail Transfer Protocol (port 25/587).","Mail");
 g("SNMP","Simple Network Management Protocol.","Supervision");
-g("SSH","Secure Shell (port 22).","Sécurité");
-g("SSO","Single Sign-On.","Identité");
-g("STP","Spanning Tree Protocol (anti-boucle).","Réseau");
+g("SSH","Secure Shell (port 22).","S�curit�");
+g("SSO","Single Sign-On.","Identit�");
+g("STP","Spanning Tree Protocol (anti-boucle).","R�seau");
 g("Syslog","Protocole de journalisation.","Supervision");
-g("Sysprep","Outil de généralisation d'image Windows.","Déploiement");
+g("Sysprep","Outil de g�n�ralisation d'image Windows.","D�ploiement");
 g("systemd","Gestionnaire de services Linux.","Linux");
 g("Terraform","IaC multi-cloud.","Automation");
-g("TLS","Transport Layer Security.","Sécurité");
-g("Trunk","Lien transportant plusieurs VLAN.","Réseau");
-g("vCenter","Gestion centralisée VMware.","Virtualisation");
-g("vMotion","Migration à chaud de VM.","Virtualisation");
-g("VLAN","Réseau local virtuel (802.1Q).","Réseau");
+g("TLS","Transport Layer Security.","S�curit�");
+g("Trunk","Lien transportant plusieurs VLAN.","R�seau");
+g("vCenter","Gestion centralis�e VMware.","Virtualisation");
+g("vMotion","Migration � chaud de VM.","Virtualisation");
+g("VLAN","R�seau local virtuel (802.1Q).","R�seau");
 g("VM","Machine virtuelle.","Virtualisation");
-g("VPN","Virtual Private Network.","Réseau");
-g("VRRP","Virtual Router Redundancy Protocol (FHRP).","Réseau");
+g("VPN","Virtual Private Network.","R�seau");
+g("VRRP","Virtual Router Redundancy Protocol (FHRP).","R�seau");
 g("WSUS","Windows Server Update Services.","Windows");
-g("YAML","Format de données lisible.","Config");
+g("YAML","Format de donn�es lisible.","Config");
 g("Zabbix","Plateforme de supervision.","Supervision");
-g("ZFS","Système de fichiers avec checksums et snapshots.","Linux");
+g("ZFS","Syst�me de fichiers avec checksums et snapshots.","Linux");
 // Extra TSSR terms
-g(" Ticket P1-P4","Classification des priorités ITSM.","Support");
-g("OU (Active Directory)","Conteneur pour objets et stratégie.","Windows");
+g(" Ticket P1-P4","Classification des priorit�s ITSM.","Support");
+g("OU (Active Directory)","Conteneur pour objets et strat�gie.","Windows");
 g("SLA","Service Level Agreement.","Support");
 g("SLI/SLO","Indicateurs/objectifs de niveau de service.","Support");
 g("SLO","Objectif de niveau de service.","Support");
-g("LDAP bind","Authentification à un annuaire.","Identité");
-g("Zabbix agent","Collecte locale des métriques.","Supervision");
-g("NetFlow","Analyse de flux réseau.","Réseau");
-g("QoS DSCP EF","Marquage prioritaire pour la voix.","Réseau");
-g("LLQ","Low Latency Queuing.","Réseau");
-g("CBWFQ","Class-Based Weighted Fair Queuing.","Réseau");
-g("VRRP","Redondance de passerelle.","Réseau");
-g("HSRP","Hot Standby Router Protocol (Cisco).","Réseau");
-g("GLBP","Gateway Load Balancing Protocol.","Réseau");
-g("WDS","Windows Deployment Services (boot PXE).","Déploiement");
-g("CMDB","Base de données de gestion des configurations.","Support");
+g("LDAP bind","Authentification � un annuaire.","Identit�");
+g("Zabbix agent","Collecte locale des m�triques.","Supervision");
+g("NetFlow","Analyse de flux r�seau.","R�seau");
+g("QoS DSCP EF","Marquage prioritaire pour la voix.","R�seau");
+g("LLQ","Low Latency Queuing.","R�seau");
+g("CBWFQ","Class-Based Weighted Fair Queuing.","R�seau");
+g("VRRP","Redondance de passerelle.","R�seau");
+g("HSRP","Hot Standby Router Protocol (Cisco).","R�seau");
+g("GLBP","Gateway Load Balancing Protocol.","R�seau");
+g("WDS","Windows Deployment Services (boot PXE).","D�ploiement");
+g("CMDB","Base de donn�es de gestion des configurations.","Support");
 g("RMM","Remote Monitoring & Management.","Support");
-g("FSMO","Rôles maîtres uniques AD.","Windows");
+g("FSMO","R�les ma�tres uniques AD.","Windows");
 g("RODC","Read-Only Domain Controller.","Windows");
 g("LSA","Local Security Authority (protection des identifiants).","Windows");
 g("UAC","User Account Control.","Windows");
-g("BitLocker","Chiffrement disque Windows.","Sécurité");
-g("Defender ATP","EDR Microsoft.","Sécurité");
-g("SIEM","Security Information and Event Management.","Sécurité");
-g("WAF","Web Application Firewall.","Sécurité");
-g("DLP","Data Loss Prevention.","Sécurité");
-g("ESXi Host Client","Interface web pour gérer un host ESXi.","Virtualisation");
-g("vSAN","Stockage distribué VMware.","Virtualisation");
-g("NSX","Virtualisation réseau VMware.","Virtualisation");
-g("Hyper-V Replica","Réplication de VM Hyper-V.","Virtualisation");
-g("Live Migration","Migration à chaud Hyper-V.","Virtualisation");
-g("Ansible Playbook","Fichier YAML décrivant l'état désiré.","Automation");
-g("Terraform Plan","Prévision des changements infra.","Automation");
+g("BitLocker","Chiffrement disque Windows.","S�curit�");
+g("Defender ATP","EDR Microsoft.","S�curit�");
+g("SIEM","Security Information and Event Management.","S�curit�");
+g("WAF","Web Application Firewall.","S�curit�");
+g("DLP","Data Loss Prevention.","S�curit�");
+g("ESXi Host Client","Interface web pour g�rer un host ESXi.","Virtualisation");
+g("vSAN","Stockage distribu� VMware.","Virtualisation");
+g("NSX","Virtualisation r�seau VMware.","Virtualisation");
+g("Hyper-V Replica","R�plication de VM Hyper-V.","Virtualisation");
+g("Live Migration","Migration � chaud Hyper-V.","Virtualisation");
+g("Ansible Playbook","Fichier YAML d�crivant l'�tat d�sir�.","Automation");
+g("Terraform Plan","Pr�vision des changements infra.","Automation");
  // fix missing comma? Let's ensure valid syntax. Add.
-g("State (Terraform)","Fichier d'état Terraform.","Automation");
+g("State (Terraform)","Fichier d'�tat Terraform.","Automation");
 g("Container Registry","Registre d'images conteneur.","Conteneurs");
-g("CI/CD","Intégration et déploiement continus.","Automation");
-g("Git","Système de versionnement décentralisé.","Dev");
-g("REST API","API basée sur HTTP et ressources.","Dev");
-g("JSON","Format d'échange de données.","Dev");
+g("CI/CD","Int�gration et d�ploiement continus.","Automation");
+g("Git","Syst�me de versionnement d�centralis�.","Dev");
+g("REST API","API bas�e sur HTTP et ressources.","Dev");
+g("JSON","Format d'�change de donn�es.","Dev");
 g("YAML","Format de configuration lisible.","Dev");
-g("Regex","Expression régulière de recherche de texte.","Dev");
+g("Regex","Expression r�guli�re de recherche de texte.","Dev");
 g("grep","Outil de recherche de motifs.","Linux");
 g("awk","Outil de traitement de texte colonnes.","Linux");
 g("sed","Outil de substitution de texte.","Linux");
@@ -1703,34 +1703,34 @@ G.cheats.push(
  columns:["Commande","Usage"],
  rows:[
   ["Get-Command","Lister les cmdlets disponibles"],
-  ["Get-Help cmdlet -Full","Aide complète d'une cmdlet"],
-  ["Get-Member","Découvrir les propriétés/méthodes d'un objet"],
+  ["Get-Help cmdlet -Full","Aide compl�te d'une cmdlet"],
+  ["Get-Member","D�couvrir les propri�t�s/m�thodes d'un objet"],
   ["Get-Process","Lister les processus"],
-  ["Stop-Process -Id PID -Force","Arrêter un processus"],
+  ["Stop-Process -Id PID -Force","Arr�ter un processus"],
   ["Get-Service","Lister les services"],
-  ["Start-Service svc","Démarrer un service"],
-  ["Stop-Service svc","Arrêter un service"],
-  ["Restart-Service svc","Redémarrer un service"],
-  ["Set-Service svc -StartupType Automatic","Type de démarrage"],
-  ["Get-ComputerInfo","Infos OS/hardware complètes"],
+  ["Start-Service svc","D�marrer un service"],
+  ["Stop-Service svc","Arr�ter un service"],
+  ["Restart-Service svc","Red�marrer un service"],
+  ["Set-Service svc -StartupType Automatic","Type de d�marrage"],
+  ["Get-ComputerInfo","Infos OS/hardware compl�tes"],
   ["Get-CimInstance Win32_OperatingSystem","OS et version"],
-  ["Restart-Computer -Force","Redémarrage forcé"],
-  ["Shutdown /s /t 0","Arrêt immédiat (CMD)"],
-  ["Get-EventLog -LogName System -Newest 20","Derniers événements"],
-  ["Get-WinEvent -FilterHashtable @{LogName='Security'; Id=4625}","Échecs de logon"],
-  ["ipconfig /all","Config réseau complet"],
+  ["Restart-Computer -Force","Red�marrage forc�"],
+  ["Shutdown /s /t 0","Arr�t imm�diat (CMD)"],
+  ["Get-EventLog -LogName System -Newest 20","Derniers �v�nements"],
+  ["Get-WinEvent -FilterHashtable @{LogName='Security'; Id=4625}","�checs de logon"],
+  ["ipconfig /all","Config r�seau complet"],
   ["ipconfig /release /renew","Renouveler bail DHCP"],
   ["ipconfig /flushdns","Purger cache DNS"],
   ["Test-NetConnection host -Port 443","Tester port TCP"],
-  ["Test-Connection host -Count 4","Ping avancé"],
-  ["Resolve-DnsName host","Résolution DNS native"],
-  ["Get-NetIPAddress","Adresses IP configurées"],
+  ["Test-Connection host -Count 4","Ping avanc�"],
+  ["Resolve-DnsName host","R�solution DNS native"],
+  ["Get-NetIPAddress","Adresses IP configur�es"],
   ["Get-NetRoute","Table de routage"],
   ["Get-NetTCPConnection","Connexions TCP actives"],
   ["netstat -anob","Connexions (CMD)"],
   ["arp -a","Table ARP"],
   ["route print","Table de routage (CMD)"],
-  ["nslookup host","Résolution DNS (CMD)"]
+  ["nslookup host","R�solution DNS (CMD)"]
  ]
 },
 {
@@ -1739,42 +1739,42 @@ G.cheats.push(
  columns:["Commande","Usage"],
  rows:[
   ["Import-Module ActiveDirectory","Charger le module AD"],
-  ["Get-ADDomain ; Get-ADForest","Infos domaine/forêt"],
+  ["Get-ADDomain ; Get-ADForest","Infos domaine/for�t"],
   ["Get-ADDomainController -Filter *","Lister les DC"],
   ["Get-ADUser -Filter * -Properties *","Tous utilisateurs avec attributs"],
-  ["Get-ADUser jdupont -Properties LastLogonDate,Enabled","Détail utilisateur"],
-  ["Search-ADAccount -LockedOut","Comptes verrouillés"],
-  ["Search-ADAccount -PasswordExpired","Mots de passe expirés"],
+  ["Get-ADUser jdupont -Properties LastLogonDate,Enabled","D�tail utilisateur"],
+  ["Search-ADAccount -LockedOut","Comptes verrouill�s"],
+  ["Search-ADAccount -PasswordExpired","Mots de passe expir�s"],
   ["Search-ADAccount -AccountInactive -TimeSpan 90.00:00:00","Comptes inactifs 90 j"],
-  ["New-ADUser -Name \"Jean\" -SamAccountName jean -Enabled $true","Créer un utilisateur"],
+  ["New-ADUser -Name \"Jean\" -SamAccountName jean -Enabled $true","Cr�er un utilisateur"],
   ["Set-ADUser jean -Title 'Admin' -Department 'IT'","Modifier attributs"],
-  ["Disable-ADAccount jean","Désactiver compte"],
+  ["Disable-ADAccount jean","D�sactiver compte"],
   ["Enable-ADAccount jean","Activer compte"],
-  ["Unlock-ADAccount jean","Débloquer compte"],
+  ["Unlock-ADAccount jean","D�bloquer compte"],
   ["Set-ADAccountPassword jean -Reset -NewPassword (ConvertTo-SecureString 'Temp!' -AsPlainText -Force)","Reset MDP"],
   ["Set-ADUser jean -ChangePasswordAtLogon $true","Forcer changement MDP"],
   ["Remove-ADUser jean -Confirm:$false","Supprimer compte"],
-  ["Move-ADObject jean -TargetPath 'OU=IT,DC=tssr,DC=local'","Déplacer objet"],
+  ["Move-ADObject jean -TargetPath 'OU=IT,DC=tssr,DC=local'","D�placer objet"],
   ["Rename-ADObject jean -NewName 'jmartin'","Renommer objet"],
-  ["New-ADGroup -Name G_IT -GroupScope Global -GroupCategory Security","Créer groupe Global"],
-  ["New-ADGroup -Name LD_Share -GroupScope DomainLocal","Créer groupe DomainLocal"],
+  ["New-ADGroup -Name G_IT -GroupScope Global -GroupCategory Security","Cr�er groupe Global"],
+  ["New-ADGroup -Name LD_Share -GroupScope DomainLocal","Cr�er groupe DomainLocal"],
   ["Add-ADGroupMember G_IT -Members jean","Ajouter membre"],
   ["Remove-ADGroupMember G_IT -Members jean","Retirer membre"],
-  ["Get-ADGroupMember G_IT -Recursive","Membres récursifs"],
-  ["New-ADOrganizationalUnit -Name IT -Path 'DC=tssr,DC=local'","Créer OU"],
+  ["Get-ADGroupMember G_IT -Recursive","Membres r�cursifs"],
+  ["New-ADOrganizationalUnit -Name IT -Path 'DC=tssr,DC=local'","Cr�er OU"],
   ["Get-ADOrganizationalUnit -Filter *","Lister OU"],
-  ["New-ADComputer -Name PC-001 -Path 'OU=PCs,DC=tssr,DC=local'","Pré-créer compte machine"],
-  ["Reset-ComputerMachinePassword","Réinitialiser secure channel"],
-  ["Test-ComputerSecureChannel -Repair","Réparer secure channel"],
+  ["New-ADComputer -Name PC-001 -Path 'OU=PCs,DC=tssr,DC=local'","Pr�-cr�er compte machine"],
+  ["Reset-ComputerMachinePassword","R�initialiser secure channel"],
+  ["Test-ComputerSecureChannel -Repair","R�parer secure channel"],
   ["Get-ADComputer -Filter * -Properties LastLogonDate","Machines et last logon"],
   ["nltest /dsgetdc:tssr.local","DC pour le domaine"],
-  ["repadmin /replsummary","Résumé réplication"],
-  ["repadmin /syncall /AdeP","Forcer réplication"],
+  ["repadmin /replsummary","R�sum� r�plication"],
+  ["repadmin /syncall /AdeP","Forcer r�plication"],
   ["dcdiag /q","Diagnostic DC"],
-  ["netdom query fsmo","Rôles FSMO"],
-  ["Move-ADDirectoryServerOperationMasterRole -Identity DC2 -OperationMasterRole PDCEmulator,RIDMaster -Force","Transférer FSMO"],
-  ["Get-ADFineGrainedPasswordPolicy -Filter *","PSO avancés"],
-  ["New-ADFineGrainedPasswordPolicy -Name 'Strict' -Precedence 10 ...","Créer PSO"]
+  ["netdom query fsmo","R�les FSMO"],
+  ["Move-ADDirectoryServerOperationMasterRole -Identity DC2 -OperationMasterRole PDCEmulator,RIDMaster -Force","Transf�rer FSMO"],
+  ["Get-ADFineGrainedPasswordPolicy -Filter *","PSO avanc�s"],
+  ["New-ADFineGrainedPasswordPolicy -Name 'Strict' -Precedence 10 ...","Cr�er PSO"]
  ]
 },
 {
@@ -1792,17 +1792,17 @@ G.cheats.push(
   ["Get-DnsServerResourceRecord -ZoneName tssr.local","Enregistrements"],
   ["Set-DnsServerScavenging -ScavengingState $true","Scavenging dynamique"],
   ["Clear-DnsServerCache","Purger cache DNS serveur"],
-  ["Restart-Service DNS","Redémarrer DNS"],
+  ["Restart-Service DNS","Red�marrer DNS"],
   ["Install-WindowsFeature DHCP -IncludeManagementTools","Installer DHCP"],
-  ["Add-DhcpServerv4Scope -Name LAN -StartRange 192.168.1.100 -EndRange 192.168.1.200 -SubnetMask 255.255.255.0","Étendue"],
+  ["Add-DhcpServerv4Scope -Name LAN -StartRange 192.168.1.100 -EndRange 192.168.1.200 -SubnetMask 255.255.255.0","�tendue"],
   ["Set-DhcpServerv4OptionValue -Router 192.168.1.1 -DnsServer 192.168.1.10","Options gateway/DNS"],
-  ["Add-DhcpServerv4Reservation -ScopeId 192.168.1.0 -IPAddress 192.168.1.50 -ClientId 00-11-22-33-44-55","Réservation"],
+  ["Add-DhcpServerv4Reservation -ScopeId 192.168.1.0 -IPAddress 192.168.1.50 -ClientId 00-11-22-33-44-55","R�servation"],
   ["Get-DhcpServerv4Lease -ScopeId 192.168.1.0","Baux actifs"],
-  ["Get-DhcpServerv4Scope","Étendues"],
+  ["Get-DhcpServerv4Scope","�tendues"],
   ["Add-DhcpServerv4ExclusionRange -ScopeId 192.168.1.0 -StartRange 192.168.1.1 -EndRange 192.168.1.20","Exclusions"],
   ["Set-DhcpServerv4DnsSetting -DynamicUpdates Always -DeleteDnsRROnLeaseExpiry $true","MAJ DNS dynamique"],
   ["Add-DhcpServerv4Failover -Name LAN-FO -ScopeId 192.168.1.0 -PartnerServer DC2 -LoadBalancePercent 50 -SharedSecret 'x'","Bascule DHCP"],
-  ["Restart-Service DHCPServer","Redémarrer DHCP"]
+  ["Restart-Service DHCPServer","Red�marrer DHCP"]
  ]
 },
 {
@@ -1811,13 +1811,13 @@ G.cheats.push(
  columns:["Commande","Usage"],
  rows:[
   ["Get-ChildItem C:\\ -Recurse -Filter *.log","Chercher fichiers"],
-  ["Copy-Item src dst -Recurse","Copier récursif"],
-  ["Move-Item src dst","Déplacer"],
-  ["Remove-Item path -Recurse -Force","Supprimer forcé"],
+  ["Copy-Item src dst -Recurse","Copier r�cursif"],
+  ["Move-Item src dst","D�placer"],
+  ["Remove-Item path -Recurse -Force","Supprimer forc�"],
   ["Rename-Item old new","Renommer"],
-  ["New-Item -Path C:\\x -ItemType Directory","Créer dossier"],
+  ["New-Item -Path C:\\x -ItemType Directory","Cr�er dossier"],
   ["Get-Content file","Lire fichier"],
-  ["Set-Content file 'text'","Écrire fichier"],
+  ["Set-Content file 'text'","�crire fichier"],
   ["Add-Content file 'text'","Ajouter ligne"],
   ["Select-String -Path *.log -Pattern 'error'","Grep PowerShell"],
   ["Get-FileHash file -Algorithm SHA256","Hash fichier"],
@@ -1826,19 +1826,19 @@ G.cheats.push(
   ["icacls D:\\Share /grant G_Compta:(RX)","Modifier ACL NTFS"],
   ["icacls D:\\Share /remove G_Guest","Retirer droits"],
   ["Get-SmbShare","Lister partages"],
-  ["New-SmbShare -Name Data -Path D:\\Data -FullAccess 'TSSR\\G_Data'","Créer partage"],
+  ["New-SmbShare -Name Data -Path D:\\Data -FullAccess 'TSSR\\G_Data'","Cr�er partage"],
   ["Grant-SmbShareAccess -Name Data -AccountName 'TSSR\\G_Data' -AccessRight Change","Droit Change"],
   ["Revoke-SmbShareAccess -Name Data -AccountName 'Everyone'","Retirer"],
   ["Get-SmbConnection","Connexions SMB actives"],
   ["New-SmbMapping -LocalPath Z: -RemotePath \\\\srv\\data","Monter lecteur distant"],
-  ["Get-Service | Where Status -eq Stopped","Services arrêtés"],
+  ["Get-Service | Where Status -eq Stopped","Services arr�t�s"],
   ["Get-Process | Sort CPU -Desc | Select -First 10","Top CPU"],
-  ["Get-CimInstance Win32_Service | Select Name,State,StartMode","Services détaillés"],
+  ["Get-CimInstance Win32_Service | Select Name,State,StartMode","Services d�taill�s"],
   ["sc.exe qc Spooler","Config service (CMD)"],
-  ["Restart-Service Spooler -Force","Redémarrer spooler"],
+  ["Restart-Service Spooler -Force","Red�marrer spooler"],
   ["tasklist /svc","Process et services (CMD)"],
   ["taskkill /IM notepad.exe /F","Tuer process (CMD)"],
-  ["Start-Job -ScriptBlock { Get-Process }","Tâche asynchrone"],
+  ["Start-Job -ScriptBlock { Get-Process }","T�che asynchrone"],
   ["Get-Job","Lister jobs"],
   ["Wait-Job -Id 1","Attendre job"]
  ]
@@ -1849,8 +1849,8 @@ G.cheats.push(
  columns:["Commande","Usage"],
  rows:[
   ["$PSScriptRoot","Dossier du script courant"],
-  ["param([string]$Name,[int]$Count=1)","Déclarer paramètres"],
-  ["[CmdletBinding()]","Script avancé avec common params"],
+  ["param([string]$Name,[int]$Count=1)","D�clarer param�tres"],
+  ["[CmdletBinding()]","Script avanc� avec common params"],
   ["Write-Host 'info' -ForegroundColor Cyan","Afficher info"],
   ["Write-Warning 'alerte'","Avertissement"],
   ["Write-Error 'erreur'","Erreur non terminale"],
@@ -1858,7 +1858,7 @@ G.cheats.push(
   ["try { } catch { } finally { }","Gestion erreurs"],
   ["ForEach-Object { $_ }","Boucle pipeline"],
   ["Where-Object { $_.Status -eq 'Running' }","Filtrer"],
-  ["Select-Object Name,CPU","Sélectionner colonnes"],
+  ["Select-Object Name,CPU","S�lectionner colonnes"],
   ["Sort-Object CPU -Descending","Trier"],
   ["Group-Object ProcessName","Grouper"],
   ["Measure-Object -Property Length -Sum","Compter/sommer"],
@@ -1871,9 +1871,9 @@ G.cheats.push(
   ["Start-Transcript -Path transcript.txt","Journaliser session"],
   ["Stop-Transcript","Fin transcript"],
   ["Get-Content file -Tail 20 -Wait","Suivre logs (tail -f)"],
-  ["Invoke-WebRequest url -OutFile file","Télécharger"],
+  ["Invoke-WebRequest url -OutFile file","T�l�charger"],
   ["Invoke-RestMethod url","API REST"],
-  ["Invoke-Command -ComputerName PC1 -ScriptBlock { hostname }","Exécution distante"],
+  ["Invoke-Command -ComputerName PC1 -ScriptBlock { hostname }","Ex�cution distante"],
   ["New-PSSession -ComputerName PC1","Session persistante"],
   ["Enter-PSSession PC1","Shell distant"],
   ["Get-PSSession","Sessions actives"]
@@ -1889,47 +1889,47 @@ G.cheats.push(
   ["pwd","Dossier courant"],
   ["cat fichier","Afficher"],
   ["less fichier","Paginer"],
-  ["head -n 20 fichier","Premières lignes"],
-  ["tail -n 20 fichier","Dernières"],
+  ["head -n 20 fichier","Premi�res lignes"],
+  ["tail -n 20 fichier","Derni�res"],
   ["tail -f fichier","Suivre en live"],
-  ["grep -R \"motif\" /etc","Rechercher récursif"],
+  ["grep -R \"motif\" /etc","Rechercher r�cursif"],
   ["find / -name \"*.conf\"","Chercher fichiers"],
   ["find /var -type f -size +10M","Gros fichiers"],
-  ["cp -a src dst","Copier préservant attributs"],
-  ["mv src dst","Déplacer/renommer"],
-  ["rm -rf dossier","Supprimer récursif"],
-  ["mkdir -p a/b/c","Créer arborescence"],
-  ["touch fichier","Créer/MAJ"],
+  ["cp -a src dst","Copier pr�servant attributs"],
+  ["mv src dst","D�placer/renommer"],
+  ["rm -rf dossier","Supprimer r�cursif"],
+  ["mkdir -p a/b/c","Cr�er arborescence"],
+  ["touch fichier","Cr�er/MAJ"],
   ["ln -s cible lien","Lien symbolique"],
   ["chmod 640 fichier","Droits"],
-  ["chmod -R 750 dir","Droits récursifs"],
-  ["chown user:group fichier","Propriétaire"],
-  ["chown -R user:group dir","Proprio récursif"],
+  ["chmod -R 750 dir","Droits r�cursifs"],
+  ["chown user:group fichier","Propri�taire"],
+  ["chown -R user:group dir","Proprio r�cursif"],
   ["umask 027","Masque nouveaux fichiers"],
-  ["stat fichier","Métadonnées"],
+  ["stat fichier","M�tadonn�es"],
   ["du -sh *","Taille dossiers"],
   ["df -h","Espace disque"],
-  ["free -h","Mémoire"],
+  ["free -h","M�moire"],
   ["uptime","Charge et temps"],
   ["top / htop","Processus"],
   ["ps aux","Tous processus"],
   ["pgrep -a name","PID par nom"],
   ["kill -9 PID","Tuer processus"],
   ["killall name","Tuer par nom"],
-  ["nice -n 10 cmd","Priorité CPU"],
-  ["ionice -c 2 -n 7 cmd","Priorité I/O"],
-  ["tar -czf out.tgz src/","Créer archive gzip"],
+  ["nice -n 10 cmd","Priorit� CPU"],
+  ["ionice -c 2 -n 7 cmd","Priorit� I/O"],
+  ["tar -czf out.tgz src/","Cr�er archive gzip"],
   ["tar -xzf out.tgz","Extraire gzip"],
   ["zip -r out.zip dir","Zip"],
   ["unzip out.zip","Unzip"],
   ["rsync -av src/ dst/","Synchroniser"],
   ["rsync -avz --delete src/ dst/","Sync avec suppression"],
   ["scp file user@host:/path","Copier via SSH"],
-  ["sftp user@host","FTP sécurisé"],
+  ["sftp user@host","FTP s�curis�"],
   ["basename /path/file","Nom fichier"],
   ["dirname /path/file","Dossier"],
   ["realpath fichier","Chemin absolu"],
-  ["readlink -f lien","Résoudre lien"]
+  ["readlink -f lien","R�soudre lien"]
  ]
 },
 {
@@ -1940,32 +1940,32 @@ G.cheats.push(
   ["cat /etc/passwd","Liste utilisateurs"],
   ["cat /etc/shadow","Hash mots de passe"],
   ["cat /etc/group","Groupes"],
-  ["useradd -m -s /bin/bash user","Créer utilisateur"],
-  ["useradd -r -s /usr/sbin/nologin svc","Utilisateur système"],
+  ["useradd -m -s /bin/bash user","Cr�er utilisateur"],
+  ["useradd -r -s /usr/sbin/nologin svc","Utilisateur syst�me"],
   ["usermod -aG sudo,adm user","Ajouter groupes"],
   ["usermod -L user","Verrouiller compte"],
-  ["usermod -U user","Déverrouiller"],
+  ["usermod -U user","D�verrouiller"],
   ["usermod -s /bin/bash user","Changer shell"],
   ["userdel -r user","Supprimer + home"],
-  ["groupadd groupname","Créer groupe"],
+  ["groupadd groupname","Cr�er groupe"],
   ["groupdel groupname","Supprimer groupe"],
   ["gpasswd -a user group","Ajouter au groupe"],
   ["gpasswd -d user group","Retirer du groupe"],
   ["passwd user","Changer mot de passe"],
   ["chage -l user","Infos expiration"],
-  ["chage -M 90 user","Expire à 90 j"],
+  ["chage -M 90 user","Expire � 90 j"],
   ["chage -W 7 user","Avertissement 7 j"],
   ["id user","UID/GID/groupes"],
   ["groups user","Groupes"],
   ["who / w","Sessions actives"],
   ["last","Historique connexions"],
-  ["lastb","Échecs connexions"],
+  ["lastb","�checs connexions"],
   ["su - user","Changer d'utilisateur"],
   ["sudo -i","Shell root"],
-  ["visudo","Éditer sudoers"],
+  ["visudo","�diter sudoers"],
   ["sudo -l -U user","Droits sudo"],
-  ["getent passwd user","Résolution identité (NSS)"],
-  ["getent group group","Résolution groupe"]
+  ["getent passwd user","R�solution identit� (NSS)"],
+  ["getent group group","R�solution groupe"]
  ]
 },
 {
@@ -1973,31 +1973,31 @@ G.cheats.push(
  intro:"Cycle de vie des services et logging.",
  columns:["Commande","Usage"],
  rows:[
-  ["systemctl status svc","État service"],
-  ["systemctl start svc","Démarrer"],
-  ["systemctl stop svc","Arrêter"],
-  ["systemctl restart svc","Redémarrer"],
+  ["systemctl status svc","�tat service"],
+  ["systemctl start svc","D�marrer"],
+  ["systemctl stop svc","Arr�ter"],
+  ["systemctl restart svc","Red�marrer"],
   ["systemctl reload svc","Recharger config"],
-  ["systemctl enable --now svc","Activer au boot + démarrer"],
-  ["systemctl disable svc","Désactiver au boot"],
+  ["systemctl enable --now svc","Activer au boot + d�marrer"],
+  ["systemctl disable svc","D�sactiver au boot"],
   ["systemctl is-active svc","Actif ?"],
-  ["systemctl is-enabled svc","Activé ?"],
+  ["systemctl is-enabled svc","Activ� ?"],
   ["systemctl mask svc","Masquer service"],
-  ["systemctl unmask svc","Démasquer"],
-  ["systemctl daemon-reload","Recharger unités"],
-  ["systemctl list-units --failed","Services en échec"],
-  ["systemctl list-unit-files","Toutes les unités"],
-  ["systemctl cat svc","Voir définition"],
+  ["systemctl unmask svc","D�masquer"],
+  ["systemctl daemon-reload","Recharger unit�s"],
+  ["systemctl list-units --failed","Services en �chec"],
+  ["systemctl list-unit-files","Toutes les unit�s"],
+  ["systemctl cat svc","Voir d�finition"],
   ["systemctl edit svc","Override drop-in"],
   ["journalctl -b","Logs boot actuel"],
   ["journalctl -u svc -n 50","Logs service"],
   ["journalctl -u svc -f","Suivre service"],
   ["journalctl -p err","Erreurs"],
-  ["journalctl --since '1 hour ago'","Logs récents"],
+  ["journalctl --since '1 hour ago'","Logs r�cents"],
   ["journalctl -k","Logs noyau"],
   ["dmesg -T","Messages noyau"],
   ["logrotate -d /etc/logrotate.conf","Tester rotation"],
-  ["logger \"message\"","Écrire dans journald"],
+  ["logger \"message\"","�crire dans journald"],
   ["timedatectl status","Date/heure/timezone"],
   ["timedatectl set-timezone Europe/Paris","Timezone"],
   ["hostnamectl set-hostname name","Nom machine"],
@@ -2005,17 +2005,17 @@ G.cheats.push(
  ]
 },
 {
- title:"Linux  –  réseau (iproute2, Netplan, NetworkManager)",
- intro:"Configuration et diagnostic réseau moderne.",
+ title:"Linux    r�seau (iproute2, Netplan, NetworkManager)",
+ intro:"Configuration et diagnostic r�seau moderne.",
  columns:["Commande","Usage"],
  rows:[
   ["ip a","Interfaces et IP"],
-  ["ip link show","État des liens"],
+  ["ip link show","�tat des liens"],
   ["ip link set eth0 up","Activer interface"],
   ["ip addr add 192.168.1.10/24 dev eth0","Ajouter IP"],
   ["ip addr del 192.168.1.10/24 dev eth0","Retirer IP"],
   ["ip r","Table de routage"],
-  ["ip route add default via 192.168.1.1","Route par défaut"],
+  ["ip route add default via 192.168.1.1","Route par d�faut"],
   ["ip route add 10.0.0.0/8 via 192.168.1.2","Route statique"],
   ["ip neigh","Table ARP"],
   ["ip maddr","Multicast"],
@@ -2023,18 +2023,18 @@ G.cheats.push(
   ["ping -I eth0 8.8.8.8","Ping via interface"],
   ["traceroute 8.8.8.8","Traceroute"],
   ["tracepath 8.8.8.8","Tracepath (MTU)"],
-  ["mtr --report 8.8.8.8","MTR combiné"],
-  ["ss -tulpn","Ports en écoute"],
-  ["ss -tan state established","Connexions établies"],
+  ["mtr --report 8.8.8.8","MTR combin�"],
+  ["ss -tulpn","Ports en �coute"],
+  ["ss -tan state established","Connexions �tablies"],
   ["curl -I https://example.com","Headers HTTP"],
   ["curl -s http://ipinfo.io","IP publique"],
-  ["wget -O file url","Télécharger"],
-  ["dig example.com","Résolution DNS"],
-  ["dig @8.8.8.8 example.com MX","Requête explicite"],
-  ["nslookup example.com","Résolution DNS"],
-  ["host example.com","Résolution"],
-  ["getent ahosts example.com","Résolution système"],
-  ["nmcli device status","État devices NM"],
+  ["wget -O file url","T�l�charger"],
+  ["dig example.com","R�solution DNS"],
+  ["dig @8.8.8.8 example.com MX","Requ�te explicite"],
+  ["nslookup example.com","R�solution DNS"],
+  ["host example.com","R�solution"],
+  ["getent ahosts example.com","R�solution syst�me"],
+  ["nmcli device status","�tat devices NM"],
   ["nmcli connection show","Connexions NM"],
   ["nmcli connection up eth0","Activer connexion"],
   ["nmcli connection modify eth0 ipv4.addresses 192.168.1.10/24","Modifier IP"],
@@ -2043,7 +2043,7 @@ G.cheats.push(
   ["netplan try","Appliquer avec rollback"],
   ["netplan apply","Appliquer config"],
   ["cat /etc/netplan/*.yaml","Config Netplan"],
-  ["networkctl status","État réseau systemd"]
+  ["networkctl status","�tat r�seau systemd"]
  ]
 },
 {
@@ -2058,13 +2058,13 @@ G.cheats.push(
   ["mkfs.ext4 /dev/sdb1","Formater ext4"],
   ["mkfs.xfs /dev/sdb1","Formater xfs"],
   ["mount /dev/sdb1 /mnt","Monter"],
-  ["umount /mnt","Démonter"],
+  ["umount /mnt","D�monter"],
   ["mount -a","Monter fstab"],
   ["cat /etc/fstab","Config montage"],
   ["findmnt","Arbre des montages"],
-  ["pvcreate /dev/sdb1","Créer PV"],
-  ["vgcreate vg_data /dev/sdb1","Créer VG"],
-  ["lvcreate -L 20G -n lv_app vg_data","Créer LV"],
+  ["pvcreate /dev/sdb1","Cr�er PV"],
+  ["vgcreate vg_data /dev/sdb1","Cr�er VG"],
+  ["lvcreate -L 20G -n lv_app vg_data","Cr�er LV"],
   ["lvextend -L +5G /dev/vg_data/lv_app","Agrandir LV"],
   ["resize2fs /dev/vg_data/lv_app","Redim ext4"],
   ["xfs_growfs /mnt","Redim XFS"],
@@ -2072,49 +2072,49 @@ G.cheats.push(
   ["vgremove vg_data","Supprimer VG"],
   ["pvremove /dev/sdb1","Supprimer PV"],
   ["lvs ; vgs ; pvs","Lister LVM"],
-  ["zpool create tank /dev/sdb","Créer pool ZFS"],
-  ["zfs create tank/data","Créer dataset"],
+  ["zpool create tank /dev/sdb","Cr�er pool ZFS"],
+  ["zfs create tank/data","Cr�er dataset"],
   ["zfs snapshot tank/data@snap","Snapshot"],
   ["zfs list -t snapshot","Lister snapshots"],
-  ["zfs send tank/data@snap | ssh host zfs recv tank/data","Réplication"],
-  ["zpool status","État pool"],
-  ["zpool scrub tank","Scrub intégrité"],
-  ["smartctl -a /dev/sda","Santé SMART"],
+  ["zfs send tank/data@snap | ssh host zfs recv tank/data","R�plication"],
+  ["zpool status","�tat pool"],
+  ["zpool scrub tank","Scrub int�grit�"],
+  ["smartctl -a /dev/sda","Sant� SMART"],
   ["ls /dev/disk/by-uuid","Disques par UUID"]
  ]
 },
 {
- title:"Linux  –  pare-feu et sécurité",
+ title:"Linux    pare-feu et s�curit�",
  intro:"ufw, iptables, nftables et Fail2ban.",
  columns:["Commande","Usage"],
  rows:[
-  ["ufw status verbose","État UFW"],
+  ["ufw status verbose","�tat UFW"],
   ["ufw enable","Activer UFW"],
   ["ufw allow 22/tcp","Autoriser SSH"],
-  ["ufw allow from 192.168.1.0/24 to any port 443","Règle source"],
+  ["ufw allow from 192.168.1.0/24 to any port 443","R�gle source"],
   ["ufw deny 23/tcp","Bloquer telnet"],
-  ["ufw delete allow 80/tcp","Supprimer règle"],
-  ["ufw default deny incoming","Défaut deny in"],
-  ["ufw default allow outgoing","Défaut allow out"],
-  ["iptables -L -n -v","Lister règles"],
+  ["ufw delete allow 80/tcp","Supprimer r�gle"],
+  ["ufw default deny incoming","D�faut deny in"],
+  ["ufw default allow outgoing","D�faut allow out"],
+  ["iptables -L -n -v","Lister r�gles"],
   ["iptables -A INPUT -p tcp --dport 443 -j ACCEPT","Autoriser HTTPS"],
-  ["iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT","Connexions établies"],
+  ["iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT","Connexions �tablies"],
   ["iptables -P INPUT DROP","Politique DROP"],
   ["iptables-save > /etc/iptables.rules","Sauvegarder"],
   ["iptables-restore < /etc/iptables.rules","Restaurer"],
   ["nft list ruleset","Nftables"],
-  ["fail2ban-client status","État Fail2ban"],
+  ["fail2ban-client status","�tat Fail2ban"],
   ["fail2ban-client status sshd","Status jail SSH"],
-  ["fail2ban-client set sshd unbanip IP","Débannir IP"],
+  ["fail2ban-client set sshd unbanip IP","D�bannir IP"],
   ["fail2ban-regex /var/log/auth.log /etc/fail2ban/filter.d/sshd.conf","Tester regex"],
-  ["lynis audit system","Audit sécurité"],
-  ["openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 365 -nodes","Créer certificat auto-signé"],
+  ["lynis audit system","Audit s�curit�"],
+  ["openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 365 -nodes","Cr�er certificat auto-sign�"],
   ["openssl x509 -in cert.pem -text -noout","Inspecter certificat"],
   ["openssl s_client -connect host:443","Tester TLS"],
-  ["ssh-keygen -t ed25519 -C \"admin\"","Générer clé SSH"],
-  ["ssh-add ~/.ssh/id_ed25519","Charger clé"],
-  ["chmod 600 ~/.ssh/id_ed25519","Droits clé"],
-  ["aide --check","Vérif intégrité fichiers (AIDE)"]
+  ["ssh-keygen -t ed25519 -C \"admin\"","G�n�rer cl� SSH"],
+  ["ssh-add ~/.ssh/id_ed25519","Charger cl�"],
+  ["chmod 600 ~/.ssh/id_ed25519","Droits cl�"],
+  ["aide --check","V�rif int�grit� fichiers (AIDE)"]
  ]
 },
 {
@@ -2122,32 +2122,32 @@ G.cheats.push(
  intro:"Modes, navigation et commandes de base.",
  columns:["Commande","Usage"],
  rows:[
-  ["enable","Passer en privilégié (User> →  Priv#)"],
+  ["enable","Passer en privil�gi� (User> �  Priv#)"],
   ["disable","Revenir en mode utilisateur"],
   ["configure terminal","Mode configuration globale"],
   ["exit / end","Sortir du contexte"],
-  ["hostname R1","Nommer l'équipement"],
-  ["no ip domain-lookup","Désactiver résolution DNS (latence)"],
+  ["hostname R1","Nommer l'�quipement"],
+  ["no ip domain-lookup","D�sactiver r�solution DNS (latence)"],
   ["service password-encryption","Obscurcir mots de passe"],
-  ["enable secret Str0ng!","Mot de passe enable (chiffré)"],
+  ["enable secret Str0ng!","Mot de passe enable (chiffr�)"],
   ["username admin privilege 15 secret pass","Utilisateur local SSH"],
-  ["banner motd # Accès réservé #","Bannière"],
+  ["banner motd # Acc�s r�serv� #","Banni�re"],
   ["line console 0","Configurer console"],
   ["logging synchronous","Logs non intrusifs"],
   ["exec-timeout 5 0","Timeout session"],
   ["line vty 0 4","Configurer VTY (telnet/SSH)"],
   ["transport input ssh","SSH uniquement"],
   ["ip domain-name tssr.local","Nom de domaine (SSH keys)"],
-  ["crypto key generate rsa modulus 2048","Générer clés RSA (SSH)"],
+  ["crypto key generate rsa modulus 2048","G�n�rer cl�s RSA (SSH)"],
   ["write memory","Sauvegarder startup-config"],
   ["copy running-config startup-config","Sauvegarder config"],
   ["copy startup-config tftp:","Export config"],
   ["show running-config","Config active"],
-  ["show startup-config","Config sauvegardée"],
-  ["show version","OS, mémoire, uptime"],
+  ["show startup-config","Config sauvegard�e"],
+  ["show version","OS, m�moire, uptime"],
   ["show history","Historique commandes"],
-  ["terminal length 0","Désactiver pagination"],
-  ["reload","Redémarrer équipement"],
+  ["terminal length 0","D�sactiver pagination"],
+  ["reload","Red�marrer �quipement"],
   ["erase startup-config","Effacer config (reset)"],
   ["show users","Sessions actives"],
   ["clear line vty 0","Fermer session"]
@@ -2158,31 +2158,31 @@ G.cheats.push(
  intro:"Configuration d'interfaces, VLAN et trunk.",
  columns:["Commande","Usage"],
  rows:[
-  ["show ip interface brief","État interfaces et IP"],
-  ["show interfaces","Détail interfaces"],
+  ["show ip interface brief","�tat interfaces et IP"],
+  ["show interfaces","D�tail interfaces"],
   ["show interfaces trunk","Trunks actifs"],
   ["interface gigabitEthernet 0/0","Entrer interface"],
   ["ip address 10.0.0.1 255.255.255.0","Assigner IP"],
   ["no shutdown","Activer interface"],
-  ["shutdown","Désactiver interface"],
+  ["shutdown","D�sactiver interface"],
   ["description lien vers SW1","Description"],
-  ["interface loopback 0","Créer loopback"],
+  ["interface loopback 0","Cr�er loopback"],
   ["interface range g0/1-4","Groupe d'interfaces"],
   ["speed 1000 / duplex full","Forcer vitesse/duplex"],
   ["show vlan brief","Vue VLAN"],
-  ["vlan 10","Créer VLAN"],
+  ["vlan 10","Cr�er VLAN"],
   ["name COMPTA","Nommer VLAN"],
-  ["interface g0/1","Port d'accès"],
+  ["interface g0/1","Port d'acc�s"],
   ["switchport mode access","Mode access"],
   ["switchport access vlan 10","Affecter VLAN"],
   ["interface g0/24","Port trunk"],
   ["switchport trunk encapsulation dot1q","Encapsulation 802.1Q"],
   ["switchport mode trunk","Mode trunk"],
-  ["switchport trunk allowed vlan 10,20","VLAN autorisés"],
+  ["switchport trunk allowed vlan 10,20","VLAN autoris�s"],
   ["switchport trunk native vlan 99","VLAN natif"],
-  ["switchport nonegotiate","Désactiver DTP"],
+  ["switchport nonegotiate","D�sactiver DTP"],
   ["show mac address-table","Table MAC"],
-  ["show spanning-tree","État STP"],
+  ["show spanning-tree","�tat STP"],
   ["spanning-tree mode rapid-pvst","RSTP"],
   ["spanning-tree vlan 1 root primary","Root bridge primaire"],
   ["spanning-tree vlan 2 root secondary","Root secondaire"],
@@ -2205,19 +2205,19 @@ G.cheats.push(
   ["show ip ospf interface","Interfaces OSPF"],
   ["router ospf 1","Activer OSPF process 1"],
   ["router-id 1.1.1.1","Router ID"],
-  ["network 192.168.1.0 0.0.0.255 area 0","Annoncer réseau"],
+  ["network 192.168.1.0 0.0.0.255 area 0","Annoncer r�seau"],
   ["passive-interface g0/1","Interface passive"],
   ["area 1 stub","Area stub"],
   ["show ip protocols","Protocoles actifs"],
   ["router eigrp 100","EIGRP AS 100"],
-  ["no auto-summary","Désactiver auto-summary"],
+  ["no auto-summary","D�sactiver auto-summary"],
   ["router bgp 65001","BGP AS"],
   ["neighbor 10.0.0.2 remote-as 65002","Pair BGP"],
-  ["network 192.168.0.0 mask 255.255.255.0","Annoncer préfixe BGP"],
-  ["show ip bgp summary","Résumé BGP"],
+  ["network 192.168.0.0 mask 255.255.255.0","Annoncer pr�fixe BGP"],
+  ["show ip bgp summary","R�sum� BGP"],
   ["show ip bgp","Table BGP"],
   ["ip route 10.0.0.0 255.0.0.0 192.168.1.2","Route statique"],
-  ["ip route 0.0.0.0 0.0.0.0 192.168.1.1","Route par défaut"],
+  ["ip route 0.0.0.0 0.0.0.0 192.168.1.1","Route par d�faut"],
   ["redistribute ospf 1 subnets","Redistribution"],
   ["show ip cef","CEF"],
   ["debug ip routing","Debug routage (avec parcimonie)"]
@@ -2230,13 +2230,13 @@ G.cheats.push(
  rows:[
   ["show access-lists","Lister ACL"],
   ["show ip access-lists","ACL IPv4"],
-  ["ip access-list extended LAN-OUT","ACL nommée étendue"],
+  ["ip access-list extended LAN-OUT","ACL nomm�e �tendue"],
   ["permit tcp 192.168.10.0 0.0.0.255 any eq 443","Autoriser HTTPS"],
   ["deny ip 192.168.10.0 0.0.0.255 192.168.20.0 0.0.0.255","Bloquer LAN-LAN"],
   ["permit ip any any","Permit final"],
   ["interface g0/1","Appliquer ACL"],
   ["ip access-group LAN-OUT out","Appliquer en sortie"],
-  ["ip access-group LAN-OUT in","Appliquer en entrée"],
+  ["ip access-group LAN-OUT in","Appliquer en entr�e"],
   ["no ip access-group LAN-OUT in","Retirer"],
   ["interface g0/0","NAT inside"],
   ["ip nat inside","Marquer inside"],
@@ -2253,118 +2253,118 @@ G.cheats.push(
  ]
 },
 {
- title:"Cisco IOS  –  dépannage et diagnostic",
+ title:"Cisco IOS    d�pannage et diagnostic",
  intro:"Commandes de troubleshooting terrain.",
  columns:["Commande","Usage"],
  rows:[
-  ["ping 192.168.1.1","Tester connectivité"],
+  ["ping 192.168.1.1","Tester connectivit�"],
   ["ping 192.168.1.1 source g0/0","Ping depuis interface"],
   ["traceroute 8.8.8.8","Traceroute IOS"],
   ["show ip interface brief","Up/down interfaces"],
-  ["show interfaces status","État ports switch"],
-  ["show interfaces switchport","Détail switchport"],
-  ["show controllers","Problèmes matériels"],
+  ["show interfaces status","�tat ports switch"],
+  ["show interfaces switchport","D�tail switchport"],
+  ["show controllers","Probl�mes mat�riels"],
   ["show processes cpu","CPU"],
-  ["show processes memory","Mémoire"],
+  ["show processes memory","M�moire"],
   ["show logging","Logs internes"],
   ["show cdp neighbors","Voisins CDP"],
-  ["show cdp neighbors detail","Détail CDP"],
-  ["no cdp run","Désactiver CDP global"],
+  ["show cdp neighbors detail","D�tail CDP"],
+  ["no cdp run","D�sactiver CDP global"],
   ["show lldp neighbors","Voisins LLDP"],
   ["show etherchannel summary","EtherChannel"],
-  ["show spanning-tree blockedports","Ports bloqués STP"],
+  ["show spanning-tree blockedports","Ports bloqu�s STP"],
   ["show ip dhcp binding","Baux DHCP servis"],
   ["show ip dhcp pool","Pools DHCP"],
   ["debug ip packet","Debug paquets (prudemment)"],
   ["undebug all","Couper tout debug"],
   ["terminal monitor","Voir logs en SSH"],
-  ["show ntp status","État NTP"],
+  ["show ntp status","�tat NTP"],
   ["show clock","Heure"],
   ["ntp server 192.168.1.1","Serveur NTP"],
   ["show archive","Archives config"],
   ["show flash:","Fichiers flash"],
-  ["verify /md5 flash:image","Vérifier image"]
+  ["verify /md5 flash:image","V�rifier image"]
  ]
 },
 {
- title:"Commandes réseau génériques (diagnostic)",
- intro:"Outils disponibles sur OS et équipements.",
+ title:"Commandes r�seau g�n�riques (diagnostic)",
+ intro:"Outils disponibles sur OS et �quipements.",
  columns:["Commande","Usage"],
  rows:[
-  ["ping 8.8.8.8","Tester connectivité IP"],
+  ["ping 8.8.8.8","Tester connectivit� IP"],
   ["ping -t 8.8.8.8","Ping continu (Windows)"],
   ["tracert 8.8.8.8","Trace route (Windows)"],
   ["traceroute 8.8.8.8","Trace route (Linux)"],
   ["pathping 8.8.8.8","Statistiques par saut (Windows)"],
   ["mtr 8.8.8.8","MTR packet loss per hop"],
-  ["nslookup google.com","Résolution DNS"],
+  ["nslookup google.com","R�solution DNS"],
   ["dig google.com","DNS dig (Linux)"],
-  ["dig +trace google.com","Trace récursif DNS"],
-  ["ipcalc 192.168.1.0/26","Calcul sous-réseau"],
-  ["sipcalc 10.0.0.0/24","Calcul sous-réseau avancé"],
+  ["dig +trace google.com","Trace r�cursif DNS"],
+  ["ipcalc 192.168.1.0/26","Calcul sous-r�seau"],
+  ["sipcalc 10.0.0.0/24","Calcul sous-r�seau avanc�"],
   ["nmap -sV -p- 192.168.1.10","Scan ports/service"],
-  ["nmap -sS -sV -O 192.168.1.0/24","Scan réseau"],
-  ["masscan -p80,443 10.0.0.0/8 --rate 1000","Scan rapide grande échelle"],
+  ["nmap -sS -sV -O 192.168.1.0/24","Scan r�seau"],
+  ["masscan -p80,443 10.0.0.0/8 --rate 1000","Scan rapide grande �chelle"],
   ["tcpdump -i eth0 -n port 53","Capture trafic"],
   ["tcpdump -i eth0 -w capture.pcap","Capturer vers fichier"],
   ["tshark -r capture.pcap -Y dns","Analyser pcap"],
-  ["ss -tulpn","Ports en écoute (Linux)"],
+  ["ss -tulpn","Ports en �coute (Linux)"],
   ["netstat -anob","Ports (Windows)"],
-  ["iperf3 -s","Serveur de débit"],
-  ["iperf3 -c 192.168.1.1 -t 30","Test débit client"],
+  ["iperf3 -s","Serveur de d�bit"],
+  ["iperf3 -c 192.168.1.1 -t 30","Test d�bit client"],
   ["curl -v https://example.com","Verbose HTTP"],
   ["openssl s_client -connect host:443","Tester TLS"],
   ["whois example.com","Infos domaine"],
-  ["arp-scan -l","Découvrir hosts LAN"]
+  ["arp-scan -l","D�couvrir hosts LAN"]
  ]
 },
 {
- title:"Windows CMD  –  diagnostics système et réseau",
+ title:"Windows CMD    diagnostics syst�me et r�seau",
  intro:"Commandes natifs Windows (cmd.exe).",
  columns:["Commande","Usage"],
  rows:[
-  ["systeminfo","Infos système complètes"],
+  ["systeminfo","Infos syst�me compl�tes"],
   ["hostname","Nom de l'ordinateur"],
   ["ver","Version OS"],
   ["wmic cpu get name","Infos CPU"],
-  ["wmic memorychip get capacity","RAM installée"],
+  ["wmic memorychip get capacity","RAM install�e"],
   ["tasklist","Liste processus"],
   ["taskkill /IM chrome.exe /F","Tuer processus"],
-  ["sc query Spooler","État service"],
-  ["sc start Spooler","Démarrer service"],
-  ["sc config Spooler start= auto","Type démarrage"],
-  ["sfc /scannow","Vérifier fichiers système"],
-  ["DISM /Online /Cleanup-Image /RestoreHealth","Réparer image Windows"],
-  ["chkdsk C: /f /r","Vérifier disque"],
+  ["sc query Spooler","�tat service"],
+  ["sc start Spooler","D�marrer service"],
+  ["sc config Spooler start= auto","Type d�marrage"],
+  ["sfc /scannow","V�rifier fichiers syst�me"],
+  ["DISM /Online /Cleanup-Image /RestoreHealth","R�parer image Windows"],
+  ["chkdsk C: /f /r","V�rifier disque"],
   ["net user","Lister utilisateurs locaux"],
-  ["net user admin /add","Créer user local"],
+  ["net user admin /add","Cr�er user local"],
   ["net localgroup administrators admin /add","Ajouter au groupe admins"],
-  ["net user admin /active:no","Désactiver compte"],
+  ["net user admin /active:no","D�sactiver compte"],
   ["net share","Lister partages"],
   ["net use Z: \\\\srv\\data","Monter lecteur"],
-  ["net use Z: /delete","Démonter lecteur"],
-  ["ipconfig /all","Config réseau"],
+  ["net use Z: /delete","D�monter lecteur"],
+  ["ipconfig /all","Config r�seau"],
   ["netsh wlan show profiles","Profils Wi-Fi"],
-  ["netsh wlan show profile name=SSID key=clear","Clé Wi-Fi"],
+  ["netsh wlan show profile name=SSID key=clear","Cl� Wi-Fi"],
   ["netsh interface ip show config","Config IP"],
-  ["netsh advfirewall show allprofiles","État pare-feu"],
-  ["netsh advfirewall set allprofiles state off","Désactiver pare-feu (prudence)"],
+  ["netsh advfirewall show allprofiles","�tat pare-feu"],
+  ["netsh advfirewall set allprofiles state off","D�sactiver pare-feu (prudence)"],
   ["route print","Table de routage"],
   ["arp -a","Table ARP"],
   ["nbtstat -n","Noms NetBIOS"],
   ["gpupdate /force","Appliquer GPO"],
   ["gpresult /r","Rapport GPO"],
   ["dcdiag /q","Diagnostic DC"],
-  ["repadmin /replsummary","Réplication AD"],
+  ["repadmin /replsummary","R�plication AD"],
   ["nltest /dsgetdc:tssr.local","DC du domaine"],
-  ["netdom query fsmo","Rôles FSMO"],
-  ["wevtutil qe System /c:20 /f:text","Événements système"]
+  ["netdom query fsmo","R�les FSMO"],
+  ["wevtutil qe System /c:20 /f:text","�v�nements syst�me"]
  ]
 },
 {
  title:"Subnetting et plan d'adressage",
  intro:"Tables CIDR et calculs rapides.",
- columns:["CIDR","Masque","Hôtes utilisables"],
+ columns:["CIDR","Masque","H�tes utilisables"],
  rows:[
   ["/8","255.0.0.0","16 777 214"],
   ["/16","255.255.0.0","65 534"],
@@ -2383,7 +2383,7 @@ G.cheats.push(
  ]
 },
 {
- title:"Ports TCP/UDP à connaître",
+ title:"Ports TCP/UDP � conna�tre",
  intro:"Services usuels et ports.",
  columns:["Service","Port(s)"],
  rows:[
@@ -2427,12 +2427,12 @@ G.cheats.push(
  intro:"Commandes administration web.",
  columns:["Commande","Usage"],
  rows:[
-  ["systemctl status apache2","État Apache"],
+  ["systemctl status apache2","�tat Apache"],
   ["apachectl configtest","Tester config Apache"],
   ["a2ensite site","Activer site"],
-  ["a2dissite site","Désactiver site"],
+  ["a2dissite site","D�sactiver site"],
   ["a2enmod rewrite","Activer module"],
-  ["a2dismod autoindex","Désactiver module"],
+  ["a2dismod autoindex","D�sactiver module"],
   ["systemctl reload apache2","Recharger config"],
   ["apache2ctl -S","Vue vhosts"],
   ["nginx -t","Tester config Nginx"],
@@ -2442,37 +2442,37 @@ G.cheats.push(
   ["certbot --nginx -d example.com","Certificat Nginx"],
   ["certbot renew --dry-run","Tester renouvellement"],
   ["openssl x509 -in cert.pem -dates -noout","Dates certificat"],
-  ["htpasswd -c /etc/nginx/.htpasswd user","Créer htpasswd"],
+  ["htpasswd -c /etc/nginx/.htpasswd user","Cr�er htpasswd"],
   ["ab -n 1000 -c 10 http://host/","Benchmark Apache Bench"],
   ["curl -I https://host","Headers"],
-  ["tail -f /var/log/nginx/access.log","Suivre accès"],
+  ["tail -f /var/log/nginx/access.log","Suivre acc�s"],
   ["tail -f /var/log/apache2/error.log","Suivre erreurs"]
  ]
 },
 {
- title:"Bases de données  –  SQL / PostgreSQL / MySQL",
+ title:"Bases de donn�es    SQL / PostgreSQL / MySQL",
  intro:"Commandes DBA de base.",
  columns:["Commande","Usage"],
  rows:[
   ["psql -U postgres","Connexion PostgreSQL"],
-  ["psql -d db -c 'SELECT version();'","Exécuter SQL"],
+  ["psql -d db -c 'SELECT version();'","Ex�cuter SQL"],
   ["\\l","Lister DB (psql)"],
   ["\\dt","Lister tables"],
-  ["\\d table","Décrire table"],
+  ["\\d table","D�crire table"],
   ["pg_dump db > db.sql","Sauvegarde logique PG"],
   ["pg_restore -d db db.dump","Restaurer PG"],
   ["vacuumdb -a -z","Maintenance PG"],
   ["mysql -u root -p","Connexion MySQL"],
   ["SHOW DATABASES;","Lister bases"],
   ["SHOW TABLES;","Lister tables"],
-  ["DESCRIBE table;","Décrire table"],
+  ["DESCRIBE table;","D�crire table"],
   ["mysqldump db > db.sql","Sauvegarde MySQL"],
   ["mysql db < db.sql","Restaurer MySQL"],
   ["SELECT * FROM users LIMIT 10;","Lecture"],
   ["INSERT INTO users(name) VALUES('x');","Insertion"],
-  ["UPDATE users SET name='y' WHERE id=1;","Mise à jour"],
+  ["UPDATE users SET name='y' WHERE id=1;","Mise � jour"],
   ["DELETE FROM users WHERE id=1;","Suppression"],
-  ["CREATE USER 'u'@'%' IDENTIFIED BY 'p';","Créer utilisateur"],
+  ["CREATE USER 'u'@'%' IDENTIFIED BY 'p';","Cr�er utilisateur"],
   ["GRANT ALL PRIVILEGES ON db.* TO 'u'@'%';","Droits"],
   ["FLUSH PRIVILEGES;","Recharger droits"]
  ]
@@ -2483,8 +2483,8 @@ G.cheats.push(
  columns:["Commande","Usage"],
  rows:[
   ["ansible --version","Version Ansible"],
-  ["ansible all -i inventory.ini -m ping","Tester connectivité"],
-  ["ansible-playbook -i inv site.yml","Exécuter playbook"],
+  ["ansible all -i inventory.ini -m ping","Tester connectivit�"],
+  ["ansible-playbook -i inv site.yml","Ex�cuter playbook"],
   ["ansible-playbook site.yml --check","Dry-run"],
   ["ansible-vault encrypt secrets.yml","Chiffrer secrets"],
   ["ansible-galaxy collection install community.general","Installer collection"],
@@ -2492,25 +2492,25 @@ G.cheats.push(
   ["terraform init","Initialiser Terraform"],
   ["terraform plan","Planifier"],
   ["terraform apply","Appliquer"],
-  ["terraform destroy","Détruire"],
+  ["terraform destroy","D�truire"],
   ["terraform fmt","Formater HCL"],
   ["terraform validate","Valider"],
-  ["terraform state list","État des ressources"],
+  ["terraform state list","�tat des ressources"],
   ["terraform import aws_instance.x i-abc","Importer ressource"],
   ["terraform workspace list","Workspaces"],
   ["packer build template.pkr.hcl","Construire image Packer"]
  ]
 },
 {
- title:"Supervision et observabilité",
- intro:"Commandes monitoring et logs centralisés.",
+ title:"Supervision et observabilit�",
+ intro:"Commandes monitoring et logs centralis�s.",
  columns:["Commande","Usage"],
  rows:[
-  ["systemctl status prometheus","État Prometheus"],
+  ["systemctl status prometheus","�tat Prometheus"],
   ["promtool check config prometheus.yml","Valider config Prometheus"],
   ["journalctl -u node_exporter","Logs node exporter"],
   ["grafana-cli admin reset-admin-password admin","Reset mdp Grafana"],
-  ["zabbix_get -s host -k system.cpu.load[all,avg1]","Requête Zabbix agent"],
+  ["zabbix_get -s host -k system.cpu.load[all,avg1]","Requ�te Zabbix agent"],
   ["snmpwalk -v2c -c public host","SNMP walk"],
   ["snmpget -v3 -u user -l authPriv -a SHA -A auth -x AES -X priv host sysDescr.0","SNMPv3"],
   ["rsyslogd -N1","Valider config rsyslog"],
@@ -2525,17 +2525,17 @@ G.cheats.push(
   ["nethogs","Trafic par processus"],
   ["lsof -i :443","Process sur port 443"],
   ["lsof +D /var/log","Fichiers ouverts"],
-  ["dstat","Statistiques combinées"],
-  ["atop","Analyse avancée"]
+  ["dstat","Statistiques combin�es"],
+  ["atop","Analyse avanc�e"]
  ]
 },
 {
- title:"Sauvegarde et archive avancées",
+ title:"Sauvegarde et archive avanc�es",
  intro:"Outils de backup et restauration.",
  columns:["Commande","Usage"],
  rows:[
   ["borg init --encryption=repokey /backup/repo","Init repo Borg"],
-  ["borg create /backup/repo::backup-$(date +%F) /data","Créer backup"],
+  ["borg create /backup/repo::backup-$(date +%F) /data","Cr�er backup"],
   ["borg list /backup/repo","Lister archives"],
   ["borg extract /backup/repo::archive","Extraire"],
   ["borg prune --keep-daily=7 --keep-weekly=4 /backup/repo","Prune"],
@@ -2543,7 +2543,7 @@ G.cheats.push(
   ["restic -r /backup/repo backup /data","Backup Restic"],
   ["restic -r /backup/repo restore latest --target /restore","Restore"],
   ["tar -czf backup.tgz /etc /home","Tar gzip"],
-  ["tar --listed-incremental=snapshot.snar -czf inc.tgz /data","Backup incrémental"],
+  ["tar --listed-incremental=snapshot.snar -czf inc.tgz /data","Backup incr�mental"],
   ["rsync -av --delete /data/ /backup/data/","Sync miroir"],
   ["rsync -avz -e ssh /data/ user@backup:/data/","Sync distant SSH"],
   ["dd if=/dev/sda of=/backup/disk.img bs=4M status=progress","Image disque"],
@@ -2556,23 +2556,23 @@ G.cheats.push(
  ]
 },
 {
- title:"Sécurité, certificats et chiffrement",
- intro:"OpenSSL, clés, certificats et chiffrement.",
+ title:"S�curit�, certificats et chiffrement",
+ intro:"OpenSSL, cl�s, certificats et chiffrement.",
  columns:["Commande","Usage"],
  rows:[
-  ["openssl genrsa -out server.key 2048","Clé privée RSA"],
+  ["openssl genrsa -out server.key 2048","Cl� priv�e RSA"],
   ["openssl req -new -key server.key -out server.csr","CSR"],
   ["openssl x509 -req -in server.csr -signkey server.key -out server.crt -days 365","Auto-signer"],
   ["openssl pkcs12 -export -out bundle.pfx -inkey server.key -in server.crt","Bundle PFX"],
-  ["openssl pkcs12 -in bundle.pfx -out cert.pem -nodes","Extraire cert+clé"],
+  ["openssl pkcs12 -in bundle.pfx -out cert.pem -nodes","Extraire cert+cl�"],
   ["openssl enc -aes-256-cbc -salt -in file -out file.enc","Chiffrer fichier"],
-  ["openssl enc -d -aes-256-cbc -in file.enc -out file","Déchiffrer"],
-  ["gpg --full-generate-key","Générer clé GPG"],
+  ["openssl enc -d -aes-256-cbc -in file.enc -out file","D�chiffrer"],
+  ["gpg --full-generate-key","G�n�rer cl� GPG"],
   ["gpg -e -r user@x file","Chiffrer avec GPG"],
-  ["gpg -d file.gpg","Déchiffrer GPG"],
-  ["ssh-keygen -t ed25519","Clé SSH ed25519"],
-  ["ssh-keyscan host >> ~/.ssh/known_hosts","Ajouter clé host"],
-  ["openssl verify -CAfile ca.crt server.crt","Vérifier cert"],
+  ["gpg -d file.gpg","D�chiffrer GPG"],
+  ["ssh-keygen -t ed25519","Cl� SSH ed25519"],
+  ["ssh-keyscan host >> ~/.ssh/known_hosts","Ajouter cl� host"],
+  ["openssl verify -CAfile ca.crt server.crt","V�rifier cert"],
   ["nmap --script ssl-enum-ciphers -p 443 host","Ciphers TLS"],
   ["testssl.sh host","Audit TLS"],
   ["lynis audit system","Audit hardening"],
@@ -2592,9 +2592,9 @@ G.cheats.push(
   ["Install-WindowsFeature File-Services","Fichiers"],
   ["Install-WindowsFeature Web-Server","IIS"],
   ["Install-WindowsFeature Hyper-V -IncludeManagementTools -Restart","Hyper-V"],
-  ["Get-WindowsFeature","Lister rôles disponibles"],
-  ["Add-WindowsFeature ...","Ajouter rôle"],
-  ["servermanagercmd -query","Rôles installés (legacy)"],
+  ["Get-WindowsFeature","Lister r�les disponibles"],
+  ["Add-WindowsFeature ...","Ajouter r�le"],
+  ["servermanagercmd -query","R�les install�s (legacy)"],
   ["Get-Service","Services"],
   ["Get-Process","Processus"],
   ["Get-NetFirewallProfile","Profil pare-feu"],
@@ -2603,18 +2603,18 @@ G.cheats.push(
   ["WinRM quickconfig","Configurer WinRM"],
   ["mstsc /v:SRV","RDP"],
   ["qwinsta","Sessions RDP"],
-  ["rwinsta ID","Déconnecter session"],
-  ["shutdown /r /t 0","Redémarrer"],
+  ["rwinsta ID","D�connecter session"],
+  ["shutdown /r /t 0","Red�marrer"],
   ["wevtutil epl System sys.evtx","Exporter event log"],
-  ["fsutil behavior query DisableDeleteNotify","État TRIM SSD"],
+  ["fsutil behavior query DisableDeleteNotify","�tat TRIM SSD"],
   ["powercfg /list","Plans d'alimentation"],
   ["powercfg /setactive GUID","Plan actif"],
   ["cleanmgr","Nettoyage disque"]
  ]
 },
 {
- title:"Réseau Windows avancé (Netsh et PowerShell)",
- intro:"Configuration réseau détaillée.",
+ title:"R�seau Windows avanc� (Netsh et PowerShell)",
+ intro:"Configuration r�seau d�taill�e.",
  columns:["Commande","Usage"],
  rows:[
   ["Get-NetAdapter","Interfaces"],
@@ -2623,10 +2623,10 @@ G.cheats.push(
   ["Set-DnsClientServerAddress -InterfaceAlias Ethernet -ServerAddresses ('8.8.8.8','1.1.1.1')","DNS"],
   ["Remove-NetIPAddress -InterfaceAlias Ethernet -Confirm:$false","Retirer IP"],
   ["Get-NetRoute","Routes"],
-  ["New-NetRoute -DestinationPrefix 0.0.0.0/0 -NextHop 192.168.1.1","Route par défaut"],
-  ["Get-NetFirewallRule","Règles firewall"],
-  ["New-NetFirewallRule -Name Allow-SSH -Direction Inbound -Protocol TCP -LocalPort 22 -Action Allow","Créer règle"],
-  ["Disable-NetFirewallRule -Name Allow-SSH","Désactiver règle"],
+  ["New-NetRoute -DestinationPrefix 0.0.0.0/0 -NextHop 192.168.1.1","Route par d�faut"],
+  ["Get-NetFirewallRule","R�gles firewall"],
+  ["New-NetFirewallRule -Name Allow-SSH -Direction Inbound -Protocol TCP -LocalPort 22 -Action Allow","Cr�er r�gle"],
+  ["Disable-NetFirewallRule -Name Allow-SSH","D�sactiver r�gle"],
   ["Enable-NetAdapterBinding -Name Ethernet -ComponentID ms_tcpip6","IPv6"],
   ["Get-NetTCPConnection","Connexions TCP"],
   ["Get-NetUDPEndpoint","Endpoints UDP"],
@@ -2635,19 +2635,19 @@ G.cheats.push(
   ["netsh interface portproxy add v4tov4 listenport=8080 connectaddress=192.168.1.20 connectport=80","Port proxy"],
   ["netsh interface portproxy show all","Afficher portproxy"],
   ["netsh trace start scenario=NetConnection capture=yes","Capture diagnostic Windows"],
-  ["netsh trace stop","Arrêter capture"],
+  ["netsh trace stop","Arr�ter capture"],
   ["Get-NetNeighbor","Table voisins (ARP/ND)"]
  ]
 },
 {
- title:"Professionnel  –  procédures de maintenance",
- intro:"Commandes pour supervision et maintenance planifiée.",
+ title:"Professionnel    proc�dures de maintenance",
+ intro:"Commandes pour supervision et maintenance planifi�e.",
  columns:["Commande","Usage"],
  rows:[
   ["df -h ; du -sh /var/*","Espace disque"],
-  ["systemctl --failed","Services échoués"],
+  ["systemctl --failed","Services �chou�s"],
   ["journalctl -p err -b","Erreurs boot"],
-  ["dmesg -T | tail -50","Messages noyau récents"],
+  ["dmesg -T | tail -50","Messages noyau r�cents"],
   ["ss -s","Statistiques sockets"],
   ["vmstat 1 5","VM stats"],
   ["iostat -xz 1 3","I/O"],
@@ -2656,36 +2656,36 @@ G.cheats.push(
   ["top -b -n1 | head","Snapshot top"],
   ["uptime","Charge moyenne"],
   ["w","Sessions actives"],
-  ["last reboot","Redémarrages"],
-  ["crontab -l","Tâches cron"],
+  ["last reboot","Red�marrages"],
+  ["crontab -l","T�ches cron"],
   ["systemctl list-timers","Timers systemd"],
-  ["unattended-upgrade -d","Mise à jour auto (Debian)"],
-  ["apt list --upgradable","Mises à jour dispo"],
-  ["dnf check-update","Mises à jour RHEL"],
-  ["needrestart","Services à redémarrer après MAJ"],
-  ["reboot","Redémarrer système"],
-  ["shutdown -h +10 \"maintenance\"","Arrêt programmé"],
-  ["at now + 5 minutes","Tâche at"]
+  ["unattended-upgrade -d","Mise � jour auto (Debian)"],
+  ["apt list --upgradable","Mises � jour dispo"],
+  ["dnf check-update","Mises � jour RHEL"],
+  ["needrestart","Services � red�marrer apr�s MAJ"],
+  ["reboot","Red�marrer syst�me"],
+  ["shutdown -h +10 \"maintenance\"","Arr�t programm�"],
+  ["at now + 5 minutes","T�che at"]
  ]
 },
 {
  title:"pfSense et pare-feu (rappels)",
- intro:"Commandes pfSense/FreeBSD équivalentes.",
+ intro:"Commandes pfSense/FreeBSD �quivalentes.",
  columns:["Commande","Usage"],
  rows:[
-  ["pfctl -s rules","Règles actives"],
+  ["pfctl -s rules","R�gles actives"],
   ["pfctl -s nat","NAT actif"],
-  ["pfctl -s state","États"],
-  ["pfctl -t snort2c -T show","IP bloquées IDS"],
-  ["pfctl -k 0.0.0.0/0","Tuer états"],
+  ["pfctl -s state","�tats"],
+  ["pfctl -t snort2c -T show","IP bloqu�es IDS"],
+  ["pfctl -k 0.0.0.0/0","Tuer �tats"],
   ["ifconfig","Interfaces"],
   ["netstat -rn","Routes"],
-  ["sockstat -4 -l","Sockets écoute"],
+  ["sockstat -4 -l","Sockets �coute"],
   ["pkg install package","Installer paquet FreeBSD"],
-  ["service dhcpd restart","Redémarrer DHCP"],
-  ["service unbound restart","Redémarrer DNS resolver"],
+  ["service dhcpd restart","Red�marrer DHCP"],
+  ["service unbound restart","Red�marrer DNS resolver"],
   ["clog /var/log/filter.log","Logs pare-feu"],
-  ["tail -f /var/log/system.log","Logs système"]
+  ["tail -f /var/log/system.log","Logs syst�me"]
  ]
 },
 {
@@ -2694,7 +2694,7 @@ G.cheats.push(
  columns:["Commande","Usage"],
  rows:[
   ["tshark -i eth0","Capture live"],
-  ["tshark -i eth0 -w out.pcap","Écrire pcap"],
+  ["tshark -i eth0 -w out.pcap","�crire pcap"],
   ["tshark -r out.pcap","Lire pcap"],
   ["tshark -r out.pcap -Y \"http.request\"","Filtrer HTTP"],
   ["tshark -r out.pcap -Y \"dns\"","Filtrer DNS"],
@@ -2712,7 +2712,7 @@ G.cheats.push(
  intro:"Extraits courants.",
  columns:["Extrait","Usage"],
  rows:[
-  ["- name: installer apache","Tâche"],
+  ["- name: installer apache","T�che"],
   ["  apt: name=apache2 state=present update_cache=yes","Module apt"],
   ["  service: name=apache2 state=started enabled=yes","Module service"],
   ["  copy: src=index.html dest=/var/www/html/index.html","Module copy"],
@@ -2722,8 +2722,8 @@ G.cheats.push(
   ]
 },
 {
- title:"Logiciels d'analyse réseau  –  Wireshark & nmap",
- intro:"Capturer, filtrer et scanner le réseau.",
+ title:"Logiciels d'analyse r�seau    Wireshark & nmap",
+ intro:"Capturer, filtrer et scanner le r�seau.",
  columns:["Commande","Usage"],
  rows:[
   ["wireshark","Interface graphique de capture"],
@@ -2734,9 +2734,9 @@ G.cheats.push(
   ["tshark -T fields -e ip.src -e ip.dst","Extraire des champs"],
   ["nmap -sV -p- host","Scan tous ports + versions"],
   ["nmap -sS host","Scan SYN furtif"],
-  ["nmap -O host","Détection OS"],
-  ["nmap -sn 192.168.1.0/24","Découverte d'hôtes"],
-  ["nmap --script vuln host","Scripts vulnérabilités"],
+  ["nmap -O host","D�tection OS"],
+  ["nmap -sn 192.168.1.0/24","D�couverte d'h�tes"],
+  ["nmap --script vuln host","Scripts vuln�rabilit�s"],
   ["masscan -p80,443 10.0.0.0/8 --rate 1000","Scan rapide"],
   ["capinfos capture.pcap","Infos capture"],
   ["editcap -s 100 in.pcap out.pcap","Tronquer paquets"],
@@ -2744,16 +2744,16 @@ G.cheats.push(
  ]
 },
 {
- title:"Logiciels de sécurité réseau  –  Snort & Suricata",
- intro:"Détection et blocage d'intrusions réseau.",
+ title:"Logiciels de s�curit� r�seau    Snort & Suricata",
+ intro:"D�tection et blocage d'intrusions r�seau.",
  columns:["Commande","Usage"],
  rows:[
   ["suricata -V","Version Suricata"],
-  ["suricata -c /etc/suricata/suricata.yaml -i eth0","IDS mode écoute"],
-  ["suricata-update","Mettre à jour règles"],
+  ["suricata -c /etc/suricata/suricata.yaml -i eth0","IDS mode �coute"],
+  ["suricata-update","Mettre � jour r�gles"],
   ["snort -V","Version Snort"],
   ["snort -A console -i eth0 -c /etc/snort/snort.conf","Lancer Snort"],
-  ["pfctl -t snort2c -T show","IP bloquées (pfSense)"],
+  ["pfctl -t snort2c -T show","IP bloqu�es (pfSense)"],
   ["suricata -T -c /etc/suricata/suricata.yaml","Valider configuration"],
   ["tail -f /var/log/suricata/fast.log","Suivre alertes"],
   ["suricata -r capture.pcap","Analyser une capture"],
@@ -2767,13 +2767,13 @@ G.cheats.push(
  rows:[
   ["zabbix_server -V","Version Zabbix"],
   ["zabbix_get -s host -k system.cpu.load[all,avg1]","Interroger agent Zabbix"],
-  ["systemctl status zabbix-server","État Zabbix server"],
+  ["systemctl status zabbix-server","�tat Zabbix server"],
   ["centreon -V","Version Centreon"],
   ["nagios -v /etc/nagios/nagios.cfg","Valider config Nagios"],
-  ["nagios -d /etc/nagios/nagios.cfg","Démarrer Nagios"],
+  ["nagios -d /etc/nagios/nagios.cfg","D�marrer Nagios"],
   ["tail -f /var/log/nagios/nagios.log","Suivre logs Nagios"],
   ["snmpwalk -v2c -c public host","Tester SNMP"],
-  ["curl -s http://localhost:9100/metrics","Métriques node_exporter"]
+  ["curl -s http://localhost:9100/metrics","M�triques node_exporter"]
  ]
 }
 ,
@@ -2782,12 +2782,12 @@ G.cheats.push(
  intro:"Sauvegardes Linux automatisées et tâches planifiées.",
  columns:["Commande","Usage"],
  rows:[
-  ["tar -czf /backup/etc-$(date +%F).tgz /etc","Archive /etc datée"],
+  ["tar -czf /backup/etc-$(date +%F).tgz /etc","Archive /etc dat�e"],
   ["tar -xzf backup.tgz -C /restore","Restaurer tar"],
   ["rsync -av --delete /data/ /backup/data/","Miroir local"],
   ["rsync -avz -e ssh /data/ user@backup:/data/","Rsync distant SSH"],
-  ["crontab -e","Éditer la crontab"],
-  ["0 2 * * * /opt/scripts/backup.sh >> /var/log/backup.log 2>&1","Backup nightly à 2h"],
+  ["crontab -e","�diter la crontab"],
+  ["0 2 * * * /opt/scripts/backup.sh >> /var/log/backup.log 2>&1","Backup nightly � 2h"],
   ["@daily /opt/scripts/backup.sh","Backup quotidien"],
   ["systemctl list-timers","Timers systemd"],
   ["borg create /backup/repo::backup-$(date +%F) /data","Backup Borg"],
@@ -2806,141 +2806,141 @@ G.cheats.push(
 G.methods = G.methods || [];
 G.methods.push(...[
  {
-  title:"Méthode MSP (dossier pro)", type:"workflow",
+  title:"M�thode MSP (dossier pro)", type:"workflow",
   steps:[
    "Comprendre le besoin et le contexte.",
-   "Maquetter à petite échelle et valider.",
-   "Déployer avec une documentation précise.",
+   "Maquetter � petite �chelle et valider.",
+   "D�ployer avec une documentation pr�cise.",
    "Tester et collecter des preuves.",
-   "Présenter au jury avec justification."
+   "Pr�senter au jury avec justification."
   ]
  },
  {
-  title:"Plan de révision 30 jours", type:"plan",
+  title:"Plan de r�vision 30 jours", type:"plan",
   steps:[
    "J1-5 : Support + Windows",
    "J6-10 : Linux + scripting",
-   "J11-15 : Réseau + Cisco",
+   "J11-15 : R�seau + Cisco",
    "J16-20 : Virtualisation + pfSense",
-   "J21-24 : Sauvegarde + déploiement",
+   "J21-24 : Sauvegarde + d�ploiement",
    "J25-27 : ToIP + DMZ + supervision",
    "J28-29 : Examens blancs",
    "J30 : Repos + relecture des Warn"
   ]
  },
  {
-  title:"Structure de présentation orale", type:"template",
+  title:"Structure de pr�sentation orale", type:"template",
   steps:[
    "Contexte et besoin",
-   "Choix techniques argumentés",
-   "Démonstration / preuves",
-   "Difficultés rencontrées et corrections",
-   "Améliorations futures"
+   "Choix techniques argument�s",
+   "D�monstration / preuves",
+   "Difficult�s rencontr�es et corrections",
+   "Am�liorations futures"
   ]
  },
  {
   title:"Checklist documentation", type:"checklist",
   steps:[
-   "Schéma réseau à jour",
-   "Configurations sauvegardées",
+   "Sch�ma r�seau � jour",
+   "Configurations sauvegard�es",
    "Tests ping/tracert/captures",
    "Tableau RPO/RTO",
    "Plan d'adressage",
    "Comptes et droits",
-   "Procédure de restore"
+   "Proc�dure de restore"
   ]
  },
  {
-  title:"Procédure : création d'utilisateur (AD + poste)", type:"procedure",
+  title:"Proc�dure : cr�ation d'utilisateur (AD + poste)", type:"procedure",
   steps:[
-   "Créer compte AD (New-ADUser) dans OU correcte",
-   "Ajouter aux groupes métiers (AGDLP)",
-   "Définir mot de passe temporaire + forcer changement",
-   "Vérifier licence/mailbox si applicable",
-   "Joindre le poste au domaine si nécessaire",
+   "Cr�er compte AD (New-ADUser) dans OU correcte",
+   "Ajouter aux groupes m�tiers (AGDLP)",
+   "D�finir mot de passe temporaire + forcer changement",
+   "V�rifier licence/mailbox si applicable",
+   "Joindre le poste au domaine si n�cessaire",
    "Tester ouverture session + GPO",
    "Documenter dans le ticket et base de connaissances"
   ]
  },
  {
-  title:"Procédure : incident réseau (poste sans internet)", type:"procedure",
+  title:"Proc�dure : incident r�seau (poste sans internet)", type:"procedure",
   steps:[
-   "Vérifier voyants, câble, Wi-Fi activé",
+   "V�rifier voyants, c�ble, Wi-Fi activ�",
    "ipconfig /all (IP, gateway, DNS)",
    "Ping 127.0.0.1, gateway, 8.8.8.8, nom DNS",
    "nslookup du nom cible",
-   "Vérifier état de la carte (Device Manager)",
+   "V�rifier �tat de la carte (Device Manager)",
    "Renouveler DHCP si IP APIPA (169.254)",
    "Purger cache DNS, tester navigateur",
    "Escalader avec captures si persistant"
   ]
  },
  {
-  title:"Procédure : reset mot de passe verrouillé", type:"security",
+  title:"Proc�dure : reset mot de passe verrouill�", type:"security",
   steps:[
-   "Vérifier identité (badge + manager)",
-   "Débloquer le compte (Unlock-ADAccount)",
-   "Réinitialiser MDP temporaire robuste",
-   "Forcer changement à prochaine ouverture",
-   "Envoyer MDP par canal séparé",
-   "Vérifier tentative répétée (verrouillage) et déconnecter sessions",
+   "V�rifier identit� (badge + manager)",
+   "D�bloquer le compte (Unlock-ADAccount)",
+   "R�initialiser MDP temporaire robuste",
+   "Forcer changement � prochaine ouverture",
+   "Envoyer MDP par canal s�par�",
+   "V�rifier tentative r�p�t�e (verrouillage) et d�connecter sessions",
    "Journaliser dans ticket"
   ]
  },
  {
-  title:"Procédure : dépannage DNS/DHCP", type:"procedure",
+  title:"Proc�dure : d�pannage DNS/DHCP", type:"procedure",
   steps:[
-   "Vérifier service DNS/DHCP actif",
-   "Contrôler étendue et options (gateway/DNS)",
+   "V�rifier service DNS/DHCP actif",
+   "Contr�ler �tendue et options (gateway/DNS)",
    "Tester nslookup depuis client et serveur",
-   "Vérifier enregistrements A/PTR",
+   "V�rifier enregistrements A/PTR",
    "Clear-DnsServerCache et scavenging",
-   "Vérifier baux DHCP et conflits",
-   "Redémarrer services si stale",
+   "V�rifier baux DHCP et conflits",
+   "Red�marrer services si stale",
    "Documenter cause racine"
   ]
  },
  {
-  title:"Procédure : sauvegarde et test de restore", type:"procedure",
+  title:"Proc�dure : sauvegarde et test de restore", type:"procedure",
   steps:[
-   "Définir RPO/RTO par service",
-   "Lancer backup (job planifié)",
-   "Vérifier logs de succès",
+   "D�finir RPO/RTO par service",
+   "Lancer backup (job planifi�)",
+   "V�rifier logs de succ�s",
    "Restaurer un fichier test et une VM",
-   "Valider l'intégrité (hash, application)",
+   "Valider l'int�grit� (hash, application)",
    "Conserver hors ligne/immuable",
-   "Mettre à jour le registre des sauvegardes"
+   "Mettre � jour le registre des sauvegardes"
   ]
  },
  {
-  title:"Procédure : déploiement VLAN Cisco", type:"procedure",
+  title:"Proc�dure : d�ploiement VLAN Cisco", type:"procedure",
   steps:[
-   "Créer VLAN et nommer",
-   "Affecter ports d'accès (switchport access vlan X)",
+   "Cr�er VLAN et nommer",
+   "Affecter ports d'acc�s (switchport access vlan X)",
    "Configurer trunk avec allowed VLAN",
-   "Mettre à jour VLAN natif (99)",
+   "Mettre � jour VLAN natif (99)",
    "Tester inter-VLAN via SVI/routeur",
-   "Vérifier STP et EtherChannel",
+   "V�rifier STP et EtherChannel",
    "Sauvegarder startup-config",
    "Documenter le plan de VLAN"
   ]
  },
  {
-  title:"Procédure : durcissement serveur Linux", type:"security",
+  title:"Proc�dure : durcissement serveur Linux", type:"security",
   steps:[
-   "Mettre à jour le système",
-   "Désactiver root login SSH",
-   "Activer authentification par clé",
+   "Mettre � jour le syst�me",
+   "D�sactiver root login SSH",
+   "Activer authentification par cl�",
    "Configurer UFW/firewalld",
    "Installer Fail2ban",
-   "Désactiver services inutiles",
-   "Vérifier permissions sudo",
+   "D�sactiver services inutiles",
+   "V�rifier permissions sudo",
    "Lancer audit (lynis, aide)",
-   "Planifier mises à jour automatiques"
+   "Planifier mises � jour automatiques"
   ]
  },
  {
-  title:"Procédure : diagnostic performance Linux", type:"procedure",
+  title:"Proc�dure : diagnostic performance Linux", type:"procedure",
   steps:[
    "uptime et load average",
    "top/htop (CPU/RAM/processus)",
@@ -2949,32 +2949,32 @@ G.methods.push(...[
    "df -h / du -sh",
    "ss -s / lsof",
    "journalctl -p err",
-   "Identifier processus gourmand et service associé",
+   "Identifier processus gourmand et service associ�",
    "Corriger et surveiller"
   ]
  },
  {
-  title:"Procédure : migration serveur Windows", type:"procedure",
+  title:"Proc�dure : migration serveur Windows", type:"procedure",
   steps:[
-   "Inventaire applications et dépendances",
-   "Sauvegarde configuration et données",
-   "Préparer nouveau serveur (rôles, IP, nom)",
-   "Transférer données (robocopy/rsync)",
-   "Mettre à jour DNS et clients",
+   "Inventaire applications et d�pendances",
+   "Sauvegarde configuration et donn�es",
+   "Pr�parer nouveau serveur (r�les, IP, nom)",
+   "Transf�rer donn�es (robocopy/rsync)",
+   "Mettre � jour DNS et clients",
    "Tests fonctionnels et performance",
    "Coupe et bascule",
    "Post-mortem et documentation"
   ]
  },
  {
-  title:"Procédure : gestion d'incident (ITIL)", type:"workflow",
+  title:"Proc�dure : gestion d'incident (ITIL)", type:"workflow",
   steps:[
-   "Détection et enregistrement",
-   "Catégorisation et priorisation",
+   "D�tection et enregistrement",
+   "Cat�gorisation et priorisation",
    "Diagnostic initial",
-   "Escalade si nécessaire",
-   "Résolution et contournement",
-   "Clôture et validation utilisateur",
+   "Escalade si n�cessaire",
+   "R�solution et contournement",
+   "Cl�ture et validation utilisateur",
    "Analyse post-incident (PIR)"
   ]
  }
@@ -2986,10 +2986,10 @@ G.methods.push(...[
 (function(G){
 G.resources = G.resources || [];
 G.resources.push(...[
- { title:"Dépôt du site", desc:"Code source GitHub Pages", url:"https://github.com/herbreteau787-svg/Guide-TSSR" },
- { title:"CCNA1.pdf", desc:"PDF de référence (15 Mo)", url:"./CCNA1.pdf" },
+ { title:"D�p�t du site", desc:"Code source GitHub Pages", url:"https://github.com/herbreteau787-svg/Guide-TSSR" },
+ { title:"CCNA1.pdf", desc:"PDF de r�f�rence (15 Mo)", url:"./CCNA1.pdf" },
  { title:"Documentation Microsoft", desc:"Windows Server, AD, PowerShell", url:"https://learn.microsoft.com" },
- { title:"Cisco Packet Tracer", desc:"Simulateur réseau", url:"https://www.netacad.com" },
+ { title:"Cisco Packet Tracer", desc:"Simulateur r�seau", url:"https://www.netacad.com" },
  { title:"Wireshark", desc:"Analyse de paquets", url:"https://www.wireshark.org" },
  { title:"Linux man pages", desc:"Documentation officielle", url:"https://man7.org" },
  { title:"Docker docs", desc:"Documentation conteneurs", url:"https://docs.docker.com" },
@@ -3006,46 +3006,46 @@ push([
 {
   id:"ccp12",
   group:"TSSR",
-  icon:"🛡️",
-  title:"CCP12 · Cybersécurité et durcissement",
-  desc:"Posture de sécurité, ANSSI, détection, prévention et réponse.",
+  icon:"=�",
+  title:"CCP12 � Cybers�curit� et durcissement",
+  desc:"Posture de s�curit�, ANSSI, d�tection, pr�vention et r�ponse.",
   fiches:[
-   { id:"cyber-anssi", t:"Référentiels sécurité (ANSSI, CERT-FR, RGPD)", level:"intermediaire", r:"Connaître les organismes, recommandations d'hygiène et obligations légales. Sensibiliser et gouverner les accès.", tags:["cyber","anssi","rgpd"], g:["Lire le guide d'hygiène informatique ANSSI","Suivre les alertes CERT-FR","Cartographier les données personnelles","Appliquer le RGPD"], c:`# Ressources
+   { id:"cyber-anssi", t:"R�f�rentiels s�curit� (ANSSI, CERT-FR, RGPD)", level:"intermediaire", r:"Conna�tre les organismes, recommandations d'hygi�ne et obligations l�gales. Sensibiliser et gouverner les acc�s.", tags:["cyber","anssi","rgpd"], g:["Lire le guide d'hygi�ne informatique ANSSI","Suivre les alertes CERT-FR","Cartographier les donn�es personnelles","Appliquer le RGPD"], c:`# Ressources
 # ANSSI : https://www.ssi.gouv.fr
 # CERT-FR : https://www.cert.ssi.gouv.fr
-# ANSSI 40 mesures essentielles`, p:["Cadre gestion des risques (EBIOS RM)","Sensibilisation régulière","Audit et exercices d'incident"], w:"La sécurité est un processus continu, pas un projet ponctuel." },
-   { id:"cyber-hygiene", t:"Hygiène poste et durcissement", level:"intermediaire", r:"Mettre à jour, limiter les droits, chiffrer, désactiver services inutiles, protéger les navigateurs.", tags:["hardening","endpoint"], g:["Patch OS et apps automatiquement","Activer BitLocker/LUKS","Désactiver services inutiles","Configurer Pare-feu hôte"], c:`# Windows
+# ANSSI 40 mesures essentielles`, p:["Cadre gestion des risques (EBIOS RM)","Sensibilisation r�guli�re","Audit et exercices d'incident"], w:"La s�curit� est un processus continu, pas un projet ponctuel." },
+   { id:"cyber-hygiene", t:"Hygi�ne poste et durcissement", level:"intermediaire", r:"Mettre � jour, limiter les droits, chiffrer, d�sactiver services inutiles, prot�ger les navigateurs.", tags:["hardening","endpoint"], g:["Patch OS et apps automatiquement","Activer BitLocker/LUKS","D�sactiver services inutiles","Configurer Pare-feu h�te"], c:`# Windows
 Get-MpComputerStatus
 # Linux
 apt unattended-upgrade -d
 ufw enable
-lynis audit system`, p:["Mots de passe gérés (gestionnaire)","MFA obligatoire admins","Chiffrement des disques"], w:"Un poste non patché est la porte d'entrée la plus courante." },
-   { id:"cyber-reseau", t:"Segmentation, firewall et DMZ", level:"intermediaire", r:"Segmenter par VLAN, limiter les flux, journaliser, surveiller les connexions anormales.", tags:["reseau","firewall","dmz"], g:["VLAN admin séparé","ACL deny by default","Pare-feu inter-VLAN","Journalisation centralisée"], c:`# Exemple iptables
+lynis audit system`, p:["Mots de passe g�r�s (gestionnaire)","MFA obligatoire admins","Chiffrement des disques"], w:"Un poste non patch� est la porte d'entr�e la plus courante." },
+   { id:"cyber-reseau", t:"Segmentation, firewall et DMZ", level:"intermediaire", r:"Segmenter par VLAN, limiter les flux, journaliser, surveiller les connexions anormales.", tags:["reseau","firewall","dmz"], g:["VLAN admin s�par�","ACL deny by default","Pare-feu inter-VLAN","Journalisation centralis�e"], c:`# Exemple iptables
 iptables -A FORWARD -i vlan10 -o vlan20 -j DROP
-iptables -A FORWARD -i wan -o dmz -p tcp --dport 443 -j ACCEPT`, p:["Zero Trust pour accès sensibles","Management plane isolé","Bastion pour admin"], w:"Les flat networks augmentent le rayon d'impact d'un incident." },
-   { id:"cyber-users", t:"Gestion des identités et privilèges", level:"intermediaire", r:"Comptes nominatifs, groupes, moindre privilège, comptes de service dédiés, revue périodique.", tags:["iam","privilèges"], g:["Séparer comptes admin et user","PAM pour élévation","Revue trimestrielle des membres DA","Désactiver anciens comptes"], c:`Get-ADGroupMember "Domain Admins"
+iptables -A FORWARD -i wan -o dmz -p tcp --dport 443 -j ACCEPT`, p:["Zero Trust pour acc�s sensibles","Management plane isol�","Bastion pour admin"], w:"Les flat networks augmentent le rayon d'impact d'un incident." },
+   { id:"cyber-users", t:"Gestion des identit�s et privil�ges", level:"intermediaire", r:"Comptes nominatifs, groupes, moindre privil�ge, comptes de service d�di�s, revue p�riodique.", tags:["iam","privil�ges"], g:["S�parer comptes admin et user","PAM pour �l�vation","Revue trimestrielle des membres DA","D�sactiver anciens comptes"], c:`Get-ADGroupMember "Domain Admins"
 sudo -l
-# PIM/JIT pour activations temporaires`, p:["Compte break-glass sous coffre","Logs d'admin centralisés","Attestation manager"], w:"Les droits cumulés sont la cause la plus fréquente d'escalade." },
-   { id:"cyber-mfa", t:"MFA et authentification forte", level:"debutant", r:"Activer MFA sur accès distants, admin et cloud. MFA par défaut pour tous les comptes sensibles.", tags:["mfa","auth"], g:["Déployer TOTP/FIDO2","Codes de secours","Former utilisateurs","Suivre l'adoption"], c:`# Entra ID: Conditional Access MFA
+# PIM/JIT pour activations temporaires`, p:["Compte break-glass sous coffre","Logs d'admin centralis�s","Attestation manager"], w:"Les droits cumul�s sont la cause la plus fr�quente d'escalade." },
+   { id:"cyber-mfa", t:"MFA et authentification forte", level:"debutant", r:"Activer MFA sur acc�s distants, admin et cloud. MFA par d�faut pour tous les comptes sensibles.", tags:["mfa","auth"], g:["D�ployer TOTP/FIDO2","Codes de secours","Former utilisateurs","Suivre l'adoption"], c:`# Entra ID: Conditional Access MFA
 # Linux PAM oath
-pamtester sshd user authenticate`, p:["FIDO2 recommandé","Éviter SMS pour admins","Récupération documentée"], w:"MFA sans plan de secours bloque en cas de perte." },
-   { id:"cyber-malware", t:"Anti-malware et EDR", level:"debutant", r:"Protection résidente, analyse, isolation d'hôte, réponse automatique.", tags:["edr","antivirus"], g:["Activer Defender/antivirus central","Bases à jour","Analyse planifiée","Alertes admin"], c:`Get-MpComputerStatus
-# Isolation réseau automatique sur alerte EDR`, p:["Protection cloud","Sandboxing","Allowlisting pour serveurs"], w:"L'antivirus seul ne suffit pas; l'EDR détecte les comportements." },
-   { id:"cyber-backup", t:"Sauvegarde anti-ransomware", level:"intermediaire", r:"Copies hors ligne, immuables, testées, séparées des credentials de production.", tags:["backup","ransomware"], g:["Copies offsite et hors ligne","Immutabilité","Test de restore","Comptes de backup isolés"], c:`# Veeam immuable (Linux hardened repo)
-# Borg with append-only`, p:["RPO/RTO documentés","Snapshots à court terme + backup long terme","Alerte sur suppression"], w:"Les sauvegardes connectées sont cibles prioritaires." },
-   { id:"cyber-ids", t:"IDS/IPS et supervision sécurité", level:"avance", r:"Suricata/Snort, corrélation, blocage et tuning pour éviter faux positifs.", tags:["ids","ips","siem"], g:["Déployer Suricata","Activer règles communautaires","Mode alerte puis block","Corréler avec SIEM"], c:`# pfSense Suricata package
+pamtester sshd user authenticate`, p:["FIDO2 recommand�","�viter SMS pour admins","R�cup�ration document�e"], w:"MFA sans plan de secours bloque en cas de perte." },
+   { id:"cyber-malware", t:"Anti-malware et EDR", level:"debutant", r:"Protection r�sidente, analyse, isolation d'h�te, r�ponse automatique.", tags:["edr","antivirus"], g:["Activer Defender/antivirus central","Bases � jour","Analyse planifi�e","Alertes admin"], c:`Get-MpComputerStatus
+# Isolation r�seau automatique sur alerte EDR`, p:["Protection cloud","Sandboxing","Allowlisting pour serveurs"], w:"L'antivirus seul ne suffit pas; l'EDR d�tecte les comportements." },
+   { id:"cyber-backup", t:"Sauvegarde anti-ransomware", level:"intermediaire", r:"Copies hors ligne, immuables, test�es, s�par�es des credentials de production.", tags:["backup","ransomware"], g:["Copies offsite et hors ligne","Immutabilit�","Test de restore","Comptes de backup isol�s"], c:`# Veeam immuable (Linux hardened repo)
+# Borg with append-only`, p:["RPO/RTO document�s","Snapshots � court terme + backup long terme","Alerte sur suppression"], w:"Les sauvegardes connect�es sont cibles prioritaires." },
+   { id:"cyber-ids", t:"IDS/IPS et supervision s�curit�", level:"avance", r:"Suricata/Snort, corr�lation, blocage et tuning pour �viter faux positifs.", tags:["ids","ips","siem"], g:["D�ployer Suricata","Activer r�gles communautaires","Mode alerte puis block","Corr�ler avec SIEM"], c:`# pfSense Suricata package
 pfctl -t snort2c -T show | head
-lynis audit system`, p:["Sondes réseau stratégiques","Tuning par groupe","Retention logs"], w:"Une règle trop large bloque la production." },
-   { id:"cyber-phishing", t:"Phishing et sensibilisation", level:"debutant", r:"Repérer les signes, vérifier les expéditeurs, signaler, phishing tests, formation continue.", tags:["phishing","sensibilisation"], g:["Vérifier domaine expéditeur","Ne jamais cliquer lien suspect","Signaler à l'admin","Campagnes de simulation"], c:`# Headers mail : Return-Path, SPF, DKIM, DMARC
-# Outils : GoPhish pour simulations`, p:["DMARC enforce","Filtre mail gateway","Formation annuelle"], w:"Le maillon humain reste le plus exploité." },
-   { id:"cyber-patch", t:"Gestion des vulnérabilités et patching", level:"intermediaire", r:"Recensement actifs, scans, priorisation CVSS, fenêtres maintenance, rollback.", tags:["vuln","patch","cve"], g:["Inventaire matériel/logiciel","Scan régulier","Prioriser CVE critiques","Planifier patch"], c:`# Scan
+lynis audit system`, p:["Sondes r�seau strat�giques","Tuning par groupe","Retention logs"], w:"Une r�gle trop large bloque la production." },
+   { id:"cyber-phishing", t:"Phishing et sensibilisation", level:"debutant", r:"Rep�rer les signes, v�rifier les exp�diteurs, signaler, phishing tests, formation continue.", tags:["phishing","sensibilisation"], g:["V�rifier domaine exp�diteur","Ne jamais cliquer lien suspect","Signaler � l'admin","Campagnes de simulation"], c:`# Headers mail : Return-Path, SPF, DKIM, DMARC
+# Outils : GoPhish pour simulations`, p:["DMARC enforce","Filtre mail gateway","Formation annuelle"], w:"Le maillon humain reste le plus exploit�." },
+   { id:"cyber-patch", t:"Gestion des vuln�rabilit�s et patching", level:"intermediaire", r:"Recensement actifs, scans, priorisation CVSS, fen�tres maintenance, rollback.", tags:["vuln","patch","cve"], g:["Inventaire mat�riel/logiciel","Scan r�gulier","Prioriser CVE critiques","Planifier patch"], c:`# Scan
 nmap -sV --script vuln 192.168.1.10
-# WSUS / unattended-upgrades`, p:["VE (Vulnerability Exploitability)","Exceptions documentées","Maintenance windows"], w:"Des vulnérabilités non patchées restent ouvertes des mois." },
-   { id:"cyber-logs", t:"Journalisation et réponse incident", level:"intermediaire", r:"Centraliser, conserver, analyser, chaîne de custody, playbooks d'incident.", tags:["incident","logs","response"], g:["Centraliser syslog","Conserver 90+ jours","Playbook d'incident","Post-mortem"], c:`# Linux syslog forward
+# WSUS / unattended-upgrades`, p:["VE (Vulnerability Exploitability)","Exceptions document�es","Maintenance windows"], w:"Des vuln�rabilit�s non patch�es restent ouvertes des mois." },
+   { id:"cyber-logs", t:"Journalisation et r�ponse incident", level:"intermediaire", r:"Centraliser, conserver, analyser, cha�ne de custody, playbooks d'incident.", tags:["incident","logs","response"], g:["Centraliser syslog","Conserver 90+ jours","Playbook d'incident","Post-mortem"], c:`# Linux syslog forward
 *.* @siem:514
-# Collecter preuves`, p:["Horodatage NTP","Intégrité des logs","Communication crise"], w:"Sans logs, l'analyse post-incident est impossible." },
-   { id:"cyber-cloud", t:"Sécurité cloud et BYOD", level:"avance", r:"IAM cloud, MFA, accès conditionnels, chiffrement au repos/transit, MDM pour mobiles.", tags:["cloud","byod","mdm"], g:["IAM basé rôles","MFA cloud","Chiffrement au repos","MDM pour BYOD"], c:`# Intune / MDM enrollment
-# AWS IAM policy least privilege`, p:["Logs cloud","Sauvegarde SaaS","Sensibilisation données mobiles"], w:"Les erreurs de config cloud sont la cause majeure de fuites." }
+# Collecter preuves`, p:["Horodatage NTP","Int�grit� des logs","Communication crise"], w:"Sans logs, l'analyse post-incident est impossible." },
+   { id:"cyber-cloud", t:"S�curit� cloud et BYOD", level:"avance", r:"IAM cloud, MFA, acc�s conditionnels, chiffrement au repos/transit, MDM pour mobiles.", tags:["cloud","byod","mdm"], g:["IAM bas� r�les","MFA cloud","Chiffrement au repos","MDM pour BYOD"], c:`# Intune / MDM enrollment
+# AWS IAM policy least privilege`, p:["Logs cloud","Sauvegarde SaaS","Sensibilisation donn�es mobiles"], w:"Les erreurs de config cloud sont la cause majeure de fuites." }
   ]
 }
 ]);
@@ -3057,45 +3057,45 @@ nmap -sV --script vuln 192.168.1.10
 const sec = G.sections.find(s => s.id === 'exam');
 if (sec) {
   sec.fiches = [
-   { id:"exam-q-ad", t:"QCM/Réponse : comment vérifie-t-on un accès AD ?", level:"exam", r:"On vérifie l'utilisateur avec Get-ADUser, l'appartenance aux groupes, puis le droit effectif sur la ressource avec test réel et revue des ACL. Vérification : accès accordé uniquement au profil autorisé et refus pour le profil non autorisé.", tags:["exam","ad","droits"], g:["1. Lister les groupes via ADUC ou Get-ADGroupMember","2. Tester le partage avec l'utilisateur","3. Lire les ACL NTFS et partage","4. Documenter le test de non-régression"], c:`Get-ADUser jdupont -Properties MemberOf
+   { id:"exam-q-ad", t:"QCM/R�ponse : comment v�rifie-t-on un acc�s AD ?", level:"exam", r:"On v�rifie l'utilisateur avec Get-ADUser, l'appartenance aux groupes, puis le droit effectif sur la ressource avec test r�el et revue des ACL. V�rification : acc�s accord� uniquement au profil autoris� et refus pour le profil non autoris�.", tags:["exam","ad","droits"], g:["1. Lister les groupes via ADUC ou Get-ADGroupMember","2. Tester le partage avec l'utilisateur","3. Lire les ACL NTFS et partage","4. Documenter le test de non-r�gression"], c:`Get-ADUser jdupont -Properties MemberOf
 Get-ADGroupMember "LD_PartageCompta" -Recursive
 Test-Path \\\\serveur\\compta
-# NSS: icacls et Get-Acl`, p:["Penser au moindre privilège","Un refus clair prouve que la matrice est respectée"], w:"Vérifier seulement l'AD sans tester la ressource ne prouve rien." },
-   { id:"exam-q-reseau", t:"QCM/Réponse : un poste n'accède plus au réseau, diagnostic ?", level:"exam", r:"On suit la couche par couche : câble/Voyant, IP/passerelle/DNS, ping par IP puis par nom, trace. On corrige un élément à la fois et on reteste.", tags:["exam","reseau","diagnostic"], g:["ipconfig /all et ping passerelle","Ping 8.8.8.8 puis nslookup","Comparer le plan réseau et le VLAN du port","Corriger DHCP/VLAN/passerelle"], c:`ipconfig /all
+# NSS: icacls et Get-Acl`, p:["Penser au moindre privil�ge","Un refus clair prouve que la matrice est respect�e"], w:"V�rifier seulement l'AD sans tester la ressource ne prouve rien." },
+   { id:"exam-q-reseau", t:"QCM/R�ponse : un poste n'acc�de plus au r�seau, diagnostic ?", level:"exam", r:"On suit la couche par couche : c�ble/Voyant, IP/passerelle/DNS, ping par IP puis par nom, trace. On corrige un �l�ment � la fois et on reteste.", tags:["exam","reseau","diagnostic"], g:["ipconfig /all et ping passerelle","Ping 8.8.8.8 puis nslookup","Comparer le plan r�seau et le VLAN du port","Corriger DHCP/VLAN/passerelle"], c:`ipconfig /all
 ping 192.168.1.1
 ping 8.8.8.8
 nslookup google.com
-tracert google.com`, p:["169.254 = APIPA/DHCP KO","Ping IP OK mais nom KO = DNS","Tracert s'arrêtant à la passerelle = routage"], w:"Ne pas changer IP et DNS en même temps : la cause devient floue." },
-   { id:"exam-q-vlan", t:"QCM/Réponse : pourquoi un port d'accès mal affecté isole un poste ?", level:"exam", r:"La communication L2 se limite au VLAN du port. Si le poste est en VLAN non attendu, il est dans un domaine de broadcast différent sans passerelle inter-VLAN.", tags:["exam","vlan","switch"], g:["show vlan brief","show interfaces status","show running-config interface f0/x","corriger access vlan et tester"], c:`show interface f0/5 switchport
+tracert google.com`, p:["169.254 = APIPA/DHCP KO","Ping IP OK mais nom KO = DNS","Tracert s'arr�tant � la passerelle = routage"], w:"Ne pas changer IP et DNS en m�me temps : la cause devient floue." },
+   { id:"exam-q-vlan", t:"QCM/R�ponse : pourquoi un port d'acc�s mal affect� isole un poste ?", level:"exam", r:"La communication L2 se limite au VLAN du port. Si le poste est en VLAN non attendu, il est dans un domaine de broadcast diff�rent sans passerelle inter-VLAN.", tags:["exam","vlan","switch"], g:["show vlan brief","show interfaces status","show running-config interface f0/x","corriger access vlan et tester"], c:`show interface f0/5 switchport
 show vlan brief
 conf t
 interface f0/5
  switchport access vlan 20
-end`, p:["VLAN natif et allowed VLAN à vérifier sur les trunks","Tester depuis le poste après correction"], w:"Un VLAN silencieux donne un faux réseau opérationnel." },
-   { id:"exam-q-linux", t:"QCM/Réponse : comment sécuriser l'accès SSH ?", level:"exam", r:"Authentification par clé ed25519, désactivation du root direct, PasswordAuthentication no, et test avant fermeture de session. Conclure avec journalisation.", tags:["exam","ssh","linux","securite"], g:["Générer une clé côté client","Copier la clé publique","Modifier sshd_config","Recharger sshd et tester"], c:`ssh-keygen -t ed25519 -C admin@tssr
+end`, p:["VLAN natif et allowed VLAN � v�rifier sur les trunks","Tester depuis le poste apr�s correction"], w:"Un VLAN silencieux donne un faux r�seau op�rationnel." },
+   { id:"exam-q-linux", t:"QCM/R�ponse : comment s�curiser l'acc�s SSH ?", level:"exam", r:"Authentification par cl� ed25519, d�sactivation du root direct, PasswordAuthentication no, et test avant fermeture de session. Conclure avec journalisation.", tags:["exam","ssh","linux","securite"], g:["G�n�rer une cl� c�t� client","Copier la cl� publique","Modifier sshd_config","Recharger sshd et tester"], c:`ssh-keygen -t ed25519 -C admin@tssr
 ssh-copy-id user@serveur
 # /etc/ssh/sshd_config
 PermitRootLogin no
 PasswordAuthentication no
-systemctl reload sshd`, p:["Toujours tester la clé dans un second terminal","Conserver emergency access","Versionner la config distante"], w:"Désactiver le password avant d'avoir testé la clé coupe l'accès." },
-   { id:"exam-q-cron", t:"QCM/Réponse : comment mettre une sauvegarde automatique fiable ?", level:"exam", r:"Script avec shebang, variables, journal, code retour. Planifier dans cron à 02:30 et vérifier le lendemain. Expliquer chaque ligne à l'oral.", tags:["exam","cron","backup","linux"], g:["Créer le script sous /opt/scripts","chmod +x","crontab -e","Vérifier le log et le code de retour"], c:`30 2 * * * /opt/scripts/backup.sh >> /var/log/backup.log 2>&1
+systemctl reload sshd`, p:["Toujours tester la cl� dans un second terminal","Conserver emergency access","Versionner la config distante"], w:"D�sactiver le password avant d'avoir test� la cl� coupe l'acc�s." },
+   { id:"exam-q-cron", t:"QCM/R�ponse : comment mettre une sauvegarde automatique fiable ?", level:"exam", r:"Script avec shebang, variables, journal, code retour. Planifier dans cron � 02:30 et v�rifier le lendemain. Expliquer chaque ligne � l'oral.", tags:["exam","cron","backup","linux"], g:["Cr�er le script sous /opt/scripts","chmod +x","crontab -e","V�rifier le log et le code de retour"], c:`30 2 * * * /opt/scripts/backup.sh >> /var/log/backup.log 2>&1
 # dans le script :
 set -euo pipefail
 rsync -av --delete /srv/data/ /backup/data/
-echo "code=$?"`, p:["Chemins absolus","Rediriger stdout et stderr","Tester manuellement le script"], w:"Les variables d'environnement interactif ne sont pas transmises à cron." },
-   { id:"exam-q-ad", t:"QCM/Réponse : créer un utilisateur, ses groupes et un partage", level:"exam", r:"Créer l'OU et le user, ajouter aux groupes Global/DomainLocal (AGDLP), créer le partage, configurer ACL, puis tester accès autorisé et non autorisé.", tags:["exam","ad","agdlp","partage"], g:["ADUC : OU, user, groupes","SMB share + ACL NTFS","gpresult pour GPO applicables","Test dans session utilisateur"], c:`New-ADUser jdupont -Enabled $true
+echo "code=$?"`, p:["Chemins absolus","Rediriger stdout et stderr","Tester manuellement le script"], w:"Les variables d'environnement interactif ne sont pas transmises � cron." },
+   { id:"exam-q-ad", t:"QCM/R�ponse : cr�er un utilisateur, ses groupes et un partage", level:"exam", r:"Cr�er l'OU et le user, ajouter aux groupes Global/DomainLocal (AGDLP), cr�er le partage, configurer ACL, puis tester acc�s autoris� et non autoris�.", tags:["exam","ad","agdlp","partage"], g:["ADUC : OU, user, groupes","SMB share + ACL NTFS","gpresult pour GPO applicables","Test dans session utilisateur"], c:`New-ADUser jdupont -Enabled $true
 New-ADGroup -Name G_Compta -GroupScope Global
 Add-ADGroupMember LD_PartageCompta -Members G_Compta
-New-SmbShare -Name Compta -Path D:\\Shares\\Compta`, p:["Permissions les plus restrictives gagnent","Séparer Global et DomainLocal","Documenter la matrice d'accès"], w:"Ajouter directement un user au groupe DomainLocal casse la traçabilité." },
-   { id:"exam-q-snap", t:"QCM/Réponse : différences snapshot, sauvegarde et restauration ?", level:"exam", r:"Snapshot = point temporel dépendant de la VM source, sauvegarde = copie indépendante et testée, restauration = remise en exploitation vérifiée.", tags:["exam","vmware","backup","pra"], g:["Snapshot avant maintenance","Sauvegarde planifiée nightly","Restauration dans VM isolée","Valider la connexion et les services"], c:`# RPO = perte max acceptable
-# RTO = durée de panne acceptable
-# Test : fichier puis VM entière`, p:["Règle 3-2-1","Copie hors site","Immutabilité anti-ransomware"], w:"Un snapshot laissé trop longtemps dégrade les performances." },
-   { id:"exam-q-oral", t:"QCM/Réponse : comment présenter une mise en situation à l'oral ?", level:"exam", r:"Contexte, objectif, actions, preuves, difficultés et améliorations. Répondre avec méthode, admettre ce qui n'est pas fini.", tags:["exam","oral","presentation","jury"], g:["Organiser captures par ordre chronologique","Expliquer cause et vérification","Justifier les choix","Reconnaître les limites"], c:`# Structure
+New-SmbShare -Name Compta -Path D:\\Shares\\Compta`, p:["Permissions les plus restrictives gagnent","S�parer Global et DomainLocal","Documenter la matrice d'acc�s"], w:"Ajouter directement un user au groupe DomainLocal casse la tra�abilit�." },
+   { id:"exam-q-snap", t:"QCM/R�ponse : diff�rences snapshot, sauvegarde et restauration ?", level:"exam", r:"Snapshot = point temporel d�pendant de la VM source, sauvegarde = copie ind�pendante et test�e, restauration = remise en exploitation v�rifi�e.", tags:["exam","vmware","backup","pra"], g:["Snapshot avant maintenance","Sauvegarde planifi�e nightly","Restauration dans VM isol�e","Valider la connexion et les services"], c:`# RPO = perte max acceptable
+# RTO = dur�e de panne acceptable
+# Test : fichier puis VM enti�re`, p:["R�gle 3-2-1","Copie hors site","Immutabilit� anti-ransomware"], w:"Un snapshot laiss� trop longtemps d�grade les performances." },
+   { id:"exam-q-oral", t:"QCM/R�ponse : comment pr�senter une mise en situation � l'oral ?", level:"exam", r:"Contexte, objectif, actions, preuves, difficult�s et am�liorations. R�pondre avec m�thode, admettre ce qui n'est pas fini.", tags:["exam","oral","presentation","jury"], g:["Organiser captures par ordre chronologique","Expliquer cause et v�rification","Justifier les choix","Reconna�tre les limites"], c:`# Structure
 1. Contexte du ticket
 2. Analyse et cause
 3. Solution mise en place
 4. Preuves et tests
-5. Ce qui reste à faire`, p:["Une réponse courte et juste vaut mieux qu'une improvisation","Le jury évalue la trajectoire, pas uniquement le résultat"], w:"Ne jamais masquer une erreur ou une étape non terminée." }
+5. Ce qui reste � faire`, p:["Une r�ponse courte et juste vaut mieux qu'une improvisation","Le jury �value la trajectoire, pas uniquement le r�sultat"], w:"Ne jamais masquer une erreur ou une �tape non termin�e." }
   ];
   const _examIdx = (G.sections || []).findIndex(s => s.id === 'exam');
   if (_examIdx !== -1) {
@@ -3145,7 +3145,7 @@ addFiches('ccp4', [
   id:"ccp4-reseau-debutant", t:"Réseau : IP, masque, gateway, VLAN, diagnostic (débutant)", level:"debutant",
   r:"Un réseau, c'est des machines qui échangent des paquets. IP identifie la machine, masque sépare réseau/hôte, passerelle sort du LAN, VLAN isole.",
   tags:["reseau","debutant","ip","vlan"],
-  g:["Trouver son IP/masque/gateway (ipconfig / ip a)","Ping loopback → gateway → IP externe → nom DNS","Créer VLAN et trunk, inter-VLAN via routeur/Switch L3"],
+  g:["Trouver son IP/masque/gateway (ipconfig / ip a)","Ping loopback �  gateway �  IP externe �  nom DNS","Créer VLAN et trunk, inter-VLAN via routeur/Switch L3"],
   c:`# Configuration typique
 IP: 192.168.1.10
 Masque: 255.255.255.0 (/24)
@@ -3162,9 +3162,9 @@ ping google.com`,
  },
  {
   id:"ccp4-dns-dhcp-debutant", t:"DNS/DHCP : résolution et baux (débutant)", level:"debutant",
-  r:"DNS traduit nom→IP. DHCP attribue IP/gateway/DNS. TTL, A, PTR, enregistrements. Bail à renouveler.",
+  r:"DNS traduit nom� IP. DHCP attribue IP/gateway/DNS. TTL, A, PTR, enregistrements. Bail à renouveler.",
   tags:["dns","dhcp","debutant"],
-  g:["Créer zones directe/inverse","Étendue DHCP + options","Tester nslookup et bail"],
+  g:["Créer zones directe/inverse","�0tendue DHCP + options","Tester nslookup et bail"],
   c:`Add-DnsServerPrimaryZone -Name tssr.local -DynamicUpdate Secure
 Add-DhcpServerv4Scope -Name LAN -StartRange 192.168.1.100 -EndRange 192.168.1.200 -SubnetMask 255.255.255.0
 nslookup intranet.local`,
@@ -3225,7 +3225,7 @@ addFiches('ccp5', [
   g:["Créer VM depuis template","Snapshot avant MAJ","Tester restauration"],
   c:`# Concepts VMware/Hyper-V
 Thin provisioning, vSwitch, portgroup
-Snapshot ≠ Sauvegarde`,
+Snapshot �0� Sauvegarde`,
   p:["Type 1 bare-metal vs Type 2 hosté","VMkernel pour vMotion","MTU identique"],
   w:"Un snapshot oublié dégrade fortement l'I/O."
  }
@@ -3257,39 +3257,39 @@ G.sections.push({
  group:"TSSR",
   icon:"🧪",
  title:"Exemples pratiques & simulations",
- desc:"Mises en situation pas à pas (GUI + CLI) pour comprendre par l'action.",
+ desc:"Mises en situation pas � pas (GUI + CLI) pour comprendre par l'action.",
  fiches:[
   {
    id:"sim-poste-sans-internet", t:"Simulation : poste Windows sans internet", level:"debutant",
-   r:"Poste en DHCP avec IP APIPA (169.254.x.x) : pas de réponse serveur DHCP. On vérifie couche par couche.",
+   r:"Poste en DHCP avec IP APIPA (169.254.x.x) : pas de r�ponse serveur DHCP. On v�rifie couche par couche.",
    tags:["simulation","reseau","poste","dhcp"],
-   g:["Ouvrir Centre Réseau et partage : l'IP est 169.254.42.17","Tester ping 127.0.0.1 (OK) puis ping passerelle (KO)","Redémarrer la carte ou ipconfig /renew","Vérifier le serveur DHCP (étendue, bail)"],
+   g:["Ouvrir Centre R�seau et partage : l'IP est 169.254.42.17","Tester ping 127.0.0.1 (OK) puis ping passerelle (KO)","Red�marrer la carte ou ipconfig /renew","V�rifier le serveur DHCP (�tendue, bail)"],
    c:`ipconfig /all
 ping 127.0.0.1
 ping 192.168.1.1
 ipconfig /release
 ipconfig /renew
 ipconfig /flushdns`,
-   p:["APIPA = 169.254.0.0/16","Le défaut peut venir d'un câble ou d'un VLAN","Tracer les changements dans le ticket"],
-   w:"Ne pas mettre une IP fixe « pour faire marcher » sans diagnostic."
+   p:["APIPA = 169.254.0.0/16","Le d�faut peut venir d'un c�ble ou d'un VLAN","Tracer les changements dans le ticket"],
+   w:"Ne pas mettre une IP fixe � pour faire marcher � sans diagnostic."
   },
   {
-   id:"sim-creation-user-ad", t:"Simulation : créer un utilisateur AD puis tester", level:"debutant",
-   r:"Création complète d'un compte et validation de la connexion + GPO.",
+   id:"sim-creation-user-ad", t:"Simulation : cr�er un utilisateur AD puis tester", level:"debutant",
+   r:"Cr�ation compl�te d'un compte et validation de la connexion + GPO.",
    tags:["simulation","ad","compte"],
-   g:["ADUC : nouvelle OU Users","Créer l'utilisateur Jean Martin","Ajouter au groupe G_Compta","Se connecter sur un poste du domaine"],
+   g:["ADUC : nouvelle OU Users","Cr�er l'utilisateur Jean Martin","Ajouter au groupe G_Compta","Se connecter sur un poste du domaine"],
    c:`New-ADUser -Name "Jean Martin" -SamAccountName jmartin -GivenName Jean -Surname Martin -Enabled $true -Path "OU=Users,DC=tssr,DC=local" -AccountPassword (ConvertTo-SecureString 'Temp2026!' -AsPlainText -Force) -ChangePasswordAtLogon $true
 Add-ADGroupMember -Identity G_Compta -Members jmartin
 gpupdate /force
 gpresult /r`,
-   p:["Le mot de passe doit être changé à la première ouverture","Vérifier les GPO appliquées","Garder les preuves pour le dossier pro"],
-   w:"Un compte créé dans la mauvaise OU hérite de mauvaises GPO."
+   p:["Le mot de passe doit �tre chang� � la premi�re ouverture","V�rifier les GPO appliqu�es","Garder les preuves pour le dossier pro"],
+   w:"Un compte cr�� dans la mauvaise OU h�rite de mauvaises GPO."
   },
   {
    id:"sim-vlan-cisco", t:"Simulation : VLAN et trunk Cisco", level:"intermediaire",
-   r:"Mettre deux PC dans deux VLAN puis vérifier l'isolation et le trunk.",
+   r:"Mettre deux PC dans deux VLAN puis v�rifier l'isolation et le trunk.",
    tags:["simulation","cisco","vlan"],
-   g:["Packet Tracer : switch + 2 PC","Créer VLAN 10 et 20, affecter les ports","Configurer le trunk entre deux switches","Test ping intra/inter VLAN"],
+   g:["Packet Tracer : switch + 2 PC","Cr�er VLAN 10 et 20, affecter les ports","Configurer le trunk entre deux switches","Test ping intra/inter VLAN"],
    c:`enable
 configure terminal
 vlan 10
@@ -3304,14 +3304,14 @@ interface f0/24
  switchport trunk allowed vlan 10,20
 show vlan brief
 show interfaces trunk`,
-   p:["Sans routeur, les VLAN sont isolés","show interfaces trunk révèle les VLAN autorisés","Sauvegarder startup-config"],
-   w:"Un VLAN non autorisé sur le trunk coupe silencieusement la communication."
+   p:["Sans routeur, les VLAN sont isol�s","show interfaces trunk r�v�le les VLAN autoris�s","Sauvegarder startup-config"],
+   w:"Un VLAN non autoris� sur le trunk coupe silencieusement la communication."
   },
   {
    id:"sim-routage-inter-vlan", t:"Simulation : routage inter-VLAN (router-on-a-stick)", level:"intermediaire",
    r:"Un routeur avec sous-interfaces .10/.20 route entre VLAN.",
    tags:["simulation","cisco","routing","vlan"],
-   g:["Connecter switch (trunk) au routeur","Créer sous-interfaces dot1Q","Configurer IP passerelle par VLAN","Tester ping entre VLAN"],
+   g:["Connecter switch (trunk) au routeur","Cr�er sous-interfaces dot1Q","Configurer IP passerelle par VLAN","Tester ping entre VLAN"],
    c:`interface g0/0.10
  encapsulation dot1Q 10
  ip address 192.168.10.1 255.255.255.0
@@ -3321,28 +3321,28 @@ interface g0/0.20
 no shutdown
 show ip route
 show ip interface brief`,
-   p:["Le port physique doit être no shutdown","Les passerelles sont les SVI/router subif","Tester avec ping puis DNS"],
-   w:"Un trunk natif mal défini casse tout le routage."
+   p:["Le port physique doit �tre no shutdown","Les passerelles sont les SVI/router subif","Tester avec ping puis DNS"],
+   w:"Un trunk natif mal d�fini casse tout le routage."
   },
   {
    id:"sim-acl", t:"Simulation : ACL et test de blocage", level:"intermediaire",
-   r:"Bloquer un sous-réseau A vers B sur le port 80, puis vérifier.",
+   r:"Bloquer un sous-r�seau A vers B sur le port 80, puis v�rifier.",
    tags:["simulation","acl","cisco","securite"],
-   g:["Créer l'ACL étendue","L'appliquer en entrée sur l'interface","Tester ping/HTTP depuis le réseau bloqué","Consulter les compteurs"],
+   g:["Cr�er l'ACL �tendue","L'appliquer en entr�e sur l'interface","Tester ping/HTTP depuis le r�seau bloqu�","Consulter les compteurs"],
    c:`ip access-list extended LAN-BLOCK
  permit ip any any
  deny tcp 192.168.10.0 0.0.0.255 192.168.20.0 0.0.0.255 eq 80
 interface g0/1
  ip access-group LAN-BLOCK in
 show access-lists`,
-   p:["L'ordre des règles compte","deny implicite à la fin","Tester dans les deux sens"],
+   p:["L'ordre des r�gles compte","deny implicite � la fin","Tester dans les deux sens"],
    w:"Une ACL sur la mauvaise interface bloque tout le trafic."
   },
   {
    id:"sim-linux-users", t:"Simulation : utilisateurs, groupes et SSH", level:"debutant",
-   r:"Créer un compte, lui donner sudo, configurer une clé SSH et tester la connexion distante.",
+   r:"Cr�er un compte, lui donner sudo, configurer une cl� SSH et tester la connexion distante.",
    tags:["simulation","linux","users","ssh"],
-   g:["Créer l'utilisateur alice sur le serveur","Ajouter la clé publique","Désactiver l'authentification par mot de passe","Se connecter avec la clé"],
+   g:["Cr�er l'utilisateur alice sur le serveur","Ajouter la cl� publique","D�sactiver l'authentification par mot de passe","Se connecter avec la cl�"],
    c:`useradd -m -s /bin/bash alice
 usermod -aG sudo alice
 ssh-keygen -t ed25519 -C "alice@tssr"
@@ -3351,14 +3351,14 @@ ssh-copy-id alice@192.168.1.20
 PasswordAuthentication no
 systemctl reload sshd
 ssh alice@192.168.1.20`,
-   p:["Toujours tester la clé avant de désactiver le password","sudo -l pour vérifier","Journaliser l'accès"],
-   w:"Se couper l'accès SSH est l'erreur la plus fréquente."
+   p:["Toujours tester la cl� avant de d�sactiver le password","sudo -l pour v�rifier","Journaliser l'acc�s"],
+   w:"Se couper l'acc�s SSH est l'erreur la plus fr�quente."
   },
   {
    id:"sim-lvm", t:"Simulation : ajout de disque avec LVM", level:"avance",
-   r:"Ajouter un disque, le transformer en volume logique monté.",
+   r:"Ajouter un disque, le transformer en volume logique mont�.",
    tags:["simulation","linux","lvm","stockage"],
-   g:["Brancher le disque et repérer /dev/sdb","Créer PV, VG, LV","Formater et monter","Ajouter à fstab"],
+   g:["Brancher le disque et rep�rer /dev/sdb","Cr�er PV, VG, LV","Formater et monter","Ajouter � fstab"],
    c:`lsblk
 pvcreate /dev/sdb
 vgcreate vg_data /dev/sdb
@@ -3367,14 +3367,14 @@ mkfs.ext4 /dev/vg_data/lv_data
 mount /dev/vg_data/lv_data /opt/data
 echo "/dev/vg_data/lv_data /opt/data ext4 defaults 0 2" >> /etc/fstab
 mount -a`,
-   p:["XFS pour gros volumes","Ne jamais fsck un volume monté","Snapshot LVM avant MAJ"],
-   w:"fstab erroné peut empêcher le boot."
+   p:["XFS pour gros volumes","Ne jamais fsck un volume mont�","Snapshot LVM avant MAJ"],
+   w:"fstab erron� peut emp�cher le boot."
   },
   {
    id:"sim-apache-restriction", t:"Simulation : site Apache restreint par IP", level:"intermediaire",
-   r:"Déployer un site en DMZ et limiter l'accès aux IP internes.",
+   r:"D�ployer un site en DMZ et limiter l'acc�s aux IP internes.",
    tags:["simulation","apache","dmz","securite"],
-   g:["Installer Apache","Créer un vhost intranet","Restreindre par Require ip","Recharger et tester"],
+   g:["Installer Apache","Cr�er un vhost intranet","Restreindre par Require ip","Recharger et tester"],
    c:`apt install apache2 -y
 a2ensite intranet
 # /etc/apache2/sites-available/intranet.conf
@@ -3383,28 +3383,28 @@ a2ensite intranet
 </Directory>
 systemctl reload apache2
 curl -I http://intranet`,
-   p:["Reverse proxy recommandé","Logs + rotation","TLS pour production"],
-   w:"Oublier la règle Allow/Deny bloque tout accès."
+   p:["Reverse proxy recommand�","Logs + rotation","TLS pour production"],
+   w:"Oublier la r�gle Allow/Deny bloque tout acc�s."
   },
   {
    id:"sim-backup-test", t:"Simulation : sauvegarde et test de restore", level:"intermediaire",
-   r:"Sauvegarder un dossier puis le restaurer dans un emplacement de test et vérifier l'intégrité.",
+   r:"Sauvegarder un dossier puis le restaurer dans un emplacement de test et v�rifier l'int�grit�.",
    tags:["simulation","backup","restore"],
-   g:["Créer des fichiers de test","Lancer une sauvegarde tar/rsync","Supprimer les originaux","Restaurer et comparer"],
+   g:["Cr�er des fichiers de test","Lancer une sauvegarde tar/rsync","Supprimer les originaux","Restaurer et comparer"],
    c:`mkdir -p /data/test && echo ok > /data/test/f.txt
 tar -czf /backup/test-$(date +%F).tgz /data/test
 rm -rf /data/test
 mkdir -p /restore/test
 tar -xzf /backup/test-$(date +%F).tgz -C /restore
 diff -r /restore/data/test /data 2>/dev/null || echo restored`,
-   p:["RPO/RTO définis","Checksums pour l'intégrité","Conserver hors ligne"],
-   w:"Une sauvegarde non testée n'est pas une sauvegarde."
+   p:["RPO/RTO d�finis","Checksums pour l'int�grit�","Conserver hors ligne"],
+   w:"Une sauvegarde non test�e n'est pas une sauvegarde."
   },
   {
    id:"sim-dns-trace", t:"Simulation : diagnostic DNS de bout en bout", level:"intermediaire",
-   r:"Nom qui ne résout pas : tests DNS client/serveur, zone et enregistrement.",
+   r:"Nom qui ne r�sout pas : tests DNS client/serveur, zone et enregistrement.",
    tags:["simulation","dns","diagnostic"],
-   g:["Ping par IP (OK) puis par nom (KO)","nslookup pour identifier le serveur","Vérifier la zone et l’enregistrement A","Purger le cache et retester"],
+   g:["Ping par IP (OK) puis par nom (KO)","nslookup pour identifier le serveur","V�rifier la zone et lenregistrement A","Purger le cache et retester"],
    c:`ping 192.168.1.10
 ping srv1.tssr.local
 nslookup srv1.tssr.local
@@ -3412,8 +3412,8 @@ nslookup srv1.tssr.local 192.168.1.10
 ipconfig /flushdns
 # Serveur DNS :
 Get-DnsServerResourceRecord -ZoneName tssr.local -Name srv1`,
-   p:["Le poste doit pointer vers le bon DNS","Scavenging pour nettoyer","Vérifier la zone inverse PTR"],
-   w:"Un mauvais DNS côté client casse Kerberos/AD."
+   p:["Le poste doit pointer vers le bon DNS","Scavenging pour nettoyer","V�rifier la zone inverse PTR"],
+   w:"Un mauvais DNS c�t� client casse Kerberos/AD."
   }
  ]
 });

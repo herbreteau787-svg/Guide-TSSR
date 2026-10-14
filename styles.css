@@ -249,7 +249,7 @@ pre { margin: 0; }
   .card { break-inside: avoid; }
 }
 
-/* ===== Améliorations UX/template (édition plus agréable) ===== */
+/* ===== Am�liorations UX/template (�dition plus agr�able) ===== */
 :root {
   --radius: 16px;
   --radius-sm: 12px;

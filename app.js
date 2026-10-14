@@ -42,7 +42,7 @@ function formatInline(s){
 }
 function badgeLevel(level){
   const map = { debutant:'level-debutant', intermediaire:'', avance:'level-avance', exam:'level-exam' };
-  const labels = { debutant:'Débutant', intermediaire:'Intermédiaire', avance:'Avancé', exam:'Examen' };
+  const labels = { debutant:'D�butant', intermediaire:'Interm�diaire', avance:'Avanc�', exam:'Examen' };
   return `<span class="badge ${map[level]||''}">${labels[level]||level||''}</span>`;
 }
 
@@ -56,7 +56,7 @@ function toggleTheme(){
   const next = cur === 'dark' ? 'light' : 'dark';
   localStorage.setItem(STORAGE.theme, next);
   applyTheme();
-  toast(next === 'light' ? 'Thème clair' : 'Thème sombre','ok');
+  toast(next === 'light' ? 'Th�me clair' : 'Th�me sombre','ok');
 }
 
 /* ---------- toast ---------- */
@@ -76,7 +76,7 @@ function updBar(){
   const bar = document.querySelector('#progressBar i');
   const txt = document.querySelector('#progressText');
   if (bar) bar.style.width = Math.round(done/total*100) + '%';
-  if (txt) txt.textContent = `${done}/${total} lues · ${Math.round(done/total*100)}%`;
+  if (txt) txt.textContent = `${done}/${total} lues � ${Math.round(done/total*100)}%`;
   const topPct = document.querySelector('#progressTextTop');
   if (topPct) topPct.textContent = `${done}/${total}`;
 }
@@ -186,10 +186,10 @@ function renderCours(){
       html += `<h2 class="grp-title">${escapeHtml(sec.icon||'')} ${escapeHtml(sec.title)}</h2>`;
       html += ms.map((f,i)=> renderFiche(sec,f,sec.fiches.indexOf(f),done,favs)).join('');
     });
-    if (!found) html += `<div class="card"><p class="muted">Aucun résultat. Essayez un autre mot-clé.</p></div>`;
+    if (!found) html += `<div class="card"><p class="muted">Aucun r�sultat. Essayez un autre mot-cl�.</p></div>`;
   } else {
     const sec = G.sections.find(s=>s.id===state.section) || G.sections[0];
-    html += `<div class="hero"><h1>${escapeHtml(sec.icon||'')} ${escapeHtml(sec.title)}</h1><p>${escapeHtml(sec.desc||'')}</p><p class="muted small">${(sec.fiches||[]).length} fiches · ${escapeHtml(sec.group||'')}</p></div>`;
+    html += `<div class="hero"><h1>${escapeHtml(sec.icon||'')} ${escapeHtml(sec.title)}</h1><p>${escapeHtml(sec.desc||'')}</p><p class="muted small">${(sec.fiches||[]).length} fiches � ${escapeHtml(sec.group||'')}</p></div>`;
     const ms = (sec.fiches||[]).filter(f=>matchesFiche(f,sec));
     if (!ms.length) html += `<div class="card"><p class="muted">Aucune fiche avec ces filtres.</p></div>`;
     else html += ms.map(f=> renderFiche(sec,f,sec.fiches.indexOf(f),done,favs)).join('');
@@ -230,7 +230,7 @@ function renderFiche(sec, f, index, done, favs){
       </div>
     </div>
     ${pts ? `<ul class="pts">${pts}</ul>` : ''}
-    ${f.w ? `<div class="warn-box">⚠️ ${formatInline(f.w)}</div>` : ''}
+    ${f.w ? `<div class="warn-box">� ${formatInline(f.w)}</div>` : ''}
     <div class="label-row">
       <label class="check"><input type="checkbox" data-key="${escapeHtml(key)}" ${isDone?'checked':''}> Marquer comme lue</label>
       <button class="favorite-btn ${isFav?'on':''}" data-key="${escapeHtml(key)}">${isFav?' Favori':' Favori'}</button>
@@ -240,10 +240,10 @@ function renderFiche(sec, f, index, done, favs){
 
 /* delegation for cours */
 document.addEventListener('click', e=>{
-  // copier une commande en cliquant sur la première cellule d'un tableau cheat
+  // copier une commande en cliquant sur la premi�re cellule d'un tableau cheat
   const cell = e.target.closest('.cheat-table tbody td:first-child');
   if (cell) {
-    navigator.clipboard.writeText(cell.innerText).then(()=>{ cell.style.background='rgba(56,189,248,.25)'; setTimeout(()=>cell.style.background='',600); toast('Commande copiée','ok'); }).catch(()=>{});
+    navigator.clipboard.writeText(cell.innerText).then(()=>{ cell.style.background='rgba(56,189,248,.25)'; setTimeout(()=>cell.style.background='',600); toast('Commande copi�e','ok'); }).catch(()=>{});
     return;
   }
   // tab main
@@ -276,7 +276,7 @@ document.addEventListener('click', e=>{
   const cp = e.target.closest('.copy-btn');
   if (cp){
     const code = cp.parentElement.querySelector('code').innerText;
-    navigator.clipboard.writeText(code).then(()=>{ cp.textContent='Copié !'; setTimeout(()=>cp.textContent='Copier',1200); toast('Code copié','ok');});
+    navigator.clipboard.writeText(code).then(()=>{ cp.textContent='Copi� !'; setTimeout(()=>cp.textContent='Copier',1200); toast('Code copi�','ok');});
     return;
   }
   // sidebar nav already native onclick
@@ -302,12 +302,12 @@ function wireFilters(){
     if (!sec) return;
     const set = doneSet();
     sec.fiches.forEach((f,i)=> set.add(ficheKey(sec.id,f,i)));
-    saveDone(set); updBar(); renderCours(); renderProgress(); toast('Tout marqué comme lu','ok');
+    saveDone(set); updBar(); renderCours(); renderProgress(); toast('Tout marqu� comme lu','ok');
   });
   document.getElementById('resetProgress').addEventListener('click', ()=>{
-    if (!confirm('Réinitialiser la progression et les favoris ?')) return;
+    if (!confirm('R�initialiser la progression et les favoris ?')) return;
     localStorage.removeItem(STORAGE.done); localStorage.removeItem(STORAGE.fav); localStorage.removeItem(STORAGE.qhistory);
-    updBar(); renderActiveTab(); renderProgress(); toast('Progression réinitialisée','warn');
+    updBar(); renderActiveTab(); renderProgress(); toast('Progression r�initialis�e','warn');
   });
 }
 function exportProgress(){
@@ -316,7 +316,7 @@ function exportProgress(){
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a'); a.href=url; a.download='tssr-progress.json'; a.click();
   URL.revokeObjectURL(url);
-  toast('Progression exportée','ok');
+  toast('Progression export�e','ok');
 }
 function exportFiche(key){
   // find fiche
@@ -324,12 +324,12 @@ function exportFiche(key){
     const idx = (sec.fiches||[]).findIndex((f,i)=> ficheKey(sec.id,f,i)===key);
     if (idx !== -1){
       const f = sec.fiches[idx];
-      const md = `# ${f.t}\n\n${f.r}\n\n## GUI\n${(f.g||[]).map(x=>'- '+x).join('\n')}\n\n## CLI\n\`\`\`\n${f.c||''}\n\`\`\`\n\n## Points\n${(f.p||[]).map(x=>'- '+x).join('\n')}\n\n${f.w?'⚠️ '+f.w:''}`;
+      const md = `# ${f.t}\n\n${f.r}\n\n## GUI\n${(f.g||[]).map(x=>'- '+x).join('\n')}\n\n## CLI\n\`\`\`\n${f.c||''}\n\`\`\`\n\n## Points\n${(f.p||[]).map(x=>'- '+x).join('\n')}\n\n${f.w?'� '+f.w:''}`;
       const blob = new Blob([md],{type:'text/markdown'});
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a'); a.href=url; a.download=`${(f.t||'fiche').replace(/[^a-z0-9]/gi,'_')}.md`; a.click();
       URL.revokeObjectURL(url);
-      toast('Fiche exportée en Markdown','ok');
+      toast('Fiche export�e en Markdown','ok');
       return;
     }
   }
@@ -357,10 +357,10 @@ function renderQCM(){
         <option value="999">Toutes</option>
       </select>
       <select id="qcmDiff" class="select">
-        <option value="all">Toutes difficultés</option>
+        <option value="all">Toutes difficult�s</option>
         <option value="facile">Facile</option>
         <option value="moyen">Moyen</option>
-        <option value="avance">Avancé</option>
+        <option value="avance">Avanc�</option>
         <option value="exam">Examen</option>
       </select>
     </div>
@@ -402,14 +402,14 @@ function renderQCMQuestion(panel){
   if (i >= qs.length){ return renderQCMResult(panel); }
   const q = qs[i];
   const progress = Math.round(i/qs.length*100);
-  let html = `<div class="hero"><h1>Question ${i+1}/${qs.length}</h1><div class="q-progressbar"><i style="width:${progress}%"></i></div>${state.qcm.useTimer?`<p class="timer" id="qcmTimerVal">⏱️ 30</p>`:''}</div>`;
+  let html = `<div class="hero"><h1>Question ${i+1}/${qs.length}</h1><div class="q-progressbar"><i style="width:${progress}%"></i></div>${state.qcm.useTimer?`<p class="timer" id="qcmTimerVal">� 30</p>`:''}</div>`;
   html += `<div class="qcm-session">
     <p><strong>${escapeHtml(q.q)}</strong></p>
     ${q.choices.map((c,ci)=>`<button class="q-option" data-ci="${ci}">${escapeHtml(c)}</button>`).join('')}
     <div class="q-explain" id="qcmExplain" style="display:none"></div>
     <div class="button-row" style="margin-top:12px">
       <button class="ghost-btn" id="qcmSkip">Passer</button>
-      <button class="icon-btn" id="qcmNext" style="display:none;background:var(--acc);color:#020617;font-weight:700;border:0">Suivant ➜</button>
+      <button class="icon-btn" id="qcmNext" style="display:none;background:var(--acc);color:#020617;font-weight:700;border:0">Suivant �</button>
     </div>
   </div>`;
   panel.innerHTML = html;
@@ -420,7 +420,7 @@ function renderQCMQuestion(panel){
     state.qcm.timer = setInterval(()=>{
       state.qcm.remaining--;
       const el = document.getElementById('qcmTimerVal');
-      if (el) el.textContent = '⏱️ ' + state.qcm.remaining;
+      if (el) el.textContent = '� ' + state.qcm.remaining;
       if (state.qcm.remaining <= 0){
         clearInterval(state.qcm.timer);
         // auto mark unanswered as wrong? just show answer then next
@@ -467,13 +467,13 @@ function renderQCMResult(panel){
   let html = `<div class="hero"><h1><é Résultat</h1><p>Score : <strong>${score}%</strong> (${correct}/${total})</p></div>`;
   html += `<div class="qcm-result">
     <div class="stat-grid">
-      <div class="stat"><div class="big">${score}%</div><div>Réussite</div></div>
+      <div class="stat"><div class="big">${score}%</div><div>R�ussite</div></div>
       <div class="stat"><div class="big">${correct}</div><div>Correctes</div></div>
-      <div class="stat"><div class="big">${wrong.length}</div><div>À revoir</div></div>
+      <div class="stat"><div class="big">${wrong.length}</div><div>� revoir</div></div>
     </div>
     <div class="button-row"><button class="icon-btn" id="qcmRestart" style="background:var(--acc);color:#020617;font-weight:700;border:0">Rejouer</button>
-    <button class="ghost-btn" id="qcmSetupBtn">Nouveau paramétrage</button></div>
-    ${wrong.length?`<h3>Questions à revoir</h3>`+wrong.map(w=>`<div class="card" style="border-left-color:var(--danger)"><h3>${escapeHtml(w.q.q)}</h3><p class="muted">Votre réponse : ${escapeHtml(w.q.choices[w.ans] ?? '—')} · Bonne : ${escapeHtml(w.q.choices[w.q.answer])}</p><div class="q-explain">${escapeHtml(w.q.explain||'')}</div></div>`).join(''):''}
+    <button class="ghost-btn" id="qcmSetupBtn">Nouveau param�trage</button></div>
+    ${wrong.length?`<h3>Questions � revoir</h3>`+wrong.map(w=>`<div class="card" style="border-left-color:var(--danger)"><h3>${escapeHtml(w.q.q)}</h3><p class="muted">Votre r�ponse : ${escapeHtml(w.q.choices[w.ans] ?? '')} � Bonne : ${escapeHtml(w.q.choices[w.q.answer])}</p><div class="q-explain">${escapeHtml(w.q.explain||'')}</div></div>`).join(''):''}
   </div>`;
   panel.innerHTML = html;
   document.getElementById('qcmRestart').onclick = ()=>{ state.qcm.index=0; state.qcm.answers={}; state.qcm.active=true; renderQCMQuestion(panel); };
@@ -498,7 +498,7 @@ function renderLabos(){
       <h4>Étapes</h4>
       <div>${(l.steps||[]).map((s,i)=>`<div class="step"><div class="num">${i+1}</div><div>${formatInline(s)}</div></div>`).join('')}</div>
       ${l.validation?`<h4>Validation</h4><ul class="pts">${(l.validation||[]).map(s=>`<li>${formatInline(s)}</li>`).join('')}</ul>`:''}
-      ${l.troubleshooting?`<div class="warn-box">Dépannage : ${(l.troubleshooting||[]).map(escapeHtml).join(' · ')}</div>`:''}
+      ${l.troubleshooting?`<div class="warn-box">D�pannage : ${(l.troubleshooting||[]).map(escapeHtml).join(' � ')}</div>`:''}
     </div>`).join('');
   if (!labs.length) html += `<div class="card"><p class="muted">Aucun labo pour ce filtre.</p></div>`;
   panel.innerHTML = html;
@@ -541,23 +541,23 @@ function cheatCategory(c){
   if (t.includes('cisco')) return 'Cisco';
   if (t.includes('linux') || t.includes('bash')) return 'Linux';
   if (t.includes('windows') || t.includes('powershell') || t.includes('cmd')) return 'Windows';
-  if (t.includes('web') || t.includes('apache') || t.includes('nginx') || t.includes('sql') || t.includes('base') || t.includes('donnée') || t.includes('database')) return 'Serveur web et base de données';
-  return 'Réseau';
+  if (t.includes('web') || t.includes('apache') || t.includes('nginx') || t.includes('sql') || t.includes('base') || t.includes('donn�e') || t.includes('database')) return 'Serveur web et base de donn�es';
+  return 'R�seau';
   if (t.includes('linux')) return 'Linux';
   if (t.includes('cisco')) return 'Cisco';
   if (t.includes('windows cmd') || t.includes('windows server') || t.includes('windows /')) return 'Windows';
-  if (t.includes('subnet') || t.includes('ports') || t.includes('réseau') || t.includes('reseau') || t.includes('diagnostic')) return 'Réseau';
+  if (t.includes('subnet') || t.includes('ports') || t.includes('r�seau') || t.includes('reseau') || t.includes('diagnostic')) return 'R�seau';
   if (t.includes('docker') || t.includes('kubernetes')) return 'Docker';
   if (t.includes('git')) return 'Git';
-  if (t.includes('sql') || t.includes('base de données') || t.includes('postgresql') || t.includes('mysql')) return 'Bases de données';
+  if (t.includes('sql') || t.includes('base de donn�es') || t.includes('postgresql') || t.includes('mysql')) return 'Bases de donn�es';
   if (t.includes('apache') || t.includes('nginx') || t.includes('web')) return 'Web';
   if (t.includes('vmware') || t.includes('hyper-v') || t.includes('virtualisation')) return 'Virtualisation';
-  if (t.includes('sécurité') || t.includes('securite') || t.includes('openssl') || t.includes('certificat')) return 'Sécurité';
+  if (t.includes('s�curit�') || t.includes('securite') || t.includes('openssl') || t.includes('certificat')) return 'S�curit�';
   if (t.includes('sauvegarde') || t.includes('backup') || t.includes('archive')) return 'Sauvegarde';
   if (t.includes('ansible') || t.includes('terraform') || t.includes('iac')) return 'IaC';
-  if (t.includes('supervision') || t.includes('observabilité') || t.includes('grafana') || t.includes('prometheus')) return 'Supervision';
+  if (t.includes('supervision') || t.includes('observabilit�') || t.includes('grafana') || t.includes('prometheus')) return 'Supervision';
   if (t.includes('pfsense') || t.includes('pare-feu')) return 'Pare-feu';
-  if (t.includes('wireshark')) return 'Réseau';
+  if (t.includes('wireshark')) return 'R�seau';
   return 'Autres';
 }
 
@@ -566,7 +566,7 @@ function renderCheat(){
   const panel = document.querySelector('[data-panel="cheat"]');
   const q = (state.cheatQ || '').trim().toLowerCase();
   const allCats = new Set((G.cheats||[]).map(cheatCategory));
-  const priority = ['Réseau','Cisco','Linux','Windows','Serveur web et base de données','Sauvegardes'];
+  const priority = ['R�seau','Cisco','Linux','Windows','Serveur web et base de donn�es','Sauvegardes'];
   const ordered = ['Tous', ...priority.filter(c=>allCats.has(c)), ...[...allCats].filter(c=> c!=='Tous' && !priority.includes(c)).sort((a,b)=>a.localeCompare(b,'fr'))];
   if (!ordered.includes(state.cheatCat)) state.cheatCat = 'Tous';
 
@@ -585,7 +585,7 @@ function renderCheat(){
       <table class="cheat-table"><thead><tr><th>Commande</th><th>Usage</th><th>Source</th></tr></thead><tbody>
       ${matches.map(m=>`<tr><td>${formatInline(m.row[0]||'')}</td><td>${formatInline(m.row[1]||'')}</td><td class="muted small">${escapeHtml(m.sheet)}</td></tr>`).join('')}
       </tbody></table></div>`;
-    if (!matches.length) html += `<div class="card"><p class="muted">Aucune commande trouvée pour « ${escapeHtml(state.cheatQ)} ».</p></div>`;
+    if (!matches.length) html += `<div class="card"><p class="muted">Aucune commande trouv�e pour � ${escapeHtml(state.cheatQ)} �.</p></div>`;
   } else {
     if (allCats.size > 1) {
       html += `<div class="tabs-mode" id="cheatCats">` + ordered.map(cat=>`<button data-cat="${escapeHtml(cat)}" class="${cat===state.cheatCat?'on':''}">${escapeHtml(cat)}</button>`).join('') + `</div>`;
@@ -597,7 +597,7 @@ function renderCheat(){
         ${(c.rows||[]).map(r=>`<tr>${r.map(cell=>`<td>${formatInline(cell)}</td>`).join('')}</tr>`).join('')}
         </tbody></table></div>`;
     });
-    if (!list.length) html += `<div class="card"><p class="muted">Aucune cheat sheet dans cette catégorie.</p></div>`;
+    if (!list.length) html += `<div class="card"><p class="muted">Aucune cheat sheet dans cette cat�gorie.</p></div>`;
   }
 
   panel.innerHTML = html;
@@ -615,10 +615,10 @@ function renderCheat(){
 function renderAnglais(){
   const panel = document.querySelector('[data-panel="anglais"]');
   const grouped = [
-    { title: 'Verbes et actions (lecture de doc, procédures, diagnostic)', rows: [
-      ['deploy / rollout','déployer / déployer progressivement'],
+    { title: 'Verbes et actions (lecture de doc, proc�dures, diagnostic)', rows: [
+      ['deploy / rollout','d�ployer / d�ployer progressivement'],
       [' configure / configuration','configurer / configuration'],
-      ['troubleshoot','dépanner, investiguer'],
+      ['troubleshoot','d�panner, investiguer'],
       ['investigate / root cause','investiguer, cause racine'],
       [' escalate','escalader'],
       ['revoke / renew','révoquer / renouveler'],
@@ -639,11 +639,11 @@ function renderAnglais(){
       ['vMotion / live migration','migration é chaud'],
       ['HA / DRS / cluster','haute disponibilité, équilibrage, cluster'],
       ['failover / fallback','bascule / repli'],
-      ['latency / throughput / bandwidth','latence, débit utile, bande passante'],
-      ['memory / CPU / IOPS','mémoire, processeur, opérations I/O par seconde']
+      ['latency / throughput / bandwidth','latence, d�bit utile, bande passante'],
+      ['memory / CPU / IOPS','m�moire, processeur, op�rations I/O par seconde']
     ]},
-    { title: 'Réseau et sécurité', rows: [
-      ['subnet / CIDR / mask','sous-réseau / CIDR / masque'],
+    { title: 'R�seau et s�curit�', rows: [
+      ['subnet / CIDR / mask','sous-r�seau / CIDR / masque'],
       ['gateway / router / switch','passerelle / routeur / commutateur'],
       ['firewall / ACL / policy','pare-feu, liste de contréle daccés, politique'],
       ['NAT / PAT / port forwarding','traduction dadresses et ports'],
@@ -651,15 +651,15 @@ function renderAnglais(){
       ['VLAN / trunk / tagging','VLAN, trunk, marquage 802.1Q'],
       ['MAC / ARP / ARP cache','MAC, ARP, cache ARP'],
       [' MTU / fragmentation / broadcast','MTU, fragmentation, diffusion'],
-      [' certificate / CSR / CRL','certificat, demande de certificat, liste de révocation'],
+      [' certificate / CSR / CRL','certificat, demande de certificat, liste de r�vocation'],
       [' credentials / secret / token','identifiants, secret, jeton'],
       [' least privilege / RBAC','moindre privilége, contréle daccés par réle']
     ]},
     { title: 'Support, ticketing et communication', rows: [
       ['incident / problem / request','incident, probléme, demande'],
       ['root cause / workaround','cause racine, contournement'],
-      ['escalate / handover','escalader, transférer'],
-      ['SLA / ETA','engagement de niveau de service, délai estimé'],
+      ['escalate / handover','escalader, transf�rer'],
+      ['SLA / ETA','engagement de niveau de service, d�lai estim�'],
       ['user impact / outage','impact utilisateur, panne'],
       ['known error / workaround KB','erreur connue, contournement selon KB'],
       ['rollout plan / rollback plan','plan de déploiement, plan de retour arriére'],
@@ -700,7 +700,7 @@ function renderAnglais(){
 function renderSupport(){
   const panel = document.querySelector('[data-panel="support"]');
   panel.innerHTML = `
-  <div class="hero"><h1>Support cours CCNA</h1><p>Ouvrez le PDF du support CCNA ci-dessous ou retéléchargez-le.</p></div>
+  <div class="hero"><h1>Support cours CCNA</h1><p>Ouvrez le PDF du support CCNA ci-dessous ou ret�l�chargez-le.</p></div>
   <div class="card">
     <p class="muted">Fichier : CCNA1.pdf (15 Mo). L'affichage peut étre lent selon le navigateur.</p>
     <p><a href="CCNA1.pdf" target="_blank" rel="noopener">Ouvrir CCNA1.pdf dans un nouvel onglet</a></p>
@@ -708,7 +708,7 @@ function renderSupport(){
   <div class="card">
     <iframe src="CCNA1.pdf#view=FitH" title="Support CCNA" style="width:100%;height:75vh;border:1px solid #334155;border-radius:12px;" loading="lazy"></iframe>
   </div>
-  <div class="card"><h2>Note</h2><p>Ce PDF inclut le cours et les questions. Le format compacté via le navigateur dépend de l'affichage PDF intégré.</p></div>`;
+  <div class="card"><h2>Note</h2><p>Ce PDF inclut le cours et les questions. Le format compact� via le navigateur d�pend de l'affichage PDF int�gr�.</p></div>`;
 }
 
 /* ---------- methods ---------- */
@@ -726,7 +726,7 @@ function renderResources(){
   const panel = document.querySelector('[data-panel="ressources"]');
   let html = `<div class="hero"><h1>= Ressources</h1><p>Liens utiles pour aller plus loin.</p></div>`;
   (G.resources||[]).forEach(r=>{
-    html += `<div class="card"><h3>${escapeHtml(r.title)}</h3><p class="muted">${escapeHtml(r.desc||'')}</p><p><a href="${escapeHtml(r.url)}" target="_blank" rel="noopener">Ouvrir ↗</a></p></div>`;
+    html += `<div class="card"><h3>${escapeHtml(r.title)}</h3><p class="muted">${escapeHtml(r.desc||'')}</p><p><a href="${escapeHtml(r.url)}" target="_blank" rel="noopener">Ouvrir �</a></p></div>`;
   });
   panel.innerHTML = html;
 }
@@ -746,14 +746,14 @@ function renderProgress(){
   const complete = bySection.filter(x=>x.r===x.n && x.n>0).length;
   const history = lsGet(STORAGE.qhistory, []);
   const best = history.length ? Math.max(...history.map(h=>h.score)) : 0;
-  let html = `<div class="hero"><h1>📊 Progression & statistiques</h1><p>Suivi local dans le navigateur.</p></div>`;
+  let html = `<div class="hero"><h1>=� Progression & statistiques</h1><p>Suivi local dans le navigateur.</p></div>`;
   html += `<div class="stat-grid">
     <div class="stat"><div class="big">${read}</div><div>Fiches lues</div></div>
     <div class="stat"><div class="big">${pct}%</div><div>Avancement</div></div>
     <div class="stat"><div class="big">${favs.size}</div><div>Favoris</div></div>
-    <div class="stat"><div class="big">${complete}</div><div>Sections complètes</div></div>
+    <div class="stat"><div class="big">${complete}</div><div>Sections compl�tes</div></div>
     <div class="stat"><div class="big">${best}%</div><div>Meilleur QCM</div></div>
-    <div class="stat"><div class="big">${history.length}</div><div>QCM joués</div></div>
+    <div class="stat"><div class="big">${history.length}</div><div>QCM jou�s</div></div>
   </div>`;
   html += `<h2>Par section</h2>`;
   html += bySection.map(x=>`
@@ -765,7 +765,7 @@ function renderProgress(){
     </div>`).join('');
   html += `<div class="button-row" style="margin-top:12px">
     <button class="ghost-btn" id="exportProgress2">Exporter la progression</button>
-    <button class="ghost-btn danger" id="resetProgress2">Réinitialiser</button>
+    <button class="ghost-btn danger" id="resetProgress2">R�initialiser</button>
   </div>`;
   panel.innerHTML = html;
   document.getElementById('exportProgress2').onclick = exportProgress;

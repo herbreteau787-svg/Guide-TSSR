@@ -2,141 +2,141 @@ const G = window.GUIDE;
 G.methods = G.methods || [];
 G.methods.push(...[
  {
-  title:"Méthode MSP (dossier pro)", type:"workflow",
+  title:"M�thode MSP (dossier pro)", type:"workflow",
   steps:[
    "Comprendre le besoin et le contexte.",
-   "Maquetter à petite échelle et valider.",
-   "Déployer avec une documentation précise.",
+   "Maquetter � petite �chelle et valider.",
+   "D�ployer avec une documentation pr�cise.",
    "Tester et collecter des preuves.",
-   "Présenter au jury avec justification."
+   "Pr�senter au jury avec justification."
   ]
  },
  {
-  title:"Plan de révision 30 jours", type:"plan",
+  title:"Plan de r�vision 30 jours", type:"plan",
   steps:[
    "J1-5 : Support + Windows",
    "J6-10 : Linux + scripting",
-   "J11-15 : Réseau + Cisco",
+   "J11-15 : R�seau + Cisco",
    "J16-20 : Virtualisation + pfSense",
-   "J21-24 : Sauvegarde + déploiement",
+   "J21-24 : Sauvegarde + d�ploiement",
    "J25-27 : ToIP + DMZ + supervision",
    "J28-29 : Examens blancs",
    "J30 : Repos + relecture des Warn"
   ]
  },
  {
-  title:"Structure de présentation orale", type:"template",
+  title:"Structure de pr�sentation orale", type:"template",
   steps:[
    "Contexte et besoin",
-   "Choix techniques argumentés",
-   "Démonstration / preuves",
-   "Difficultés rencontrées et corrections",
-   "Améliorations futures"
+   "Choix techniques argument�s",
+   "D�monstration / preuves",
+   "Difficult�s rencontr�es et corrections",
+   "Am�liorations futures"
   ]
  },
  {
   title:"Checklist documentation", type:"checklist",
   steps:[
-   "Schéma réseau à jour",
-   "Configurations sauvegardées",
+   "Sch�ma r�seau � jour",
+   "Configurations sauvegard�es",
    "Tests ping/tracert/captures",
    "Tableau RPO/RTO",
    "Plan d'adressage",
    "Comptes et droits",
-   "Procédure de restore"
+   "Proc�dure de restore"
   ]
  },
  {
-  title:"Procédure : création d'utilisateur (AD + poste)", type:"procedure",
+  title:"Proc�dure : cr�ation d'utilisateur (AD + poste)", type:"procedure",
   steps:[
-   "Créer compte AD (New-ADUser) dans OU correcte",
-   "Ajouter aux groupes métiers (AGDLP)",
-   "Définir mot de passe temporaire + forcer changement",
-   "Vérifier licence/mailbox si applicable",
-   "Joindre le poste au domaine si nécessaire",
+   "Cr�er compte AD (New-ADUser) dans OU correcte",
+   "Ajouter aux groupes m�tiers (AGDLP)",
+   "D�finir mot de passe temporaire + forcer changement",
+   "V�rifier licence/mailbox si applicable",
+   "Joindre le poste au domaine si n�cessaire",
    "Tester ouverture session + GPO",
    "Documenter dans le ticket et base de connaissances"
   ]
  },
  {
-  title:"Procédure : incident réseau (poste sans internet)", type:"procedure",
+  title:"Proc�dure : incident r�seau (poste sans internet)", type:"procedure",
   steps:[
-   "Vérifier voyants, câble, Wi-Fi activé",
+   "V�rifier voyants, c�ble, Wi-Fi activ�",
    "ipconfig /all (IP, gateway, DNS)",
    "Ping 127.0.0.1, gateway, 8.8.8.8, nom DNS",
    "nslookup du nom cible",
-   "Vérifier état de la carte (Device Manager)",
+   "V�rifier �tat de la carte (Device Manager)",
    "Renouveler DHCP si IP APIPA (169.254)",
    "Purger cache DNS, tester navigateur",
    "Escalader avec captures si persistant"
   ]
  },
  {
-  title:"Procédure : reset mot de passe verrouillé", type:"security",
+  title:"Proc�dure : reset mot de passe verrouill�", type:"security",
   steps:[
-   "Vérifier identité (badge + manager)",
-   "Débloquer le compte (Unlock-ADAccount)",
-   "Réinitialiser MDP temporaire robuste",
-   "Forcer changement à prochaine ouverture",
-   "Envoyer MDP par canal séparé",
-   "Vérifier tentative répétée (verrouillage) et déconnecter sessions",
+   "V�rifier identit� (badge + manager)",
+   "D�bloquer le compte (Unlock-ADAccount)",
+   "R�initialiser MDP temporaire robuste",
+   "Forcer changement � prochaine ouverture",
+   "Envoyer MDP par canal s�par�",
+   "V�rifier tentative r�p�t�e (verrouillage) et d�connecter sessions",
    "Journaliser dans ticket"
   ]
  },
  {
-  title:"Procédure : dépannage DNS/DHCP", type:"procedure",
+  title:"Proc�dure : d�pannage DNS/DHCP", type:"procedure",
   steps:[
-   "Vérifier service DNS/DHCP actif",
-   "Contrôler étendue et options (gateway/DNS)",
+   "V�rifier service DNS/DHCP actif",
+   "Contr�ler �tendue et options (gateway/DNS)",
    "Tester nslookup depuis client et serveur",
-   "Vérifier enregistrements A/PTR",
+   "V�rifier enregistrements A/PTR",
    "Clear-DnsServerCache et scavenging",
-   "Vérifier baux DHCP et conflits",
-   "Redémarrer services si stale",
+   "V�rifier baux DHCP et conflits",
+   "Red�marrer services si stale",
    "Documenter cause racine"
   ]
  },
  {
-  title:"Procédure : sauvegarde et test de restore", type:"procedure",
+  title:"Proc�dure : sauvegarde et test de restore", type:"procedure",
   steps:[
-   "Définir RPO/RTO par service",
-   "Lancer backup (job planifié)",
-   "Vérifier logs de succès",
+   "D�finir RPO/RTO par service",
+   "Lancer backup (job planifi�)",
+   "V�rifier logs de succ�s",
    "Restaurer un fichier test et une VM",
-   "Valider l'intégrité (hash, application)",
+   "Valider l'int�grit� (hash, application)",
    "Conserver hors ligne/immuable",
-   "Mettre à jour le registre des sauvegardes"
+   "Mettre � jour le registre des sauvegardes"
   ]
  },
  {
-  title:"Procédure : déploiement VLAN Cisco", type:"procedure",
+  title:"Proc�dure : d�ploiement VLAN Cisco", type:"procedure",
   steps:[
-   "Créer VLAN et nommer",
-   "Affecter ports d'accès (switchport access vlan X)",
+   "Cr�er VLAN et nommer",
+   "Affecter ports d'acc�s (switchport access vlan X)",
    "Configurer trunk avec allowed VLAN",
-   "Mettre à jour VLAN natif (99)",
+   "Mettre � jour VLAN natif (99)",
    "Tester inter-VLAN via SVI/routeur",
-   "Vérifier STP et EtherChannel",
+   "V�rifier STP et EtherChannel",
    "Sauvegarder startup-config",
    "Documenter le plan de VLAN"
   ]
  },
  {
-  title:"Procédure : durcissement serveur Linux", type:"security",
+  title:"Proc�dure : durcissement serveur Linux", type:"security",
   steps:[
-   "Mettre à jour le système",
-   "Désactiver root login SSH",
-   "Activer authentification par clé",
+   "Mettre � jour le syst�me",
+   "D�sactiver root login SSH",
+   "Activer authentification par cl�",
    "Configurer UFW/firewalld",
    "Installer Fail2ban",
-   "Désactiver services inutiles",
-   "Vérifier permissions sudo",
+   "D�sactiver services inutiles",
+   "V�rifier permissions sudo",
    "Lancer audit (lynis, aide)",
-   "Planifier mises à jour automatiques"
+   "Planifier mises � jour automatiques"
   ]
  },
  {
-  title:"Procédure : diagnostic performance Linux", type:"procedure",
+  title:"Proc�dure : diagnostic performance Linux", type:"procedure",
   steps:[
    "uptime et load average",
    "top/htop (CPU/RAM/processus)",
@@ -145,32 +145,32 @@ G.methods.push(...[
    "df -h / du -sh",
    "ss -s / lsof",
    "journalctl -p err",
-   "Identifier processus gourmand et service associé",
+   "Identifier processus gourmand et service associ�",
    "Corriger et surveiller"
   ]
  },
  {
-  title:"Procédure : migration serveur Windows", type:"procedure",
+  title:"Proc�dure : migration serveur Windows", type:"procedure",
   steps:[
-   "Inventaire applications et dépendances",
-   "Sauvegarde configuration et données",
-   "Préparer nouveau serveur (rôles, IP, nom)",
-   "Transférer données (robocopy/rsync)",
-   "Mettre à jour DNS et clients",
+   "Inventaire applications et d�pendances",
+   "Sauvegarde configuration et donn�es",
+   "Pr�parer nouveau serveur (r�les, IP, nom)",
+   "Transf�rer donn�es (robocopy/rsync)",
+   "Mettre � jour DNS et clients",
    "Tests fonctionnels et performance",
    "Coupe et bascule",
    "Post-mortem et documentation"
   ]
  },
  {
-  title:"Procédure : gestion d'incident (ITIL)", type:"workflow",
+  title:"Proc�dure : gestion d'incident (ITIL)", type:"workflow",
   steps:[
-   "Détection et enregistrement",
-   "Catégorisation et priorisation",
+   "D�tection et enregistrement",
+   "Cat�gorisation et priorisation",
    "Diagnostic initial",
-   "Escalade si nécessaire",
-   "Résolution et contournement",
-   "Clôture et validation utilisateur",
+   "Escalade si n�cessaire",
+   "R�solution et contournement",
+   "Cl�ture et validation utilisateur",
    "Analyse post-incident (PIR)"
   ]
  }
