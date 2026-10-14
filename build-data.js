@@ -1,5 +1,5 @@
 ﻿const fs = require('fs');
-const dir = 'C:\\Users\\Léo\\Documents\\Projet par défaut\\Guide-TSSR-Max';
+const dir = '.';
 const chunks = [
  'chunks/01-sections-tssr-core.js',
  'chunks/03-labs.js',
@@ -12,7 +12,7 @@ const chunks = [
  'chunks/10-exam-mep.js',
  'chunks/11-quiz-cyber.js',
   'chunks/13-integrate-lessons.js',
-  'chunks/14-simulations.js',
+  'chunks/14-simulations.js',\n  'chunks/16-pedagogical-structure.js',
 ];
 let out = 'window.GUIDE = window.GUIDE || { sections:[], quizzes:[], labs:[], glossary:[], cheats:[], methods:[], resources:[], meta:{} };\n';
 for (const c of chunks) {

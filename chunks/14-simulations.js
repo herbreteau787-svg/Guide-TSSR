@@ -3,7 +3,7 @@ G.sections = G.sections || [];
 G.sections.push({
  id:"exemples",
  group:"TSSR",
- icon:"🧪",
+  icon:"🧪",
  title:"Exemples pratiques & simulations",
  desc:"Mises en situation pas à pas (GUI + CLI) pour comprendre par l'action.",
  fiches:[

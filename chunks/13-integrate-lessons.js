@@ -114,18 +114,3 @@ ufw status`,
   w:"La sécurité est un processus continu."
  }
 ]);
-
-addFiches('ccp11', [
- {
-  id:"ccp11-supervision-debutant", t:"Supervision : Syslog, SNMP, ports, diagnostic (débutant)", level:"debutant",
-  r:"Syslog centralise, SNMP expose l'état, ports usuels à connaître. Diagnostic utilisateur sans Internet en 6 étapes.",
-  tags:["supervision","ports","diagnostic","debutant"],
-  g:["Centraliser les logs","SNMPv3 authPriv","Tester couche par couche"],
-  c:`# Ports à connaître
-HTTP 80/443, DNS 53, DHCP 67/68, SSH 22, RDP 3389, SMB 445
-# Diagnostic
-ipconfig /all; ping passerelle; ping 8.8.8.8; nslookup google.com`,
-  p:["SNMPv1/v2c en clair = risque","Top-down pour pare-feu","NTP pour logs"],
-  w:"Un port fermé ne signifie pas une machine éteinte (pare-feu)."
- }
-]);
