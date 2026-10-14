@@ -13,7 +13,7 @@ addFiches('ccp4', [
   id:"ccp4-reseau-debutant", t:"Réseau : IP, masque, gateway, VLAN, diagnostic (débutant)", level:"debutant",
   r:"Un réseau, c'est des machines qui échangent des paquets. IP identifie la machine, masque sépare réseau/hôte, passerelle sort du LAN, VLAN isole.",
   tags:["reseau","debutant","ip","vlan"],
-  g:["Trouver son IP/masque/gateway (ipconfig / ip a)","Ping loopback → gateway → IP externe → nom DNS","Créer VLAN et trunk, inter-VLAN via routeur/Switch L3"],
+  g:["Trouver son IP/masque/gateway (ipconfig / ip a)","Ping loopback �  gateway �  IP externe �  nom DNS","Créer VLAN et trunk, inter-VLAN via routeur/Switch L3"],
   c:`# Configuration typique
 IP: 192.168.1.10
 Masque: 255.255.255.0 (/24)
@@ -30,9 +30,9 @@ ping google.com`,
  },
  {
   id:"ccp4-dns-dhcp-debutant", t:"DNS/DHCP : résolution et baux (débutant)", level:"debutant",
-  r:"DNS traduit nom→IP. DHCP attribue IP/gateway/DNS. TTL, A, PTR, enregistrements. Bail à renouveler.",
+  r:"DNS traduit nom� IP. DHCP attribue IP/gateway/DNS. TTL, A, PTR, enregistrements. Bail à renouveler.",
   tags:["dns","dhcp","debutant"],
-  g:["Créer zones directe/inverse","Étendue DHCP + options","Tester nslookup et bail"],
+  g:["Créer zones directe/inverse","�0tendue DHCP + options","Tester nslookup et bail"],
   c:`Add-DnsServerPrimaryZone -Name tssr.local -DynamicUpdate Secure
 Add-DhcpServerv4Scope -Name LAN -StartRange 192.168.1.100 -EndRange 192.168.1.200 -SubnetMask 255.255.255.0
 nslookup intranet.local`,
@@ -93,7 +93,7 @@ addFiches('ccp5', [
   g:["Créer VM depuis template","Snapshot avant MAJ","Tester restauration"],
   c:`# Concepts VMware/Hyper-V
 Thin provisioning, vSwitch, portgroup
-Snapshot ≠ Sauvegarde`,
+Snapshot �0� Sauvegarde`,
   p:["Type 1 bare-metal vs Type 2 hosté","VMkernel pour vMotion","MTU identique"],
   w:"Un snapshot oublié dégrade fortement l'I/O."
  }
@@ -112,20 +112,5 @@ ufw enable
 ufw status`,
   p:["ANSSI/CERT-FR comme référentiels","PRA avec RPO/RTO","Journalisation centrale"],
   w:"La sécurité est un processus continu."
- }
-]);
-
-addFiches('ccp11', [
- {
-  id:"ccp11-supervision-debutant", t:"Supervision : Syslog, SNMP, ports, diagnostic (débutant)", level:"debutant",
-  r:"Syslog centralise, SNMP expose l'état, ports usuels à connaître. Diagnostic utilisateur sans Internet en 6 étapes.",
-  tags:["supervision","ports","diagnostic","debutant"],
-  g:["Centraliser les logs","SNMPv3 authPriv","Tester couche par couche"],
-  c:`# Ports à connaître
-HTTP 80/443, DNS 53, DHCP 67/68, SSH 22, RDP 3389, SMB 445
-# Diagnostic
-ipconfig /all; ping passerelle; ping 8.8.8.8; nslookup google.com`,
-  p:["SNMPv1/v2c en clair = risque","Top-down pour pare-feu","NTP pour logs"],
-  w:"Un port fermé ne signifie pas une machine éteinte (pare-feu)."
  }
 ]);

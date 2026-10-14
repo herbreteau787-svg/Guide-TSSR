@@ -135,7 +135,7 @@ a:hover { text-decoration: underline; }
 }
 .card:hover { transform: translateY(-2px); }
 .card.read { border-left-color: var(--ok); }
-.card.favorite::before { content: \"★\"; color: var(--warn); float: right; margin-left: 6px; }
+.card.favorite::before { content: \"\"; color: var(--warn); float: right; margin-left: 6px; }
 .card h3 { margin: 0 0 8px; font-size: 1.06rem; color: #fff; }
 :root.light .card h3 { color: #0f172a; }
 .card .summary { color: var(--mut); margin: 6px 0 10px; }
@@ -249,7 +249,7 @@ pre { margin: 0; }
   .card { break-inside: avoid; }
 }
 
-/* ===== Améliorations UX/template (édition plus agréable) ===== */
+/* ===== Am�liorations UX/template (�dition plus agr�able) ===== */
 :root {
   --radius: 16px;
   --radius-sm: 12px;
