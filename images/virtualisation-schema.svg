@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 430" role="img" aria-label="Virtualisation">
+<rect width="780" height="430" fill="#0f172a"/>
+<rect x="120" y="60" width="540" height="80" rx="14" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+<text x="390" y="105" text-anchor="middle" fill="#f8fafc" font-size="26" font-family="Segoe UI" font-weight="700">Hyperviseur - ESXi / Hyper-V / Proxmox</text>
+<rect x="150" y="190" width="150" height="70" rx="12" fill="#334155" stroke="#22c55e" stroke-width="2"/>
+<text x="225" y="232" text-anchor="middle" fill="#f8fafc" font-size="20" font-family="Segoe UI">VM Web</text>
+<rect x="320" y="190" width="150" height="70" rx="12" fill="#334155" stroke="#f59e0b" stroke-width="2"/>
+<text x="395" y="232" text-anchor="middle" fill="#f8fafc" font-size="20" font-family="Segoe UI">VM AD DS</text>
+<rect x="490" y="190" width="150" height="70" rx="12" fill="#334155" stroke="#a78bfa" stroke-width="2"/>
+<text x="565" y="232" text-anchor="middle" fill="#f8fafc" font-size="20" font-family="Segoe UI">VM DB</text>
+<rect x="215" y="305" width="350" height="65" rx="12" fill="#111827" stroke="#38bdf8" stroke-width="2"/>
+<text x="390" y="345" text-anchor="middle" fill="#f8fafc" font-size="20" font-family="Segoe UI" font-weight="600">Stockage partage - vSAN / iSCSI / Ceph</text>
+<text x="390" y="400" text-anchor="middle" fill="#94a3b8" font-size="20" font-family="Segoe UI">Virtualisation - snapshots, sauvegarde et haute disponibilite</text>
+</svg>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 410" role="img" aria-label="Active Directory">
+<rect width="760" height="410" fill="#0f172a"/>
+<rect x="300" y="30" width="160" height="54" rx="10" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+<text x="380" y="64" text-anchor="middle" fill="#f8fafc" font-size="22" font-family="Segoe UI" font-weight="700">forest.net</text>
+<rect x="90" y="125" width="160" height="50" rx="8" fill="#1e293b" stroke="#22c55e" stroke-width="2"/>
+<text x="170" y="157" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Segoe UI">Site Paris</text>
+<rect x="290" y="125" width="180" height="50" rx="8" fill="#1e293b" stroke="#22c55e" stroke-width="2"/>
+<text x="380" y="157" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Segoe UI">Site Lille</text>
+<rect x="510" y="125" width="160" height="50" rx="8" fill="#1e293b" stroke="#22c55e" stroke-width="2"/>
+<text x="590" y="157" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Segoe UI">Site Toulon</text>
+<line x1="380" y1="84" x2="170" y2="125" stroke="#cbd5e1" stroke-width="1.5"/>
+<line x1="380" y1="84" x2="380" y2="125" stroke="#cbd5e1" stroke-width="1.5"/>
+<line x1="380" y1="84" x2="590" y2="125" stroke="#cbd5e1" stroke-width="1.5"/>
+<rect x="245" y="220" width="270" height="90" rx="10" fill="#111827" stroke="#f59e0b" stroke-width="2"/>
+<text x="380" y="252" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Segoe UI" font-weight="600">OU Metier - OU Ressources - Utilisateurs</text>
+<text x="380" y="279" text-anchor="middle" fill="#f8fafc" font-size="16" font-family="Segoe UI">Groupes globaux / Domain Local (AGDLP)</text>
+<text x="380" y="304" text-anchor="middle" fill="#f8fafc" font-size="16" font-family="Segoe UI">GPO par OU + delegation</text>
+<text x="380" y="380" text-anchor="middle" fill="#94a3b8" font-size="17" font-family="Segoe UI">Architecture AD DS - forêt, sites et OUs</text>
+</svg>

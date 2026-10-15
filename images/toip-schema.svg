@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 450" role="img" aria-label="Schema ToIP">
+<rect width="820" height="450" fill="#0f172a"/>
+<rect x="30" y="40" width="170" height="56" rx="10" fill="#1e293b" stroke="#ef4444" stroke-width="2"/>
+<text x="115" y="74" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Segoe UI" font-weight="700">Tel. analogique</text>
+<rect x="230" y="40" width="150" height="56" rx="10" fill="#1e293b" stroke="#f97316" stroke-width="2"/>
+<text x="305" y="74" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Segoe UI" font-weight="700">ATA</text>
+<rect x="400" y="40" width="140" height="56" rx="10" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+<text x="470" y="74" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Segoe UI" font-weight="700">Switch Voix</text>
+<rect x="570" y="40" width="180" height="56" rx="10" fill="#1e293b" stroke="#22c55e" stroke-width="2"/>
+<text x="660" y="74" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Segoe UI" font-weight="700">Routeur CME</text>
+<line x1="200" y1="68" x2="230" y2="68" stroke="#cbd5e1" stroke-width="2"/>
+<line x1="380" y1="68" x2="400" y2="68" stroke="#cbd5e1" stroke-width="2"/>
+<line x1="540" y1="68" x2="570" y2="68" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="100" y="160" width="170" height="48" rx="8" fill="#111827" stroke="#38bdf8" stroke-width="2"/>
+<text x="185" y="190" text-anchor="middle" fill="#f8fafc" font-size="17" font-family="Segoe UI">DHCP option 150</text>
+<rect x="310" y="160" width="130" height="48" rx="8" fill="#111827" stroke="#38bdf8" stroke-width="2"/>
+<text x="375" y="190" text-anchor="middle" fill="#f8fafc" font-size="17" font-family="Segoe UI">TFTP</text>
+<rect x="470" y="160" width="130" height="48" rx="8" fill="#111827" stroke="#38bdf8" stroke-width="2"/>
+<text x="535" y="190" text-anchor="middle" fill="#f8fafc" font-size="17" font-family="Segoe UI">SIP / SCCP</text>
+<rect x="620" y="160" width="130" height="48" rx="8" fill="#111827" stroke="#38bdf8" stroke-width="2"/>
+<text x="685" y="190" text-anchor="middle" fill="#f8fafc" font-size="17" font-family="Segoe UI">RTP</text>
+<rect x="210" y="255" width="210" height="56" rx="10" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+<text x="315" y="289" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Segoe UI" font-weight="700">VLAN Voix vs Data</text>
+<rect x="450" y="255" width="240" height="56" rx="10" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+<text x="570" y="289" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Segoe UI" font-weight="700">QoS priorite ARP/EF</text>
+<text x="410" y="415" text-anchor="middle" fill="#94a3b8" font-size="20" font-family="Segoe UI">Schema pedagogique ToIP - Cisco CME</text>
+</svg>

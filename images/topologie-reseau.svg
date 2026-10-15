@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" role="img" aria-label="Schema reseau">
+<rect width="800" height="420" fill="#0f172a"/>
+<rect x="300" y="50" width="200" height="60" rx="12" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+<text x="400" y="88" text-anchor="middle" fill="#f8fafc" font-size="24" font-family="Segoe UI" font-weight="700">Routeur / Firewall</text>
+<rect x="100" y="190" width="150" height="55" rx="10" fill="#1e293b" stroke="#22c55e" stroke-width="2"/>
+<text x="175" y="225" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Segoe UI">Switch L2</text>
+<rect x="550" y="190" width="150" height="55" rx="10" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+<text x="625" y="225" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="Segoe UI">Switch VoIP</text>
+<line x1="250" y1="217" x2="300" y2="80" stroke="#cbd5e1" stroke-width="2"/>
+<line x1="550" y1="217" x2="500" y2="80" stroke="#cbd5e1" stroke-width="2"/>
+<circle cx="130" cy="330" r="28" fill="#334155" stroke="#38bdf8" stroke-width="2"/>
+<text x="130" y="375" text-anchor="middle" fill="#f8fafc" font-size="16" font-family="Segoe UI">Poste</text>
+<circle cx="240" cy="330" r="28" fill="#334155" stroke="#38bdf8" stroke-width="2"/>
+<text x="240" y="375" text-anchor="middle" fill="#f8fafc" font-size="16" font-family="Segoe UI">VoIP</text>
+<line x1="130" y1="302" x2="175" y2="245" stroke="#cbd5e1" stroke-width="2"/>
+<line x1="240" y1="302" x2="175" y2="245" stroke="#cbd5e1" stroke-width="2"/>
+<text x="400" y="395" text-anchor="middle" fill="#94a3b8" font-size="18" font-family="Segoe UI">Schema pedagogique TSSR / CCNA ITN v7</text>
+</svg>

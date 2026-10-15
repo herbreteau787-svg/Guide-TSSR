@@ -207,6 +207,8 @@ function renderFiche(sec, f, index, done, favs){
   const key = ficheKey(sec.id, f, index);
   const isDone = done.has(key);
   const isFav = favs.has(key);
+  const hasCli = Boolean(f.cli) && (f.c || '').trim().length > 0;
+  const imgTag = f.img ? `<figure class="fiche-figure"><img src="${escapeHtml(f.img)}" alt="${escapeHtml(f.alt || 'Schema')}" loading="lazy"><figcaption>${escapeHtml(f.alt || 'Schema')}</figcaption></figure>` : '';
   const tags = (f.tags||[]).map(t=>`<span class="badge">${escapeHtml(t)}</span>`).join('');
   const gui = (f.g||[]).map(s=>`<li>${formatInline(s)}</li>`).join('');
   const pts = (f.p||[]).map(s=>`<li>${formatInline(s)}</li>`).join('');
@@ -216,19 +218,20 @@ function renderFiche(sec, f, index, done, favs){
     <div class="badges">${badgeLevel(f.level)} ${tags}</div>
     <h3>${escapeHtml(f.t)}</h3>
     <p class="summary">${formatInline(f.r||'')}</p>
-    <div class="tabs-mode">
-      <button class="on" data-mode="gui">=⚠️ GUI</button>
-      <button data-mode="cli">( CLI</button>
-    </div>
+    ${imgTag}
+    ${hasCli ? `<div class="tabs-mode">
+      <button class="on" data-mode="gui">🔍 GUI</button>
+      <button data-mode="cli">⌨️ CLI</button>
+    </div>` : ''}
     <div class="block-gui content-block">
       <ol class="gui">${gui || '<li class="muted"></li>'}</ol>
     </div>
-    <div class="block-cli content-block" style="display:none">
+    ${hasCli ? `<div class="block-cli content-block" style="display:none">` : ''}
       <div class="CodeBox">
         <button class="copy-btn">Copier</button>
         <pre><code>${code}</code></pre>
       </div>
-    </div>
+    ${hasCli ? `</div>` : ''}
     ${pts ? `<ul class="pts">${pts}</ul>` : ''}
     ${f.w ? `<div class="warn-box">⚠️ ${formatInline(f.w)}</div>` : ''}
     <div class="label-row">
