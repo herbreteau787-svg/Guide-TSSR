@@ -1,18 +1,19 @@
 ﻿const fs = require('fs');
 const dir = '.';
 const chunks = [
- 'chunks/01-sections-tssr-core.js',
- 'chunks/03-labs.js',
- 'chunks/04-quiz.js',
- 'chunks/05-glossary.js',
- 'chunks/06-cheats.js',
- 'chunks/07-methods.js',
- 'chunks/08-resources.js',
- 'chunks/09-ccp12.js',
- 'chunks/10-exam-mep.js',
- 'chunks/11-quiz-cyber.js',
+  'chunks/01-sections-tssr-core.js',
+  'chunks/03-labs.js',
+  'chunks/04-quiz.js',
+  'chunks/05-glossary.js',
+  'chunks/06-cheats.js',
+  'chunks/07-methods.js',
+  'chunks/08-resources.js',
+  'chunks/09-ccp12.js',
+  'chunks/10-exam-mep.js',
+  'chunks/11-quiz-cyber.js',
   'chunks/13-integrate-lessons.js',
-  'chunks/14-simulations.js',\n  'chunks/16-pedagogical-structure.js',
+  'chunks/14-simulations.js',
+  'chunks/16-pedagogical-structure.js',
 ];
 let out = 'window.GUIDE = window.GUIDE || { sections:[], quizzes:[], labs:[], glossary:[], cheats:[], methods:[], resources:[], meta:{} };\n';
 for (const c of chunks) {
