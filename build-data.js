@@ -14,6 +14,7 @@ const chunks = [
   'chunks/13-integrate-lessons.js',
   'chunks/14-simulations.js',
   'chunks/16-pedagogical-structure.js',
+  'chunks/17-ccna-itnv7.js',
 ];
 let out = 'window.GUIDE = window.GUIDE || { sections:[], quizzes:[], labs:[], glossary:[], cheats:[], methods:[], resources:[], meta:{} };\n';
 for (const c of chunks) {

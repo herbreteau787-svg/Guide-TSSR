@@ -705,6 +705,7 @@ function renderSupport(){
     <p class="muted">Fichier : CCNA1.pdf (15 Mo). L'affichage peut étre lent selon le navigateur.</p>
     <p><a href="CCNA1.pdf" target="_blank" rel="noopener">Ouvrir CCNA1.pdf dans un nouvel onglet</a></p>
   </div>
+  <div class="card"><p class="muted">Fiche supplémentaire : Fiche_Revision_ITNv7.docx (Cisco ITN v7).</p><p><a href="Fiche_Revision_ITNv7.docx" target="_blank" rel="noopener">Télécharger la fiche ITN v7</a></p></div>
   <div class="card">
     <iframe src="CCNA1.pdf#view=FitH" title="Support CCNA" style="width:100%;height:75vh;border:1px solid #334155;border-radius:12px;" loading="lazy"></iframe>
   </div>
