@@ -241,7 +241,6 @@ function renderFiche(sec, f, index, done, favs){
   const cleanPts = (f.p||[]).filter(x=>{const t=String(x||"").trim(); return t && t.toLowerCase() !== "sans note";});
   const cleanWarn = String(f.w||"").trim();
   const renvoiTargets = Array.isArray(f.renvoi_vers) ? f.renvoi_vers : [];
-  const hasMiniQCM = (G.quizzes||[]).some(q => q.section === sec.id);
   const imgTag = f.img ? `<figure class="fiche-figure"><img src="${escapeHtml(f.img)}" alt="${escapeHtml(f.alt || 'Schema')}" loading="lazy"><figcaption>${escapeHtml(f.alt || 'Schema')}</figcaption></figure>` : '';
   const tags = (f.tags||[]).map(t=>`<span class="badge">${escapeHtml(t)}</span>`).join('');
   const gui = (f.g||[]).map(s=>`<li>${formatInline(s)}</li>`).join('');
@@ -268,7 +267,7 @@ function renderFiche(sec, f, index, done, favs){
     ${hasCli ? `</div>` : ''}
     ${pts ? `<ul class="pts">${pts}</ul>` : ''}
     ${cleanWarn ? `<div class="warn-box">${formatInline(cleanWarn)}</div>` : ''}
-    ${isRenvoi ? `<div class="renvoi-links"><span class="muted small">Voir :</span> ${renvoiTargets.map(target=>`<button class="mini-qcm-btn" data-open-fiche="${escapeHtml(target)}">${escapeHtml(target)}</button>`).join("")}</div>` : (hasMiniQCM ? `<div class="mini-qcm-row"><button class="mini-qcm-btn mini-fiche-btn" data-mini-qcm="${escapeHtml(sec.id)}" data-mini-fiche="${escapeHtml(f.id)}">Mini-QCM de cette fiche</button></div>` : '')}
+    ${isRenvoi ? `<div class="renvoi-links"><span class="muted small">Voir :</span> ${renvoiTargets.map(target=>`<button class="mini-qcm-btn" data-open-fiche="${escapeHtml(target)}">${escapeHtml(target)}</button>`).join("")}</div>` : ''}
     <div class="label-row">
       <label class="check"><input type="checkbox" data-key="${escapeHtml(key)}" ${isDone?'checked':''}> Marquer comme lue</label>
       <button class="favorite-btn ${isFav?'on':''}" data-key="${escapeHtml(key)}">${isFav?' Favori':' Favori'}</button>
@@ -288,8 +287,6 @@ document.addEventListener('click', e=>{
     }
     return;
   }
-  const miniBtn = e.target.closest('[data-mini-qcm]');
-  if (miniBtn){ startMiniQCMForFiche(miniBtn.getAttribute('data-mini-fiche'), miniBtn.getAttribute('data-mini-qcm')); return; }
   // copier une commande en cliquant sur la première cellule d'un tableau cheat
   const cell = e.target.closest('.cheat-table tbody td:first-child');
   if (cell) {
@@ -390,15 +387,24 @@ function renderQCM(){
   const panel = document.querySelector('[data-panel="qcm"]');
   if (state.qcm.active) return renderQCMQuestion(panel);
   const sections = G.sections;
+  const ficheOptions = Array.from(new Set((G.quizzes||[]).map(q=>q.fiche).filter(Boolean))).filter(f=>/^[a-zA-Z0-9-]+$/.test(f));
   const history = lsGet(STORAGE.qhistory, []);
   const best = history.length ? Math.max(...history.map(h=>h.score)) : 0;
   let html = `<div class="hero"><h1>📝 QCM & entraénement</h1><p>Banque : ${G.quizzes.length} questions é Dernier score max : ${best}%</p></div>`;
   html += `<div class="qcm-setup">
     <h3>Configuration</h3>
     <div class="button-row" style="flex-wrap:wrap">
+      <select id="qcmMode" class="select">
+        <option value="entrainement">Entrainement - correction immediate</option>
+        <option value="evaluation">Evaluation - correction a la fin</option>
+      </select>
       <select id="qcmSection" class="select">
         <option value="all">Toutes les sections</option>
         ${sections.map(s=>`<option value="${escapeHtml(s.id)}">${escapeHtml(s.icon||'')} ${escapeHtml(s.title)}</option>`).join('')}
+      </select>
+      <select id="qcmFiche" class="select">
+        <option value="all">Toutes les fiches</option>
+        ${ficheOptions.map(f=>`<option value="${escapeHtml(f)}">${escapeHtml(f)}</option>`).join("")}
       </select>
       <select id="qcmCount" class="select">
         <option value="10">10 questions</option>
@@ -421,16 +427,18 @@ function renderQCM(){
     html += `<div class="card"><h3>📌 Historique</h3><ul class="pts">${history.slice(-8).reverse().map(h=>`<li>${new Date(h.date).toLocaleString('fr-FR')}  ${h.score}% (${h.correct}/${h.total}) é ${escapeHtml(h.section||'global')}</li>`).join('')}</ul></div>`;
   }
   panel.innerHTML = html;
-  document.getElementById('qcmStart').onclick = startQCM;
+  document.getElementById('qcmStart').onclick = ()=>startQCM();
 }
 function startQCM(forcedSection, ficheOverride){
+  const mode = document.getElementById('qcmMode') ? document.getElementById('qcmMode').value : 'entrainement';
   const sec = forcedSection || document.getElementById('qcmSection').value;
+  const fiche = (ficheOverride || (document.getElementById('qcmFiche') ? document.getElementById('qcmFiche').value : 'all'));
   const count = parseInt(document.getElementById('qcmCount').value,10);
   const diff = document.getElementById('qcmDiff').value;
   const useTimer = document.getElementById('qcmTimer').checked;
   let pool = G.quizzes.slice();
-  if (ficheOverride) pool = pool.filter(q=>q.fiche===ficheOverride);
-  else if (sec !== 'all') pool = pool.filter(q=>q.section===sec);
+  if (fiche && fiche !== 'all') pool = pool.filter(q=>q.fiche===fiche);
+  else if (forcedSection || sec !== 'all') pool = pool.filter(q=>q.section===sec);
   if (diff !== 'all') pool = pool.filter(q=>q.difficulty===diff);
   if (!pool.length){ toast('Aucune question pour ces filtres','warn'); return; }
   // shuffle
@@ -439,6 +447,7 @@ function startQCM(forcedSection, ficheOverride){
   state.qcm.questions = pool.slice(0,n);
   state.qcm.index = 0;
   state.qcm.answers = {};
+  state.qcm.mode = mode;
   state.qcm.active = true;
   state.qcm.useTimer = useTimer;
   state.qcm.startedAt = Date.now();
@@ -506,13 +515,15 @@ function markAnswer(ci){
   const opts = document.querySelectorAll('.q-option');
   opts.forEach((b,ci2)=>{
     b.disabled = true;
-    if (ci2 === q.answer) b.classList.add('correct');
-    if (ci === ci2 && ci !== q.answer) b.classList.add('wrong');
+    if (ci === ci2) b.classList.add('selected');
+    if (state.qcm.mode !== 'evaluation'){
+      if (ci2 === q.answer) b.classList.add('correct');
+      if (ci === ci2 && ci !== q.answer) b.classList.add('wrong');
+    }
   });
   const expl = document.getElementById('qcmExplain');
   const correctText = q.choices[q.answer];
   const isCorrect = ci === q.answer;
-  if (isCorrect) state.qcm.score = (state.qcm.score||0)+1;
   expl.style.display = '';
   expl.innerHTML = `<strong>${isCorrect?' Correct':'L Incorrect'}${ci===-1?' (temps écoulé)':''}</strong>  Réponse : ${escapeHtml(correctText)}<br>${escapeHtml(q.explain||'')}`;
   document.getElementById('qcmNext').style.display = '';

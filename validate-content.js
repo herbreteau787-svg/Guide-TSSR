@@ -28,7 +28,7 @@ for(const file of manifest.files){
    for(const f of sec.fiches){
      total++;
      if(!f||typeof f.id!=="string"||!f.id){issues.push(p+": fiche sans id"); continue;
-  sections.push({file,sec});
+  // sections push moved
 }
      if(!f||typeof f.t!=="string"||!f.t) issues.push(p+": fiche sans titre");
      if(globalIds.has(f.id)) issues.push(p+": id duplique "+f.id);
@@ -40,10 +40,12 @@ for(const file of manifest.files){
          ok=id.startsWith(base+"-");
        }
        if(!ok) issues.push(p+": prefixe ID non conforme "+f.id);
+      const ficheText=JSON.stringify(f||{}).toLowerCase(); if(ficheText.includes("qcm")) issues.push(p+": fiche contient un QCM : "+f.id);
      }
    }
  }
- if(sec && Array.isArray(sec.quiz)){
+ sections.push({file,sec});
+if(sec && Array.isArray(sec.quiz)){
    for(const q of sec.quiz){
      if(!q||typeof q!=="object") {issues.push(p+": question invalide"); continue;}
      if(typeof q.id!=="string"||!q.id) issues.push(p+": question sans id");
@@ -52,6 +54,8 @@ for(const file of manifest.files){
      if(!Array.isArray(q.choices)||q.choices.length<2) issues.push(p+": options insuffisantes "+(q.id||"?"));
      if(typeof q.answer!=="number"||!Number.isInteger(q.answer)|| !Array.isArray(q.choices)||q.answer<0||q.answer>=q.choices.length) issues.push(p+": reponse invalide "+(q.id||"?"));
      if(typeof q.explain!=="string"||!q.explain) issues.push(p+": explication manquante "+(q.id||"?"));
+     if(typeof q.fiche!=="string"||!q.fiche) issues.push(p+": question sans fiche "+(q.id||"?"));
+     else if(!globalIds.has(q.fiche)) issues.push(p+": fiche reperee introuvable "+q.fiche+" dans "+(q.id||"?"));
    }
  }
  if(sec && /^cp\d$/.test(sec.id) && !allowedSections.has(sec.id)) issues.push(p+": cp inconnu "+sec.id);
