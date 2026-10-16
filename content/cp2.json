@@ -1227,7 +1227,8 @@
         " MX"
       ],
       "answer": 0,
-      "explain": "SRV localise le DC."
+      "explain": "SRV localise le DC.",
+      "fiche": "cp2-dns"
     },
     {
       "id": "cp2-qcm-26",
