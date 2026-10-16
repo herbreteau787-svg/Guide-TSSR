@@ -115,7 +115,7 @@
       "img": "images/topologie-reseau.svg",
       "alt": "Schéma CP2",
       "cp": "cp9",
-      "doublon_de": "cp9-join"
+      "doublon_de": "cp2-join"
     },
     {
       "id": "cp9-collab",

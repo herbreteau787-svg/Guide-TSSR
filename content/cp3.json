@@ -107,7 +107,10 @@
         "Sans note"
       ],
       "w": "Conclusion : fondements en CP3, patching en CP9.",
-      "cp": "cp3"
+      "cp": "cp3",
+      "renvoi_vers": [
+        "cyber-patch"
+      ]
     },
     {
       "id": "cp3-linux-base",

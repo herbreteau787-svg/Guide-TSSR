@@ -6,10 +6,23 @@ async function loadContentSections(){
     const manifest = await res.json();
     const files = manifest.files || [];
     const sections = [];
+    if (!Array.isArray(G.quizzesLoaded)) G.quizzesLoaded = [];
     for (const file of files){
       const r = await fetch('./content/' + file);
       if (!r.ok) throw new Error(file);
-      sections.push(await r.json());
+      const sec = await r.json();
+      if (Array.isArray(sec.quiz)) {
+        for (let item of sec.quiz) {
+          if (!item || typeof item.id !== 'string' || !item.id) continue;
+          if (G.quizzesLoaded.indexOf(item.id) !== -1) continue;
+          const question = Object.assign({}, item);
+          if (!question.section) question.section = sec.id;
+          if (!question.sectionTitle) question.sectionTitle = sec.title;
+          G.quizzes.push(question);
+          G.quizzesLoaded.push(question.id);
+        }
+      }
+      sections.push(sec);
     }
     if (sections.length) G.sections = sections;
   } catch(e){ console.warn('Chargement content dynamique échoué, conservation des données embarquées', e); }

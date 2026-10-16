@@ -266,68 +266,6 @@
       "w": "Conclusion : les détails se défendent par la preuve."
     },
     {
-      "id": "cp1-miniqcm",
-      "t": "Mini-QCM de fin de fiche (5 questions)",
-      "level": "exam",
-      "cli": false,
-      "r": "CP1 - Mini-QCM : 1) Que faut-il prioriser en premier chez un utilisateur qui perd son accès VPN avant une démonstration ? Réponse : vérifier l'identité et le réseau. 2) Quelle commande prouve la résolution DNS ? Réponse : Resolve-DnsName. 3) Quel risque lié aux données pour l'IA ? Réponse : divulgation de secrets. 4) Que prouve Test-NetConnection port 443 ? Réponse : le port distant répond, pas l'authentification applicative. 5) Que doit contenir un ticket bien clos ? Réponse : symptôme, cause, action et preuve. | Complément : l'assistant a ajouté ces questions à partir des thèmes récurrents du référentiel et du questionnaire professionnel.",
-      "tags": [
-        "cp1",
-        "mini-qcm"
-      ],
-      "g": [
-        "Répondre aux questions",
-        "Corriger et comprendre"
-      ],
-      "c": "Aucune commande native.",
-      "p": [
-        "Mémo sans explication"
-      ],
-      "w": "Conclusion : le mini-QCM consolide la méthode."
-    },
-    {
-      "id": "cp1-qcm-eval",
-      "t": "QCM d'évaluation CP1",
-      "level": "exam",
-      "cli": false,
-      "r": "CP1 - Évaluation : questions pour valider les acquis avant la correction. | 1. Quel principe ITIL décrit un incident qui perturbe le service ? 2. Quelle commande vérifie que l'hôte résout un nom ? 3. Quel fichier de log M365 donne un premier indice de connexion ? 4. Quel est le premier réflexe face à un téléphone IP sans tonalité ? 5. Comment anonymiser des données pour l'IA ? | Réponses attendues dans le corrigé ci-dessous. | Ajout par l'assistant : ce QCM est indicatif et doit être complété avec tes résultats réels.",
-      "tags": [
-        "cp1",
-        "qcm",
-        "evaluation"
-      ],
-      "g": [
-        "Répondre sans aide",
-        "Noter les doutes"
-      ],
-      "c": "Aucune commande native.",
-      "p": [
-        "Réviser par cœur"
-      ],
-      "w": "Conclusion : évaluer avant de corriger."
-    },
-    {
-      "id": "cp1-qcm-corrige",
-      "t": "Corrigé du QCM CP1",
-      "level": "exam",
-      "cli": false,
-      "r": "CP1 - Corrigé : 1) incident ; 2) Resolve-DnsName ou nslookup ; 3) journaux de connexion ; 4) vérifier alimentation POE, boot et enregistrement ; 5) supprimer les données personnelles et les identifiants avant prompt. | Points d'attention : expliquer pourquoi la commande ne prouve qu'une partie du problème, et décrire la procédure de retour arrière.",
-      "tags": [
-        "cp1",
-        "qcm",
-        "correction"
-      ],
-      "g": [
-        "Corriger les erreurs",
-        "Retenir les explications"
-      ],
-      "c": "Aucune commande native.",
-      "p": [
-        "Corrigé sans explication"
-      ],
-      "w": "Conclusion : comprendre avant de mémoriser."
-    },
-    {
       "id": "cp1-questions-ouvertes",
       "t": "Questions ouvertes CP1",
       "level": "exam",
@@ -795,6 +733,78 @@
       ],
       "w": "Conclusion : l'IA est un accelerateur, la validation humaine reste obligatoire.",
       "cp": "cp6"
+    }
+  ],
+  "quiz": [
+    {
+      "id": "cp1-qcm-01",
+      "section": "cp1",
+      "difficulty": "moyen",
+      "q": "Quel principe ITIL decrit un incident qui perturbe le service ?",
+      "choices": [
+        "Une demande utilisateur",
+        "Un service degrade ou coupe a retablir",
+        "Une cause racine permanente",
+        "Un changement valide"
+      ],
+      "answer": 1,
+      "explain": "Incident = degradation de service; objectif retablissement."
+    },
+    {
+      "id": "cp1-qcm-02",
+      "section": "cp1",
+      "difficulty": "moyen",
+      "q": "Quelle commande verifie que l hote resout un nom ?",
+      "choices": [
+        "Resolve-DnsName nomdexam",
+        "nslookup nomdexam",
+        "ipconfig /displaydns",
+        "Test-NetConnection nomdexam -Port 443"
+      ],
+      "answer": 0,
+      "explain": "La commande prouve la resolution sans tester le service applicatif."
+    },
+    {
+      "id": "cp1-qcm-03",
+      "section": "cp1",
+      "difficulty": "moyen",
+      "q": "Quel journal M365 donne un premier indice de connexion ?",
+      "choices": [
+        "Les journaux de connexion M365",
+        "Le journal systeme Windows",
+        "Le journal Application",
+        "Les logs DNS"
+      ],
+      "answer": 0,
+      "explain": "Les journaux de connexion servent d indice principal."
+    },
+    {
+      "id": "cp1-qcm-04",
+      "section": "cp1",
+      "difficulty": "moyen",
+      "q": "Quel est le premier reflexe face a un telephone IP sans tonalite ?",
+      "choices": [
+        "Verifier PoE, boot et enregistrement",
+        "Remplacer le telephone",
+        "Changer le VLAN data",
+        "Reinitialiser toutes les GPO"
+      ],
+      "answer": 0,
+      "explain": "Verifier alimentation, boot et enregistrement avant action invasive."
+    },
+    {
+      "id": "cp1-qcm-05",
+      "section": "cp1",
+      "difficulty": "moyen",
+      "q": "Comment anonymiser des donnees avant un prompt IA ?",
+      "choices": [
+        "Garder les noms et mots de passe",
+        "Supprimer donnees personnelles et identifiants",
+        "Ajouter plus d historique",
+        "Desactiver BitLocker"
+      ],
+      "answer": 1,
+      "explain": "Supprimer donnees personnelles et identifiants avant prompt."
     }
   ]
 }

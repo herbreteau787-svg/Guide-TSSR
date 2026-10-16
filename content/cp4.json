@@ -1314,7 +1314,12 @@
         "Confondre fondement et stratégie"
       ],
       "w": "Conclusion : CP4 prépare, CP7 sécurise",
-      "cp": "cp4"
+      "cp": "cp4",
+      "renvoi_vers": [
+        "cyber-reseau",
+        "cyber-ids",
+        "cyber-logs"
+      ]
     }
   ]
 }

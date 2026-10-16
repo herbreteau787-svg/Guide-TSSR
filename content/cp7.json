@@ -866,7 +866,12 @@
         "Éparpiller"
       ],
       "w": "Conclusion : fondements CP4, durcissement CP7.",
-      "cp": "cp7"
+      "cp": "cp7",
+      "renvoi_vers": [
+        "cyber-reseau",
+        "cyber-ids",
+        "cyber-logs"
+      ]
     }
   ]
 }

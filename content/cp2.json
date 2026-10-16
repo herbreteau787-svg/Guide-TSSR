@@ -431,69 +431,6 @@
       "w": "Conclusion : les détails se défendent par le principe."
     },
     {
-      "id": "cp2-miniqcm",
-      "t": "Mini-QCM de fin de fiche (5 questions)",
-      "level": "exam",
-      "cli": false,
-      "r": "CP2 - Mini-QCM : 1. Quelle commande installe AD DS ? `Install-WindowsFeature AD-Domain-Services -IncludeManagementTools`. 2. Quel enregistrement de l'ordinateur résout le nom du DC ? SRV. 3. Dans AGDLP, qui reçoit l'permission NTFS ? Le groupe Domain Local. 4. Quelle commande vérifie une GPO appliquée ? `gpresult /R`. 5. Que prouve `Test-NetConnection 192.168.10.10 -Port 389` ? Le port LDAP est joignable, pas l'authentification. | Ajout par l'assistant : questions construites à partir des thèmes TSSR et du support Windows.",
-      "tags": [
-        "cp2",
-        "mini-qcm"
-      ],
-      "g": [
-        "Répondre",
-        "Corriger",
-        "Retenir"
-      ],
-      "c": "Aucune commande native.",
-      "p": [
-        "Mémoriser sans comprendre"
-      ],
-      "w": "Conclusion : le mini-QCM valide la mécanique."
-    },
-    {
-      "id": "cp2-qcm-eval",
-      "t": "QCM d'évaluation CP2 (15 questions)",
-      "level": "exam",
-      "cli": false,
-      "r": "CP2 - QCM d'évaluation (15 questions) : 1. Quel rôle Windows doit être installé avant promotion AD ? 2. Quel type d'adresse IP pour le premier DC ? 3. Quelle commande installe AD DS ? 4. Quelle commande promeut le premier domaine ? 5. Quel type d'enregistrement DNS donne le DC à un poste ? 6. Quelle commande vérifie la promotion ? 7. Dans AGDLP, qui reçoit la permission NTFS ? 8. Quelle commande ajoute un compte à un groupe ? 9. Quelle commande lie une GPO à une OU ? 10. Quelle commande force l'application GPO ? 11. Que montre gpresult /R ? 12. Quel cmdlet crée un partage SMB ? 13. Quelle règle combine partage et NTFS ? 14. Quel cmdlet vérifie les autorisations NTFS ? 15. Quel événement indique une connexion réussie ? | Répondez sans aide.",
-      "tags": [
-        "cp2",
-        "qcm",
-        "evaluation"
-      ],
-      "g": [
-        "Répondre sans aide",
-        "Noter les doutes"
-      ],
-      "c": "Aucune commande native.",
-      "p": [
-        "Apprendre le corrigé"
-      ],
-      "w": "Conclusion : évaluer avant de corriger."
-    },
-    {
-      "id": "cp2-qcm-corrige",
-      "t": "Corrigé détaillé du QCM CP2",
-      "level": "exam",
-      "cli": false,
-      "r": "CP2 - Corrigé détaillé (15 questions) : 1. AD DS et DNS; 2. IP fixe et DNS maîtrisé; 3. Install-WindowsFeature AD-Domain-Services -IncludeManagementTools; 4. Install-ADDSForest; 5. SRV; 6. Get-ADDomain et Get-ADDomainController -Discover; 7. le groupe Domain Local (DL); 8. Add-ADGroupMember; 9. New-GPLink; 10. gpupdate /force; 11. les GPO appliquées; 12. New-SmbShare; 13. la permission la plus restrictive entre partage et NTFS; 14. icacls; 15. l'événement 4624. | Chaque erreur doit être expliquée avec le principe et la procédure de test.",
-      "tags": [
-        "cp2",
-        "qcm",
-        "correction"
-      ],
-      "g": [
-        "Corriger",
-        "Retenir les explications"
-      ],
-      "c": "Aucune commande native.",
-      "p": [
-        "Corrigé sans pratique"
-      ],
-      "w": "Conclusion : comprendre avant de mémoriser."
-    },
-    {
       "id": "cp2-open",
       "t": "Questions ouvertes CP2 avec corrections détaillées",
       "level": "exam",
@@ -921,6 +858,242 @@
       "w": "Jonction réussie mais GPO absentes = vérifier DNS et emplacement de l'ordinateur dans l'AD.",
       "cp": "cp9",
       "doublon_de": "cp2-join"
+    },
+    {
+      "id": "pedagogie-cp2-serveurs",
+      "t": "Fiche pedagogique de reference - CP5 serveurs Windows/Linux",
+      "level": "intermediaire",
+      "r": "Definition : installer et exploiter des serveurs. Contexte : mise en production AD/DNS/DHCP. Objectif : securiser et superviser. Details : AD DS, GPO, Linux systemd, journaux, patch et permissions. Exemple : creation DC et test GPO. Erreurs : compte admin unique, patch sans test. Jury : difference OU et groupe, GPO, reset mot de passe.",
+      "tags": [
+        "pedagogie",
+        "systemes"
+      ],
+      "g": [
+        "Installer",
+        "Configurer",
+        "Securiser",
+        "Tester",
+        "Superviser"
+      ],
+      "c": "server-manager ; dcdiag; Get-ADUser",
+      "p": [
+        "Permissions excessives",
+        "Sauvegarde absente"
+      ],
+      "w": "Conclusion : la documentation fait partie de l'exploitation.",
+      "cp": "cp3"
+    }
+  ],
+  "quiz": [
+    {
+      "id": "cp2-qcm-01",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Quel role Windows doit etre installe avant promotion AD ?",
+      "choices": [
+        "AD DS et DNS",
+        "Serveur DHCP",
+        "Serveur de fichiers",
+        "DNS uniquement"
+      ],
+      "answer": 0,
+      "explain": "Installer AD DS et DNS sur le premier serveur avant promotion."
+    },
+    {
+      "id": "cp2-qcm-02",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Quel type d adresse IP pour le premier DC ?",
+      "choices": [
+        "IP statique et DNS maitrise",
+        "DHCP avec exclusion",
+        "IPv6 uniquement",
+        "IP publique directe"
+      ],
+      "answer": 0,
+      "explain": "Le premier DC utilise une IP statique et un DNS maitrise."
+    },
+    {
+      "id": "cp2-qcm-03",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Quelle commande installe AD DS ?",
+      "choices": [
+        "Install-WindowsFeature AD-Domain-Services -IncludeManagementTools",
+        "Install-ADDSForest",
+        "Import-Module ActiveDirectory",
+        "New-ADUser"
+      ],
+      "answer": 0,
+      "explain": "Install-WindowsFeature AD-Domain-Services -IncludeManagementTools installe le role."
+    },
+    {
+      "id": "cp2-qcm-04",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Quelle commande promeut le premier domaine ?",
+      "choices": [
+        "Install-ADDSForest",
+        "New-ADDomain",
+        "Add-Computer",
+        "dcpromo legacy"
+      ],
+      "answer": 0,
+      "explain": "Install-ADDSForest cree la foret et le premier domaine."
+    },
+    {
+      "id": "cp2-qcm-05",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Quel type d enregistrement DNS donne le DC a un poste ?",
+      "choices": [
+        "SRV",
+        "A",
+        "PTR",
+        "CNAME"
+      ],
+      "answer": 0,
+      "explain": "L enregistrement SRV permet au poste de localiser le DC."
+    },
+    {
+      "id": "cp2-qcm-06",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Quelle commande verifie la promotion ?",
+      "choices": [
+        "Get-ADDomain et Get-ADDomainController -Discover",
+        "Get-ADUser",
+        "ipconfig /all",
+        "Get-Service DNS"
+      ],
+      "answer": 0,
+      "explain": "Get-ADDomain et Get-ADDomainController -Discover valident la promotion."
+    },
+    {
+      "id": "cp2-qcm-07",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Dans AGDLP, qui recoit la permission NTFS ?",
+      "choices": [
+        "Le groupe Domain Local (DL)",
+        "Le groupe Global",
+        "Le groupe Universal",
+        "L utilisateur direct"
+      ],
+      "answer": 0,
+      "explain": "Dans AGDLP, les permissions NTFS sont accordees au Domain Local."
+    },
+    {
+      "id": "cp2-qcm-08",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Quelle commande ajoute un compte a un groupe ?",
+      "choices": [
+        "Add-ADGroupMember",
+        "New-ADGroup",
+        "Set-ADUser",
+        "Get-ADGroup"
+      ],
+      "answer": 0,
+      "explain": "Add-ADGroupMember ajoute un compte au groupe."
+    },
+    {
+      "id": "cp2-qcm-09",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Quelle commande lie une GPO a une OU ?",
+      "choices": [
+        "New-GPLink",
+        "New-GPO",
+        "Set-GPRegistryValue",
+        "gpupdate"
+      ],
+      "answer": 0,
+      "explain": "New-GPLink associe la GPO a l OU cible."
+    },
+    {
+      "id": "cp2-qcm-10",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Quelle commande force l application GPO ?",
+      "choices": [
+        "gpupdate /force",
+        "gpresult /R",
+        "Get-GPO",
+        "gpforce"
+      ],
+      "answer": 0,
+      "explain": "gpupdate /force applique les strategies immediatement."
+    },
+    {
+      "id": "cp2-qcm-11",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Que montre gpresult /R ?",
+      "choices": [
+        "Les GPO appliquees et resultats RSOP",
+        "Seulement les erreurs",
+        "Le mot de passe admin",
+        "Les tickets restants"
+      ],
+      "answer": 0,
+      "explain": "gpresult /R montre les GPO appliquees et le resultat RSoP."
+    },
+    {
+      "id": "cp2-qcm-12",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Quel cmdlet cree un partage SMB ?",
+      "choices": [
+        "New-SmbShare",
+        "New-Item -ItemType Directory",
+        "icacls",
+        "Set-Acl"
+      ],
+      "answer": 0,
+      "explain": "New-SmbShare cree le partage SMB."
+    },
+    {
+      "id": "cp2-qcm-13",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Quelle regle combine partage et NTFS ?",
+      "choices": [
+        "La plus restrictive entre partage et NTFS",
+        "La plus large",
+        "Seul l administrateur",
+        "Permissions dossier virtuel"
+      ],
+      "answer": 0,
+      "explain": "La permission la plus restrictive entre partage et NTFS l emporte."
+    },
+    {
+      "id": "cp2-qcm-14",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Quel cmdlet verifie les autorisations NTFS ?",
+      "choices": [
+        "icacls",
+        "Get-SmbShare",
+        "Get-Acl uniquement PowerShell",
+        "net share"
+      ],
+      "answer": 0,
+      "explain": "icacls verifie les autorisations NTFS."
+    },
+    {
+      "id": "cp2-qcm-15",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Quel evenement indique une connexion reussie ?",
+      "choices": [
+        "4624",
+        "4625",
+        "4688",
+        "4634"
+      ],
+      "answer": 0,
+      "explain": "L evenement 4624 indique une connexion reussie."
     }
   ]
 }
