@@ -394,7 +394,7 @@
       "cp": "cp9"
     },
     {
-      "id": "cp2-join",
+      "id": "cp9-legacy-domain-join",
       "t": "Jointure AD et profil",
       "level": "intermediaire",
       "cli": true,
@@ -402,7 +402,8 @@
       "tags": [
         "cp2",
         "deploiement",
-        "ad"
+        "ad",
+        "depuis-cp2"
       ],
       "g": [
         "DNS cleanup",

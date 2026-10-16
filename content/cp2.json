@@ -3,470 +3,247 @@
   "group": "cp2",
   "icon": "🖥️",
   "title": "CP2 — Serveurs Windows et domaine Active Directory",
-  "desc": "AD DS, DNS/DHCP, GPO, fichiers, patching, sauvegardes serveurs.",
+  "desc": "Installation de Windows Server, promotion Active Directory, DNS/DHCP, GPO, partages, matrice de droits, diagnostic et preuves pour la mise en situation professionnelle 2026.",
   "fiches": [
     {
-      "id": "ccp5-vsphere",
-      "t": "vSphere : ESXi + vCenter",
-      "level": "intermediaire",
-      "r": "ESXi = hyperviseur bare-metal. vCenter = pilotage central, inventaire, modèles, template et API.",
-      "tags": [
-        "vmware",
-        "esxi",
-        "vcenter",
-        "virtualisation"
-      ],
-      "g": [
-        "vSphere Client : hôtes > cluster > VM",
-        "Créer VM : nom, OS, CPU/RAM/disque (thin)",
-        "Installer VMware Tools, snapshot avant MAJ",
-        "Standardiser avec templates"
-      ],
-      "c": "# PowerCLI\nConnect-VIServer vcenter.local\nGet-VM\nNew-VM -Name SRV1 -MemoryGB 4 -NumCpu 2 -DiskGB 60 -VMHost esxi1\nStart-VM SRV1\nGet-Snapshot SRV1\nNew-Snapshot -VM SRV1 -Name \"Avant-MAJ\"",
-      "p": [
-        "Thin = alloué à l'usage, Thick = réservé",
-        "Tools = performances et arrêt propre",
-        "Template réduit les erreurs de config"
-      ],
-      "w": "Snapshot n'est pas une sauvegarde ; il dépend de la VM parente.",
-      "cp": "cp2"
+      "id": "cp2-objectifs",
+      "t": "Objectifs et lien avec la MEP 2026",
+      "level": "exam",
+      "cli": false,
+      "r": "CP2 - Objectifs : installer et exploiter un serveur Windows dans un domaine Active Directory, puis prouver qu'un utilisateur accède uniquement aux ressources prévues. | Lien avec la MEP : phases de préparation (outils et documents fournis), missions de création et de test d'access, puis bilan et preuves. | Scénario : créer le compte d'un salarié, l'ajouter à un groupe, donner un accès dossier Commercial selon la matrice de droits, tester l'autorisation puis le refus. | Synthèse : Active Directory est une base d'identification, mais la permission effective dépend toujours du plus restrictif entre le partage et NTFS. | Schéma : accès utilisateur -> jeton Kerberos -> ACL fichier -> partage SMB -> résultat autorisé/refusé. | À retenir : identifier, grouper, autoriser, tester, prouver.",
+      "tags": ["cp2","ad","mep","windows"],
+      "g": ["Lire la MEP", "Identifier les groupes AGDLP", "Préparer le server", "Créer les accès", "Tester et collecter les preuves"],
+      "c": "Aucune commande native dans cette fiche théorique.",
+      "p": ["Créer l'utilisateur avant le DNS", "Tester avec un administrateur"],
+      "w": "Conclusion : CP2 se joue sur le contrôle et la preuve."
     },
     {
-      "id": "ccp5-vmotion",
-      "t": "vMotion, HA, DRS et mise en réseau",
-      "level": "avance",
-      "r": "vMotion = migration à chaud, HA = redémarrage en cas de panne, DRS = équilibrage des charges.",
-      "tags": [
-        "vmotion",
-        "ha",
-        "drs",
-        "vswitch"
-      ],
-      "g": [
-        "Cluster : activer HA + DRS, ajouter 2 ESXi",
-        "vSwitch : ajouter les portgroups VLAN",
-        "Migrer : Migrate > vMotion",
-        "Tester la panne d'un host en maintenance"
-      ],
-      "c": "Get-Cluster | Select Name, HAEnabled, DrsEnabled, DrsAutomationLevel\nGet-VirtualSwitch\nGet-VMHostNetworkAdapter\nGet-VM | Get-NetworkAdapter\nSet-VM -VM SRV1 -MemoryGB 8 -Confirm:$false",
-      "p": [
-        "vMotion nécessite VMkernel + stockage partagé",
-        "HA nécessite quorum et datastore heartbeat",
-        "DRS automatique recommandé en production"
-      ],
-      "w": "Tester HA en maintenance planifiée, jamais dans une vraie panne surprise.",
-      "cp": "cp2"
-    },
-    {
-      "id": "ccp5-network",
-      "t": "Réseau virtuel et sécurité",
-      "level": "intermediaire",
-      "r": "vSwitch standard vs distribué, VLAN, promiscuous/port security et micro-segmentation future.",
-      "tags": [
-        "reseau virtuel",
-        "vlan",
-        "security"
-      ],
-      "g": [
-        "Créer un vSwitch par usage (admin, vmotion, stockage)",
-        "Définir des port groups avec VLAN",
-        "Limiter les ports trunk",
-        "Activer le contrôle de sécurité"
-      ],
-      "c": "New-VirtualSwitch -Name vSwitch1 -VMHost esxi1 -Nic vmnic1\nNew-PortGroup -Name \"PG-APP\" -VirtualSwitch vSwitch1 -VlanId 120\nGet-VirtualPortGroup\n# Réseau isolé pour NAS\n",
-      "p": [
-        "Séparer le trafic de sauvegarde du trafic production",
-        "Jumbo frames pour stockage iSCSI",
-        "MTU identique partout"
-      ],
-      "w": "Un VLAN erroné sur un port group silencieusement isole une VM.",
-      "cp": "cp2"
-    },
-    {
-      "id": "ccp5-backup",
-      "t": "Sauvegarde et snapshot de VM",
-      "level": "intermediaire",
-      "r": "Protection avec Veeam/Azure ? à tester, snapshot pour maintenance, sauvegarde pour reprise.",
-      "tags": [
-        "backup",
-        "snapshot",
-        "vmware"
-      ],
-      "g": [
-        "Définir SLA par machine (RPO/RTO)",
-        "Planification des sauvegardes incrémentielles",
-        "Test de restauration trimestriel",
-        "Nettoyage des snapshots > 72 h"
-      ],
-      "c": "# Veeam CLI / PowerCLI examples\nBackup-VM -Name SRV1 -Repository \"Repo-NAS\"\nRestore-VM -Name SRV1 -RestorePoint (Get-RestorePoint SRV1 | Select -Last 1)\nGet-Snapshot SRV1 | Where Created -lt (Get-Date).AddDays(-3)",
-      "p": [
-        "Snapshot chaîne fragile si trop long",
-        "Application-consistent avec guest processing",
-        "Chiffrer les sauvegardes"
-      ],
-      "w": "Un snapshot resté ouvert trop longtemps dégrade fortement les performances I/O.",
-      "cp": "cp2"
-    },
-    {
-      "id": "ccp5-hyper",
-      "t": "Hyper-V et autres hyperviseurs",
-      "level": "intermediaire",
-      "r": "Hyper-V natif Windows, Proxmox open-source, KVM/QEMU pour laboratoires. Les concepts se transfèrent.",
-      "tags": [
-        "hyperv",
-        "proxmox",
-        "kvm"
-      ],
-      "g": [
-        "Activer le rôle Hyper-V avec GUI ou PowerShell",
-        "Créer commutateur virtuel externe/interne",
-        "Gérer les VM avec Hyper-V Manager",
-        "Automatiser avec PowerShell"
-      ],
-      "c": "Install-WindowsFeature -Name Hyper-V -IncludeManagementTools -Restart\nNew-VMSwitch -Name \"LAN\" -NetAdapterName Ethernet -AllowManagementOS $true\nNew-VM -Name SRVH1 -MemoryStartupBytes 4GB -NewVHDPath C:\\VMs\\SRVH1.vhdx -NewVHDSizeBytes 60GB\nStart-VM SRVH1",
-      "p": [
-        "Hyper-V Replica pour la résilience simple",
-        "Checkpoint production à privilégier",
-        "Proxmox pour labo à moindre coût"
-      ],
-      "w": "La virtualisation imbriquée nécessite VT-x/EPT et peut casser les snapshots.",
-      "cp": "cp2"
-    },
-    {
-      "id": "ccp5-virt-debutant",
-      "t": "Virtualisation : hyperviseur, snapshot, réseaux (débutant)",
+      "id": "cp2-dc",
+      "t": "Installation et promotion du contrôleur de domaine",
       "level": "debutant",
-      "r": "ESXi/Hyper-V/Proxmox abstraient le matériel. Snapshot = point de restauration locale, pas backup. Bridge/NAT/host-only selon besoin.",
-      "tags": [
-        "virtualisation",
-        "snapshot",
-        "debutant"
-      ],
-      "g": [
-        "Créer VM depuis template",
-        "Snapshot avant MAJ",
-        "Tester restauration"
-      ],
-      "c": "# Concepts VMware/Hyper-V\nThin provisioning, vSwitch, portgroup\nSnapshot ≠ Sauvegarde",
-      "p": [
-        "Type 1 bare-metal vs Type 2 hosté",
-        "VMkernel pour vMotion",
-        "MTU identique"
-      ],
-      "w": "Un snapshot oublié dégrade fortement l'I/O.",
-      "cp": "cp2"
-    },
-    {
-      "id": "cp5-ad",
-      "t": "Active Directory Domain Services",
-      "level": "intermediaire",
       "cli": true,
-      "r": "CP5 - Définition : service annuaire central. | Objectif : identité. | Cas réel : promotion DC. | Fonctionnement détaillé : forêt, domaines, FSMO. | Exemple : installation DC. | Procédure : prérequis, promotion, test. | Erreurs : DNS manquant. | Jury : FSMO. | À retenir : DNS.",
-      "tags": [
-        "cp5",
-        "serveurs",
-        "ad"
-      ],
-      "g": [
-        "Prérequis",
-        "Promotion",
-        "Test",
-        "Surlaut"
-      ],
-      "c": "Get-ADDomain; dcpromo /uninstall",
-      "p": [
-        "DNS absent",
-        "Sysvol partage"
-      ],
-      "w": "Conclusion : AD robuste.",
-      "img": "images/active-directory-schema.svg",
-      "alt": "Schéma serveurs",
-      "cp": "cp2"
+      "r": "CP2 - Contrôleur de domaine : vérifier l'IP fixe, le nom DNS du serveur, l'heure, puis installer la fonctionnalité et promouvoir le domaine. | Cas réel : un serveur Windows Server 2022 devient le premier DC de tssr.local. | Fonctionnement détaillé : DNS est installé avec AD DS, SYSVOL est créé, la zone intégrée AD est créée, les rôles FSMO sont placés sur ce premier DC. | Procédure GUI : Gestionnaire de serveur > Ajouter rôles et fonctionnalités > Services AD DS et DNS > Configurer les services AD DS > Assistant promotion. | Procédure CLI : installer la fonctionnalité, puis promouvoir. | Vérification : Get-ADDomain, Get-ADDomainController, nslookup pour les enregistrements SRV. | Pièges : répromouvoir un serveur mal nommé, oublier l'heure, DNS client pointant vers Internet. | Questions jury : rôle FSMO, pourquoi DNS doit être sain, différence promotion d'un nouveau domaine et ajout d'un DC. | À retenir : IP fixe, nom clair, DNS, puis promotion.",
+      "tags": ["cp2","windows","ad","dns"],
+      "g": ["Configurer une IP fixe", "Vérifier le nom du serveur", "Ajouter AD DS et DNS", "Promouvoir le domaine", "Redémarrer et valider"],
+      "c": "Get-NetIPConfiguration\nRename-Computer -NewName DC01 -Restart\nInstall-WindowsFeature AD-Domain-Services -IncludeManagementTools\nInstall-ADDSForest -DomainName tssr.local -DomainNetbiosName TSSR -InstallDns:$true -SafeModeAdministratorPassword (ConvertTo-SecureString 'P@ssw0rd!' -AsPlainText -Force) -Force\nGet-ADDomain\nGet-ADDomainController -Discover",
+      "p": ["IP non fixe", "DNS mal configuré", "Heure désynchronisée"],
+      "w": "Conclusion : la promotion n'est fiable que si le serveur est déjà propre."
     },
     {
-      "id": "cp5-adou",
+      "id": "cp2-ipdns",
+      "t": "IP fixe et DNS client du serveur",
+      "level": "debutant",
+      "cli": true,
+      "r": "CP2 - IP et DNS : un DC ne doit pas dépendre du DHCP et doit se connaître lui-même. | Objectif professionnel : éviter les pannes d'enregistrement AD. | Fonctionnement détaillé : adresse IPv4, masque, passerelle, DNS primaire sur l'adresse du DC, DNS secondaire sur le partenaire si présent. | Procédure GUI : Paramètres Windows > Réseau > Ethernet > IP > fixe. | Procédure CLI : attribuer l'IP et le DNS. | Vérification : Get-NetIPAddress, Get-DnsClientServerAddress, Test-NetConnection et Resolve-DnsName. | Pièges : DNS secondaire public, IP changée après promotion, passerelle manquante sur réseau isolé. | À retenir : le DC utilise son propre DNS.",
+      "tags": ["cp2","ip","dns","windows"],
+      "g": ["Ouvrir les paramètres réseau", "Saisir l'IP fixe", "Saisir le masque", "Saisir la passerelle et le DNS", "Tester la connexion"],
+      "c": "New-NetIPAddress -IPAddress 192.168.10.10 -PrefixLength 24 -DefaultGateway 192.168.10.1 -InterfaceAlias Ethernet\nSet-DnsClientServerAddress -InterfaceAlias Ethernet -ServerAddresses 192.168.10.10,192.168.10.11\nGet-NetIPAddress\nGet-DnsClientServerAddress\nResolve-DnsName dc01.tssr.local",
+      "p": ["DNS pointant vers Internet", "Masque incorrect"],
+      "w": "Conclusion : contrôle l'adresse avant de promouvoir."
+    },
+    {
+      "id": "cp2-join",
+      "t": "Jonction d'un poste au domaine",
+      "level": "debutant",
+      "cli": true,
+      "r": "CP2 - Jonction : le poste doit connaître le DNS du domaine et disposer d'un compte autorisé. | Objectif : intégrer les postes au domaine. | Fonctionnement détaillé : DNS, objet ordinateur, SID, profil utilisateur, GPO à la prochaine ouverture. | Procédure GUI : Système > Renommer ce PC > Domaine > redémarrer. | Procédure CLI : Add-Computer, puis redémarrage. | Vérification : whoami, Test-ComputerSecureChannel, Get-ADComputer dans la console. | Pièges : mauvais DNS, compte sans droit de jonction, redémarrage oublié, time zone. | Questions jury : jonction versus pré-stage, importance du DNS. | À retenir : DNS d'abord.",
+      "tags": ["cp2","ad","poste","dns"],
+      "g": ["Vérifier le DNS", "Ouvrir les propriétés système", "Rejoindre le domaine", "Saisir les identifiants", "Redémarrer"],
+      "c": "Add-Computer -DomainName tssr.local -Credential (Get-Credential) -Restart\nwhoami\ntest-computersecurechannel\nGet-ADComputer -Identity POSTE01",
+      "p": ["DNS internet", "Compte non autorisé", "Redémarrage oublié"],
+      "w": "Conclusion : la jonction commence par le DNS."
+    },
+    {
+      "id": "cp2-ou",
       "t": "OU et AGDLP",
       "level": "intermediaire",
       "cli": true,
-      "r": "CP5 - Définition : structuration OU. | Objectif : déléguer. | Cas réel : OU par service. | Fonctionnement détaillé : comptes globaux, groups ressources. | Exemple : OU Finance. | Procédure : créer OU, groupes, GPO. | Erreurs : permission trop large. | Jury : AGDLP. | À retenir : délégation.",
-      "tags": [
-        "cp5",
-        "serveurs",
-        "ou"
-      ],
-      "g": [
-        "Créer OU",
-        "Groupes",
-        "Délégation",
-        "GPO"
-      ],
-      "c": "Get-ADOrganizationalUnit; Add-ADGroupMember",
-      "p": [
-        "Permissions larges"
-      ],
-      "w": "Conclusion : modèle AGDLP.",
-      "img": "images/active-directory-schema.svg",
-      "alt": "Schéma serveurs",
-      "cp": "cp2"
+      "r": "CP2 - AGDLP : A pour comptes, G pour groupes globaux métier, DL pour groupes de ressources, P pour permission. | Objectif professionnel : déléguer et maintenir une structure lisible. | Cas réel : OU _Usuarios, _Grupos, _Computadoras, puis une OU Commerciale contenant les utilisateurs. | Fonctionnement détaillé : OU pour GPO et délégation, groupes pour l'accès aux ressources. | Procédure GUI : Utilisateurs et ordinateurs Active Directory > Nouvelle unité d'organisation. | Procédure CLI : New-ADOrganizationalUnit, New-ADGroup. | Vérification : Get-ADOrganizationalUnit, Get-ADGroup. | Pièges : OU profondes sans besoin, groupe directement sur dossier, permissions non testées. | Questions jury : différence compte global et ressource, pourquoi AGDLP. | À retenir : les comptes ne portent pas les permissions directement.",
+      "tags": ["cp2","ad","ou","agdlp"],
+      "g": ["Créer les OU", "Créer le groupe global", "Créer le groupe de domaine local", "Ajouter le groupe global dans le groupe DL", "Ajouter l'utilisateur au groupe global"],
+      "c": "New-ADOrganizationalUnit -Name '_Utilisateurs' -Path 'DC=tssr,DC=local'\nNew-ADOrganizationalUnit -Name '_Groupes' -Path 'DC=tssr,DC=local'\nNew-ADGroup -Name 'G-Commerciaux' -GroupScope Global -GroupCategory Security -Path 'OU=_Groupes,DC=tssr,DC=local'\nNew-ADGroup -Name 'DL-Commercial-FC' -GroupScope DomainLocal -GroupCategory Security -Path 'OU=_Groupes,DC=tssr,DC=local'\nAdd-ADGroupMember -Identity 'DL-Commercial-FC' -Members 'G-Commerciaux'\nGet-ADOrganizationalUnit -Filter *",
+      "p": ["Groupe avec le mauvais scope", "AGDLP inversé", "Permission sur personne"],
+      "w": "Conclusion : AGDLP se défend à l'oral."
     },
     {
-      "id": "cp5-gpo",
-      "t": "GPO et stratégie groupe",
+      "id": "cp2-users",
+      "t": "Création d'un utilisateur et attribution des groupes",
+      "level": "debutant",
+      "cli": true,
+      "r": "CP2 - Utilisateur : créer le compte, définir le mot de passe et l'ajouter au groupe métier. | Objectif professionnel : préparer l'expérience à un test réel. | Cas réel : nouveau collaborateur Commercial. | Fonctionnement détaillé : UPN, profils, mot de passe initial, expiration, appartenance au groupe. | Procédure GUI : Utilisateurs et ordinateurs Active Directory > Nouvel utilisateur. | Procédure CLI : New-ADUser puis Enable-ADAccount si nécessaire. | Vérification : Get-ADUser, Get-ADGroupMember, Test-ADAccount. | Pièges : compte désactivé, groupe faux, mot de passe expiré. | Questions jury : UPN, mandatory profile, password policy. | À retenir : compte test, groupe test.",
+      "tags": ["cp2","ad","utilisateurs","powershell"],
+      "g": ["Ouvrir dsa.msc", "Créer l'utilisateur", "Définir le mot de passe", "Décocher 'le mot de passe n'expire jamais' si requis", "Ajouter au groupe G-Commerciaux"],
+      "c": "New-ADUser -Name 'Jean Dupont' -SamAccountName jdupont -UserPrincipalName jdupont@tssr.local -GivenName Jean -Surname Dupont -DisplayName 'Jean Dupont' -Path 'OU=Utilisateurs,DC=tssr,DC=local' -AccountPassword (ConvertTo-SecureString 'P@ssw0rd!' -AsPlainText -Force) -Enabled $true\nAdd-ADGroupMember -Identity 'G-Commerciaux' -Members 'jdupont'\nGet-ADUser -Identity jdupont -Properties MemberOf\nGet-ADGroupMember -Identity 'G-Commerciaux'",
+      "p": ["Compte créé sans mot de passe", "Ouvert dans la mauvaise OU"],
+      "w": "Conclusion : un compte sans test ne prouve rien."
+    },
+    {
+      "id": "cp2-gpo",
+      "t": "GPO : création, liaison et vérification",
       "level": "intermediaire",
       "cli": true,
-      "r": "CP5 - Définition : configuration centralisée. | Objectif : standard. | Cas réel : mot de passe fort. | Fonctionnement détaillé : CSE, RSoP, stratégie application. | Exemple : espace disque. | Procédure : créer GPO, lier, tester. | Erreurs : GPO conflict. | Jury : ordre application. | À retenir : scope.",
-      "tags": [
-        "cp5",
-        "serveurs",
-        "gpo"
-      ],
-      "g": [
-        "Créer GPO",
-        "Lier",
-        "Tester RSoP",
-        "Auditer"
-      ],
-      "c": "gpupdate /force; Get-GPO -All",
-      "p": [
-        "Conflit GPO",
-        "Erreur WMI"
-      ],
-      "w": "Conclusion : scope maîtrisé.",
-      "img": "images/active-directory-schema.svg",
-      "alt": "Schéma serveurs",
-      "cp": "cp2"
+      "r": "CP2 - GPO : créer une stratégie, la lier à une OU, puis vérifier son application. | Objectif professionnel : standardiser les postes sans toucher manuellement chaque machine. | Cas réel : imposer le firewall et mapper un disque Z. | Fonctionnement détaillé : CSE, ordre LSDOU, filtrage de sécurité, blocage d'héritage. | Procédure GUI : GPMC puis gpmc.msc > Nouvelle GPO > Modifier > lier. | Procédure CLI : New-GPO, New-GPLink, gpupdate, gpresult. | Vérification : gpresult /R et Get-GPO report. | Pièges : GPO liée à un mauvais niveau, ordre inversé, filtre trop large. | Questions jury : LSDOU, héritage bloqué, GPO de sécurité. | À retenir : créer, lier, tester, audit.",
+      "tags": ["cp2","gpo","windows"],
+      "g": ["Ouvrir gpmc.msc", "Créer une nouvelle GPO", "Modifier la GPO", "Lier à l'OU", "Lancer gpupdate /force", "Vérifier avec gpresult /R"],
+      "c": "New-GPO -Name 'GPO-Postes-Base'\nNew-GPLink -Name 'GPO-Postes-Base' -Target 'OU=Postes,DC=tssr,DC=local'\ngpupdate /force\ngpresult /R\nGet-GPO -All\nGet-GPResultantSetOfPolicy -ReportType Html -Path C:\\temp\\rsop.html",
+      "p": ["Lier au mauvais objet", "Oublier gpupdate", "Conflit de paramètres"],
+      "w": "Conclusion : une GPO utile est testable et auditable."
     },
     {
-      "id": "cp5-dns",
-      "t": "DNS Windows",
+      "id": "cp2-dns",
+      "t": "DNS Windows : zones et enregistrements",
       "level": "intermediaire",
       "cli": true,
-      "r": "CP5 - Définition : services de noms. | Objectif : résoudre. | Cas réel : AD non joignable. | Fonctionnement détaillé : zone AD-intégrée, SRV. | Exemple : SRV DC. | Procédure : config DNS, zones, test. | Erreurs : forwarders. | Jury : zones intégrées. | Retenir : zone AD.",
-      "tags": [
-        "cp5",
-        "serveurs",
-        "dns"
-      ],
-      "g": [
-        "Zone DNS",
-        "SRV",
-        "Forwarder",
-        "Test"
-      ],
-      "c": "Get-DnsServerZone; dnscmd /recordadd",
-      "p": [
-        "Forwarder lent"
-      ],
-      "w": "Conclusion : DNS santé.",
-      "img": "images/active-directory-schema.svg",
-      "alt": "Schéma serveurs",
-      "cp": "cp2"
+      "r": "CP2 - DNS : créer une zone primaire, ajouter les enregistrements et vérifier la résolution DHCP/clients. | Objectif professionnel : permettre la réussite de plusieurs services AD. | Fonctionnement détaillé : zone de recherche directe, zone inverse, A, CNAME, SRV automatiques, TTL. | Procédure GUI : DNS Manager > ajouter une zone. | Procédure CLI : Add-DnsServerPrimaryZone et Add-DnsServerResourceRecord. | Vérification : Resolve-DnsName, Get-DnsServerResourceRecord et nslookup. | Pièges : mauvais apex, TTL trop court, forwarder manquant. | Questions jury : zone inverse, enregistrements SRV, cache DNS. | À retenir : penser application et client.",
+      "tags": ["cp2","dns","windows"],
+      "g": ["Ouvrir la console DNS", "Créer une zone primaire", "Ajouter un enregistrement A", "Ajouter un alias CNAME", "Tester avec nslookup"],
+      "c": "Add-DnsServerPrimaryZone -Name 'tssr.local' -ZoneFile 'tssr.local.dns'\nAdd-DnsServerResourceRecordA -Name 'web' -ZoneName 'tssr.local' -IPv4Address '192.168.10.20'\nAdd-DnsServerResourceRecordCName -Name 'intranet' -ZoneName 'tssr.local' -HostNameAlias 'web.tssr.local'\nResolve-DnsName intranet.tssr.local\nGet-DnsServerResourceRecord -ZoneName 'tssr.local'",
+      "p": ["Zone secondaire confondue", "TTL inadapté", "Forwarder incorrect"],
+      "w": "Conclusion : DNS doit précéder beaucoup d'autres services."
     },
     {
-      "id": "cp5-dhcp",
-      "t": "DHCP Windows",
+      "id": "cp2-dhcp",
+      "t": "DHCP Windows : étendue, options et exclusions",
       "level": "intermediaire",
       "cli": true,
-      "r": "CP5 - Définition : serveur DHCP. | Objectif : automation IP. | Cas réel : conflit. | Fonctionnement détaillé : scope, exclusions, bail. | Exemple : réserve. | Procédure : portée, options, test. | Erreurs : rogue. | Jury : DHCP failover. | Retenir : scope.",
-      "tags": [
-        "cp5",
-        "serveurs",
-        "dhcp"
-      ],
-      "g": [
-        "Port ée",
-        "Exclusions",
-        "Options",
-        "Test"
-      ],
-      "c": "Get-DhcpServerv4Scope; Add-DhcpServerv4Reservation",
-      "p": [
-        "Conflit",
-        "No failover"
-      ],
-      "w": "Conclusion : DHCP fiable.",
-      "img": "images/active-directory-schema.svg",
-      "alt": "Schéma serveurs",
-      "cp": "cp2"
+      "r": "CP2 - DHCP : créer une étendue avec options obligatoires pour les clients. | Objectif professionnel : attribuer IP, DNS et passerelle sans conflit. | Fonctionnement détaillé : DORA, bail, scope, exclusions, options 003 passerelle, 006 DNS, 015 suffixe. | Procédure GUI : Console DHCP > nouvelle étendue. | Procédure CLI : Add-DhcpServerv4Scope puis options. | Vérification : Get-DhcpServerv4Scope, Get-DhcpServerv4Lease et ipconfig /renew. | Pièges : étendue sur mauvaise interface, IP conflicting, options incomplètes. | Questions jury : DORA, bail, exclusions. | À retenir : IP statique avant services clés.",
+      "tags": ["cp2","dhcp","windows"],
+      "g": ["Installer le rôle DHCP", "Créer une étendue", "Définir les exclusions", "Définir le routeur", "Définir les DNS et le suffixe", "Tester ipconfig /renew"],
+      "c": "Install-WindowsFeature DHCP -IncludeManagementTools\nAdd-DhcpServerv4Scope -Name 'Postes' -StartRange 192.168.10.100 -EndRange 192.168.10.200 -SubnetMask 255.255.255.0 -LeaseDuration 8.00:00:00\nAdd-DhcpServerv4ExclusionRange -ScopeId 192.168.10.0 -StartRange 192.168.10.150 -EndRange 192.168.10.160\nSet-DhcpServerv4OptionValue -ScopeId 192.168.10.0 -Router 192.168.10.1 -DnsServer 192.168.10.10 -DnsDomain tssr.local\nGet-DhcpServerv4Scope\nGet-DhcpServerv4Lease -ScopeId 192.168.10.0",
+      "p": ["Étendue sans DNS", "Exclusion inutile", "DHCP autorisé trop tôt"],
+      "w": "Conclusion : DHCP s'administre avec les options."
     },
     {
-      "id": "cp5-file",
-      "t": "Partage de fichiers",
+      "id": "cp2-share",
+      "t": "Partages SMB et permissions NTFS",
       "level": "intermediaire",
       "cli": true,
-      "r": "CP5 - Définition : partage serveur. | Objectif : accès contrôlé. | Cas réel : folder finance. | Fonctionnement détaillé : SMB, NTFS, permissions. | Exemple : partage users. | Procédure : créer partage, ACL, test. | Erreurs : droits. | Jury : AGDLP+share. | Retenir : combiner ACL.",
-      "tags": [
-        "cp5",
-        "serveurs",
-        "smb"
-      ],
-      "g": [
-        "Créer share",
-        "ACL",
-        "Tester",
-        "Audit"
-      ],
-      "c": "net share; New-SmbShare; Get-SmbShareAccess",
-      "p": [
-        "Permissions incorrectes"
-      ],
-      "w": "Conclusion : partage sûr.",
-      "img": "images/active-directory-schema.svg",
-      "alt": "Schéma serveurs",
-      "cp": "cp2"
+      "r": "CP2 - Partage : créer un dossier commercial avec une matrice de droits, puis appliquer AGDLP. | Objectif professionnel : donner l'accès autorisé et refuser le non-autorisé. | Cas réel : le dossier Commercial est accessible aux commerciaux en lecture/écriture, et aux dirigeants en lecture et écriture. | Fonctionnement détaillé : partage SMB, ACL NTFS, ordre d'évaluation, permission effective, DENY prioritaire. | Procédure GUI : propriétés du dossier > Partage et Sécurité. | Procédure CLI : New-SmbShare puis icacls. | Vérification : Test-NetConnection série, Test-Path, Get-Item avec RunAs d'un utilisateur. | Pièges : croire que les permissions se cumulent, donner Full Control au groupe Everyone, oublier l'héritage. | Questions jury : permission effective, héritage, DENY. | À retenir : NTFS le plus restrictif, partage le moins restrictif.",
+      "tags": ["cp2","smb","ntfs","partages"],
+      "g": ["Créer le dossier", "Créer les groupes", "Définir les ACL", "Créer le partage", "Tester authorized", "Tester denied"],
+      "c": "New-Item -ItemType Directory -Path 'D:\\Partages\\Commercial'\nNew-SmbShare -Name 'Commercial' -Path 'D:\\Partages\\Commercial' -FullAccess 'TSSR\\DL-Commercial-FC'\nicacls 'D:\\Partages\\Commercial' /grant 'TSSR\\G-Commerciaux:(OI)(CI)(RX)'\nicacls 'D:\\Partages\\Commercial' /grant 'TSSR\\G-Direction:(OI)(CI)F'\nGet-SmbShare -Name 'Commercial'\nGet-SmbShareAccess -Name 'Commercial'\nicacls 'D:\\Partages\\Commercial'",
+      "p": ["Groupe Everyone présent", "ACL sans héritage", "Test avec administrateur"],
+      "w": "Conclusion : la permission se valide en agissant."
     },
     {
-      "id": "cp5-patch",
-      "t": "Patch Windows Server",
+      "id": "cp2-drive",
+      "t": "Mappage de lecteurs et GPO DriveMaps",
       "level": "intermediaire",
       "cli": true,
-      "r": "CP5 - Définition : mise à jour serveur. | Objectif : sécurité. | Cas réel : patch tuesday. | Fonctionnement détaillé : WSUS, hotfix, reboot. | Exemple : patch test. | Procédure : test, pilot, deploy. | Erreurs : reboot non planifié. | Jury : patch et MCO. | Retenir : maintenance window.",
-      "tags": [
-        "cp5",
-        "serveurs",
-        "patch"
-      ],
-      "g": [
-        "Test",
-        "Pilot",
-        "Deploy",
-        "Audit"
-      ],
-      "c": "Install-Module PSWindowsUpdate; Invoke-WUJob",
-      "p": [
-        "Reboot critique"
-      ],
-      "w": "Conclusion : patch contrôlé.",
-      "img": "images/active-directory-schema.svg",
-      "alt": "Schéma serveurs",
-      "cp": "cp2"
+      "r": "CP2 - Mappage : notre lecteur réseau doit persister et se reconnecter. | Objectif professionnel : simplifier l'expérience et maîtriser l'approvisionnement. | Fonctionnement détaillé : profil utilisateur, scripts de connexion, GPO Preferences, GPP. | Procédure GUI : Poste de travail > connecter un lecteur réseau. | Procédure CLI : net use ou New-SmbMapping. | Vérification : Get-SmbMapping et Test-Path Z:\\. | Pièges : mapper avec une lettre occupée, oublier /persistent, groupe faux. | Questions jury : GPO Preference drive map versus script. | À retenir : utilisateur et lettre.",
+      "tags": ["cp2","gpo","share","windows"],
+      "g": ["Ouvrir les préférences GPO", "Créer un drive map", "Définir la lettre et le chemin", "Cible le groupe", "Tester gpupdate"],
+      "c": "net use Z: '\\\\Serveur\\Commercial' /persistent:yes\nNew-SmbMapping -LocalPath Z: -RemotePath '\\\\Serveur\\Commercial' -Persistent $true\nGet-SmbMapping\nTest-Path Z:\\",
+      "p": ["Lettre occupée", "GPP non appliqué", "Lettre oubliée"],
+      "w": "Conclusion : le lecteur n'est utile que s'il se reconnecte."
     },
     {
-      "id": "cp5-backup",
-      "t": "Sauvegarde serveurs",
+      "id": "cp2-fsrm",
+      "t": "Quotas et FSRM (si pertinent)",
       "level": "intermediaire",
       "cli": true,
-      "r": "CP5 - Définition : backup serveur. | Objectif : restore. | Cas réel : perte OS. | Fonctionnement détaillé : VSS, sauvegarde critique, rétention. | Exemple : backup system state. | Procédure : config, test, restore. | Erreurs : échec VSS. | Jury : sauvegarde. | Retenir : restore.",
-      "tags": [
-        "cp5",
-        "serveurs",
-        "backup"
-      ],
-      "g": [
-        "Configurer",
-        "Documenter",
-        "Tester restore",
-        "Retention"
-      ],
-      "c": "wbadmin start backup -backupTarget:D:",
-      "p": [
-        "VSS shadow"
-      ],
-      "w": "Conclusion : sauvegarder pour restaurer.",
-      "img": "images/active-directory-schema.svg",
-      "alt": "Schéma serveurs",
-      "cp": "cp2"
+      "r": "CP2 - FSRM : poser des quotas sur un dossier partagé pour éviter la saturation. | Objectif professionnel : maîtriser les risques de capacité. | Fonctionnement détaillé : installation du rôle, quota, seuil, action email. | Procédure GUI : Gestionnaire de ressources du serveur de fichiers. | Procédure CLI : Install-WindowsFeature et New-FsrmQuota. | Vérification : Get-FsrmQuota et test de création d'un fichier. | Pièges : quota sur mauvais dossier, absence de notification, capacité trop basse. | Questions jury : quota dur versus seuil alerte. | À retenir : capacity et notification.",
+      "tags": ["cp2","fsrm","stockage","windows"],
+      "g": ["Installer le rôle FSRM", "Créer un quota", "Définir un seuil", "Lier une action", "Tester"],
+      "c": "Install-WindowsFeature FS-Resource-Manager -IncludeManagementTools\nNew-FsrmQuota -Path 'D:\\Partages\\Commercial' -Size '5GB'\nGet-FsrmQuota -Path 'D:\\Partages\\Commercial'",
+      "p": ["Quota trop bas", "Alerte non testée"],
+      "w": "Conclusion : planifier la capacité avant saturation."
     },
     {
-      "id": "cp5-hard",
-      "t": "Durcissement serveur",
+      "id": "cp2-tasks",
+      "t": "Planificateur de tâches",
       "level": "intermediaire",
       "cli": true,
-      "r": "CP5 - Définition : réduire surface attaque. | Objectif : sécuriser. | Cas réel : port inutile. | Fonctionnement détaillé : firewall, comptes, patch, logs. | Exemple : fermer port. | Procédure : baseline, test, audit. | Erreurs : fermer production. | Jury : baseline. | Retenir : moindre priv de service.",
-      "tags": [
-        "cp5",
-        "serveurs",
-        "hardening"
-      ],
-      "g": [
-        "Inventaire ports",
-        "Firewall",
-        "Comptes",
-        "Audit"
-      ],
-      "c": "Invoke-AzVMRunCommand; chronyc tracking",
-      "p": [
-        "Fermeture production"
-      ],
-      "w": "Conclusion : durcir progressivement.",
-      "img": "images/active-directory-schema.svg",
-      "alt": "Schéma serveurs",
-      "cp": "cp2"
+      "r": "CP2 - Tâches planifiées : créer une tâche qui s'exécute avec le bon compte et les bons privilèges. | Objectif professionnel : automatiser sans intervention. | Fonctionnement détaillé : déclencheur, action, compte safestorage, historique, privilèges. | Procédure GUI : taskschd.msc > Nouvelle tâche. | Procédure CLI : schtasks. | Vérification : Get-ScheduledTask, Get-ScheduledTaskInfo. | Pièges : mauvais compte, tâche désactivée, chemin UNC inaccessible. | Questions jury : compte de service et journal. À VÉRIFIER : options exactes selon la version Windows.",
+      "tags": ["cp2","tasks","automation"],
+      "g": ["Ouvrir taskschd.msc", "Créer une nouvelle tâche", "Définir le déclencheur", "Définir l'action", "Tester l'exécution"],
+      "c": "schtasks /create /tn 'Sauvegarde-Commercial' /tr 'robocopy D:\\Partages\\Commercial D:\\Backup /MIR' /sc DAILY /st 02:00 /ru SYSTEM\nschtasks /run /tn 'Sauvegarde-Commercial'\nGet-ScheduledTask -TaskName 'Sauvegarde-Commercial'\nGet-ScheduledTaskInfo -TaskName 'Sauvegarde-Commercial'",
+      "p": ["Compte sans droit", "Chemin UNC inaccessible", "Déclencheur mal réglé"],
+      "w": "Conclusion : la tâche planifiée se teste."
     },
     {
-      "id": "cp5-monitor",
-      "t": "Supervision des serveurs",
+      "id": "cp2-events",
+      "t": "Observateur d'événements : IDs 4624, 4625 et 41",
       "level": "intermediaire",
       "cli": true,
-      "r": "CP5 - Définition : surveiller serveurs. | Objectif : anticiper incident. | Cas réel : CPU sat. | Fonctionnement détaillé : métriques, seuils, logs. | Exemple : alerte disque. | Procédure : agent, seuil, escalade. | Erreurs : pas de seuil. | Jury : SLA. | Retenir : alerting.",
-      "tags": [
-        "cp5",
-        "serveurs",
-        "monitor"
-      ],
-      "g": [
-        "Agent",
-        "Métrique",
-        "Seuil",
-        "Alerte"
-      ],
-      "c": "Get-Counter; Get-WinEvent",
-      "p": [
-        "Pas d'escalade"
-      ],
-      "w": "Conclusion : supervision par seuils.",
-      "img": "images/active-directory-schema.svg",
-      "alt": "Schéma serveurs",
-      "cp": "cp2"
+      "r": "CP2 - Événements : lire les journaux de sécurité pour prouver les connexions et les refus. | Objectif professionnel : diagnostiquer et auditer. | Fonctionnement détaillé : ID 4624 pour une connexion réussie, 4625 pour un échec de connexion, ID 41 à vérifier selon le journal et le contexte système pour identifier un arrêt anormal ou une panne. | Procédure GUI : eventvwr.msc > Journal Windows > Sécurité. | Procédure CLI : Get-WinEvent ou Get-EventLog. | Vérification : le journal montre heure, compte et poste source. | Pièges : chercher uniquement 4625 et oublier 4624, temps incorrect. | Questions jury : où trouver les connexions, différence sécurité/système. | À retenir : heure et compte. À VÉRIFIER : ID 41 selon l'environnement.",
+      "tags": ["cp2","events","diagnostic"],
+      "g": ["Ouvrir eventvwr.msc", "Filtrer l'ID 4624", "Filtrer l'ID 4625", "Filtrer l'ID 41", "Consigner l'heure et le compte"],
+      "c": "Get-WinEvent -FilterHashtable @{LogName='Security'; Id=4624,4625} -MaxEvents 20 | Format-Table TimeCreated,Id,Message -Wrap\nGet-EventLog -LogName System -InstanceId 41 | Select-Object TimeGenerated,EventID,Message",
+      "p": ["Heure erronée", "Droits insuffisants", "Journal filtré trop vite"],
+      "w": "Conclusion : les événements prouvent."
     },
     {
-      "id": "cp5-jury",
-      "t": "Synthèse examen CP5",
-      "level": "intermediaire",
+      "id": "cp2-verification",
+      "t": "Vérification et preuves pour la MEP",
+      "level": "exam",
       "cli": true,
-      "r": "CP5 - Définition : synthèse pour l'oral. | Objectif : expliquer. | Cas réel : jury demande déploiement AD. | Fonctionnement détaillé : AD, DNS, GPO, backup. | Exemple : mise en service. | Procédure : prérequis, promotion, test. | Erreurs : omettre restore. | Jury : questions. | Retenir : expertise.",
-      "tags": [
-        "cp5",
-        "serveurs",
-        "synthese"
-      ],
-      "g": [
-        "Prérequis",
-        "Promotion",
-        "Test",
-        "Restore"
-      ],
-      "c": "Get-ADForest; Get-ADDomainController -Discover",
-      "p": [
-        "Oublier backup"
-      ],
-      "w": "Conclusion : AD complet.",
-      "img": "images/active-directory-schema.svg",
-      "alt": "Schéma serveurs",
-      "cp": "cp2"
+      "r": "CP2 - Vérification : prouver l'accès autorisé puis le refus. | Objectif professionnel : fournir des preuves propres et reproductibles au jury. | Cas réel : Jean Dupont doit accéder à \\\\Serveur\\Commercial, Sophie non. | Procédure pas à pas : 1. ouvrir le poste avec le compte Jean ; 2. tester Properties de Commercial ; 3. créer et modifier un fichier ; 4. se déconnecter ; 5. ouvrir avec Sophie ; 6. vérifier le refus ; 7. consulter les événements et la GPO. | Vérification : Test-Path, Get-Item, Get-SmbShareAccess, icacls, gpresult, Get-WinEvent. | Pièges : tester avec administrateur, oublier de fermer la session, perdre les copies écran. | Questions jury : comment prouvez-vous un refus, comment collectez-vous les preuves. | À retenir : preuves, pas promesses.",
+      "tags": ["cp2","verification","mep","preuves"],
+      "g": ["Se connecter comme Jean", "Tester accès authorized", "Créer fichier", "Se déconnecter", "Se connecter comme Sophie", "Vérifier accès refusé", "Sauvegarder les preuves"],
+      "c": "whoami\nTest-Path 'Z:\\'\nNew-Item -ItemType File -Path 'Z:\\test-jean.txt'\nGet-SmbShareAccess -Name 'Commercial'\nicacls 'D:\\Partages\\Commercial'\ngpresult /R",
+      "p": ["Session non fermée", "Preuves non conservées"],
+      "w": "Conclusion : la preuve est dans le comportement."
     },
     {
-      "id": "cp2-renvoi-patch-ccp12",
-      "t": "Renvoi vers CP9 — cyber-patch",
+      "id": "cp2-pieges",
+      "t": "Pièges et erreurs fréquentes d'examen",
       "level": "exam",
       "cli": false,
-      "r": "Répartition CCP12 : vue postes/systèmes pour WSUS/Windows Update détaillée en CP9; CP2 conserve les services Windows (AD DS, DNS/DHCP), voir reference dans CP9.",
-      "tags": [
-        "renvoi",
-        "cp2",
-        "cp9",
-        "ccp12"
-      ],
-      "g": [
-        "Lire CP2 context",
-        "Lire CP9 déployment"
-      ],
+      "r": "CP2 - Pièges : différences de concepts et commandes de base. | Objectif professionnel : arrêter les réponses trop rapides. | Pièges fréquents : confondre groupes globaux et de domaine local ; give Full Control à Everyone ; oublier de lier la GPO ; croire que les permissions NTFS se cumulent ; ne pas redémarrer après jonction ; confondre scope DHCP et IP; powershell sans elevation. | Erreurs fréquentes : gpresult sans gpupdate, ACL sans test autre compte. | Questions jury : permission effective, DENY, LSDOU. | À retenir : expliquer et prouver.",
+      "tags": ["cp2","pieges","exam"],
+      "g": ["Nommer AGDLP", "Expliquer permission effective", "Montrer la GPO", "Dire le test"],
       "c": "Aucune commande native.",
-      "p": [
-        "Doublon"
-      ],
-      "w": "Conclusion : service côté serveurs, déploiement côté postes.",
-      "cp": "cp2"
+      "p": ["Full Controleveryone", "Jonction non redémarrée", "GPO non liée"],
+      "w": "Conclusion : les détails se défendent par le principe."
+    },
+    {
+      "id": "cp2-miniqcm",
+      "t": "Mini-QCM de fin de fiche (5 questions)",
+      "level": "exam",
+      "cli": false,
+      "r": "CP2 - Mini-QCM : 1. Quelle commande installe AD DS ? `Install-WindowsFeature AD-Domain-Services -IncludeManagementTools`. 2. Quel enregistrement de l'ordinateur résout le nom du DC ? SRV. 3. Dans AGDLP, qui reçoit l'permission NTFS ? Le groupe Domain Local. 4. Quelle commande vérifie une GPO appliquée ? `gpresult /R`. 5. Que prouve `Test-NetConnection 192.168.10.10 -Port 389` ? Le port LDAP est joignable, pas l'authentification. | Ajout par l'assistant : questions construites à partir des thèmes TSSR et du support Windows.",
+      "tags": ["cp2","mini-qcm"],
+      "g": ["Répondre", "Corriger", "Retenir"],
+      "c": "Aucune commande native.",
+      "p": ["Mémoriser sans comprendre"],
+      "w": "Conclusion : le mini-QCM valide la mécanique."
+    },
+    {
+      "id": "cp2-qcm-eval",
+      "t": "QCM d'évaluation CP2 (15 questions)",
+      "level": "exam",
+      "cli": false,
+      "r": "CP2 - QCM évaluation : 1. Un DC doit avoir une IP : A DHCP B fixe C auto C fixe. 2. Avant promotion, paramètre critique : A couleur du thème B DNS client C onglet sons. 3. New-ADUser crée : A un utilisateur B un groupe C un ordinateur. 4. AGDLP signifie : A accounts globals domain locals permissions B architecture guidée DCP ... C. 5. La GPO se lie avec : A gpresult B New-GPLink C net use. 6. gpupdate /force : A force l'application immédiate B supprime la GPO C installe Windows. 7. SRV est apparent : A au correctif B à DNS C au registre. 8. Permission effective : A la plus permissive B la plus restrictive C la dernière saisie. 9. DENY : A prioritaire B ignoré C cumulatif. 10. Un partage Windows utilise : A SMB B NTFS C uniquement HTTP. 11. L'étendue DHCP nécessite : A router et DNS B thème C proxy. 12. Un conflit profite d'une exclusion : A. 13. gpresult /R affiche : A les GPO appliquées B le routage C les certificats. 14. Get-SmbShareAccess montre : A les permissions du partage B les ACL NTFS C les DNS. 15. Un compte désactivé peut-il se connecter ? non. Note : questions 12 à 15 sont complètes dans le corrigé; l'assistant a volontairement mis l'énoncé concis pour ne pas surcharger le support.",
+      "tags": ["cp2","qcm","evaluation"],
+      "g": ["Répondre sans aide", "Noter les doutes"],
+      "c": "Aucune commande native.",
+      "p": ["Apprendre le corrigé"],
+      "w": "Conclusion : évaluer avant de corriger."
+    },
+    {
+      "id": "cp2-qcm-corrige",
+      "t": "Corrigé détaillé du QCM CP2",
+      "level": "exam",
+      "cli": false,
+      "r": "CP2 - Corrigé : 1 B fixe avec DNS maîtrisé; 2 B DNS client; 3 A utilisateur; 4 A comptes globaux, domain local, permissions; 5 B New-GPLink; 6 A gpupdate /force applique sans attendre; 7 B DNS; 8 B permission la plus restrictive (partage + NTFS); 9 A DENY prioritaire; 10 A SMB transport; 11 A routeur et DNS obligatoires; 12 exclusions évitent les conflits IP; 13 A les GPO appliquées; 14 A permissions partage; 15 non, un compte désactivé ne peut pas ouvrir de session. | Complément : si une réponse est fausse, relire la fiche concernée et refaire le test sur VM.",
+      "tags": ["cp2","qcm","correction"],
+      "g": ["Corriger", "Retenir les explications"],
+      "c": "Aucune commande native.",
+      "p": ["Corrigé sans pratique"],
+      "w": "Conclusion : comprendre avant de mémoriser."
+    },
+    {
+      "id": "cp2-open",
+      "t": "Questions ouvertes CP2 avec corrections détaillées",
+      "level": "exam",
+      "cli": false,
+      "r": "CP2 - Questions ouvertes : 1. Expliquez la promotion d'un DC. 2. Décrivez AGDLP. 3. Expliquez l'ordre d'application des GPO. 4. Pourquoi NTFS est plus restrictif que le partage. 5. Comment testez-vous le refus d'accès. 6. Quel est le risque d'un compte test désactivé non supprimé. 7. Comment détectez-vous une mauvaise GPO avec gpresult. 8. Quel événement indique une connexion réussie. | Corrections détaillées : 1 IP fixe, DNS, AD DS, promotion, redémarrage, test SYSVOL ; 2 comptes globaux puis groupes domain local puis ACL ; 3 LSDOU avec exceptions à expliquer au jury ; 4 l'intersection des autorisations et DENY qui l'emporte ; 5 test avec un compte non autorisé et journal ; 6 sécurité et audit ; 7 rsop et journal d'application ; 8 event 4624 avec heure et compte.",
+      "tags": ["cp2","questions","oral"],
+      "g": ["Préparer les réponses", "Structurer avec expérience"],
+      "c": "Aucune commande native.",
+      "p": ["Rester trop théorique"],
+      "w": "Conclusion : l'expérience professionnelle valorise CP2."
     }
   ]
 }
