@@ -22,7 +22,8 @@ async function loadContentSections(){
           G.quizzesLoaded.push(question.id);
         }
       }
-      sections.push(sec);
+      if (file === 'supports.json' || (sec && sec.id === 'supports')) { G.supports = Array.isArray(sec.items) ? sec.items : []; }
+      else { sections.push(sec); }
     }
     if (sections.length) G.sections = sections;
   } catch(e){ console.warn('Chargement content dynamique échoué, conservation des données embarquées', e); }

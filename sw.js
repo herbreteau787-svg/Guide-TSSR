@@ -1,4 +1,4 @@
-﻿const CACHE = 'guide-tssr-v8';
+﻿const CACHE = 'guide-tssr-v9';
 const OFFLINE_URL = './index.html';
 const ASSETS = [
   './',
@@ -40,8 +40,7 @@ self.addEventListener('fetch', event => {
 
   const url = new URL(event.request.url);
   if (url.origin !== self.location.origin) return;
-  // Ne pas intercepter les tÃ©lÃ©chargements lourds du PDF.
-  if (url.pathname.endsWith('.pdf')) return;
+  // Les PDF sont mis en cache lors de la premiere lecture (pas dans le pre-cache initial).
 
   event.respondWith((async () => {
     try {
