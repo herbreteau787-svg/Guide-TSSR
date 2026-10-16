@@ -588,6 +588,279 @@
       "img": "images/topologie-reseau.svg",
       "alt": "DMZ/Intranet",
       "cp": "cp7"
+    },
+    {
+      "id": "cp1-vpn",
+      "t": "Support accès distant et VPN",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP1 - Accès distant : accès sécurisé depuis le domicile ou la mobilité. | Objectif professionnel : rétablir la connexion sans compromettre la sécurité. | Cas réel : le VPN se connecte puis coupe au bout de 30 secondes. | Fonctionnement détaillé : identité, certificat, DNS, routage split tunnel, MFA, timings. | Exemple concret : certificat expiré ou mot de passe expiré. | Procédure pas à pas : 1. vérifier l'identité et le mot de passe ; 2. tester le réseau public ; 3. vérifier le certificat ; 4. tester le split tunnel ; 5. vérifier l'authentification forte. | Vérification : le client obtient une adresse, peut pinger l'intranet, les applications chargent. | Pièges : ignorer le réseau public, croire que le certificat est valide, oublier le MFA. | Question jury : VPN site-à-site versus accès distant ; split tunnel versus tunnel complet. | À retenir : le VPN est une chaîne.",
+      "tags": [
+        "cp1",
+        "vpn",
+        "accesdistant",
+        "securite"
+      ],
+      "g": [
+        "Tester l'identité",
+        "Tester le réseau public",
+        "Vérifier le certificat",
+        "Vérifier le split tunnel",
+        "Vérifier le MFA"
+      ],
+      "c": "rasdial\nGet-VpnConnection\nResolve-DnsName intranet.domaine.fr\nTest-NetConnection vpn.domaine.fr -Port 443\nGet-ChildItem Cert:\\CurrentUser\\My",
+      "p": [
+        "Certificat expiré",
+        "DNS public",
+        "MFA non reçu"
+      ],
+      "w": "Conclusion : le VPN se valide par couches.",
+      "cp": "cp7"
+    },
+    {
+      "id": "mig-legacy-cp1-vpn",
+      "t": "Support accès distant (contenu migré)",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : problème VPN et accès distant. | Objectif : rétablir la continuité pour usager. | Cas réel : VPN coupe en roaming. | Fonctionnement détaillé : certificat, identifiants, DNS/UDP, proxy. | Exemple : certificat expiré. | Procédure : vérifier client, identifiants, routage et certificat. | Erreurs : mot de passe expiré. | Jury : split tunnel, zero trust. | À retenir : contexte nat.",
+      "tags": [
+        "cp3",
+        "support",
+        "vpn",
+        "migre"
+      ],
+      "g": [
+        "Client VPN",
+        "Identifiants",
+        "Certificat",
+        "Routage",
+        "DNS"
+      ],
+      "c": "rasdial; tracert vpn.example.com; Get-NetAdapter",
+      "p": [
+        "Certificat expire",
+        "Split tunnel erroné"
+      ],
+      "w": "Conclusion : vérifier tout le chaînage.",
+      "alt": "Schéma CP1",
+      "cp": "cp7"
+    },
+    {
+      "cp": "cp7",
+      "id": "cyber-reseau",
+      "t": "Segmentation, firewall et DMZ (réparti depuis ccp12)",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "Segmenter par VLAN, limiter les flux, journaliser, surveiller les connexions anormales.",
+      "tags": [
+        "reseau",
+        "firewall",
+        "dmz",
+        "migre-ccp12"
+      ],
+      "g": [
+        "VLAN admin séparé",
+        "ACL deny by default",
+        "Pare-feu inter-VLAN",
+        "Journalisation centralisée"
+      ],
+      "c": "# Exemple iptables\niptables -A FORWARD -i vlan10 -o vlan20 -j DROP\niptables -A FORWARD -i wan -o dmz -p tcp --dport 443 -j ACCEPT",
+      "p": [
+        "Zero Trust pour accès sensibles",
+        "Management plane isolé",
+        "Bastion pour admin"
+      ],
+      "w": "Les flat networks augmentent le rayon d'impact d'un incident.",
+      "alt": ""
+    },
+    {
+      "cp": "cp7",
+      "id": "cyber-users",
+      "t": "Gestion des identités et privilèges (réparti depuis ccp12)",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "Comptes nominatifs, groupes, moindre privilège, comptes de service dédiés, revue périodique.",
+      "tags": [
+        "iam",
+        "privilèges",
+        "migre-ccp12"
+      ],
+      "g": [
+        "Séparer comptes admin et user",
+        "PAM pour élévation",
+        "Revue trimestrielle des membres DA",
+        "Désactiver anciens comptes"
+      ],
+      "c": "Get-ADGroupMember \"Domain Admins\"\nsudo -l\n# PIM/JIT pour activations temporaires",
+      "p": [
+        "Compte break-glass sous coffre",
+        "Logs d'admin centralisés",
+        "Attestation manager"
+      ],
+      "w": "Les droits cumulés sont la cause la plus fréquente d'escalade.",
+      "alt": ""
+    },
+    {
+      "cp": "cp7",
+      "id": "cyber-mfa",
+      "t": "MFA et authentification forte (réparti depuis ccp12)",
+      "level": "debutant",
+      "cli": false,
+      "r": "Activer MFA sur accès distants, admin et cloud. MFA par défaut pour tous les comptes sensibles.",
+      "tags": [
+        "mfa",
+        "auth",
+        "migre-ccp12"
+      ],
+      "g": [
+        "Déployer TOTP/FIDO2",
+        "Codes de secours",
+        "Former utilisateurs",
+        "Suivre l'adoption"
+      ],
+      "c": "# Entra ID: Conditional Access MFA\n# Linux PAM oath\npamtester sshd user authenticate",
+      "p": [
+        "FIDO2 recommandé",
+        "Éviter SMS pour admins",
+        "Récupération documentée"
+      ],
+      "w": "MFA sans plan de secours bloque en cas de perte.",
+      "alt": ""
+    },
+    {
+      "cp": "cp7",
+      "id": "cyber-malware",
+      "t": "Anti-malware et EDR (réparti depuis ccp12)",
+      "level": "debutant",
+      "cli": false,
+      "r": "Protection résidente, analyse, isolation d'hôte, réponse automatique.",
+      "tags": [
+        "edr",
+        "antivirus",
+        "migre-ccp12"
+      ],
+      "g": [
+        "Activer Defender/antivirus central",
+        "Bases à jour",
+        "Analyse planifiée",
+        "Alertes admin"
+      ],
+      "c": "Get-MpComputerStatus\n# Isolation réseau automatique sur alerte EDR",
+      "p": [
+        "Protection cloud",
+        "Sandboxing",
+        "Allowlisting pour serveurs"
+      ],
+      "w": "L'antivirus seul ne suffit pas; l'EDR détecte les comportements.",
+      "alt": ""
+    },
+    {
+      "cp": "cp7",
+      "id": "cyber-ids",
+      "t": "IDS/IPS et supervision sécurité (réparti depuis ccp12)",
+      "level": "avance",
+      "cli": false,
+      "r": "Suricata/Snort, corrélation, blocage et tuning pour éviter faux positifs.",
+      "tags": [
+        "ids",
+        "ips",
+        "siem",
+        "migre-ccp12"
+      ],
+      "g": [
+        "Déployer Suricata",
+        "Activer règles communautaires",
+        "Mode alerte puis block",
+        "Corréler avec SIEM"
+      ],
+      "c": "# pfSense Suricata package\npfctl -t snort2c -T show | head\nlynis audit system",
+      "p": [
+        "Sondes réseau stratégiques",
+        "Tuning par groupe",
+        "Retention logs"
+      ],
+      "w": "Une règle trop large bloque la production.",
+      "alt": ""
+    },
+    {
+      "cp": "cp7",
+      "id": "cyber-logs",
+      "t": "Journalisation et réponse incident (réparti depuis ccp12)",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "Centraliser, conserver, analyser, chaîne de custody, playbooks d'incident.",
+      "tags": [
+        "incident",
+        "logs",
+        "response",
+        "migre-ccp12"
+      ],
+      "g": [
+        "Centraliser syslog",
+        "Conserver 90+ jours",
+        "Playbook d'incident",
+        "Post-mortem"
+      ],
+      "c": "# Linux syslog forward\n*.* @siem:514\n# Collecter preuves",
+      "p": [
+        "Horodatage NTP",
+        "Intégrité des logs",
+        "Communication crise"
+      ],
+      "w": "Sans logs, l'analyse post-incident est impossible.",
+      "alt": ""
+    },
+    {
+      "cp": "cp7",
+      "id": "cyber-cloud",
+      "t": "Sécurité cloud et BYOD (réparti depuis ccp12)",
+      "level": "avance",
+      "cli": false,
+      "r": "IAM cloud, MFA, accès conditionnels, chiffrement au repos/transit, MDM pour mobiles.",
+      "tags": [
+        "cloud",
+        "byod",
+        "mdm",
+        "migre-ccp12"
+      ],
+      "g": [
+        "IAM basé rôles",
+        "MFA cloud",
+        "Chiffrement au repos",
+        "MDM pour BYOD"
+      ],
+      "c": "# Intune / MDM enrollment\n# AWS IAM policy least privilege",
+      "p": [
+        "Logs cloud",
+        "Sauvegarde SaaS",
+        "Sensibilisation données mobiles"
+      ],
+      "w": "Les erreurs de config cloud sont la cause majeure de fuites.",
+      "alt": ""
+    },
+    {
+      "id": "cp7-renvoi-reseau-ccp12",
+      "t": "Renvoi vers CP4 — cyber-réseau, cyber-ids, cyber-logs",
+      "level": "exam",
+      "cli": false,
+      "r": "Renfort CCP12 réparti : segmentation, firewall, DMZ, IDS/IPS et journalisation. Voir CP7 pour le détail durci; fondements réseau (syslog/SNMP, VLAN) en CP4.",
+      "tags": [
+        "renvoi",
+        "cp7",
+        "ccp12",
+        "cp4"
+      ],
+      "g": [
+        "Lire CP4 fondements",
+        "Lire CP7 sécurité",
+        "Appliquer ACL"
+      ],
+      "c": "Aucune commande native.",
+      "p": [
+        "Éparpiller"
+      ],
+      "w": "Conclusion : fondements CP4, durcissement CP7.",
+      "cp": "cp7"
     }
   ]
 }

@@ -322,6 +322,33 @@
       "img": "images/topologie-reseau.svg",
       "alt": "Continuité",
       "cp": "cp8"
+    },
+    {
+      "cp": "cp8",
+      "id": "cyber-backup",
+      "t": "Sauvegarde anti-ransomware (réparti depuis ccp12)",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "Copies hors ligne, immuables, testées, séparées des credentials de production.",
+      "tags": [
+        "backup",
+        "ransomware",
+        "migre-ccp12"
+      ],
+      "g": [
+        "Copies offsite et hors ligne",
+        "Immutabilité",
+        "Test de restore",
+        "Comptes de backup isolés"
+      ],
+      "c": "# Veeam immuable (Linux hardened repo)\n# Borg with append-only",
+      "p": [
+        "RPO/RTO documentés",
+        "Snapshots à court terme + backup long terme",
+        "Alerte sur suppression"
+      ],
+      "w": "Les sauvegardes connectées sont cibles prioritaires.",
+      "alt": ""
     }
   ]
 }

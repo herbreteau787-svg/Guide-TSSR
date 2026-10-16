@@ -109,6 +109,29 @@
       "img": "images/active-directory-schema.svg",
       "alt": "Schéma serveurs",
       "cp": "cp3"
+    },
+    {
+      "id": "cp3-renvoi-patch-ccp12",
+      "t": "Renvoi vers CP9 — cyber-patch",
+      "level": "exam",
+      "cli": false,
+      "r": "Répartition CCP12 : vue Linux (apt/dnf) détaillée en CP9, fondements serveur Linux en CP3.",
+      "tags": [
+        "renvoi",
+        "cp3",
+        "cp9",
+        "ccp12"
+      ],
+      "g": [
+        "Lire CP3 fondements",
+        "Lire CP9 deployment"
+      ],
+      "c": "Aucune commande native.",
+      "p": [
+        "Sans note"
+      ],
+      "w": "Conclusion : fondements en CP3, patching en CP9.",
+      "cp": "cp3"
     }
   ]
 }

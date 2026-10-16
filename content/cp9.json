@@ -718,6 +718,114 @@
       "img": "images/topologie-reseau.svg",
       "alt": "Schéma CP2",
       "cp": "cp9"
+    },
+    {
+      "id": "mig-legacy-cp1-hardware",
+      "t": "Panne matérielle suspectée (contenu migré)",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : diagnostic matériel. | Objectif : identifier panne. | Cas réel : écran bleu répétitif. | Fonctionnement détaillé : SMART, mémoire, température, événements. | Exemple : disque défaillant. | Procédure : événement, test, garantie, remplacement. | Erreurs : réinstaller OS sans test. | Jury : diagnostic couche physique. | À retenir : preuves matériel.",
+      "tags": [
+        "cp3",
+        "support",
+        "hardware",
+        "migre"
+      ],
+      "g": [
+        "Événements",
+        "SMART",
+        "Mémoire",
+        "Remplacement"
+      ],
+      "c": "wmic cpu get; chkdsk /scan; Test-NetAdapter\n# À VÉRIFIER : wmic peut être absent sur les versions récentes; chkdsk /scan et Test-NetAdapter disponibles\n",
+      "p": [
+        "Réinstaller à l'aveugle",
+        "Perdre données"
+      ],
+      "w": "Conclusion : tester avant remplacement.",
+      "alt": "Schéma CP1",
+      "cp": "cp9"
+    },
+    {
+      "id": "mig-legacy-cp1-licence",
+      "t": "Litige licence et activation (contenu migré)",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : activation et licence Windows/M365. | Objectif : rétablir accès. | Cas réel : Windows not activated. | Fonctionnement détaillé : clé, KMS, Entra ID. | Exemple : poste mobilisé sans licence. | Procédure : vérifier, corriger compte, réattribuer licence. | Erreurs : manipulation hors procédure. | Jury : mode d'activation. | À retenir : connaître KMS/CSP.",
+      "tags": [
+        "cp3",
+        "support",
+        "licence",
+        "migre"
+      ],
+      "g": [
+        "Identifier erreur",
+        "Vérifier compte",
+        "Réattribuer",
+        "Tester"
+      ],
+      "c": "slmgr /xpr",
+      "p": [
+        "Mauvaise KMS",
+        "Compte non provisionné"
+      ],
+      "w": "Conclusion : licence et identité liés.",
+      "alt": "Schéma CP1",
+      "cp": "cp9"
+    },
+    {
+      "id": "mig-legacy-cp1-parc",
+      "t": "Connaissance du parc (contenu migré)",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Definitions : connaitre les equipements. | Objectif : contextualiser le support. | Cas reel : poste hors standard. | Fonctionnement detaille : modele, OS, date achat, CMDB. | Exemple : rechercher un poste par hostname. | Procedure : consulter inventaire, verifier donnees, mettre a jour, tracer incident. | Erreurs : CMDB obsolete. | Jury : asset. | A retenir : inventaire.",
+      "tags": [
+        "cp3",
+        "support",
+        "parc",
+        "migre"
+      ],
+      "g": [
+        "Consulter inventaire",
+        "Verifier",
+        "Mettre a jour",
+        "Tracer"
+      ],
+      "c": "Get-ADComputer -Filter * | Select Name,OperatingSystem",
+      "p": [
+        "CMDB obsolete"
+      ],
+      "w": "Conclusion : connaitre son parc.",
+      "alt": "Schéma CP1",
+      "cp": "cp9"
+    },
+    {
+      "cp": "cp9",
+      "id": "cyber-patch",
+      "t": "Gestion des vulnérabilités et patching (réparti depuis ccp12)",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "Recensement actifs, scans, priorisation CVSS, fenêtres maintenance, rollback.",
+      "tags": [
+        "vuln",
+        "patch",
+        "cve",
+        "migre-ccp12"
+      ],
+      "g": [
+        "Inventaire matériel/logiciel",
+        "Scan régulier",
+        "Prioriser CVE critiques",
+        "Planifier patch"
+      ],
+      "c": "# Scan\nnmap -sV --script vuln 192.168.1.10\n# WSUS / unattended-upgrades",
+      "p": [
+        "VE (Vulnerability Exploitability)",
+        "Exceptions documentées",
+        "Maintenance windows"
+      ],
+      "w": "Des vulnérabilités non patchées restent ouvertes des mois.",
+      "alt": ""
     }
   ]
 }

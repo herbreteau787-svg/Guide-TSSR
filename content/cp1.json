@@ -141,33 +141,6 @@
       "w": "Conclusion : accès et accompagnement vont de pair."
     },
     {
-      "id": "cp1-vpn",
-      "t": "Support accès distant et VPN",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "CP1 - Accès distant : accès sécurisé depuis le domicile ou la mobilité. | Objectif professionnel : rétablir la connexion sans compromettre la sécurité. | Cas réel : le VPN se connecte puis coupe au bout de 30 secondes. | Fonctionnement détaillé : identité, certificat, DNS, routage split tunnel, MFA, timings. | Exemple concret : certificat expiré ou mot de passe expiré. | Procédure pas à pas : 1. vérifier l'identité et le mot de passe ; 2. tester le réseau public ; 3. vérifier le certificat ; 4. tester le split tunnel ; 5. vérifier l'authentification forte. | Vérification : le client obtient une adresse, peut pinger l'intranet, les applications chargent. | Pièges : ignorer le réseau public, croire que le certificat est valide, oublier le MFA. | Question jury : VPN site-à-site versus accès distant ; split tunnel versus tunnel complet. | À retenir : le VPN est une chaîne.",
-      "tags": [
-        "cp1",
-        "vpn",
-        "accesdistant",
-        "securite"
-      ],
-      "g": [
-        "Tester l'identité",
-        "Tester le réseau public",
-        "Vérifier le certificat",
-        "Vérifier le split tunnel",
-        "Vérifier le MFA"
-      ],
-      "c": "rasdial\nGet-VpnConnection\nResolve-DnsName intranet.domaine.fr\nTest-NetConnection vpn.domaine.fr -Port 443\nGet-ChildItem Cert:\\CurrentUser\\My",
-      "p": [
-        "Certificat expiré",
-        "DNS public",
-        "MFA non reçu"
-      ],
-      "w": "Conclusion : le VPN se valide par couches."
-    },
-    {
       "id": "cp1-toip",
       "t": "ToIP côté utilisateur ( sans confondre avec la phase réseau)",
       "level": "intermediaire",
@@ -456,33 +429,6 @@
       "alt": "Schéma CP1"
     },
     {
-      "id": "mig-legacy-cp1-vpn",
-      "t": "Support accès distant (contenu migré)",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : problème VPN et accès distant. | Objectif : rétablir la continuité pour usager. | Cas réel : VPN coupe en roaming. | Fonctionnement détaillé : certificat, identifiants, DNS/UDP, proxy. | Exemple : certificat expiré. | Procédure : vérifier client, identifiants, routage et certificat. | Erreurs : mot de passe expiré. | Jury : split tunnel, zero trust. | À retenir : contexte nat.",
-      "tags": [
-        "cp3",
-        "support",
-        "vpn",
-        "migre"
-      ],
-      "g": [
-        "Client VPN",
-        "Identifiants",
-        "Certificat",
-        "Routage",
-        "DNS"
-      ],
-      "c": "rasdial; tracert vpn.example.com; Get-NetAdapter",
-      "p": [
-        "Certificat expire",
-        "Split tunnel erroné"
-      ],
-      "w": "Conclusion : vérifier tout le chaînage.",
-      "alt": "Schéma CP1"
-    },
-    {
       "id": "mig-legacy-cp1-print",
       "t": "Impression et spouleur (contenu migré)",
       "level": "intermediaire",
@@ -536,33 +482,6 @@
       "alt": "Schéma CP1"
     },
     {
-      "id": "mig-legacy-cp1-malware",
-      "t": "Incident malware utilisateur (contenu migré)",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : suspicion malware. | Objectif : limiter et éradiquer. | Cas réel : pièce jointe piéreuse. | Fonctionnement détaillé : détection, isolement, scan, IR, communication. | Exemple : boîte mail. | Procédure : isoler, scanner, nettoyer, documenter. | Erreurs : réinstaller sans preuve. | Jury : coordination SOC. | À retenir : isolement.",
-      "tags": [
-        "cp3",
-        "support",
-        "malware",
-        "migre"
-      ],
-      "g": [
-        "Isoler",
-        "Scanner",
-        "Nettoyer",
-        "Documenter",
-        "Communiquer"
-      ],
-      "c": "Get-MpThreat; Start-MpScan",
-      "p": [
-        "Continuer utilisation",
-        "Pas de traçabilité"
-      ],
-      "w": "Conclusion : contenir puis analyser.",
-      "alt": "Schéma CP1"
-    },
-    {
       "id": "mig-legacy-cp1-remote",
       "t": "Outils d'assistance à distance (contenu migré)",
       "level": "intermediaire",
@@ -586,58 +505,6 @@
         "Pas de journal"
       ],
       "w": "Conclusion : sécuriser l'assistance.",
-      "alt": "Schéma CP1"
-    },
-    {
-      "id": "mig-legacy-cp1-hardware",
-      "t": "Panne matérielle suspectée (contenu migré)",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : diagnostic matériel. | Objectif : identifier panne. | Cas réel : écran bleu répétitif. | Fonctionnement détaillé : SMART, mémoire, température, événements. | Exemple : disque défaillant. | Procédure : événement, test, garantie, remplacement. | Erreurs : réinstaller OS sans test. | Jury : diagnostic couche physique. | À retenir : preuves matériel.",
-      "tags": [
-        "cp3",
-        "support",
-        "hardware",
-        "migre"
-      ],
-      "g": [
-        "Événements",
-        "SMART",
-        "Mémoire",
-        "Remplacement"
-      ],
-      "c": "wmic cpu get; chkdsk /scan; Test-NetAdapter\n# À VÉRIFIER : wmic peut être absent sur les versions récentes; chkdsk /scan et Test-NetAdapter disponibles\n",
-      "p": [
-        "Réinstaller à l'aveugle",
-        "Perdre données"
-      ],
-      "w": "Conclusion : tester avant remplacement.",
-      "alt": "Schéma CP1"
-    },
-    {
-      "id": "mig-legacy-cp1-licence",
-      "t": "Litige licence et activation (contenu migré)",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : activation et licence Windows/M365. | Objectif : rétablir accès. | Cas réel : Windows not activated. | Fonctionnement détaillé : clé, KMS, Entra ID. | Exemple : poste mobilisé sans licence. | Procédure : vérifier, corriger compte, réattribuer licence. | Erreurs : manipulation hors procédure. | Jury : mode d'activation. | À retenir : connaître KMS/CSP.",
-      "tags": [
-        "cp3",
-        "support",
-        "licence",
-        "migre"
-      ],
-      "g": [
-        "Identifier erreur",
-        "Vérifier compte",
-        "Réattribuer",
-        "Tester"
-      ],
-      "c": "slmgr /xpr",
-      "p": [
-        "Mauvaise KMS",
-        "Compte non provisionné"
-      ],
-      "w": "Conclusion : licence et identité liés.",
       "alt": "Schéma CP1"
     },
     {
@@ -666,29 +533,85 @@
       "alt": "Schéma CP1"
     },
     {
-      "id": "mig-legacy-cp1-parc",
-      "t": "Connaissance du parc (contenu migré)",
+      "id": "cp1-malware-premier-niveau",
+      "t": "Malware : réaction de premier niveau",
       "level": "intermediaire",
-      "cli": true,
-      "r": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Definitions : connaitre les equipements. | Objectif : contextualiser le support. | Cas reel : poste hors standard. | Fonctionnement detaille : modele, OS, date achat, CMDB. | Exemple : rechercher un poste par hostname. | Procedure : consulter inventaire, verifier donnees, mettre a jour, tracer incident. | Erreurs : CMDB obsolete. | Jury : asset. | A retenir : inventaire.",
+      "cli": false,
+      "r": "CP1 - Malware, premier niveau : isoler, ne pas éteindre, collecter, escalader. | Objectif : limiter l'impact et éviter la propagation. | Procédure : déconnecter du réseau sans éteindre, isoler le poste, conserver les preuves (ticket, capture, journal), collecter les éléments, escalader au niveau 2 / sécurité. | Vérification : l'utilisateur est protégé, la panne limitée, les données utiles transmises. | Pièges : éteindre la machine, continuer d'utiliser, supprimer des traces. | À retenir : contenir d'abord. | Ajout par l'assistant : fiche courte de premier niveau.",
       "tags": [
-        "cp3",
-        "support",
-        "parc",
-        "migre"
+        "cp1",
+        "malware",
+        "incident",
+        "support"
       ],
       "g": [
-        "Consulter inventaire",
-        "Verifier",
-        "Mettre a jour",
-        "Tracer"
+        "Isoler",
+        "Ne pas éteindre",
+        "Collecter",
+        "Escalader"
       ],
-      "c": "Get-ADComputer -Filter * | Select Name,OperatingSystem",
+      "c": "Aucune commande native au premier niveau.",
       "p": [
-        "CMDB obsolete"
+        "Propagation",
+        "Perte de preuves"
       ],
-      "w": "Conclusion : connaitre son parc.",
-      "alt": "Schéma CP1"
+      "w": "Conclusion : contenir puis analyser.",
+      "cp": "cp1"
+    },
+    {
+      "cp": "cp1",
+      "id": "cyber-hygiene",
+      "t": "Hygiène poste et durcissement (réparti depuis ccp12)",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "Mettre à jour, limiter les droits, chiffrer, désactiver services inutiles, protéger les navigateurs.",
+      "tags": [
+        "hardening",
+        "endpoint",
+        "migre-ccp12"
+      ],
+      "g": [
+        "Patch OS et apps automatiquement",
+        "Activer BitLocker/LUKS",
+        "Désactiver services inutiles",
+        "Configurer Pare-feu hôte"
+      ],
+      "c": "# Windows\nGet-MpComputerStatus\n# Linux\napt unattended-upgrade -d\nufw enable\nlynis audit system",
+      "p": [
+        "Mots de passe gérés (gestionnaire)",
+        "MFA obligatoire admins",
+        "Chiffrement des disques"
+      ],
+      "w": "Un poste non patché est la porte d'entrée la plus courante.",
+      "alt": ""
+    },
+    {
+      "cp": "cp1",
+      "id": "ccp12-sec-debutant",
+      "t": "Sécurité : mots de passe, MFA, pare-feu, sauvegarde (débutant) (réparti depuis ccp12)",
+      "level": "debutant",
+      "cli": false,
+      "r": "L'hygiène : patcher, moindre privilège, MFA, segmentation, EDR, sauvegardes hors ligne immuables.",
+      "tags": [
+        "securite",
+        "mfa",
+        "backup",
+        "debutant",
+        "migre-ccp12"
+      ],
+      "g": [
+        "Activer MFA admin/remote",
+        "Durcir postes et serveurs",
+        "Sauvegardes testées hors ligne"
+      ],
+      "c": "# Vérifier Defender\nGet-MpComputerStatus\n# Firewall Linux\nufw enable\nufw status",
+      "p": [
+        "ANSSI/CERT-FR comme référentiels",
+        "PRA avec RPO/RTO",
+        "Journalisation centrale"
+      ],
+      "w": "La sécurité est un processus continu.",
+      "alt": ""
     }
   ]
 }

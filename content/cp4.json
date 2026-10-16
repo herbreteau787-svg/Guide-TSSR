@@ -1288,6 +1288,30 @@
       "img": "images/toip-schema.svg",
       "alt": "Schéma pédagogique ToIP",
       "cp": "cp4"
+    },
+    {
+      "id": "cp4-renvoi-ids-logs",
+      "t": "Renvoi depuis CP7 — surveillance, IDS/IPS et journaux",
+      "level": "exam",
+      "cli": false,
+      "r": "Renfort CCP12 : fondements réseau (syslog/SNMP, VLAN) en CP4; supervision et IDS/IPS détaillés en CP7. Voir CP7 pour stratégie et corrélation.",
+      "tags": [
+        "renvoi",
+        "cp4",
+        "ccp12",
+        "cp7"
+      ],
+      "g": [
+        "Comprendre syslog",
+        "Comprendre SNMP",
+        "Lire CP7"
+      ],
+      "c": "Aucune commande native.",
+      "p": [
+        "Confondre fondement et stratégie"
+      ],
+      "w": "Conclusion : CP4 prépare, CP7 sécurise",
+      "cp": "cp4"
     }
   ]
 }

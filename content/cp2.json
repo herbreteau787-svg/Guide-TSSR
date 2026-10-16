@@ -444,6 +444,29 @@
       "img": "images/active-directory-schema.svg",
       "alt": "Schéma serveurs",
       "cp": "cp2"
+    },
+    {
+      "id": "cp2-renvoi-patch-ccp12",
+      "t": "Renvoi vers CP9 — cyber-patch",
+      "level": "exam",
+      "cli": false,
+      "r": "Répartition CCP12 : vue postes/systèmes pour WSUS/Windows Update détaillée en CP9; CP2 conserve les services Windows (AD DS, DNS/DHCP), voir reference dans CP9.",
+      "tags": [
+        "renvoi",
+        "cp2",
+        "cp9",
+        "ccp12"
+      ],
+      "g": [
+        "Lire CP2 context",
+        "Lire CP9 déployment"
+      ],
+      "c": "Aucune commande native.",
+      "p": [
+        "Doublon"
+      ],
+      "w": "Conclusion : service côté serveurs, déploiement côté postes.",
+      "cp": "cp2"
     }
   ]
 }

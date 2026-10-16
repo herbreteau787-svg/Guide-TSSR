@@ -303,6 +303,61 @@
       "img": "images/topologie-reseau.svg",
       "alt": "Supervision",
       "cp": "transverse"
+    },
+    {
+      "cp": "transverse",
+      "id": "cyber-anssi",
+      "t": "Référentiels sécurité (ANSSI, CERT-FR, RGPD) (réparti depuis ccp12)",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "Connaître les organismes, recommandations d'hygiène et obligations légales. Sensibiliser et gouverner les accès.",
+      "tags": [
+        "cyber",
+        "anssi",
+        "rgpd",
+        "migre-ccp12"
+      ],
+      "g": [
+        "Lire le guide d'hygiène informatique ANSSI",
+        "Suivre les alertes CERT-FR",
+        "Cartographier les données personnelles",
+        "Appliquer le RGPD"
+      ],
+      "c": "# Ressources\n# ANSSI : https://www.ssi.gouv.fr\n# CERT-FR : https://www.cert.ssi.gouv.fr\n# ANSSI 40 mesures essentielles",
+      "p": [
+        "Cadre gestion des risques (EBIOS RM)",
+        "Sensibilisation régulière",
+        "Audit et exercices d'incident"
+      ],
+      "w": "La sécurité est un processus continu, pas un projet ponctuel.",
+      "alt": ""
+    },
+    {
+      "cp": "transverse",
+      "id": "cyber-phishing",
+      "t": "Phishing et sensibilisation (réparti depuis ccp12)",
+      "level": "debutant",
+      "cli": false,
+      "r": "Repérer les signes, vérifier les expéditeurs, signaler, phishing tests, formation continue.",
+      "tags": [
+        "phishing",
+        "sensibilisation",
+        "migre-ccp12"
+      ],
+      "g": [
+        "Vérifier domaine expéditeur",
+        "Ne jamais cliquer lien suspect",
+        "Signaler à l'admin",
+        "Campagnes de simulation"
+      ],
+      "c": "# Headers mail : Return-Path, SPF, DKIM, DMARC\n# Outils : GoPhish pour simulations",
+      "p": [
+        "DMARC enforce",
+        "Filtre mail gateway",
+        "Formation annuelle"
+      ],
+      "w": "Le maillon humain reste le plus exploité.",
+      "alt": ""
     }
   ]
 }
