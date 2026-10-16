@@ -66,3 +66,8 @@ Les documents suivants sont hors périmètre TSSR et ne doivent pas être mélan
 ## F. Prochaine étape
 
 Commit/push de phase 0 puis attente du "ok" utilisateur pour la phase 1 (architecture).
+## G. Supports cours et fichiers locaux non suivis
+
+- La branche de travail ne conserve que deux supports suivis : supports/ccna1.pdf et supports/fiche-revision-itnv7.docx. Les anciens supports sont git rm et ne sortent pas du cache initial.
+- sources/ est ignore par .gitignore : il ne contient que des fichiers locaux non suivis par Git.
+- Aucun fichier PDF ou DOCX autre que ces deux supports ne doit rester suivi par Git.

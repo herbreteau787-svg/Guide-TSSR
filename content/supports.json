@@ -3,38 +3,6 @@
   "title": "Supports cours",
   "items": [
     {
-      "id": "support-deploiement-ccme",
-      "titre": "Déploiement CCME",
-      "fichier": "supports/deploiement-ccme.pdf",
-      "type": "pdf",
-      "cp": "CP4",
-      "description": "Déploiement Cisco Unified Communications Manager Express pour la ToIP."
-    },
-    {
-      "id": "support-live-toip-mai-2026",
-      "titre": "Live ToIP mai et juin 2026",
-      "fichier": "supports/live-toip-26-et-28-mai-2026.pdf",
-      "type": "pdf",
-      "cp": "CP4",
-      "description": "Support de cours et TP ToIP."
-    },
-    {
-      "id": "support-tssr-revision-complete",
-      "titre": "TSSR révision complète",
-      "fichier": "supports/tssr-revision-complete.pdf",
-      "type": "pdf",
-      "cp": "Tous",
-      "description": "Révision complète des thèmes TSSR."
-    },
-    {
-      "id": "support-mep-tssr-v2026",
-      "titre": "MEP TSSR v2026",
-      "fichier": "supports/mep-tssr-v2026.pdf",
-      "type": "pdf",
-      "cp": "CP2",
-      "description": "Mise en production TSSR 2026 et procédés de MEP."
-    },
-    {
       "id": "support-ccna1",
       "titre": "Support CCNA1",
       "fichier": "supports/ccna1.pdf",
@@ -47,7 +15,7 @@
       "titre": "Fiche révision ITNv7",
       "fichier": "supports/fiche-revision-itnv7.docx",
       "type": "docx",
-      "cp": "CP4",
+      "cp": "CCNA",
       "description": "Fiche révision ITN v7 (rendu DOCX navigateur)."
     }
   ]
