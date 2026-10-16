@@ -771,21 +771,160 @@ function renderAnglais(){
 }
 
 /* ---------- support cours ---------- */
+var supportState = { selectedId:null, sectionId:'support', page:1, scale:1.2, query:'', pdf:null };
+function ensureExternalScript(src){
+  return new Promise((resolve, reject)=>{
+    const existing = document.querySelector('script[src="' + src + '"]');
+    if (existing){ if (existing.dataset.loaded === '1'){ resolve(); return; } existing.addEventListener('load',()=>resolve()); existing.addEventListener('error',()=>reject(new Error(src))); return; }
+    const s = document.createElement('script'); s.src=src; s.async=true;
+    s.onload = ()=>{ s.dataset.loaded='1'; resolve(); };
+    s.onerror = ()=> reject(new Error(src));
+    document.head.appendChild(s);
+  });
+}
+async function loadPdfSupport(item){
+  const viewer = document.getElementById('supportViewer');
+  if(!viewer) return;
+  supportState.pdf=null; supportState.page=1; supportState.scale=1.2; supportState.query='';
+  viewer.innerHTML = '<div class="card"><p class="muted">Chargement du lecteur PDF...</p></div>';
+  try {
+    await ensureExternalScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js');
+    if (window.pdfjsLib && window.pdfjsLib.GlobalWorkerOptions) window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    viewer.innerHTML = '<div class="card"><p class="muted">Chargement du PDF...</p></div>';
+    const doc = await window.pdfjsLib.getDocument(item.fichier).promise;
+    supportState.pdf=doc;
+    const controls = '<div class="button-row" style="margin-bottom:10px">' +
+      '<button class="ghost-btn" data-support-action="prev">Precedent</button>' +
+      '<button class="ghost-btn" data-support-action="next">Suivant</button>' +
+      '<button class="ghost-btn" data-support-action="zoom-out">Zoom -</button>' +
+      '<button class="ghost-btn" data-support-action="zoom-in">Zoom +</button>' +
+      '<button class="ghost-btn" data-support-action="search">Rechercher</button>' +
+      '<span class="muted small" id="supportPageState"></span></div>' +
+      '<div class="button-row" style="margin-bottom:10px"><input id="supportSearch" class="search" placeholder="Rechercher un mot dans le PDF..." value="' + escapeHtml(supportState.query) + '"></div>' +
+      '<div id="supportCanvasWrap" style="overflow:auto; border:1px solid var(--border); border-radius:12px; padding:8px; background:#fff"></div>' +
+      '<div id="supportSearchResult" class="muted small" style="margin-top:8px"></div>';
+    viewer.innerHTML = controls + '<div class="muted small" style="margin-top:8px">PDF prete.</div>';
+    renderPdfPage();
+    attachPdfActions(item);
+  } catch(e){
+    viewer.innerHTML = '<div class="card"><p class="muted">Lecteur PDF.js indisponible ou erreur : ' + escapeHtml(String(e)) + '</p><iframe src="' + escapeHtml(item.fichier) + '" style="width:100%;height:75vh;border:1px solid var(--border);border-radius:12px" loading="lazy"></iframe><div class="button-row" style="margin-top:8px"><a class="ghost-btn" href="' + escapeHtml(item.fichier) + '" download>Télécharger l original</a></div></div>';
+  }
+}
+async function renderPdfPage(){
+  const item = (G.supports||[]).find(s=>s.id===supportState.selectedId);
+  if(!item || !item.fichier || !supportState.pdf) return;
+  const pdf=supportState.pdf;
+  if(supportState.page<1) supportState.page=1;
+  if(supportState.page>pdf.numPages) supportState.page=pdf.numPages;
+  const stateEl=document.getElementById('supportPageState');
+  if(stateEl) stateEl.textContent=' Page ' + supportState.page + ' / ' + pdf.numPages + ' - Zoom ' + Math.round(supportState.scale*100) + '%';
+  try {
+    const page = await pdf.getPage(supportState.page);
+    const viewport = page.getViewport({ scale:supportState.scale });
+    const canvas = document.createElement('canvas');
+    canvas.id='supportCanvas';
+    const ctx = canvas.getContext('2d');
+    canvas.width=viewport.width; canvas.height=viewport.height;
+    const wrap = document.getElementById('supportCanvasWrap');
+    if(wrap){ wrap.innerHTML=''; wrap.appendChild(canvas); await page.render({canvasContext:ctx, viewport}).promise; }
+  } catch(e){
+    const wrap = document.getElementById('supportCanvasWrap');
+    if(wrap) wrap.innerHTML = '<p class="muted">Erreur de rendu page : ' + escapeHtml(String(e)) + '</p>';
+  }
+}
+async function searchPdfText(item, query){
+  if(!supportState.pdf || !query.trim()) return;
+  const q=query.toLowerCase();
+  const pdf=supportState.pdf;
+  let foundPage=null; let snippet='';
+  for(let p=1; p<=pdf.numPages; p++){
+    try {
+      const page=await pdf.getPage(p);
+      const tc=await page.getTextContent();
+      const text=tc.items.map(i=>i.str).join(' ');
+      const pos=text.toLowerCase().indexOf(q);
+      if(pos>=0){ foundPage=p; snippet=text.slice(Math.max(0,pos-120),pos+q.length+120); break; }
+    } catch(_) {}
+  }
+  const resultEl=document.getElementById('supportSearchResult');
+  if(foundPage){ supportState.page=foundPage; await renderPdfPage(); if(resultEl) resultEl.textContent='Trouve sur la page ' + foundPage + ' : ' + snippet; }
+  else { if(resultEl) resultEl.textContent='Terme non trouve dans ce PDF.'; }
+}
+async function loadDocxSupport(item){
+  const viewer = document.getElementById('supportViewer');
+  if(!viewer) return;
+  try {
+    viewer.innerHTML = '<div class="card"><p class="muted">Chargement du lecteur DOCX...</p></div>';
+    await ensureExternalScript('https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.8.0/mammoth.browser.min.js');
+    viewer.innerHTML = '<div class="card"><p class="muted">Chargement du document...</p></div>';
+    const res = await fetch(item.fichier);
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const buffer = await res.arrayBuffer();
+    const result = await window.mammoth.convertToHtml({ arrayBuffer: buffer, includeEmbeddedStyleMap:true });
+    viewer.innerHTML = '<div class="card"><h2>' + escapeHtml(item.titre) + '</h2><div class="docx-content">' + result.value + '</div><div class="button-row" style="margin-top:10px"><a class="ghost-btn" href="' + escapeHtml(item.fichier) + '" download>Télécharger l original</a></div></div>';
+  } catch(e){
+    viewer.innerHTML = '<div class="card"><p class="muted">Rendu DOCX impossible (' + escapeHtml(String(e)) + ').</p><div class="button-row"><a class="ghost-btn" href="' + escapeHtml(item.fichier) + '" download>Télécharger l original</a></div></div>';
+  }
+}
+function attachPdfActions(item){
+  const viewer = document.getElementById('supportViewer');
+  if(!viewer) return;
+  const buttons = viewer.querySelectorAll('[data-support-action]');
+  for(const b of buttons){
+    b.onclick = async ()=> {
+      if(!supportState.pdf) return;
+      const action = b.getAttribute('data-support-action');
+      if(action==='prev'){ if(supportState.page>1){ supportState.page--; renderPdfPage(); } }
+      else if(action==='next'){ if(supportState.page<supportState.pdf.numPages){ supportState.page++; renderPdfPage(); } }
+      else if(action==='zoom-out'){ if(supportState.scale>0.5){ supportState.scale -= 0.2; renderPdfPage(); } }
+      else if(action==='zoom-in'){ if(supportState.scale<3){ supportState.scale += 0.2; renderPdfPage(); } }
+      else if(action==='search'){ supportState.query = (document.getElementById('supportSearch')||{value:''}).value; await searchPdfText(item, supportState.query); }
+    };
+  }
+  const input = document.getElementById('supportSearch');
+  if(input){ input.onkeydown = async (ev)=>{ if(ev.key==='Enter'){ supportState.query=input.value; await searchPdfText(item, supportState.query); } }; }
+}
 function renderSupport(){
   const panel = document.querySelector('[data-panel="support"]');
-  panel.innerHTML = `
-  <div class="hero"><h1>Support cours CCNA</h1><p>Ouvrez le PDF du support CCNA ci-dessous ou retéléchargez-le.</p></div>
-  <div class="card">
-    <p class="muted">Fichier : CCNA1.pdf (15 Mo). L'affichage peut étre lent selon le navigateur.</p>
-    <p><a href="CCNA1.pdf" target="_blank" rel="noopener">Ouvrir CCNA1.pdf dans un nouvel onglet</a></p>
-  </div>
-  <div class="card"><p class="muted">Fiche supplémentaire : Fiche_Revision_ITNv7.docx (Cisco ITN v7).</p><p><a href="Fiche_Revision_ITNv7.docx" target="_blank" rel="noopener">Télécharger la fiche ITN v7</a></p></div>
-  <div class="card">
-    <iframe src="CCNA1.pdf#view=FitH" title="Support CCNA" style="width:100%;height:75vh;border:1px solid #334155;border-radius:12px;" loading="lazy"></iframe>
-  </div>
-  <div class="card"><h2>Note</h2><p>Ce PDF inclut le cours et les questions. Le format compacté via le navigateur dépend de l'affichage PDF intégré.</p></div>`;
+  if(!panel) return;
+  const items = G.supports || [];
+  if(supportState.selectedId===null && items.length) supportState.selectedId=items[0].id;
+  if (state.supportCP === undefined) state.supportCP='all';
+  if (state.supportQuery === undefined) state.supportQuery='';
+  const cpFilter = state.supportCP || 'all';
+  const freeQuery = (state.supportQuery||'').toLowerCase();
+  let filtered = items.filter(it=> (cpFilter==='all' || it.cp===cpFilter) && (!freeQuery || (it.titre||'').toLowerCase().includes(freeQuery) || (it.description||'').toLowerCase().includes(freeQuery)));
+  let html = '<div class="hero"><h1>Supports cours</h1><p>' + items.length + ' support(s), dont ' + filtered.length + ' affiche(s).</p><p class="muted small">Lecture integree sans téléchargement obligatoire.</p></div>';
+  html += '<div class="support-layout"><div class="support-list"><div class="card">' +
+    '<div class="button-row" style="flex-wrap:wrap">' +
+      '<select id="supportCP" class="select">' +
+        '<option value="all">Tous les CP</option>' +
+        Array.from(new Set(items.map(i=>i.cp))).map(cp=>'<option value="' + escapeHtml(cp) + '"' + (cpFilter===cp?' selected':'') + '>' + escapeHtml(cp) + '</option>').join('') +
+      '</select>' +
+      '<input id="supportFilter" class="search" placeholder="Rechercher un support..." value="' + escapeHtml(state.supportQuery||'') + '">' +
+    '</div>' +
+    '<div style="max-height:62vh;overflow:auto;margin-top:10px">';
+  if(!filtered.length) html += '<p class="muted">Aucun support pour ces filtres.</p>';
+  for(const it of filtered){
+    html += '<button class="support-item ' + (it.id===supportState.selectedId?'on':'') + '" data-support-id="' + escapeHtml(it.id) + '"><strong>' + escapeHtml(it.titre) + '</strong><br><span class="muted small">' + escapeHtml(it.cp||'') + ' - ' + escapeHtml(it.type||'') + '</span><div class="muted small">' + escapeHtml(it.description||'') + '</div></button>';
+  }
+  html += '</div></div><div id="supportViewer" class="support-viewer"><div class="card"><p class="muted">Selectionnez un support dans la liste.</p></div></div></div>';
+  panel.innerHTML=html;
+  document.getElementById('supportCP').onchange = (ev)=>{ state.supportCP=ev.target.value; renderSupport(); };
+  const filterInput=document.getElementById('supportFilter');
+  if(filterInput){ filterInput.oninput = (ev)=>{ state.supportQuery=ev.target.value; const sp = document.getElementById('supportViewer'); const selected = supportState.selectedId; renderSupport(); if(selected) { supportState.selectedId=selected; supportViewerShow(selected); } }; }
+  const listButtons = panel.querySelectorAll('[data-support-id]');
+  for(const btn of listButtons){ btn.onclick = ()=> { supportState.selectedId = btn.getAttribute('data-support-id'); renderSupport(); supportViewerShow(supportState.selectedId); }; }
+  if(supportState.selectedId) supportViewerShow(supportState.selectedId);
+  function supportViewerShow(id){
+    const item = (G.supports||[]).find(x=>x.id===id);
+    const viewer = document.getElementById('supportViewer');
+    if(!item||!viewer) return;
+    const dl = '<div class="button-row" style="margin-bottom:10px"><a class="ghost-btn" href="' + escapeHtml(item.fichier) + '" download>Télécharger l original</a> <span class="muted small">' + escapeHtml(item.cp||'') + '</span></div>';
+    if(item.type === 'pdf') { viewer.innerHTML = dl + '<div class="card"><p class="muted">Preparation du PDF...</p></div>'; loadPdfSupport(item); }
+    else { viewer.innerHTML = dl + '<div class="card"><p class="muted">Preparation du document...</p></div>'; loadDocxSupport(item); }
+  }
 }
-
 /* ---------- methods ---------- */
 function renderMethods(){
   const panel = document.querySelector('[data-panel="methodes"]');
