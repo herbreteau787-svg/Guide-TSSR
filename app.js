@@ -801,7 +801,9 @@ function renderAnglais(){
   const next = document.getElementById("vocabNext"); if (next) next.onclick = function(){ vocabNextQuestion(); };
 }
 /* ---------- support cours ---------- */
-var supportState = { selectedId:null, sectionId:'support', page:1, scale:1.2, query:'', pdf:null };
+/* support-new is inserted via Node line replacement; UTF-8 ASCII-friendly. */
+var supportState = { selectedId:null, pdf:null, zoom:1, baseScale:1, currentPage:1, search:'', searchPages:[], searchIndex:-1, readingMode:'pdf', observer:null, renderedPages:{}, numPages:0, docxZoom:1 };
+function supportCleanObserver(){ if (supportState.observer) { try { supportState.observer.disconnect(); } catch(e){} supportState.observer=null; } }
 function ensureExternalScript(src){
   return new Promise((resolve, reject)=>{
     const existing = document.querySelector('script[src="' + src + '"]');
@@ -812,149 +814,272 @@ function ensureExternalScript(src){
     document.head.appendChild(s);
   });
 }
-async function loadPdfSupport(item){
+const PDFJS_VERSION = '3.11.174';
+const JSZIP_VERSION = '3.10.1';
+const DOCX_PREVIEW_VERSION = '0.1.7';
+function pdfLoadSupport(item){
+  cleanupSupportReader();
   const viewer = document.getElementById('supportViewer');
-  if(!viewer) return;
-  supportState.pdf=null; supportState.page=1; supportState.scale=1.2; supportState.query='';
-  viewer.innerHTML = '<div class="card"><p class="muted">Chargement du lecteur PDF...</p></div>';
-  try {
-    await ensureExternalScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js');
-    if (window.pdfjsLib && window.pdfjsLib.GlobalWorkerOptions) window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-    viewer.innerHTML = '<div class="card"><p class="muted">Chargement du PDF...</p></div>';
-    const doc = await window.pdfjsLib.getDocument(item.fichier).promise;
-    supportState.pdf=doc;
-    const controls = '<div class="button-row" style="margin-bottom:10px">' +
-      '<button class="ghost-btn" data-support-action="prev">Precedent</button>' +
-      '<button class="ghost-btn" data-support-action="next">Suivant</button>' +
-      '<button class="ghost-btn" data-support-action="zoom-out">Zoom -</button>' +
-      '<button class="ghost-btn" data-support-action="zoom-in">Zoom +</button>' +
-      '<button class="ghost-btn" data-support-action="search">Rechercher</button>' +
-      '<span class="muted small" id="supportPageState"></span></div>' +
-      '<div class="button-row" style="margin-bottom:10px"><input id="supportSearch" class="search" placeholder="Rechercher un mot dans le PDF..." value="' + escapeHtml(supportState.query) + '"></div>' +
-      '<div id="supportCanvasWrap" style="overflow:auto; border:1px solid var(--border); border-radius:12px; padding:8px; background:#fff"></div>' +
-      '<div id="supportSearchResult" class="muted small" style="margin-top:8px"></div>';
-    viewer.innerHTML = controls + '<div class="muted small" style="margin-top:8px">PDF prete.</div>';
-    renderPdfPage();
-    attachPdfActions(item);
-  } catch(e){
-    viewer.innerHTML = '<div class="card"><p class="muted">Lecteur PDF.js indisponible ou erreur : ' + escapeHtml(String(e)) + '</p><iframe src="' + escapeHtml(item.fichier) + '" style="width:100%;height:75vh;border:1px solid var(--border);border-radius:12px" loading="lazy"></iframe><div class="button-row" style="margin-top:8px"><a class="ghost-btn" href="' + escapeHtml(item.fichier) + '" download>Télécharger l original</a></div></div>';
-  }
+  if (!viewer) return;
+  viewer.innerHTML = '<div class="support-reader"><div class="support-toolbar"></div><div class="support-scroll" id="supportScroll"><div class="support-status muted small">Chargement du lecteur PDF...</div></div></div>';
+  buildPdfToolbar(item);
+  const scroll = document.getElementById('supportScroll');
+  supportState.pdf = null;
+  supportState.pages = [];
+  supportState.renderedPages = {};
+  return ensureExternalScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/' + PDFJS_VERSION + '/pdf.min.js')
+    .then(()=>{ if (window.pdfjsLib && window.pdfjsLib.GlobalWorkerOptions) window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/' + PDFJS_VERSION + '/pdf.worker.min.js'; viewer.querySelector('.support-status').textContent='Chargement du PDF...'; return window.pdfjsLib.getDocument(item.fichier).promise; })
+    .then(doc=>{ supportState.pdf=doc; supportState.numPages=doc.numPages; return setupPdfPages(doc, scroll, item); })
+    .catch(e=>{ viewer.querySelector('.support-scroll').innerHTML = '<div class="card"><p class="muted">Lecteur PDF indisponible : ' + escapeHtml(String(e)) + '</p><iframe src="' + escapeHtml(item.fichier) + '" style="width:100%;height:70vh;border:1px solid var(--border);border-radius:12px" loading="lazy"></iframe></div>'; })
+    .finally(()=>{ updatePdfState(item); });
 }
-async function renderPdfPage(){
-  const item = (G.supports||[]).find(s=>s.id===supportState.selectedId);
-  if(!item || !item.fichier || !supportState.pdf) return;
-  const pdf=supportState.pdf;
-  if(supportState.page<1) supportState.page=1;
-  if(supportState.page>pdf.numPages) supportState.page=pdf.numPages;
-  const stateEl=document.getElementById('supportPageState');
-  if(stateEl) stateEl.textContent=' Page ' + supportState.page + ' / ' + pdf.numPages + ' - Zoom ' + Math.round(supportState.scale*100) + '%';
-  try {
-    const page = await pdf.getPage(supportState.page);
-    const viewport = page.getViewport({ scale:supportState.scale });
+function buildPdfToolbar(item){
+  const bar = document.querySelector('#supportViewer .support-toolbar');
+  if (!bar) return;
+  bar.innerHTML = '<div class="button-row" style="flex-wrap:wrap;gap:6px;align-items:center">' +
+    '<button class="ghost-btn" id="supportPrev">Precedent</button>' +
+    '<input id="supportPageInput" type="number" min="1" value="1" class="select" style="width:74px">' +
+    '<span class="muted small" id="supportPageTot">/ 1</span>' +
+    '<button class="ghost-btn" id="supportNext">Suivant</button>' +
+    '<button class="ghost-btn" id="supportZoomOut">Zoom -</button>' +
+    '<button class="ghost-btn" id="supportZoomIn">Zoom +</button>' +
+    '<button class="ghost-btn" id="supportZoomFit">Ajuster à la largeur</button>' +
+    '<input id="supportSearch" class="search" placeholder="Rechercher un mot..." style="min-width:140px">' +
+    '<button class="ghost-btn" id="supportSearchPrev">Precedent</button>' +
+    '<button class="ghost-btn" id="supportSearchNext">Suivant</button>' +
+    '<a class="ghost-btn" href="' + escapeHtml(item.fichier) + '" download>Télécharger l original</a>' +
+    '</div>';
+  document.getElementById('supportPrev').onclick = ()=> pdfJump(parseInt(document.getElementById('supportPageInput').value||'1',10)-1 || 1);
+  document.getElementById('supportNext').onclick = ()=> pdfJump(parseInt(document.getElementById('supportPageInput').value||'1',10)+1 || 2);
+  document.getElementById('supportZoomOut').onclick = ()=> pdfSetZoom(Math.max(0.6, supportState.zoom-0.15));
+  document.getElementById('supportZoomIn').onclick = ()=> pdfSetZoom(Math.min(3, supportState.zoom+0.15));
+  document.getElementById('supportZoomFit').onclick = ()=> { supportState.zoom=1; pdfRenderAllVisible(true); };
+  const si = document.getElementById('supportSearch');
+  si.onkeydown = function(ev){ if (ev.key==='Enter'){ ev.preventDefault(); pdfSearch(1); } };
+  document.getElementById('supportSearchPrev').onclick = ()=> pdfSearch(-1);
+  document.getElementById('supportSearchNext').onclick = ()=> pdfSearch(1);
+}
+function cleanupSupportReader(){
+  supportCleanObserver();
+  detachSupportKeys();
+}
+function setupPdfPages(doc, scroll, item){
+  supportCleanObserver();
+  scroll.innerHTML = '';
+  const cssScaleTarget = Math.max(260, scroll.clientWidth - 24);
+  const frame = document.createElement('div');
+  frame.id='pdfPageContainer';
+  frame.style.width='100%';
+  scroll.appendChild(frame);
+  const promises = [];
+  let firstPromise = doc.getPage(1).then(page=>{ const v=page.getViewport({scale:1}); supportState.baseScale = (cssScaleTarget/v.width); });
+  promises.push(firstPromise);
+  for (let i=1;i<=doc.numPages;i++){
+    const pageDiv = document.createElement('div');
+    pageDiv.className='pdf-page';
+    pageDiv.id='pdf-page-'+i;
+    pageDiv.style.textAlign='center';
+    pageDiv.style.marginBottom='12px';
     const canvas = document.createElement('canvas');
-    canvas.id='supportCanvas';
-    const ctx = canvas.getContext('2d');
-    canvas.width=viewport.width; canvas.height=viewport.height;
-    const wrap = document.getElementById('supportCanvasWrap');
-    if(wrap){ wrap.innerHTML=''; wrap.appendChild(canvas); await page.render({canvasContext:ctx, viewport}).promise; }
-  } catch(e){
-    const wrap = document.getElementById('supportCanvasWrap');
-    if(wrap) wrap.innerHTML = '<p class="muted">Erreur de rendu page : ' + escapeHtml(String(e)) + '</p>';
+    canvas.id='pdf-canvas-'+i;
+    canvas.style.background='#fff';
+    canvas.style.display='block';
+    canvas.style.margin='0 auto';
+    canvas.style.boxShadow='0 2px 10px rgba(0,0,0,.15)';
+    pageDiv.appendChild(canvas);
+    const label = document.createElement('div');
+    label.className='muted small';
+    label.style.marginTop='4px';
+    label.textContent='Page ' + i + ' / ' + doc.numPages;
+    pageDiv.appendChild(label);
+    frame.appendChild(pageDiv);
+    supportState.renderedPages[i]=false;
+  }
+  firstPromise.then(()=>{
+    if ('IntersectionObserver' in window){
+      supportState.observer = new IntersectionObserver(function(entries){ entries.forEach(function(en){ if (!en.isIntersecting) return; const p=parseInt(en.target.id.split('-').pop(),10); if (!isNaN(p)) renderPdfPageLazy(p); }); }, {root:scroll, rootMargin:'260px 0px 260px 0px'});
+      frame.querySelectorAll('.pdf-page').forEach(function(div){ supportState.observer.observe(div); });
+    } else { for (let j=1;j<=doc.numPages;j++) renderPdfPageLazy(j); }
+    scroll.addEventListener('scroll', pdfTrackCurrentPage, {passive:true});
+    scroll.addEventListener('wheel', pdfWheelZoom, {passive:false});
+    attachSupportKeys();
+    pdfRenderAllVisible(false);
+  }).catch(()=>{});
+}
+function pdfTrackCurrentPage(){
+  const scroll=document.getElementById('supportScroll');
+  const frame=document.getElementById('pdfPageContainer');
+  if (!scroll || !frame) return;
+  const mid=scroll.scrollTop + scroll.clientHeight*0.35;
+  const pages=Array.from(frame.querySelectorAll('.pdf-page'));
+  for (const div of pages){
+    if (div.offsetTop <= mid && div.offsetTop + div.clientHeight > mid){ const n=parseInt(div.id.split('-').pop(),10); if (!isNaN(n)) { supportState.currentPage=n; const input=document.getElementById('supportPageInput'); if (input && document.activeElement!==input) input.value=n; const tot=document.getElementById('supportPageTot'); if(tot) tot.textContent='/ '+supportState.numPages; } break; }
   }
 }
-async function searchPdfText(item, query){
-  if(!supportState.pdf || !query.trim()) return;
-  const q=query.toLowerCase();
+function renderPdfPageLazy(p){
   const pdf=supportState.pdf;
-  let foundPage=null; let snippet='';
-  for(let p=1; p<=pdf.numPages; p++){
-    try {
-      const page=await pdf.getPage(p);
-      const tc=await page.getTextContent();
-      const text=tc.items.map(i=>i.str).join(' ');
-      const pos=text.toLowerCase().indexOf(q);
-      if(pos>=0){ foundPage=p; snippet=text.slice(Math.max(0,pos-120),pos+q.length+120); break; }
-    } catch(_) {}
+  if (!pdf || supportState.renderedPages[p]) return;
+  supportState.renderedPages[p]=true;
+  const pageDiv=document.getElementById('pdf-page-'+p);
+  const canvas=document.getElementById('pdf-canvas-'+p);
+  if (!pageDiv || !canvas) return;
+  pdf.getPage(p).then(function(page){
+    const cssWidth = pageDiv.clientWidth > 0 ? pageDiv.clientWidth : Math.max(260, document.getElementById('supportScroll').clientWidth - 24);
+    const raw = page.getViewport({scale:1});
+    const cssScale = (supportState.zoom || 1) * (supportState.baseScale || 1);
+    const viewport = page.getViewport({scale: cssScale});
+    const dpr = Math.min(window.devicePixelRatio||1, 2);
+    canvas.width = Math.max(1, Math.round(viewport.width * dpr));
+    canvas.height = Math.max(1, Math.round(viewport.height * dpr));
+    canvas.style.width = (viewport.width/dpr) + 'px';
+    canvas.style.height = (viewport.height/dpr) + 'px';
+    const ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    return page.render({canvasContext:ctx, viewport:viewport}).promise.then(function(){ return page.getTextContent(); }).then(function(tc){ const t = (tc.items||[]).map(i=>i.str).join(' '); if (t) canvas.setAttribute('data-text', t); });
+  }).catch(function(e){ try { pageDiv.innerHTML='<p class="muted">Erreur page '+p+' : '+escapeHtml(String(e))+'</p>'; } catch(_){} });
+}
+function pdfRenderAllVisible(force){
+  const divs=document.querySelectorAll('#pdfPageContainer .pdf-page');
+  for (const div of divs){ const p=parseInt(div.id.split('-').pop(),10); if (!isNaN(p)) if(force || div.getBoundingClientRect().top < window.innerHeight+400) renderPdfPageLazy(p); }
+}
+function pdfSetZoom(factor){
+  supportState.zoom = Math.max(0.6, Math.min(3, factor));
+  supportState.renderedPages={};
+  const canvases=document.querySelectorAll('#pdfPageContainer canvas');
+  for (const c of canvases){ c.dataset.rendered=''; }
+  pdfRenderAllVisible(true);
+}
+function pdfJump(page){
+  const p = Math.max(1, Math.min(supportState.numPages, parseInt(page||1,10)));
+  supportState.currentPage=p;
+  const input=document.getElementById('supportPageInput');
+  if (input) input.value=p;
+  const div=document.getElementById('pdf-page-'+p);
+  if (div) div.scrollIntoView({behavior:'smooth', block:'start'});
+}
+function pdfWheelZoom(ev){
+  if (!ev.ctrlKey) return;
+  ev.preventDefault();
+  pdfSetZoom(supportState.zoom + (ev.deltaY < 0 ? 0.12 : -0.12));
+}
+function attachSupportKeys(){
+  detachSupportKeys();
+  supportState.keyHandler=function(ev){
+    const panel=document.querySelector('[data-panel="support"]');
+    if (!panel || panel.style.display==='none') return;
+    if (ev.key==='PageDown'){ ev.preventDefault(); pdfJump(supportState.currentPage+1); }
+    else if (ev.key==='PageUp'){ ev.preventDefault(); pdfJump(supportState.currentPage-1); }
+    else if ((ev.ctrlKey || ev.metaKey) && ev.key.toLowerCase()==='f'){ /* browser search */ }
+  };
+  window.addEventListener('keydown', supportState.keyHandler);
+}
+function detachSupportKeys(){ if (supportState.keyHandler){ window.removeEventListener('keydown', supportState.keyHandler); supportState.keyHandler=null; } }
+function pdfSearch(direction){
+  const input=document.getElementById('supportSearch');
+  const term=(input ? input.value : '').trim();  if (!term) return;
+  const pdf=supportState.pdf; if (!pdf) return;
+  const lower=term.toLowerCase();
+  let cur = supportState.currentPage || 1;
+  let found=-1;
+  for (let off=0; off<pdf.numPages; off++){
+    let p = cur + (off * direction);
+    if (p < 1) p += pdf.numPages; if (p > pdf.numPages) p -= pdf.numPages;
+    // skip first step? no, we can check current page first
+    const canvas=document.getElementById('pdf-canvas-'+p);
+    const text=(canvas && canvas.getAttribute('data-text')) || '';
+    if (text.toLowerCase().indexOf(lower)>=0){ found=p; break; }
   }
-  const resultEl=document.getElementById('supportSearchResult');
-  if(foundPage){ supportState.page=foundPage; await renderPdfPage(); if(resultEl) resultEl.textContent='Trouve sur la page ' + foundPage + ' : ' + snippet; }
-  else { if(resultEl) resultEl.textContent='Terme non trouve dans ce PDF.'; }
+  if (found < 0){ const el=document.getElementById('supportSearch'); if (el) el.style.outline='1px solid var(--danger,#ef4444)'; setTimeout(function(){ if (el) el.style.outline=''; },900); return; }
+  supportState.currentPage=found; pdfJump(found);
 }
 async function loadDocxSupport(item){
-  const viewer = document.getElementById('supportViewer');
-  if(!viewer) return;
+  cleanupSupportReader();
+  const viewer=document.getElementById('supportViewer');
+  viewer.innerHTML = '<div class="support-reader"><div class="support-toolbar"></div><div class="support-scroll" id="supportScroll"><div class="muted small">Chargement du document DOCX...</div></div></div>';
+  buildDocxToolbar(item);
   try {
-    viewer.innerHTML = '<div class="card"><p class="muted">Chargement du lecteur DOCX...</p></div>';
-    await ensureExternalScript('https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.8.0/mammoth.browser.min.js');
-    viewer.innerHTML = '<div class="card"><p class="muted">Chargement du document...</p></div>';
-    const res = await fetch(item.fichier);
-    if(!res.ok) throw new Error('HTTP '+res.status);
+    await ensureExternalScript('https://cdnjs.cloudflare.com/ajax/libs/jszip/' + JSZIP_VERSION + '/jszip.min.js');
+    await ensureExternalScript('https://unpkg.com/docx-preview@' + DOCX_PREVIEW_VERSION + '/dist/docx-preview.umd.js');
+    const res=await fetch(item.fichier);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
     const buffer = await res.arrayBuffer();
-    const result = await window.mammoth.convertToHtml({ arrayBuffer: buffer, includeEmbeddedStyleMap:true });
-    viewer.innerHTML = '<div class="card"><h2>' + escapeHtml(item.titre) + '</h2><div class="docx-content">' + result.value + '</div><div class="button-row" style="margin-top:10px"><a class="ghost-btn" href="' + escapeHtml(item.fichier) + '" download>Télécharger l original</a></div></div>';
-  } catch(e){
-    viewer.innerHTML = '<div class="card"><p class="muted">Rendu DOCX impossible (' + escapeHtml(String(e)) + ').</p><div class="button-row"><a class="ghost-btn" href="' + escapeHtml(item.fichier) + '" download>Télécharger l original</a></div></div>';
+    const scroll=document.getElementById('supportScroll'); scroll.innerHTML='';
+    let renderer=null;
+    if (window.docx && typeof window.docx.renderAsync==='function') renderer=window.docx;
+    else if (window.DocxRenderer && typeof window.DocxRenderer.renderAsync==='function') renderer=window.DocxRenderer;
+    else throw new Error('docx-preview non chargé');
+    await renderer.renderAsync(buffer, scroll, null, { breakPages: true, inWrapper: true });
+    const info=document.createElement('div');
+    info.className='muted small';
+    info.style.marginTop='8px';
+    info.textContent='Document DOCX rendu avec docx-preview. Recherche via Ctrl+F du navigateur.';
+    scroll.appendChild(info);
+    applyDocxZoom();
+  } catch (e){
+    try {
+      await fallbackMammothDocx(item);
+    } catch (e2){
+      const scroll=document.getElementById('supportScroll');
+      if (scroll) scroll.innerHTML='<div class="card"><p class="muted">Rendu DOCX impossible (' + escapeHtml(String(e2)) + ').</p><div class="button-row"><a class="ghost-btn" href="' + escapeHtml(item.fichier) + '" download>Télécharger l original</a></div></div>';
+    }
   }
 }
-function attachPdfActions(item){
-  const viewer = document.getElementById('supportViewer');
-  if(!viewer) return;
-  const buttons = viewer.querySelectorAll('[data-support-action]');
-  for(const b of buttons){
-    b.onclick = async ()=> {
-      if(!supportState.pdf) return;
-      const action = b.getAttribute('data-support-action');
-      if(action==='prev'){ if(supportState.page>1){ supportState.page--; renderPdfPage(); } }
-      else if(action==='next'){ if(supportState.page<supportState.pdf.numPages){ supportState.page++; renderPdfPage(); } }
-      else if(action==='zoom-out'){ if(supportState.scale>0.5){ supportState.scale -= 0.2; renderPdfPage(); } }
-      else if(action==='zoom-in'){ if(supportState.scale<3){ supportState.scale += 0.2; renderPdfPage(); } }
-      else if(action==='search'){ supportState.query = (document.getElementById('supportSearch')||{value:''}).value; await searchPdfText(item, supportState.query); }
-    };
-  }
-  const input = document.getElementById('supportSearch');
-  if(input){ input.onkeydown = async (ev)=>{ if(ev.key==='Enter'){ supportState.query=input.value; await searchPdfText(item, supportState.query); } }; }
+function buildDocxToolbar(item){
+  const bar=document.querySelector('#supportViewer .support-toolbar');
+  if (!bar) return;
+  bar.innerHTML = '<div class="button-row" style="flex-wrap:wrap;gap:6px;align-items:center">' +
+    '<button class="ghost-btn" id="docxZoomOut">Zoom -</button>' +
+    '<button class="ghost-btn" id="docxZoomIn">Zoom +</button>' +
+    '<button class="ghost-btn" id="docxZoomFit">Ajuster</button>' +
+    '<span class="muted small">Ctrl+F pour la recherche navigateur</span>' +
+    '<a class="ghost-btn" href="' + escapeHtml(item.fichier) + '" download>Télécharger l original</a>' +
+    '</div>';
+  document.getElementById('docxZoomOut').onclick = function(){ supportState.docxZoom=Math.max(0.6,supportState.docxZoom-0.12); applyDocxZoom(); };
+  document.getElementById('docxZoomIn').onclick = function(){ supportState.docxZoom=Math.min(2.5,supportState.docxZoom+0.12); applyDocxZoom(); };
+  document.getElementById('docxZoomFit').onclick = function(){ supportState.docxZoom=1; applyDocxZoom(); };
+}
+function applyDocxZoom(){
+  const scroll=document.getElementById('supportScroll');
+  if (!scroll) return;
+  const scale=supportState.docxZoom || 1;
+  const wrap=scroll.querySelector('.docx-wrapper, .docx-container, section.docx');
+  if (wrap){ wrap.style.transform='scale('+scale+')'; wrap.style.transformOrigin='top left'; wrap.style.width=(100/scale)+'%'; }
+}
+async function fallbackMammothDocx(item){
+  await ensureExternalScript('https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.8.0/mammoth.browser.min.js');
+  const res=await fetch(item.fichier);
+  if (!res.ok) throw new Error('HTTP '+res.status);
+  const buffer=await res.arrayBuffer();
+  const result=await window.mammoth.convertToHtml({arrayBuffer:buffer, includeEmbeddedStyleMap:true});
+  const scroll=document.getElementById('supportScroll');
+  if (!scroll) return;
+  scroll.innerHTML = '<div class="card"><h2>' + escapeHtml(item.titre) + '</h2><div class="docx-content">' + result.value + '</div><div class="muted small" style="margin-top:6px">Repli sur mammoth.js.</div></div>';
 }
 function renderSupport(){
   const panel = document.querySelector('[data-panel="support"]');
-  if(!panel) return;
+  if (!panel) return;
   const items = G.supports || [];
-  if(supportState.selectedId===null && items.length) supportState.selectedId=items[0].id;
-  if (state.supportCP === undefined) state.supportCP='all';
-  if (state.supportQuery === undefined) state.supportQuery='';
-  const cpFilter = state.supportCP || 'all';
-  const freeQuery = (state.supportQuery||'').toLowerCase();
-  let filtered = items.filter(it=> (cpFilter==='all' || it.cp===cpFilter) && (!freeQuery || (it.titre||'').toLowerCase().includes(freeQuery) || (it.description||'').toLowerCase().includes(freeQuery)));
-  let html = '<div class="hero"><h1>Supports cours</h1><p>' + items.length + ' support(s), dont ' + filtered.length + ' affiche(s).</p><p class="muted small">Lecture integree sans téléchargement obligatoire.</p></div>';
-  html += '<div class="support-layout"><div class="support-list"><div class="card">' +
-    '<div class="button-row" style="flex-wrap:wrap">' +
-      '<select id="supportCP" class="select">' +
-        '<option value="all">Tous les CP</option>' +
-        Array.from(new Set(items.map(i=>i.cp))).map(cp=>'<option value="' + escapeHtml(cp) + '"' + (cpFilter===cp?' selected':'') + '>' + escapeHtml(cp) + '</option>').join('') +
-      '</select>' +
-      '<input id="supportFilter" class="search" placeholder="Rechercher un support..." value="' + escapeHtml(state.supportQuery||'') + '">' +
-    '</div>' +
-    '<div style="max-height:62vh;overflow:auto;margin-top:10px">';
-  if(!filtered.length) html += '<p class="muted">Aucun support pour ces filtres.</p>';
-  for(const it of filtered){
-    html += '<button class="support-item ' + (it.id===supportState.selectedId?'on':'') + '" data-support-id="' + escapeHtml(it.id) + '"><strong>' + escapeHtml(it.titre) + '</strong><br><span class="muted small">' + escapeHtml(it.cp||'') + ' - ' + escapeHtml(it.type||'') + '</span><div class="muted small">' + escapeHtml(it.description||'') + '</div></button>';
-  }
-  html += '</div></div><div id="supportViewer" class="support-viewer"><div class="card"><p class="muted">Selectionnez un support dans la liste.</p></div></div></div>';
+  if (supportState.selectedId===null && items.length) supportState.selectedId=items[0].id;
+  if (!items.length){ panel.innerHTML='<div class="hero"><h1>Support cours</h1><p class="muted">Aucun support disponible.</p></div>'; return; }
+  let html = '<div class="hero"><h1>Support cours</h1><p>' + items.length + ' support disponible(s). Lecture integratee, sans telechargement obligatoire.</p></div>';
+  html += '<div class="support-layout"><div class="support-list"><div class="card">';
+  for (const it of items){ html += '<button class="support-item ' + (it.id===supportState.selectedId?'on':'') + '" data-support-id="' + escapeHtml(it.id) + '"><strong>' + escapeHtml(it.titre) + '</strong><br><span class="muted small">' + escapeHtml(it.cp||'') + ' - ' + escapeHtml(it.type||'') + '</span><div class="muted small">' + escapeHtml(it.description||'') + '</div></button>'; }
+  html += '</div></div><div id="supportViewer" class="support-viewer"><div class="card"><p class="muted">Selectionnez un support.</p></div></div></div>';
   panel.innerHTML=html;
-  document.getElementById('supportCP').onchange = (ev)=>{ state.supportCP=ev.target.value; renderSupport(); };
-  const filterInput=document.getElementById('supportFilter');
-  if(filterInput){ filterInput.oninput = (ev)=>{ state.supportQuery=ev.target.value; const sp = document.getElementById('supportViewer'); const selected = supportState.selectedId; renderSupport(); if(selected) { supportState.selectedId=selected; supportViewerShow(selected); } }; }
-  const listButtons = panel.querySelectorAll('[data-support-id]');
-  for(const btn of listButtons){ btn.onclick = ()=> { supportState.selectedId = btn.getAttribute('data-support-id'); renderSupport(); supportViewerShow(supportState.selectedId); }; }
-  if(supportState.selectedId) supportViewerShow(supportState.selectedId);
-  function supportViewerShow(id){
-    const item = (G.supports||[]).find(x=>x.id===id);
-    const viewer = document.getElementById('supportViewer');
-    if(!item||!viewer) return;
-    const dl = '<div class="button-row" style="margin-bottom:10px"><a class="ghost-btn" href="' + escapeHtml(item.fichier) + '" download>Télécharger l original</a> <span class="muted small">' + escapeHtml(item.cp||'') + '</span></div>';
-    if(item.type === 'pdf') { viewer.innerHTML = dl + '<div class="card"><p class="muted">Preparation du PDF...</p></div>'; loadPdfSupport(item); }
-    else { viewer.innerHTML = dl + '<div class="card"><p class="muted">Preparation du document...</p></div>'; loadDocxSupport(item); }
-  }
+  const list=panel.querySelectorAll('[data-support-id]');
+  for (const btn of list){ btn.onclick = function(){ supportState.selectedId=btn.getAttribute('data-support-id'); renderSupport(); supportViewerOpen(supportState.selectedId); }; }
+  if (supportState.selectedId) supportViewerOpen(supportState.selectedId);
 }
+function supportViewerOpen(id){
+  const item=(G.supports||[]).find(function(x){return x.id===id;});
+  const viewer=document.getElementById('supportViewer');
+  if (!item || !viewer) return;
+  viewer.innerHTML = '<div class="button-row" style="margin-bottom:10px"><a class="ghost-btn" href="' + escapeHtml(item.fichier) + '" download>Telecharger l original</a> <span class="muted small">' + escapeHtml(item.cp||'') + '</span></div><div class="support-reader"><div class="support-toolbar"></div><div class="support-scroll" id="supportScroll"><div class="muted small">Preparation...</div></div></div>';
+  if (item.type==='pdf') openPdfSupport(item); else openDocxSupport(item);
+}
+function openPdfSupport(item){ pdfLoadSupport(item); }
+function openDocxSupport(item){ loadDocxSupport(item); }
+/* ---------- methods ---------- */
 /* ---------- methods ---------- */
 function renderMethods(){
   const panel = document.querySelector('[data-panel="methodes"]');
