@@ -1207,7 +1207,7 @@
       "fiche": "cp2-agdlp",
       "section": "cp2",
       "difficulty": "moyen",
-      "q": "Dans AGDLP, quel groupe re?oit la permission NTFS ?",
+      "q": "Dans AGDLP, quel groupe reçoit la permission NTFS ?",
       "choices": [
         "Groupe Domain Local",
         " Groupe Global"

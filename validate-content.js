@@ -85,6 +85,37 @@ for(const entry of sections){
    }
  }
 }
+const encodingPaths = ["app.js","index.html","styles.css","sw.js"].concat((manifest.files||[]).map(f=>path.join("content",f).replace(/\\\\/g,"/")));
+const encodingChecks = [
+ { name:"U+FFFD", regex:/\uFFFD/ },
+ { name:"mojibake latine (Ã)", regex:/\u00C3[\u0080-\u00BF]/ },
+ { name:"mojibake tiret/cote (â)", regex:/\u00E2[\u20AC\u2013\u2014\u2019\u00A0]/ },
+ { name:"mojibake emoji (ð)", regex:/\u00F0\u009F[\u0080-\u00BF][\u0080-\u00BF]/ },
+ { name:"point d'interrogation entre deux lettres", regex:/(?<=\p{L})\?(?=\p{L})/u },
+ { name:"é isolé entre espaces", regex:/ \u00E9 / }, 
+ { name:"Franéais", regex:/Franéais/i },
+ { name:"mettre é jour", regex:/mettre \u00E9 jour/i },
+ { name:"é partir de", regex:/\u00E9 partir de/i },
+ { name:"é distance", regex:/\u00E9 distance/i },
+ { name:"titre commencant par é", regex:/^\u00E9\b/ }
+];
+for(const fp of encodingPaths){
+  const full=path.join(".", fp);
+  if (!fs.existsSync(full)) continue;
+  const txt=fs.readFileSync(full, "utf8");
+  if (txt.charCodeAt(0)===0xFEFF) issues.push(fp+": BOM UTF-8 en tete");
+  const ls=txt.split(/\r?\n/);
+  ls.forEach((line, idx)=>{
+    for(const c of encodingChecks){
+      if (c.regex.test(line)){
+        const pat=c.regex.toString();
+        // reset regex lastIndex for global? not global
+        issues.push(fp+": Ligne "+(idx+1)+" - "+c.name+" : "+line.trim().slice(0,140));
+        break;
+      }
+    }
+  });
+}
 for(const id of quizIds){ if(globalIds.has(id)) issues.push("id question deja utilise comme fiche: "+id); }
 console.log("MANIFEST", manifest.files.length, "fichiers");
 console.log("FICHES", total);

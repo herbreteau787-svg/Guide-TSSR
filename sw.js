@@ -1,4 +1,4 @@
-﻿const CACHE = 'guide-tssr-v10';
+const CACHE = 'guide-tssr-v11';
 const OFFLINE_URL = './index.html';
 const ASSETS = [
   './',
@@ -10,7 +10,7 @@ const ASSETS = [
   './sw.js'
 ];
 
-// Installation : stocke une version fraÃ®che du shell applicatif.
+// Installation : stocke une version fraîche du shell applicatif.
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE)
@@ -19,7 +19,7 @@ self.addEventListener('install', event => {
   );
 });
 
-// Activation : toutes les anciennes versions de cache sont supprimÃ©es.
+// Activation : toutes les anciennes versions de cache sont supprimées.
 self.addEventListener('activate', event => {
   event.waitUntil(
     (async () => {
@@ -34,17 +34,17 @@ self.addEventListener('activate', event => {
   );
 });
 
-// RÃ©seau en prioritÃ©, cache en secours offline.
+// Réseau en priorité, cache en secours offline.
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
 
   const url = new URL(event.request.url);
   if (url.origin !== self.location.origin) return;
-  // Les PDF sont mis en cache lors de la premiere lecture (pas dans le pre-cache initial).
+  // Les PDF sont mis en cache lors de la première lecture (pas dans le pré-cache initial).
 
   event.respondWith((async () => {
     try {
-      // no-store force la rÃ©cupÃ©ration de la derniÃ¨re version dÃ©ployÃ©e.
+      // no-store force la récupération de la dernière version déployée.
       const networkResponse = await fetch(event.request, { cache: 'no-store' });
       if (networkResponse && networkResponse.ok) {
         const cache = await caches.open(CACHE);

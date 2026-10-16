@@ -391,7 +391,7 @@ function renderQCM(){
   const ficheOptions = Array.from(new Set((G.quizzes||[]).map(q=>q.fiche).filter(Boolean))).filter(f=>/^[a-zA-Z0-9-]+$/.test(f));
   const history = lsGet(STORAGE.qhistory, []);
   const best = history.length ? Math.max(...history.map(h=>h.score)) : 0;
-  let html = `<div class="hero"><h1>üìù QCM & entra√©nement</h1><p>Banque : ${G.quizzes.length} questions √© Dernier score max : ${best}%</p></div>`;
+  let html = `<div class="hero"><h1>üìù QCM & entra√©nement</h1><p>Banque : ${G.quizzes.length} questions ‚Äî Dernier score max : ${best}%</p></div>`;
   html += `<div class="qcm-setup">
     <h3>Configuration</h3>
     <div class="button-row" style="flex-wrap:wrap">
@@ -425,7 +425,7 @@ function renderQCM(){
     <div style="margin-top:12px"><button class="icon-btn" id="qcmStart" style="background:var(--acc);color:#020617;font-weight:700;border:0">Lancer le QCM</button></div>
   </div>`;
   if (history.length){
-    html += `<div class="card"><h3>üìå Historique</h3><ul class="pts">${history.slice(-8).reverse().map(h=>`<li>${new Date(h.date).toLocaleString('fr-FR')}  ${h.score}% (${h.correct}/${h.total}) √© ${escapeHtml(h.section||'global')}</li>`).join('')}</ul></div>`;
+    html += `<div class="card"><h3>üìå Historique</h3><ul class="pts">${history.slice(-8).reverse().map(h=>`<li>${new Date(h.date).toLocaleString('fr-FR')}  ${h.score}% (${h.correct}/${h.total}) ‚Äî ${escapeHtml(h.section||'global')}</li>`).join('')}</ul></div>`;
   }
   panel.innerHTML = html;
   document.getElementById('qcmStart').onclick = ()=>startQCM();
@@ -563,7 +563,7 @@ function renderLabos(){
   const q = state.q.trim().toLowerCase();
   let labs = G.labs || [];
   if (q) labs = labs.filter(l=> (l.title+l.objective+(l.steps||[]).join(' ')).toLowerCase().includes(q));
-  let html = `<div class="hero"><h1>>√© Labos pratiques</h1><p>${labs.length} labos √© Objectifs, √©tapes, validation, d√©pannage.</p></div>`;
+  let html = `<div class="hero"><h1>>√© Labos pratiques</h1><p>${labs.length} labos ‚Äî Objectifs, √©tapes, validation, d√©pannage.</p></div>`;
   html += labs.map(l=>`
     <div class="lab-card">
       <h3>${escapeHtml(l.title)}</h3>
@@ -590,7 +590,7 @@ function renderGlossary(){
   // group by first letter
   const groups = {};
   items.forEach(g=>{ const k = (g.term||'?')[0].toUpperCase(); (groups[k]||(groups[k]=[])).push(g); });
-  let html = `<div class="hero"><h1>üìñ Glossaire</h1><p>${items.length} termes √© recherche par mot-cl√© dans la barre lat√©rale ou ci-dessous.</p></div>`;
+  let html = `<div class="hero"><h1>üìñ Glossaire</h1><p>${items.length} termes ‚Äî recherche par mot-cl√© dans la barre lat√©rale ou ci-dessous.</p></div>`;
   html += `<div style="margin:10px 0 16px"><input type="search" id="glossarySearch" class="search" placeholder="Rechercher un terme dans le glossaire&" value="${escapeHtml(state.glossaryQ||'')}"></div>`;
   Object.keys(groups).sort().forEach(letter=>{
     html += `<h2>${letter}</h2>`;
@@ -690,14 +690,8 @@ function renderCheat(){
 function getVocabPool(){
   const entries = G.vocab || [];
   const search = String(state.vocabSearch || "").toLowerCase();
-  const selectedCp = state.vocabCP || "all";
-  const selectedCat = state.vocabCat || "all";
-  const onlyUnsure = !!state.vocabUnsure;
   const out = [];
   for (const e of entries){
-    if (selectedCp !== "all" && e.cp !== selectedCp) continue;
-    if (selectedCat !== "all" && e.category !== selectedCat) continue;
-    if (onlyUnsure && e.fiabilite !== "a_verifier") continue;
     if (search && !(String(e.en).toLowerCase().includes(search) || String(e.fr).toLowerCase().includes(search) || String(e.definition || "").toLowerCase().includes(search))) continue;
     out.push(e);
   }
@@ -734,44 +728,41 @@ function renderAnglais(){
   if (state.vocabFlashIndex === undefined) state.vocabFlashIndex = 0;
   if (state.vocabFlashReveal === undefined) state.vocabFlashReveal = false;
   if (state.vocabQuizActive === undefined) state.vocabQuizActive = false;
-  let html = "<div class=\"hero\"><h1>Vocabulaire Anglais technique</h1><p>" + entries.length + " entrÈes, " + pool.length + " filtrÈes, " + (progress.known||[]).length + " connues / " + (progress.review||[]).length + " ‡ revoir. Meilleur score quiz : " + (progress.quizBest||0) + ".</p></div>";
+  let html = "<div class=\"hero\"><h1>Vocabulaire Anglais technique</h1><p>" + entries.length + " entr√©es, " + pool.length + " filtr√©es, " + (progress.known||[]).length + " connues / " + (progress.review||[]).length + " √† revoir. Meilleur score quiz : " + (progress.quizBest||0) + ".</p></div>";
   html += "<div class=\"card\"><div class=\"button-row\" style=\"flex-wrap:wrap\">";
-  html += "<input class=\"search\" id=\"vocabSearch\" placeholder=\"Rechercher terme, traduction, definition...\" value=\"" + escapeHtml(state.vocabSearch||"") + "\"></input>";
-  html += "<select class=\"select\" id=\"vocabCP\"><option value=\"all\">Tous les CP</option>" + cpVals.map(c=>"<option value=\""+escapeHtml(c)+"\""+(state.vocabCP===c?" selected":"")+">"+escapeHtml(c)+"</option>").join("")+"</select>";
-  html += "<select class=\"select\" id=\"vocabCat\"><option value=\"all\">Toutes les catÈgories</option>" + catVals.map(c=>"<option value=\""+escapeHtml(c)+"\""+(state.vocabCat===c?" selected":"")+">"+escapeHtml(c)+"</option>").join("")+"</select>";
-  html += "<label class=\"check\"><input type=\"checkbox\" id=\"vocabUnsure\""+(state.vocabUnsure?" checked":"")+"> ¿ vÈrifier uniquement</label>";
+  html += "<input class=\"search\" id=\"vocabSearch\" placeholder=\"Rechercher Terme, traduction, definition...\" value=\"" + escapeHtml(state.vocabSearch||"") + "\"></input>";
   html += "</div><div class=\"button-row\" style=\"flex-wrap:wrap;margin-top:8px\">";
-  html += "<button class=\"ghost-btn"+(mode==="list"?" on":"")+"\" data-vocab-mode=\"list\">Liste</button><button class=\"ghost-btn"+(mode==="flash"?" on":"")+"\" data-vocab-mode=\"flash\">Flashcards</button><button class=\"ghost-btn"+(mode==="quizEN"?" on":"")+"\" data-vocab-mode=\"quizEN\">Quiz EN?FR</button><button class=\"ghost-btn"+(mode==="quizFR"?" on":"")+"\" data-vocab-mode=\"quizFR\">Quiz FR?EN</button>";
+  html += "<button class=\"ghost-btn"+(mode==="list"?" on":"")+"\" data-vocab-mode=\"list\">Liste</button><button class=\"ghost-btn"+(mode==="flash"?" on":"")+"\" data-vocab-mode=\"flash\">Flashcards</button><button class=\"ghost-btn"+(mode==="quizEN"?" on":"")+"\" data-vocab-mode=\"quizEN\">Quiz EN / FR</button><button class=\"ghost-btn"+(mode==="quizFR"?" on":"")+"\" data-vocab-mode=\"quizFR\">Quiz FR / EN</button>";
   html += "</div></div>";
   if (mode === "list"){
-    html += "<div class=\"card\"><table class=\"cheat-table\"><thead><tr><th>EN</th><th>FR</th><th>CP</th><th>CatÈgorie</th><th>FiabilitÈ</th></tr></thead><tbody>";
-    for (const e of pool){
-      const badge = e.fiabilite==="a_verifier" ? "<span style=\"color:var(--warn,#f59e0b)\">¿ vÈrifier</span>" : "<span style=\"color:var(--ok,#22c55e)\">s˚r</span>";
-      html += "<tr><td><code>"+escapeHtml(e.en)+"</code></td><td>"+escapeHtml(e.fr)+"<br><span class=\"muted small\">"+escapeHtml(e.definition||"")+"</span>"+(e.fauxAmi?"<br><span class=\"muted small\">Faux ami : "+escapeHtml(e.fauxAmi)+"</span>":"")+"</td><td>"+escapeHtml(e.cp)+"</td><td>"+escapeHtml(e.category)+"</td><td>"+badge+"</td></tr>";
+    const groups = {};
+    for (const e of pool){ const k=e.category||"Autres"; if (!groups[k]) groups[k]=[]; groups[k].push(e); }
+    const cats = Object.keys(groups).sort();
+    for (const cat of cats){
+      html += "<div class=\"card\"><h3>"+escapeHtml(cat)+"</h3><table class=\"cheat-table\"><thead><tr><th>English</th><th>Fran√ßais</th></tr></thead><tbody>";
+      for (const e of groups[cat]){
+        html += "<tr><td><code>"+escapeHtml(e.en)+"</code></td><td>"+escapeHtml(e.fr)+"</td></tr>";
+      }
+      html += "</tbody></table></div>";
     }
-    html += "</tbody></table></div>";
-    const phrases = entries.filter(e=>String(e.category||"").toLowerCase().includes("phrases"));
-    html += "<div class=\"card\"><h2>Phrases utiles</h2><ul class=\"pts\">";
-    for (const p of phrases.slice(0,200)){ html += "<li><code>"+escapeHtml(p.en)+"</code> ó "+escapeHtml(p.fr)+"</li>"; }
-    html += "</ul></div>";
   } else if (mode === "flash"){
-    if (!pool.length){ html += "<div class=\"card\"><p class=\"muted\">Aucune entrÈe pour ces filtres.</p></div>"; }
+    if (!pool.length){ html += "<div class=\"card\"><p class=\"muted\">Aucune entr√©e pour ces filtres.</p></div>"; }
     else {
       const idx = state.vocabFlashIndex % pool.length;
       const e = pool[idx];
-      html += "<div class=\"card\"><h2>Flashcard "+(idx+1)+"/"+pool.length+"</h2><h3>"+escapeHtml(e.en)+"</h3><p class=\"muted\">"+escapeHtml(e.cp)+" - "+escapeHtml(e.category)+"</p>";
+      html += "<div class=\"card\"><h2>Flashcard "+(idx+1)+"/"+pool.length+"</h2><h3>"+escapeHtml(e.en)+"</h3>";
       if (state.vocabFlashReveal){ html += "<p><strong>"+escapeHtml(e.fr)+"</strong></p><p>"+escapeHtml(e.definition||"")+"</p><p class=\"muted small\">Exemple: "+escapeHtml(e.exemple||"")+"</p>"; if (e.fauxAmi) html += "<p class=\"muted small\">Faux ami : "+escapeHtml(e.fauxAmi)+"</p>"; }
-      html += "<div class=\"button-row\" style=\"margin-top:10px\"><button class=\"ghost-btn\" onclick=\"vocabReveal()\">RÈvÈler</button><button class=\"icon-btn\" onclick=\"vocabKnown()\" style=\"background:var(--acc);color:#020617;border:0\">Je connais</button><button class=\"ghost-btn\" onclick=\"vocabReview()\">¿ revoir</button></div></div>";
+      html += "<div class=\"button-row\" style=\"margin-top:10px\"><button class=\"ghost-btn\" onclick=\"vocabReveal()\">R√©v√©ler</button><button class=\"icon-btn\" onclick=\"vocabKnown()\" style=\"background:var(--acc);color:#020617;border:0\">Je connais</button><button class=\"ghost-btn\" onclick=\"vocabReview()\">√Ä revoir</button></div></div>";
     }
   } else {
     if (!state.vocabQuizActive){
-      html += "<div class=\"card\"><p>Quiz de "+Math.min(12,pool.length)+" questions sur "+pool.length+" entrÈes filtrÈes.</p><div class=\"button-row\"><button class=\"icon-btn\" onclick=\"vocabStartQuiz('"+escapeHtml(mode==="quizEN"?"quizEN":"quizFR")+"')\" style=\"background:var(--acc);color:#020617;border:0\">Lancer</button></div></div>";
+      html += "<div class=\"card\"><p>Quiz de "+Math.min(12,pool.length)+" questions.</p><div class=\"button-row\"><button class=\"icon-btn\" onclick=\"vocabStartQuiz('"+escapeHtml(mode==="quizEN"?"quizEN":"quizFR")+"')\" style=\"background:var(--acc);color:#020617;border:0\">Lancer</button></div></div>";
     } else {
       const qs = state.vocabQuizQuestions || [];
       if (state.vocabQuizDone){
         const best = vocabProgress().quizBest || 0;
-        html += "<div class=\"hero\"><h1>RÈsultat quiz</h1><p>Score : <strong>"+state.vocabQuizScore+"/"+qs.length+"</strong> - meilleur : "+best+"</p></div>";
-        html += "<div class=\"button-row\"><button class=\"icon-btn\" onclick=\"vocabStartQuiz('"+escapeHtml(state.vocabQuizMode)+"')\" style=\"background:var(--acc);color:#020617;border:0\">Rejouer</button><button class=\"ghost-btn\" onclick=\"vocabStopQuiz()\">Nouveau paramÈtrage</button></div>";
+        html += "<div class=\"hero\"><h1>R√©sultat quiz</h1><p>Score : <strong>"+state.vocabQuizScore+"/"+qs.length+"</strong> - meilleur : "+best+"</p></div>";
+        html += "<div class=\"button-row\"><button class=\"icon-btn\" onclick=\"vocabStartQuiz('"+escapeHtml(state.vocabQuizMode)+"')\" style=\"background:var(--acc);color:#020617;border:0\">Rejouer</button><button class=\"ghost-btn\" onclick=\"vocabStopQuiz()\">Nouveau param√©trage</button></div>";
       } else {
         const i = state.vocabQuizIndex;
         const q = qs[i];
@@ -994,7 +985,7 @@ function renderProgress(){
   const bySection = G.sections.map(sec=>{
     const n = (sec.fiches||[]).length;
     const r = (sec.fiches||[]).filter((f,i)=> done.has(ficheKey(sec.id,f,i))).length;
-    return {sec,r,n,pct: n?Math.round(r/n*100):0};
+    return {sec,r,n,pct: n ? Math.round(r/n*100) : 0};
   });
   const complete = bySection.filter(x=>x.r===x.n && x.n>0).length;
   const history = lsGet(STORAGE.qhistory, []);
