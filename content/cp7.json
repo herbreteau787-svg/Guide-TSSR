@@ -6,7 +6,7 @@
   "desc": "DMZ, pare-feu, VPN, proxy, identité hybridée, Zero Trust, durcissement.",
   "fiches": [
     {
-      "id": "ccp7-firewall",
+      "id": "cp7-legacy-ccp7-firewall",
       "t": "Règles de pare-feu et ordre d'évaluation",
       "level": "intermediaire",
       "r": "Évaluées haut→bas, première qui matche gagne. WAN deny all par défaut, LAN allow contrôlé.",
@@ -31,7 +31,7 @@
       "cp": "cp7"
     },
     {
-      "id": "ccp7-natvpn",
+      "id": "cp7-legacy-ccp7-natvpn",
       "t": "NAT, VPN IPsec/OpenVPN et proxy",
       "level": "avance",
       "r": "PAT = 1 IP publique. IPsec site-à-site, OpenVPN nomade. Squid = filtre web, authentification et cache.",
@@ -58,7 +58,7 @@
       "cp": "cp7"
     },
     {
-      "id": "ccp7-ids",
+      "id": "cp7-legacy-ccp7-ids",
       "t": "IDS/IPS et supervision sécurité",
       "level": "avance",
       "r": "Suricata/Snort pour détecter et bloquer ; corréler alertes et logs, éviter les faux positifs.",
@@ -345,7 +345,7 @@
       "cp": "cp7"
     },
     {
-      "id": "ccp10-dmz",
+      "id": "cp7-legacy-ccp10-dmz",
       "t": "DMZ, Apache et filtrage IP",
       "level": "intermediaire",
       "r": "DMZ = zone tampon. LAN→DMZ OK, WAN→DMZ seulement 80/443, DMZ→LAN refusé.",
@@ -371,7 +371,7 @@
       "cp": "cp7"
     },
     {
-      "id": "ccp10-durc",
+      "id": "cp7-legacy-ccp10-durc",
       "t": "Durcissement Linux et web",
       "level": "avance",
       "r": "Réduire la surface d'attaque : services minimaux, permissions, fail2ban, HTTPS forcé.",
@@ -420,7 +420,7 @@
       "cp": "cp7"
     },
     {
-      "id": "cp10-dmz",
+      "id": "cp7-legacy-cp10-dmz",
       "t": "DMZ architecture",
       "level": "intermediaire",
       "cli": true,
@@ -437,7 +437,7 @@
       "cp": "cp7"
     },
     {
-      "id": "cp10-waf",
+      "id": "cp7-legacy-cp10-waf",
       "t": "WAF et protection",
       "level": "intermediaire",
       "cli": true,
@@ -454,7 +454,7 @@
       "cp": "cp7"
     },
     {
-      "id": "cp10-proxy",
+      "id": "cp7-legacy-cp10-proxy",
       "t": "Reverse proxy",
       "level": "intermediaire",
       "cli": true,
@@ -471,7 +471,7 @@
       "cp": "cp7"
     },
     {
-      "id": "cp10-intranet",
+      "id": "cp7-legacy-cp10-intranet",
       "t": "Intranet",
       "level": "intermediaire",
       "cli": false,
@@ -488,7 +488,7 @@
       "cp": "cp7"
     },
     {
-      "id": "cp10-extranet",
+      "id": "cp7-legacy-cp10-extranet",
       "t": "Extranet",
       "level": "intermediaire",
       "cli": false,
@@ -505,7 +505,7 @@
       "cp": "cp7"
     },
     {
-      "id": "cp10-dns",
+      "id": "cp7-legacy-cp10-dns",
       "t": "DNS interne/externe",
       "level": "intermediaire",
       "cli": true,
@@ -522,7 +522,7 @@
       "cp": "cp7"
     },
     {
-      "id": "cp10-firewall",
+      "id": "cp7-legacy-cp10-firewall",
       "t": "Pare-feu et règles",
       "level": "intermediaire",
       "cli": true,
@@ -539,7 +539,7 @@
       "cp": "cp7"
     },
     {
-      "id": "cp10-tls",
+      "id": "cp7-legacy-cp10-tls",
       "t": "TLS et certificats",
       "level": "intermediaire",
       "cli": true,
@@ -556,7 +556,7 @@
       "cp": "cp7"
     },
     {
-      "id": "cp10-ha",
+      "id": "cp7-legacy-cp10-ha",
       "t": "Disponibilité web",
       "level": "intermediaire",
       "cli": true,
@@ -590,7 +590,7 @@
       "cp": "cp7"
     },
     {
-      "id": "cp1-vpn",
+      "id": "cp7-legacy-cp1-vpn",
       "t": "Support accès distant et VPN",
       "level": "intermediaire",
       "cli": true,
@@ -644,7 +644,7 @@
       "w": "Conclusion : vérifier tout le chaînage.",
       "alt": "Schéma CP1",
       "cp": "cp7",
-      "doublon_de": "cp1-vpn"
+      "doublon_de": "cp7-legacy-cp1-vpn"
     },
     {
       "cp": "cp7",
@@ -756,8 +756,7 @@
         "Allowlisting pour serveurs"
       ],
       "w": "L'antivirus seul ne suffit pas; l'EDR détecte les comportements.",
-      "alt": "",
-      "doublon_de": "cp7-hardening"
+      "alt": ""
     },
     {
       "cp": "cp7",
@@ -786,7 +785,7 @@
       ],
       "w": "Une règle trop large bloque la production.",
       "alt": "",
-      "doublon_de": "ccp7-ids"
+      "doublon_de": "cp7-legacy-ccp7-ids"
     },
     {
       "cp": "cp7",

@@ -6,31 +6,7 @@
   "desc": "Services Linux, SSH, storage LVM, supervision et durcissement.",
   "fiches": [
     {
-      "id": "pedagogie-ccp5",
-      "t": "Fiche pedagogique de reference - CP5 serveurs Windows/Linux",
-      "level": "intermediaire",
-      "r": "Definition : installer et exploiter des serveurs. Contexte : mise en production AD/DNS/DHCP. Objectif : securiser et superviser. Details : AD DS, GPO, Linux systemd, journaux, patch et permissions. Exemple : creation DC et test GPO. Erreurs : compte admin unique, patch sans test. Jury : difference OU et groupe, GPO, reset mot de passe.",
-      "tags": [
-        "pedagogie",
-        "systemes"
-      ],
-      "g": [
-        "Installer",
-        "Configurer",
-        "Securiser",
-        "Tester",
-        "Superviser"
-      ],
-      "c": "server-manager ; dcdiag; Get-ADUser",
-      "p": [
-        "Permissions excessives",
-        "Sauvegarde absente"
-      ],
-      "w": "Conclusion : la documentation fait partie de l'exploitation.",
-      "cp": "cp3"
-    },
-    {
-      "id": "cp5-linux",
+      "id": "cp3-legacy-cp5-linux",
       "t": "Services Linux",
       "level": "intermediaire",
       "cli": true,
@@ -57,7 +33,7 @@
       "cp": "cp3"
     },
     {
-      "id": "cp5-ssh",
+      "id": "cp3-legacy-cp5-ssh",
       "t": "Administration SSH sécurisée",
       "level": "intermediaire",
       "cli": true,
@@ -83,7 +59,7 @@
       "cp": "cp3"
     },
     {
-      "id": "cp5-lvm",
+      "id": "cp3-legacy-cp5-lvm",
       "t": "Linux stockage LVM",
       "level": "intermediaire",
       "cli": true,

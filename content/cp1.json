@@ -587,7 +587,7 @@
     },
     {
       "cp": "cp1",
-      "id": "ccp12-sec-debutant",
+      "id": "cp1-legacy-ccp12-sec-debutant",
       "t": "Sécurité : mots de passe, MFA, pare-feu, sauvegarde (débutant) (réparti depuis ccp12)",
       "level": "debutant",
       "cli": false,
@@ -741,6 +741,59 @@
         "Durée moyenne de résolution à suivre an par mois"
       ],
       "w": "Le silence crée l'angoisse ; un statut intermédiaire est toujours mieux.",
+      "cp": "cp6"
+    },
+    {
+      "id": "mig-legacy-cp1-poste",
+      "t": "Diagnostic réseau d'un poste (méthode entonnoir)",
+      "level": "debutant",
+      "r": "Physique → IP → passerelle → DNS → Internet. Tester couche par couche sans sauter d'étapes.",
+      "tags": [
+        "reseau",
+        "poste",
+        "ipconfig",
+        "dns"
+      ],
+      "g": [
+        "Vérifier voyant carte + câble, Wi-Fi activé, profil Privé/Public",
+        "Centre Réseau et partage : IP, passerelle, DNS",
+        "Tester navigation et accès au partage",
+        "Purger le cache si le nom échoue"
+      ],
+      "c": "ipconfig /all\nping 192.168.1.1\nping 8.8.8.8\nnslookup google.com\ntracert google.com\nipconfig /release\nipconfig /renew\nipconfig /flushdns\nTest-NetConnection google.com -Port 443",
+      "p": [
+        "169.254.x.x = APIPA → DHCP KO ou pas de réponse serveur",
+        "Ping OK par IP mais KO par nom = DNS KO",
+        "Tracert s'arrête à la passerelle = problème routage amont"
+      ],
+      "w": "Ne jamais remettre une IP manuelle sans documenter ; cela masque le vrai défaut DHCP.",
+      "cp": "cp6",
+      "doublon_de": "cp1-poste"
+    },
+    {
+      "id": "pedagogie-cp1",
+      "t": "Fiche pedagogique de reference - CP1 IA encadree",
+      "level": "intermediaire",
+      "r": "Definition : l'IA assiste l'humain mais ne decide pas a sa place. Contexte professionnel : un utilisateur ou un technicien utilise un assistant pour rediger une procedure ou suggere un script. Objectif : utiliser l'IA de facon fiable, securisee et documentee. Explication detaillee : l'IA n'a pas la verite terrain et peut halluciner ; elle doit etre bornee par des donnees propres et validee. Exemple concret : generer un script PowerShell de sauvegarde puis le tester en bac a sable. Erreurs frequentes : copier sans verifier, fournir des secrets, confondre suggestion et preuve. Questions jury : comment encadrez-vous l'IA, quelle est une hallucination, comment protegez-vous les donnees.",
+      "tags": [
+        "pedagogie",
+        "examen",
+        "ia"
+      ],
+      "g": [
+        "Identifier le besoin",
+        "Preparer un prompt structure et anonyme",
+        "Verifier le resultat",
+        "Tester en bac a sable",
+        "Documenter dans le ticket"
+      ],
+      "c": "No native command; validation manuelle et test obligatoire.",
+      "p": [
+        "Copier sans controle",
+        "Publier des donnees sensibles",
+        "Oublier la preuve"
+      ],
+      "w": "Conclusion : l'IA est un accelerateur, la validation humaine reste obligatoire.",
       "cp": "cp6"
     }
   ]

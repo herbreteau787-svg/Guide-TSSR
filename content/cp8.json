@@ -6,7 +6,7 @@
   "desc": "BIA, RPO/RTO, 3-2-1, réplication, tests de reprise et communications de crise.",
   "fiches": [
     {
-      "id": "ccp8-321",
+      "id": "cp8-legacy-ccp8-321",
       "t": "3-2-1, RPO/RTO et stratégie",
       "level": "intermediaire",
       "r": "Trois copies, deux supports, une hors site. RPO = perte max acceptable, RTO = durée panne acceptable.",
@@ -33,7 +33,7 @@
       "cp": "cp8"
     },
     {
-      "id": "ccp8-outils",
+      "id": "cp8-legacy-ccp8-outils",
       "t": "Outils et reprise bare-metal",
       "level": "intermediaire",
       "r": "Image système, Veeam B&R, Bacula, Proxmox Backup Server, test de restore sur hardware différent.",
@@ -58,7 +58,7 @@
       "cp": "cp8"
     },
     {
-      "id": "ccp8-zfs",
+      "id": "cp8-legacy-ccp8-zfs",
       "t": "ZFS et sauvegarde cohérente",
       "level": "avance",
       "r": "Snapshots atomiques, réplication send/receive, détection de corruption par checksum.",

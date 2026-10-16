@@ -894,6 +894,33 @@
       ],
       "w": "Conclusion : le deploiement reussit quand technique et accompagnement avancent ensemble.",
       "cp": "cp9"
+    },
+    {
+      "id": "mig-legacy-cp2-join",
+      "t": "Joindre un poste au domaine",
+      "level": "debutant",
+      "r": "Le DNS du poste doit pointer vers le DC. Compte administrateur domaine requis. Horloge <5 minutes d'écart.",
+      "tags": [
+        "domaine",
+        "poste",
+        "join",
+        "dns"
+      ],
+      "g": [
+        "Renommer le PC selon convention",
+        "Accès professionnel/établissement > Joindre le domaine",
+        "Entrer admin domaine puis redémarrer",
+        "Ouvrir session domaine et vérifier application des GPO"
+      ],
+      "c": "Rename-Computer -NewName PC-012 -Restart\nAdd-Computer -DomainName tssr.local -Credential (Get-Credential) -Restart\nTest-ComputerSecureChannel\nnltest /dsgetdc:tssr.local\ngpresult /r",
+      "p": [
+        "Supprimer l'ancien compte ordinateur en cas de doublon",
+        "Vérifier l'OU de destination via GPO de jonction",
+        "Garder le compte local admin en secours"
+      ],
+      "w": "Jonction réussie mais GPO absentes = vérifier DNS et emplacement de l'ordinateur dans l'AD.",
+      "cp": "cp9",
+      "doublon_de": "cp2-join"
     }
   ]
 }

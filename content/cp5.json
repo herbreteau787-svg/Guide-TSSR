@@ -6,7 +6,7 @@
   "desc": "Hyperviseurs, stockage, clusters HA/DRS, snapshots et backup VM.",
   "fiches": [
     {
-      "id": "pedagogie-cp5",
+      "id": "pedagogie-cp5-virt",
       "t": "Fiche pedagogique de reference - CP6 virtualisation",
       "level": "intermediaire",
       "r": "Definition : mutualiser des serveurs virtuels avec haute disponibilite. Contexte : VMware, Hyper-V ou Proxmox. Objectif : provisionner, sauvegarder et restaurer. Details : vSwitch, storage, snapshots vs sauvegardes, cluster HA/DRS. Exemple : creation VM puis sauvegarde pro. Erreurs : confondre snapshot et sauvegarde, ignorer ressources. Jury : pourquoi deux vSwitch, hotes vs invites, sauvegarde.",
@@ -337,6 +337,30 @@
       "img": "images/virtualisation-schema.svg",
       "alt": "Schéma virtualisation",
       "cp": "cp5"
+    },
+    {
+      "id": "pedagogie-cp5",
+      "t": "Fiche pedagogique de reference - CP5 serveurs Windows/Linux",
+      "level": "intermediaire",
+      "r": "Definition : installer et exploiter des serveurs. Contexte : mise en production AD/DNS/DHCP. Objectif : securiser et superviser. Details : AD DS, GPO, Linux systemd, journaux, patch et permissions. Exemple : creation DC et test GPO. Erreurs : compte admin unique, patch sans test. Jury : difference OU et groupe, GPO, reset mot de passe.",
+      "tags": [
+        "pedagogie",
+        "systemes"
+      ],
+      "g": [
+        "Installer",
+        "Configurer",
+        "Securiser",
+        "Tester",
+        "Superviser"
+      ],
+      "c": "server-manager ; dcdiag; Get-ADUser",
+      "p": [
+        "Permissions excessives",
+        "Sauvegarde absente"
+      ],
+      "w": "Conclusion : la documentation fait partie de l'exploitation.",
+      "cp": "cp3"
     }
   ]
 }

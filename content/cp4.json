@@ -6,7 +6,7 @@
   "desc": "Adressage, VLAN, routage, NAT, DNS/DHCP, VPN, ToIP Cisco CME, VLAN Voix, diagnostic.",
   "fiches": [
     {
-      "id": "ccp4-modele",
+      "id": "cp4-legacy-ccp4-modele",
       "t": "Modèle OSI vs TCP/IP",
       "level": "debutant",
       "r": "7 couches OSI vs 4 couches TCP/IP. Identifier la couche d'un symptôme guide le diagnostic.",
@@ -30,7 +30,7 @@
       "cp": "cp4"
     },
     {
-      "id": "ccp4-ports",
+      "id": "cp4-legacy-ccp4-ports",
       "t": "Ports et protocoles à connaître",
       "level": "debutant",
       "r": "Répertoire des ports usuels pour l'examen et l'exploitation : web, mail, fichiers, admin, sécurité.",
@@ -55,7 +55,7 @@
       "cp": "cp4"
     },
     {
-      "id": "ccp4-subnet",
+      "id": "cp4-legacy-ccp4-subnet",
       "t": "Subnetting / CIDR",
       "level": "intermediaire",
       "r": "Formule : 2^(bits hôtes)-2. /24 = 254, /25 = 126, /26 = 62, /27 = 30. VLSM pour découper selon besoin réel.",
@@ -80,7 +80,7 @@
       "cp": "cp4"
     },
     {
-      "id": "ccp4-cisco",
+      "id": "cp4-legacy-ccp4-cisco",
       "t": "Cisco IOS : base, VLAN et sécurité",
       "level": "intermediaire",
       "r": "Modes User> Enable# Conf(t). Hostname, IP, VLAN, OSPF ; sécuriser par enable secret et SSH.",
@@ -106,7 +106,7 @@
       "cp": "cp4"
     },
     {
-      "id": "ccp4-trunk",
+      "id": "cp4-legacy-ccp4-trunk",
       "t": "VLAN trunk, routage inter-VLAN et OSPF",
       "level": "avance",
       "r": "Trunk = 802.1Q multi-VLAN. OSPF = routage dynamique interne. DHCP par routeur pour multi-site.",
@@ -131,7 +131,7 @@
       "cp": "cp4"
     },
     {
-      "id": "ccp4-stp",
+      "id": "cp4-legacy-ccp4-stp",
       "t": "STP, RSTP et EtherChannel",
       "level": "avance",
       "r": "STP empêche les boucles et bloque des ports ; RSTP accélère la convergence ; EtherChannel agrège des liens.",
@@ -156,7 +156,7 @@
       "cp": "cp4"
     },
     {
-      "id": "ccp4-acl",
+      "id": "cp4-legacy-ccp4-acl",
       "t": "ACL et sécurité réseau",
       "level": "intermediaire",
       "r": "ACL standard près de la destination, étendue près de la source. Évaluées de haut en bas ; première qui matche gagne.",
@@ -181,7 +181,7 @@
       "cp": "cp4"
     },
     {
-      "id": "ccp4-nat",
+      "id": "cp4-legacy-ccp4-nat",
       "t": "NAT/PAT et adressage public",
       "level": "intermediaire",
       "r": "PAT avec une IP publique pour sortie Internet ; NAT statique pour serveur publié ; pool pour grand volume.",
@@ -207,7 +207,7 @@
       "doublon_de": "cp4-nat"
     },
     {
-      "id": "ccp4-ipv6",
+      "id": "cp4-legacy-ccp4-ipv6",
       "t": "IPv6, routage et transitions",
       "level": "avance",
       "r": "Adresses /64 pour LAN, link-local fe80::, EUI-64. OSPFv3 et DHCPv6/SLAAC.",
@@ -233,7 +233,7 @@
       "doublon_de": "cp4-ipv6"
     },
     {
-      "id": "ccp4-reseau-debutant",
+      "id": "cp4-legacy-ccp4-reseau-debutant",
       "t": "Réseau : IP, masque, gateway, VLAN, diagnostic (débutant)",
       "level": "debutant",
       "r": "Un réseau, c'est des machines qui échangent des paquets. IP identifie la machine, masque sépare réseau/hôte, passerelle sort du LAN, VLAN isole.",
@@ -258,7 +258,7 @@
       "cp": "cp4"
     },
     {
-      "id": "ccp4-dns-dhcp-debutant",
+      "id": "cp4-legacy-ccp4-dns-dhcp-debutant",
       "t": "DNS/DHCP : résolution et baux (débutant)",
       "level": "debutant",
       "r": "DNS traduit nom→IP. DHCP attribue IP/gateway/DNS. TTL, A, PTR, enregistrements. Bail à renouveler.",
@@ -651,7 +651,7 @@
       "cp": "cp4"
     },
     {
-      "id": "ccp10-toip",
+      "id": "cp4-legacy-ccp10-toip",
       "t": "Asterisk / FreePBX et diagnostic SIP",
       "level": "intermediaire",
       "r": "SIP 5060, RTP 10000-20000, codecs G.711/G.729. QoS et VLAN voix.",
@@ -675,10 +675,10 @@
       ],
       "w": "Les ALG SIP des routeurs peuvent casser la signalisation.",
       "cp": "cp4",
-      "doublon_de": "cp10-toip"
+      "doublon_de": "cp4-legacy-cp10-toip"
     },
     {
-      "id": "cp10-toip",
+      "id": "cp4-legacy-cp10-toip",
       "t": "ToIP dans DMZ",
       "level": "intermediaire",
       "cli": true,

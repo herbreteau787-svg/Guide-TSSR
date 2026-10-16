@@ -6,7 +6,7 @@
   "desc": "Cycle de vie, images, MDT, GPO, M365, collaboratif, inventaire, accompagnement.",
   "fiches": [
     {
-      "id": "cp2-cycle",
+      "id": "cp9-cycle",
       "t": "Cycle de vie du poste",
       "level": "intermediaire",
       "cli": true,
@@ -34,7 +34,7 @@
       "cp": "cp9"
     },
     {
-      "id": "cp2-image",
+      "id": "cp9-image",
       "t": "Image de référence Windows",
       "level": "intermediaire",
       "cli": true,
@@ -62,7 +62,7 @@
       "cp": "cp9"
     },
     {
-      "id": "cp2-mdt",
+      "id": "cp9-mdt",
       "t": "MDT et déploiement PXE",
       "level": "intermediaire",
       "cli": true,
@@ -115,10 +115,10 @@
       "img": "images/topologie-reseau.svg",
       "alt": "Schéma CP2",
       "cp": "cp9",
-      "doublon_de": "cp2-join"
+      "doublon_de": "cp9-join"
     },
     {
-      "id": "cp2-collab",
+      "id": "cp9-collab",
       "t": "Outils collaboratifs",
       "level": "intermediaire",
       "cli": true,
@@ -146,7 +146,7 @@
       "cp": "cp9"
     },
     {
-      "id": "cp2-entra",
+      "id": "cp9-entra",
       "t": "Entra ID hybride",
       "level": "intermediaire",
       "cli": true,
@@ -173,7 +173,7 @@
       "cp": "cp9"
     },
     {
-      "id": "cp2-intune",
+      "id": "cp9-intune",
       "t": "MDM et postes mobiles",
       "level": "intermediaire",
       "cli": true,
@@ -200,7 +200,7 @@
       "cp": "cp9"
     },
     {
-      "id": "cp2-pilotes",
+      "id": "cp9-pilotes",
       "t": "Pilotes et compatibilité",
       "level": "intermediaire",
       "cli": true,
@@ -227,7 +227,7 @@
       "cp": "cp9"
     },
     {
-      "id": "cp2-patch",
+      "id": "cp9-patch",
       "t": "Patch et mises à jour",
       "level": "intermediaire",
       "cli": true,
@@ -254,7 +254,7 @@
       "cp": "cp9"
     },
     {
-      "id": "cp2-inventaire",
+      "id": "cp9-inventaire",
       "t": "Inventaire et assets",
       "level": "intermediaire",
       "cli": true,
@@ -281,7 +281,7 @@
       "cp": "cp9"
     },
     {
-      "id": "cp2-backup",
+      "id": "cp9-backup",
       "t": "Déploiement et sauvegarde",
       "level": "intermediaire",
       "cli": true,
@@ -308,7 +308,7 @@
       "cp": "cp9"
     },
     {
-      "id": "cp2-com",
+      "id": "cp9-com",
       "t": "Accompagnement utilisateur",
       "level": "intermediaire",
       "cli": false,
@@ -335,7 +335,7 @@
       "cp": "cp9"
     },
     {
-      "id": "cp2-change",
+      "id": "cp9-change",
       "t": "Gouvernance des changements",
       "level": "intermediaire",
       "cli": false,
@@ -363,7 +363,7 @@
       "cp": "cp9"
     },
     {
-      "id": "cp2-secu",
+      "id": "cp9-secu",
       "t": "Collaboration sécurisée",
       "level": "intermediaire",
       "cli": true,
@@ -390,7 +390,7 @@
       "cp": "cp9"
     },
     {
-      "id": "cp2-synthese",
+      "id": "cp9-synthese",
       "t": "Synthèse examen CP2",
       "level": "intermediaire",
       "cli": false,
@@ -523,7 +523,7 @@
       ],
       "w": "Des vulnérabilités non patchées restent ouvertes des mois.",
       "alt": "",
-      "doublon_de": "cp2-patch"
+      "doublon_de": "cp9-patch"
     }
   ]
 }

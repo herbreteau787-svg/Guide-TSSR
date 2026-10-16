@@ -179,7 +179,7 @@
       "cp": "transverse"
     },
     {
-      "id": "cp9-patch",
+      "id": "transverse-cp9-patch",
       "t": "Patch maîtrisé",
       "level": "intermediaire",
       "cli": true,
@@ -287,7 +287,7 @@
       "cp": "transverse"
     },
     {
-      "id": "cp9-synthese",
+      "id": "transverse-cp9-synthese",
       "t": "Synthèse examen CP9",
       "level": "intermediaire",
       "cli": false,

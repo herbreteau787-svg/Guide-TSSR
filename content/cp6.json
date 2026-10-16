@@ -6,32 +6,6 @@
   "desc": "PowerShell et Bash, procédures, IA encadrée, accompagnement utilisateurs.",
   "fiches": [
     {
-      "id": "pedagogie-ccp1",
-      "t": "Fiche pedagogique de reference - CP1 IA encadree",
-      "level": "intermediaire",
-      "r": "Definition : l'IA assiste l'humain mais ne decide pas a sa place. Contexte professionnel : un utilisateur ou un technicien utilise un assistant pour rediger une procedure ou suggere un script. Objectif : utiliser l'IA de facon fiable, securisee et documentee. Explication detaillee : l'IA n'a pas la verite terrain et peut halluciner ; elle doit etre bornee par des donnees propres et validee. Exemple concret : generer un script PowerShell de sauvegarde puis le tester en bac a sable. Erreurs frequentes : copier sans verifier, fournir des secrets, confondre suggestion et preuve. Questions jury : comment encadrez-vous l'IA, quelle est une hallucination, comment protegez-vous les donnees.",
-      "tags": [
-        "pedagogie",
-        "examen",
-        "ia"
-      ],
-      "g": [
-        "Identifier le besoin",
-        "Preparer un prompt structure et anonyme",
-        "Verifier le resultat",
-        "Tester en bac a sable",
-        "Documenter dans le ticket"
-      ],
-      "c": "No native command; validation manuelle et test obligatoire.",
-      "p": [
-        "Copier sans controle",
-        "Publier des donnees sensibles",
-        "Oublier la preuve"
-      ],
-      "w": "Conclusion : l'IA est un accelerateur, la validation humaine reste obligatoire.",
-      "cp": "cp6"
-    },
-    {
       "id": "cp6-bash-backup",
       "t": "Bash : sauvegarde incrémentale et contrôle rotatif",
       "level": "intermediaire",
