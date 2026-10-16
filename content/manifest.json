@@ -15,6 +15,7 @@
     "ccna-itn.json",
     "exemples.json",
     "exam.json",
-    "supports.json"
+    "supports.json",
+    "vocab.json"
   ]
 }

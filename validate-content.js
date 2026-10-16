@@ -2,7 +2,7 @@ const fs=require("fs"); const path=require("path");
 const manifest=JSON.parse(fs.readFileSync("content/manifest.json","utf8"));
 const ignoredPrefixFiles=new Set(["transverse","ccna","ccna-itn","exemples","exam","labs","ccp12"]);
 const allowedSections=new Set(["cp1","cp2","cp3","cp4","cp5","cp6","cp7","cp8","cp9","transverse","ccna","ccna-itn","ccp12","exemples","exam","labs"]);
-const globalIds=new Set(); const quizIds=new Set();
+const globalIds=new Set(); const quizIds=new Set(); const vocabEn=new Set();
 let total=0, issues=[]; const sections=[];
 for(const file of manifest.files){
  const p=path.join("content",file);
@@ -12,6 +12,18 @@ for(const file of manifest.files){
  const base=file.replace(".json","");
  if(!sec||typeof sec.id!=="string") issues.push(p+": id invalide");
  if(!sec||typeof sec.title!=="string") issues.push(p+": title invalide");
+ if(base==="vocab"){
+   if(!sec||!Array.isArray(sec.entries)) { issues.push(p+": entries non array"); continue; }
+   for(const e of sec.entries){
+     if(!e||typeof e.id!=="string"||!e.id) issues.push(p+": entry sans id");
+     if(!e||typeof e.en!=="string"||!e.en) issues.push(p+": entree sans en "+(e.id||"?"));
+     if(!e||typeof e.fr!=="string"||!e.fr) issues.push(p+": entree sans fr "+(e.id||"?"));
+     if(!e||typeof e.cp!=="string"||!/^(cp[1-9])$/.test(e.cp)) issues.push(p+": cp invalide "+(e.cp||"?"));
+     if(e&&e.id){ if(globalIds.has(e.id)) issues.push(p+": id duplique "+e.id); globalIds.add(e.id); }
+     const key=String(e&&e.en||"").toLowerCase().trim(); if(key){ if(vocabEn.has(key)) issues.push(p+": terme EN doublon "+e.en); vocabEn.add(key); }
+   }
+   continue;
+ }
  if(base==="supports"){
    if(!sec||!Array.isArray(sec.items)) { issues.push(p+": items non array"); continue; }
    for(const it of sec.items){

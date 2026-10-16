@@ -23,6 +23,7 @@ async function loadContentSections(){
         }
       }
       if (file === 'supports.json' || (sec && sec.id === 'supports')) { G.supports = Array.isArray(sec.items) ? sec.items : []; }
+      else if (file === 'vocab.json' || (sec && sec.id === 'vocab')) { G.vocab = Array.isArray(sec.entries) ? sec.entries : []; }
       else { sections.push(sec); }
     }
     if (sections.length) G.sections = sections;
@@ -686,90 +687,128 @@ function renderCheat(){
 }
 
 /* ---------- vocabulaire anglais ---------- */
+function getVocabPool(){
+  const entries = G.vocab || [];
+  const search = String(state.vocabSearch || "").toLowerCase();
+  const selectedCp = state.vocabCP || "all";
+  const selectedCat = state.vocabCat || "all";
+  const onlyUnsure = !!state.vocabUnsure;
+  const out = [];
+  for (const e of entries){
+    if (selectedCp !== "all" && e.cp !== selectedCp) continue;
+    if (selectedCat !== "all" && e.category !== selectedCat) continue;
+    if (onlyUnsure && e.fiabilite !== "a_verifier") continue;
+    if (search && !(String(e.en).toLowerCase().includes(search) || String(e.fr).toLowerCase().includes(search) || String(e.definition || "").toLowerCase().includes(search))) continue;
+    out.push(e);
+  }
+  return out;
+}
+function vocabProgress(){ if (!state.vocabProgress) state.vocabProgress = lsGet("tssr-vocab-progress", { known: [], review: [], quizBest: 0 }); return state.vocabProgress; }
+function vocabToggleKnown(id, known){ const p=vocabProgress(); p.known = (p.known || []).filter(x=>x!==id); p.review = (p.review || []).filter(x=>x!==id); if (known) p.known.push(id); else p.review.push(id); lsSet("tssr-vocab-progress", p); }
+function shuffleVocab(arr){ const a=arr.slice(); for (let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function vocabSetCP(v){ state.vocabCP=v; renderAnglais(); }
+function vocabSetCat(v){ state.vocabCat=v; renderAnglais(); }
+function vocabSetUnsure(v){ state.vocabUnsure=!!v; renderAnglais(); }
+function vocabSearch(v){ state.vocabSearch=v; renderAnglais(); }
+function vocabSetMode(v){ state.vocabMode=v; state.vocabFlashIndex=0; state.vocabFlashReveal=false; if (v==="quizEN"||v==="quizFR") vocabStartQuiz(v); renderAnglais(); }
+function vocabReveal(){ state.vocabFlashReveal=true; renderAnglais(); }
+function vocabKnown(){ const pool=getVocabPool(); if (!pool.length) return; const e=pool[state.vocabFlashIndex % pool.length]; vocabToggleKnown(e.id,true); state.vocabFlashIndex++; state.vocabFlashReveal=false; renderAnglais(); }
+function vocabReview(){ const pool=getVocabPool(); if (!pool.length) return; const e=pool[state.vocabFlashIndex % pool.length]; vocabToggleKnown(e.id,false); state.vocabFlashIndex++; state.vocabFlashReveal=false; renderAnglais(); }
+function vocabStartQuiz(mode){ state.vocabQuizActive=true; state.vocabQuizMode=mode; const pool=getVocabPool(); const shuffled=shuffleVocab(pool); state.vocabQuizQuestions=shuffled.slice(0, Math.min(12, shuffled.length)); state.vocabQuizIndex=0; state.vocabQuizAnswers={}; state.vocabQuizScore=0; state.vocabQuizDone=false; renderAnglais(); }
+function vocabAnswerQuestion(ci){ if (state.vocabQuizDone) return; const q=state.vocabQuizQuestions[state.vocabQuizIndex]; if (state.vocabQuizAnswers[q.id]!==undefined) return; state.vocabQuizAnswers[q.id]=ci; if (ci===q.answer) state.vocabQuizScore++; renderAnglais(); }
+function vocabNextQuestion(){ if (state.vocabQuizIndex < state.vocabQuizQuestions.length-1){ state.vocabQuizIndex++; renderAnglais(); } else { state.vocabQuizDone=true; const p=vocabProgress(); if (!p.quizBest || state.vocabQuizScore>p.quizBest) { p.quizBest=state.vocabQuizScore; lsSet("tssr-vocab-progress", p); } renderAnglais(); } }
+function vocabStopQuiz(){ state.vocabQuizActive=false; state.vocabQuizDone=false; state.vocabMode="list"; renderAnglais(); }
+function escapeVocabHtml(s){ return escapeHtml(s); }
 function renderAnglais(){
   const panel = document.querySelector('[data-panel="anglais"]');
-  const grouped = [
-    { title: 'Verbes et actions (lecture de doc, procédures, diagnostic)', rows: [
-      ['deploy / rollout','déployer / déployer progressivement'],
-      [' configure / configuration','configurer / configuration'],
-      ['troubleshoot','dépanner, investiguer'],
-      ['investigate / root cause','investiguer, cause racine'],
-      [' escalate','escalader'],
-      ['revoke / renew','révoquer / renouveler'],
-      ['backup / restore / snapshot','sauvegarde, restauration, instantané'],
-      [' migrate / rollback','migrer / revenir en arriére'],
-      ['patch / upgrade / downgrade','patcher, mettre é jour, rétrograder'],
-      ['enforce / comply','faire respecter, étre conforme'],
-      ['monitor / alert / log','superviser, alerter, journaliser'],
-      ['provision / decommission','provisionner, mettre hors service'],
-      ['audit / harden','auditer, durcir']
-    ]},
-    { title: 'Matériel, OS et virtualisation', rows: [
-      ['hardware / firmware / driver','matériel, micrologiciel, pilote'],
-      ['host / guest / hypervisor','héte, invité, hyperviseur'],
-      ['bare metal','nu, machine physique'],
-      ['snapshot / clone / template','instantané, clone, modéle'],
-      ['thin / thick provisioning','provisionnement léger / réservé'],
-      ['vMotion / live migration','migration é chaud'],
-      ['HA / DRS / cluster','haute disponibilité, équilibrage, cluster'],
-      ['failover / fallback','bascule / repli'],
-      ['latency / throughput / bandwidth','latence, débit utile, bande passante'],
-      ['memory / CPU / IOPS','mémoire, processeur, opérations I/O par seconde']
-    ]},
-    { title: 'Réseau et sécurité', rows: [
-      ['subnet / CIDR / mask','sous-réseau / CIDR / masque'],
-      ['gateway / router / switch','passerelle / routeur / commutateur'],
-      ['firewall / ACL / policy','pare-feu, liste de contréle daccés, politique'],
-      ['NAT / PAT / port forwarding','traduction dadresses et ports'],
-      ['VPN / tunnel / site-to-site','VPN, tunnel, site é site'],
-      ['VLAN / trunk / tagging','VLAN, trunk, marquage 802.1Q'],
-      ['MAC / ARP / ARP cache','MAC, ARP, cache ARP'],
-      [' MTU / fragmentation / broadcast','MTU, fragmentation, diffusion'],
-      [' certificate / CSR / CRL','certificat, demande de certificat, liste de révocation'],
-      [' credentials / secret / token','identifiants, secret, jeton'],
-      [' least privilege / RBAC','moindre privilége, contréle daccés par réle']
-    ]},
-    { title: 'Support, ticketing et communication', rows: [
-      ['incident / problem / request','incident, probléme, demande'],
-      ['root cause / workaround','cause racine, contournement'],
-      ['escalate / handover','escalader, transférer'],
-      ['SLA / ETA','engagement de niveau de service, délai estimé'],
-      ['user impact / outage','impact utilisateur, panne'],
-      ['known error / workaround KB','erreur connue, contournement selon KB'],
-      ['rollout plan / rollback plan','plan de déploiement, plan de retour arriére'],
-      ['root administrative questions','questions didentification utilisateur']
-    ]},
-    { title: 'Documentation, journalisation et validation', rows: [
-      ['deprecated','obsoléte'],
-      ['required / optional','obligatoire / facultatif'],
-      ['supported platforms','plateformes prises en charge'],
-      ['prerequisites','préréquis'],
-      ['troubleshooting steps','étape de diagnostic'],
-      ['workaround / mitigation','contournement, atténuation'],
-      ['expected behavior / actual behavior','comportement attendu, comportement observé'],
-      ['impact assessment','analyse dimpact'],
-      ['change request / RFC / change window','demande de changement, RFC, fenétre de changement']
-    ]}
-  ];
-  const tableFromRows = rows => `<table class="cheat-table"><thead><tr><th>English</th><th>Franéais</th></tr></thead><tbody>${rows.map(([a,b])=>`<tr><td><code>${escapeHtml(a)}</code></td><td>${escapeHtml(b)}</td></tr>`).join('')}</tbody></table>`;
-  panel.innerHTML = `
-  <div class="hero"><h1><é<é Vocabulaire Anglais technique</h1><p>Termes, verbes, structures et phrases pour lire une documentation, suivre un cours, comprendre un ticket ou intervenir en support.</p></div>
-  ${grouped.map(g=>`<div class="card"><h2>${escapeHtml(g.title)}</h2>${tableFromRows(g.rows)}</div>`).join('')}
-  <div class="card"><h2>Phrases types et reformulations</h2>
-    <ul>
-      <li><strong>If X, then Y.</strong> = si X alors Y.</li>
-      <li><strong>Ensure that...</strong> = sassurer que...</li>
-      <li><strong>Please provide...</strong> = veuillez fournir...</li>
-      <li><strong>This service was restarted.</strong> = ce service a été redémarré.</li>
-      <li><strong>The issue persists after reboot.</strong> = le probléme persiste aprés redémarrage.</li>
-      <li><strong>We will investigate and report back.</strong> = nous allons investiguer et revenir vers vous.</li>
-      <li><strong>Could you confirm the impact?</strong> = pouvez-vous confirmer limpact ?</li>
-      <li><strong>The following ports must be open.</strong> = les ports suivants doivent étre ouverts.</li>
-    </ul>
-  </div>
-  <div class="card"><h2>Abbréviations IT é garder en téte</h2><p><code>VM</code> machine virtuelle, <code>VLAN</code> réseau virtuel, <code>VPN</code> réseau privé virtuel, <code>SLA</code> accord de service, <code>RPO</code> perte acceptable, <code>RTO</code> temps de rétablissement, <code>AOC</code> accés hors pleine capacité (selon contexte), <code>ACL</code> liste de permissions, <code>MTU</code> taille max de trame.</p></div>`;
+  const entries = G.vocab || [];
+  const progress = vocabProgress();
+  const pool = getVocabPool();
+  const cpVals = Array.from(new Set(entries.map(e=>e.cp).filter(Boolean))).sort();
+  const catVals = Array.from(new Set(entries.map(e=>e.category).filter(Boolean))).sort();
+  const mode = state.vocabMode || "list";
+  if (state.vocabCP === undefined) state.vocabCP = "all";
+  if (state.vocabCat === undefined) state.vocabCat = "all";
+  if (state.vocabUnsure === undefined) state.vocabUnsure = false;
+  if (state.vocabSearch === undefined) state.vocabSearch = "";
+  if (state.vocabFlashIndex === undefined) state.vocabFlashIndex = 0;
+  if (state.vocabFlashReveal === undefined) state.vocabFlashReveal = false;
+  if (state.vocabQuizActive === undefined) state.vocabQuizActive = false;
+  let html = "<div class=\"hero\"><h1>Vocabulaire Anglais technique</h1><p>" + entries.length + " entr�es, " + pool.length + " filtr�es, " + (progress.known||[]).length + " connues / " + (progress.review||[]).length + " � revoir. Meilleur score quiz : " + (progress.quizBest||0) + ".</p></div>";
+  html += "<div class=\"card\"><div class=\"button-row\" style=\"flex-wrap:wrap\">";
+  html += "<input class=\"search\" id=\"vocabSearch\" placeholder=\"Rechercher terme, traduction, definition...\" value=\"" + escapeHtml(state.vocabSearch||"") + "\"></input>";
+  html += "<select class=\"select\" id=\"vocabCP\"><option value=\"all\">Tous les CP</option>" + cpVals.map(c=>"<option value=\""+escapeHtml(c)+"\""+(state.vocabCP===c?" selected":"")+">"+escapeHtml(c)+"</option>").join("")+"</select>";
+  html += "<select class=\"select\" id=\"vocabCat\"><option value=\"all\">Toutes les cat�gories</option>" + catVals.map(c=>"<option value=\""+escapeHtml(c)+"\""+(state.vocabCat===c?" selected":"")+">"+escapeHtml(c)+"</option>").join("")+"</select>";
+  html += "<label class=\"check\"><input type=\"checkbox\" id=\"vocabUnsure\""+(state.vocabUnsure?" checked":"")+"> � v�rifier uniquement</label>";
+  html += "</div><div class=\"button-row\" style=\"flex-wrap:wrap;margin-top:8px\">";
+  html += "<button class=\"ghost-btn"+(mode==="list"?" on":"")+"\" data-vocab-mode=\"list\">Liste</button><button class=\"ghost-btn"+(mode==="flash"?" on":"")+"\" data-vocab-mode=\"flash\">Flashcards</button><button class=\"ghost-btn"+(mode==="quizEN"?" on":"")+"\" data-vocab-mode=\"quizEN\">Quiz EN?FR</button><button class=\"ghost-btn"+(mode==="quizFR"?" on":"")+"\" data-vocab-mode=\"quizFR\">Quiz FR?EN</button>";
+  html += "</div></div>";
+  if (mode === "list"){
+    html += "<div class=\"card\"><table class=\"cheat-table\"><thead><tr><th>EN</th><th>FR</th><th>CP</th><th>Cat�gorie</th><th>Fiabilit�</th></tr></thead><tbody>";
+    for (const e of pool){
+      const badge = e.fiabilite==="a_verifier" ? "<span style=\"color:var(--warn,#f59e0b)\">� v�rifier</span>" : "<span style=\"color:var(--ok,#22c55e)\">s�r</span>";
+      html += "<tr><td><code>"+escapeHtml(e.en)+"</code></td><td>"+escapeHtml(e.fr)+"<br><span class=\"muted small\">"+escapeHtml(e.definition||"")+"</span>"+(e.fauxAmi?"<br><span class=\"muted small\">Faux ami : "+escapeHtml(e.fauxAmi)+"</span>":"")+"</td><td>"+escapeHtml(e.cp)+"</td><td>"+escapeHtml(e.category)+"</td><td>"+badge+"</td></tr>";
+    }
+    html += "</tbody></table></div>";
+    const phrases = entries.filter(e=>String(e.category||"").toLowerCase().includes("phrases"));
+    html += "<div class=\"card\"><h2>Phrases utiles</h2><ul class=\"pts\">";
+    for (const p of phrases.slice(0,200)){ html += "<li><code>"+escapeHtml(p.en)+"</code> � "+escapeHtml(p.fr)+"</li>"; }
+    html += "</ul></div>";
+  } else if (mode === "flash"){
+    if (!pool.length){ html += "<div class=\"card\"><p class=\"muted\">Aucune entr�e pour ces filtres.</p></div>"; }
+    else {
+      const idx = state.vocabFlashIndex % pool.length;
+      const e = pool[idx];
+      html += "<div class=\"card\"><h2>Flashcard "+(idx+1)+"/"+pool.length+"</h2><h3>"+escapeHtml(e.en)+"</h3><p class=\"muted\">"+escapeHtml(e.cp)+" - "+escapeHtml(e.category)+"</p>";
+      if (state.vocabFlashReveal){ html += "<p><strong>"+escapeHtml(e.fr)+"</strong></p><p>"+escapeHtml(e.definition||"")+"</p><p class=\"muted small\">Exemple: "+escapeHtml(e.exemple||"")+"</p>"; if (e.fauxAmi) html += "<p class=\"muted small\">Faux ami : "+escapeHtml(e.fauxAmi)+"</p>"; }
+      html += "<div class=\"button-row\" style=\"margin-top:10px\"><button class=\"ghost-btn\" onclick=\"vocabReveal()\">R�v�ler</button><button class=\"icon-btn\" onclick=\"vocabKnown()\" style=\"background:var(--acc);color:#020617;border:0\">Je connais</button><button class=\"ghost-btn\" onclick=\"vocabReview()\">� revoir</button></div></div>";
+    }
+  } else {
+    if (!state.vocabQuizActive){
+      html += "<div class=\"card\"><p>Quiz de "+Math.min(12,pool.length)+" questions sur "+pool.length+" entr�es filtr�es.</p><div class=\"button-row\"><button class=\"icon-btn\" onclick=\"vocabStartQuiz('"+escapeHtml(mode==="quizEN"?"quizEN":"quizFR")+"')\" style=\"background:var(--acc);color:#020617;border:0\">Lancer</button></div></div>";
+    } else {
+      const qs = state.vocabQuizQuestions || [];
+      if (state.vocabQuizDone){
+        const best = vocabProgress().quizBest || 0;
+        html += "<div class=\"hero\"><h1>R�sultat quiz</h1><p>Score : <strong>"+state.vocabQuizScore+"/"+qs.length+"</strong> - meilleur : "+best+"</p></div>";
+        html += "<div class=\"button-row\"><button class=\"icon-btn\" onclick=\"vocabStartQuiz('"+escapeHtml(state.vocabQuizMode)+"')\" style=\"background:var(--acc);color:#020617;border:0\">Rejouer</button><button class=\"ghost-btn\" onclick=\"vocabStopQuiz()\">Nouveau param�trage</button></div>";
+      } else {
+        const i = state.vocabQuizIndex;
+        const q = qs[i];
+        const askEN = state.vocabQuizMode === "quizEN";
+        const correct = askEN ? q.fr : q.en;
+        const ask = askEN ? ("Terme anglais : "+q.en) : ("Traduction anglaise de : "+q.fr);
+        if (!q.__options){
+          let opts = [correct];
+          const cand = shuffleVocab(pool.filter(x=>x.id!==q.id));
+          for (let j=0;j<3 && j<cand.length;j++){ opts.push(askEN? cand[j].fr : cand[j].en); }
+          opts = shuffleVocab(Array.from(new Set(opts)));
+          q.__options = opts;
+          q.answer = opts.indexOf(correct);
+        }
+        const prog = Math.round(i / Math.max(1,qs.length) * 100);
+        html += "<div class=\"hero\"><h1>Question "+(i+1)+"/"+qs.length+"</h1><div class=\"q-progressbar\"><i style=\"width:"+prog+"%\"></i></div></div><div class=\"qcm-session\"><p><strong>"+escapeHtml(ask)+"</strong></p>";
+        for (let ci=0;ci<q.__options.length;ci++){
+          const taken = state.vocabQuizAnswers[q.id]!==undefined;
+          let cls="q-option";
+          if (taken){ if (ci===q.answer) cls+=" correct"; if (state.vocabQuizAnswers[q.id]===ci && ci!==q.answer) cls+=" wrong"; }
+          html += "<button class=\""+cls+"\" data-vocab-answer=\""+ci+"\" "+(taken?"disabled":"")+">"+escapeHtml(q.__options[ci])+"</button>";
+        }
+        html += "<div class=\"q-explain\" style=\""+(state.vocabQuizAnswers[q.id]!==undefined?"display:block":"display:none")+"\">Response: "+escapeHtml(correct)+"</div>";
+        html += "<div class=\"button-row\" style=\"margin-top:10px\"><button class=\"icon-btn\" id=\"vocabNext\" style=\"background:var(--acc);color:#020617;border:0;display:"+(state.vocabQuizAnswers[q.id]!==undefined?"inline-block":"none")+";\">Suivant</button></div></div>";
+      }
+    }
+  }
+  panel.innerHTML = html;
+  const sinput = document.getElementById("vocabSearch");
+  if (sinput){ sinput.oninput = function(ev){ vocabSearch(ev.target.value); if (document.getElementById("vocabSearch") === sinput) sinput.focus(); }; }
+  const cpSel = document.getElementById("vocabCP"); if (cpSel) cpSel.onchange = function(ev){ vocabSetCP(ev.target.value); };
+  const catSel = document.getElementById("vocabCat"); if (catSel) catSel.onchange = function(ev){ vocabSetCat(ev.target.value); };
+  const unsure = document.getElementById("vocabUnsure"); if (unsure) unsure.onchange = function(ev){ vocabSetUnsure(ev.target.checked); };
+  panel.querySelectorAll("[data-vocab-mode]").forEach(function(b){ b.onclick = function(){ vocabSetMode(b.getAttribute("data-vocab-mode")); }; });
+  panel.querySelectorAll("[data-vocab-answer]").forEach(function(b){ b.onclick = function(){ vocabAnswerQuestion(parseInt(b.getAttribute("data-vocab-answer"),10)); }; });
+  const next = document.getElementById("vocabNext"); if (next) next.onclick = function(){ vocabNextQuestion(); };
 }
-
 /* ---------- support cours ---------- */
 var supportState = { selectedId:null, sectionId:'support', page:1, scale:1.2, query:'', pdf:null };
 function ensureExternalScript(src){
