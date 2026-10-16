@@ -203,7 +203,8 @@
         "Tester la résolution DNS externe après NAT"
       ],
       "w": "Un serveur exposé sans pare-feu = compromission probable.",
-      "cp": "cp4"
+      "cp": "cp4",
+      "doublon_de": "cp4-nat"
     },
     {
       "id": "ccp4-ipv6",
@@ -228,7 +229,8 @@
         "Dual-stack pendant la transition"
       ],
       "w": "Oublier ipv6 unicast-routing rend les paquets routables localement seulement.",
-      "cp": "cp4"
+      "cp": "cp4",
+      "doublon_de": "cp4-ipv6"
     },
     {
       "id": "ccp4-reseau-debutant",
@@ -672,7 +674,8 @@
         "RTCP pour la qualité"
       ],
       "w": "Les ALG SIP des routeurs peuvent casser la signalisation.",
-      "cp": "cp4"
+      "cp": "cp4",
+      "doublon_de": "cp10-toip"
     },
     {
       "id": "cp10-toip",

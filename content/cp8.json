@@ -348,7 +348,8 @@
         "Alerte sur suppression"
       ],
       "w": "Les sauvegardes connectées sont cibles prioritaires.",
-      "alt": ""
+      "alt": "",
+      "doublon_de": "cp8-backup321"
     }
   ]
 }

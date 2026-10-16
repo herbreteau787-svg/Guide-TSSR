@@ -6,162 +6,6 @@
   "desc": "PowerShell et Bash, procédures, IA encadrée, accompagnement utilisateurs.",
   "fiches": [
     {
-      "id": "ccp1-tickets",
-      "t": "Cycle de vie d'un ticket (incident/problème/demande)",
-      "level": "debutant",
-      "r": "Incident = service dégradé à rétablir vite. Problème = cause racine à éliminer. Demande = besoin prévu. Priorité = Impact → Urgence → Criticité.",
-      "tags": [
-        "itil",
-        "glpi",
-        "ticket",
-        "sla"
-      ],
-      "g": [
-        "Identifier le service impacté et la criticité métier",
-        "Créer le ticket dans GLPI/iTop avec catégories et impact",
-        "Qualifier : utilisateur, poste, site, heure de début",
-        "Assigner, documenter chaque action horodatée",
-        "Clôturer avec validation utilisateur + base de connaissances"
-      ],
-      "c": "# Diagnostic rapide d'un poste\nipconfig /all\nping 8.8.8.8\nping intranet.local\nnslookup intranet.local\nGet-Service | Where Status -eq Stopped",
-      "p": [
-        "P1 critique 4h, P2 8h, P3 24h, P4 72h (adapter au SLA signé)",
-        "Escalade N2/N3 si hors périmètre ou échéance dépassée",
-        "On ne ferme un ticket qu'après validation réelle et sans contournement caché"
-      ],
-      "w": "Reformuler en langage simple ; jamais de jargon face à l'utilisateur. Un ticket flou = un incident mal routé.",
-      "cp": "cp6"
-    },
-    {
-      "id": "ccp1-poste",
-      "t": "Diagnostic réseau d'un poste (méthode entonnoir)",
-      "level": "debutant",
-      "r": "Physique → IP → passerelle → DNS → Internet. Tester couche par couche sans sauter d'étapes.",
-      "tags": [
-        "reseau",
-        "poste",
-        "ipconfig",
-        "dns"
-      ],
-      "g": [
-        "Vérifier voyant carte + câble, Wi-Fi activé, profil Privé/Public",
-        "Centre Réseau et partage : IP, passerelle, DNS",
-        "Tester navigation et accès au partage",
-        "Purger le cache si le nom échoue"
-      ],
-      "c": "ipconfig /all\nping 192.168.1.1\nping 8.8.8.8\nnslookup google.com\ntracert google.com\nipconfig /release\nipconfig /renew\nipconfig /flushdns\nTest-NetConnection google.com -Port 443",
-      "p": [
-        "169.254.x.x = APIPA → DHCP KO ou pas de réponse serveur",
-        "Ping OK par IP mais KO par nom = DNS KO",
-        "Tracert s'arrête à la passerelle = problème routage amont"
-      ],
-      "w": "Ne jamais remettre une IP manuelle sans documenter ; cela masque le vrai défaut DHCP.",
-      "cp": "cp6"
-    },
-    {
-      "id": "ccp1-comptes",
-      "t": "Compte AD : déblocage et reset mot de passe",
-      "level": "debutant",
-      "r": "Vérifier l'identité avant toute réinitialisation. Forcer le changement à la prochaine ouverture. Canal séparé pour le mot de passe.",
-      "tags": [
-        "ad",
-        "mot de passe",
-        "securite",
-        "compte"
-      ],
-      "g": [
-        "ADUC (dsa.msc) → Users → clic droit sur l'utilisateur",
-        "Compte : décocher Verrouillé / Réinitialiser le mot de passe",
-        "Cocher 'Doit changer le mot de passe à la prochaine ouverture'",
-        "Prévenir par canal séparé (téléphone) et documenter"
-      ],
-      "c": "Set-ADAccountPassword -Identity jdupont -Reset -NewPassword (ConvertTo-SecureString 'Temp2026!' -AsPlainText -Force)\nSet-ADUser -Identity jdupont -ChangePasswordAtLogon $true\nUnlock-ADAccount -Identity jdupont\nGet-ADUser jdupont -Properties LockedOut, Enabled, PasswordExpired",
-      "p": [
-        "Double vérification d'identité : badge + manager ou question confidentielle",
-        "Mots de passe temporaires : 12+ car., maj/min/chiffre/spécial",
-        "Un compte verrouillé en boucle = forcer sa déconnexion partout"
-      ],
-      "w": "Ne jamais envoyer le mot de passe dans le même canal que l'identifiant. Les groupes d'accès doivent rester inchangés lors d'un reset.",
-      "cp": "cp6"
-    },
-    {
-      "id": "ccp1-evenements",
-      "t": "Journaux Windows et observation système",
-      "level": "intermediaire",
-      "r": "Les journaux Application/Sécurité/Système + PowerShell Get-EventLog sont la mémoire de la machine. Toujours croiser codes d'événement avec la KB.",
-      "tags": [
-        "windows",
-        "logs",
-        "event",
-        "diagnostic"
-      ],
-      "g": [
-        "Ouvrir eventvwr.msc ; filtrer par niveau Erreur/Critique",
-        "Identifier l'EventID et la source exacte",
-        "Rechercher l'ID officiel Microsoft",
-        "Tester la correction et noter dans le ticket"
-      ],
-      "c": "Get-WinEvent -LogName System -MaxEvents 30 | Select TimeCreated, Id, ProviderName, Message\nGet-EventLog -LogName Application -EntryType Error -Newest 20\n# Filtrer un ID précis :\nGet-WinEvent -FilterHashtable @{LogName='Security'; Id=4625} | Select TimeCreated, Message -First 10",
-      "p": [
-        "4625 = échec d'ouverture de session ; 4740 = verrouillage de compte",
-        "Les journaux sont tournants : augmenter la taille si audit avancé",
-        "Exporter en EVTX avant une réinstallation"
-      ],
-      "w": "L'absence d'erreur dans les journaux n'exclut pas un problème réseau ou applicatif.",
-      "cp": "cp6"
-    },
-    {
-      "id": "ccp1-wsus",
-      "t": "Mises à jour : WSUS et stratégie de patch",
-      "level": "intermediaire",
-      "r": "Séparation anneaux (pilote/production), fenêtre de maintenance, rollback documenté.",
-      "tags": [
-        "wsus",
-        "patch",
-        "windows",
-        "gpo"
-      ],
-      "g": [
-        "Console WSUS : approuver pour le groupe pilote d'abord",
-        "Surveiller la conformité et les échecs",
-        "GPO : Configure Automatic Updates + intranet Microsoft update service",
-        "Planifier redémarrage hors heures creuses"
-      ],
-      "c": "wsusutil.exe checkhealth\nwuauclt /detectnow /updatenow\nGet-WindowsUpdateLog\n# PowerShell module PSWindowsUpdate :\nInstall-Module PSWindowsUpdate -Force\nGet-WUList | Select Title, Size\nInstall-WUUpdates -AcceptAll -AutoReboot",
-      "p": [
-        "Gardiens : serveurs d'abord puis postes",
-        "KB critiques de sécurité prioritaires",
-        "Garder 1-2 snapshots avant mise à jour majeure"
-      ],
-      "w": "Les mises à jour WSUS ne couvrent que les produits Microsoft ; les applicatifs tiers nécessitent un outil dédié.",
-      "cp": "cp6"
-    },
-    {
-      "id": "ccp1-outils",
-      "t": "Outils de support et communication",
-      "level": "debutant",
-      "r": "Un bon support = diagnostic structuré + écoute active + trajectoire claire pour l'utilisateur.",
-      "tags": [
-        "support",
-        "communication",
-        "relation client"
-      ],
-      "g": [
-        "Accueil : identifier, reformuler le besoin, rassurer",
-        "Expliquer ce qui va être fait et le délai",
-        "Point de contact unique até la clôture",
-        "Compléter la base de connaissances"
-      ],
-      "c": "# Grilles d'entretien (extrait)\n# 1. Quoi ? 2. Depuis quand ? 3. Pour qui ? 4. Impact ?\n# 5. Changement récent ? 6. Reproductible ?\n# Rappel final : \"Je vous rappelle avant 17h avec la solution ou une escalade.\"",
-      "p": [
-        "Ne jamais promettre l'impossible : dépendances fournisseurs externes",
-        "Utiliser des gabarits de mail pour la cohérence",
-        "Durée moyenne de résolution à suivre an par mois"
-      ],
-      "w": "Le silence crée l'angoisse ; un statut intermédiaire est toujours mieux.",
-      "cp": "cp6"
-    },
-    {
       "id": "pedagogie-ccp1",
       "t": "Fiche pedagogique de reference - CP1 IA encadree",
       "level": "intermediaire",
@@ -188,394 +32,235 @@
       "cp": "cp6"
     },
     {
-      "id": "cp1-usage",
-      "t": "Usages professionnels de l'IA en support TSSR",
+      "id": "cp6-bash-backup",
+      "t": "Bash : sauvegarde incrémentale et contrôle rotatif",
       "level": "intermediaire",
-      "cli": false,
-      "r": "CP1 - Définition : l'IA est un outil probabiliste qui assiste l'humain. | Objectif professionnel : gagner du temps sans réduire la fiabilité. | Cas réel en entreprise : générer une procédure d'incident puis la valider avant usage. | Fonctionnement détaillé : estimation lexico-sémantique, absence de contexte terrain si non fourni. | Exemple concret : résumé de ticket pour escalade au niveau 3. | Procédure pas à pas : identifier le besoin, anonymiser les données, rédiger un prompt structuré, vérifier, tester, documenter. | Erreurs fréquentes : accepter tel quel, sans recoupement. | Questions possibles du jury : qu'est-ce qu'une hallucination, comment encadrer l'IA, qui est responsable. | À retenir pour l'examen : l'IA accélère, elle ne valide pas.",
+      "r": "rsync + journal, contrôle de retour, rotation simple des sauvegardes. Expliquer : arguments en majuscules, guillemets, code retour $?.",
       "tags": [
-        "cp1",
-        "ia",
-        "professionnel",
-        "usage"
+        "bash",
+        "rsync",
+        "backup",
+        "cron"
       ],
       "g": [
-        "Identifier le besoin",
-        "Anonymiser",
-        "Rédiger prompt",
-        "Vérifier et tester",
-        "Documenter"
+        "Sauvegarder /srv/data vers /backup/data",
+        "Conserver les logs dans /var/log/backup-data.log",
+        "Planifier à 02:30 dans crontab avec crontab -e",
+        "Vérifier le code de retour après exécution"
       ],
-      "c": "Aucune commande native indispensable ; validation humaine obligatoire.",
+      "c": "#!/bin/bash\nset -euo pipefail\nSRC=\"/srv/data\"\nDEST=\"/backup/data\"\nLOG=\"/var/log/backup-data.log\"\nDATE=\"$(date +%F-%H%M%S)\"\nmkdir -p \"$DEST\"\necho \"[$DATE] Début sauvegarde $SRC vers $DEST\" >> \"$LOG\"\nrsync -av --delete --stats \"$SRC/\" \"$DEST/\" >> \"$LOG\" 2>&1\nSTATUS=$?\necho \"[$DATE] Terminé avec code $STATUS\" >> \"$LOG\"\nexit $STATUS",
       "p": [
-        "Accepter sans contrôle",
-        "Fournir données sensibles",
-        "Confondre suggestion et preuve"
+        "Utiliser des guillemets autour de \"$SRC/\" et \"$DEST/\" pour éviter les espaces",
+        "Tester un fichier à la main avant cron",
+        "Exporter le log dans ELK/Graylog en production"
       ],
-      "w": "Conclusion : la validation humaine reste obligatoire.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Contexte CP1",
-      "cp": "cp6"
+      "w": "Si $SRC est vide suite à une erreur de montage, --delete efface la sauvegarde. Ajouter une vérification de source non vide avant rsync.",
+      "cp": "cp5"
     },
     {
-      "id": "cp1-donnees",
-      "t": "Données et confidentialité",
+      "id": "cp6-bash-check",
+      "t": "Bash : validation d'arguments et contrôle de fichier",
       "level": "intermediaire",
-      "cli": false,
-      "r": "CP1 - Définition : règles de maîtrise des données saisies dans l'IA. | Objectif professionnel : respecter le RGPD et protéger le secret. | Cas réel en entreprise : tentative de saisir logs contenant identifiants. | Fonctionnement détaillé : classification, minimisation et choix de l'outil. | Exemple concret : anonymiser un ticket avant prompt. | Procédure : qualifier le contenu, masquer, choisir l'outil autorisé, journaliser. | Erreurs : divulguer des secrets. | Jury : différence anonymisation/pseudonymisation. | À retenir : minimiser les données.",
+      "r": "Valider le nombre d'arguments, tester l'existence et le type avant d'agir, afficher un usage clair.",
       "tags": [
-        "cp1",
-        "ia",
-        "professionnel",
-        "rgpd"
-      ],
-      "g": [
-        "Qualifier",
-        "Masquer",
-        "Choisir outil",
-        "Journaliser"
-      ],
-      "c": "Aucune commande native indispensable ; validation humaine obligatoire.",
-      "p": [
-        "Coller des secrets",
-        "Ignorer la politique",
-        "Sous-estimer l'export"
-      ],
-      "w": "Conclusion : gouvernance des données.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Contexte CP1",
-      "cp": "cp6"
-    },
-    {
-      "id": "cp1-ethique",
-      "t": "Cadre éthique et légal",
-      "level": "intermediaire",
-      "cli": false,
-      "r": "CP1 - Définition : règles d'usage responsable de l'IA. | Objectif : éviter les biais et les erreurs. | Cas réel : tri automatique de candidatures sans contrôle. | Fonctionnement détaillé : équité, transparence, traçabilité, supervision humaine. | Exemple : validation avant envoi utilisateur. | Procédure : définir périmètre, nommer un référent, auditer. | Erreurs : automatiser sans contrôle. | Jury : responsabilité, traçabilité. | À retenir : l'IA est sous responsabilité humaine.",
-      "tags": [
-        "cp1",
-        "ia",
-        "professionnel",
-        "ethique"
-      ],
-      "g": [
-        "Définir périmètre",
-        "Nommé référent",
-        "Auditer"
-      ],
-      "c": "Aucune commande native indispensable ; validation humaine obligatoire.",
-      "p": [
-        "Décider sans contrôle",
-        "Ignorer les biais"
-      ],
-      "w": "Conclusion : responsabilité humaine.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Contexte CP1",
-      "cp": "cp6"
-    },
-    {
-      "id": "cp1-prompt",
-      "t": "Prompt engineering professionnel",
-      "level": "intermediaire",
-      "cli": false,
-      "r": "CP1 - Définition : méthode pour rédiger des instructions claires. | Objectif professionnel : obtenir des analyses utiles et vérifiables. | Cas réel : demander le diagnostic réseau avec contraintes. | Fonctionnement détaillé : rôle, tâche, contexte, contraintes, format, contrôle. | Exemple : demander hypothèses et tests. | Procédure : contexte, objectif, format, relecture. | Erreurs : prompts vagues et données sensibles. | Jury : structurez un prompt, amélioration d'une réponse. | À retenir : un bon prompt est un brief.",
-      "tags": [
-        "cp1",
-        "ia",
-        "professionnel",
-        "prompt"
-      ],
-      "g": [
-        "Donner rôle",
-        "Préciser contexte",
-        "Définir contraintes",
-        "Demander format"
-      ],
-      "c": "Aucune commande native indispensable ; validation humaine obligatoire.",
-      "p": [
-        "Prompt vague",
-        "Trop de demandes"
-      ],
-      "w": "Conclusion : qualité de réponse dépend de la demande.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Contexte CP1",
-      "cp": "cp6"
-    },
-    {
-      "id": "cp1-hallu",
-      "t": "Hallucination et vérification",
-      "level": "intermediaire",
-      "cli": false,
-      "r": "CP1 - Définition : sortie plausible mais fausse. | Objectif : éviter l'erreur. | Cas réel : commande Cisco inventée. | Fonctionnement détaillé : probabilité lexicale sans source terrain. | Exemple : vérifier dans la documentation. | Procédure : cross-check, preuve, réduction du périmètre. | Erreurs : confondre plausibilité et vérité. | Jury : détection et mitigation. | À retenir : prouver.",
-      "tags": [
-        "cp1",
-        "ia",
-        "professionnel",
-        "hallucination"
-      ],
-      "g": [
-        "Comparer documentation",
-        "Tester lab",
-        "Exiger sources"
-      ],
-      "c": "Aucune commande native indispensable ; validation humaine obligatoire.",
-      "p": [
-        "Bullshit plausible",
-        "Commande inventée"
-      ],
-      "w": "Conclusion : toujours prouver.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Contexte CP1",
-      "cp": "cp6"
-    },
-    {
-      "id": "cp1-support",
-      "t": "IA pour assistance technique",
-      "level": "intermediaire",
-      "cli": false,
-      "r": "CP1 - Définition : aide au diagnostic. | Objectif : accélérer le tri. | Cas réel : proposition checklist DNS. | Fonctionnement détaillé : généralisation d'erreurs classiques et hypothèses. | Exemple : diagnostic réseau. | Procédure : qualifier, hypothèses, test pas à pas, cloture. | Erreurs : appliquer sans contrôle. | Jury : place de l'IA en support. | À retenir : suggestion humaine.",
-      "tags": [
-        "cp1",
-        "ia",
-        "professionnel",
-        "support"
-      ],
-      "g": [
-        "Qualifier",
-        "Hypothèses",
-        "Tester pas a pas",
-        "Documenter"
-      ],
-      "c": "Aucune commande native indispensable ; validation humaine obligatoire.",
-      "p": [
-        "Boucler sans preuve",
-        "Sous-estimer utilisateur"
-      ],
-      "w": "Conclusion : l'IA propose, l'humain dispose.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Contexte CP1",
-      "cp": "cp6"
-    },
-    {
-      "id": "cp1-form",
-      "t": "IA pour accompagnement",
-      "level": "intermediaire",
-      "cli": false,
-      "r": "CP1 - Définition : aide à la rédaction et formation. | Objectif : faciliter l'adoption. | Cas réel : guide Teams. | Fonctionnement détaillé : synthèse de sources multiples. | Exemple : procédure d'onboarding. | Procédure : besoin, prompt, relecture expert, publication, suivi. | Erreurs : diffuser erreur. | Jury : change management. | À retenir : l'IA doit renforcer l'humain.",
-      "tags": [
-        "cp1",
-        "ia",
-        "professionnel",
-        "formation"
-      ],
-      "g": [
-        "Cadrer besoin",
-        "Rédiger et revoir",
-        "Publier",
-        "Mesurer"
-      ],
-      "c": "Aucune commande native indispensable ; validation humaine obligatoire.",
-      "p": [
-        "Déléguer sans contrôle",
-        "Ignorer feedback"
-      ],
-      "w": "Conclusion : accompagnement humain.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Contexte CP1",
-      "cp": "cp6"
-    },
-    {
-      "id": "cp1-gouvernance",
-      "t": "Gouvernance et journalisation",
-      "level": "intermediaire",
-      "cli": false,
-      "r": "CP1 - Définition : cadre, rôles et traces des usages. | Objectif : maîtriser et auditer. | Cas réel : journalisation des prompts. | Fonctionnement détaillé : politique, formation, audit. | Exemple : registre des cas d'usage. | Procédure : classifier, nommer propriétaire, documenter, auditer. | Erreurs : usages sauvages. | Jury : propriété et preuve. | À retenir : tracer.",
-      "tags": [
-        "cp1",
-        "ia",
-        "professionnel",
-        "gouvernance"
-      ],
-      "g": [
-        "Classifier usages",
-        "Nommer propriétaire",
-        "Règle",
-        "Audit"
-      ],
-      "c": "Aucune commande native indispensable ; validation humaine obligatoire.",
-      "p": [
-        "Usage sauvage",
-        "Pas de traçabilité"
-      ],
-      "w": "Conclusion : gouvernance avant déploiement.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Contexte CP1",
-      "cp": "cp6"
-    },
-    {
-      "id": "cp1-secu",
-      "t": "Prompt injection et sécurité",
-      "level": "intermediaire",
-      "cli": false,
-      "r": "CP1 - Définition : entrée manipulant le comportement. | Objectif : protéger les données. | Cas réel : instructions cachées dans un document importé. | Fonctionnement détaillé : cloisonnement et validation. | Exemple : résumé sans exécuter ordres. | Procédure : segmenter données, valider, limiter permissions. | Erreurs : laisser agir sans garde-fous. | Jury : mitigation zero trust. | À retenir : IA comme fournisseur non fiable.",
-      "tags": [
-        "cp1",
-        "ia",
-        "professionnel",
+        "bash",
+        "arguments",
+        "validation",
         "securite"
       ],
       "g": [
-        "Segmenter",
-        "Valider",
-        "Limiter",
-        "Auditer"
+        "Exemples : ./verif.sh /etc",
+        "Le script teste le nombre, le type de dossier et affiche les résultats",
+        "Utile en MEP pour prouver la rigueur"
       ],
-      "c": "Aucune commande native indispensable ; validation humaine obligatoire.",
+      "c": "#!/bin/bash\nset -euo pipefail\nif [[ $# -ne 1 ]]; then\n  echo \"Usage : $0 dossier\"\n  echo \"Exemple : $0 /etc\"\n  exit 1\nfi\nif [[ ! -d \"$1\" ]]; then\n  echo \"Erreur : $1 n'existe pas ou n'est pas un dossier\"\n  exit 2\nfi\ncount=$(find \"$1\" -maxdepth 1 -type f -name \"*.conf\" ! -size 0 | wc -l)\necho \"Fichiers .conf non vides dans $1 : $count\"\nfind \"$1\" -maxdepth 1 -type f -name \"*.conf\" -size 0 -print",
       "p": [
-        "Confondre instructions/données",
-        "Actions libres"
+        "Ne pas utiliser ls dans un script ; préférer find",
+        "[[ ]] plus lisible pour les tests Bash",
+        "exit codes 1 = usage, 2 = fichier, 3 = autres erreurs"
       ],
-      "w": "Conclusion : contrôler l'interaction.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Contexte CP1",
-      "cp": "cp6"
+      "w": "Sans validation, un script peut écrire dans le mauvais dossier.",
+      "cp": "cp5"
     },
     {
-      "id": "cp1-roi",
-      "t": "Mesure des gains IA",
-      "level": "intermediaire",
-      "cli": false,
-      "r": "CP1 - Définition : évaluer le gain réel. | Objectif : éviter l'efficacité apparente. | Cas réel : réduction ticket 30%. | Fonctionnement détaillé : indicateurs, détection erreurs, audit qualité. | Exemple : temps moyen de résolution. | Procédure : KPI, avant/après, analyse, correction. | Erreurs : ignorer erreurs cachées. | Jury : évaluation IA. | À retenir : qualité et vitesse.",
+      "id": "cp6-bash-monitor",
+      "t": "Bash : vérification d'un service et alerte simple",
+      "level": "debutant",
+      "r": "systemctl + journalisation, boucle while, timeout. Expliquer : commandes courtes et codes de retour.",
       "tags": [
-        "cp1",
-        "ia",
-        "professionnel",
-        "mesure"
+        "bash",
+        "systemd",
+        "monitoring",
+        "service"
       ],
       "g": [
-        "Définir KPI",
-        "Mesurer avant/après",
-        "Contrôler erreurs",
-        "Corriger"
+        "Vérifier le statut SSH toutes les 5 minutes via cron",
+        "Journaliser les indisponibilités",
+        "Envoyer un mail avec msmtp si le service est down"
       ],
-      "c": "Aucune commande native indispensable ; validation humaine obligatoire.",
+      "c": "#!/bin/bash\nset -u\nSERVICE=\"sshd\"\nLOG=\"/var/log/check-service-sshd.log\"\nif systemctl is-active --quiet \"$SERVICE\"; then\n  status=\"OK\"\nelse\n  status=\"ERREUR\"\n  systemctl restart \"$SERVICE\"\nfi\necho \"$(date '+%F %T') - $SERVICE : $status\" >> \"$LOG\"",
       "p": [
-        "Vitesse sans écarts",
-        "Aucun audit"
+        "Utiliser systemctl is-active rather than grep ps",
+        "Ajouter un lock pour éviter les redémarrages en boucle",
+        "Intégrer à Zabbix pour notification réelle"
       ],
-      "w": "Conclusion : qualité clé.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Contexte CP1",
-      "cp": "cp6"
+      "w": "Alerter sans action peut masquer une panne ; toujours envisager automatique + escalade.",
+      "cp": "cp5"
     },
     {
-      "id": "cp1-limites",
-      "t": "Limites et responsabilité",
+      "id": "cp6-bash-inventory",
+      "t": "Bash : inventaire et rapport d'un dossier partagé",
       "level": "intermediaire",
-      "cli": false,
-      "r": "CP1 - Définition : cas où l'IA n'est pas adaptée. | Objectif : éviter blocages. | Cas réel : architecture critique sans données réelles. | Fonctionnement détaillé : limites de contexte et compétences. | Exemple : décision sécurité réseau. | Procédure : qualifier risque, désactiver, escalader. | Erreurs : excès de confiance. | Jury : limites connues. | À retenir : IA ne remplace pas expertise.",
+      "r": "find, awk, comptage par extension, fichier CSV. Montrer : boucle, tests et rediriger vers un fichier de sortie.",
       "tags": [
-        "cp1",
-        "ia",
-        "professionnel",
-        "limites"
+        "bash",
+        "inventaire",
+        "find",
+        "rapport"
       ],
       "g": [
-        "Qualifier risque",
-        "Désactiver",
-        "Escalader",
-        "Documenter limite"
+        "Générer un inventaire des fichiers dans /srv/partage",
+        "Compter les extensions et leur taille",
+        "Écrire le résultat dans CSV",
+        "Importer ensuite dans Excel/GLPI"
       ],
-      "c": "Aucune commande native indispensable ; validation humaine obligatoire.",
+      "c": "#!/bin/bash\nset -u\nDossier=\"/srv/partage\"\nSortie=\"/tmp/inventaire-partage.csv\"\necho \"extension,nombre,taille octets\" > \"$Sortie\"\nfind \"$Dossier\" -type f -print0 |\n  awk 'BEGIN{RS=\"\u0000\"} { n=split($0, a, \".\"); ext=(n>1)?a[n]:\"sans\"; print ext }' |\n  sort | uniq -c | while read -r nb ext; do\n    taille=$(find \"$Dossier\" -type f -name \"*.$ext\" -printf \"%s\n\" | awk '{s+=$1} END{print s+0}')\n    echo \"$ext,$nb,$taille\" >> \"$Sortie\"\n  done\ncat \"$Sortie\"",
       "p": [
-        "Excès confiance",
-        "Masquer incertitude"
+        "find avec -print0 pour éviter les espaces dans les noms",
+        "uniq -c compte les lignes identiques",
+        "Sortie CSV ASCII pour éviter les accents illisibles"
       ],
-      "w": "Conclusion : garder expertise.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Contexte CP1",
-      "cp": "cp6"
+      "w": "Les noms de fichiers avec retours de ligne cassent le parsing ; -print0 + traitement adapté est recommandé.",
+      "cp": "cp5"
     },
     {
-      "id": "cp1-jury",
-      "t": "Questions jury CP1",
+      "id": "cp6-ps-users",
+      "t": "PowerShell : création massive d'utilisateurs AD depuis CSV",
       "level": "intermediaire",
-      "cli": false,
-      "r": "CP1 - Définition : repères pour l'oral. | Objectif : répondre structuré. | Cas réel : jury demande usage encadré. | Fonctionnement détaillé : expérience, limites, données, validation. | Exemple : réponse quatre axes. | Procédure : définir, justifier, risques, preuves. | Erreurs : concept sans expérience. | Jury : questions à anticiper. | À retenir : dire ce que fait.",
+      "r": "Import-Csv + ForEach-Object + New-ADUser. Expliquer : pipeline d'objets, variables, attributs obligatoires.",
       "tags": [
-        "cp1",
-        "ia",
-        "professionnel",
-        "jury"
+        "powershell",
+        "ad",
+        "utilisateurs",
+        "csv"
       ],
       "g": [
-        "Structurer",
-        "Apporter expérience",
-        "Nommer risques",
-        "Conclure"
+        "Préparer .\\users.csv avec colonnes Prenom,Nom,Login,GroupeMetier",
+        "Lancer le script dans une console d'admin",
+        "Vérifier dans ADUC et dans Get-ADUser",
+        "Cocher le changement de mot de passe à la prochaine ouverture"
       ],
-      "c": "Aucune commande native indispensable ; validation humaine obligatoire.",
+      "c": "# users.csv attendu :\n# Prenom,Nom,Login,GroupeMetier\n$MotDePasseTemporaire = Read-Host \"Mot de passe temporaire\" -AsSecureString\nImport-Csv .\\users.csv | ForEach-Object {\n    $NomComplet = \"$($_.Prenom) $($_.Nom)\"\n    New-ADUser -Name $NomComplet -GivenName $_.Prenom -Surname $_.Nom -SamAccountName $_.Login -UserPrincipalName \"$($_.Login)@tssr.local\" -Enabled $true -ChangePasswordAtLogon $true -AccountPassword $MotDePasseTemporaire\n    Add-ADGroupMember -Identity \"G_$($_.GroupeMetier)\" -Members $_.Login\n    Write-Host \"Créé : $NomComplet ($($_.Login))\" -ForegroundColor Green\n}",
       "p": [
-        "Rester trop conceptuel"
+        "Utiliser un compte admin délégué et non Domain Admin pour la prod",
+        "CSV encodé UTF-8",
+        "Renseigner aussi l'UPN pour les connexions e-mail"
       ],
-      "w": "Conclusion : expérience valorisée.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Contexte CP1",
-      "cp": "cp6"
+      "w": "New-ADUser ne modifie pas mot de passe automatiquement si l'option -ChangePasswordAtLogon n'est pas posée.",
+      "cp": "cp5"
     },
     {
-      "id": "cp1-doc",
-      "t": "Documentation et traçabilité",
+      "id": "cp6-ps-inactive",
+      "t": "PowerShell : rapport des utilisateurs inactifs",
       "level": "intermediaire",
-      "cli": false,
-      "r": "CP1 - Définition : traces des prompts et décisions. | Objectif : auditabilité. | Cas réel : diagnostic post-incident. | Fonctionnement détaillé : logs, tickets et versions. | Exemple : sauvegarder réponse validée. | Procédure : ticket, prompt, réponse, test, validation. | Erreurs : pas d'historique. | Jury : preuve contrôle. | À retenir : décision traçable.",
+      "r": "Get-ADUser + LastLogonDate, Export-Csv. Expliquer : filtrage, date calculée, export lisible pour audit.",
       "tags": [
-        "cp1",
-        "ia",
-        "professionnel",
-        "documentation"
+        "powershell",
+        "ad",
+        "audit",
+        "rapport"
       ],
       "g": [
-        "Créer ticket",
-        "Sauver prompt/réponse",
-        "Noter test",
-        "Valider"
+        "Chercher les comptes sans connexion depuis 90 jours",
+        "Exporter un CSV",
+        "Désactiver ou supprimer après validation manager",
+        "Archiver dans le dossier admin"
       ],
-      "c": "Aucune commande native indispensable ; validation humaine obligatoire.",
+      "c": "$Seuil = (Get-Date).AddDays(-90)\n$Inactifs = Get-ADUser -Filter \"Enabled -eq 'True'\" -Properties LastLogonDate |\n    Where-Object { $_.LastLogonDate -lt $Seuil -or $_.LastLogonDate -eq $null } |\n    Select-Object Name, SamAccountName, LastLogonDate, DistinguishedName\n$Inactifs | Export-Csv -Path \"C:\\temp\\inactifs-90j.csv\" -NoTypeInformation -Encoding UTF8\nWrite-Output \"$($Inactifs.Count) comptes à traiter\"\n$Inactifs",
       "p": [
-        "Confidentialité logs"
+        "LastLogonDate peut être incomplet ; utiliser LastLogonTimestamp si besoin",
+        "Ajouter un bloc try/catch si export impossible",
+        "Valider avec le manager avant désactivation"
       ],
-      "w": "Conclusion : traçabilité protège.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Contexte CP1",
-      "cp": "cp6"
+      "w": "Les comptes de service n'ont pas toujours de LastLogonDate ; ne pas les désactiver sans vérification.",
+      "cp": "cp5"
     },
     {
-      "id": "cp1-synthese",
-      "t": "Synthèse examen CP1",
+      "id": "cp6-ps-perm",
+      "t": "PowerShell : rapport de droits sur un dossier partagé",
       "level": "intermediaire",
-      "cli": false,
-      "r": "CP1 - Définition : synthèse pour l'oral. | Objectif : répondre de manière complète. | Cas réel : présenter un usage encadré. | Fonctionnement détaillé : technique + process + données + humain. | Exemple : réponse quatre axes. | Procédure : contexte, action, risques, preuves. | Erreurs : exagérer capacités. | Jury : questions possibles. | À retenir : l'humain valide.",
+      "r": "Get-Acl + ACL, affichage des groupes et niveaux d'accès. Montrer : pourquoi on sépare DomainLocal et Global.",
       "tags": [
-        "cp1",
-        "ia",
-        "professionnel",
-        "synthese"
+        "powershell",
+        "acl",
+        "permissions",
+        "partage"
       ],
       "g": [
-        "Cadrer",
-        "Décrire technique",
-        "Nommer risques",
-        "Conclure"
+        "Chemin \\\\serveur\\partage\\compta",
+        "Lire les ACL NTFS",
+        "Exporter le résultat en CSV",
+        "Comparer avec la matrice AGDLP"
       ],
-      "c": "Aucune commande native indispensable ; validation humaine obligatoire.",
+      "c": "$Chemin = \"D:\\Shares\\Compta\"\n$Acl = Get-Acl -Path $Chemin\n$Acl.Access |\n    Select-Object IdentityReference, FileSystemRights, AccessControlType |\n    Export-Csv \"C:\\temp\\acl-compta.csv\" -NoTypeInformation -Encoding UTF8\n$Acl.Access",
       "p": [
-        "Surpromettre"
+        "Tenir la matrice AGDLP à jour",
+        "Auditer trimestriellement",
+        "Ne jamais donner Full Control par défaut"
       ],
-      "w": "Conclusion : encadrer l'IA.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Contexte CP1",
-      "cp": "cp6"
+      "w": "Le droit NTFS le plus restrictif gagne lorsqu'il est combiné avec la permission de partage.",
+      "cp": "cp5"
+    },
+    {
+      "id": "cp6-ps-service",
+      "t": "PowerShell : surveillance et redémarrage contrôlé",
+      "level": "debutant",
+      "r": "Get-Service + boucle While + Start-Service. Expliquer : état Running/Stopped et tentatives de relance.",
+      "tags": [
+        "powershell",
+        "services",
+        "supervision"
+      ],
+      "g": [
+        "Vérifier le spooler et l'agent GLPI toutes les 15 minutes",
+        "Redémarrer si stopped",
+        "Journaliser la relance",
+        "Alerter l'utilisateur en cas d'échec"
+      ],
+      "c": "$Services = @(\"Spooler\",\"GLPI-Agent\")\nforeach ($Nom in $Services) {\n    $Svc = Get-Service -Name $Nom -ErrorAction SilentlyContinue\n    if ($null -eq $Svc) {\n        Write-Warning \"Le service $Nom n'existe pas\"\n        continue\n    }\n    if ($Svc.Status -ne \"Running\") {\n        Write-Host \"$Nom est arrêté : tentative de redémarrage\"\n        Start-Service -Name $Nom\n        Start-Sleep -Seconds 3\n        (Get-Service -Name $Nom).Status\n    } else {\n        Write-Host \"$Nom OK\"\n    }\n}",
+      "p": [
+        "Utiliser Invoke-Command pour exécuter sur plusieurs serveurs",
+        "Ajouter un timeout et un nombre max d'essais",
+        "Journaliser dans Windows Event Log"
+      ],
+      "w": "Un redémarrage automatique sans analyse peut masquer une panne récurrente.",
+      "cp": "cp5"
+    },
+    {
+      "id": "cp6-ps-backup",
+      "t": "PowerShell : sauvegarde Windows (robocopy)",
+      "level": "intermediaire",
+      "r": "Robocopy avec journal et codes retour. On explique : /MIR pour miroir, risque de suppression, et contrôle code 1-7.",
+      "tags": [
+        "powershell",
+        "robocopy",
+        "backup",
+        "windows"
+      ],
+      "g": [
+        "Sauvegarder C:\\data vers E:\\backup\\data",
+        "Vérifier le code retour",
+        "Garder le log dans un dossier audit",
+        "Planifier via le Planificateur de tâches"
+      ],
+      "c": "$Source = \"C:\\data\"\n$Cible = \"E:\\backup\\data\"\n$Log = \"C:\\logs\\robocopy-data.log\"\nrobocopy $Source $Cible /MIR /Z /R:3 /W:5 /LOG:$Log /NDL /NP\n$Code = $LASTEXITCODE\nif ($Code -lt 8) {\n    Write-Host \"Sauvegarde terminée, code $Code\" -ForegroundColor Green\n} else {\n    Write-Warning \"Sauvegarde échouée, code $Code\"\n}\nexit $Code",
+      "p": [
+        "/MIR supprime ce qui a disparu source, comme rsync --delete",
+        "/Z pour reprise réseau",
+        "Mettre /XD pour exclure caches"
+      ],
+      "w": "Ne pas utiliser /MIR sans stratégie de versioning ; cela efface les fichiers vieille version côté cible.",
+      "cp": "cp5"
     }
   ]
 }

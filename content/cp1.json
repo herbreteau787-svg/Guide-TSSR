@@ -612,6 +612,136 @@
       ],
       "w": "La sécurité est un processus continu.",
       "alt": ""
+    },
+    {
+      "id": "cp1-tickets",
+      "t": "Cycle de vie d'un ticket (incident/problème/demande)",
+      "level": "debutant",
+      "r": "Incident = service dégradé à rétablir vite. Problème = cause racine à éliminer. Demande = besoin prévu. Priorité = Impact → Urgence → Criticité.",
+      "tags": [
+        "itil",
+        "glpi",
+        "ticket",
+        "sla"
+      ],
+      "g": [
+        "Identifier le service impacté et la criticité métier",
+        "Créer le ticket dans GLPI/iTop avec catégories et impact",
+        "Qualifier : utilisateur, poste, site, heure de début",
+        "Assigner, documenter chaque action horodatée",
+        "Clôturer avec validation utilisateur + base de connaissances"
+      ],
+      "c": "# Diagnostic rapide d'un poste\nipconfig /all\nping 8.8.8.8\nping intranet.local\nnslookup intranet.local\nGet-Service | Where Status -eq Stopped",
+      "p": [
+        "P1 critique 4h, P2 8h, P3 24h, P4 72h (adapter au SLA signé)",
+        "Escalade N2/N3 si hors périmètre ou échéance dépassée",
+        "On ne ferme un ticket qu'après validation réelle et sans contournement caché"
+      ],
+      "w": "Reformuler en langage simple ; jamais de jargon face à l'utilisateur. Un ticket flou = un incident mal routé.",
+      "cp": "cp6"
+    },
+    {
+      "id": "cp1-comptes",
+      "t": "Compte AD : déblocage et reset mot de passe",
+      "level": "debutant",
+      "r": "Vérifier l'identité avant toute réinitialisation. Forcer le changement à la prochaine ouverture. Canal séparé pour le mot de passe.",
+      "tags": [
+        "ad",
+        "mot de passe",
+        "securite",
+        "compte"
+      ],
+      "g": [
+        "ADUC (dsa.msc) → Users → clic droit sur l'utilisateur",
+        "Compte : décocher Verrouillé / Réinitialiser le mot de passe",
+        "Cocher 'Doit changer le mot de passe à la prochaine ouverture'",
+        "Prévenir par canal séparé (téléphone) et documenter"
+      ],
+      "c": "Set-ADAccountPassword -Identity jdupont -Reset -NewPassword (ConvertTo-SecureString 'Temp2026!' -AsPlainText -Force)\nSet-ADUser -Identity jdupont -ChangePasswordAtLogon $true\nUnlock-ADAccount -Identity jdupont\nGet-ADUser jdupont -Properties LockedOut, Enabled, PasswordExpired",
+      "p": [
+        "Double vérification d'identité : badge + manager ou question confidentielle",
+        "Mots de passe temporaires : 12+ car., maj/min/chiffre/spécial",
+        "Un compte verrouillé en boucle = forcer sa déconnexion partout"
+      ],
+      "w": "Ne jamais envoyer le mot de passe dans le même canal que l'identifiant. Les groupes d'accès doivent rester inchangés lors d'un reset.",
+      "cp": "cp6"
+    },
+    {
+      "id": "cp1-evenements",
+      "t": "Journaux Windows et observation système",
+      "level": "intermediaire",
+      "r": "Les journaux Application/Sécurité/Système + PowerShell Get-EventLog sont la mémoire de la machine. Toujours croiser codes d'événement avec la KB.",
+      "tags": [
+        "windows",
+        "logs",
+        "event",
+        "diagnostic"
+      ],
+      "g": [
+        "Ouvrir eventvwr.msc ; filtrer par niveau Erreur/Critique",
+        "Identifier l'EventID et la source exacte",
+        "Rechercher l'ID officiel Microsoft",
+        "Tester la correction et noter dans le ticket"
+      ],
+      "c": "Get-WinEvent -LogName System -MaxEvents 30 | Select TimeCreated, Id, ProviderName, Message\nGet-EventLog -LogName Application -EntryType Error -Newest 20\n# Filtrer un ID précis :\nGet-WinEvent -FilterHashtable @{LogName='Security'; Id=4625} | Select TimeCreated, Message -First 10",
+      "p": [
+        "4625 = échec d'ouverture de session ; 4740 = verrouillage de compte",
+        "Les journaux sont tournants : augmenter la taille si audit avancé",
+        "Exporter en EVTX avant une réinstallation"
+      ],
+      "w": "L'absence d'erreur dans les journaux n'exclut pas un problème réseau ou applicatif.",
+      "cp": "cp6"
+    },
+    {
+      "id": "cp1-wsus",
+      "t": "Mises à jour : WSUS et stratégie de patch",
+      "level": "intermediaire",
+      "r": "Séparation anneaux (pilote/production), fenêtre de maintenance, rollback documenté.",
+      "tags": [
+        "wsus",
+        "patch",
+        "windows",
+        "gpo"
+      ],
+      "g": [
+        "Console WSUS : approuver pour le groupe pilote d'abord",
+        "Surveiller la conformité et les échecs",
+        "GPO : Configure Automatic Updates + intranet Microsoft update service",
+        "Planifier redémarrage hors heures creuses"
+      ],
+      "c": "wsusutil.exe checkhealth\nwuauclt /detectnow /updatenow\nGet-WindowsUpdateLog\n# PowerShell module PSWindowsUpdate :\nInstall-Module PSWindowsUpdate -Force\nGet-WUList | Select Title, Size\nInstall-WUUpdates -AcceptAll -AutoReboot",
+      "p": [
+        "Gardiens : serveurs d'abord puis postes",
+        "KB critiques de sécurité prioritaires",
+        "Garder 1-2 snapshots avant mise à jour majeure"
+      ],
+      "w": "Les mises à jour WSUS ne couvrent que les produits Microsoft ; les applicatifs tiers nécessitent un outil dédié.",
+      "cp": "cp6"
+    },
+    {
+      "id": "cp1-outils",
+      "t": "Outils de support et communication",
+      "level": "debutant",
+      "r": "Un bon support = diagnostic structuré + écoute active + trajectoire claire pour l'utilisateur.",
+      "tags": [
+        "support",
+        "communication",
+        "relation client"
+      ],
+      "g": [
+        "Accueil : identifier, reformuler le besoin, rassurer",
+        "Expliquer ce qui va être fait et le délai",
+        "Point de contact unique até la clôture",
+        "Compléter la base de connaissances"
+      ],
+      "c": "# Grilles d'entretien (extrait)\n# 1. Quoi ? 2. Depuis quand ? 3. Pour qui ? 4. Impact ?\n# 5. Changement récent ? 6. Reproductible ?\n# Rappel final : \"Je vous rappelle avant 17h avec la solution ou une escalade.\"",
+      "p": [
+        "Ne jamais promettre l'impossible : dépendances fournisseurs externes",
+        "Utiliser des gabarits de mail pour la cohérence",
+        "Durée moyenne de résolution à suivre an par mois"
+      ],
+      "w": "Le silence crée l'angoisse ; un statut intermédiaire est toujours mieux.",
+      "cp": "cp6"
     }
   ]
 }

@@ -615,6 +615,285 @@
       ],
       "w": "Conclusion : supervision par seuils.",
       "alt": "Schéma serveurs"
+    },
+    {
+      "id": "cp2-adinstall",
+      "t": "Installer AD DS et créer une forêt",
+      "level": "intermediaire",
+      "r": "Un DC = ADDS + DNS + heure synchronisée. Prévoir 2 contrôleurs minimum pour la résilience et la réplication.",
+      "tags": [
+        "ad",
+        "windows server",
+        "dns",
+        "dsrm"
+      ],
+      "g": [
+        "Gestionnaire de serveur > Ajouter rôles : AD DS + DNS",
+        "Promouvoir en contrôleur : nouvelle forêt ex. tssr.local",
+        "Définir mot de passe DSRM et niveau fonctionnel",
+        "Vérifier DNS, Sites et services, réplication"
+      ],
+      "c": "Install-WindowsFeature AD-Domain-Services -IncludeManagementTools\nInstall-ADDSForest -DomainName tssr.local -InstallDns -DomainNetbiosName TSSR\nGet-ADDomainController\ndcdiag /q /s:DC1",
+      "p": [
+        "NetBIOS <=15 caractères",
+        "Niveau fonctionnel le plus haut compatible avec les plus vieux DC",
+        "NTP : l'émulateur PDC est la source de temps de la forêt"
+      ],
+      "w": "Jamais un seul DC en production. Toujours tester la restauration AD avant le premier incident.",
+      "cp": "cp9"
+    },
+    {
+      "id": "cp2-fsmo",
+      "t": "Les 5 rôles FSMO",
+      "level": "intermediaire",
+      "r": "Forêt : Schéma + Nom de domaine. Domaine : PDCe, RID, Infrastructure. Chaque rôle a une fonction précise.",
+      "tags": [
+        "fsmo",
+        "ad",
+        "roles"
+      ],
+      "g": [
+        "ADUC : voir Maîtres d'opérations (RID/PDC/Infrastructure)",
+        "Domaines et approbations : maître nom de domaine",
+        "Schéma : regsvr32 schmmgmt puis console du schéma"
+      ],
+      "c": "netdom query fsmo\nMove-ADDirectoryServerOperationMasterRole -Identity DC2 -OperationMasterRole PDCEmulator,RIDMaster -Force\nGet-ADForest | Select SchemaMaster,DomainNamingMaster\nGet-ADDomain | Select PDCEmulator,RIDMaster,InfrastructureMaster",
+      "p": [
+        "PDC = temps, verrouillage et mot de passe prioritaires",
+        "Transfert gracieux si le DC est disponible, saisie (seize) si panne",
+        "Documenter l'emplacement des rôles dans la matrice d'infrastructure"
+      ],
+      "w": "Déplacer les rôles sans planification peut perturber la réplication et le temps Kerberos.",
+      "cp": "cp9"
+    },
+    {
+      "id": "cp2-agdlp",
+      "t": "Groupes AGDLP et GPO",
+      "level": "intermediaire",
+      "r": "AGDLP : User → Global → DomainLocal → Permission. GPO : Ordinateur vs Utilisateur selon LSDOU (Local, Site, Domaine, OU).",
+      "tags": [
+        "groupes",
+        "gpo",
+        "permissions",
+        "ad"
+      ],
+      "g": [
+        "ADUC : créer OU puis groupes Global (métier) et DomainLocal (ressource)",
+        "Partage : ajouter le groupe LD en autorisation NTFS/Partage",
+        "GPMC : lier GPO à OU, filtrer par groupe de sécurité",
+        "Tester : gpupdate /force puis gpresult /r"
+      ],
+      "c": "New-ADGroup -Name G_Compta -GroupScope Global -GroupCategory Security\nNew-ADGroup -Name LD_PartageCompta -GroupScope DomainLocal -GroupCategory Security\nAdd-ADGroupMember -Identity LD_PartageCompta -Members G_Compta\ngpupdate /force\ngpresult /r | Out-File C:\\temp\\gpo.txt",
+      "p": [
+        "Bouclage de stratégie pour les sessions RDS",
+        "Permissions NTFS + Partage : la plus restrictive gagne",
+        "Toujours tester sur un poste pilote avec gpresult /h rapport.html"
+      ],
+      "w": "Ajouter un utilisateur directement au groupe DomainLocal contourne la méthode AGDLP et complique les audits.",
+      "cp": "cp9"
+    },
+    {
+      "id": "cp2-dnsdhcp",
+      "t": "DNS et DHCP Windows Server",
+      "level": "intermediaire",
+      "r": "DNS AD intégré avec zones directes/inverses et dynamic DNS sécurisé. DHCP : étendue, options, réservations, bascule.",
+      "tags": [
+        "dns",
+        "dhcp",
+        "windows server"
+      ],
+      "g": [
+        "DNS : créer zones directe tssr.local et inverse, activer scavenging",
+        "DHCP : nouvelle étendue avec masque, passerelle (003), DNS (006)",
+        "Réservation par MAC pour imprimantes/serveurs",
+        "Sauvegarder et répliquer la configuration"
+      ],
+      "c": "Add-DnsServerPrimaryZone -Name tssr.local -ZoneFile tssr.local.dns -DynamicUpdate Secure\nAdd-DhcpServerv4Scope -Name LAN -StartRange 192.168.1.100 -EndRange 192.168.1.200 -SubnetMask 255.255.255.0\nSet-DhcpServerv4OptionValue -Router 192.168.1.1 -DnsServer 192.168.1.10\nAdd-DhcpServerv4Reservation -ScopeId 192.168.1.0 -IPAddress 192.168.1.50 -ClientId 00-11-22-33-44-55\nGet-DhcpServerv4Lease -ScopeId 192.168.1.0",
+      "p": [
+        "Bail court pour Wi-Fi invités, normal pour LAN",
+        "Mettre en place une bascule DHCP (failover) pour la continuité",
+        "Réserver les adresses serveurs hors étendue"
+      ],
+      "w": "Un serveur AD doit utiliser son propre DNS ; pointer ailleurs casse Kerberos.",
+      "cp": "cp9"
+    },
+    {
+      "id": "cp2-repl",
+      "t": "Réplication AD et diagnostic",
+      "level": "avance",
+      "r": "Multi-DC = réplication toutes les 15 s (intra-site) et planifiée inter-site. Les échecs laissent des objets incohérents.",
+      "tags": [
+        "ad",
+        "repliation",
+        "dcdiag",
+        "sites"
+      ],
+      "g": [
+        "Sites et services AD : vérifier liens inter-sites, coût et horaires",
+        "Forcer la réplication depuis DC1 vers DC2",
+        "Surveiller le backlog et les conflits d'attributs",
+        "Documenter la topologie dans le dossier pro"
+      ],
+      "c": "repadmin /showrepl\nrepadmin /syncall /AdeP\nrepadmin /replsummary\ndcdiag /test:replications /s:DC1\nGet-ADReplicationPartnerMetadata -Target DC1",
+      "p": [
+        "USN rollback possible après restauration VM non Autorité",
+        "KCC recalcule automatiquement les connexions",
+        "Un partenariat d'origine unique suffit dans la plupart des sites"
+      ],
+      "w": "Restaurer un DC depuis un snapshot sans sauvegarde AD autorité peut créer une divergence irréversible.",
+      "cp": "cp9"
+    },
+    {
+      "id": "cp2-file",
+      "t": "Serveur de fichiers, partages et DFS",
+      "level": "intermediaire",
+      "r": "Partages SMB avec permissions NTFS + partage, quotas FSRM, DFS-N pour l'abstraction et la haute disponibilité.",
+      "tags": [
+        "fichiers",
+        "smb",
+        "dfs",
+        "fsrm",
+        "partages"
+      ],
+      "g": [
+        "Créer dossiers avec structure par service",
+        "Définir permissions NTFS selon AGDLP",
+        "Créer partage avec \\serveur\\ressource",
+        "Mettre en place DFS-N et espaces de noms"
+      ],
+      "c": "New-SmbShare -Name Compta -Path D:\\Shares\\Compta -FullAccess \"TSSR\\LD_PartageCompta\"\nGrant-SmbShareAccess -Name Compta -AccountName \"TSSR\\G_Compta\" -AccessRight Change\nGet-SmbShare\n# DFS\nNew-DfsnRoot -Path \\\\tssr.local\\partages -TargetPath \\\\DC1\\partages -Type DomainV2\ndfsutil /addftroot:domain",
+      "p": [
+        "Indexation et recherche par Windows Search sur serveur de fichiers",
+        "FSRM : quotas par dossier et filtrage d'extensions (ransomware)",
+        "Sauvegarder les listes ACL exportées"
+      ],
+      "w": "La suppression d'un partage n'efface pas les fichiers; vérifier les permissions minimales.",
+      "cp": "cp9"
+    },
+    {
+      "id": "cp2-print",
+      "t": "Serveur d'impression et déploiement GPO",
+      "level": "debutant",
+      "r": "Centraliser les files d'attente et déployer les imprimantes par OU ou groupe avec GPO.",
+      "tags": [
+        "impression",
+        "gpo",
+        "printer"
+      ],
+      "g": [
+        "Ajouter le rôle Impression et documents",
+        "Installer le pilote signé x64 et x86",
+        "Créer la file d'attente par imprimante",
+        "Déployer via GPO Computers/Users"
+      ],
+      "c": "Install-WindowsFeature Print-Services\nAdd-Printer -Name \"Impr-Compta\" -DriverName \"HP Universal PCL6\" -PortName \"IP_192.168.1.50\"\n# Déploiement GPO côté utilisateur\nSet-GPRegistryValue -Name \"Deploiement Imprimantes\" -Key \"HKCU\\Software\\...\"",
+      "p": [
+        "Pilotes PCL vs PS selon l'équipement",
+        "Désactiver l'impression directe pour les postes via GPO",
+        "Surveiller les files bloquées (spouleur)"
+      ],
+      "w": "La spooler.exe bloquée se répare souvent en vidant SPOOL\\PRINTERS puis en redémarrant le service.",
+      "cp": "cp9"
+    },
+    {
+      "id": "cp2-powershell",
+      "t": "Administration AD en PowerShell",
+      "level": "intermediaire",
+      "r": "Le module ActiveDirectory expose une API complète. Préférer les cmdlets aux clics pour tracer et automatiser.",
+      "tags": [
+        "powershell",
+        "ad",
+        "automatisation"
+      ],
+      "g": [
+        "Importer le module sur un poste admin",
+        "Lire avant d'écrire (Get- avant Set-)",
+        "Tester sur un objet pilote",
+        "Exporter les résultats pour audit"
+      ],
+      "c": "Import-Module ActiveDirectory\nGet-ADUser -Filter \"Enabled -eq 'True'\" -Properties LastLogonDate | Select Name, SamAccountName, LastLogonDate\nNew-ADUser -Name \"Jean Martin\" -SamAccountName jmartin -Enabled $true -Path \"OU=Users,DC=tssr,DC=local\"\nDisable-ADAccount -Identity jmartin\nSearch-ADAccount -LockedOut | Unlock-ADAccount",
+      "p": [
+        "Lecture/export régulier des utilisateurs inactifs",
+        "Utiliser try/catch et -ErrorAction Stop dans les scripts",
+        "Minimiser les droits du compte de service"
+      ],
+      "w": "Les cmdlets AD s'exécutent par défaut contre le DC le plus proche ; forcer avec -Server si besoin.",
+      "cp": "cp9"
+    },
+    {
+      "id": "cp2-ad-debutant",
+      "t": "Active Directory : domaine, OU, GPO, objets (débutant)",
+      "level": "debutant",
+      "r": "AD centralise utilisateurs/machines dans un domaine. OU = dossiers, groupes = droits, GPO = paramètres poussés.",
+      "tags": [
+        "ad",
+        "windows",
+        "gpo",
+        "debutant"
+      ],
+      "g": [
+        "Créer user/group/OU",
+        "Déplacer objet puis lier GPO",
+        "gpupdate /force et gpresult"
+      ],
+      "c": "# Objets AD courants\nUtilisateur, Groupe, Ordinateur, OU\n# GPO\ngpupdate /force\ngpresult /r",
+      "p": [
+        "AGDLP pour les droits",
+        "LSDOU : Local, Site, Domaine, OU",
+        "Compte local vs compte domaine"
+      ],
+      "w": "Un mauvais placement d'OU casse l'héritage des GPO.",
+      "cp": "cp9"
+    },
+    {
+      "id": "cp2-windows-debutant",
+      "t": "Windows : permissions, partages, logs, tâches (débutant)",
+      "level": "debutant",
+      "r": "Partages SMB + droits NTFS (le plus restrictif gagne). Logs dans Observateur d'événements. Planifier avec Task Scheduler.",
+      "tags": [
+        "windows",
+        "permissions",
+        "logs",
+        "debutant"
+      ],
+      "g": [
+        "Partager un dossier avec matrix de droits",
+        "Tester accès autorisé/refusé",
+        "Planifier une tâche nightly"
+      ],
+      "c": "# Permissions\nicacls D:\\Partage /grant G_Compta:(RX)\n# Planification\nschtasks /create /tn Backup /tr \"backup.bat\" /sc daily /st 02:00",
+      "p": [
+        "Surveillance : CPU/RAM/disque avec PerfMon",
+        "EventID 4625 (échec logon)",
+        " Sauvegarder avant MAJ"
+      ],
+      "w": " Ne pas ouvrir le partage en Contrôle total pour Tout le monde.",
+      "cp": "cp9"
+    },
+    {
+      "id": "pedagogie-ccp2",
+      "t": "Fiche pedagogique de reference - CP2 deploiement",
+      "level": "intermediaire",
+      "r": "Definition : deployer des equipements numériques et accompagner les outils collaboratifs. Contexte : installer un parc avec image, AD, GPO et O365. Objectif : industrialiser et standardiser. Details : Sysprep, PXE, enrôlement Entra ID, M365, tests et communication utilisateur. Exemple : adoption d'un nouvel outil avec formation et documentation. Erreurs : sinon cloner sans Sysprep, oublier pilotes, ne pas accompagner. Jury : risque clone direct, accompagnement utilisateur, difference AD/Entra.",
+      "tags": [
+        "pedagogie",
+        "deploiement",
+        "collaboration"
+      ],
+      "g": [
+        "Preparer l'image",
+        "Deployer PXE",
+        "Joindre au domaine",
+        "Appliquer GPO",
+        "Accompagner l'utilisateur"
+      ],
+      "c": "sysprep /oobe /generalize /shutdown ; dism /Capture-Image",
+      "p": [
+        "Clonage direct",
+        "Absence de support utilisateur"
+      ],
+      "w": "Conclusion : le deploiement reussit quand technique et accompagnement avancent ensemble.",
+      "cp": "cp9"
     }
   ]
 }

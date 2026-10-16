@@ -643,7 +643,8 @@
       ],
       "w": "Conclusion : vérifier tout le chaînage.",
       "alt": "Schéma CP1",
-      "cp": "cp7"
+      "cp": "cp7",
+      "doublon_de": "cp1-vpn"
     },
     {
       "cp": "cp7",
@@ -671,7 +672,8 @@
         "Bastion pour admin"
       ],
       "w": "Les flat networks augmentent le rayon d'impact d'un incident.",
-      "alt": ""
+      "alt": "",
+      "doublon_de": "cp7-network"
     },
     {
       "cp": "cp7",
@@ -698,7 +700,8 @@
         "Attestation manager"
       ],
       "w": "Les droits cumulés sont la cause la plus fréquente d'escalade.",
-      "alt": ""
+      "alt": "",
+      "doublon_de": "cp7-identity"
     },
     {
       "cp": "cp7",
@@ -725,7 +728,8 @@
         "Récupération documentée"
       ],
       "w": "MFA sans plan de secours bloque en cas de perte.",
-      "alt": ""
+      "alt": "",
+      "doublon_de": "cp7-mfa"
     },
     {
       "cp": "cp7",
@@ -752,7 +756,8 @@
         "Allowlisting pour serveurs"
       ],
       "w": "L'antivirus seul ne suffit pas; l'EDR détecte les comportements.",
-      "alt": ""
+      "alt": "",
+      "doublon_de": "cp7-hardening"
     },
     {
       "cp": "cp7",
@@ -780,7 +785,8 @@
         "Retention logs"
       ],
       "w": "Une règle trop large bloque la production.",
-      "alt": ""
+      "alt": "",
+      "doublon_de": "ccp7-ids"
     },
     {
       "cp": "cp7",
@@ -808,7 +814,8 @@
         "Communication crise"
       ],
       "w": "Sans logs, l'analyse post-incident est impossible.",
-      "alt": ""
+      "alt": "",
+      "doublon_de": "cp7-monitoring"
     },
     {
       "cp": "cp7",
