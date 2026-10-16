@@ -3,270 +3,388 @@
   "group": "cp1",
   "icon": "🎫",
   "title": "CP1 — Support utilisateur en centre de services",
-  "desc": "Support utilisateur, tickets, assistance à distance; ToIP côté utilisateur uniquement en synthèse.",
+  "desc": "Support utilisateur, tickets, assistance à distance, outils collaboratifs, usage encadré de l'IA, ToIP côté utilisateur. Contenu réécrit en phase 2, appuyé sur les sources puis complété.",
   "fiches": [
     {
-      "id": "ccp3-base",
-      "t": "Base Linux : arborescence et configuration",
-      "level": "debutant",
-      "r": "/etc pour la config, /var/log pour les logs, /home pour les utilisateurs, /opt pour les applications tierces. Toujours lire avant d'éditer.",
+      "id": "cp1-objectifs",
+      "t": "Objectifs et lien avec la mise en situation professionnelle",
+      "level": "exam",
+      "cli": false,
+      "r": "CP1 - Objectifs et lien MEP : l'objectif est de résoudre un incident utilisateur en centre de services sans bloquer la production, puis de documenter et d'escalader correctement. | Lien avec la MEP 2026 : phase 1 de préparation avec les outils fournis (tickets, comptes, documentation), puis missions de diagnostic et de communication avec l'utilisateur, puis bilan final. | Synthèse : un bon support est une méthode, pas une collection de recettes. | Schéma utile : utilisateur -> portail ITSM -> centre de services -> files de niveaux 1/2/3 -> résolution ou escalade. | GUI : portail ITSM, liste des tickets, fiche utilisateur, inventaire. | CLI : Get-Help, Get-Command et Get-ADUser pour vérifier rapidement. | Vérification : ticket cloturé avec cause, action et preuve. | Pièges : débuter par la commande sans qualifier le symptôme. | À retenir : écouter, qualifier, tester, documenter.",
       "tags": [
-        "linux",
-        "fichiers",
-        "base"
+        "cp1",
+        "support",
+        "mep",
+        "itil"
       ],
       "g": [
-        "Terminal ou Explorateur GNOME pour parcourir",
-        "Éditer avec nano/vim les fichiers sous /etc",
-        "Vérifier l'OS et la version",
-        "Tester la modification et redémarrer le service dépendant"
+        "Lire la MEP et le scénario",
+        "Qualifier le symptôme",
+        "Choisir le bon niveau de support",
+        "Documenter la cause et l'action",
+        "Clôturer le ticket avec preuve"
       ],
-      "c": "ls -la /etc/*.conf\ncat /etc/os-release\ncat /etc/passwd | cut -d: -f1\ncat /etc/hosts\ncat /etc/resolv.conf\nchmod 640 fichier\nchown user:group fichier\nfind /var/log -type f -size +10M",
+      "c": "Aucune commande native indispensable pour cette fiche théorique.",
       "p": [
-        "/etc/passwd liste les utilisateurs, /etc/shadow les hash",
-        "/etc/fstab monte les systèmes au boot",
-        "chmod r=4, w=2, x=1 ; éviter 777"
+        "Oublier le contexte métier",
+        "Sauter la qualification"
       ],
-      "w": "Ne jamais chmod 777 sur un fichier sensible ; préférer les ACL POSIX (setfacl).",
-      "cp": "cp1"
+      "w": "Conclusion : CP1 se joue sur la méthode et la communication."
     },
     {
-      "id": "ccp3-users",
-      "t": "Utilisateurs, groupes et sudo",
-      "level": "debutant",
-      "r": "useradd/usermod, groupes secondaires avec -aG (sinon écrasement), sudo pour la délégation.",
-      "tags": [
-        "linux",
-        "users",
-        "sudo"
-      ],
-      "g": [
-        "Paramètres > Utilisateurs pour l'approche GUI",
-        "Vérifier l'appartenance aux groupes",
-        "Cockpit (port 9090) si installé pour gérer à distance",
-        "Journaliser les élévations (sudo.log)"
-      ],
-      "c": "useradd -m -s /bin/bash jdupont\npasswd jdupont\nusermod -aG sudo,adm jdupont\nid jdupont\ngroups jdupont\nchage -l jdupont\nvisudo -c",
-      "p": [
-        "-aG ajoute sans écraser les groupes existants",
-        "umask 027 pour masquer les fichiers nouveaux",
-        "Désactiver le login root direct (PermitRootLogin no)"
-      ],
-      "w": "Oublier -a dans -G remplace tous les groupes secondaires et peut bloquer un admin.",
-      "cp": "cp1"
-    },
-    {
-      "id": "ccp3-services",
-      "t": "Systemd : services, cibles et journaux",
+      "id": "cp1-itil",
+      "t": "ITSM, tickets et communication utilisateur",
       "level": "intermediaire",
-      "r": "systemctl gère le cycle de vie des unités ; journalctl filtre les logs binaires journald.",
+      "cli": false,
+      "r": "CP1 - ITSM : gestion des incidents, requêtes, problèmes et changements. | Objectif professionnel : traiter un incident au bon rythme et sans erreur de communication. | Cas réel en entreprise : un utilisateur signale un accès VPN impossible avant une présentation. | Fonctionnement détaillé : portail ITSM, file de tickets, SLA, priorité (impact × urgence), SPOC et niveaux de support. | Exemple concret : ticket incident réseau priorité haute, ticket demande standard priorité basse. | Procédure pas à pas : saluer, qualifier, reformuler, catégoriser, prioriser, agir, informer. | Erreurs fréquentes : promettre sans vérifier, utiliser le jargon, oublier l'étape de clôture. | Questions jury : différence incident/problème/changement ; comment prioriser ; pourquoi documenter. | À retenir : un ticket sans cause n'est pas clos. | Ajout par l'assistant : checklist de communication pour limiter la frustration.",
       "tags": [
-        "systemd",
-        "services",
-        "logs",
-        "linux"
+        "cp1",
+        "itil",
+        "ticketing",
+        "communication"
       ],
       "g": [
-        "Identifier le service et son état",
-        "Activer au boot + démarrer maintenant",
-        "Dépendances et drop-in via systemctl edit",
-        "Consulter les logs récents"
+        "Saluer et rassurer",
+        "Qualifier le symptôme",
+        "Catégoriser",
+        "Prioriser avec impact × urgence",
+        "Agir et documenter",
+        "Clôturer avec preuve"
       ],
-      "c": "systemctl status sshd\nsystemctl enable --now sshd\nsystemctl restart sshd\nsystemctl daemon-reload\njournalctl -u sshd -n 50 --no-pager\njournalctl -p err -b\nloginctl show-session 1",
+      "c": "Aucune commande native : processus et communication.",
       "p": [
-        "enabled = au boot, active = en cours",
-        "Masquer un service : systemctl mask",
-        "Journald persistant : Storage=persistent"
+        "Jargon technique",
+        "Mélanger incident et demande",
+        "Transmettre sans contexte"
       ],
-      "w": "Un service 'failed' laisse parfois un message d'erreur explicite dans journalctl -xe.",
-      "cp": "cp1"
+      "w": "Conclusion : un support humain reste structuré."
     },
     {
-      "id": "ccp3-reseau",
-      "t": "Réseau Linux, Netplan et NetworkManager",
+      "id": "cp1-diagnostic",
+      "t": "Diagnostic utilisateur : méthode en entonnoir",
       "level": "intermediaire",
-      "r": "ip remplace ifconfig. Netplan/NM selon la distribution. Configuration persistante obligatoire.",
+      "cli": true,
+      "r": "CP1 - Diagnostic : méthode en couches pour aller du plus simple au plus complexe. | Objectif professionnel : rétablir rapidement sans aggraver la panne. | Cas réel : le poste n'a plus accès à Teams. | Fonctionnement détaillé : vérifier l'utilisateur, le matériel, la couche physique, l'IP, la passerelle, le DNS, l'application. | Exemple concret : le câble débranché donne le même symptôme qu'un DNS erroné. | Procédure pas à pas : 1. reproduire et isoler le symptôme ; 2. vérifier account, mot de passe et groupes ; 3. tester la connexion réseau ; 4. tester passerelle et DNS ; 5. tester l'application ; 6. documenter. | Erreurs fréquentes : sauter une couche, réinstaller sans cause, généraliser un symptôme. | Questions jury : comment localiser une panne, différence réseau et application, quoi prouver. | À retenir : du physique vers l'applicatif. | Ajout par l'assistant : une fiche vierge pour chaque incident récurrent.",
       "tags": [
-        "reseau",
-        "ip",
-        "netplan",
-        "linux"
+        "cp1",
+        "diagnostic",
+        "tcpip",
+        "support"
       ],
       "g": [
-        "NetworkManager GUI pour les postes graphiques",
-        "Vérifier l'IP, la route et les DNS",
-        "Éditer YAML Netplan avec indentation correcte",
-        "Appliquer et tester la connectivité"
+        "Reproduire le symptôme",
+        "Vérifier compte et droits",
+        "Tester couche physique",
+        "Tester IP, passerelle et DNS",
+        "Tester l'application",
+        "Documenter"
       ],
-      "c": "ip a\nip r\nping -c4 8.8.8.8\nss -tulpn\ncat /etc/netplan/*.yaml\nnetplan apply\nnmcli device status\nnmcli connection modify eth0 ipv4.addresses 192.168.1.10/24 ipv4.gateway 192.168.1.1",
+      "c": "ipconfig /all\nnslookup exemple.local\ntracert 8.8.8.8\nTest-NetConnection -ComputerName teams.microsoft.com -Port 443\nTest-Connection 192.168.1.1",
       "p": [
-        "ss remplace netstat",
-        "Netplan sensible aux espaces YAML",
-        "Penser à tester hors bande pour les serveurs distants"
+        "Omettre le DNS",
+        "Juger sans test",
+        "Réinstaller à l'aveugle"
       ],
-      "w": "Une erreur YAML peut couper le réseau ; garder une console distante ouverte.",
-      "cp": "cp1"
+      "w": "Conclusion : la méthode vaut plus que la vitesse."
     },
     {
-      "id": "ccp3-paquets",
-      "t": "Paquets, dépôts et maintenance",
-      "level": "debutant",
-      "r": "APT/YUM/DNF selon distro. Mettre à jour régulièrement, nettoyer les paquets et vérifier les origines.",
-      "tags": [
-        "apt",
-        "dnf",
-        "packages",
-        "linux"
-      ],
-      "g": [
-        "Logiciels via GNOME Software ou Synaptic",
-        "Dépôts officiels vs tiers ; signature GPG",
-        "Nettoyage des paquets obsolètes",
-        "Planification unattended-upgrades"
-      ],
-      "c": "apt update && apt upgrade -y\ndpkg -l | grep ssh\napt autoremove --purge\ndnf check-update\ndnf install -y httpd\nrpm -qa | grep -i httpd\nunattended-upgrade -d",
-      "p": [
-        "apt-cache madison pour comparer les versions",
-        "Pinning Debian pour figer une version",
-        "Auditer les dépôts avec apt-cache policy"
-      ],
-      "w": "Ne jamais mélanger les dépôts de versions majeures (ex. Jammy/Bookworm) sans nécessité.",
-      "cp": "cp1"
-    },
-    {
-      "id": "ccp3-ssh",
-      "t": "SSH : administration distante sécurisée",
+      "id": "cp1-poste",
+      "t": "Diagnostic poste Windows côté utilisateur",
       "level": "intermediaire",
-      "r": "SSH chiffre la session. Authentification par clé et désactivation root direct = base de la sécurité.",
+      "cli": true,
+      "r": "CP1 - Poste Windows : verification des ressources, du lancement, du navigateur et de l'identité locale. | Objectif professionnel : déterminer si la panne est locale ou dans le service. | Cas réel : Teams se lance mais ne reçoit pas les messages. | Fonctionnement détaillé : cache navigateur, profil Teams, espace disque, services, antivirus, proxy. | Exemple concret : suppression du cache Teams sans réinstaller le logiciel. | Procédure pas à pas : 1. verifier l'espace disque et la santé du profil ; 2. tester en navigation privée ; 3. vider le cache ; 4. redémarrer l'application ; 5. vérifier le réseau. | CLI utile : exécuter les commandes réelles dans PowerShell sans risque, puis comparer avec une commande GUI. | Vérification : le service s'authentifie, le statut passe à Disponible, les messages sont reçus. | Pièges : confondre panne applicative et panne réseau ; perdre les données locales. | À retenir : tester la même action en navigateur web puis en client.",
       "tags": [
-        "ssh",
-        "securite",
-        "remote"
+        "cp1",
+        "windows",
+        "poste",
+        "support"
       ],
       "g": [
-        "Installer openssh-server si absent",
-        "Générer des clés côté client",
-        "Copier la clé publique (ssh-copy-id)",
-        "Désactiver root et password si clés présentes"
+        "Vérifier l'espace disque",
+        "Tester en navigation privée",
+        "Vider le cache",
+        "Redémarrer l'application",
+        "Comparer web et client"
       ],
-      "c": "ssh-keygen -t ed25519 -C \"admin@tssr\"\nssh-copy-id -i ~/.ssh/id_ed25519.pub jdupont@192.168.1.10\n# /etc/ssh/sshd_config :\nPermitRootLogin no\nPasswordAuthentication no\nPubkeyAuthentication yes\nsystemctl reload sshd",
+      "c": "Get-PSDrive\nGet-Process Teams\nRemove-Item -Recurse -Force $env:APPDATA\\Microsoft\\Teams\\Cache\ntest-netconnection teams.microsoft.com -port 443\nmsinfo32",
       "p": [
-        "ed25519 recommandé",
-        "sshd_config.d/ pour les overrides modernes",
-        "Authentification à deux facteurs pour les accès sensibles"
+        "Supprimer le mauvais dossier",
+        "Croire au cache sans test"
       ],
-      "w": "Se couper l'accès SSH en désactivant le password avant d'avoir testé la clé est l'erreur classique.",
-      "cp": "cp1"
+      "w": "Conclusion : comparer web et client isolé la couche réseau."
     },
     {
-      "id": "ccp3-stockage",
-      "t": "Stockage : LVM, partitions et fstab",
-      "level": "avance",
-      "r": "LVM abstraction (PV/VG/LV) pour redimensionner et snapshotter sans tout réinstaller.",
-      "tags": [
-        "lvm",
-        "stockage",
-        "fstab",
-        "disque"
-      ],
-      "g": [
-        "lsblk pour visualiser les disques et partitions",
-        "Créer PV, VG puis LV",
-        "Formater (ext4/xfs) et monter",
-        "Ajouter à /etc/fstab puis tester"
-      ],
-      "c": "lsblk -o NAME,SIZE,FSTYPE,MOUNTPOINT\npvcreate /dev/sdb1\nvgcreate vg_data /dev/sdb1\nlvcreate -L 20G -n lv_app vg_data\nmkfs.ext4 /dev/vg_data/lv_app\nmount /dev/vg_data/lv_app /opt/app\necho \"/dev/vg_data/lv_app /opt/app ext4 defaults 0 2\" >> /etc/fstab\nmount -a",
-      "p": [
-        "snapshot LVM pour sauvegardes cohérentes",
-        "XFS pour gros volumes, ext4 pour souplesse",
-        "Ne jamais fsck un volume monté"
-      ],
-      "w": "Modifier fstab sans tester avec mount -a peut empêcher le boot au prochain redémarrage.",
-      "cp": "cp1"
-    },
-    {
-      "id": "ccp3-cron",
-      "t": "Planification avec cron et systemd timers",
-      "level": "debutant",
-      "r": "Cron simple pour les tâches périodiques ; systemd timers pour dépendances, logs et redémarrages automatiques.",
-      "tags": [
-        "cron",
-        "planification",
-        "automation"
-      ],
-      "g": [
-        "crontab -e pour éditer",
-        "Utiliser des chemins absolus",
-        "Rediriger la sortie vers un fichier de log",
-        "Tester le script à la main"
-      ],
-      "c": "crontab -e\n# minute heure jour mois jourSemaine commande\n30 2 * * * /opt/scripts/backup.sh >> /var/log/backup.log 2>&1\n@reboot /opt/scripts/startup.sh\n# systemd timer\nsystemctl enable --now backup.timer",
-      "p": [
-        "SHELL=/bin/bash et PATH explicites dans crontab",
-        "Ne jamais lancer en root sans justification",
-        "Journaliser les échecs avec mail ou monitoring"
-      ],
-      "w": "Les scripts cron n'héritent pas de l'environnement interactif ; tester avec env -i.",
-      "cp": "cp1"
-    },
-    {
-      "id": "ccp3-logs-central",
-      "t": "Logs centralisés et logrotate",
-      "level": "avance",
-      "r": "Journalisation structurée + rotation = diagnostic fiable et conservation maîtrisée.",
-      "tags": [
-        "logs",
-        "journald",
-        "logrotate"
-      ],
-      "g": [
-        "Découper par service pour limiter la taille",
-        "Configurer logrotate avec compression et rétention",
-        "Exporter vers un collecteur (rsyslog) si plusieurs serveurs",
-        "Surveiller l'espace disque"
-      ],
-      "c": "# /etc/logrotate.d/myapp\n/var/log/myapp/*.log {\n    daily\n    rotate 14\n    compress\n    delaycompress\n    missingok\n    notifempty\n    create 0640 root adm\n}\nlogrotate -d /etc/logrotate.conf",
-      "p": [
-        "Tail -f pour suivre en live",
-        "logger pour écrire dans journald",
-        "Centralisation avec Loki/Graylog en production"
-      ],
-      "w": "Les logs rotatés peuvent échapper à la supervision si le chemin change.",
-      "cp": "cp1"
-    },
-    {
-      "id": "ccp3-linux-debutant",
-      "t": "Linux : utilisateurs, droits, SSH, services, disque (débutant)",
-      "level": "debutant",
-      "r": "Linux gère utilisateurs/groupes, droits rwx, services via systemd, réseau via ip/Netplan et SSH à sécuriser.",
-      "tags": [
-        "linux",
-        "ssh",
-        "droits",
-        "debutant"
-      ],
-      "g": [
-        "Créer user, groupes, clés SSH",
-        "Désactiver root direct",
-        "Surveiller services et logs"
-      ],
-      "c": "useradd -m -s /bin/bash alice\nusermod -aG sudo alice\nsystemctl status sshd\njournalctl -u sshd -n 20\nip a; ss -tulpn",
-      "p": [
-        "chmod 640 = rw-r-----",
-        "Netplan sensible à l'indentation",
-        "Logs : /var/log"
-      ],
-      "w": "Oublier -a dans -G écrase les groupes existants.",
-      "cp": "cp1"
-    },
-    {
-      "id": "pedagogie-ccp3",
-      "t": "Fiche pedagogique de reference - CP3 assistance technique",
+      "id": "cp1-collab",
+      "t": "Outils collaboratifs : M365, Teams, OneDrive, SharePoint",
       "level": "intermediaire",
-      "r": "Definition : diagnostiquer et resoudre en respectant l'utilisateur. Contexte : panne VPN ou poste. Objectif : retablir vite et documenter. Details : methode entonnoir, physique, IP, passerelle, DNS, applicatif. Exemple : cable debranche puis IP APIPA. Erreurs : changer plusieurs parametres ace fois, fermer sans validation. Jury : priorite incident, difference incident/probleme/demande, escalade.",
+      "cli": true,
+      "r": "CP1 - Outils collaboratifs : déploiement et accompagnement des usages M365. | Objectif professionnel : donner accès, vérifier les droits et accompagner le changement. | Cas réel en entreprise : nouvel arrivant sans accès Teams ni OneDrive. | Fonctionnement détaillé : identité Entra ID, licences, SharePoint permissions, OneDrive provionnement, Teams meeting policies. | Exemple concret : créer un compte sans licence puis tester sous identité utilisateur. | Procédure pas à pas : 1. vérifier le compte et la licence ; 2. tester Outlook Web puis Teams ; 3. attribuer les groupes et les permissions SharePoint ; 4. accompagner l'utilisateur ; 5. clôturer. | Vérification : Outlook Web fonctionne, Teams rejoint la réunion, OneDrive synchronise. | Pièges : croire que le client Teams est prêt sans licence, oublier la gouvernance SharePoint. | Question jury : AD versus Entra ID, rôle de la licence, gestion du changement. À retenir : identité avant accompagnement.",
+      "tags": [
+        "cp1",
+        "m365",
+        "collaboration",
+        "entra"
+      ],
+      "g": [
+        "Vérifier le compte et la licence",
+        "Tester Outlook Web",
+        "Attribuer les groupes SharePoint",
+        "Accompagner",
+        "Clôturer"
+      ],
+      "c": "Get-MgUser -UserId user@domaine.fr\nGet-MgUserLicenseDetail -UserId user@domaine.fr\nGet-ADUser -Identity user -Properties MemberOf\nConnect-MgGraph -Scopes User.Read.All",
+      "p": [
+        "Licence manquante",
+        "Groupe absent",
+        "Accès Sharepoint trop large"
+      ],
+      "w": "Conclusion : accès et accompagnement vont de pair."
+    },
+    {
+      "id": "cp1-vpn",
+      "t": "Support accès distant et VPN",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP1 - Accès distant : accès sécurisé depuis le domicile ou la mobilité. | Objectif professionnel : rétablir la connexion sans compromettre la sécurité. | Cas réel : le VPN se connecte puis coupe au bout de 30 secondes. | Fonctionnement détaillé : identité, certificat, DNS, routage split tunnel, MFA, timings. | Exemple concret : certificat expiré ou mot de passe expiré. | Procédure pas à pas : 1. vérifier l'identité et le mot de passe ; 2. tester le réseau public ; 3. vérifier le certificat ; 4. tester le split tunnel ; 5. vérifier l'authentification forte. | Vérification : le client obtient une adresse, peut pinger l'intranet, les applications chargent. | Pièges : ignorer le réseau public, croire que le certificat est valide, oublier le MFA. | Question jury : VPN site-à-site versus accès distant ; split tunnel versus tunnel complet. | À retenir : le VPN est une chaîne.",
+      "tags": [
+        "cp1",
+        "vpn",
+        "accesdistant",
+        "securite"
+      ],
+      "g": [
+        "Tester l'identité",
+        "Tester le réseau public",
+        "Vérifier le certificat",
+        "Vérifier le split tunnel",
+        "Vérifier le MFA"
+      ],
+      "c": "rasdial\nGet-VpnConnection\nResolve-DnsName intranet.domaine.fr\nTest-NetConnection vpn.domaine.fr -Port 443\nGet-ChildItem Cert:\\CurrentUser\\My",
+      "p": [
+        "Certificat expiré",
+        "DNS public",
+        "MFA non reçu"
+      ],
+      "w": "Conclusion : le VPN se valide par couches."
+    },
+    {
+      "id": "cp1-toip",
+      "t": "ToIP côté utilisateur ( sans confondre avec la phase réseau)",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP1 - ToIP côté utilisateur : téléphone IP, softphone, casque et accès NTP/DNS. Le cœur technique de la ToIP (VLAN Voix, DHCP option 150, QoS, CME) se trouve en CP4. | Objectif professionnel : rétablir l'usage téléphonique et accompagner. | Cas réel : le téléphone s'allume mais reste sans tonalité. | Fonctionnement détaillé : boot firmware, provisioning via TFTP, enregistrement SIP/SCCP, réseau utilisateur, codec voix, repli softphone. | Exemple concret : un poste sur un VLAN utilisateur avec option 150 manquante. | Procédure côté support : 1. vérifier le câble et l'alimentation POE ; 2. reproduire le boot ; 3. vérifier l'enregistrement ; 4. tester la ligne ; 5. accompagner. | Vérification : l'écran affiche le numéro, l'appel aboutit, la tonalité de retour est présente. | Pièges : confondre panne réseau et panne terminale, oublier le micro casque, réinstaller le firmware sans sauvegarde. | Questions jury : firmware, option 150, SIP versus SCCP. | À retenir : ToIP se diagnostique de l'alimentation à la voix.",
+      "tags": [
+        "cp1",
+        "toip",
+        "support",
+        "utilisateur"
+      ],
+      "g": [
+        "Vérifier l'alimentation",
+        "Reproduire le boot",
+        "Vérifier l'enregistrement",
+        "Tester l'appel",
+        "Accompagner"
+      ],
+      "c": "Aucune commande native pour le périmètre utilisateur.",
+      "p": [
+        "Panne réseau confondue",
+        "Casque non configuré"
+      ],
+      "w": "Conclusion : support ToIP = terminaux + utilisateur."
+    },
+    {
+      "id": "cp1-ia",
+      "t": "Usage encadré de l'IA et outils collaboratifs",
+      "level": "exam",
+      "cli": false,
+      "r": "CP1 - IA encadrée : l'assistant accélère, il ne prend pas la décision. | Objectif professionnel : aider l'utilisateur et le technicien technique de façon fiable et traçable. | Cas réel : générer une procédure de résolution VPN puis la valider. | Fonctionnement détaillé : prompt structuré, anonymisation, hallucination, validation, traçabilité. | Exemple concret : générer un squelette de fiche utilisateur puis le relire. | Procédure pas à pas : 1. cadrer le besoin ; 2. anonymiser les données ; 3. rédiger le prompt ; 4. vérifier et tester ; 5. documenter. | Vérification : la réponse est relue contre la documentation ; absence de secret. | Pièges : copier sans contrôle, divulguer des identifiants. | Question jury : hallucination, gouvernance et responsabilité. | À retenir : l'IA propose, l'humain dispose.",
+      "tags": [
+        "cp1",
+        "ia",
+        "accompagnement"
+      ],
+      "g": [
+        "Cadrer le besoin",
+        "Anonymiser",
+        "Rédiger le prompt",
+        "Vérifier et tester",
+        "Documenter"
+      ],
+      "c": "Aucune commande native indispensable.",
+      "p": [
+        "Secrets divulgués",
+        "Prompt vague"
+      ],
+      "w": "Conclusion : encadrer l'IA pour mieux accompagner."
+    },
+    {
+      "id": "cp1-gui",
+      "t": "Manipulations possibles en interface graphique",
+      "level": "debutant",
+      "cli": false,
+      "r": "CP1 - GUI : actions graphiques à connaître et à décrire à l'oral. | Objectif professionnel : montrer un parcours clair quand le jury demande une démonstration. | Cas réel : dépanner un utilisateur à distance sans commande. | Fonctionnement détaillé : portail ITSM, onglet actif, Centre de contrôle Windows, gestionnaire des tâches, paramètres réseau. | Exemple concret : ouvrir les paramètres réseau pour désactiver/réactiver la carte. | Procédure : 1. ouvrir le bon outil ; 2. retrouver le paramètre ; 3. modifier ; 4. tester ; 5. revenir en arrière si erreur. | Vérification : l'état change immédiatement et l'utilisateur comprend l'action. | Pièges : navigation sans plan, menu confus, modification sans sécurité. | Question jury : comment guidez-vous l'utilisateur. | À retenir : cinq étapes claires. | Complément ajouté : table de correspondance clic / commande.",
+      "tags": [
+        "cp1",
+        "gui",
+        "support"
+      ],
+      "g": [
+        "Ouvrir l'outil",
+        "Retrouver le réglage",
+        "Modifier",
+        "Tester",
+        "Annuler si besoin"
+      ],
+      "c": "Aucune commande native dans cette fiche graphique.",
+      "p": [
+        "Clic non documenté",
+        "Modification sans retour arrière"
+      ],
+      "w": "Conclusion : la GUI se joue sur la clarté."
+    },
+    {
+      "id": "cp1-verification",
+      "t": "Vérification et ce que les tests ne prouvent pas",
+      "level": "exam",
+      "cli": true,
+      "r": "CP1 - Vérification : un test doit être choisi selon l'hypothèse et ses limites. | Objectif professionnel : prouver au jury et à l'utilisateur. | Cas réel : ipconfig /all renvoie bien une IP, mais Teams ne se connecte pas. | Fonctionnement détaillé : ping, HTTP, DNS, port applicatif, compte et licence. | Exemple concret : Get-NetConnectionProfile et Test-NetConnection port 443 prouvent un réseau mais pas l'authentification M365. | Procédure pas à pas : 1. adapter le test à l'hypothèse ; 2. tester le réseau ; 3. tester l'application ; 4. tester l'identité ; 5. consigner. | Vérification : chaque test est relié à une hypothèse explicite. | Pièges : ping réussi = service OK, ipconfig réussi = réseau parfait. | Questions jury : que ne prouve pas un ping, différence DORA dans DHCP. | À retenir : tester l'hypothèse, pas la panne.",
+      "tags": [
+        "cp1",
+        "verification",
+        "tests"
+      ],
+      "g": [
+        "Adapter le test",
+        "Tester le réseau",
+        "Tester l'application",
+        "Tester l'identité",
+        "Consigner"
+      ],
+      "c": "Test-NetConnection -ComputerName teams.microsoft.com -Port 443\nTest-Connection 8.8.8.8\nResolve-DnsName teams.microsoft.com\nGet-NetConnectionProfile\nGet-NetIPConfiguration",
+      "p": [
+        "Surinterpréter un ping",
+        "Tester hors contexte"
+      ],
+      "w": "Conclusion : la preuve doit être ciblée."
+    },
+    {
+      "id": "cp1-pieges",
+      "t": "Pièges et erreurs fréquentes d'examen",
+      "level": "exam",
+      "cli": false,
+      "r": "CP1 - Pièges : liste de raccourcis qui coûtent des points. | Objectif professionnel : éviter les réponses rapides mais inexactes. | Cas réel : le jury demande d'aller plus vite sans preuves. | Fonctionnement détaillé : priorité, communication, diagnostic, sécurité. | Exemple concret : citer une commande sans dire ce qu'elle ne prouve pas. | Pièges : confondre incident et demande, promettre une date sans validation, réinstaller sans sauvegarde, ignorer l'utilisateur, utiliser un langage trop technique, attribuer au mauvais niveau. | Erreurs fréquentes : négliger le portail ITSM, ne pas consigner la cause. | Questions jury : estimer la criticité, expliquer une démonstration dégradée. | À retenir : méthodologie et communication.",
+      "tags": [
+        "cp1",
+        "pieges",
+        "jury"
+      ],
+      "g": [
+        "Eviter la précipitation",
+        "Citer la cause",
+        "Montrer la preuve",
+        "Expliquer simplement"
+      ],
+      "c": "Aucune commande native.",
+      "p": [
+        "Promesse non validée",
+        "Pas de sauvegarde"
+      ],
+      "w": "Conclusion : les détails se défendent par la preuve."
+    },
+    {
+      "id": "cp1-miniqcm",
+      "t": "Mini-QCM de fin de fiche (5 questions)",
+      "level": "exam",
+      "cli": false,
+      "r": "CP1 - Mini-QCM : 1) Que faut-il prioriser en premier chez un utilisateur qui perd son accès VPN avant une démonstration ? Réponse : vérifier l'identité et le réseau. 2) Quelle commande prouve la résolution DNS ? Réponse : Resolve-DnsName. 3) Quel risque lié aux données pour l'IA ? Réponse : divulgation de secrets. 4) Que prouve Test-NetConnection port 443 ? Réponse : le port distant répond, pas l'authentification applicative. 5) Que doit contenir un ticket bien clos ? Réponse : symptôme, cause, action et preuve. | Complément : l'assistant a ajouté ces questions à partir des thèmes récurrents du référentiel et du questionnaire professionnel.",
+      "tags": [
+        "cp1",
+        "mini-qcm"
+      ],
+      "g": [
+        "Répondre aux questions",
+        "Corriger et comprendre"
+      ],
+      "c": "Aucune commande native.",
+      "p": [
+        "Mémo sans explication"
+      ],
+      "w": "Conclusion : le mini-QCM consolide la méthode."
+    },
+    {
+      "id": "cp1-qcm-eval",
+      "t": "QCM d'évaluation CP1",
+      "level": "exam",
+      "cli": false,
+      "r": "CP1 - Évaluation : questions pour valider les acquis avant la correction. | 1. Quel principe ITIL décrit un incident qui perturbe le service ? 2. Quelle commande vérifie que l'hôte résout un nom ? 3. Quel fichier de log M365 donne un premier indice de connexion ? 4. Quel est le premier réflexe face à un téléphone IP sans tonalité ? 5. Comment anonymiser des données pour l'IA ? | Réponses attendues dans le corrigé ci-dessous. | Ajout par l'assistant : ce QCM est indicatif et doit être complété avec tes résultats réels.",
+      "tags": [
+        "cp1",
+        "qcm",
+        "evaluation"
+      ],
+      "g": [
+        "Répondre sans aide",
+        "Noter les doutes"
+      ],
+      "c": "Aucune commande native.",
+      "p": [
+        "Réviser par cœur"
+      ],
+      "w": "Conclusion : évaluer avant de corriger."
+    },
+    {
+      "id": "cp1-qcm-corrige",
+      "t": "Corrigé du QCM CP1",
+      "level": "exam",
+      "cli": false,
+      "r": "CP1 - Corrigé : 1) incident ; 2) Resolve-DnsName ou nslookup ; 3) journaux de connexion ; 4) vérifier alimentation POE, boot et enregistrement ; 5) supprimer les données personnelles et les identifiants avant prompt. | Points d'attention : expliquer pourquoi la commande ne prouve qu'une partie du problème, et décrire la procédure de retour arrière.",
+      "tags": [
+        "cp1",
+        "qcm",
+        "correction"
+      ],
+      "g": [
+        "Corriger les erreurs",
+        "Retenir les explications"
+      ],
+      "c": "Aucune commande native.",
+      "p": [
+        "Corrigé sans explication"
+      ],
+      "w": "Conclusion : comprendre avant de mémoriser."
+    },
+    {
+      "id": "cp1-questions-ouvertes",
+      "t": "Questions ouvertes CP1",
+      "level": "exam",
+      "cli": false,
+      "r": "CP1 - Questions ouvertes pour l'oral et l'examen : 1. Racontez un incident utilisateur compliqué et votre résolution. 2. Comment priorisez-vous un ticket sans impact métier majeur ? 3. Comment expliquez-vous simplement le DNS à un utilisateur ? 4. Quelles preuves donnez-vous au jury pour une panne Teams ? 5. Comment traitez-vous une demande d'accompagnement d'un nouvel outil collaboratif ? 6. Comment encadrez-vous l'IA dans votre centre de services ? | Références à citer si présentes dans vos sources : ITIL, SPOC, SLA, incident, requête, problème, changement.",
+      "tags": [
+        "cp1",
+        "questions",
+        "oral"
+      ],
+      "g": [
+        "Préparer des réponses",
+        "Structurer avec expérience"
+      ],
+      "c": "Aucune commande native.",
+      "p": [
+        "Rester trop théorique"
+      ],
+      "w": "Conclusion : l'expérience professionnelle valorise CP1."
+    },
+    {
+      "id": "mig-legacy-pedagogie-ccp3",
+      "t": "Fiche pedagogique de reference - CP3 assistance technique (contenu migré)",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "Contenu migré de l'ancienne fiche sans réécriture : Definition : diagnostiquer et resoudre en respectant l'utilisateur. Contexte : panne VPN ou poste. Objectif : retablir vite et documenter. Details : methode entonnoir, physique, IP, passerelle, DNS, applicatif. Exemple : cable debranche puis IP APIPA. Erreurs : changer plusieurs parametres ace fois, fermer sans validation. Jury : priorite incident, difference incident/probleme/demande, escalade.",
       "tags": [
         "pedagogie",
-        "support"
+        "support",
+        "migre"
       ],
       "g": [
         "Identifier et rassurer",
@@ -281,18 +399,19 @@
         "Absence de communication"
       ],
       "w": "Conclusion : structure et communication valent autant que la commande.",
-      "cp": "cp1"
+      "alt": "Schéma CP1"
     },
     {
-      "id": "cp3-ticketing",
-      "t": "Ticketing et priorisation",
+      "id": "mig-legacy-cp3-ticketing",
+      "t": "Ticketing et priorisation (contenu migré)",
       "level": "intermediaire",
       "cli": true,
-      "r": "CP3 - Définition : gestion normalisée des incidents. | Objectif professionnel : prioriser et tracer. | Cas réel : panne VPN multi-utilisateurs. | Fonctionnement détaillé : impact, urgence, priorité, SLA. | Exemple : ticket bloquant paie. | Procédure pas à pas : qualifier, catégoriser, prioriser, résoudre, clore. | Erreurs : pas de description. | Jury : SLA, escalade. | À retenir : impact et urgence.",
+      "r": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : gestion normalisée des incidents. | Objectif professionnel : prioriser et tracer. | Cas réel : panne VPN multi-utilisateurs. | Fonctionnement détaillé : impact, urgence, priorité, SLA. | Exemple : ticket bloquant paie. | Procédure pas à pas : qualifier, catégoriser, prioriser, résoudre, clore. | Erreurs : pas de description. | Jury : SLA, escalade. | À retenir : impact et urgence.",
       "tags": [
         "cp3",
         "support",
-        "ticket"
+        "ticket",
+        "migre"
       ],
       "g": [
         "Qualifier",
@@ -307,20 +426,19 @@
         "Pas de priorité"
       ],
       "w": "Conclusion : un ticket clair sauve du temps.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Contexte support technique",
-      "cp": "cp1"
+      "alt": "Schéma CP1"
     },
     {
-      "id": "cp3-entretien",
-      "t": "Communication avec l'utilisateur",
+      "id": "mig-legacy-cp3-entretien",
+      "t": "Communication avec l'utilisateur (contenu migré)",
       "level": "intermediaire",
       "cli": false,
-      "r": "CP3 - Définition : accompagnement humain du support. | Objectif : réduire la frustration. | Cas réel : blocage outlook. | Fonctionnement détaillé : écoute, reformulation, explication simple. | Exemple : guider par téléphone. | Procédure : saluer, écouter, reformuler, accompagner. | Erreurs : jargon. | Jury : gestion relationnelle. | À retenir : empathie.",
+      "r": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : accompagnement humain du support. | Objectif : réduire la frustration. | Cas réel : blocage outlook. | Fonctionnement détaillé : écoute, reformulation, explication simple. | Exemple : guider par téléphone. | Procédure : saluer, écouter, reformuler, accompagner. | Erreurs : jargon. | Jury : gestion relationnelle. | À retenir : empathie.",
       "tags": [
         "cp3",
         "support",
-        "communication"
+        "communication",
+        "migre"
       ],
       "g": [
         "Saluer",
@@ -335,20 +453,19 @@
         "Couper parole"
       ],
       "w": "Conclusion : support humain.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Contexte support technique",
-      "cp": "cp1"
+      "alt": "Schéma CP1"
     },
     {
-      "id": "cp3-reseau",
-      "t": "Diagnostic réseau client",
+      "id": "mig-legacy-cp3-reseau",
+      "t": "Diagnostic réseau client (contenu migré)",
       "level": "intermediaire",
       "cli": true,
-      "r": "CP3 - Définition : méthode entonnoir IP. | Objectif : retrouver la continuité. | Cas réel : poste sans réseau. | Fonctionnement détaillé : câble, IP, passerelle, DNS, applicatif. | Exemple : mauvaise IP statique. | Procédure : couche 1, 2, 3, services, applicatif. | Erreurs : sauter étapes. | Jury : méthodologie. | À retenir : du physique au logiciel.",
+      "r": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : méthode entonnoir IP. | Objectif : retrouver la continuité. | Cas réel : poste sans réseau. | Fonctionnement détaillé : câble, IP, passerelle, DNS, applicatif. | Exemple : mauvaise IP statique. | Procédure : couche 1, 2, 3, services, applicatif. | Erreurs : sauter étapes. | Jury : méthodologie. | À retenir : du physique au logiciel.",
       "tags": [
         "cp3",
         "support",
-        "tcpip"
+        "tcpip",
+        "migre"
       ],
       "g": [
         "Test couche1",
@@ -363,20 +480,19 @@
         "DNS absent"
       ],
       "w": "Conclusion : ordre OSIm.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Contexte support technique",
-      "cp": "cp1"
+      "alt": "Schéma CP1"
     },
     {
-      "id": "cp3-vpn",
-      "t": "Support accès distant",
+      "id": "mig-legacy-cp3-vpn",
+      "t": "Support accès distant (contenu migré)",
       "level": "intermediaire",
       "cli": true,
-      "r": "CP3 - Définition : problème VPN et accès distant. | Objectif : rétablir la continuité pour usager. | Cas réel : VPN coupe en roaming. | Fonctionnement détaillé : certificat, identifiants, DNS/UDP, proxy. | Exemple : certificat expiré. | Procédure : vérifier client, identifiants, routage et certificat. | Erreurs : mot de passe expiré. | Jury : split tunnel, zero trust. | À retenir : contexte nat.",
+      "r": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : problème VPN et accès distant. | Objectif : rétablir la continuité pour usager. | Cas réel : VPN coupe en roaming. | Fonctionnement détaillé : certificat, identifiants, DNS/UDP, proxy. | Exemple : certificat expiré. | Procédure : vérifier client, identifiants, routage et certificat. | Erreurs : mot de passe expiré. | Jury : split tunnel, zero trust. | À retenir : contexte nat.",
       "tags": [
         "cp3",
         "support",
-        "vpn"
+        "vpn",
+        "migre"
       ],
       "g": [
         "Client VPN",
@@ -391,20 +507,19 @@
         "Split tunnel erroné"
       ],
       "w": "Conclusion : vérifier tout le chaînage.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Contexte support technique",
-      "cp": "cp1"
+      "alt": "Schéma CP1"
     },
     {
-      "id": "cp3-print",
-      "t": "Impression et spouleur",
+      "id": "mig-legacy-cp3-print",
+      "t": "Impression et spouleur (contenu migré)",
       "level": "intermediaire",
       "cli": true,
-      "r": "CP3 - Définition : support d'impression. | Objectif : remettre en service. | Cas réel : job bloqué. | Fonctionnement détaillé : spooler, drivers, queue, droits. | Exemple : spouleur planté. | Procédure : arrêt spouleur, nettoyage, redémarrage, test. | Erreurs : driver corrompu. | Jury : spooler et pilote. | À retenir : spoul et driver.",
+      "r": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : support d'impression. | Objectif : remettre en service. | Cas réel : job bloqué. | Fonctionnement détaillé : spooler, drivers, queue, droits. | Exemple : spouleur planté. | Procédure : arrêt spouleur, nettoyage, redémarrage, test. | Erreurs : driver corrompu. | Jury : spooler et pilote. | À retenir : spoul et driver.",
       "tags": [
         "cp3",
         "support",
-        "impression"
+        "impression",
+        "migre"
       ],
       "g": [
         "Vérifier queue",
@@ -419,20 +534,19 @@
         "Droits insuffisants"
       ],
       "w": "Conclusion : patience et procédure.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Contexte support technique",
-      "cp": "cp1"
+      "alt": "Schéma CP1"
     },
     {
-      "id": "cp3-mail",
-      "t": "Messagerie et Office",
+      "id": "mig-legacy-cp3-mail",
+      "t": "Messagerie et Office (contenu migré)",
       "level": "intermediaire",
       "cli": true,
-      "r": "CP3 - Définition : support M365 et Outlook. | Objectif : rétablir mail. | Cas réel : profil corrompu. | Fonctionnement détaillé : profil, cache ost, licence, proxy/autodiscover. | Exemple : inbox en erreur. | Procédure : tester web, refaire profil, vider cache. | Erreurs : accusé sans contrôle. | Jury : webmail vs desktop. | À retenir : client et réseau.",
+      "r": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : support M365 et Outlook. | Objectif : rétablir mail. | Cas réel : profil corrompu. | Fonctionnement détaillé : profil, cache ost, licence, proxy/autodiscover. | Exemple : inbox en erreur. | Procédure : tester web, refaire profil, vider cache. | Erreurs : accusé sans contrôle. | Jury : webmail vs desktop. | À retenir : client et réseau.",
       "tags": [
         "cp3",
         "support",
-        "m365"
+        "m365",
+        "migre"
       ],
       "g": [
         "Webmail",
@@ -446,20 +560,19 @@
         "Licence manquante"
       ],
       "w": "Conclusion : isoler le client.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Contexte support technique",
-      "cp": "cp1"
+      "alt": "Schéma CP1"
     },
     {
-      "id": "cp3-malware",
-      "t": "Incident malware utilisateur",
+      "id": "mig-legacy-cp3-malware",
+      "t": "Incident malware utilisateur (contenu migré)",
       "level": "intermediaire",
       "cli": true,
-      "r": "CP3 - Définition : suspicion malware. | Objectif : limiter et éradiquer. | Cas réel : pièce jointe piéreuse. | Fonctionnement détaillé : détection, isolement, scan, IR, communication. | Exemple : boîte mail. | Procédure : isoler, scanner, nettoyer, documenter. | Erreurs : réinstaller sans preuve. | Jury : coordination SOC. | À retenir : isolement.",
+      "r": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : suspicion malware. | Objectif : limiter et éradiquer. | Cas réel : pièce jointe piéreuse. | Fonctionnement détaillé : détection, isolement, scan, IR, communication. | Exemple : boîte mail. | Procédure : isoler, scanner, nettoyer, documenter. | Erreurs : réinstaller sans preuve. | Jury : coordination SOC. | À retenir : isolement.",
       "tags": [
         "cp3",
         "support",
-        "malware"
+        "malware",
+        "migre"
       ],
       "g": [
         "Isoler",
@@ -474,20 +587,19 @@
         "Pas de traçabilité"
       ],
       "w": "Conclusion : contenir puis analyser.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Contexte support technique",
-      "cp": "cp1"
+      "alt": "Schéma CP1"
     },
     {
-      "id": "cp3-remote",
-      "t": "Outils d'assistance à distance",
+      "id": "mig-legacy-cp3-remote",
+      "t": "Outils d'assistance à distance (contenu migré)",
       "level": "intermediaire",
       "cli": false,
-      "r": "CP3 - Définition : prise en main sécurisée. | Objectif : dépanner à distance. | Cas réel : erreur sur site éloigné. | Fonctionnement détaillé : authentification, consentement, journal. | Exemple : TeamViewer sous contrôle. | Procédure : demander accord, lancer, observer, clore. | Erreurs : accès non supervisé. | Jury : sécurité et consentement. | À retenir : jamais sans accord.",
+      "r": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : prise en main sécurisée. | Objectif : dépanner à distance. | Cas réel : erreur sur site éloigné. | Fonctionnement détaillé : authentification, consentement, journal. | Exemple : TeamViewer sous contrôle. | Procédure : demander accord, lancer, observer, clore. | Erreurs : accès non supervisé. | Jury : sécurité et consentement. | À retenir : jamais sans accord.",
       "tags": [
         "cp3",
         "support",
-        "remote"
+        "remote",
+        "migre"
       ],
       "g": [
         "Consentement",
@@ -501,20 +613,19 @@
         "Pas de journal"
       ],
       "w": "Conclusion : sécuriser l'assistance.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Contexte support technique",
-      "cp": "cp1"
+      "alt": "Schéma CP1"
     },
     {
-      "id": "cp3-hardware",
-      "t": "Panne matérielle suspectée",
+      "id": "mig-legacy-cp3-hardware",
+      "t": "Panne matérielle suspectée (contenu migré)",
       "level": "intermediaire",
       "cli": true,
-      "r": "CP3 - Définition : diagnostic matériel. | Objectif : identifier panne. | Cas réel : écran bleu répétitif. | Fonctionnement détaillé : SMART, mémoire, température, événements. | Exemple : disque défaillant. | Procédure : événement, test, garantie, remplacement. | Erreurs : réinstaller OS sans test. | Jury : diagnostic couche physique. | À retenir : preuves matériel.",
+      "r": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : diagnostic matériel. | Objectif : identifier panne. | Cas réel : écran bleu répétitif. | Fonctionnement détaillé : SMART, mémoire, température, événements. | Exemple : disque défaillant. | Procédure : événement, test, garantie, remplacement. | Erreurs : réinstaller OS sans test. | Jury : diagnostic couche physique. | À retenir : preuves matériel.",
       "tags": [
         "cp3",
         "support",
-        "hardware"
+        "hardware",
+        "migre"
       ],
       "g": [
         "Événements",
@@ -528,20 +639,19 @@
         "Perdre données"
       ],
       "w": "Conclusion : tester avant remplacement.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Contexte support technique",
-      "cp": "cp1"
+      "alt": "Schéma CP1"
     },
     {
-      "id": "cp3-licence",
-      "t": "Litige licence et activation",
+      "id": "mig-legacy-cp3-licence",
+      "t": "Litige licence et activation (contenu migré)",
       "level": "intermediaire",
       "cli": true,
-      "r": "CP3 - Définition : activation et licence Windows/M365. | Objectif : rétablir accès. | Cas réel : Windows not activated. | Fonctionnement détaillé : clé, KMS, Entra ID. | Exemple : poste mobilisé sans licence. | Procédure : vérifier, corriger compte, réattribuer licence. | Erreurs : manipulation hors procédure. | Jury : mode d'activation. | À retenir : connaître KMS/CSP.",
+      "r": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : activation et licence Windows/M365. | Objectif : rétablir accès. | Cas réel : Windows not activated. | Fonctionnement détaillé : clé, KMS, Entra ID. | Exemple : poste mobilisé sans licence. | Procédure : vérifier, corriger compte, réattribuer licence. | Erreurs : manipulation hors procédure. | Jury : mode d'activation. | À retenir : connaître KMS/CSP.",
       "tags": [
         "cp3",
         "support",
-        "licence"
+        "licence",
+        "migre"
       ],
       "g": [
         "Identifier erreur",
@@ -555,20 +665,19 @@
         "Compte non provisionné"
       ],
       "w": "Conclusion : licence et identité liés.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Contexte support technique",
-      "cp": "cp1"
+      "alt": "Schéma CP1"
     },
     {
-      "id": "cp3-escalade",
-      "t": "Escalade et résolution",
+      "id": "mig-legacy-cp3-escalade",
+      "t": "Escalade et résolution (contenu migré)",
       "level": "intermediaire",
       "cli": false,
-      "r": "CP3 - Définition : élevé aux équipes supérieures. | Objectif : résoudre rapidement. | Cas réel : irrésolu par support N1. | Fonctionnement détaillé : contexte, invest, logs, attentes. | Exemple : problème réseau site. | Procédure : documenter, prévenir, transférer. | Erreurs : transfert nu. | Jury : escalade structurée. | À retenir : contexte complet.",
+      "r": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : élevé aux équipes supérieures. | Objectif : résoudre rapidement. | Cas réel : irrésolu par support N1. | Fonctionnement détaillé : contexte, invest, logs, attentes. | Exemple : problème réseau site. | Procédure : documenter, prévenir, transférer. | Erreurs : transfert nu. | Jury : escalade structurée. | À retenir : contexte complet.",
       "tags": [
         "cp3",
         "support",
-        "escalade"
+        "escalade",
+        "migre"
       ],
       "g": [
         "Résumer",
@@ -581,20 +690,19 @@
         "Transfert sans contexte"
       ],
       "w": "Conclusion : documentation d'escalade.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Contexte support technique",
-      "cp": "cp1"
+      "alt": "Schéma CP1"
     },
     {
-      "id": "cp3-parc",
-      "t": "Connaissance du parc",
+      "id": "mig-legacy-cp3-parc",
+      "t": "Connaissance du parc (contenu migré)",
       "level": "intermediaire",
       "cli": true,
-      "r": "CP3 - Definitions : connaitre les equipements. | Objectif : contextualiser le support. | Cas reel : poste hors standard. | Fonctionnement detaille : modele, OS, date achat, CMDB. | Exemple : rechercher un poste par hostname. | Procedure : consulter inventaire, verifier donnees, mettre a jour, tracer incident. | Erreurs : CMDB obsolete. | Jury : asset. | A retenir : inventaire.",
+      "r": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Definitions : connaitre les equipements. | Objectif : contextualiser le support. | Cas reel : poste hors standard. | Fonctionnement detaille : modele, OS, date achat, CMDB. | Exemple : rechercher un poste par hostname. | Procedure : consulter inventaire, verifier donnees, mettre a jour, tracer incident. | Erreurs : CMDB obsolete. | Jury : asset. | A retenir : inventaire.",
       "tags": [
         "cp3",
         "support",
-        "parc"
+        "parc",
+        "migre"
       ],
       "g": [
         "Consulter inventaire",
@@ -607,35 +715,7 @@
         "CMDB obsolete"
       ],
       "w": "Conclusion : connaitre son parc.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Contexte support technique",
-      "cp": "cp1"
-    },
-    {
-      "id": "cp3-synthese",
-      "t": "Synthèse examen CP3",
-      "level": "intermediaire",
-      "cli": false,
-      "r": "CP3 - Définition : synthèse pour l'oral. | Objectif : répondre complètement. | Cas réel : jury demande résolution type. | Fonctionnement détaillé : diagnostic, communication, clôture. | Exemple : panne réseau classique. | Procédure : poser questions, tester, résoudre, documenter. | Erreurs : oubli communication. | Jury : questions. | À retenir : méthode et empathie.",
-      "tags": [
-        "cp3",
-        "support",
-        "synthese"
-      ],
-      "g": [
-        "Qualifier",
-        "Tester",
-        "Résoudre",
-        "Documenter"
-      ],
-      "c": "Aucune commande native pertinente pour cette fiche.",
-      "p": [
-        "Sauter étape"
-      ],
-      "w": "Conclusion : support maîtrisé.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Contexte support technique",
-      "cp": "cp1"
+      "alt": "Schéma CP1"
     }
   ]
 }
