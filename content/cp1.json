@@ -106,7 +106,7 @@
         "Redémarrer l'application",
         "Comparer web et client"
       ],
-      "c": "Get-PSDrive\nGet-Process Teams\nRemove-Item -Recurse -Force $env:APPDATA\\Microsoft\\Teams\\Cache\ntest-netconnection teams.microsoft.com -port 443\nmsinfo32",
+      "c": "Get-PSDrive\nGet-Process Teams\nRemove-Item -Recurse -Force $env:APPDATA\\Microsoft\\Teams\\Cache\ntest-netconnection teams.microsoft.com -port 443\nmsinfo32\n# À VÉRIFIER : chemin exact du cache Teams selon la version installée",
       "p": [
         "Supprimer le mauvais dossier",
         "Croire au cache sans test"
@@ -132,7 +132,7 @@
         "Accompagner",
         "Clôturer"
       ],
-      "c": "Get-MgUser -UserId user@domaine.fr\nGet-MgUserLicenseDetail -UserId user@domaine.fr\nGet-ADUser -Identity user -Properties MemberOf\nConnect-MgGraph -Scopes User.Read.All",
+      "c": "Get-MgUser -UserId user@domaine.fr\nGet-MgUserLicenseDetail -UserId user@domaine.fr\nGet-ADUser -Identity user -Properties MemberOf\nConnect-MgGraph -Scopes User.Read.All\n# À VÉRIFIER : syntaxe et disponibilité module Microsoft.Graph",
       "p": [
         "Licence manquante",
         "Groupe absent",
@@ -402,7 +402,7 @@
       "alt": "Schéma CP1"
     },
     {
-      "id": "mig-legacy-cp3-ticketing",
+      "id": "mig-legacy-cp1-ticketing",
       "t": "Ticketing et priorisation (contenu migré)",
       "level": "intermediaire",
       "cli": true,
@@ -429,7 +429,7 @@
       "alt": "Schéma CP1"
     },
     {
-      "id": "mig-legacy-cp3-entretien",
+      "id": "mig-legacy-cp1-entretien",
       "t": "Communication avec l'utilisateur (contenu migré)",
       "level": "intermediaire",
       "cli": false,
@@ -456,34 +456,7 @@
       "alt": "Schéma CP1"
     },
     {
-      "id": "mig-legacy-cp3-reseau",
-      "t": "Diagnostic réseau client (contenu migré)",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : méthode entonnoir IP. | Objectif : retrouver la continuité. | Cas réel : poste sans réseau. | Fonctionnement détaillé : câble, IP, passerelle, DNS, applicatif. | Exemple : mauvaise IP statique. | Procédure : couche 1, 2, 3, services, applicatif. | Erreurs : sauter étapes. | Jury : méthodologie. | À retenir : du physique au logiciel.",
-      "tags": [
-        "cp3",
-        "support",
-        "tcpip",
-        "migre"
-      ],
-      "g": [
-        "Test couche1",
-        "IP config",
-        "Passerelle",
-        "DNS",
-        "Application"
-      ],
-      "c": "ipconfig /all; nslookup example.local; tracert 8.8.8.8; Test-NetConnection",
-      "p": [
-        "IP incorrecte",
-        "DNS absent"
-      ],
-      "w": "Conclusion : ordre OSIm.",
-      "alt": "Schéma CP1"
-    },
-    {
-      "id": "mig-legacy-cp3-vpn",
+      "id": "mig-legacy-cp1-vpn",
       "t": "Support accès distant (contenu migré)",
       "level": "intermediaire",
       "cli": true,
@@ -510,7 +483,7 @@
       "alt": "Schéma CP1"
     },
     {
-      "id": "mig-legacy-cp3-print",
+      "id": "mig-legacy-cp1-print",
       "t": "Impression et spouleur (contenu migré)",
       "level": "intermediaire",
       "cli": true,
@@ -528,7 +501,7 @@
         "Redémarrer",
         "Tester"
       ],
-      "c": "net stop spooler; net start spooler; Get-Printer",
+      "c": "net stop spooler; net start spooler; Get-Printer\n# À VÉRIFIER : droits et comportement spouleur selon version Windows",
       "p": [
         "Pilote cassé",
         "Droits insuffisants"
@@ -537,7 +510,7 @@
       "alt": "Schéma CP1"
     },
     {
-      "id": "mig-legacy-cp3-mail",
+      "id": "mig-legacy-cp1-mail",
       "t": "Messagerie et Office (contenu migré)",
       "level": "intermediaire",
       "cli": true,
@@ -554,7 +527,7 @@
         "Supprimer cache",
         "Relancer"
       ],
-      "c": "Test-OutlookConnectivity; Get-Mailbox",
+      "c": "Test-OutlookConnectivity; Get-Mailbox\n# À VÉRIFIER : Test-OutlookConnectivity dépend de l'environnement Exchange/possibilité d'exécution",
       "p": [
         "Autodiscover bloqué",
         "Licence manquante"
@@ -563,7 +536,7 @@
       "alt": "Schéma CP1"
     },
     {
-      "id": "mig-legacy-cp3-malware",
+      "id": "mig-legacy-cp1-malware",
       "t": "Incident malware utilisateur (contenu migré)",
       "level": "intermediaire",
       "cli": true,
@@ -590,7 +563,7 @@
       "alt": "Schéma CP1"
     },
     {
-      "id": "mig-legacy-cp3-remote",
+      "id": "mig-legacy-cp1-remote",
       "t": "Outils d'assistance à distance (contenu migré)",
       "level": "intermediaire",
       "cli": false,
@@ -616,7 +589,7 @@
       "alt": "Schéma CP1"
     },
     {
-      "id": "mig-legacy-cp3-hardware",
+      "id": "mig-legacy-cp1-hardware",
       "t": "Panne matérielle suspectée (contenu migré)",
       "level": "intermediaire",
       "cli": true,
@@ -633,7 +606,7 @@
         "Mémoire",
         "Remplacement"
       ],
-      "c": "wmic cpu get; chkdsk /scan; Test-NetAdapter",
+      "c": "wmic cpu get; chkdsk /scan; Test-NetAdapter\n# À VÉRIFIER : wmic peut être absent sur les versions récentes; chkdsk /scan et Test-NetAdapter disponibles\n",
       "p": [
         "Réinstaller à l'aveugle",
         "Perdre données"
@@ -642,7 +615,7 @@
       "alt": "Schéma CP1"
     },
     {
-      "id": "mig-legacy-cp3-licence",
+      "id": "mig-legacy-cp1-licence",
       "t": "Litige licence et activation (contenu migré)",
       "level": "intermediaire",
       "cli": true,
@@ -668,7 +641,7 @@
       "alt": "Schéma CP1"
     },
     {
-      "id": "mig-legacy-cp3-escalade",
+      "id": "mig-legacy-cp1-escalade",
       "t": "Escalade et résolution (contenu migré)",
       "level": "intermediaire",
       "cli": false,
@@ -693,7 +666,7 @@
       "alt": "Schéma CP1"
     },
     {
-      "id": "mig-legacy-cp3-parc",
+      "id": "mig-legacy-cp1-parc",
       "t": "Connaissance du parc (contenu migré)",
       "level": "intermediaire",
       "cli": true,

@@ -1,0 +1,263 @@
+{
+  "id": "archive-linux-a-reintegrer",
+  "group": "archive",
+  "icon": "🐧",
+  "title": "Archive — 10 fiches Linux à réintégrer dans CP3",
+  "desc": "Fiches Linux migrées dans l-historique (Phase 1), archivées pour réintégration future en CP3 sans perte.",
+  "fiches": [
+    {
+      "id": "arch-linux-ccp3-base",
+      "t": "Base Linux : arborescence et configuration",
+      "level": "debutant",
+      "r": "/etc pour la config, /var/log pour les logs, /home pour les utilisateurs, /opt pour les applications tierces. Toujours lire avant d'??diter.",
+      "tags": [
+        "linux",
+        "fichiers",
+        "base"
+      ],
+      "g": [
+        "Terminal ou Explorateur GNOME pour parcourir",
+        "??diter avec nano/vim les fichiers sous /etc",
+        "V??rifier l'OS et la version",
+        "Tester la modification et red??marrer le service d??pendant"
+      ],
+      "c": "ls -la /etc/*.conf\ncat /etc/os-release\ncat /etc/passwd | cut -d: -f1\ncat /etc/hosts\ncat /etc/resolv.conf\nchmod 640 fichier\nchown user:group fichier\nfind /var/log -type f -size +10M",
+      "p": [
+        "/etc/passwd liste les utilisateurs, /etc/shadow les hash",
+        "/etc/fstab monte les syst??mes au boot",
+        "chmod r=4, w=2, x=1 ; ??viter 777"
+      ],
+      "w": "Ne jamais chmod 777 sur un fichier sensible ; pr??f??rer les ACL POSIX (setfacl).",
+      "cp": "cp1"
+    },
+    {
+      "id": "arch-linux-ccp3-users",
+      "t": "Utilisateurs, groupes et sudo",
+      "level": "debutant",
+      "r": "useradd/usermod, groupes secondaires avec -aG (sinon ??crasement), sudo pour la d??l??gation.",
+      "tags": [
+        "linux",
+        "users",
+        "sudo"
+      ],
+      "g": [
+        "Param??tres > Utilisateurs pour l'approche GUI",
+        "V??rifier l'appartenance aux groupes",
+        "Cockpit (port 9090) si install?? pour g??rer ?? distance",
+        "Journaliser les ??l??vations (sudo.log)"
+      ],
+      "c": "useradd -m -s /bin/bash jdupont\npasswd jdupont\nusermod -aG sudo,adm jdupont\nid jdupont\ngroups jdupont\nchage -l jdupont\nvisudo -c",
+      "p": [
+        "-aG ajoute sans ??craser les groupes existants",
+        "umask 027 pour masquer les fichiers nouveaux",
+        "D??sactiver le login root direct (PermitRootLogin no)"
+      ],
+      "w": "Oublier -a dans -G remplace tous les groupes secondaires et peut bloquer un admin.",
+      "cp": "cp1"
+    },
+    {
+      "id": "arch-linux-ccp3-services",
+      "t": "Systemd : services, cibles et journaux",
+      "level": "intermediaire",
+      "r": "systemctl g??re le cycle de vie des unit??s ; journalctl filtre les logs binaires journald.",
+      "tags": [
+        "systemd",
+        "services",
+        "logs",
+        "linux"
+      ],
+      "g": [
+        "Identifier le service et son ??tat",
+        "Activer au boot + d??marrer maintenant",
+        "D??pendances et drop-in via systemctl edit",
+        "Consulter les logs r??cents"
+      ],
+      "c": "systemctl status sshd\nsystemctl enable --now sshd\nsystemctl restart sshd\nsystemctl daemon-reload\njournalctl -u sshd -n 50 --no-pager\njournalctl -p err -b\nloginctl show-session 1",
+      "p": [
+        "enabled = au boot, active = en cours",
+        "Masquer un service : systemctl mask",
+        "Journald persistant : Storage=persistent"
+      ],
+      "w": "Un service 'failed' laisse parfois un message d'erreur explicite dans journalctl -xe.",
+      "cp": "cp1"
+    },
+    {
+      "id": "arch-linux-ccp3-reseau",
+      "t": "R??seau Linux, Netplan et NetworkManager",
+      "level": "intermediaire",
+      "r": "ip remplace ifconfig. Netplan/NM selon la distribution. Configuration persistante obligatoire.",
+      "tags": [
+        "reseau",
+        "ip",
+        "netplan",
+        "linux"
+      ],
+      "g": [
+        "NetworkManager GUI pour les postes graphiques",
+        "V??rifier l'IP, la route et les DNS",
+        "??diter YAML Netplan avec indentation correcte",
+        "Appliquer et tester la connectivit??"
+      ],
+      "c": "ip a\nip r\nping -c4 8.8.8.8\nss -tulpn\ncat /etc/netplan/*.yaml\nnetplan apply\nnmcli device status\nnmcli connection modify eth0 ipv4.addresses 192.168.1.10/24 ipv4.gateway 192.168.1.1",
+      "p": [
+        "ss remplace netstat",
+        "Netplan sensible aux espaces YAML",
+        "Penser ?? tester hors bande pour les serveurs distants"
+      ],
+      "w": "Une erreur YAML peut couper le r??seau ; garder une console distante ouverte.",
+      "cp": "cp1"
+    },
+    {
+      "id": "arch-linux-ccp3-paquets",
+      "t": "Paquets, d??p??ts et maintenance",
+      "level": "debutant",
+      "r": "APT/YUM/DNF selon distro. Mettre ?? jour r??guli??rement, nettoyer les paquets et v??rifier les origines.",
+      "tags": [
+        "apt",
+        "dnf",
+        "packages",
+        "linux"
+      ],
+      "g": [
+        "Logiciels via GNOME Software ou Synaptic",
+        "D??p??ts officiels vs tiers ; signature GPG",
+        "Nettoyage des paquets obsol??tes",
+        "Planification unattended-upgrades"
+      ],
+      "c": "apt update && apt upgrade -y\ndpkg -l | grep ssh\napt autoremove --purge\ndnf check-update\ndnf install -y httpd\nrpm -qa | grep -i httpd\nunattended-upgrade -d",
+      "p": [
+        "apt-cache madison pour comparer les versions",
+        "Pinning Debian pour figer une version",
+        "Auditer les d??p??ts avec apt-cache policy"
+      ],
+      "w": "Ne jamais m??langer les d??p??ts de versions majeures (ex. Jammy/Bookworm) sans n??cessit??.",
+      "cp": "cp1"
+    },
+    {
+      "id": "arch-linux-ccp3-ssh",
+      "t": "SSH : administration distante s??curis??e",
+      "level": "intermediaire",
+      "r": "SSH chiffre la session. Authentification par cl?? et d??sactivation root direct = base de la s??curit??.",
+      "tags": [
+        "ssh",
+        "securite",
+        "remote"
+      ],
+      "g": [
+        "Installer openssh-server si absent",
+        "G??n??rer des cl??s c??t?? client",
+        "Copier la cl?? publique (ssh-copy-id)",
+        "D??sactiver root et password si cl??s pr??sentes"
+      ],
+      "c": "ssh-keygen -t ed25519 -C \"admin@tssr\"\nssh-copy-id -i ~/.ssh/id_ed25519.pub jdupont@192.168.1.10\n# /etc/ssh/sshd_config :\nPermitRootLogin no\nPasswordAuthentication no\nPubkeyAuthentication yes\nsystemctl reload sshd",
+      "p": [
+        "ed25519 recommand??",
+        "sshd_config.d/ pour les overrides modernes",
+        "Authentification ?? deux facteurs pour les acc??s sensibles"
+      ],
+      "w": "Se couper l'acc??s SSH en d??sactivant le password avant d'avoir test?? la cl?? est l'erreur classique.",
+      "cp": "cp1"
+    },
+    {
+      "id": "arch-linux-ccp3-stockage",
+      "t": "Stockage : LVM, partitions et fstab",
+      "level": "avance",
+      "r": "LVM abstraction (PV/VG/LV) pour redimensionner et snapshotter sans tout r??installer.",
+      "tags": [
+        "lvm",
+        "stockage",
+        "fstab",
+        "disque"
+      ],
+      "g": [
+        "lsblk pour visualiser les disques et partitions",
+        "Cr??er PV, VG puis LV",
+        "Formater (ext4/xfs) et monter",
+        "Ajouter ?? /etc/fstab puis tester"
+      ],
+      "c": "lsblk -o NAME,SIZE,FSTYPE,MOUNTPOINT\npvcreate /dev/sdb1\nvgcreate vg_data /dev/sdb1\nlvcreate -L 20G -n lv_app vg_data\nmkfs.ext4 /dev/vg_data/lv_app\nmount /dev/vg_data/lv_app /opt/app\necho \"/dev/vg_data/lv_app /opt/app ext4 defaults 0 2\" >> /etc/fstab\nmount -a",
+      "p": [
+        "snapshot LVM pour sauvegardes coh??rentes",
+        "XFS pour gros volumes, ext4 pour souplesse",
+        "Ne jamais fsck un volume mont??"
+      ],
+      "w": "Modifier fstab sans tester avec mount -a peut emp??cher le boot au prochain red??marrage.",
+      "cp": "cp1"
+    },
+    {
+      "id": "arch-linux-ccp3-cron",
+      "t": "Planification avec cron et systemd timers",
+      "level": "debutant",
+      "r": "Cron simple pour les t??ches p??riodiques ; systemd timers pour d??pendances, logs et red??marrages automatiques.",
+      "tags": [
+        "cron",
+        "planification",
+        "automation"
+      ],
+      "g": [
+        "crontab -e pour ??diter",
+        "Utiliser des chemins absolus",
+        "Rediriger la sortie vers un fichier de log",
+        "Tester le script ?? la main"
+      ],
+      "c": "crontab -e\n# minute heure jour mois jourSemaine commande\n30 2 * * * /opt/scripts/backup.sh >> /var/log/backup.log 2>&1\n@reboot /opt/scripts/startup.sh\n# systemd timer\nsystemctl enable --now backup.timer",
+      "p": [
+        "SHELL=/bin/bash et PATH explicites dans crontab",
+        "Ne jamais lancer en root sans justification",
+        "Journaliser les ??checs avec mail ou monitoring"
+      ],
+      "w": "Les scripts cron n'h??ritent pas de l'environnement interactif ; tester avec env -i.",
+      "cp": "cp1"
+    },
+    {
+      "id": "arch-linux-ccp3-logs-central",
+      "t": "Logs centralis??s et logrotate",
+      "level": "avance",
+      "r": "Journalisation structur??e + rotation = diagnostic fiable et conservation ma??tris??e.",
+      "tags": [
+        "logs",
+        "journald",
+        "logrotate"
+      ],
+      "g": [
+        "D??couper par service pour limiter la taille",
+        "Configurer logrotate avec compression et r??tention",
+        "Exporter vers un collecteur (rsyslog) si plusieurs serveurs",
+        "Surveiller l'espace disque"
+      ],
+      "c": "# /etc/logrotate.d/myapp\n/var/log/myapp/*.log {\n    daily\n    rotate 14\n    compress\n    delaycompress\n    missingok\n    notifempty\n    create 0640 root adm\n}\nlogrotate -d /etc/logrotate.conf",
+      "p": [
+        "Tail -f pour suivre en live",
+        "logger pour ??crire dans journald",
+        "Centralisation avec Loki/Graylog en production"
+      ],
+      "w": "Les logs rotat??s peuvent ??chapper ?? la supervision si le chemin change.",
+      "cp": "cp1"
+    },
+    {
+      "id": "arch-linux-ccp3-linux-debutant",
+      "t": "Linux : utilisateurs, droits, SSH, services, disque (d??butant)",
+      "level": "debutant",
+      "r": "Linux g??re utilisateurs/groupes, droits rwx, services via systemd, r??seau via ip/Netplan et SSH ?? s??curiser.",
+      "tags": [
+        "linux",
+        "ssh",
+        "droits",
+        "debutant"
+      ],
+      "g": [
+        "Cr??er user, groupes, cl??s SSH",
+        "D??sactiver root direct",
+        "Surveiller services et logs"
+      ],
+      "c": "useradd -m -s /bin/bash alice\nusermod -aG sudo alice\nsystemctl status sshd\njournalctl -u sshd -n 20\nip a; ss -tulpn",
+      "p": [
+        "chmod 640 = rw-r-----",
+        "Netplan sensible ?? l'indentation",
+        "Logs : /var/log"
+      ],
+      "w": "Oublier -a dans -G ??crase les groupes existants.",
+      "cp": "cp1"
+    }
+  ]
+}
