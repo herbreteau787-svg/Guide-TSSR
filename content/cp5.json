@@ -6,7 +6,7 @@
   "desc": "Hyperviseurs, stockage, clusters HA/DRS, snapshots et backup VM.",
   "fiches": [
     {
-      "id": "ccp6-bash-backup",
+      "id": "cp5-bash-backup",
       "t": "Bash : sauvegarde incrémentale et contrôle rotatif",
       "level": "intermediaire",
       "r": "rsync + journal, contrôle de retour, rotation simple des sauvegardes. Expliquer : arguments en majuscules, guillemets, code retour $?.",
@@ -32,7 +32,7 @@
       "cp": "cp5"
     },
     {
-      "id": "ccp6-bash-check",
+      "id": "cp5-bash-check",
       "t": "Bash : validation d'arguments et contrôle de fichier",
       "level": "intermediaire",
       "r": "Valider le nombre d'arguments, tester l'existence et le type avant d'agir, afficher un usage clair.",
@@ -57,7 +57,7 @@
       "cp": "cp5"
     },
     {
-      "id": "ccp6-bash-monitor",
+      "id": "cp5-bash-monitor",
       "t": "Bash : vérification d'un service et alerte simple",
       "level": "debutant",
       "r": "systemctl + journalisation, boucle while, timeout. Expliquer : commandes courtes et codes de retour.",
@@ -82,7 +82,7 @@
       "cp": "cp5"
     },
     {
-      "id": "ccp6-bash-inventory",
+      "id": "cp5-bash-inventory",
       "t": "Bash : inventaire et rapport d'un dossier partagé",
       "level": "intermediaire",
       "r": "find, awk, comptage par extension, fichier CSV. Montrer : boucle, tests et rediriger vers un fichier de sortie.",
@@ -108,7 +108,7 @@
       "cp": "cp5"
     },
     {
-      "id": "ccp6-ps-users",
+      "id": "cp5-ps-users",
       "t": "PowerShell : création massive d'utilisateurs AD depuis CSV",
       "level": "intermediaire",
       "r": "Import-Csv + ForEach-Object + New-ADUser. Expliquer : pipeline d'objets, variables, attributs obligatoires.",
@@ -134,7 +134,7 @@
       "cp": "cp5"
     },
     {
-      "id": "ccp6-ps-inactive",
+      "id": "cp5-ps-inactive",
       "t": "PowerShell : rapport des utilisateurs inactifs",
       "level": "intermediaire",
       "r": "Get-ADUser + LastLogonDate, Export-Csv. Expliquer : filtrage, date calculée, export lisible pour audit.",
@@ -160,7 +160,7 @@
       "cp": "cp5"
     },
     {
-      "id": "ccp6-ps-perm",
+      "id": "cp5-ps-perm",
       "t": "PowerShell : rapport de droits sur un dossier partagé",
       "level": "intermediaire",
       "r": "Get-Acl + ACL, affichage des groupes et niveaux d'accès. Montrer : pourquoi on sépare DomainLocal et Global.",
@@ -186,7 +186,7 @@
       "cp": "cp5"
     },
     {
-      "id": "ccp6-ps-service",
+      "id": "cp5-ps-service",
       "t": "PowerShell : surveillance et redémarrage contrôlé",
       "level": "debutant",
       "r": "Get-Service + boucle While + Start-Service. Expliquer : état Running/Stopped et tentatives de relance.",
@@ -211,7 +211,7 @@
       "cp": "cp5"
     },
     {
-      "id": "ccp6-ps-backup",
+      "id": "cp5-ps-backup",
       "t": "PowerShell : sauvegarde Windows (robocopy)",
       "level": "intermediaire",
       "r": "Robocopy avec journal et codes retour. On explique : /MIR pour miroir, risque de suppression, et contrôle code 1-7.",
@@ -237,7 +237,7 @@
       "cp": "cp5"
     },
     {
-      "id": "pedagogie-ccp6",
+      "id": "pedagogie-cp5",
       "t": "Fiche pedagogique de reference - CP6 virtualisation",
       "level": "intermediaire",
       "r": "Definition : mutualiser des serveurs virtuels avec haute disponibilite. Contexte : VMware, Hyper-V ou Proxmox. Objectif : provisionner, sauvegarder et restaurer. Details : vSwitch, storage, snapshots vs sauvegardes, cluster HA/DRS. Exemple : creation VM puis sauvegarde pro. Erreurs : confondre snapshot et sauvegarde, ignorer ressources. Jury : pourquoi deux vSwitch, hotes vs invites, sauvegarde.",
@@ -261,7 +261,7 @@
       "cp": "cp5"
     },
     {
-      "id": "cp6-hyp",
+      "id": "cp5-hyp",
       "t": "Hyperviseur",
       "level": "intermediaire",
       "cli": true,
@@ -287,7 +287,7 @@
       "cp": "cp5"
     },
     {
-      "id": "cp6-storage",
+      "id": "cp5-storage",
       "t": "Stockage virtuel",
       "level": "intermediaire",
       "cli": true,
@@ -312,7 +312,7 @@
       "cp": "cp5"
     },
     {
-      "id": "cp6-vm",
+      "id": "cp5-vm",
       "t": "Création et template VM",
       "level": "intermediaire",
       "cli": true,
@@ -338,7 +338,7 @@
       "cp": "cp5"
     },
     {
-      "id": "cp6-snap",
+      "id": "cp5-snap",
       "t": "Snapshots",
       "level": "intermediaire",
       "cli": true,
@@ -364,7 +364,7 @@
       "cp": "cp5"
     },
     {
-      "id": "cp6-backup",
+      "id": "cp5-backup",
       "t": "Sauvegarde VM",
       "level": "intermediaire",
       "cli": true,
@@ -389,7 +389,7 @@
       "cp": "cp5"
     },
     {
-      "id": "cp6-ha",
+      "id": "cp5-ha",
       "t": "Haute disponibilité",
       "level": "intermediaire",
       "cli": true,
@@ -415,7 +415,7 @@
       "cp": "cp5"
     },
     {
-      "id": "cp6-drs",
+      "id": "cp5-drs",
       "t": "DRS et répartition",
       "level": "intermediaire",
       "cli": true,
@@ -441,7 +441,7 @@
       "cp": "cp5"
     },
     {
-      "id": "cp6-motion",
+      "id": "cp5-motion",
       "t": "vMotion live",
       "level": "intermediaire",
       "cli": true,
@@ -466,7 +466,7 @@
       "cp": "cp5"
     },
     {
-      "id": "cp6-network",
+      "id": "cp5-network",
       "t": "Switch virtuel",
       "level": "intermediaire",
       "cli": true,
@@ -492,7 +492,7 @@
       "cp": "cp5"
     },
     {
-      "id": "cp6-check",
+      "id": "cp5-check",
       "t": "Health check datastore",
       "level": "intermediaire",
       "cli": true,
@@ -518,7 +518,7 @@
       "cp": "cp5"
     },
     {
-      "id": "cp6-security",
+      "id": "cp5-security",
       "t": "Sécurité hyperviseur",
       "level": "intermediaire",
       "cli": true,
@@ -544,7 +544,7 @@
       "cp": "cp5"
     },
     {
-      "id": "cp6-synthese",
+      "id": "cp5-synthese",
       "t": "Synthèse examen CP6",
       "level": "intermediaire",
       "cli": false,

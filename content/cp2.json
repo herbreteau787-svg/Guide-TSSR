@@ -615,31 +615,6 @@
       ],
       "w": "Conclusion : supervision par seuils.",
       "alt": "Schéma serveurs"
-    },
-    {
-      "id": "mig-legacy-cp2-jury",
-      "t": "Synthèse examen CP5 (contenu migré)",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : synthèse pour l'oral. | Objectif : expliquer. | Cas réel : jury demande déploiement AD. | Fonctionnement détaillé : AD, DNS, GPO, backup. | Exemple : mise en service. | Procédure : prérequis, promotion, test. | Erreurs : omettre restore. | Jury : questions. | Retenir : expertise.",
-      "tags": [
-        "cp5",
-        "serveurs",
-        "synthese",
-        "migre-legacy"
-      ],
-      "g": [
-        "Prérequis",
-        "Promotion",
-        "Test",
-        "Restore"
-      ],
-      "c": "Get-ADForest; Get-ADDomainController -Discover",
-      "p": [
-        "Oublier backup"
-      ],
-      "w": "Conclusion : AD complet.",
-      "alt": "Schéma serveurs"
     }
   ]
 }
