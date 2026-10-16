@@ -1,0 +1,581 @@
+{
+  "id": "cp6",
+  "group": "cp6",
+  "icon": "⚙️",
+  "title": "CP6 — Automatisation par scripts",
+  "desc": "PowerShell et Bash, procédures, IA encadrée, accompagnement utilisateurs.",
+  "fiches": [
+    {
+      "id": "ccp1-tickets",
+      "t": "Cycle de vie d'un ticket (incident/problème/demande)",
+      "level": "debutant",
+      "r": "Incident = service dégradé à rétablir vite. Problème = cause racine à éliminer. Demande = besoin prévu. Priorité = Impact → Urgence → Criticité.",
+      "tags": [
+        "itil",
+        "glpi",
+        "ticket",
+        "sla"
+      ],
+      "g": [
+        "Identifier le service impacté et la criticité métier",
+        "Créer le ticket dans GLPI/iTop avec catégories et impact",
+        "Qualifier : utilisateur, poste, site, heure de début",
+        "Assigner, documenter chaque action horodatée",
+        "Clôturer avec validation utilisateur + base de connaissances"
+      ],
+      "c": "# Diagnostic rapide d'un poste\nipconfig /all\nping 8.8.8.8\nping intranet.local\nnslookup intranet.local\nGet-Service | Where Status -eq Stopped",
+      "p": [
+        "P1 critique 4h, P2 8h, P3 24h, P4 72h (adapter au SLA signé)",
+        "Escalade N2/N3 si hors périmètre ou échéance dépassée",
+        "On ne ferme un ticket qu'après validation réelle et sans contournement caché"
+      ],
+      "w": "Reformuler en langage simple ; jamais de jargon face à l'utilisateur. Un ticket flou = un incident mal routé.",
+      "cp": "cp6"
+    },
+    {
+      "id": "ccp1-poste",
+      "t": "Diagnostic réseau d'un poste (méthode entonnoir)",
+      "level": "debutant",
+      "r": "Physique → IP → passerelle → DNS → Internet. Tester couche par couche sans sauter d'étapes.",
+      "tags": [
+        "reseau",
+        "poste",
+        "ipconfig",
+        "dns"
+      ],
+      "g": [
+        "Vérifier voyant carte + câble, Wi-Fi activé, profil Privé/Public",
+        "Centre Réseau et partage : IP, passerelle, DNS",
+        "Tester navigation et accès au partage",
+        "Purger le cache si le nom échoue"
+      ],
+      "c": "ipconfig /all\nping 192.168.1.1\nping 8.8.8.8\nnslookup google.com\ntracert google.com\nipconfig /release\nipconfig /renew\nipconfig /flushdns\nTest-NetConnection google.com -Port 443",
+      "p": [
+        "169.254.x.x = APIPA → DHCP KO ou pas de réponse serveur",
+        "Ping OK par IP mais KO par nom = DNS KO",
+        "Tracert s'arrête à la passerelle = problème routage amont"
+      ],
+      "w": "Ne jamais remettre une IP manuelle sans documenter ; cela masque le vrai défaut DHCP.",
+      "cp": "cp6"
+    },
+    {
+      "id": "ccp1-comptes",
+      "t": "Compte AD : déblocage et reset mot de passe",
+      "level": "debutant",
+      "r": "Vérifier l'identité avant toute réinitialisation. Forcer le changement à la prochaine ouverture. Canal séparé pour le mot de passe.",
+      "tags": [
+        "ad",
+        "mot de passe",
+        "securite",
+        "compte"
+      ],
+      "g": [
+        "ADUC (dsa.msc) → Users → clic droit sur l'utilisateur",
+        "Compte : décocher Verrouillé / Réinitialiser le mot de passe",
+        "Cocher 'Doit changer le mot de passe à la prochaine ouverture'",
+        "Prévenir par canal séparé (téléphone) et documenter"
+      ],
+      "c": "Set-ADAccountPassword -Identity jdupont -Reset -NewPassword (ConvertTo-SecureString 'Temp2026!' -AsPlainText -Force)\nSet-ADUser -Identity jdupont -ChangePasswordAtLogon $true\nUnlock-ADAccount -Identity jdupont\nGet-ADUser jdupont -Properties LockedOut, Enabled, PasswordExpired",
+      "p": [
+        "Double vérification d'identité : badge + manager ou question confidentielle",
+        "Mots de passe temporaires : 12+ car., maj/min/chiffre/spécial",
+        "Un compte verrouillé en boucle = forcer sa déconnexion partout"
+      ],
+      "w": "Ne jamais envoyer le mot de passe dans le même canal que l'identifiant. Les groupes d'accès doivent rester inchangés lors d'un reset.",
+      "cp": "cp6"
+    },
+    {
+      "id": "ccp1-evenements",
+      "t": "Journaux Windows et observation système",
+      "level": "intermediaire",
+      "r": "Les journaux Application/Sécurité/Système + PowerShell Get-EventLog sont la mémoire de la machine. Toujours croiser codes d'événement avec la KB.",
+      "tags": [
+        "windows",
+        "logs",
+        "event",
+        "diagnostic"
+      ],
+      "g": [
+        "Ouvrir eventvwr.msc ; filtrer par niveau Erreur/Critique",
+        "Identifier l'EventID et la source exacte",
+        "Rechercher l'ID officiel Microsoft",
+        "Tester la correction et noter dans le ticket"
+      ],
+      "c": "Get-WinEvent -LogName System -MaxEvents 30 | Select TimeCreated, Id, ProviderName, Message\nGet-EventLog -LogName Application -EntryType Error -Newest 20\n# Filtrer un ID précis :\nGet-WinEvent -FilterHashtable @{LogName='Security'; Id=4625} | Select TimeCreated, Message -First 10",
+      "p": [
+        "4625 = échec d'ouverture de session ; 4740 = verrouillage de compte",
+        "Les journaux sont tournants : augmenter la taille si audit avancé",
+        "Exporter en EVTX avant une réinstallation"
+      ],
+      "w": "L'absence d'erreur dans les journaux n'exclut pas un problème réseau ou applicatif.",
+      "cp": "cp6"
+    },
+    {
+      "id": "ccp1-wsus",
+      "t": "Mises à jour : WSUS et stratégie de patch",
+      "level": "intermediaire",
+      "r": "Séparation anneaux (pilote/production), fenêtre de maintenance, rollback documenté.",
+      "tags": [
+        "wsus",
+        "patch",
+        "windows",
+        "gpo"
+      ],
+      "g": [
+        "Console WSUS : approuver pour le groupe pilote d'abord",
+        "Surveiller la conformité et les échecs",
+        "GPO : Configure Automatic Updates + intranet Microsoft update service",
+        "Planifier redémarrage hors heures creuses"
+      ],
+      "c": "wsusutil.exe checkhealth\nwuauclt /detectnow /updatenow\nGet-WindowsUpdateLog\n# PowerShell module PSWindowsUpdate :\nInstall-Module PSWindowsUpdate -Force\nGet-WUList | Select Title, Size\nInstall-WUUpdates -AcceptAll -AutoReboot",
+      "p": [
+        "Gardiens : serveurs d'abord puis postes",
+        "KB critiques de sécurité prioritaires",
+        "Garder 1-2 snapshots avant mise à jour majeure"
+      ],
+      "w": "Les mises à jour WSUS ne couvrent que les produits Microsoft ; les applicatifs tiers nécessitent un outil dédié.",
+      "cp": "cp6"
+    },
+    {
+      "id": "ccp1-outils",
+      "t": "Outils de support et communication",
+      "level": "debutant",
+      "r": "Un bon support = diagnostic structuré + écoute active + trajectoire claire pour l'utilisateur.",
+      "tags": [
+        "support",
+        "communication",
+        "relation client"
+      ],
+      "g": [
+        "Accueil : identifier, reformuler le besoin, rassurer",
+        "Expliquer ce qui va être fait et le délai",
+        "Point de contact unique até la clôture",
+        "Compléter la base de connaissances"
+      ],
+      "c": "# Grilles d'entretien (extrait)\n# 1. Quoi ? 2. Depuis quand ? 3. Pour qui ? 4. Impact ?\n# 5. Changement récent ? 6. Reproductible ?\n# Rappel final : \"Je vous rappelle avant 17h avec la solution ou une escalade.\"",
+      "p": [
+        "Ne jamais promettre l'impossible : dépendances fournisseurs externes",
+        "Utiliser des gabarits de mail pour la cohérence",
+        "Durée moyenne de résolution à suivre an par mois"
+      ],
+      "w": "Le silence crée l'angoisse ; un statut intermédiaire est toujours mieux.",
+      "cp": "cp6"
+    },
+    {
+      "id": "pedagogie-ccp1",
+      "t": "Fiche pedagogique de reference - CP1 IA encadree",
+      "level": "intermediaire",
+      "r": "Definition : l'IA assiste l'humain mais ne decide pas a sa place. Contexte professionnel : un utilisateur ou un technicien utilise un assistant pour rediger une procedure ou suggere un script. Objectif : utiliser l'IA de facon fiable, securisee et documentee. Explication detaillee : l'IA n'a pas la verite terrain et peut halluciner ; elle doit etre bornee par des donnees propres et validee. Exemple concret : generer un script PowerShell de sauvegarde puis le tester en bac a sable. Erreurs frequentes : copier sans verifier, fournir des secrets, confondre suggestion et preuve. Questions jury : comment encadrez-vous l'IA, quelle est une hallucination, comment protegez-vous les donnees.",
+      "tags": [
+        "pedagogie",
+        "examen",
+        "ia"
+      ],
+      "g": [
+        "Identifier le besoin",
+        "Preparer un prompt structure et anonyme",
+        "Verifier le resultat",
+        "Tester en bac a sable",
+        "Documenter dans le ticket"
+      ],
+      "c": "No native command; validation manuelle et test obligatoire.",
+      "p": [
+        "Copier sans controle",
+        "Publier des donnees sensibles",
+        "Oublier la preuve"
+      ],
+      "w": "Conclusion : l'IA est un accelerateur, la validation humaine reste obligatoire.",
+      "cp": "cp6"
+    },
+    {
+      "id": "cp1-usage",
+      "t": "Usages professionnels de l'IA en support TSSR",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP1 - Définition : l'IA est un outil probabiliste qui assiste l'humain. | Objectif professionnel : gagner du temps sans réduire la fiabilité. | Cas réel en entreprise : générer une procédure d'incident puis la valider avant usage. | Fonctionnement détaillé : estimation lexico-sémantique, absence de contexte terrain si non fourni. | Exemple concret : résumé de ticket pour escalade au niveau 3. | Procédure pas à pas : identifier le besoin, anonymiser les données, rédiger un prompt structuré, vérifier, tester, documenter. | Erreurs fréquentes : accepter tel quel, sans recoupement. | Questions possibles du jury : qu'est-ce qu'une hallucination, comment encadrer l'IA, qui est responsable. | À retenir pour l'examen : l'IA accélère, elle ne valide pas.",
+      "tags": [
+        "cp1",
+        "ia",
+        "professionnel",
+        "usage"
+      ],
+      "g": [
+        "Identifier le besoin",
+        "Anonymiser",
+        "Rédiger prompt",
+        "Vérifier et tester",
+        "Documenter"
+      ],
+      "c": "Aucune commande native indispensable ; validation humaine obligatoire.",
+      "p": [
+        "Accepter sans contrôle",
+        "Fournir données sensibles",
+        "Confondre suggestion et preuve"
+      ],
+      "w": "Conclusion : la validation humaine reste obligatoire.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Contexte CP1",
+      "cp": "cp6"
+    },
+    {
+      "id": "cp1-donnees",
+      "t": "Données et confidentialité",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP1 - Définition : règles de maîtrise des données saisies dans l'IA. | Objectif professionnel : respecter le RGPD et protéger le secret. | Cas réel en entreprise : tentative de saisir logs contenant identifiants. | Fonctionnement détaillé : classification, minimisation et choix de l'outil. | Exemple concret : anonymiser un ticket avant prompt. | Procédure : qualifier le contenu, masquer, choisir l'outil autorisé, journaliser. | Erreurs : divulguer des secrets. | Jury : différence anonymisation/pseudonymisation. | À retenir : minimiser les données.",
+      "tags": [
+        "cp1",
+        "ia",
+        "professionnel",
+        "rgpd"
+      ],
+      "g": [
+        "Qualifier",
+        "Masquer",
+        "Choisir outil",
+        "Journaliser"
+      ],
+      "c": "Aucune commande native indispensable ; validation humaine obligatoire.",
+      "p": [
+        "Coller des secrets",
+        "Ignorer la politique",
+        "Sous-estimer l'export"
+      ],
+      "w": "Conclusion : gouvernance des données.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Contexte CP1",
+      "cp": "cp6"
+    },
+    {
+      "id": "cp1-ethique",
+      "t": "Cadre éthique et légal",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP1 - Définition : règles d'usage responsable de l'IA. | Objectif : éviter les biais et les erreurs. | Cas réel : tri automatique de candidatures sans contrôle. | Fonctionnement détaillé : équité, transparence, traçabilité, supervision humaine. | Exemple : validation avant envoi utilisateur. | Procédure : définir périmètre, nommer un référent, auditer. | Erreurs : automatiser sans contrôle. | Jury : responsabilité, traçabilité. | À retenir : l'IA est sous responsabilité humaine.",
+      "tags": [
+        "cp1",
+        "ia",
+        "professionnel",
+        "ethique"
+      ],
+      "g": [
+        "Définir périmètre",
+        "Nommé référent",
+        "Auditer"
+      ],
+      "c": "Aucune commande native indispensable ; validation humaine obligatoire.",
+      "p": [
+        "Décider sans contrôle",
+        "Ignorer les biais"
+      ],
+      "w": "Conclusion : responsabilité humaine.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Contexte CP1",
+      "cp": "cp6"
+    },
+    {
+      "id": "cp1-prompt",
+      "t": "Prompt engineering professionnel",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP1 - Définition : méthode pour rédiger des instructions claires. | Objectif professionnel : obtenir des analyses utiles et vérifiables. | Cas réel : demander le diagnostic réseau avec contraintes. | Fonctionnement détaillé : rôle, tâche, contexte, contraintes, format, contrôle. | Exemple : demander hypothèses et tests. | Procédure : contexte, objectif, format, relecture. | Erreurs : prompts vagues et données sensibles. | Jury : structurez un prompt, amélioration d'une réponse. | À retenir : un bon prompt est un brief.",
+      "tags": [
+        "cp1",
+        "ia",
+        "professionnel",
+        "prompt"
+      ],
+      "g": [
+        "Donner rôle",
+        "Préciser contexte",
+        "Définir contraintes",
+        "Demander format"
+      ],
+      "c": "Aucune commande native indispensable ; validation humaine obligatoire.",
+      "p": [
+        "Prompt vague",
+        "Trop de demandes"
+      ],
+      "w": "Conclusion : qualité de réponse dépend de la demande.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Contexte CP1",
+      "cp": "cp6"
+    },
+    {
+      "id": "cp1-hallu",
+      "t": "Hallucination et vérification",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP1 - Définition : sortie plausible mais fausse. | Objectif : éviter l'erreur. | Cas réel : commande Cisco inventée. | Fonctionnement détaillé : probabilité lexicale sans source terrain. | Exemple : vérifier dans la documentation. | Procédure : cross-check, preuve, réduction du périmètre. | Erreurs : confondre plausibilité et vérité. | Jury : détection et mitigation. | À retenir : prouver.",
+      "tags": [
+        "cp1",
+        "ia",
+        "professionnel",
+        "hallucination"
+      ],
+      "g": [
+        "Comparer documentation",
+        "Tester lab",
+        "Exiger sources"
+      ],
+      "c": "Aucune commande native indispensable ; validation humaine obligatoire.",
+      "p": [
+        "Bullshit plausible",
+        "Commande inventée"
+      ],
+      "w": "Conclusion : toujours prouver.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Contexte CP1",
+      "cp": "cp6"
+    },
+    {
+      "id": "cp1-support",
+      "t": "IA pour assistance technique",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP1 - Définition : aide au diagnostic. | Objectif : accélérer le tri. | Cas réel : proposition checklist DNS. | Fonctionnement détaillé : généralisation d'erreurs classiques et hypothèses. | Exemple : diagnostic réseau. | Procédure : qualifier, hypothèses, test pas à pas, cloture. | Erreurs : appliquer sans contrôle. | Jury : place de l'IA en support. | À retenir : suggestion humaine.",
+      "tags": [
+        "cp1",
+        "ia",
+        "professionnel",
+        "support"
+      ],
+      "g": [
+        "Qualifier",
+        "Hypothèses",
+        "Tester pas a pas",
+        "Documenter"
+      ],
+      "c": "Aucune commande native indispensable ; validation humaine obligatoire.",
+      "p": [
+        "Boucler sans preuve",
+        "Sous-estimer utilisateur"
+      ],
+      "w": "Conclusion : l'IA propose, l'humain dispose.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Contexte CP1",
+      "cp": "cp6"
+    },
+    {
+      "id": "cp1-form",
+      "t": "IA pour accompagnement",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP1 - Définition : aide à la rédaction et formation. | Objectif : faciliter l'adoption. | Cas réel : guide Teams. | Fonctionnement détaillé : synthèse de sources multiples. | Exemple : procédure d'onboarding. | Procédure : besoin, prompt, relecture expert, publication, suivi. | Erreurs : diffuser erreur. | Jury : change management. | À retenir : l'IA doit renforcer l'humain.",
+      "tags": [
+        "cp1",
+        "ia",
+        "professionnel",
+        "formation"
+      ],
+      "g": [
+        "Cadrer besoin",
+        "Rédiger et revoir",
+        "Publier",
+        "Mesurer"
+      ],
+      "c": "Aucune commande native indispensable ; validation humaine obligatoire.",
+      "p": [
+        "Déléguer sans contrôle",
+        "Ignorer feedback"
+      ],
+      "w": "Conclusion : accompagnement humain.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Contexte CP1",
+      "cp": "cp6"
+    },
+    {
+      "id": "cp1-gouvernance",
+      "t": "Gouvernance et journalisation",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP1 - Définition : cadre, rôles et traces des usages. | Objectif : maîtriser et auditer. | Cas réel : journalisation des prompts. | Fonctionnement détaillé : politique, formation, audit. | Exemple : registre des cas d'usage. | Procédure : classifier, nommer propriétaire, documenter, auditer. | Erreurs : usages sauvages. | Jury : propriété et preuve. | À retenir : tracer.",
+      "tags": [
+        "cp1",
+        "ia",
+        "professionnel",
+        "gouvernance"
+      ],
+      "g": [
+        "Classifier usages",
+        "Nommer propriétaire",
+        "Règle",
+        "Audit"
+      ],
+      "c": "Aucune commande native indispensable ; validation humaine obligatoire.",
+      "p": [
+        "Usage sauvage",
+        "Pas de traçabilité"
+      ],
+      "w": "Conclusion : gouvernance avant déploiement.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Contexte CP1",
+      "cp": "cp6"
+    },
+    {
+      "id": "cp1-secu",
+      "t": "Prompt injection et sécurité",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP1 - Définition : entrée manipulant le comportement. | Objectif : protéger les données. | Cas réel : instructions cachées dans un document importé. | Fonctionnement détaillé : cloisonnement et validation. | Exemple : résumé sans exécuter ordres. | Procédure : segmenter données, valider, limiter permissions. | Erreurs : laisser agir sans garde-fous. | Jury : mitigation zero trust. | À retenir : IA comme fournisseur non fiable.",
+      "tags": [
+        "cp1",
+        "ia",
+        "professionnel",
+        "securite"
+      ],
+      "g": [
+        "Segmenter",
+        "Valider",
+        "Limiter",
+        "Auditer"
+      ],
+      "c": "Aucune commande native indispensable ; validation humaine obligatoire.",
+      "p": [
+        "Confondre instructions/données",
+        "Actions libres"
+      ],
+      "w": "Conclusion : contrôler l'interaction.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Contexte CP1",
+      "cp": "cp6"
+    },
+    {
+      "id": "cp1-roi",
+      "t": "Mesure des gains IA",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP1 - Définition : évaluer le gain réel. | Objectif : éviter l'efficacité apparente. | Cas réel : réduction ticket 30%. | Fonctionnement détaillé : indicateurs, détection erreurs, audit qualité. | Exemple : temps moyen de résolution. | Procédure : KPI, avant/après, analyse, correction. | Erreurs : ignorer erreurs cachées. | Jury : évaluation IA. | À retenir : qualité et vitesse.",
+      "tags": [
+        "cp1",
+        "ia",
+        "professionnel",
+        "mesure"
+      ],
+      "g": [
+        "Définir KPI",
+        "Mesurer avant/après",
+        "Contrôler erreurs",
+        "Corriger"
+      ],
+      "c": "Aucune commande native indispensable ; validation humaine obligatoire.",
+      "p": [
+        "Vitesse sans écarts",
+        "Aucun audit"
+      ],
+      "w": "Conclusion : qualité clé.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Contexte CP1",
+      "cp": "cp6"
+    },
+    {
+      "id": "cp1-limites",
+      "t": "Limites et responsabilité",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP1 - Définition : cas où l'IA n'est pas adaptée. | Objectif : éviter blocages. | Cas réel : architecture critique sans données réelles. | Fonctionnement détaillé : limites de contexte et compétences. | Exemple : décision sécurité réseau. | Procédure : qualifier risque, désactiver, escalader. | Erreurs : excès de confiance. | Jury : limites connues. | À retenir : IA ne remplace pas expertise.",
+      "tags": [
+        "cp1",
+        "ia",
+        "professionnel",
+        "limites"
+      ],
+      "g": [
+        "Qualifier risque",
+        "Désactiver",
+        "Escalader",
+        "Documenter limite"
+      ],
+      "c": "Aucune commande native indispensable ; validation humaine obligatoire.",
+      "p": [
+        "Excès confiance",
+        "Masquer incertitude"
+      ],
+      "w": "Conclusion : garder expertise.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Contexte CP1",
+      "cp": "cp6"
+    },
+    {
+      "id": "cp1-jury",
+      "t": "Questions jury CP1",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP1 - Définition : repères pour l'oral. | Objectif : répondre structuré. | Cas réel : jury demande usage encadré. | Fonctionnement détaillé : expérience, limites, données, validation. | Exemple : réponse quatre axes. | Procédure : définir, justifier, risques, preuves. | Erreurs : concept sans expérience. | Jury : questions à anticiper. | À retenir : dire ce que fait.",
+      "tags": [
+        "cp1",
+        "ia",
+        "professionnel",
+        "jury"
+      ],
+      "g": [
+        "Structurer",
+        "Apporter expérience",
+        "Nommer risques",
+        "Conclure"
+      ],
+      "c": "Aucune commande native indispensable ; validation humaine obligatoire.",
+      "p": [
+        "Rester trop conceptuel"
+      ],
+      "w": "Conclusion : expérience valorisée.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Contexte CP1",
+      "cp": "cp6"
+    },
+    {
+      "id": "cp1-doc",
+      "t": "Documentation et traçabilité",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP1 - Définition : traces des prompts et décisions. | Objectif : auditabilité. | Cas réel : diagnostic post-incident. | Fonctionnement détaillé : logs, tickets et versions. | Exemple : sauvegarder réponse validée. | Procédure : ticket, prompt, réponse, test, validation. | Erreurs : pas d'historique. | Jury : preuve contrôle. | À retenir : décision traçable.",
+      "tags": [
+        "cp1",
+        "ia",
+        "professionnel",
+        "documentation"
+      ],
+      "g": [
+        "Créer ticket",
+        "Sauver prompt/réponse",
+        "Noter test",
+        "Valider"
+      ],
+      "c": "Aucune commande native indispensable ; validation humaine obligatoire.",
+      "p": [
+        "Confidentialité logs"
+      ],
+      "w": "Conclusion : traçabilité protège.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Contexte CP1",
+      "cp": "cp6"
+    },
+    {
+      "id": "cp1-synthese",
+      "t": "Synthèse examen CP1",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP1 - Définition : synthèse pour l'oral. | Objectif : répondre de manière complète. | Cas réel : présenter un usage encadré. | Fonctionnement détaillé : technique + process + données + humain. | Exemple : réponse quatre axes. | Procédure : contexte, action, risques, preuves. | Erreurs : exagérer capacités. | Jury : questions possibles. | À retenir : l'humain valide.",
+      "tags": [
+        "cp1",
+        "ia",
+        "professionnel",
+        "synthese"
+      ],
+      "g": [
+        "Cadrer",
+        "Décrire technique",
+        "Nommer risques",
+        "Conclure"
+      ],
+      "c": "Aucune commande native indispensable ; validation humaine obligatoire.",
+      "p": [
+        "Surpromettre"
+      ],
+      "w": "Conclusion : encadrer l'IA.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Contexte CP1",
+      "cp": "cp6"
+    }
+  ]
+}

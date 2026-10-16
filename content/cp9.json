@@ -1,0 +1,723 @@
+{
+  "id": "cp9",
+  "group": "cp9",
+  "icon": "🧩",
+  "title": "CP9 — Déploiement des postes de travail",
+  "desc": "Cycle de vie, images, MDT, GPO, M365, collaboratif, inventaire, accompagnement.",
+  "fiches": [
+    {
+      "id": "ccp2-adinstall",
+      "t": "Installer AD DS et créer une forêt",
+      "level": "intermediaire",
+      "r": "Un DC = ADDS + DNS + heure synchronisée. Prévoir 2 contrôleurs minimum pour la résilience et la réplication.",
+      "tags": [
+        "ad",
+        "windows server",
+        "dns",
+        "dsrm"
+      ],
+      "g": [
+        "Gestionnaire de serveur > Ajouter rôles : AD DS + DNS",
+        "Promouvoir en contrôleur : nouvelle forêt ex. tssr.local",
+        "Définir mot de passe DSRM et niveau fonctionnel",
+        "Vérifier DNS, Sites et services, réplication"
+      ],
+      "c": "Install-WindowsFeature AD-Domain-Services -IncludeManagementTools\nInstall-ADDSForest -DomainName tssr.local -InstallDns -DomainNetbiosName TSSR\nGet-ADDomainController\ndcdiag /q /s:DC1",
+      "p": [
+        "NetBIOS <=15 caractères",
+        "Niveau fonctionnel le plus haut compatible avec les plus vieux DC",
+        "NTP : l'émulateur PDC est la source de temps de la forêt"
+      ],
+      "w": "Jamais un seul DC en production. Toujours tester la restauration AD avant le premier incident.",
+      "cp": "cp9"
+    },
+    {
+      "id": "ccp2-fsmo",
+      "t": "Les 5 rôles FSMO",
+      "level": "intermediaire",
+      "r": "Forêt : Schéma + Nom de domaine. Domaine : PDCe, RID, Infrastructure. Chaque rôle a une fonction précise.",
+      "tags": [
+        "fsmo",
+        "ad",
+        "roles"
+      ],
+      "g": [
+        "ADUC : voir Maîtres d'opérations (RID/PDC/Infrastructure)",
+        "Domaines et approbations : maître nom de domaine",
+        "Schéma : regsvr32 schmmgmt puis console du schéma"
+      ],
+      "c": "netdom query fsmo\nMove-ADDirectoryServerOperationMasterRole -Identity DC2 -OperationMasterRole PDCEmulator,RIDMaster -Force\nGet-ADForest | Select SchemaMaster,DomainNamingMaster\nGet-ADDomain | Select PDCEmulator,RIDMaster,InfrastructureMaster",
+      "p": [
+        "PDC = temps, verrouillage et mot de passe prioritaires",
+        "Transfert gracieux si le DC est disponible, saisie (seize) si panne",
+        "Documenter l'emplacement des rôles dans la matrice d'infrastructure"
+      ],
+      "w": "Déplacer les rôles sans planification peut perturber la réplication et le temps Kerberos.",
+      "cp": "cp9"
+    },
+    {
+      "id": "ccp2-agdlp",
+      "t": "Groupes AGDLP et GPO",
+      "level": "intermediaire",
+      "r": "AGDLP : User → Global → DomainLocal → Permission. GPO : Ordinateur vs Utilisateur selon LSDOU (Local, Site, Domaine, OU).",
+      "tags": [
+        "groupes",
+        "gpo",
+        "permissions",
+        "ad"
+      ],
+      "g": [
+        "ADUC : créer OU puis groupes Global (métier) et DomainLocal (ressource)",
+        "Partage : ajouter le groupe LD en autorisation NTFS/Partage",
+        "GPMC : lier GPO à OU, filtrer par groupe de sécurité",
+        "Tester : gpupdate /force puis gpresult /r"
+      ],
+      "c": "New-ADGroup -Name G_Compta -GroupScope Global -GroupCategory Security\nNew-ADGroup -Name LD_PartageCompta -GroupScope DomainLocal -GroupCategory Security\nAdd-ADGroupMember -Identity LD_PartageCompta -Members G_Compta\ngpupdate /force\ngpresult /r | Out-File C:\\temp\\gpo.txt",
+      "p": [
+        "Bouclage de stratégie pour les sessions RDS",
+        "Permissions NTFS + Partage : la plus restrictive gagne",
+        "Toujours tester sur un poste pilote avec gpresult /h rapport.html"
+      ],
+      "w": "Ajouter un utilisateur directement au groupe DomainLocal contourne la méthode AGDLP et complique les audits.",
+      "cp": "cp9"
+    },
+    {
+      "id": "ccp2-dnsdhcp",
+      "t": "DNS et DHCP Windows Server",
+      "level": "intermediaire",
+      "r": "DNS AD intégré avec zones directes/inverses et dynamic DNS sécurisé. DHCP : étendue, options, réservations, bascule.",
+      "tags": [
+        "dns",
+        "dhcp",
+        "windows server"
+      ],
+      "g": [
+        "DNS : créer zones directe tssr.local et inverse, activer scavenging",
+        "DHCP : nouvelle étendue avec masque, passerelle (003), DNS (006)",
+        "Réservation par MAC pour imprimantes/serveurs",
+        "Sauvegarder et répliquer la configuration"
+      ],
+      "c": "Add-DnsServerPrimaryZone -Name tssr.local -ZoneFile tssr.local.dns -DynamicUpdate Secure\nAdd-DhcpServerv4Scope -Name LAN -StartRange 192.168.1.100 -EndRange 192.168.1.200 -SubnetMask 255.255.255.0\nSet-DhcpServerv4OptionValue -Router 192.168.1.1 -DnsServer 192.168.1.10\nAdd-DhcpServerv4Reservation -ScopeId 192.168.1.0 -IPAddress 192.168.1.50 -ClientId 00-11-22-33-44-55\nGet-DhcpServerv4Lease -ScopeId 192.168.1.0",
+      "p": [
+        "Bail court pour Wi-Fi invités, normal pour LAN",
+        "Mettre en place une bascule DHCP (failover) pour la continuité",
+        "Réserver les adresses serveurs hors étendue"
+      ],
+      "w": "Un serveur AD doit utiliser son propre DNS ; pointer ailleurs casse Kerberos.",
+      "cp": "cp9"
+    },
+    {
+      "id": "ccp2-join",
+      "t": "Joindre un poste au domaine",
+      "level": "debutant",
+      "r": "Le DNS du poste doit pointer vers le DC. Compte administrateur domaine requis. Horloge <5 minutes d'écart.",
+      "tags": [
+        "domaine",
+        "poste",
+        "join",
+        "dns"
+      ],
+      "g": [
+        "Renommer le PC selon convention",
+        "Accès professionnel/établissement > Joindre le domaine",
+        "Entrer admin domaine puis redémarrer",
+        "Ouvrir session domaine et vérifier application des GPO"
+      ],
+      "c": "Rename-Computer -NewName PC-012 -Restart\nAdd-Computer -DomainName tssr.local -Credential (Get-Credential) -Restart\nTest-ComputerSecureChannel\nnltest /dsgetdc:tssr.local\ngpresult /r",
+      "p": [
+        "Supprimer l'ancien compte ordinateur en cas de doublon",
+        "Vérifier l'OU de destination via GPO de jonction",
+        "Garder le compte local admin en secours"
+      ],
+      "w": "Jonction réussie mais GPO absentes = vérifier DNS et emplacement de l'ordinateur dans l'AD.",
+      "cp": "cp9"
+    },
+    {
+      "id": "ccp2-repl",
+      "t": "Réplication AD et diagnostic",
+      "level": "avance",
+      "r": "Multi-DC = réplication toutes les 15 s (intra-site) et planifiée inter-site. Les échecs laissent des objets incohérents.",
+      "tags": [
+        "ad",
+        "repliation",
+        "dcdiag",
+        "sites"
+      ],
+      "g": [
+        "Sites et services AD : vérifier liens inter-sites, coût et horaires",
+        "Forcer la réplication depuis DC1 vers DC2",
+        "Surveiller le backlog et les conflits d'attributs",
+        "Documenter la topologie dans le dossier pro"
+      ],
+      "c": "repadmin /showrepl\nrepadmin /syncall /AdeP\nrepadmin /replsummary\ndcdiag /test:replications /s:DC1\nGet-ADReplicationPartnerMetadata -Target DC1",
+      "p": [
+        "USN rollback possible après restauration VM non Autorité",
+        "KCC recalcule automatiquement les connexions",
+        "Un partenariat d'origine unique suffit dans la plupart des sites"
+      ],
+      "w": "Restaurer un DC depuis un snapshot sans sauvegarde AD autorité peut créer une divergence irréversible.",
+      "cp": "cp9"
+    },
+    {
+      "id": "ccp2-file",
+      "t": "Serveur de fichiers, partages et DFS",
+      "level": "intermediaire",
+      "r": "Partages SMB avec permissions NTFS + partage, quotas FSRM, DFS-N pour l'abstraction et la haute disponibilité.",
+      "tags": [
+        "fichiers",
+        "smb",
+        "dfs",
+        "fsrm",
+        "partages"
+      ],
+      "g": [
+        "Créer dossiers avec structure par service",
+        "Définir permissions NTFS selon AGDLP",
+        "Créer partage avec \\serveur\\ressource",
+        "Mettre en place DFS-N et espaces de noms"
+      ],
+      "c": "New-SmbShare -Name Compta -Path D:\\Shares\\Compta -FullAccess \"TSSR\\LD_PartageCompta\"\nGrant-SmbShareAccess -Name Compta -AccountName \"TSSR\\G_Compta\" -AccessRight Change\nGet-SmbShare\n# DFS\nNew-DfsnRoot -Path \\\\tssr.local\\partages -TargetPath \\\\DC1\\partages -Type DomainV2\ndfsutil /addftroot:domain",
+      "p": [
+        "Indexation et recherche par Windows Search sur serveur de fichiers",
+        "FSRM : quotas par dossier et filtrage d'extensions (ransomware)",
+        "Sauvegarder les listes ACL exportées"
+      ],
+      "w": "La suppression d'un partage n'efface pas les fichiers; vérifier les permissions minimales.",
+      "cp": "cp9"
+    },
+    {
+      "id": "ccp2-print",
+      "t": "Serveur d'impression et déploiement GPO",
+      "level": "debutant",
+      "r": "Centraliser les files d'attente et déployer les imprimantes par OU ou groupe avec GPO.",
+      "tags": [
+        "impression",
+        "gpo",
+        "printer"
+      ],
+      "g": [
+        "Ajouter le rôle Impression et documents",
+        "Installer le pilote signé x64 et x86",
+        "Créer la file d'attente par imprimante",
+        "Déployer via GPO Computers/Users"
+      ],
+      "c": "Install-WindowsFeature Print-Services\nAdd-Printer -Name \"Impr-Compta\" -DriverName \"HP Universal PCL6\" -PortName \"IP_192.168.1.50\"\n# Déploiement GPO côté utilisateur\nSet-GPRegistryValue -Name \"Deploiement Imprimantes\" -Key \"HKCU\\Software\\...\"",
+      "p": [
+        "Pilotes PCL vs PS selon l'équipement",
+        "Désactiver l'impression directe pour les postes via GPO",
+        "Surveiller les files bloquées (spouleur)"
+      ],
+      "w": "La spooler.exe bloquée se répare souvent en vidant SPOOL\\PRINTERS puis en redémarrant le service.",
+      "cp": "cp9"
+    },
+    {
+      "id": "ccp2-powershell",
+      "t": "Administration AD en PowerShell",
+      "level": "intermediaire",
+      "r": "Le module ActiveDirectory expose une API complète. Préférer les cmdlets aux clics pour tracer et automatiser.",
+      "tags": [
+        "powershell",
+        "ad",
+        "automatisation"
+      ],
+      "g": [
+        "Importer le module sur un poste admin",
+        "Lire avant d'écrire (Get- avant Set-)",
+        "Tester sur un objet pilote",
+        "Exporter les résultats pour audit"
+      ],
+      "c": "Import-Module ActiveDirectory\nGet-ADUser -Filter \"Enabled -eq 'True'\" -Properties LastLogonDate | Select Name, SamAccountName, LastLogonDate\nNew-ADUser -Name \"Jean Martin\" -SamAccountName jmartin -Enabled $true -Path \"OU=Users,DC=tssr,DC=local\"\nDisable-ADAccount -Identity jmartin\nSearch-ADAccount -LockedOut | Unlock-ADAccount",
+      "p": [
+        "Lecture/export régulier des utilisateurs inactifs",
+        "Utiliser try/catch et -ErrorAction Stop dans les scripts",
+        "Minimiser les droits du compte de service"
+      ],
+      "w": "Les cmdlets AD s'exécutent par défaut contre le DC le plus proche ; forcer avec -Server si besoin.",
+      "cp": "cp9"
+    },
+    {
+      "id": "ccp2-ad-debutant",
+      "t": "Active Directory : domaine, OU, GPO, objets (débutant)",
+      "level": "debutant",
+      "r": "AD centralise utilisateurs/machines dans un domaine. OU = dossiers, groupes = droits, GPO = paramètres poussés.",
+      "tags": [
+        "ad",
+        "windows",
+        "gpo",
+        "debutant"
+      ],
+      "g": [
+        "Créer user/group/OU",
+        "Déplacer objet puis lier GPO",
+        "gpupdate /force et gpresult"
+      ],
+      "c": "# Objets AD courants\nUtilisateur, Groupe, Ordinateur, OU\n# GPO\ngpupdate /force\ngpresult /r",
+      "p": [
+        "AGDLP pour les droits",
+        "LSDOU : Local, Site, Domaine, OU",
+        "Compte local vs compte domaine"
+      ],
+      "w": "Un mauvais placement d'OU casse l'héritage des GPO.",
+      "cp": "cp9"
+    },
+    {
+      "id": "ccp2-windows-debutant",
+      "t": "Windows : permissions, partages, logs, tâches (débutant)",
+      "level": "debutant",
+      "r": "Partages SMB + droits NTFS (le plus restrictif gagne). Logs dans Observateur d'événements. Planifier avec Task Scheduler.",
+      "tags": [
+        "windows",
+        "permissions",
+        "logs",
+        "debutant"
+      ],
+      "g": [
+        "Partager un dossier avec matrix de droits",
+        "Tester accès autorisé/refusé",
+        "Planifier une tâche nightly"
+      ],
+      "c": "# Permissions\nicacls D:\\Partage /grant G_Compta:(RX)\n# Planification\nschtasks /create /tn Backup /tr \"backup.bat\" /sc daily /st 02:00",
+      "p": [
+        "Surveillance : CPU/RAM/disque avec PerfMon",
+        "EventID 4625 (échec logon)",
+        " Sauvegarder avant MAJ"
+      ],
+      "w": " Ne pas ouvrir le partage en Contrôle total pour Tout le monde.",
+      "cp": "cp9"
+    },
+    {
+      "id": "pedagogie-ccp2",
+      "t": "Fiche pedagogique de reference - CP2 deploiement",
+      "level": "intermediaire",
+      "r": "Definition : deployer des equipements numériques et accompagner les outils collaboratifs. Contexte : installer un parc avec image, AD, GPO et O365. Objectif : industrialiser et standardiser. Details : Sysprep, PXE, enrôlement Entra ID, M365, tests et communication utilisateur. Exemple : adoption d'un nouvel outil avec formation et documentation. Erreurs : sinon cloner sans Sysprep, oublier pilotes, ne pas accompagner. Jury : risque clone direct, accompagnement utilisateur, difference AD/Entra.",
+      "tags": [
+        "pedagogie",
+        "deploiement",
+        "collaboration"
+      ],
+      "g": [
+        "Preparer l'image",
+        "Deployer PXE",
+        "Joindre au domaine",
+        "Appliquer GPO",
+        "Accompagner l'utilisateur"
+      ],
+      "c": "sysprep /oobe /generalize /shutdown ; dism /Capture-Image",
+      "p": [
+        "Clonage direct",
+        "Absence de support utilisateur"
+      ],
+      "w": "Conclusion : le deploiement reussit quand technique et accompagnement avancent ensemble.",
+      "cp": "cp9"
+    },
+    {
+      "id": "cp2-cycle",
+      "t": "Cycle de vie du poste",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP2 - Définition : phases de la commande au recyclage. | Objectif : standardiser le parc. | Cas réel : renouvellement de 50 postes. | Fonctionnement détaillé : inventaire, préparation, déploiement, MCO, retrait et effacement sécurisé. | Exemple : refresh tous les 5 ans. | Procédure pas à pas : inventaire, préparation, déploiement, MCO, rebut. | Erreurs : absence d'inventaire et mauvaise décommission. | Jury : coût, RSE, sécurité données. | À retenir : traceabilité.",
+      "tags": [
+        "cp2",
+        "deploiement",
+        "socle"
+      ],
+      "g": [
+        "Inventaire",
+        "Preparation",
+        "Migration",
+        "Maintenance",
+        "Rebut"
+      ],
+      "c": "Get-ComputerInfo; Get-WmiObject -Class Win32_BIOS",
+      "p": [
+        "Perte actif",
+        "Données non effacées"
+      ],
+      "w": "Conclusion : gérer tout le cycle.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Schéma CP2",
+      "cp": "cp9"
+    },
+    {
+      "id": "cp2-image",
+      "t": "Image de référence Windows",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP2 - Définition : image généralisée Sysprep. | Objectif : industrialiser. | Cas réel : déploiement homogène de 50 postes. | Fonctionnement détaillé : Sysprep, capture WIM, driver pack, task sequence. | Exemple : Windows 11 déjà durci. | Procédure : préparer, mettre à jour, Sysprep, capturer, tester. | Erreurs : clone direct sans Sysprep, image volumineuse. | Jury : différence Sysprep clone. | À retenir : généraliser.",
+      "tags": [
+        "cp2",
+        "deploiement",
+        "image"
+      ],
+      "g": [
+        "Préparer VM",
+        "Mettre à jour",
+        "Sysprep",
+        "Capturer",
+        "Déployer"
+      ],
+      "c": "dism /Get-WimInfo /WimFile:install.wim; sysprep /oobe /generalize /shutdown",
+      "p": [
+        "Clonage direct",
+        "Pilotes oubliés"
+      ],
+      "w": "Conclusion : image standard testée.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Schéma CP2",
+      "cp": "cp9"
+    },
+    {
+      "id": "cp2-mdt",
+      "t": "MDT et déploiement PXE",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP2 - Définition : déploiement automatisé via PXE. | Objectif : installer sans média local. | Cas réel : poste neuf sans OS. | Fonctionnement détaillé : serveur WDS/MDT, DHCP PXE, image, unattend. | Exemple : déployer dix postes. | Procédure : config PXE, task sequence, boot, test. | Erreurs : TFTP bloqué, scope DHCP. | Jury : MDT, ADK, PXE. | À retenir : valider PXE en isolé.",
+      "tags": [
+        "cp2",
+        "deploiement",
+        "mdt"
+      ],
+      "g": [
+        "Config serveur",
+        "DHCP PXE",
+        "Task sequence",
+        "Test"
+      ],
+      "c": "wdsutil /status",
+      "p": [
+        "PXE sans DHCP",
+        "ACL TFTP"
+      ],
+      "w": "Conclusion : infrastructure DHCP testée.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Schéma CP2",
+      "cp": "cp9"
+    },
+    {
+      "id": "cp2-join",
+      "t": "Jointure AD et profil",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP2 - Définition : intégration du poste à Active Directory. | Objectif : identité et GPO. | Cas réel : poste migré dans lab. | Fonctionnement détaillé : DNS, jointure, profil et SID. | Exemple : préstage de compte. | Procédure : vérifier DNS, joindre, redémarrer, valider groupes. | Erreurs : DNS erroné, OU mauvaise. | Jury : préstage vs join. | À retenir : DNS d'abord.",
+      "tags": [
+        "cp2",
+        "deploiement",
+        "ad"
+      ],
+      "g": [
+        "DNS cleanup",
+        "Join domain",
+        "Restart",
+        "Vérifier groupe"
+      ],
+      "c": "Add-Computer -DomainName lab.local -Restart",
+      "p": [
+        "Mauvais DNS",
+        "OU absente"
+      ],
+      "w": "Conclusion : AD dépend du DNS.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Schéma CP2",
+      "cp": "cp9"
+    },
+    {
+      "id": "cp2-collab",
+      "t": "Outils collaboratifs",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP2 - Définition : mettre à disposition Teams, SharePoint, OneDrive. | Objectif : faciliter travail hybride. | Cas réel : migration vers Teams. | Fonctionnement détaillé : comptes Microsoft 365, licences, policies. | Exemple : nouvel employé. | Procédure : licence, installation, onboarding, formation. | Erreurs : pas de gouvernance, pas d'accompagnement. | Jury : adoption et permissions. | À retenir : accompagnement.",
+      "tags": [
+        "cp2",
+        "deploiement",
+        "collab"
+      ],
+      "g": [
+        "Licence",
+        "Identité",
+        "Installation",
+        "Formation",
+        "Suivi"
+      ],
+      "c": "Install-Module MicrosoftTeams -Force",
+      "p": [
+        "Accès sans licence",
+        "Permission trop large"
+      ],
+      "w": "Conclusion : technique et change ensemble.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Schéma CP2",
+      "cp": "cp9"
+    },
+    {
+      "id": "cp2-entra",
+      "t": "Entra ID hybride",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP2 - Définition : identité cloud et authentification. | Objectif : SSO et accès conditionnels. | Cas réel : poste joint hybride. | Fonctionnement détaillé : AD Connect, PHR, sync. | Exemple : enrôlement Intune. | Procédure : plan d'identité, synchroniser, valider SSO. | Erreurs : UPN mismatch. | Jury : différence AD et Entra. | À retenir : planifier l'identité.",
+      "tags": [
+        "cp2",
+        "deploiement",
+        "entra"
+      ],
+      "g": [
+        "Plan identité",
+        "Synchroniser",
+        "Validation SSO",
+        "Enrôlement"
+      ],
+      "c": "Connect-MgGraph -Scopes User.Read.All",
+      "p": [
+        "Clash UPN",
+        "Pas de rollback"
+      ],
+      "w": "Conclusion : identité maîtrisée.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Schéma CP2",
+      "cp": "cp9"
+    },
+    {
+      "id": "cp2-intune",
+      "t": "MDM et postes mobiles",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP2 - Définition : gérer des terminaux mobiles et postes. | Objectif : policies et conformité. | Cas réel : téléphone professionnel hors réseau. | Fonctionnement détaillé : enrôlement, profils, conformité. | Exemple : portail entreprise. | Procédure : MDM, policy, test, télémétrie. | Erreurs : BYOD sans séparation. | Jury : MDM vs GPO. | À retenir : protection des données.",
+      "tags": [
+        "cp2",
+        "deploiement",
+        "mdm"
+      ],
+      "g": [
+        "Enroll",
+        "Appliquer policy",
+        "Tester conformité",
+        "Désenrôler"
+      ],
+      "c": "Get-MgDevice",
+      "p": [
+        "BYOD sans séparation",
+        "Data leakage"
+      ],
+      "w": "Conclusion : mobiles sous politique.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Schéma CP2",
+      "cp": "cp9"
+    },
+    {
+      "id": "cp2-pilotes",
+      "t": "Pilotes et compatibilité",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP2 - Définition : installation de drivers stable. | Objectif : éviter les défaillances. | Cas réel : écran bleu après firmware. | Fonctionnement détaillé : catalogue, signature, PnP. | Exemple : ajouter driver réseau. | Procédure : source fiable, test, déploiement. | Erreurs : driver non signé. | Jury : gestion et test. | À retenir : catalogues.",
+      "tags": [
+        "cp2",
+        "deploiement",
+        "drivers"
+      ],
+      "g": [
+        "Collecter catalogue",
+        "Tester pilote",
+        "Déployer",
+        "Plan rollback"
+      ],
+      "c": "pnputil -e; driverquery /v",
+      "p": [
+        "Unsigné driver",
+        "Incompatibilité OEM"
+      ],
+      "w": "Conclusion : déployer après test.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Schéma CP2",
+      "cp": "cp9"
+    },
+    {
+      "id": "cp2-patch",
+      "t": "Patch et mises à jour",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP2 - Définition : maintenir le parc. | Objectif : sécurité et stabilité. | Cas réel : patch tuesday. | Fonctionnement détaillé : WSUS, Intune, maintenance windows. | Exemple : patch canary. | Procédure : tester, piloter, déployer, auditer. | Erreurs : arrêt brutal. | Jury : groupes pilot. | À retenir : déploiement graduel.",
+      "tags": [
+        "cp2",
+        "deploiement",
+        "patch"
+      ],
+      "g": [
+        "Pilot",
+        "Audit",
+        "Deploy",
+        "Verify"
+      ],
+      "c": "Get-WUList; Get-WUInstall",
+      "p": [
+        "Patch sans test",
+        "Pas de retour"
+      ],
+      "w": "Conclusion : patch sous contrôle.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Schéma CP2",
+      "cp": "cp9"
+    },
+    {
+      "id": "cp2-inventaire",
+      "t": "Inventaire et assets",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP2 - Définition : connaître le parc. | Objectif : maîtriser les équipements. | Cas réel : doublon d'actif. | Fonctionnement détaillé : CMDB, asset tag, discovery. | Exemple : inventaire GLPI. | Procédure : collecter, normaliser, synchroniser, auditer. | Erreurs : CMDB désynchronisé. | Jury : source de vérité. | À retenir : inventaire fiable.",
+      "tags": [
+        "cp2",
+        "deploiement",
+        "inventaire"
+      ],
+      "g": [
+        "Collecter",
+        "Normaliser",
+        "Synchroniser",
+        "Auditer"
+      ],
+      "c": "Get-ADComputer -Filter *",
+      "p": [
+        "Actifs fantômes",
+        "Licence non maîtrisée"
+      ],
+      "w": "Conclusion : inventaire comme vérité.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Schéma CP2",
+      "cp": "cp9"
+    },
+    {
+      "id": "cp2-backup",
+      "t": "Déploiement et sauvegarde",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP2 - Définition : sauvegarder avant changement. | Objectif : pouvoir revenir. | Cas réel : déploiement d'une nouvelle image. | Fonctionnement détaillé : snapshot, sauvegarde, test restore. | Exemple : snapshot avant changement. | Procédure : snapshot, modifier, vérifier, prouver restore. | Erreurs : absence de preuve. | Jury : restauration. | À retenir : pas de changement sans retour.",
+      "tags": [
+        "cp2",
+        "deploiement",
+        "backup"
+      ],
+      "g": [
+        "Snapshot",
+        "Backup",
+        "Modify",
+        "Verify restore"
+      ],
+      "c": "Backup-DbaDatabase -SqlInstance lab",
+      "p": [
+        "Pas de preuve restore",
+        "Backup trop vieux"
+      ],
+      "w": "Conclusion : backup contrôlé.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Schéma CP2",
+      "cp": "cp9"
+    },
+    {
+      "id": "cp2-com",
+      "t": "Accompagnement utilisateur",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP2 - Définition : communication et formation. | Objectif : adoption. | Cas réel : nouveau outil Teams. | Fonctionnement détaillé : support, guide, FAQ. | Exemple : session de 30 min. | Procédure : communiquer avant, pendant, après. | Erreurs : jargon. | Jury : change management. | À retenir : technique sans humain échoue.",
+      "tags": [
+        "cp2",
+        "deploiement",
+        "change"
+      ],
+      "g": [
+        "Sensibiliser",
+        "Former",
+        "Supporter",
+        "Mesurer"
+      ],
+      "c": "Aucune commande native : accompagnement, communication et gouvernance.",
+      "p": [
+        "Jargon",
+        "Absence feedback"
+      ],
+      "w": "Conclusion : accompagnement clé.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Schéma CP2",
+      "cp": "cp9"
+    },
+    {
+      "id": "cp2-change",
+      "t": "Gouvernance des changements",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP2 - Définition : validation des changements. | Objectif : limiter les impacts. | Cas réel : patch ERP. | Fonctionnement détaillé : CAB, impact, rollback, fenêtre. | Exemple : patch critique. | Procédure : demande, impact, décision, implémentation, retour. | Erreurs : sans test. | Jury : changement et risque. | À retenir : traçabilité.",
+      "tags": [
+        "cp2",
+        "deploiement",
+        "itil"
+      ],
+      "g": [
+        "Demande",
+        "Impact",
+        "Décision",
+        "Implémentation",
+        "Retour"
+      ],
+      "c": "Aucune commande native : accompagnement, communication et gouvernance.",
+      "p": [
+        "Changement non demandé",
+        "Rollback imprévisible"
+      ],
+      "w": "Conclusion : valider le changement.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Schéma CP2",
+      "cp": "cp9"
+    },
+    {
+      "id": "cp2-secu",
+      "t": "Collaboration sécurisée",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP2 - Définition : intégrer Microsoft 365 et sécuriser. | Objectif : accès et données. | Cas réel : Teams externe. | Fonctionnement détaillé : tenant, policies, DLP, SSO. | Exemple : team avec label. | Procédure : gouverner tenant, licences, policies, pilotage. | Erreurs : tenant sans gouvernance. | Jury : sécurité collaboration. | À retenir : gouverner usage.",
+      "tags": [
+        "cp2",
+        "deploiement",
+        "m365"
+      ],
+      "g": [
+        "Gouverner tenant",
+        "Licences",
+        "Policies",
+        "Piloter"
+      ],
+      "c": "Get-MgUser -All",
+      "p": [
+        "Teams externe ouvert",
+        "Pas de DLP"
+      ],
+      "w": "Conclusion : collaboration sécurisée.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Schéma CP2",
+      "cp": "cp9"
+    },
+    {
+      "id": "cp2-synthese",
+      "t": "Synthèse examen CP2",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP2 - Définition : synthèse pour l'oral. | Objectif : formulation complète. | Cas réel : jury demande déploiement complet. | Fonctionnement détaillé : technique, process et utilisateur. | Exemple : image + GPO + accompagnement. | Procédure : cadrer, mettre en œuvre, valider, documenter. | Erreurs : oublier contraintes. | Jury : questions possibles. | À retenir : penser opérationnel.",
+      "tags": [
+        "cp2",
+        "deploiement",
+        "synthese"
+      ],
+      "g": [
+        "Décrire architecture",
+        "Citer commandes",
+        "Nommer risques",
+        "Conclure"
+      ],
+      "c": "Aucune commande native : accompagnement, communication et gouvernance.",
+      "p": [
+        "Trop conceptuel",
+        "Exagérer échelle"
+      ],
+      "w": "Conclusion : plan et preuve.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Schéma CP2",
+      "cp": "cp9"
+    }
+  ]
+}

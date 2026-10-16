@@ -1,0 +1,573 @@
+{
+  "id": "cp5",
+  "group": "cp5",
+  "icon": "☁️",
+  "title": "CP5 — Serveurs en infrastructure virtualisée",
+  "desc": "Hyperviseurs, stockage, clusters HA/DRS, snapshots et backup VM.",
+  "fiches": [
+    {
+      "id": "ccp6-bash-backup",
+      "t": "Bash : sauvegarde incrémentale et contrôle rotatif",
+      "level": "intermediaire",
+      "r": "rsync + journal, contrôle de retour, rotation simple des sauvegardes. Expliquer : arguments en majuscules, guillemets, code retour $?.",
+      "tags": [
+        "bash",
+        "rsync",
+        "backup",
+        "cron"
+      ],
+      "g": [
+        "Sauvegarder /srv/data vers /backup/data",
+        "Conserver les logs dans /var/log/backup-data.log",
+        "Planifier à 02:30 dans crontab avec crontab -e",
+        "Vérifier le code de retour après exécution"
+      ],
+      "c": "#!/bin/bash\nset -euo pipefail\nSRC=\"/srv/data\"\nDEST=\"/backup/data\"\nLOG=\"/var/log/backup-data.log\"\nDATE=\"$(date +%F-%H%M%S)\"\nmkdir -p \"$DEST\"\necho \"[$DATE] Début sauvegarde $SRC vers $DEST\" >> \"$LOG\"\nrsync -av --delete --stats \"$SRC/\" \"$DEST/\" >> \"$LOG\" 2>&1\nSTATUS=$?\necho \"[$DATE] Terminé avec code $STATUS\" >> \"$LOG\"\nexit $STATUS",
+      "p": [
+        "Utiliser des guillemets autour de \"$SRC/\" et \"$DEST/\" pour éviter les espaces",
+        "Tester un fichier à la main avant cron",
+        "Exporter le log dans ELK/Graylog en production"
+      ],
+      "w": "Si $SRC est vide suite à une erreur de montage, --delete efface la sauvegarde. Ajouter une vérification de source non vide avant rsync.",
+      "cp": "cp5"
+    },
+    {
+      "id": "ccp6-bash-check",
+      "t": "Bash : validation d'arguments et contrôle de fichier",
+      "level": "intermediaire",
+      "r": "Valider le nombre d'arguments, tester l'existence et le type avant d'agir, afficher un usage clair.",
+      "tags": [
+        "bash",
+        "arguments",
+        "validation",
+        "securite"
+      ],
+      "g": [
+        "Exemples : ./verif.sh /etc",
+        "Le script teste le nombre, le type de dossier et affiche les résultats",
+        "Utile en MEP pour prouver la rigueur"
+      ],
+      "c": "#!/bin/bash\nset -euo pipefail\nif [[ $# -ne 1 ]]; then\n  echo \"Usage : $0 dossier\"\n  echo \"Exemple : $0 /etc\"\n  exit 1\nfi\nif [[ ! -d \"$1\" ]]; then\n  echo \"Erreur : $1 n'existe pas ou n'est pas un dossier\"\n  exit 2\nfi\ncount=$(find \"$1\" -maxdepth 1 -type f -name \"*.conf\" ! -size 0 | wc -l)\necho \"Fichiers .conf non vides dans $1 : $count\"\nfind \"$1\" -maxdepth 1 -type f -name \"*.conf\" -size 0 -print",
+      "p": [
+        "Ne pas utiliser ls dans un script ; préférer find",
+        "[[ ]] plus lisible pour les tests Bash",
+        "exit codes 1 = usage, 2 = fichier, 3 = autres erreurs"
+      ],
+      "w": "Sans validation, un script peut écrire dans le mauvais dossier.",
+      "cp": "cp5"
+    },
+    {
+      "id": "ccp6-bash-monitor",
+      "t": "Bash : vérification d'un service et alerte simple",
+      "level": "debutant",
+      "r": "systemctl + journalisation, boucle while, timeout. Expliquer : commandes courtes et codes de retour.",
+      "tags": [
+        "bash",
+        "systemd",
+        "monitoring",
+        "service"
+      ],
+      "g": [
+        "Vérifier le statut SSH toutes les 5 minutes via cron",
+        "Journaliser les indisponibilités",
+        "Envoyer un mail avec msmtp si le service est down"
+      ],
+      "c": "#!/bin/bash\nset -u\nSERVICE=\"sshd\"\nLOG=\"/var/log/check-service-sshd.log\"\nif systemctl is-active --quiet \"$SERVICE\"; then\n  status=\"OK\"\nelse\n  status=\"ERREUR\"\n  systemctl restart \"$SERVICE\"\nfi\necho \"$(date '+%F %T') - $SERVICE : $status\" >> \"$LOG\"",
+      "p": [
+        "Utiliser systemctl is-active rather than grep ps",
+        "Ajouter un lock pour éviter les redémarrages en boucle",
+        "Intégrer à Zabbix pour notification réelle"
+      ],
+      "w": "Alerter sans action peut masquer une panne ; toujours envisager automatique + escalade.",
+      "cp": "cp5"
+    },
+    {
+      "id": "ccp6-bash-inventory",
+      "t": "Bash : inventaire et rapport d'un dossier partagé",
+      "level": "intermediaire",
+      "r": "find, awk, comptage par extension, fichier CSV. Montrer : boucle, tests et rediriger vers un fichier de sortie.",
+      "tags": [
+        "bash",
+        "inventaire",
+        "find",
+        "rapport"
+      ],
+      "g": [
+        "Générer un inventaire des fichiers dans /srv/partage",
+        "Compter les extensions et leur taille",
+        "Écrire le résultat dans CSV",
+        "Importer ensuite dans Excel/GLPI"
+      ],
+      "c": "#!/bin/bash\nset -u\nDossier=\"/srv/partage\"\nSortie=\"/tmp/inventaire-partage.csv\"\necho \"extension,nombre,taille octets\" > \"$Sortie\"\nfind \"$Dossier\" -type f -print0 |\n  awk 'BEGIN{RS=\"\u0000\"} { n=split($0, a, \".\"); ext=(n>1)?a[n]:\"sans\"; print ext }' |\n  sort | uniq -c | while read -r nb ext; do\n    taille=$(find \"$Dossier\" -type f -name \"*.$ext\" -printf \"%s\n\" | awk '{s+=$1} END{print s+0}')\n    echo \"$ext,$nb,$taille\" >> \"$Sortie\"\n  done\ncat \"$Sortie\"",
+      "p": [
+        "find avec -print0 pour éviter les espaces dans les noms",
+        "uniq -c compte les lignes identiques",
+        "Sortie CSV ASCII pour éviter les accents illisibles"
+      ],
+      "w": "Les noms de fichiers avec retours de ligne cassent le parsing ; -print0 + traitement adapté est recommandé.",
+      "cp": "cp5"
+    },
+    {
+      "id": "ccp6-ps-users",
+      "t": "PowerShell : création massive d'utilisateurs AD depuis CSV",
+      "level": "intermediaire",
+      "r": "Import-Csv + ForEach-Object + New-ADUser. Expliquer : pipeline d'objets, variables, attributs obligatoires.",
+      "tags": [
+        "powershell",
+        "ad",
+        "utilisateurs",
+        "csv"
+      ],
+      "g": [
+        "Préparer .\\users.csv avec colonnes Prenom,Nom,Login,GroupeMetier",
+        "Lancer le script dans une console d'admin",
+        "Vérifier dans ADUC et dans Get-ADUser",
+        "Cocher le changement de mot de passe à la prochaine ouverture"
+      ],
+      "c": "# users.csv attendu :\n# Prenom,Nom,Login,GroupeMetier\n$MotDePasseTemporaire = Read-Host \"Mot de passe temporaire\" -AsSecureString\nImport-Csv .\\users.csv | ForEach-Object {\n    $NomComplet = \"$($_.Prenom) $($_.Nom)\"\n    New-ADUser -Name $NomComplet -GivenName $_.Prenom -Surname $_.Nom -SamAccountName $_.Login -UserPrincipalName \"$($_.Login)@tssr.local\" -Enabled $true -ChangePasswordAtLogon $true -AccountPassword $MotDePasseTemporaire\n    Add-ADGroupMember -Identity \"G_$($_.GroupeMetier)\" -Members $_.Login\n    Write-Host \"Créé : $NomComplet ($($_.Login))\" -ForegroundColor Green\n}",
+      "p": [
+        "Utiliser un compte admin délégué et non Domain Admin pour la prod",
+        "CSV encodé UTF-8",
+        "Renseigner aussi l'UPN pour les connexions e-mail"
+      ],
+      "w": "New-ADUser ne modifie pas mot de passe automatiquement si l'option -ChangePasswordAtLogon n'est pas posée.",
+      "cp": "cp5"
+    },
+    {
+      "id": "ccp6-ps-inactive",
+      "t": "PowerShell : rapport des utilisateurs inactifs",
+      "level": "intermediaire",
+      "r": "Get-ADUser + LastLogonDate, Export-Csv. Expliquer : filtrage, date calculée, export lisible pour audit.",
+      "tags": [
+        "powershell",
+        "ad",
+        "audit",
+        "rapport"
+      ],
+      "g": [
+        "Chercher les comptes sans connexion depuis 90 jours",
+        "Exporter un CSV",
+        "Désactiver ou supprimer après validation manager",
+        "Archiver dans le dossier admin"
+      ],
+      "c": "$Seuil = (Get-Date).AddDays(-90)\n$Inactifs = Get-ADUser -Filter \"Enabled -eq 'True'\" -Properties LastLogonDate |\n    Where-Object { $_.LastLogonDate -lt $Seuil -or $_.LastLogonDate -eq $null } |\n    Select-Object Name, SamAccountName, LastLogonDate, DistinguishedName\n$Inactifs | Export-Csv -Path \"C:\\temp\\inactifs-90j.csv\" -NoTypeInformation -Encoding UTF8\nWrite-Output \"$($Inactifs.Count) comptes à traiter\"\n$Inactifs",
+      "p": [
+        "LastLogonDate peut être incomplet ; utiliser LastLogonTimestamp si besoin",
+        "Ajouter un bloc try/catch si export impossible",
+        "Valider avec le manager avant désactivation"
+      ],
+      "w": "Les comptes de service n'ont pas toujours de LastLogonDate ; ne pas les désactiver sans vérification.",
+      "cp": "cp5"
+    },
+    {
+      "id": "ccp6-ps-perm",
+      "t": "PowerShell : rapport de droits sur un dossier partagé",
+      "level": "intermediaire",
+      "r": "Get-Acl + ACL, affichage des groupes et niveaux d'accès. Montrer : pourquoi on sépare DomainLocal et Global.",
+      "tags": [
+        "powershell",
+        "acl",
+        "permissions",
+        "partage"
+      ],
+      "g": [
+        "Chemin \\\\serveur\\partage\\compta",
+        "Lire les ACL NTFS",
+        "Exporter le résultat en CSV",
+        "Comparer avec la matrice AGDLP"
+      ],
+      "c": "$Chemin = \"D:\\Shares\\Compta\"\n$Acl = Get-Acl -Path $Chemin\n$Acl.Access |\n    Select-Object IdentityReference, FileSystemRights, AccessControlType |\n    Export-Csv \"C:\\temp\\acl-compta.csv\" -NoTypeInformation -Encoding UTF8\n$Acl.Access",
+      "p": [
+        "Tenir la matrice AGDLP à jour",
+        "Auditer trimestriellement",
+        "Ne jamais donner Full Control par défaut"
+      ],
+      "w": "Le droit NTFS le plus restrictif gagne lorsqu'il est combiné avec la permission de partage.",
+      "cp": "cp5"
+    },
+    {
+      "id": "ccp6-ps-service",
+      "t": "PowerShell : surveillance et redémarrage contrôlé",
+      "level": "debutant",
+      "r": "Get-Service + boucle While + Start-Service. Expliquer : état Running/Stopped et tentatives de relance.",
+      "tags": [
+        "powershell",
+        "services",
+        "supervision"
+      ],
+      "g": [
+        "Vérifier le spooler et l'agent GLPI toutes les 15 minutes",
+        "Redémarrer si stopped",
+        "Journaliser la relance",
+        "Alerter l'utilisateur en cas d'échec"
+      ],
+      "c": "$Services = @(\"Spooler\",\"GLPI-Agent\")\nforeach ($Nom in $Services) {\n    $Svc = Get-Service -Name $Nom -ErrorAction SilentlyContinue\n    if ($null -eq $Svc) {\n        Write-Warning \"Le service $Nom n'existe pas\"\n        continue\n    }\n    if ($Svc.Status -ne \"Running\") {\n        Write-Host \"$Nom est arrêté : tentative de redémarrage\"\n        Start-Service -Name $Nom\n        Start-Sleep -Seconds 3\n        (Get-Service -Name $Nom).Status\n    } else {\n        Write-Host \"$Nom OK\"\n    }\n}",
+      "p": [
+        "Utiliser Invoke-Command pour exécuter sur plusieurs serveurs",
+        "Ajouter un timeout et un nombre max d'essais",
+        "Journaliser dans Windows Event Log"
+      ],
+      "w": "Un redémarrage automatique sans analyse peut masquer une panne récurrente.",
+      "cp": "cp5"
+    },
+    {
+      "id": "ccp6-ps-backup",
+      "t": "PowerShell : sauvegarde Windows (robocopy)",
+      "level": "intermediaire",
+      "r": "Robocopy avec journal et codes retour. On explique : /MIR pour miroir, risque de suppression, et contrôle code 1-7.",
+      "tags": [
+        "powershell",
+        "robocopy",
+        "backup",
+        "windows"
+      ],
+      "g": [
+        "Sauvegarder C:\\data vers E:\\backup\\data",
+        "Vérifier le code retour",
+        "Garder le log dans un dossier audit",
+        "Planifier via le Planificateur de tâches"
+      ],
+      "c": "$Source = \"C:\\data\"\n$Cible = \"E:\\backup\\data\"\n$Log = \"C:\\logs\\robocopy-data.log\"\nrobocopy $Source $Cible /MIR /Z /R:3 /W:5 /LOG:$Log /NDL /NP\n$Code = $LASTEXITCODE\nif ($Code -lt 8) {\n    Write-Host \"Sauvegarde terminée, code $Code\" -ForegroundColor Green\n} else {\n    Write-Warning \"Sauvegarde échouée, code $Code\"\n}\nexit $Code",
+      "p": [
+        "/MIR supprime ce qui a disparu source, comme rsync --delete",
+        "/Z pour reprise réseau",
+        "Mettre /XD pour exclure caches"
+      ],
+      "w": "Ne pas utiliser /MIR sans stratégie de versioning ; cela efface les fichiers vieille version côté cible.",
+      "cp": "cp5"
+    },
+    {
+      "id": "pedagogie-ccp6",
+      "t": "Fiche pedagogique de reference - CP6 virtualisation",
+      "level": "intermediaire",
+      "r": "Definition : mutualiser des serveurs virtuels avec haute disponibilite. Contexte : VMware, Hyper-V ou Proxmox. Objectif : provisionner, sauvegarder et restaurer. Details : vSwitch, storage, snapshots vs sauvegardes, cluster HA/DRS. Exemple : creation VM puis sauvegarde pro. Erreurs : confondre snapshot et sauvegarde, ignorer ressources. Jury : pourquoi deux vSwitch, hotes vs invites, sauvegarde.",
+      "tags": [
+        "pedagogie",
+        "virtualisation"
+      ],
+      "g": [
+        "Provisionner",
+        "Snapshot avant modification",
+        "Tester",
+        "Sauvegarder",
+        "Valider"
+      ],
+      "c": "Get-VM; esxcli system version get",
+      "p": [
+        "Snapshot unique consideré comme sauvegarde",
+        "Datastore unique"
+      ],
+      "w": "Conclusion : preuve de restauration indispensable.",
+      "cp": "cp5"
+    },
+    {
+      "id": "cp6-hyp",
+      "t": "Hyperviseur",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP6 - Définition : abstraire matériel. | Objectif : mutualiser. | Cas réel : serveur legacy. | Fonctionnement détaillé : accès matériel, vswitch. | Exemple : ESXi Free. | Procédure : installation, réseau, storage. | Erreurs : dépendances. | Jury : bare metal vs hosted. | Retenir : ressources.",
+      "tags": [
+        "cp6",
+        "virtualisation",
+        "hypervisor"
+      ],
+      "g": [
+        "Installer hyperviseur",
+        "Réseau",
+        "Storage",
+        "Test"
+      ],
+      "c": "vim-cmd vmsvc/getallvms; esxcli",
+      "p": [
+        "Performance bridg"
+      ],
+      "w": "Conclusion : virtualiser avec contrôle.",
+      "img": "images/virtualisation-schema.svg",
+      "alt": "Schéma virtualisation",
+      "cp": "cp5"
+    },
+    {
+      "id": "cp6-storage",
+      "t": "Stockage virtuel",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP6 - Définition : stockage mutualisé. | Objectif : redondance et iOPS. | Cas réel : iSCSI. | Fonctionnement détaillé : SAN, datastore, RAID. | Exemple : datastore shared. | Procédure : configurer adaptateur, présentation. | Erreurs : mauvaise latence. | Jury : datastore. | Retenir : backup.",
+      "tags": [
+        "cp6",
+        "virtualisation",
+        "storage"
+      ],
+      "g": [
+        "Stockage présent",
+        "Datastore",
+        "Test perf"
+      ],
+      "c": "esxcli storage core device list; lvdisplay",
+      "p": [
+        "Lent iOPS"
+      ],
+      "w": "Conclusion : storage oversight.",
+      "img": "images/virtualisation-schema.svg",
+      "alt": "Schéma virtualisation",
+      "cp": "cp5"
+    },
+    {
+      "id": "cp6-vm",
+      "t": "Création et template VM",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP6 - Définition : provisioning VM. | Objectif : standard. | Cas réel : template server. | Fonctionnement détaillé : snapshot, template, customization. | Exemple : VM clone. | Procédure : créer VM, sysprep, convertir. | Erreurs : clone sans sysprep. | Jury : template. | Retenir : Sysprep.",
+      "tags": [
+        "cp6",
+        "virtualisation",
+        "vm"
+      ],
+      "g": [
+        "Créer VM",
+        "Template",
+        "Customization",
+        "Déployer"
+      ],
+      "c": "Get-VM; Clone-VM",
+      "p": [
+        "Clone SID dupliqué"
+      ],
+      "w": "Conclusion : templates corrects.",
+      "img": "images/virtualisation-schema.svg",
+      "alt": "Schéma virtualisation",
+      "cp": "cp5"
+    },
+    {
+      "id": "cp6-snap",
+      "t": "Snapshots",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP6 - Définition : snapshot et impact. | Objectif : test sécurisé. | Cas réel : patch serveur. | Fonctionnement détaillé : delta vmdk, chaîne. | Exemple : snapshot avant patch. | Procédure : snapshot, modifier, supprimer. | Erreurs : abandon de snapshot. | Jury : consolidatio. | Retenir : court durée.",
+      "tags": [
+        "cp6",
+        "virtualisation",
+        "snapshots"
+      ],
+      "g": [
+        "Snapshot",
+        "Modifier",
+        "Valider",
+        "Supprimer"
+      ],
+      "c": "vmware-cmd snapshot; Get-VMSnapshot",
+      "p": [
+        "Snapshot orphelin"
+      ],
+      "w": "Conclusion : snapshot contrôle.",
+      "img": "images/virtualisation-schema.svg",
+      "alt": "Schéma virtualisation",
+      "cp": "cp5"
+    },
+    {
+      "id": "cp6-backup",
+      "t": "Sauvegarde VM",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP6 - Définition : backup machines virtuelles. | Objectif : protection. | Cas réel : plan hypervisor. | Fonctionnement détaillé : snapshot consistency, VSS, app-aware. | Exemple : sauvegarde nocturne. | Procédure : job, test restore. | Erreurs : snapshot abandonné. | Jury : restauration. | Retenir : preuve restore.",
+      "tags": [
+        "cp6",
+        "virtualisation",
+        "backup"
+      ],
+      "g": [
+        "Planifier backup",
+        "Application-aware",
+        "Tester restore"
+      ],
+      "c": "Get-VMBackup; wbadmin",
+      "p": [
+        "Snapshot orphan"
+      ],
+      "w": "Conclusion : sauvegarder VM.",
+      "img": "images/virtualisation-schema.svg",
+      "alt": "Schéma virtualisation",
+      "cp": "cp5"
+    },
+    {
+      "id": "cp6-ha",
+      "t": "Haute disponibilité",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP6 - Définition : HA et redondance. | Objectif : continuité. | Cas réel : hôte HS. | Fonctionnement détaillé : heartbeat, vmrestart. | Exemple : métrique HA. | Procédure : cluster, datastore, test. | Erreurs : split brain. | Jury : HA vs DRS. | Retenir : quorum.",
+      "tags": [
+        "cp6",
+        "virtualisation",
+        "ha"
+      ],
+      "g": [
+        "Cluster",
+        "Datastore partagé",
+        "Heartbeat",
+        "Test"
+      ],
+      "c": "Set-VMHost -EnableHa; cluster overview",
+      "p": [
+        "Split brain"
+      ],
+      "w": "Conclusion : HA testée.",
+      "img": "images/virtualisation-schema.svg",
+      "alt": "Schéma virtualisation",
+      "cp": "cp5"
+    },
+    {
+      "id": "cp6-drs",
+      "t": "DRS et répartition",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP6 - Définition : répartition automatique. | Objectif : équilibrage. | Cas réel : charge. | Fonctionnement détaillé : metrics host. | Exemple : affinité. | Procédure : règles, mode automatique, suivi. | Erreurs : migrations non autorisées. | Jury : DRS. | Retenir : affinité.",
+      "tags": [
+        "cp6",
+        "virtualisation",
+        "drs"
+      ],
+      "g": [
+        "Activer DRS",
+        "Règles",
+        "Mode",
+        "Suivi"
+      ],
+      "c": "Get-DrsVMHostRule; Set-VMHost -EnableDRS",
+      "p": [
+        "Régression service"
+      ],
+      "w": "Conclusion : DRS maîtrisé.",
+      "img": "images/virtualisation-schema.svg",
+      "alt": "Schéma virtualisation",
+      "cp": "cp5"
+    },
+    {
+      "id": "cp6-motion",
+      "t": "vMotion live",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP6 - Définition : migration à chaud. | Objectif : continuité. | Cas réel : patch hypervisor. | Fonctionnement détaillé : RAM, stato. | Exemple : vMotion. | Procédure : precheck, migration, validation. | Erreurs : vswitch inconsistent. | Jury : prérequis. | Retenir : config cohérent.",
+      "tags": [
+        "cp6",
+        "virtualisation",
+        "motion"
+      ],
+      "g": [
+        "Precheck",
+        "Migrer",
+        "Valider"
+      ],
+      "c": "Move-VM -Destination host; Get-VMSwapfilePolicy",
+      "p": [
+        "Switch config"
+      ],
+      "w": "Conclusion : vMotion rodé.",
+      "img": "images/virtualisation-schema.svg",
+      "alt": "Schéma virtualisation",
+      "cp": "cp5"
+    },
+    {
+      "id": "cp6-network",
+      "t": "Switch virtuel",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP6 - Définition : réseau virtuel. | Objectif : connectivité VM. | Cas réel : VM isolate. | Fonctionnement détaillé : port groups, VLAN. | Exemple : port group prod. | Procédure : créer switch, port group, tester. | Erreurs : mauvais VLAN. | Jury : uplink. | Retenir : standardisation.",
+      "tags": [
+        "cp6",
+        "virtualisation",
+        "vswitch"
+      ],
+      "g": [
+        "Switch virtuel",
+        "Port group",
+        "VLAN",
+        "Test"
+      ],
+      "c": "Get-VSSwitch; Add-VMSwitch",
+      "p": [
+        "VLAN manquant"
+      ],
+      "w": "Conclusion : réseau virtuel fiable.",
+      "img": "images/virtualisation-schema.svg",
+      "alt": "Schéma virtualisation",
+      "cp": "cp5"
+    },
+    {
+      "id": "cp6-check",
+      "t": "Health check datastore",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP6 - Définition : vérification santé. | Objectif : prévenir. | Cas réel : datastore plein. | Fonctionnement détaillé : capacity, alert. | Exemple : alert 80%. | Procédure : seuil, alert, action. | Erreurs : pas d'alert. | Jury : indicateurs. | Retenir : capacity mgmt.",
+      "tags": [
+        "cp6",
+        "virtualisation",
+        "health"
+      ],
+      "g": [
+        "Capacité",
+        "Seuil",
+        "Alerte",
+        "Action"
+      ],
+      "c": "esxcli storage filesystem list; Get-Datastore",
+      "p": [
+        "Pas d'alert"
+      ],
+      "w": "Conclusion : capacités surveillées.",
+      "img": "images/virtualisation-schema.svg",
+      "alt": "Schéma virtualisation",
+      "cp": "cp5"
+    },
+    {
+      "id": "cp6-security",
+      "t": "Sécurité hyperviseur",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP6 - Définition : durcir hyperviseur. | Objectif : protéger control plane. | Cas réel : SSH ouvert. | Fonctionnement détaillé : LHR, firewall, lock mode. | Exemple : lock mode strict. | Procédure : baseline, test, audit. | Erreurs : bloquer accès. | Jury : hardening. | Retenir : moindre accès.",
+      "tags": [
+        "cp6",
+        "virtualisation",
+        "security"
+      ],
+      "g": [
+        "Baseline",
+        "Lockdown",
+        "Firewall",
+        "Audit"
+      ],
+      "c": "esxcli system security get; Get-VMHostFirewallException",
+      "p": [
+        "Perte accès admin"
+      ],
+      "w": "Conclusion : hypervisor durci.",
+      "img": "images/virtualisation-schema.svg",
+      "alt": "Schéma virtualisation",
+      "cp": "cp5"
+    },
+    {
+      "id": "cp6-synthese",
+      "t": "Synthèse examen CP6",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP6 - Définition : synthèse pour l'oral. | Objectif : expliquer. | Cas réel : jury demande VM. | Fonctionnement détaillé : hyperviseur, stockage, backup. | Exemple : cluster. | Procédure : décrire architecture. | Erreurs : omettre RTO. | Jury : questions. | Retenir : preuves.",
+      "tags": [
+        "cp6",
+        "virtualisation",
+        "synthese"
+      ],
+      "g": [
+        "Architecture",
+        "Risque",
+        "Backup",
+        "Conclusion"
+      ],
+      "c": "Aucune commande native pertinente.",
+      "p": [
+        "Omission RTO"
+      ],
+      "w": "Conclusion : virtualisation maîtrisée.",
+      "img": "images/virtualisation-schema.svg",
+      "alt": "Schéma virtualisation",
+      "cp": "cp5"
+    }
+  ]
+}

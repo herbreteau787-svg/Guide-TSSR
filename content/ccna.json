@@ -1,0 +1,176 @@
+{
+  "id": "ccna",
+  "group": "TSSR",
+  "icon": "🌐",
+  "title": "Réseaux IP, routage et services (CP4/CP7)",
+  "desc": "OSI, IPv4/IPv6, commutation, routage, WLAN, WAN, services, sécurité, programmation.",
+  "fiches": [
+    {
+      "id": "ccna-pdf",
+      "t": "Lien CCNA1.pdf du dépôt",
+      "level": "debutant",
+      "r": "Le PDF de 15 Mo reste la référence détaillée. Le site = fiches de révision + labos + QCM.",
+      "tags": [
+        "ccna",
+        "pdf",
+        "revision"
+      ],
+      "g": [
+        "Ouvrir CCNA1.pdf dans le repo",
+        "Chercher par mot-clé dans le PDF",
+        "Annoter les points à revoir"
+      ],
+      "c": "# Ouvrir le PDF du repo :\n# https://herbreteau787-svg.github.io/Guide-TSSR/CCNA1.pdf\n# Local : ./CCNA1.pdf",
+      "p": [
+        "PDF + fiches = révision active",
+        "Alterner lecture et pratique Packet Tracer",
+        "Garder une checklist par objectif"
+      ],
+      "w": "Lire passivement le PDF ne suffit pas ; il faut configurer."
+    },
+    {
+      "id": "ccna-ipv4v6",
+      "t": "IPv4/IPv6 et routage",
+      "level": "intermediaire",
+      "r": "OSI vs TCP/IP, IPv6 /64 pour LAN, link-local fe80::. OSPF single-area, statique + route par défaut.",
+      "tags": [
+        "ipv4",
+        "ipv6",
+        "ospf",
+        "routing"
+      ],
+      "g": [
+        "Packet Tracer : 2 routeurs + OSPF",
+        "Wireshark : observer ARP/DHCP/DNS",
+        "Tester le routage statique puis dynamique"
+      ],
+      "c": "ip route 0.0.0.0 0.0.0.0 192.168.1.1\nshow ip route\nipv6 address 2001:db8::1/64\nrouter ospf 1\n network 10.0.0.0 0.255.255.255 area 0",
+      "p": [
+        "AD : connected 0, static 1, OSPF 110",
+        "fe80:: = link-local",
+        "VLSM pour optimiser"
+      ],
+      "w": "Sans route par défaut, les réseaux locaux communiquent mais pas avec Internet."
+    },
+    {
+      "id": "ccna-switching",
+      "t": "Commutation : VLAN/STP/EtherChannel",
+      "level": "intermediaire",
+      "r": "Access vs trunk, STP bloque les boucles, EtherChannel agrège. Rapid-PVST recommandé.",
+      "tags": [
+        "vlan",
+        "stp",
+        "etherchannel"
+      ],
+      "g": [
+        "Créer VLANs et trunk, tester ping inter-VLAN",
+        "Vérifier le root STP",
+        "Configurer LACP et summary"
+      ],
+      "c": "spanning-tree mode rapid-pvst\nshow spanning-tree\ninterface range g0/1-2\n channel-group 1 mode active\nshow etherchannel summary",
+      "p": [
+        "Root = smallest Bridge ID",
+        "LACP active/passive",
+        "BPDU Guard sur edge ports"
+      ],
+      "w": "Un trunk natif non changé laisse passer le VLAN 1 partout."
+    },
+    {
+      "id": "ccna-security",
+      "t": "Sécurité, services et automatisation",
+      "level": "avance",
+      "r": "ACL, NAT/PAT, DHCP snooping, SSH, NTP, QoS, SDN, REST/Python pour opérations répétables.",
+      "tags": [
+        "securite",
+        "services",
+        "sdn",
+        "automation"
+      ],
+      "g": [
+        "Activer SSH, désactiver telnet",
+        "ACL sur VTY + interface",
+        "Vérifier NTP synchronisé",
+        "Controller SDN dashboard"
+      ],
+      "c": "access-list 10 permit 192.168.10.0 0.0.0.255\nip nat inside source list 10 interface g0/0 overload\nusername admin privilege 15 secret xxx\nip ssh version 2\nntp server 1.fr.pool.ntp.org\n# Python netmiko\n# from netmiko import ConnectHandler",
+      "p": [
+        "Standard près source, étendue près destination",
+        "Automatiser = JSON/REST + Python",
+        "QoS : classify, mark, queue"
+      ],
+      "w": "SSH obligatoire, telnet interdit. Les ACL doivent être journalisées."
+    },
+    {
+      "id": "ccna-troubleshoot",
+      "t": "Méthodologie de dépannage",
+      "level": "intermediaire",
+      "r": "Collecter, analyser, tester des hypothèses, implémenter, vérifier, documenter. Toujours un changement à la fois.",
+      "tags": [
+        "troubleshooting",
+        "methodologie"
+      ],
+      "g": [
+        "Reproduire le défaut",
+        "Isoler la couche (OSI)",
+        " Tester avec outils simples",
+        "Documenter la solution"
+      ],
+      "c": "show running-config\nshow ip interface brief\nshow interfaces status\nping 8.8.8.8 source g0/0\ntraceroute 8.8.8.8\nshow logging",
+      "p": [
+        "Diviser pour régner",
+        "Changement unique pour identifier la cause",
+        "Checklist post-intervention"
+      ],
+      "w": "Ne jamais faire plusieurs changements en même temps en dépannage."
+    },
+    {
+      "id": "ccna-wireless",
+      "t": "WLAN : 802.11, WPA2/WPA3, roaming",
+      "level": "intermediaire",
+      "r": "BSS, ESS, SSID, couche 2 roaming, authentification 802.1X, WPA3-SAE. Sécuriser le Wi-Fi.",
+      "tags": [
+        "wifi",
+        "wlan",
+        "wireless",
+        "wpa3"
+      ],
+      "g": [
+        "Configurer contrôleur WLC",
+        "SSID avec VLAN dédié",
+        "RADIUS/802.1X",
+        "Roaming inter-AP"
+      ],
+      "c": "# Cisco WLC CLI (extrait)\nconfig wlan create 1 CORP corp-ssid\nconfig wlan security wpa akm 802.1x enable 1\nconfig wlan interface 1 management\nshow wlan summary",
+      "p": [
+        "Band steering 2.4/5 GHz",
+        "Fast roaming (802.11r/k/v)",
+        "WPA3 pour nouveaux déploiements"
+      ],
+      "w": "Un SSID ouvert = risque majeur ; segmenter les invités."
+    },
+    {
+      "id": "ccna-wan",
+      "t": "WAN, VPN et SD-WAN",
+      "level": "avance",
+      "r": "MPLS, IPsec site-à-site, DMVPN, SD-WAN pour le multi-site intelligent et résilient.",
+      "tags": [
+        "wan",
+        "vpn",
+        "sdwan"
+      ],
+      "g": [
+        "Choisir IPsec vs TLS",
+        "QoS sur liens lents",
+        "Monitoring des liens",
+        "Bascule automatique"
+      ],
+      "c": "crypto isakmp policy 10\n encryption aes 256\n hash sha256\n authentication pre-share\n group 14\ncrypto keyring ...\n",
+      "p": [
+        "DMVPN phase 2/3 pour hub-spoke",
+        "SD-WAN = routage applicatif",
+        "SLA pour voix"
+      ],
+      "w": "Les tunnels sans keepalive masquent une panne WAN partielle."
+    }
+  ]
+}

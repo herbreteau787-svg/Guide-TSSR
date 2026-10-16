@@ -1,0 +1,641 @@
+{
+  "id": "cp1",
+  "group": "cp1",
+  "icon": "🎫",
+  "title": "CP1 — Support utilisateur en centre de services",
+  "desc": "Support utilisateur, tickets, assistance à distance; ToIP côté utilisateur uniquement en synthèse.",
+  "fiches": [
+    {
+      "id": "ccp3-base",
+      "t": "Base Linux : arborescence et configuration",
+      "level": "debutant",
+      "r": "/etc pour la config, /var/log pour les logs, /home pour les utilisateurs, /opt pour les applications tierces. Toujours lire avant d'éditer.",
+      "tags": [
+        "linux",
+        "fichiers",
+        "base"
+      ],
+      "g": [
+        "Terminal ou Explorateur GNOME pour parcourir",
+        "Éditer avec nano/vim les fichiers sous /etc",
+        "Vérifier l'OS et la version",
+        "Tester la modification et redémarrer le service dépendant"
+      ],
+      "c": "ls -la /etc/*.conf\ncat /etc/os-release\ncat /etc/passwd | cut -d: -f1\ncat /etc/hosts\ncat /etc/resolv.conf\nchmod 640 fichier\nchown user:group fichier\nfind /var/log -type f -size +10M",
+      "p": [
+        "/etc/passwd liste les utilisateurs, /etc/shadow les hash",
+        "/etc/fstab monte les systèmes au boot",
+        "chmod r=4, w=2, x=1 ; éviter 777"
+      ],
+      "w": "Ne jamais chmod 777 sur un fichier sensible ; préférer les ACL POSIX (setfacl).",
+      "cp": "cp1"
+    },
+    {
+      "id": "ccp3-users",
+      "t": "Utilisateurs, groupes et sudo",
+      "level": "debutant",
+      "r": "useradd/usermod, groupes secondaires avec -aG (sinon écrasement), sudo pour la délégation.",
+      "tags": [
+        "linux",
+        "users",
+        "sudo"
+      ],
+      "g": [
+        "Paramètres > Utilisateurs pour l'approche GUI",
+        "Vérifier l'appartenance aux groupes",
+        "Cockpit (port 9090) si installé pour gérer à distance",
+        "Journaliser les élévations (sudo.log)"
+      ],
+      "c": "useradd -m -s /bin/bash jdupont\npasswd jdupont\nusermod -aG sudo,adm jdupont\nid jdupont\ngroups jdupont\nchage -l jdupont\nvisudo -c",
+      "p": [
+        "-aG ajoute sans écraser les groupes existants",
+        "umask 027 pour masquer les fichiers nouveaux",
+        "Désactiver le login root direct (PermitRootLogin no)"
+      ],
+      "w": "Oublier -a dans -G remplace tous les groupes secondaires et peut bloquer un admin.",
+      "cp": "cp1"
+    },
+    {
+      "id": "ccp3-services",
+      "t": "Systemd : services, cibles et journaux",
+      "level": "intermediaire",
+      "r": "systemctl gère le cycle de vie des unités ; journalctl filtre les logs binaires journald.",
+      "tags": [
+        "systemd",
+        "services",
+        "logs",
+        "linux"
+      ],
+      "g": [
+        "Identifier le service et son état",
+        "Activer au boot + démarrer maintenant",
+        "Dépendances et drop-in via systemctl edit",
+        "Consulter les logs récents"
+      ],
+      "c": "systemctl status sshd\nsystemctl enable --now sshd\nsystemctl restart sshd\nsystemctl daemon-reload\njournalctl -u sshd -n 50 --no-pager\njournalctl -p err -b\nloginctl show-session 1",
+      "p": [
+        "enabled = au boot, active = en cours",
+        "Masquer un service : systemctl mask",
+        "Journald persistant : Storage=persistent"
+      ],
+      "w": "Un service 'failed' laisse parfois un message d'erreur explicite dans journalctl -xe.",
+      "cp": "cp1"
+    },
+    {
+      "id": "ccp3-reseau",
+      "t": "Réseau Linux, Netplan et NetworkManager",
+      "level": "intermediaire",
+      "r": "ip remplace ifconfig. Netplan/NM selon la distribution. Configuration persistante obligatoire.",
+      "tags": [
+        "reseau",
+        "ip",
+        "netplan",
+        "linux"
+      ],
+      "g": [
+        "NetworkManager GUI pour les postes graphiques",
+        "Vérifier l'IP, la route et les DNS",
+        "Éditer YAML Netplan avec indentation correcte",
+        "Appliquer et tester la connectivité"
+      ],
+      "c": "ip a\nip r\nping -c4 8.8.8.8\nss -tulpn\ncat /etc/netplan/*.yaml\nnetplan apply\nnmcli device status\nnmcli connection modify eth0 ipv4.addresses 192.168.1.10/24 ipv4.gateway 192.168.1.1",
+      "p": [
+        "ss remplace netstat",
+        "Netplan sensible aux espaces YAML",
+        "Penser à tester hors bande pour les serveurs distants"
+      ],
+      "w": "Une erreur YAML peut couper le réseau ; garder une console distante ouverte.",
+      "cp": "cp1"
+    },
+    {
+      "id": "ccp3-paquets",
+      "t": "Paquets, dépôts et maintenance",
+      "level": "debutant",
+      "r": "APT/YUM/DNF selon distro. Mettre à jour régulièrement, nettoyer les paquets et vérifier les origines.",
+      "tags": [
+        "apt",
+        "dnf",
+        "packages",
+        "linux"
+      ],
+      "g": [
+        "Logiciels via GNOME Software ou Synaptic",
+        "Dépôts officiels vs tiers ; signature GPG",
+        "Nettoyage des paquets obsolètes",
+        "Planification unattended-upgrades"
+      ],
+      "c": "apt update && apt upgrade -y\ndpkg -l | grep ssh\napt autoremove --purge\ndnf check-update\ndnf install -y httpd\nrpm -qa | grep -i httpd\nunattended-upgrade -d",
+      "p": [
+        "apt-cache madison pour comparer les versions",
+        "Pinning Debian pour figer une version",
+        "Auditer les dépôts avec apt-cache policy"
+      ],
+      "w": "Ne jamais mélanger les dépôts de versions majeures (ex. Jammy/Bookworm) sans nécessité.",
+      "cp": "cp1"
+    },
+    {
+      "id": "ccp3-ssh",
+      "t": "SSH : administration distante sécurisée",
+      "level": "intermediaire",
+      "r": "SSH chiffre la session. Authentification par clé et désactivation root direct = base de la sécurité.",
+      "tags": [
+        "ssh",
+        "securite",
+        "remote"
+      ],
+      "g": [
+        "Installer openssh-server si absent",
+        "Générer des clés côté client",
+        "Copier la clé publique (ssh-copy-id)",
+        "Désactiver root et password si clés présentes"
+      ],
+      "c": "ssh-keygen -t ed25519 -C \"admin@tssr\"\nssh-copy-id -i ~/.ssh/id_ed25519.pub jdupont@192.168.1.10\n# /etc/ssh/sshd_config :\nPermitRootLogin no\nPasswordAuthentication no\nPubkeyAuthentication yes\nsystemctl reload sshd",
+      "p": [
+        "ed25519 recommandé",
+        "sshd_config.d/ pour les overrides modernes",
+        "Authentification à deux facteurs pour les accès sensibles"
+      ],
+      "w": "Se couper l'accès SSH en désactivant le password avant d'avoir testé la clé est l'erreur classique.",
+      "cp": "cp1"
+    },
+    {
+      "id": "ccp3-stockage",
+      "t": "Stockage : LVM, partitions et fstab",
+      "level": "avance",
+      "r": "LVM abstraction (PV/VG/LV) pour redimensionner et snapshotter sans tout réinstaller.",
+      "tags": [
+        "lvm",
+        "stockage",
+        "fstab",
+        "disque"
+      ],
+      "g": [
+        "lsblk pour visualiser les disques et partitions",
+        "Créer PV, VG puis LV",
+        "Formater (ext4/xfs) et monter",
+        "Ajouter à /etc/fstab puis tester"
+      ],
+      "c": "lsblk -o NAME,SIZE,FSTYPE,MOUNTPOINT\npvcreate /dev/sdb1\nvgcreate vg_data /dev/sdb1\nlvcreate -L 20G -n lv_app vg_data\nmkfs.ext4 /dev/vg_data/lv_app\nmount /dev/vg_data/lv_app /opt/app\necho \"/dev/vg_data/lv_app /opt/app ext4 defaults 0 2\" >> /etc/fstab\nmount -a",
+      "p": [
+        "snapshot LVM pour sauvegardes cohérentes",
+        "XFS pour gros volumes, ext4 pour souplesse",
+        "Ne jamais fsck un volume monté"
+      ],
+      "w": "Modifier fstab sans tester avec mount -a peut empêcher le boot au prochain redémarrage.",
+      "cp": "cp1"
+    },
+    {
+      "id": "ccp3-cron",
+      "t": "Planification avec cron et systemd timers",
+      "level": "debutant",
+      "r": "Cron simple pour les tâches périodiques ; systemd timers pour dépendances, logs et redémarrages automatiques.",
+      "tags": [
+        "cron",
+        "planification",
+        "automation"
+      ],
+      "g": [
+        "crontab -e pour éditer",
+        "Utiliser des chemins absolus",
+        "Rediriger la sortie vers un fichier de log",
+        "Tester le script à la main"
+      ],
+      "c": "crontab -e\n# minute heure jour mois jourSemaine commande\n30 2 * * * /opt/scripts/backup.sh >> /var/log/backup.log 2>&1\n@reboot /opt/scripts/startup.sh\n# systemd timer\nsystemctl enable --now backup.timer",
+      "p": [
+        "SHELL=/bin/bash et PATH explicites dans crontab",
+        "Ne jamais lancer en root sans justification",
+        "Journaliser les échecs avec mail ou monitoring"
+      ],
+      "w": "Les scripts cron n'héritent pas de l'environnement interactif ; tester avec env -i.",
+      "cp": "cp1"
+    },
+    {
+      "id": "ccp3-logs-central",
+      "t": "Logs centralisés et logrotate",
+      "level": "avance",
+      "r": "Journalisation structurée + rotation = diagnostic fiable et conservation maîtrisée.",
+      "tags": [
+        "logs",
+        "journald",
+        "logrotate"
+      ],
+      "g": [
+        "Découper par service pour limiter la taille",
+        "Configurer logrotate avec compression et rétention",
+        "Exporter vers un collecteur (rsyslog) si plusieurs serveurs",
+        "Surveiller l'espace disque"
+      ],
+      "c": "# /etc/logrotate.d/myapp\n/var/log/myapp/*.log {\n    daily\n    rotate 14\n    compress\n    delaycompress\n    missingok\n    notifempty\n    create 0640 root adm\n}\nlogrotate -d /etc/logrotate.conf",
+      "p": [
+        "Tail -f pour suivre en live",
+        "logger pour écrire dans journald",
+        "Centralisation avec Loki/Graylog en production"
+      ],
+      "w": "Les logs rotatés peuvent échapper à la supervision si le chemin change.",
+      "cp": "cp1"
+    },
+    {
+      "id": "ccp3-linux-debutant",
+      "t": "Linux : utilisateurs, droits, SSH, services, disque (débutant)",
+      "level": "debutant",
+      "r": "Linux gère utilisateurs/groupes, droits rwx, services via systemd, réseau via ip/Netplan et SSH à sécuriser.",
+      "tags": [
+        "linux",
+        "ssh",
+        "droits",
+        "debutant"
+      ],
+      "g": [
+        "Créer user, groupes, clés SSH",
+        "Désactiver root direct",
+        "Surveiller services et logs"
+      ],
+      "c": "useradd -m -s /bin/bash alice\nusermod -aG sudo alice\nsystemctl status sshd\njournalctl -u sshd -n 20\nip a; ss -tulpn",
+      "p": [
+        "chmod 640 = rw-r-----",
+        "Netplan sensible à l'indentation",
+        "Logs : /var/log"
+      ],
+      "w": "Oublier -a dans -G écrase les groupes existants.",
+      "cp": "cp1"
+    },
+    {
+      "id": "pedagogie-ccp3",
+      "t": "Fiche pedagogique de reference - CP3 assistance technique",
+      "level": "intermediaire",
+      "r": "Definition : diagnostiquer et resoudre en respectant l'utilisateur. Contexte : panne VPN ou poste. Objectif : retablir vite et documenter. Details : methode entonnoir, physique, IP, passerelle, DNS, applicatif. Exemple : cable debranche puis IP APIPA. Erreurs : changer plusieurs parametres ace fois, fermer sans validation. Jury : priorite incident, difference incident/probleme/demande, escalade.",
+      "tags": [
+        "pedagogie",
+        "support"
+      ],
+      "g": [
+        "Identifier et rassurer",
+        "Reproduire",
+        "Tester couche par couche",
+        "Corriger",
+        "Valider et documenter"
+      ],
+      "c": "ipconfig /all; ping; nslookup; tracert",
+      "p": [
+        "Diagnostic trop rapide",
+        "Absence de communication"
+      ],
+      "w": "Conclusion : structure et communication valent autant que la commande.",
+      "cp": "cp1"
+    },
+    {
+      "id": "cp3-ticketing",
+      "t": "Ticketing et priorisation",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP3 - Définition : gestion normalisée des incidents. | Objectif professionnel : prioriser et tracer. | Cas réel : panne VPN multi-utilisateurs. | Fonctionnement détaillé : impact, urgence, priorité, SLA. | Exemple : ticket bloquant paie. | Procédure pas à pas : qualifier, catégoriser, prioriser, résoudre, clore. | Erreurs : pas de description. | Jury : SLA, escalade. | À retenir : impact et urgence.",
+      "tags": [
+        "cp3",
+        "support",
+        "ticket"
+      ],
+      "g": [
+        "Qualifier",
+        "Catégoriser",
+        "Prioriser",
+        "Résoudre",
+        "Clôre"
+      ],
+      "c": "Get-Service; Get-WinEvent -LogName Application",
+      "p": [
+        "Ticket vague",
+        "Pas de priorité"
+      ],
+      "w": "Conclusion : un ticket clair sauve du temps.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Contexte support technique",
+      "cp": "cp1"
+    },
+    {
+      "id": "cp3-entretien",
+      "t": "Communication avec l'utilisateur",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP3 - Définition : accompagnement humain du support. | Objectif : réduire la frustration. | Cas réel : blocage outlook. | Fonctionnement détaillé : écoute, reformulation, explication simple. | Exemple : guider par téléphone. | Procédure : saluer, écouter, reformuler, accompagner. | Erreurs : jargon. | Jury : gestion relationnelle. | À retenir : empathie.",
+      "tags": [
+        "cp3",
+        "support",
+        "communication"
+      ],
+      "g": [
+        "Saluer",
+        "Écouter",
+        "Reformuler",
+        "Guider",
+        "Clôturer"
+      ],
+      "c": "Aucune commande native pertinente pour cette fiche.",
+      "p": [
+        "Jargon",
+        "Couper parole"
+      ],
+      "w": "Conclusion : support humain.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Contexte support technique",
+      "cp": "cp1"
+    },
+    {
+      "id": "cp3-reseau",
+      "t": "Diagnostic réseau client",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP3 - Définition : méthode entonnoir IP. | Objectif : retrouver la continuité. | Cas réel : poste sans réseau. | Fonctionnement détaillé : câble, IP, passerelle, DNS, applicatif. | Exemple : mauvaise IP statique. | Procédure : couche 1, 2, 3, services, applicatif. | Erreurs : sauter étapes. | Jury : méthodologie. | À retenir : du physique au logiciel.",
+      "tags": [
+        "cp3",
+        "support",
+        "tcpip"
+      ],
+      "g": [
+        "Test couche1",
+        "IP config",
+        "Passerelle",
+        "DNS",
+        "Application"
+      ],
+      "c": "ipconfig /all; nslookup example.local; tracert 8.8.8.8; Test-NetConnection",
+      "p": [
+        "IP incorrecte",
+        "DNS absent"
+      ],
+      "w": "Conclusion : ordre OSIm.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Contexte support technique",
+      "cp": "cp1"
+    },
+    {
+      "id": "cp3-vpn",
+      "t": "Support accès distant",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP3 - Définition : problème VPN et accès distant. | Objectif : rétablir la continuité pour usager. | Cas réel : VPN coupe en roaming. | Fonctionnement détaillé : certificat, identifiants, DNS/UDP, proxy. | Exemple : certificat expiré. | Procédure : vérifier client, identifiants, routage et certificat. | Erreurs : mot de passe expiré. | Jury : split tunnel, zero trust. | À retenir : contexte nat.",
+      "tags": [
+        "cp3",
+        "support",
+        "vpn"
+      ],
+      "g": [
+        "Client VPN",
+        "Identifiants",
+        "Certificat",
+        "Routage",
+        "DNS"
+      ],
+      "c": "rasdial; tracert vpn.example.com; Get-NetAdapter",
+      "p": [
+        "Certificat expire",
+        "Split tunnel erroné"
+      ],
+      "w": "Conclusion : vérifier tout le chaînage.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Contexte support technique",
+      "cp": "cp1"
+    },
+    {
+      "id": "cp3-print",
+      "t": "Impression et spouleur",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP3 - Définition : support d'impression. | Objectif : remettre en service. | Cas réel : job bloqué. | Fonctionnement détaillé : spooler, drivers, queue, droits. | Exemple : spouleur planté. | Procédure : arrêt spouleur, nettoyage, redémarrage, test. | Erreurs : driver corrompu. | Jury : spooler et pilote. | À retenir : spoul et driver.",
+      "tags": [
+        "cp3",
+        "support",
+        "impression"
+      ],
+      "g": [
+        "Vérifier queue",
+        "Arrêter spouleur",
+        "Nettoyer",
+        "Redémarrer",
+        "Tester"
+      ],
+      "c": "net stop spooler; net start spooler; Get-Printer",
+      "p": [
+        "Pilote cassé",
+        "Droits insuffisants"
+      ],
+      "w": "Conclusion : patience et procédure.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Contexte support technique",
+      "cp": "cp1"
+    },
+    {
+      "id": "cp3-mail",
+      "t": "Messagerie et Office",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP3 - Définition : support M365 et Outlook. | Objectif : rétablir mail. | Cas réel : profil corrompu. | Fonctionnement détaillé : profil, cache ost, licence, proxy/autodiscover. | Exemple : inbox en erreur. | Procédure : tester web, refaire profil, vider cache. | Erreurs : accusé sans contrôle. | Jury : webmail vs desktop. | À retenir : client et réseau.",
+      "tags": [
+        "cp3",
+        "support",
+        "m365"
+      ],
+      "g": [
+        "Webmail",
+        "Profil",
+        "Supprimer cache",
+        "Relancer"
+      ],
+      "c": "Test-OutlookConnectivity; Get-Mailbox",
+      "p": [
+        "Autodiscover bloqué",
+        "Licence manquante"
+      ],
+      "w": "Conclusion : isoler le client.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Contexte support technique",
+      "cp": "cp1"
+    },
+    {
+      "id": "cp3-malware",
+      "t": "Incident malware utilisateur",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP3 - Définition : suspicion malware. | Objectif : limiter et éradiquer. | Cas réel : pièce jointe piéreuse. | Fonctionnement détaillé : détection, isolement, scan, IR, communication. | Exemple : boîte mail. | Procédure : isoler, scanner, nettoyer, documenter. | Erreurs : réinstaller sans preuve. | Jury : coordination SOC. | À retenir : isolement.",
+      "tags": [
+        "cp3",
+        "support",
+        "malware"
+      ],
+      "g": [
+        "Isoler",
+        "Scanner",
+        "Nettoyer",
+        "Documenter",
+        "Communiquer"
+      ],
+      "c": "Get-MpThreat; Start-MpScan",
+      "p": [
+        "Continuer utilisation",
+        "Pas de traçabilité"
+      ],
+      "w": "Conclusion : contenir puis analyser.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Contexte support technique",
+      "cp": "cp1"
+    },
+    {
+      "id": "cp3-remote",
+      "t": "Outils d'assistance à distance",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP3 - Définition : prise en main sécurisée. | Objectif : dépanner à distance. | Cas réel : erreur sur site éloigné. | Fonctionnement détaillé : authentification, consentement, journal. | Exemple : TeamViewer sous contrôle. | Procédure : demander accord, lancer, observer, clore. | Erreurs : accès non supervisé. | Jury : sécurité et consentement. | À retenir : jamais sans accord.",
+      "tags": [
+        "cp3",
+        "support",
+        "remote"
+      ],
+      "g": [
+        "Consentement",
+        "Lancer session",
+        "Diagnostiquer",
+        "Documenter"
+      ],
+      "c": "Aucune commande native pertinente pour cette fiche.",
+      "p": [
+        "Accès sans accord",
+        "Pas de journal"
+      ],
+      "w": "Conclusion : sécuriser l'assistance.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Contexte support technique",
+      "cp": "cp1"
+    },
+    {
+      "id": "cp3-hardware",
+      "t": "Panne matérielle suspectée",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP3 - Définition : diagnostic matériel. | Objectif : identifier panne. | Cas réel : écran bleu répétitif. | Fonctionnement détaillé : SMART, mémoire, température, événements. | Exemple : disque défaillant. | Procédure : événement, test, garantie, remplacement. | Erreurs : réinstaller OS sans test. | Jury : diagnostic couche physique. | À retenir : preuves matériel.",
+      "tags": [
+        "cp3",
+        "support",
+        "hardware"
+      ],
+      "g": [
+        "Événements",
+        "SMART",
+        "Mémoire",
+        "Remplacement"
+      ],
+      "c": "wmic cpu get; chkdsk /scan; Test-NetAdapter",
+      "p": [
+        "Réinstaller à l'aveugle",
+        "Perdre données"
+      ],
+      "w": "Conclusion : tester avant remplacement.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Contexte support technique",
+      "cp": "cp1"
+    },
+    {
+      "id": "cp3-licence",
+      "t": "Litige licence et activation",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP3 - Définition : activation et licence Windows/M365. | Objectif : rétablir accès. | Cas réel : Windows not activated. | Fonctionnement détaillé : clé, KMS, Entra ID. | Exemple : poste mobilisé sans licence. | Procédure : vérifier, corriger compte, réattribuer licence. | Erreurs : manipulation hors procédure. | Jury : mode d'activation. | À retenir : connaître KMS/CSP.",
+      "tags": [
+        "cp3",
+        "support",
+        "licence"
+      ],
+      "g": [
+        "Identifier erreur",
+        "Vérifier compte",
+        "Réattribuer",
+        "Tester"
+      ],
+      "c": "slmgr /xpr",
+      "p": [
+        "Mauvaise KMS",
+        "Compte non provisionné"
+      ],
+      "w": "Conclusion : licence et identité liés.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Contexte support technique",
+      "cp": "cp1"
+    },
+    {
+      "id": "cp3-escalade",
+      "t": "Escalade et résolution",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP3 - Définition : élevé aux équipes supérieures. | Objectif : résoudre rapidement. | Cas réel : irrésolu par support N1. | Fonctionnement détaillé : contexte, invest, logs, attentes. | Exemple : problème réseau site. | Procédure : documenter, prévenir, transférer. | Erreurs : transfert nu. | Jury : escalade structurée. | À retenir : contexte complet.",
+      "tags": [
+        "cp3",
+        "support",
+        "escalade"
+      ],
+      "g": [
+        "Résumer",
+        "Joindre preuves",
+        "Notifier utilisateur",
+        "Transmettre"
+      ],
+      "c": "Aucune commande native pertinente pour cette fiche.",
+      "p": [
+        "Transfert sans contexte"
+      ],
+      "w": "Conclusion : documentation d'escalade.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Contexte support technique",
+      "cp": "cp1"
+    },
+    {
+      "id": "cp3-parc",
+      "t": "Connaissance du parc",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP3 - Definitions : connaitre les equipements. | Objectif : contextualiser le support. | Cas reel : poste hors standard. | Fonctionnement detaille : modele, OS, date achat, CMDB. | Exemple : rechercher un poste par hostname. | Procedure : consulter inventaire, verifier donnees, mettre a jour, tracer incident. | Erreurs : CMDB obsolete. | Jury : asset. | A retenir : inventaire.",
+      "tags": [
+        "cp3",
+        "support",
+        "parc"
+      ],
+      "g": [
+        "Consulter inventaire",
+        "Verifier",
+        "Mettre a jour",
+        "Tracer"
+      ],
+      "c": "Get-ADComputer -Filter * | Select Name,OperatingSystem",
+      "p": [
+        "CMDB obsolete"
+      ],
+      "w": "Conclusion : connaitre son parc.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Contexte support technique",
+      "cp": "cp1"
+    },
+    {
+      "id": "cp3-synthese",
+      "t": "Synthèse examen CP3",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP3 - Définition : synthèse pour l'oral. | Objectif : répondre complètement. | Cas réel : jury demande résolution type. | Fonctionnement détaillé : diagnostic, communication, clôture. | Exemple : panne réseau classique. | Procédure : poser questions, tester, résoudre, documenter. | Erreurs : oubli communication. | Jury : questions. | À retenir : méthode et empathie.",
+      "tags": [
+        "cp3",
+        "support",
+        "synthese"
+      ],
+      "g": [
+        "Qualifier",
+        "Tester",
+        "Résoudre",
+        "Documenter"
+      ],
+      "c": "Aucune commande native pertinente pour cette fiche.",
+      "p": [
+        "Sauter étape"
+      ],
+      "w": "Conclusion : support maîtrisé.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Contexte support technique",
+      "cp": "cp1"
+    }
+  ]
+}

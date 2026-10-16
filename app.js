@@ -1,4 +1,19 @@
-const G = window.GUIDE;
+const G = window.GUIDE = window.GUIDE || { sections:[], quizzes:[], labs:[], glossary:[], cheats:[], methods:[], resources:[], meta:{} };
+async function loadContentSections(){
+  try {
+    const res = await fetch('./content/manifest.json', { cache:'no-store' });
+    if (!res.ok) throw new Error('manifest');
+    const manifest = await res.json();
+    const files = manifest.files || [];
+    const sections = [];
+    for (const file of files){
+      const r = await fetch('./content/' + file);
+      if (!r.ok) throw new Error(file);
+      sections.push(await r.json());
+    }
+    if (sections.length) G.sections = sections;
+  } catch(e){ console.warn('Chargement content dynamique échoué, conservation des données embarquées', e); }
+}
 const STORAGE = {
   done: 'tssr-done',
   fav: 'tssr-fav',
@@ -8,7 +23,7 @@ const STORAGE = {
 };
 const state = {
   tab: 'cours',
-  section: (G.sections && G.sections[0]) ? G.sections[0].id : null,
+  section: null,
   q: '',
   level: '',
   favOnly: false,
@@ -800,5 +815,10 @@ function init(){
     if (e.key === 'Escape'){ document.getElementById('sidebar').classList.remove('open'); }
   });
 }
-document.addEventListener('DOMContentLoaded', init);
-if (document.readyState !== 'loading') init();
+async function bootstrap(){
+  await loadContentSections();
+  if (!state.section && G.sections.length) state.section = G.sections[0].id;
+  init();
+}
+document.addEventListener('DOMContentLoaded', bootstrap);
+if (document.readyState !== 'loading') bootstrap();

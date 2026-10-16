@@ -1,0 +1,449 @@
+{
+  "id": "cp2",
+  "group": "cp2",
+  "icon": "🖥️",
+  "title": "CP2 — Serveurs Windows et domaine Active Directory",
+  "desc": "AD DS, DNS/DHCP, GPO, fichiers, patching, sauvegardes serveurs.",
+  "fiches": [
+    {
+      "id": "ccp5-vsphere",
+      "t": "vSphere : ESXi + vCenter",
+      "level": "intermediaire",
+      "r": "ESXi = hyperviseur bare-metal. vCenter = pilotage central, inventaire, modèles, template et API.",
+      "tags": [
+        "vmware",
+        "esxi",
+        "vcenter",
+        "virtualisation"
+      ],
+      "g": [
+        "vSphere Client : hôtes > cluster > VM",
+        "Créer VM : nom, OS, CPU/RAM/disque (thin)",
+        "Installer VMware Tools, snapshot avant MAJ",
+        "Standardiser avec templates"
+      ],
+      "c": "# PowerCLI\nConnect-VIServer vcenter.local\nGet-VM\nNew-VM -Name SRV1 -MemoryGB 4 -NumCpu 2 -DiskGB 60 -VMHost esxi1\nStart-VM SRV1\nGet-Snapshot SRV1\nNew-Snapshot -VM SRV1 -Name \"Avant-MAJ\"",
+      "p": [
+        "Thin = alloué à l'usage, Thick = réservé",
+        "Tools = performances et arrêt propre",
+        "Template réduit les erreurs de config"
+      ],
+      "w": "Snapshot n'est pas une sauvegarde ; il dépend de la VM parente.",
+      "cp": "cp2"
+    },
+    {
+      "id": "ccp5-vmotion",
+      "t": "vMotion, HA, DRS et mise en réseau",
+      "level": "avance",
+      "r": "vMotion = migration à chaud, HA = redémarrage en cas de panne, DRS = équilibrage des charges.",
+      "tags": [
+        "vmotion",
+        "ha",
+        "drs",
+        "vswitch"
+      ],
+      "g": [
+        "Cluster : activer HA + DRS, ajouter 2 ESXi",
+        "vSwitch : ajouter les portgroups VLAN",
+        "Migrer : Migrate > vMotion",
+        "Tester la panne d'un host en maintenance"
+      ],
+      "c": "Get-Cluster | Select Name, HAEnabled, DrsEnabled, DrsAutomationLevel\nGet-VirtualSwitch\nGet-VMHostNetworkAdapter\nGet-VM | Get-NetworkAdapter\nSet-VM -VM SRV1 -MemoryGB 8 -Confirm:$false",
+      "p": [
+        "vMotion nécessite VMkernel + stockage partagé",
+        "HA nécessite quorum et datastore heartbeat",
+        "DRS automatique recommandé en production"
+      ],
+      "w": "Tester HA en maintenance planifiée, jamais dans une vraie panne surprise.",
+      "cp": "cp2"
+    },
+    {
+      "id": "ccp5-network",
+      "t": "Réseau virtuel et sécurité",
+      "level": "intermediaire",
+      "r": "vSwitch standard vs distribué, VLAN, promiscuous/port security et micro-segmentation future.",
+      "tags": [
+        "reseau virtuel",
+        "vlan",
+        "security"
+      ],
+      "g": [
+        "Créer un vSwitch par usage (admin, vmotion, stockage)",
+        "Définir des port groups avec VLAN",
+        "Limiter les ports trunk",
+        "Activer le contrôle de sécurité"
+      ],
+      "c": "New-VirtualSwitch -Name vSwitch1 -VMHost esxi1 -Nic vmnic1\nNew-PortGroup -Name \"PG-APP\" -VirtualSwitch vSwitch1 -VlanId 120\nGet-VirtualPortGroup\n# Réseau isolé pour NAS\n",
+      "p": [
+        "Séparer le trafic de sauvegarde du trafic production",
+        "Jumbo frames pour stockage iSCSI",
+        "MTU identique partout"
+      ],
+      "w": "Un VLAN erroné sur un port group silencieusement isole une VM.",
+      "cp": "cp2"
+    },
+    {
+      "id": "ccp5-backup",
+      "t": "Sauvegarde et snapshot de VM",
+      "level": "intermediaire",
+      "r": "Protection avec Veeam/Azure ? à tester, snapshot pour maintenance, sauvegarde pour reprise.",
+      "tags": [
+        "backup",
+        "snapshot",
+        "vmware"
+      ],
+      "g": [
+        "Définir SLA par machine (RPO/RTO)",
+        "Planification des sauvegardes incrémentielles",
+        "Test de restauration trimestriel",
+        "Nettoyage des snapshots > 72 h"
+      ],
+      "c": "# Veeam CLI / PowerCLI examples\nBackup-VM -Name SRV1 -Repository \"Repo-NAS\"\nRestore-VM -Name SRV1 -RestorePoint (Get-RestorePoint SRV1 | Select -Last 1)\nGet-Snapshot SRV1 | Where Created -lt (Get-Date).AddDays(-3)",
+      "p": [
+        "Snapshot chaîne fragile si trop long",
+        "Application-consistent avec guest processing",
+        "Chiffrer les sauvegardes"
+      ],
+      "w": "Un snapshot resté ouvert trop longtemps dégrade fortement les performances I/O.",
+      "cp": "cp2"
+    },
+    {
+      "id": "ccp5-hyper",
+      "t": "Hyper-V et autres hyperviseurs",
+      "level": "intermediaire",
+      "r": "Hyper-V natif Windows, Proxmox open-source, KVM/QEMU pour laboratoires. Les concepts se transfèrent.",
+      "tags": [
+        "hyperv",
+        "proxmox",
+        "kvm"
+      ],
+      "g": [
+        "Activer le rôle Hyper-V avec GUI ou PowerShell",
+        "Créer commutateur virtuel externe/interne",
+        "Gérer les VM avec Hyper-V Manager",
+        "Automatiser avec PowerShell"
+      ],
+      "c": "Install-WindowsFeature -Name Hyper-V -IncludeManagementTools -Restart\nNew-VMSwitch -Name \"LAN\" -NetAdapterName Ethernet -AllowManagementOS $true\nNew-VM -Name SRVH1 -MemoryStartupBytes 4GB -NewVHDPath C:\\VMs\\SRVH1.vhdx -NewVHDSizeBytes 60GB\nStart-VM SRVH1",
+      "p": [
+        "Hyper-V Replica pour la résilience simple",
+        "Checkpoint production à privilégier",
+        "Proxmox pour labo à moindre coût"
+      ],
+      "w": "La virtualisation imbriquée nécessite VT-x/EPT et peut casser les snapshots.",
+      "cp": "cp2"
+    },
+    {
+      "id": "ccp5-virt-debutant",
+      "t": "Virtualisation : hyperviseur, snapshot, réseaux (débutant)",
+      "level": "debutant",
+      "r": "ESXi/Hyper-V/Proxmox abstraient le matériel. Snapshot = point de restauration locale, pas backup. Bridge/NAT/host-only selon besoin.",
+      "tags": [
+        "virtualisation",
+        "snapshot",
+        "debutant"
+      ],
+      "g": [
+        "Créer VM depuis template",
+        "Snapshot avant MAJ",
+        "Tester restauration"
+      ],
+      "c": "# Concepts VMware/Hyper-V\nThin provisioning, vSwitch, portgroup\nSnapshot ≠ Sauvegarde",
+      "p": [
+        "Type 1 bare-metal vs Type 2 hosté",
+        "VMkernel pour vMotion",
+        "MTU identique"
+      ],
+      "w": "Un snapshot oublié dégrade fortement l'I/O.",
+      "cp": "cp2"
+    },
+    {
+      "id": "cp5-ad",
+      "t": "Active Directory Domain Services",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP5 - Définition : service annuaire central. | Objectif : identité. | Cas réel : promotion DC. | Fonctionnement détaillé : forêt, domaines, FSMO. | Exemple : installation DC. | Procédure : prérequis, promotion, test. | Erreurs : DNS manquant. | Jury : FSMO. | À retenir : DNS.",
+      "tags": [
+        "cp5",
+        "serveurs",
+        "ad"
+      ],
+      "g": [
+        "Prérequis",
+        "Promotion",
+        "Test",
+        "Surlaut"
+      ],
+      "c": "Get-ADDomain; dcpromo /uninstall",
+      "p": [
+        "DNS absent",
+        "Sysvol partage"
+      ],
+      "w": "Conclusion : AD robuste.",
+      "img": "images/active-directory-schema.svg",
+      "alt": "Schéma serveurs",
+      "cp": "cp2"
+    },
+    {
+      "id": "cp5-adou",
+      "t": "OU et AGDLP",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP5 - Définition : structuration OU. | Objectif : déléguer. | Cas réel : OU par service. | Fonctionnement détaillé : comptes globaux, groups ressources. | Exemple : OU Finance. | Procédure : créer OU, groupes, GPO. | Erreurs : permission trop large. | Jury : AGDLP. | À retenir : délégation.",
+      "tags": [
+        "cp5",
+        "serveurs",
+        "ou"
+      ],
+      "g": [
+        "Créer OU",
+        "Groupes",
+        "Délégation",
+        "GPO"
+      ],
+      "c": "Get-ADOrganizationalUnit; Add-ADGroupMember",
+      "p": [
+        "Permissions larges"
+      ],
+      "w": "Conclusion : modèle AGDLP.",
+      "img": "images/active-directory-schema.svg",
+      "alt": "Schéma serveurs",
+      "cp": "cp2"
+    },
+    {
+      "id": "cp5-gpo",
+      "t": "GPO et stratégie groupe",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP5 - Définition : configuration centralisée. | Objectif : standard. | Cas réel : mot de passe fort. | Fonctionnement détaillé : CSE, RSoP, stratégie application. | Exemple : espace disque. | Procédure : créer GPO, lier, tester. | Erreurs : GPO conflict. | Jury : ordre application. | À retenir : scope.",
+      "tags": [
+        "cp5",
+        "serveurs",
+        "gpo"
+      ],
+      "g": [
+        "Créer GPO",
+        "Lier",
+        "Tester RSoP",
+        "Auditer"
+      ],
+      "c": "gpupdate /force; Get-GPO -All",
+      "p": [
+        "Conflit GPO",
+        "Erreur WMI"
+      ],
+      "w": "Conclusion : scope maîtrisé.",
+      "img": "images/active-directory-schema.svg",
+      "alt": "Schéma serveurs",
+      "cp": "cp2"
+    },
+    {
+      "id": "cp5-dns",
+      "t": "DNS Windows",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP5 - Définition : services de noms. | Objectif : résoudre. | Cas réel : AD non joignable. | Fonctionnement détaillé : zone AD-intégrée, SRV. | Exemple : SRV DC. | Procédure : config DNS, zones, test. | Erreurs : forwarders. | Jury : zones intégrées. | Retenir : zone AD.",
+      "tags": [
+        "cp5",
+        "serveurs",
+        "dns"
+      ],
+      "g": [
+        "Zone DNS",
+        "SRV",
+        "Forwarder",
+        "Test"
+      ],
+      "c": "Get-DnsServerZone; dnscmd /recordadd",
+      "p": [
+        "Forwarder lent"
+      ],
+      "w": "Conclusion : DNS santé.",
+      "img": "images/active-directory-schema.svg",
+      "alt": "Schéma serveurs",
+      "cp": "cp2"
+    },
+    {
+      "id": "cp5-dhcp",
+      "t": "DHCP Windows",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP5 - Définition : serveur DHCP. | Objectif : automation IP. | Cas réel : conflit. | Fonctionnement détaillé : scope, exclusions, bail. | Exemple : réserve. | Procédure : portée, options, test. | Erreurs : rogue. | Jury : DHCP failover. | Retenir : scope.",
+      "tags": [
+        "cp5",
+        "serveurs",
+        "dhcp"
+      ],
+      "g": [
+        "Port ée",
+        "Exclusions",
+        "Options",
+        "Test"
+      ],
+      "c": "Get-DhcpServerv4Scope; Add-DhcpServerv4Reservation",
+      "p": [
+        "Conflit",
+        "No failover"
+      ],
+      "w": "Conclusion : DHCP fiable.",
+      "img": "images/active-directory-schema.svg",
+      "alt": "Schéma serveurs",
+      "cp": "cp2"
+    },
+    {
+      "id": "cp5-file",
+      "t": "Partage de fichiers",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP5 - Définition : partage serveur. | Objectif : accès contrôlé. | Cas réel : folder finance. | Fonctionnement détaillé : SMB, NTFS, permissions. | Exemple : partage users. | Procédure : créer partage, ACL, test. | Erreurs : droits. | Jury : AGDLP+share. | Retenir : combiner ACL.",
+      "tags": [
+        "cp5",
+        "serveurs",
+        "smb"
+      ],
+      "g": [
+        "Créer share",
+        "ACL",
+        "Tester",
+        "Audit"
+      ],
+      "c": "net share; New-SmbShare; Get-SmbShareAccess",
+      "p": [
+        "Permissions incorrectes"
+      ],
+      "w": "Conclusion : partage sûr.",
+      "img": "images/active-directory-schema.svg",
+      "alt": "Schéma serveurs",
+      "cp": "cp2"
+    },
+    {
+      "id": "cp5-patch",
+      "t": "Patch Windows Server",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP5 - Définition : mise à jour serveur. | Objectif : sécurité. | Cas réel : patch tuesday. | Fonctionnement détaillé : WSUS, hotfix, reboot. | Exemple : patch test. | Procédure : test, pilot, deploy. | Erreurs : reboot non planifié. | Jury : patch et MCO. | Retenir : maintenance window.",
+      "tags": [
+        "cp5",
+        "serveurs",
+        "patch"
+      ],
+      "g": [
+        "Test",
+        "Pilot",
+        "Deploy",
+        "Audit"
+      ],
+      "c": "Install-Module PSWindowsUpdate; Invoke-WUJob",
+      "p": [
+        "Reboot critique"
+      ],
+      "w": "Conclusion : patch contrôlé.",
+      "img": "images/active-directory-schema.svg",
+      "alt": "Schéma serveurs",
+      "cp": "cp2"
+    },
+    {
+      "id": "cp5-backup",
+      "t": "Sauvegarde serveurs",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP5 - Définition : backup serveur. | Objectif : restore. | Cas réel : perte OS. | Fonctionnement détaillé : VSS, sauvegarde critique, rétention. | Exemple : backup system state. | Procédure : config, test, restore. | Erreurs : échec VSS. | Jury : sauvegarde. | Retenir : restore.",
+      "tags": [
+        "cp5",
+        "serveurs",
+        "backup"
+      ],
+      "g": [
+        "Configurer",
+        "Documenter",
+        "Tester restore",
+        "Retention"
+      ],
+      "c": "wbadmin start backup -backupTarget:D:",
+      "p": [
+        "VSS shadow"
+      ],
+      "w": "Conclusion : sauvegarder pour restaurer.",
+      "img": "images/active-directory-schema.svg",
+      "alt": "Schéma serveurs",
+      "cp": "cp2"
+    },
+    {
+      "id": "cp5-hard",
+      "t": "Durcissement serveur",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP5 - Définition : réduire surface attaque. | Objectif : sécuriser. | Cas réel : port inutile. | Fonctionnement détaillé : firewall, comptes, patch, logs. | Exemple : fermer port. | Procédure : baseline, test, audit. | Erreurs : fermer production. | Jury : baseline. | Retenir : moindre priv de service.",
+      "tags": [
+        "cp5",
+        "serveurs",
+        "hardening"
+      ],
+      "g": [
+        "Inventaire ports",
+        "Firewall",
+        "Comptes",
+        "Audit"
+      ],
+      "c": "Invoke-AzVMRunCommand; chronyc tracking",
+      "p": [
+        "Fermeture production"
+      ],
+      "w": "Conclusion : durcir progressivement.",
+      "img": "images/active-directory-schema.svg",
+      "alt": "Schéma serveurs",
+      "cp": "cp2"
+    },
+    {
+      "id": "cp5-monitor",
+      "t": "Supervision des serveurs",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP5 - Définition : surveiller serveurs. | Objectif : anticiper incident. | Cas réel : CPU sat. | Fonctionnement détaillé : métriques, seuils, logs. | Exemple : alerte disque. | Procédure : agent, seuil, escalade. | Erreurs : pas de seuil. | Jury : SLA. | Retenir : alerting.",
+      "tags": [
+        "cp5",
+        "serveurs",
+        "monitor"
+      ],
+      "g": [
+        "Agent",
+        "Métrique",
+        "Seuil",
+        "Alerte"
+      ],
+      "c": "Get-Counter; Get-WinEvent",
+      "p": [
+        "Pas d'escalade"
+      ],
+      "w": "Conclusion : supervision par seuils.",
+      "img": "images/active-directory-schema.svg",
+      "alt": "Schéma serveurs",
+      "cp": "cp2"
+    },
+    {
+      "id": "cp5-jury",
+      "t": "Synthèse examen CP5",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP5 - Définition : synthèse pour l'oral. | Objectif : expliquer. | Cas réel : jury demande déploiement AD. | Fonctionnement détaillé : AD, DNS, GPO, backup. | Exemple : mise en service. | Procédure : prérequis, promotion, test. | Erreurs : omettre restore. | Jury : questions. | Retenir : expertise.",
+      "tags": [
+        "cp5",
+        "serveurs",
+        "synthese"
+      ],
+      "g": [
+        "Prérequis",
+        "Promotion",
+        "Test",
+        "Restore"
+      ],
+      "c": "Get-ADForest; Get-ADDomainController -Discover",
+      "p": [
+        "Oublier backup"
+      ],
+      "w": "Conclusion : AD complet.",
+      "img": "images/active-directory-schema.svg",
+      "alt": "Schéma serveurs",
+      "cp": "cp2"
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "id": "cp3",
+  "group": "cp3",
+  "icon": "🐧",
+  "title": "CP3 — Serveurs Linux",
+  "desc": "Services Linux, SSH, storage LVM, supervision et durcissement.",
+  "fiches": [
+    {
+      "id": "pedagogie-ccp5",
+      "t": "Fiche pedagogique de reference - CP5 serveurs Windows/Linux",
+      "level": "intermediaire",
+      "r": "Definition : installer et exploiter des serveurs. Contexte : mise en production AD/DNS/DHCP. Objectif : securiser et superviser. Details : AD DS, GPO, Linux systemd, journaux, patch et permissions. Exemple : creation DC et test GPO. Erreurs : compte admin unique, patch sans test. Jury : difference OU et groupe, GPO, reset mot de passe.",
+      "tags": [
+        "pedagogie",
+        "systemes"
+      ],
+      "g": [
+        "Installer",
+        "Configurer",
+        "Securiser",
+        "Tester",
+        "Superviser"
+      ],
+      "c": "server-manager ; dcdiag; Get-ADUser",
+      "p": [
+        "Permissions excessives",
+        "Sauvegarde absente"
+      ],
+      "w": "Conclusion : la documentation fait partie de l'exploitation.",
+      "cp": "cp3"
+    },
+    {
+      "id": "cp5-linux",
+      "t": "Services Linux",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP5 - Définition : services Linux. | Objectif : faire tourner application. | Cas réel : SSH inopérant. | Fonctionnement détaillé : systemd, ports, logs. | Exemple : activation nginx. | Procédure : démarrer, tester, journiser. | Erreurs : dependencies. | Jury : systemctl. | Retenir : logs.",
+      "tags": [
+        "cp5",
+        "serveurs",
+        "linux"
+      ],
+      "g": [
+        "Start",
+        "Enable",
+        "Test",
+        "Logs"
+      ],
+      "c": "systemctl status ssh; journalctl -xe",
+      "p": [
+        "Unit en erreur",
+        "Port bind"
+      ],
+      "w": "Conclusion : service santé.",
+      "img": "images/active-directory-schema.svg",
+      "alt": "Schéma serveurs",
+      "cp": "cp3"
+    },
+    {
+      "id": "cp5-ssh",
+      "t": "Administration SSH sécurisée",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP5 - Définition : accès sécurisé. | Objectif : administrer Linux. | Cas réel : root direct. | Fonctionnement détaillé : clés, PasswordAuthentication. | Exemple : clé RSA. | Procédure : générer clés, désactiver password. | Erreurs : verrouillage. | Jury : hardening ssh. | Retenir : clés.",
+      "tags": [
+        "cp5",
+        "serveurs",
+        "ssh"
+      ],
+      "g": [
+        "Générer clés",
+        "Copier",
+        "Configurer",
+        "Tester"
+      ],
+      "c": "sshd_config; systemctl reload sshd",
+      "p": [
+        "Verrouillage self"
+      ],
+      "w": "Conclusion : ssh durci.",
+      "img": "images/active-directory-schema.svg",
+      "alt": "Schéma serveurs",
+      "cp": "cp3"
+    },
+    {
+      "id": "cp5-lvm",
+      "t": "Linux stockage LVM",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP5 - Définition : gestion volumes. | Objectif : flexibilité. | Cas réel : ajout disques. | Fonctionnement détaillé : PV, VG, LV. | Exemple : extend LV. | Procédure : pvcreate, vgextend, lvextend. | Erreurs : perte données. | Jury : LVM. | Retenir : snapshot.",
+      "tags": [
+        "cp5",
+        "serveurs",
+        "linux",
+        "storage"
+      ],
+      "g": [
+        "PV",
+        "VG",
+        "LV",
+        "Resize"
+      ],
+      "c": "pvcreate; vgextend; lvextend",
+      "p": [
+        "Mauvaise commande",
+        "No backup"
+      ],
+      "w": "Conclusion : LVM utile.",
+      "img": "images/active-directory-schema.svg",
+      "alt": "Schéma serveurs",
+      "cp": "cp3"
+    }
+  ]
+}

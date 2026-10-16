@@ -1,0 +1,308 @@
+{
+  "id": "transverse",
+  "group": "transverse",
+  "icon": "🧠",
+  "title": "Transverse — Usage encadré de l'IA et outils collaboratifs",
+  "desc": "IA encadrée, Gouvernance, M365 et changement (2026).",
+  "fiches": [
+    {
+      "id": "ccp9-deploiement",
+      "t": "MDT/WDS, Sysprep et déploiement",
+      "level": "intermediaire",
+      "r": "Image de référence → Sysprep → capture → déploiement PXE. Gérer les drivers par modèle.",
+      "tags": [
+        "mdt",
+        "wds",
+        "sysprep",
+        "deploiement"
+      ],
+      "g": [
+        "WDS : ajouter images boot/install et activer PXE",
+        "MDT : task sequence, applications, drivers",
+        "Sysprep OOBE + generalize + shutdown",
+        "DHCP options 66/67 pour PXE"
+      ],
+      "c": "sysprep /oobe /generalize /shutdown\ndism /Capture-Image /ImageFile:D:\\ref.wim /CaptureDir:C:\\ /Name:Ref /Compress:max\nwdsutil /get-image /imagename:Ref\n# MDT : Update Deployment Share",
+      "p": [
+        "Ne jamais cloner sans Sysprep (SID doublon)",
+        "Driver store séparé par modèle",
+        "Tests sur une VM avant prod"
+      ],
+      "w": "Un reboot pendant Sysprep peut casser l'image.",
+      "cp": "transverse"
+    },
+    {
+      "id": "ccp9-gposoft",
+      "t": "Déploiement logiciel par GPO et Intune",
+      "level": "intermediaire",
+      "r": "MSI via GPO pour le on-prem ; Intune/MDM pour le nomade. Toujours tester la désinstallation.",
+      "tags": [
+        "gpo",
+        "msi",
+        "intune",
+        "deploiement"
+      ],
+      "g": [
+        "Créer GPO ordinateur pour installation MSI",
+        "Ajouter fichier MSI dans \\domaine\\NETLOGON",
+        "Filtrer par groupe WMI OU",
+        "Surveiller le journal d'événements application"
+      ],
+      "c": "New-GPO -Name \"Deploiement 7zip\"\n# Détails : ordinateur > stratégie > logiciels > MSI\nmsiexec /i app.msi /quiet /norestart /l*v C:\\logs\\install.log\nGet-WinEvent -LogName Application | Where Message -match \"MsiInstaller\"",
+      "p": [
+        "MSI transform (.mst) pour personnalisation",
+        "UPN pour utilisateurs nomades",
+        "Intune win32 pour combiner MSI+scripts"
+      ],
+      "w": "Les déploiements GPO nécessitent un redémarrage ou gpupdate /force pour application.",
+      "cp": "transverse"
+    },
+    {
+      "id": "ccp9-remote",
+      "t": "Administration et inventaire de parc",
+      "level": "intermediaire",
+      "r": "RMM, inventaire hardware/software, patch, télémaintenance et reporting.",
+      "tags": [
+        "inventaire",
+        "rmm",
+        "parc"
+      ],
+      "g": [
+        "Installer un agent d'inventaire (GLPI Agent, OCS)",
+        "Collecter les infos matériel",
+        "Rapporter patchs et vulnérabilités",
+        "Planifier l'obsolescence"
+      ],
+      "c": "# GLPI Agent\nglpi-agent --server http://glpi.local --inventory\n# PowerShell inventaire local\nGet-CimInstance Win32_ComputerSystem | Select Name, Manufacturer, Model\nGet-CimInstance Win32_OperatingSystem | Select Caption, Version, LastBootUpTime",
+      "p": [
+        "Matrice de compatibilité avec l'OS",
+        "Dernier boot et uptime comme indicateurs",
+        "Enlever les postes obsolètes de l'AD"
+      ],
+      "w": "Sans inventaire, l'obsolescence et les risques sont invisibles.",
+      "cp": "transverse"
+    },
+    {
+      "id": "pedagogie-ccp9",
+      "t": "Fiche pedagogique de reference - CP9 continuite et reprise",
+      "level": "intermediaire",
+      "r": "Definition : preparer la continuite et la reprise d'activite. Contexte : sauvegarde Veeam et plan d'urgence. Objectif : reduire RPO et RTO. Details : regle 3-2-1, test de restauration, matrice de service, PCA/PRA. Exemple : restauration d'une VM de production pour valider le RTO. Erreurs : jamais tester une sauvegarde, sauvegarde unique, oublier l'authentification Veeam. Jury : difference RPO/RTO, test de restauration, preuve du PCA.",
+      "tags": [
+        "pedagogie",
+        "pca",
+        "pra"
+      ],
+      "g": [
+        "Identifier RPO/RTO",
+        "Sauvegarder hors site",
+        "Tester la restauration trimestrielle",
+        "Documenter et simuler"
+      ],
+      "c": "veeam backup ; powercli Backup-VM",
+      "p": [
+        "Absence de test",
+        "Pas de plan de communication"
+      ],
+      "w": "Conclusion : une sauvegarde n'est utile que si elle est testee.",
+      "cp": "transverse"
+    },
+    {
+      "id": "cp9-zabbix",
+      "t": "Zabbix ou supervision",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP9 - Définition : supervision centralisée. | Objectif : détecter. | Cas réel : alerte CPU. | Fonctionnement détaillé : agent, template. | Exemple : agent Linux. | Procédure : install, item, trigger. | Erreurs : polling. | Jury : agents. | Retenir : triggers.",
+      "tags": [
+        "cp9",
+        "supervision"
+      ],
+      "g": [],
+      "c": "systemctl status zabbix-server; Get-Service Zabbix",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Supervision",
+      "cp": "transverse"
+    },
+    {
+      "id": "cp9-kpi",
+      "t": "KPI et SLA",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP9 - Définition : métriques. | Objectif : qualité. | Cas réel : temps résolution. | Fonctionnement détaillé : SLA. | Exemple : SLA 15 min. | Procédure : définir, mesurer, améliorer. | Erreurs : vanity metrics. | Jury : KPI. | Retenir : pertinence.",
+      "tags": [
+        "cp9",
+        "supervision"
+      ],
+      "g": [],
+      "c": "Aucune commande native pertinente.",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Supervision",
+      "cp": "transverse"
+    },
+    {
+      "id": "cp9-logs",
+      "t": "Centralisation des logs",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP9 - Définition : logs centralisés. | Objectif : audit et RCA. | Cas réel : panne. | Fonctionnement détaillé : syslog, ingestion. | Exemple : collector. | Procédure : collecter, parser, alerte. | Erreurs : rétention. | Jury : RCA. | Retenir : log policy.",
+      "tags": [
+        "cp9",
+        "supervision"
+      ],
+      "g": [],
+      "c": "rsyslog; Get-WinEvent",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Supervision",
+      "cp": "transverse"
+    },
+    {
+      "id": "cp9-capacity",
+      "t": "Capacity planning",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP9 - Définition : capacité. | Objectif : éviter saturation. | Cas réel : CPU. | Fonctionnement détaillé : tendance. | Exemple : forecast. | Procédure : baseline, prévoir, agir. | Erreurs : pas données. | Jury : capacity. | Retenir : baseline.",
+      "tags": [
+        "cp9",
+        "supervision"
+      ],
+      "g": [],
+      "c": "Get-Counter; Get-VMHost; Node export",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Supervision",
+      "cp": "transverse"
+    },
+    {
+      "id": "cp9-patch",
+      "t": "Patch maîtrisé",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP9 - Définition : stratégie patch. | Objectif : sécurité. | Cas réel : patch test. | Fonctionnement détaillé : pilot rings. | Exemple : 1% pilot. | Procédure : test, waves, audit. | Erreurs : big bang. | Jury : maintenance. | Retenir : waves.",
+      "tags": [
+        "cp9",
+        "supervision"
+      ],
+      "g": [],
+      "c": "Invoke-WUJob; Get-HotFix",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Supervision",
+      "cp": "transverse"
+    },
+    {
+      "id": "cp9 GLPI",
+      "t": "GLPI et inventaire",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP9 - Définition : ticketing et inventaire. | Objectif : traçabilité. | Cas réel : parc serveurs. | Fonctionnement détaillé : assets, tickets. | Exemple : tickets. | Procédure : configurer catégories, workflows. | Erreurs : pas de SLA. | Jury : ITIL. | Retenir : workflow.",
+      "tags": [
+        "cp9",
+        "supervision"
+      ],
+      "g": [],
+      "c": "Aucune commande native pertinente.",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Supervision",
+      "cp": "transverse"
+    },
+    {
+      "id": "cp9-baseline",
+      "t": "Baseline de performance",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP9 - Définition : référence. | Objectif : détecter déviation. | Cas réel : incident latent. | Fonctionnement détaillé : métriques. | Exemple : CPU 20%. | Procédure : baseline, comparatif. | Erreurs : sans contexte. | Jury : baseline. | Retenir : référence.",
+      "tags": [
+        "cp9",
+        "supervision"
+      ],
+      "g": [],
+      "c": "Get-Counter -SampleInterval 1; Collect metrics",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Supervision",
+      "cp": "transverse"
+    },
+    {
+      "id": "cp9-alerting",
+      "t": "Alerting et nuisance",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP9 - Définition : alerte pertinente. | Objectif : éviter fatigue. | Cas réel : 1000 alertes. | Fonctionnement détaillé : seuils, suppression. | Exemple : alerte CPU. | Procédure : tuning. | Erreurs : alert spam. | Jury : alerting. | Retenir : tuning.",
+      "tags": [
+        "cp9",
+        "supervision"
+      ],
+      "g": [],
+      "c": "Aucune commande native pertinente.",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Supervision",
+      "cp": "transverse"
+    },
+    {
+      "id": "cp9-backupmonitor",
+      "t": "Monitoring des backups",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP9 - Définition : supervision des sauvegardes. | Objectif : garantir. | Cas réel : backup fail. | Fonctionnement détaillé : job statuses. | Exemple : backup email. | Procédure : dashboard, alert. | Erreurs : sans test restore. | Jury : backup. | Retenir : échec.",
+      "tags": [
+        "cp9",
+        "supervision"
+      ],
+      "g": [],
+      "c": "Get-BackupJob; Verify latest",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Supervision",
+      "cp": "transverse"
+    },
+    {
+      "id": "cp9-sla",
+      "t": "Reporting SLA",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP9 - Définition : reporting. | Objectif : transparence. | Cas réel : SLA client. | Fonctionnement détaillé : délais, qualité. | Exemple : monthly report. | Procédure : extraire, analyser, presenter. | Erreurs : pas de données. | Jury : reporting. | Retenir : amélioration.",
+      "tags": [
+        "cp9",
+        "supervision"
+      ],
+      "g": [],
+      "c": "Aucune commande native pertinente.",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Supervision",
+      "cp": "transverse"
+    },
+    {
+      "id": "cp9-synthese",
+      "t": "Synthèse examen CP9",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP9 - Définition : synthèse. | Objectif : expliquer. | Cas réel : jury demande supervision. | Fonctionnement détaillé : agents, KPI. | Exemple : présenter. | Procédure : présent. | Erreurs : outil seul. | Jury : questions. | Retenir : value.",
+      "tags": [
+        "cp9",
+        "supervision"
+      ],
+      "g": [],
+      "c": "Aucune commande native pertinente.",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Supervision",
+      "cp": "transverse"
+    }
+  ]
+}

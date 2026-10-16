@@ -1,0 +1,593 @@
+{
+  "id": "cp7",
+  "group": "cp7",
+  "icon": "🔒",
+  "title": "CP7 — Accès Internet et interconnexions sécurisés",
+  "desc": "DMZ, pare-feu, VPN, proxy, identité hybridée, Zero Trust, durcissement.",
+  "fiches": [
+    {
+      "id": "ccp7-firewall",
+      "t": "Règles de pare-feu et ordre d'évaluation",
+      "level": "intermediaire",
+      "r": "Évaluées haut→bas, première qui matche gagne. WAN deny all par défaut, LAN allow contrôlé.",
+      "tags": [
+        "pfsense",
+        "firewall",
+        "regles"
+      ],
+      "g": [
+        "Firewall > Rules > LAN/WAN > Add",
+        "Action Pass/Block, protocole, source, destination port",
+        "Apply Changes puis journaliser les blocs",
+        "Tester via Syslog"
+      ],
+      "c": "# iptables équivalent\niptables -L -n -v\niptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT\niptables -A INPUT -p tcp --dport 443 -j ACCEPT\niptables -P INPUT DROP\n# pfSense : limiter l'admin à un alias",
+      "p": [
+        "Limiter la sortie LAN au strict nécessaire",
+        "Ordre critique pour les exceptions",
+        "Alias pour regrouper IP/services"
+      ],
+      "w": "Les règles sont appliquées par interface entrante ; la direction est source de confusion.",
+      "cp": "cp7"
+    },
+    {
+      "id": "ccp7-natvpn",
+      "t": "NAT, VPN IPsec/OpenVPN et proxy",
+      "level": "avance",
+      "r": "PAT = 1 IP publique. IPsec site-à-site, OpenVPN nomade. Squid = filtre web, authentification et cache.",
+      "tags": [
+        "nat",
+        "vpn",
+        "ipsec",
+        "openvpn",
+        "proxy"
+      ],
+      "g": [
+        "Firewall > NAT > Outbound (auto)",
+        "VPN > IPsec/OpenVPN : assistant, certificats",
+        "Tester le VPN hors LAN (4G)",
+        "Proxy Squid : service + ACL"
+      ],
+      "c": "show nat translations\n# OpenVPN test\nopenvpn --config client.ovpn\n# Squid\nsquid -k reconfigure\ngrep ^acl /etc/squid/squid.conf",
+      "p": [
+        "DMZ pour services exposés (voir fiche DMZ)",
+        "NAT = cause fréquente d'audio VoIP unidirectionnel",
+        "VPN : désynchroniser les plages LAN distantes"
+      ],
+      "w": "Le VPN sans test externe laisse des erreurs de NAT/masquage inaperçues.",
+      "cp": "cp7"
+    },
+    {
+      "id": "ccp7-ids",
+      "t": "IDS/IPS et supervision sécurité",
+      "level": "avance",
+      "r": "Suricata/Snort pour détecter et bloquer ; corréler alertes et logs, éviter les faux positifs.",
+      "tags": [
+        "ids",
+        "ips",
+        "suricata",
+        "securite"
+      ],
+      "g": [
+        "Activer le package Suricata",
+        "Choisir les règles ET open",
+        "Alerte puis block en mode legacy/block",
+        "Suivre les stats et top signatures"
+      ],
+      "c": "# pfSense Suricata\n# Services > Suricata > Interfaces > Add\n# Blocage via pfctl table\npfctl -t snort2c -T show | head\n# Mise à jour des règles\n# Suricata update",
+      "p": [
+        "Les sondes mirror/triple n'impactent pas la latence",
+        "Tuner les règles par groupe",
+        "Corréler avec SIEM pour vue globale"
+      ],
+      "w": "Une règle trop large peut bloquer le trafic légitime de production.",
+      "cp": "cp7"
+    },
+    {
+      "id": "pedagogie-ccp7",
+      "t": "Fiche pedagogique de reference - CP7 acces et securite hybride",
+      "level": "intermediaire",
+      "r": "Definition : gerer identites, MFA, groupes, VPN et durcissement dans un environnement hybride. Contexte : Entra ID, M365, sites distants et firewall. Objectif : proteger l'infrastructure. Details : hybrid identity, Conditional Access, MDM, segmentation, journalisation, pfSense/WireGuard. Exemple : VPN site-to-site securise. Erreurs : admin global permanent, VPN sans MFA, sur-exposition. Jury : hybrid identity, MFA vs MDM, segmentation LAN.",
+      "tags": [
+        "pedagogie",
+        "securite",
+        "hybride"
+      ],
+      "g": [
+        "Definir le flux",
+        "Generer les cles",
+        "Tester",
+        "Journaliser",
+        "Documenter"
+      ],
+      "c": "ip a; systemctl status wg-quick@wg0",
+      "p": [
+        "Sur-exposure d'administration",
+        "Absence de MFA"
+      ],
+      "w": "Conclusion : securite par couche et moindre privilege.",
+      "cp": "cp7"
+    },
+    {
+      "id": "cp7-identity",
+      "t": "Identité hybride",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP7 - Définition : AD + Entra ID. | Objectif : SSO et sécurité. | Cas réel : migration. | Fonctionnement détaillé : PHR, sync. | Exemple : enrôlement. | Procédure : plan, sync, validate. | Erreurs : UPN mismatch. | Jury : hybride. | Retenir : identité.",
+      "tags": [
+        "cp7",
+        "securite",
+        "identity"
+      ],
+      "g": [
+        "Plan",
+        "Synchroniser",
+        "SSO",
+        "Valider"
+      ],
+      "c": "Get-MgUser; dsreplication",
+      "p": [
+        "UPN clash"
+      ],
+      "w": "Conclusion : identité hybride.",
+      "img": "images/active-directory-schema.svg",
+      "alt": "Schéma hybride",
+      "cp": "cp7"
+    },
+    {
+      "id": "cp7-mfa",
+      "t": "MFA et conditions",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP7 - Définition : authentification renforcée. | Objectif : empêcher la prise de compte. | Cas réel : user compromis. | Fonctionnement détaillé : contrôles accès conditionnel. | Exemple : blocage réseau non fiable. | Procédure : pilot, rollout, support. | Erreurs : boîte d'inondation. | Jury : MFA channels. | Retenir : phish-resistant.",
+      "tags": [
+        "cp7",
+        "securite",
+        "mfa"
+      ],
+      "g": [
+        "Pilot",
+        "Rollout",
+        "Support",
+        "Audit"
+      ],
+      "c": "Get-MgUserRegistrationDetail",
+      "p": [
+        "Prompt bombing"
+      ],
+      "w": "Conclusion : MFA sécurité.",
+      "img": "images/active-directory-schema.svg",
+      "alt": "Schéma hybride",
+      "cp": "cp7"
+    },
+    {
+      "id": "cp7-rbac",
+      "t": "RBAC et administration",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP7 - Définition : rôles d'administration. | Objectif : limiter privilèges. | Cas réel : ticket admin. | Fonctionnement détaillé : séparation duties. | Exemple : rôle reader. | Procédure : assigner temporaire, révoquer. | Erreurs : admin permanent. | Jury : PIM. | Retenir : least privilege.",
+      "tags": [
+        "cp7",
+        "securite",
+        "rbac"
+      ],
+      "g": [
+        "Définir rôle",
+        "Attribuer",
+        "Révoquer",
+        "Audit"
+      ],
+      "c": "Get-MgRoleDefinition",
+      "p": [
+        "Permanent admin"
+      ],
+      "w": "Conclusion : rôles maîtrisés.",
+      "img": "images/active-directory-schema.svg",
+      "alt": "Schéma hybride",
+      "cp": "cp7"
+    },
+    {
+      "id": "cp7-zt",
+      "t": "Zero Trust",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP7 - Définition : ne pas faire confiance implicite. | Objectif : réduire lame lateral. | Cas réel : VPN. | Fonctionnement détaillé : vérifier chaque requête. | Exemple : endpoint non conforme bloqué. | Procédure : policy device, identifiant, application. | Erreurs : VPN legacy. | Jury : principe. | Retenir : vérification continue.",
+      "tags": [
+        "cp7",
+        "securite"
+      ],
+      "g": [
+        "Identity",
+        "Device",
+        "App",
+        "Policy"
+      ],
+      "c": "Aucune commande native pertinente.",
+      "p": [
+        "Implicit trust"
+      ],
+      "w": "Conclusion : ZT.",
+      "img": "images/active-directory-schema.svg",
+      "alt": "Schéma hybride",
+      "cp": "cp7"
+    },
+    {
+      "id": "cp7-network",
+      "t": "Segmentation réseau",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP7 - Définition : micro-segmentation. | Objectif : réduire impact. | Cas réel : broadcast scan. | Fonctionnement détaillé : VLAN, firewall, ACL. | Exemple : VLAN management. | Procédure : segment, ACL. | Erreurs : flat network. | Jury : micro-seg. | Retenir : isoler.",
+      "tags": [
+        "cp7",
+        "securite"
+      ],
+      "g": [
+        "Segmenter",
+        "ACL",
+        "Test",
+        "Audit"
+      ],
+      "c": "show access-list; Get-VMSwitch",
+      "p": [
+        "Flat network"
+      ],
+      "w": "Conclusion : segmentation.",
+      "img": "images/active-directory-schema.svg",
+      "alt": "Schéma hybride",
+      "cp": "cp7"
+    },
+    {
+      "id": "cp7-hardening",
+      "t": "Durcissement poste",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP7 - Définition : hardening endpoint. | Objectif : réduire surface. | Cas réel : USB inconnue. | Fonctionnement détaillé : BitLocker, Defender, firewall. | Exemple : ASR rules. | Procédure : baseline, applying. | Erreurs : bloquer métiers. | Jury : baselines. | Retenir : standard DC.",
+      "tags": [
+        "cp7",
+        "securite"
+      ],
+      "g": [],
+      "c": "Get-MpComputerStatus; Get-BitLockerVolume",
+      "p": [],
+      "w": "",
+      "img": "images/active-directory-schema.svg",
+      "alt": "Schéma hybride",
+      "cp": "cp7"
+    },
+    {
+      "id": "cp7-monitoring",
+      "t": "Supervision sécurité",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP7 - Définition : collecte logs. | Objectif : détecter. | Cas réel : login failed. | Fonctionnement détaillé : SIEM, alert. | Exemple : brute force. | Procédure : centraliser, corréler, alert. | Erreurs : alert spam. | Jury : SIEM. | Retenir : corrélation.",
+      "tags": [
+        "cp7",
+        "securite"
+      ],
+      "g": [],
+      "c": "Get-WinEvent -FilterHashtable @{LogName='Security'}",
+      "p": [],
+      "w": "",
+      "img": "images/active-directory-schema.svg",
+      "alt": "Schéma hybride",
+      "cp": "cp7"
+    },
+    {
+      "id": "cp7-vuln",
+      "t": "Gestion des vulnérabilités",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP7 - Définition : vulnérabilités. | Objectif : réduire exploitation. | Cas réel : CVE exploit. | Fonctionnement détaillé : scan, score, patch. | Exemple : scanner mensuel. | Procédure : inventaire actifs, scan, remediation. | Erreurs : ignorer. | Jury : CVSS. | Retenir : process.",
+      "tags": [
+        "cp7",
+        "securite"
+      ],
+      "g": [],
+      "c": "qualitative scan; Get-HotFix",
+      "p": [],
+      "w": "",
+      "img": "images/active-directory-schema.svg",
+      "alt": "Schéma hybride",
+      "cp": "cp7"
+    },
+    {
+      "id": "cp7-siem",
+      "t": "Corrélation SIEM",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP7 - Définition : centraliser logs. | Objectif : détecter incident. | Cas réel : attaque. | Fonctionnement détaillé : parse, rules. | Exemple : brute force. | Procédure : onboard, règles, test. | Erreurs : faux positifs. | Jury : SIEM process. | Retenir : tuning.",
+      "tags": [
+        "cp7",
+        "securite"
+      ],
+      "g": [],
+      "c": "Aucune commande native pertinente.",
+      "p": [],
+      "w": "",
+      "img": "images/active-directory-schema.svg",
+      "alt": "Schéma hybride",
+      "cp": "cp7"
+    },
+    {
+      "id": "cp7-backup",
+      "t": "Sauvegarde safety",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP7 - Définition : backup et protection anti-ransomware. | Objectif : restorer. | Cas réel : ransom. | Fonctionnement détaillé : immutable backup. | Exemple : backup offline. | Procédure : stratégie, airgap, test. | Erreurs : online only. | Jury : 3-2-1. | Retenir : airgap.",
+      "tags": [
+        "cp7",
+        "securite"
+      ],
+      "g": [],
+      "c": "cleaner verify",
+      "p": [],
+      "w": "",
+      "img": "images/active-directory-schema.svg",
+      "alt": "Schéma hybride",
+      "cp": "cp7"
+    },
+    {
+      "id": "cp7-synthese",
+      "t": "Synthèse examen CP7",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP7 - Définition : synthèse. | Objectif : expliquer. | Cas réel : jury demande sécurité hybride. | Fonctionnement détaillé : identité, devices, Zero Trust. | Exemple : pilot. | Procédure : process. | Erreurs : focus outil. | Jury : questions. | Retenir : preuves.",
+      "tags": [
+        "cp7",
+        "securite"
+      ],
+      "g": [],
+      "c": "Aucune commande native pertinente.",
+      "p": [],
+      "w": "",
+      "img": "images/active-directory-schema.svg",
+      "alt": "Schéma hybride",
+      "cp": "cp7"
+    },
+    {
+      "id": "ccp10-dmz",
+      "t": "DMZ, Apache et filtrage IP",
+      "level": "intermediaire",
+      "r": "DMZ = zone tampon. LAN→DMZ OK, WAN→DMZ seulement 80/443, DMZ→LAN refusé.",
+      "tags": [
+        "dmz",
+        "apache",
+        "firewall",
+        "iptables"
+      ],
+      "g": [
+        "Apache : sites-available, a2ensite intranet",
+        "Restreindre : Require ip 192.168.1.0/24",
+        "Pare-feu : règles LAN/DMZ/WAN",
+        "Activer TLS interne"
+      ],
+      "c": "apt install apache2 -y\na2ensite intranet\nsystemctl reload apache2\n# restriction\n# <Directory /var/www/intranet> Require ip 192.168.1.0/24 </Directory>\niptables -A FORWARD -i eth0 -o dmz -j ACCEPT\niptables -A FORWARD -i wan -o dmz -p tcp --dport 443 -j ACCEPT\niptables -A FORWARD -i dmz -o lan -j DROP",
+      "p": [
+        "Reverse proxy en DMZ, données en LAN",
+        "Logs + rotation + TLS",
+        "HSTS et redirection 80→443"
+      ],
+      "w": "Exposer le SSH de la DMZ vers Internet est une erreur classique.",
+      "cp": "cp7"
+    },
+    {
+      "id": "ccp10-durc",
+      "t": "Durcissement Linux et web",
+      "level": "avance",
+      "r": "Réduire la surface d'attaque : services minimaux, permissions, fail2ban, HTTPS forcé.",
+      "tags": [
+        "hardening",
+        "securite",
+        "web"
+      ],
+      "g": [
+        "Désactiver les services inutiles",
+        "Mettre à jour et reboot planifié",
+        "Configurer fail2ban pour SSH",
+        "Scanner avec lynis"
+      ],
+      "c": "systemctl disable --now telnet.socket\napt install fail2ban -y\ncp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local\nsystemctl enable --now fail2ban\nlynis audit system",
+      "p": [
+        "Headers de sécurité Apache (CSP, HSTS)",
+        "Sudo avec groupes et logs",
+        "Chiffrement des certificats"
+      ],
+      "w": "Le durcissement sans communication peut casser des applications métier.",
+      "cp": "cp7"
+    },
+    {
+      "id": "pedagogie-ccp10",
+      "t": "Fiche pedagogique de reference - CP10 infrastructure supervisionnee",
+      "level": "intermediaire",
+      "r": "Definition : maintenir, mettre a jour et superviser le parc de maniere professionnelle. Contexte : inventaire, reporting, documentation et demonstration au jury. Objectif : assurer le suivi. Details : KPI, carnet de maintenance, scripts, tableau de bord. Exemple : rapport mensuel d'etat des services. Erreurs : KPI non mesurables, documentation non mise a jour, absence de tracabilite. Jury : quels KPI, comment documentez-vous, comment ameliorez-vous la supervision.",
+      "tags": [
+        "pedagogie",
+        "operations",
+        "reporting"
+      ],
+      "g": [
+        "Collecter les indicateurs",
+        "Produire le tableau de bord",
+        "Proposer des actions",
+        "Archiver"
+      ],
+      "c": "PowerShell reporting, export CSV et Excel",
+      "p": [
+        "Inventaire incomplet",
+        "Documentation non mise a jour"
+      ],
+      "w": "Conclusion : le suivi et la preuve sont indispensables au titre.",
+      "cp": "cp7"
+    },
+    {
+      "id": "cp10-dmz",
+      "t": "DMZ architecture",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP10 - Définition : zone démilitarisée. | Objectif : protéger. | Cas réel : web public. | Fonctionnement détaillé : ingress, reverse proxy. | Exemple : port 443. | Procédure : zone, ACL, test. | Erreurs : flat. | Jury : DMZ. | Retenir : principe.",
+      "tags": [
+        "cp10"
+      ],
+      "g": [],
+      "c": "show access-list; firewall rule",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "DMZ/Intranet",
+      "cp": "cp7"
+    },
+    {
+      "id": "cp10-waf",
+      "t": "WAF et protection",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP10 - Définition : filtrage web. | Objectif : bloquer attaques. | Cas réel : injection. | Fonctionnement détaillé : ruleset. | Exemple : OWASP. | Procédure : audit, blocage. | Erreurs : FP. | Jury : WAF. | Retenir : tuning.",
+      "tags": [
+        "cp10"
+      ],
+      "g": [],
+      "c": "Get-WAF rule; ModSecurity audit",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "DMZ/Intranet",
+      "cp": "cp7"
+    },
+    {
+      "id": "cp10-proxy",
+      "t": "Reverse proxy",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP10 - Définition : reverse proxy. | Objectif : abstraction. | Cas réel : SSL. | Fonctionnement détaillé : terminaison SSL. | Exemple : Nginx. | Procédure : conf, test. | Erreurs : route mauvaise. | Jury : proxy. | Retenir : log.",
+      "tags": [
+        "cp10"
+      ],
+      "g": [],
+      "c": "nginx -t; systemctl reload nginx",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "DMZ/Intranet",
+      "cp": "cp7"
+    },
+    {
+      "id": "cp10-intranet",
+      "t": "Intranet",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP10 - Définition : intranet. | Objectif : communication interne. | Cas réel : portal. | Fonctionnement détaillé : auth SSO, DNS. | Exemple : SharePoint. | Procédure : DNS, certificats. | Erreurs : DNS externe. | Jury : SSO. | Retenir : SSO.",
+      "tags": [
+        "cp10"
+      ],
+      "g": [],
+      "c": "Aucune commande native pertinente.",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "DMZ/Intranet",
+      "cp": "cp7"
+    },
+    {
+      "id": "cp10-extranet",
+      "t": "Extranet",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP10 - Définition : accès partenaires. | Objectif : collaboration. | Cas réel : partenaire. | Fonctionnement détaillé : auth, ACL. | Exemple : portail. | Procédure : scope et audits. | Erreurs : exposé. | Jury : contrôle. | Retenir : moindre accès.",
+      "tags": [
+        "cp10"
+      ],
+      "g": [],
+      "c": "Aucune commande native pertinente.",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "DMZ/Intranet",
+      "cp": "cp7"
+    },
+    {
+      "id": "cp10-dns",
+      "t": "DNS interne/externe",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP10 - Définition : DNS split-horizon. | Objectif : résoudre. | Cas réel : interne. | Fonctionnement détaillé : views. | Exemple : intranet. | Procédure : zones. | Erreurs : leakage. | Jury : split DNS. | Retenir : vues.",
+      "tags": [
+        "cp10"
+      ],
+      "g": [],
+      "c": "dnscmd; Resolve-DnsName intranet.local",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "DMZ/Intranet",
+      "cp": "cp7"
+    },
+    {
+      "id": "cp10-firewall",
+      "t": "Pare-feu et règles",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP10 - Définition : firewall. | Objectif : prévenir. | Cas réel : opening. | Fonctionnement détaillé : ACL. | Exemple : 443. | Procédure : least priv. | Erreurs : wide open. | Jury : policy. | Retenir : documenter.",
+      "tags": [
+        "cp10"
+      ],
+      "g": [],
+      "c": "show run; New-NetFirewallRule",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "DMZ/Intranet",
+      "cp": "cp7"
+    },
+    {
+      "id": "cp10-tls",
+      "t": "TLS et certificats",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP10 - Définition : TLS. | Objectif : chiffrement. | Cas réel : cert expiré. | Fonctionnement détaillé : chain, SAN, expiry. | Exemple : renew. | Procédure : renouvellement. | Erreurs : chain missing. | Jury : SAN. | Retenir : monitoring.",
+      "tags": [
+        "cp10"
+      ],
+      "g": [],
+      "c": "openssl x509 -in cert.pem; Get-ChildItem Cert:",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "DMZ/Intranet",
+      "cp": "cp7"
+    },
+    {
+      "id": "cp10-ha",
+      "t": "Disponibilité web",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP10 - Définition : HA web. | Objectif : disponibilité. | Cas réel : failover. | Fonctionnement détaillé : LB, health. | Exemple : IP virtuelle. | Procédure : pool, probe. | Erreurs : session. | Jury : LB. | Retenir : health check.",
+      "tags": [
+        "cp10"
+      ],
+      "g": [],
+      "c": "Load balancer config",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "DMZ/Intranet",
+      "cp": "cp7"
+    },
+    {
+      "id": "cp10-synthese",
+      "t": "Synthèse examen CP10",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP10 - Définition : synthèse. | Objectif : expliquer. | Cas réel : jury demande DMZ. | Fonctionnement détaillé : sécurité, disponibilité. | Exemple : architecture. | Procédure : présentation. | Erreurs : over expose. | Jury : questions. | Retenir : principe.",
+      "tags": [
+        "cp10"
+      ],
+      "g": [],
+      "c": "Aucune commande native pertinente.",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "DMZ/Intranet",
+      "cp": "cp7"
+    }
+  ]
+}
