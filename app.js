@@ -267,7 +267,7 @@ function renderFiche(sec, f, index, done, favs){
     ${hasCli ? `</div>` : ''}
     ${pts ? `<ul class="pts">${pts}</ul>` : ''}
     ${cleanWarn ? `<div class="warn-box">${formatInline(cleanWarn)}</div>` : ''}
-    ${isRenvoi ? `<div class="renvoi-links"><span class="muted small">Voir :</span> ${renvoiTargets.map(target=>`<button class="mini-qcm-btn" data-open-fiche="${escapeHtml(target)}">${escapeHtml(target)}</button>`).join("")}</div>` : (hasMiniQCM ? `<div class="mini-qcm-row"><button class="mini-qcm-btn mini-fiche-btn" data-mini-qcm="${escapeHtml(sec.id)}">Mini-QCM de cette fiche</button></div>` : '')}
+    ${isRenvoi ? `<div class="renvoi-links"><span class="muted small">Voir :</span> ${renvoiTargets.map(target=>`<button class="mini-qcm-btn" data-open-fiche="${escapeHtml(target)}">${escapeHtml(target)}</button>`).join("")}</div>` : (hasMiniQCM ? `<div class="mini-qcm-row"><button class="mini-qcm-btn mini-fiche-btn" data-mini-qcm="${escapeHtml(sec.id)}" data-mini-fiche="${escapeHtml(f.id)}">Mini-QCM de cette fiche</button></div>` : '')}
     <div class="label-row">
       <label class="check"><input type="checkbox" data-key="${escapeHtml(key)}" ${isDone?'checked':''}> Marquer comme lue</label>
       <button class="favorite-btn ${isFav?'on':''}" data-key="${escapeHtml(key)}">${isFav?' Favori':' Favori'}</button>
@@ -288,7 +288,7 @@ document.addEventListener('click', e=>{
     return;
   }
   const miniBtn = e.target.closest('[data-mini-qcm]');
-  if (miniBtn){ startMiniQCMForSection(miniBtn.getAttribute('data-mini-qcm')); return; }
+  if (miniBtn){ startMiniQCMForFiche(miniBtn.getAttribute('data-mini-fiche'), miniBtn.getAttribute('data-mini-qcm')); return; }
   // copier une commande en cliquant sur la première cellule d'un tableau cheat
   const cell = e.target.closest('.cheat-table tbody td:first-child');
   if (cell) {
@@ -422,13 +422,14 @@ function renderQCM(){
   panel.innerHTML = html;
   document.getElementById('qcmStart').onclick = startQCM;
 }
-function startQCM(){
-  const sec = document.getElementById('qcmSection').value;
+function startQCM(forcedSection, ficheOverride){
+  const sec = forcedSection || document.getElementById('qcmSection').value;
   const count = parseInt(document.getElementById('qcmCount').value,10);
   const diff = document.getElementById('qcmDiff').value;
   const useTimer = document.getElementById('qcmTimer').checked;
   let pool = G.quizzes.slice();
-  if (sec !== 'all') pool = pool.filter(q=>q.section===sec);
+  if (ficheOverride) pool = pool.filter(q=>q.fiche===ficheOverride);
+  else if (sec !== 'all') pool = pool.filter(q=>q.section===sec);
   if (diff !== 'all') pool = pool.filter(q=>q.difficulty===diff);
   if (!pool.length){ toast('Aucune question pour ces filtres','warn'); return; }
   // shuffle
@@ -447,6 +448,14 @@ function startQCM(){
 function startMiniQCMForSection(sectionId){
   switchTab('qcm');
   requestAnimationFrame(()=>{ const sel=document.getElementById('qcmSection'); if (sel) sel.value = sectionId; startQCM(); });
+}
+function startMiniQCMForFiche(ficheId, sectionId){
+  switchTab('qcm');
+  requestAnimationFrame(()=>{
+    const sel=document.getElementById('qcmSection');
+    if (sel && sectionId) sel.value = sectionId;
+    startQCM(null, ficheId);
+  });
 }
 function shuffle(arr){ const a=arr.slice(); for (let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 function renderQCMQuestion(panel){

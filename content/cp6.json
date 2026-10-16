@@ -236,5 +236,6 @@
       "w": "Ne pas utiliser /MIR sans stratégie de versioning ; cela efface les fichiers vieille version côté cible.",
       "cp": "cp5"
     }
-  ]
+  ],
+  "quiz": []
 }
