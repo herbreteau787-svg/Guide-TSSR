@@ -236,11 +236,16 @@ function renderFiche(sec, f, index, done, favs){
   const isDone = done.has(key);
   const isFav = favs.has(key);
   const hasCli = Boolean(f.cli) && (f.c || '').trim().length > 0;
+  const isRenvoi = (f.id || "").toLowerCase().includes("-renvoi-");
+  const cleanPts = (f.p||[]).filter(x=>{const t=String(x||"").trim(); return t && t.toLowerCase() !== "sans note";});
+  const cleanWarn = String(f.w||"").trim();
+  const renvoiTargets = Array.isArray(f.renvoi_vers) ? f.renvoi_vers : [];
+  const hasMiniQCM = (G.quizzes||[]).some(q => q.section === sec.id);
   const imgTag = f.img ? `<figure class="fiche-figure"><img src="${escapeHtml(f.img)}" alt="${escapeHtml(f.alt || 'Schema')}" loading="lazy"><figcaption>${escapeHtml(f.alt || 'Schema')}</figcaption></figure>` : '';
   const tags = (f.tags||[]).map(t=>`<span class="badge">${escapeHtml(t)}</span>`).join('');
   const gui = (f.g||[]).map(s=>`<li>${formatInline(s)}</li>`).join('');
-  const pts = (f.p||[]).map(s=>`<li>${formatInline(s)}</li>`).join('');
-  const code = escapeHtml(f.c || '');
+  const pts = cleanPts.map(s=>`<li>${formatInline(s)}</li>`).join('');
+  const code = escapeHtml(f.c || '');
   return `
   <article class="card ${isDone?'read':''} ${isFav?'favorite':''}" data-key="${escapeHtml(key)}" data-index="${index}">
     <div class="badges">${badgeLevel(f.level)} ${tags}</div>
@@ -261,7 +266,8 @@ function renderFiche(sec, f, index, done, favs){
       </div>
     ${hasCli ? `</div>` : ''}
     ${pts ? `<ul class="pts">${pts}</ul>` : ''}
-    ${f.w ? `<div class="warn-box">⚠️ ${formatInline(f.w)}</div>` : ''}
+    ${cleanWarn ? `<div class="warn-box">${formatInline(cleanWarn)}</div>` : ''}
+    ${isRenvoi ? `<div class="renvoi-links"><span class="muted small">Voir :</span> ${renvoiTargets.map(target=>`<button class="mini-qcm-btn" data-open-fiche="${escapeHtml(target)}">${escapeHtml(target)}</button>`).join("")}</div>` : (hasMiniQCM ? `<div class="mini-qcm-row"><button class="mini-qcm-btn mini-fiche-btn" data-mini-qcm="${escapeHtml(sec.id)}">Mini-QCM de cette fiche</button></div>` : '')}
     <div class="label-row">
       <label class="check"><input type="checkbox" data-key="${escapeHtml(key)}" ${isDone?'checked':''}> Marquer comme lue</label>
       <button class="favorite-btn ${isFav?'on':''}" data-key="${escapeHtml(key)}">${isFav?' Favori':' Favori'}</button>
@@ -271,6 +277,18 @@ function renderFiche(sec, f, index, done, favs){
 
 /* delegation for cours */
 document.addEventListener('click', e=>{
+  const openFicheBtn = e.target.closest('[data-open-fiche]');
+  if (openFicheBtn){
+    const target = openFicheBtn.getAttribute('data-open-fiche');
+    const owner = (G.sections||[]).find(sec=>(sec.fiches||[]).some(f=>f.id===target));
+    if (owner){
+      state.section = owner.id; switchTab('cours');
+      requestAnimationFrame(()=>{ renderCours(); const card = Array.from(document.querySelectorAll('.card')).find(x=>x.getAttribute('data-key')===owner.id+':'+target); if (card) card.scrollIntoView({behavior:'smooth',block:'start'}); });
+    }
+    return;
+  }
+  const miniBtn = e.target.closest('[data-mini-qcm]');
+  if (miniBtn){ startMiniQCMForSection(miniBtn.getAttribute('data-mini-qcm')); return; }
   // copier une commande en cliquant sur la première cellule d'un tableau cheat
   const cell = e.target.closest('.cheat-table tbody td:first-child');
   if (cell) {
@@ -425,6 +443,10 @@ function startQCM(){
   state.qcm.score = 0;
   clearInterval(state.qcm.timer);
   renderQCMQuestion(document.querySelector('[data-panel="qcm"]'));
+}
+function startMiniQCMForSection(sectionId){
+  switchTab('qcm');
+  requestAnimationFrame(()=>{ const sel=document.getElementById('qcmSection'); if (sel) sel.value = sectionId; startQCM(); });
 }
 function shuffle(arr){ const a=arr.slice(); for (let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 function renderQCMQuestion(panel){

@@ -785,7 +785,7 @@
       ],
       "w": "Une règle trop large bloque la production.",
       "alt": "",
-      "doublon_de": "cp7-legacy-ccp7-ids"
+      "doublon_de": "cp7-siem"
     },
     {
       "cp": "cp7",
@@ -868,9 +868,9 @@
       "w": "Conclusion : fondements CP4, durcissement CP7.",
       "cp": "cp7",
       "renvoi_vers": [
-        "cyber-reseau",
-        "cyber-ids",
-        "cyber-logs"
+        "cp7-network",
+        "cp7-siem",
+        "cp7-monitoring"
       ]
     }
   ]

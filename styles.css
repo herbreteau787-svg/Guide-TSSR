@@ -57,8 +57,9 @@ a:hover { text-decoration: underline; }
 .brand strong { font-size: 1.05rem; }
 .brand small { color: var(--mut); font-size: .7rem; }
 .logo { font-size: 1.3rem; }
-.tabs { display: flex; gap: 6px; flex-wrap: wrap; margin: 4px 0; justify-content: center; align-items: center; position: absolute; left: 50%; top: 10px; transform: translateX(-50%); z-index: 1; }
+.tabs { display:flex; gap:6px; flex-wrap:nowrap; margin:4px 0; justify-content:center; align-items:center; position:absolute; left:50%; top:10px; transform:translateX(-50%); z-index:1; overflow-x:auto; max-width: calc(100% - 140px); }
 .tab {
+  flex: 0 0 auto;
   background: transparent; border: 1px solid transparent;
   padding: 7px 11px; border-radius: 999px; cursor: pointer; font-size: .86rem;
   color: var(--mut); transition: .2s;
@@ -239,7 +240,7 @@ pre { margin: 0; }
   #menuToggle { display: none; }
 }
 @media (max-width: 640px) {
-  .tabs { display: none; }
+  .tabs { display:flex; flex-wrap:nowrap; overflow-x:auto; white-space:nowrap; left:0; right:0; top: auto; transform:none; margin:8px 8px 0; max-width:none; }
   .topbar { display: flex; flex-wrap: wrap; }
   .top-actions { margin-left: auto; }
 }
@@ -297,3 +298,5 @@ pre code { line-height: 1.45; }
 .tabs-mode button { padding: 7px 14px; font-size: .86rem; }
 #progressBar { height: 10px; border-radius: 99px; }
 .icon-btn, .ghost-btn { border-radius: 10px; }
+.mini-qcm-row,.renvoi-links{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0;}
+.mini-qcm-btn{padding:7px 11px;border-radius:999px;border:1px solid var(--border);background:var(--panel-soft);color:var(--txt);cursor:pointer;}

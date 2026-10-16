@@ -1,4 +1,4 @@
-﻿const CACHE = 'guide-tssr-v7';
+﻿const CACHE = 'guide-tssr-v8';
 const OFFLINE_URL = './index.html';
 const ASSETS = [
   './',

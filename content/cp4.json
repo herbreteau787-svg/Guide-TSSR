@@ -2,7 +2,7 @@
   "id": "cp4",
   "group": "cp4",
   "icon": "🌐",
-  "title": "CP4 — Réseau IP (ToIP / CME dans CP4)",
+  "title": "CP4 — Réseau IP (dont ToIP / CME)",
   "desc": "Adressage, VLAN, routage, NAT, DNS/DHCP, VPN, ToIP Cisco CME, VLAN Voix, diagnostic.",
   "fiches": [
     {
@@ -1316,9 +1316,9 @@
       "w": "Conclusion : CP4 prépare, CP7 sécurise",
       "cp": "cp4",
       "renvoi_vers": [
-        "cyber-reseau",
-        "cyber-ids",
-        "cyber-logs"
+        "cp7-network",
+        "cp7-siem",
+        "cp7-monitoring"
       ]
     }
   ]
