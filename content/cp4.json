@@ -6,27 +6,82 @@
       "id": "cp4-essentiel",
       "t": "CP4 — L'essentiel (réseau IP)",
       "level": "exam",
-      "r": "Objectif : maîtriser les fondamentaux réseau pour l'examen TSSR.",
+      "cli": true,
+      "r": "Objectif : maîtriser les fondamentaux réseau pour l'examen TSSR. Ce document condense les notions indispensables, les commandes clés, les pièges et les questions de jury.",
       "tags": [
         "cp4",
         "essentiel"
       ],
-      "g": [
-        "Objectif",
-        "Notions",
-        "Tableau",
-        "Diagnostic",
-        "Pièges",
-        "Index"
-      ],
-      "c": "Commandes usuelles : ping, traceroute, ipconfig, show interfaces, show vlan brief, show ip route.",
+      "g": [],
+      "c": "Voir section Commandes utiles.",
       "p": [
-        "Confondre couche 2 et 3",
-        "Oublier le masque",
-        "Négliger le VLAN natif"
+        "Erreur de configuration",
+        "Oubli de vérification"
       ],
-      "w": "L'essentiel résume ; les fiches détaillées précisent.",
-      "resume": "Fiche essentielle CP4 : fondamentaux réseau.",
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Essentiel CP4 : fondamentaux réseau.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Le CP4 porte sur l'exploitation d'un réseau IP. Il couvre l'adressage, la commutation, le routage, les services IP, la sécurité et la connectivité."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "OSI, TCP/IP, IPv4/IPv6, VLAN, trunk, STP, routage, NAT, DHCP, DNS, Wi-Fi, VPN, ACL, pare-feu."
+        },
+        {
+          "title": "Théorie détaillée",
+          "body": "Chaque notion est développée dans les fiches détaillées. L'essentiel sert de révision rapide."
+        },
+        {
+          "title": "Architecture",
+          "body": "Réseau d'entreprise type : accès, distribution, cœur, services, sécurité."
+        },
+        {
+          "title": "Cas concret entreprise",
+          "body": "Un utilisateur ne peut pas accéder à Internet : vérifier IP, masque, passerelle, DNS, VLAN, trunk, routage, NAT, firewall."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "1. Qualifier le symptôme. 2. Vérifier la couche 1. 3. Vérifier la couche 2. 4. Vérifier la couche 3. 5. Vérifier les services. 6. Vérifier la sécurité."
+        },
+        {
+          "title": "Dépannage",
+          "body": "Câble, port, VLAN, trunk, IP, masque, passerelle, DNS, routage, NAT, ACL."
+        },
+        {
+          "title": "Commandes CLI",
+          "body": "ping, traceroute, ipconfig, show interfaces, show vlan brief, show ip route, show access-lists."
+        },
+        {
+          "title": "Vérification",
+          "body": "Chaque étape doit être validée avant de passer à la suivante."
+        },
+        {
+          "title": "Questions de jury",
+          "body": "Expliquer le modèle OSI, le VLAN, le routage, le NAT, le DHCP, le DNS."
+        },
+        {
+          "title": "Pièges d'examen",
+          "body": "Confondre couche 2 et 3, oublier le masque, négliger le VLAN natif."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Documenter, tester, utiliser les bons outils."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "OSI 7 couches ; TCP/IP ; IPv4/IPv6 ; VLAN/trunk/STP ; routage/NAT ; DHCP/DNS ; Wi-Fi ; VPN ; ACL/pare-feu."
+        },
+        {
+          "title": "Schéma Mermaid",
+          "body": "graph TD; A[Accès]-->B[Distribution]; B-->C[Cœur]; C-->D[Services];"
+        },
+        {
+          "title": "Sources de référence",
+          "body": "RFC, Cisco Networking Academy, documentation officielle."
+        }
+      ],
       "couvre": [
         "cp4-osi",
         "cp4-tcpip",
@@ -53,16 +108,6 @@
         "cp4-quiz",
         "cp4-entretien-jury",
         "cp4-cheatsheet"
-      ],
-      "sections": [
-        {
-          "title": "Introduction",
-          "body": "Synthèse des fondamentaux réseau."
-        },
-        {
-          "title": "Mémo révision",
-          "body": "OSI, TCP/IP, VLAN, routage, NAT, DHCP, DNS, Wi-Fi, VPN, pare-feu."
-        }
       ]
     },
     {
@@ -70,7 +115,7 @@
       "t": "Modèle OSI",
       "level": "intermediaire",
       "cli": true,
-      "r": "Le modèle OSI organise la communication en 7 couches.",
+      "r": "Le modèle OSI est un modèle conceptuel en 7 couches qui standardise les fonctions de communication d'un système informatique.",
       "tags": [
         "cp4",
         "osi"
@@ -82,55 +127,67 @@
         "Oubli de vérification"
       ],
       "w": "Le test seul ne prouve pas la cause.",
-      "resume": "Modèle OSI : 7 couches, encapsulation, équipements.",
+      "resume": "Modèle OSI : 7 couches, encapsulation, équipements par couche.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "Le modèle OSI (Open Systems Interconnection) standardise les fonctions de communication."
+          "body": "Le modèle OSI est un modèle conceptuel en 7 couches qui standardise les fonctions de communication d'un système informatique."
         },
         {
           "title": "Définitions",
-          "body": "Couche 1 Physique, 2 Liaison, 3 Réseau, 4 Transport, 5 Session, 6 Présentation, 7 Application."
+          "body": "Couche 1 Physique : transmission de bits sur un support. Couche 2 Liaison : trames, adresses MAC, commutation. Couche 3 Réseau : paquets, adresses IP, routage. Couche 4 Transport : segments, TCP/UDP, ports. Couche 5 Session : gestion des sessions. Couche 6 Présentation : chiffrement, compression. Couche 7 Application : HTTP, DNS, FTP."
         },
         {
           "title": "Théorie détaillée",
-          "body": "Encapsulation et désencapsulation ; PDU : bit, trame, paquet, segment."
+          "body": "L'encapsulation ajoute des en-têtes à chaque couche. Le PDU change de nom : bit (couche 1), trame (couche 2), paquet (couche 3), segment (couche 4). Le désencapsulation inverse le processus côté récepteur. Chaque couche communique avec la couche homologue de l'autre machine."
+        },
+        {
+          "title": "Fonctionnement interne",
+          "body": "L'encapsulation ajoute des en-têtes à chaque couche. Le PDU change de nom : bit (couche 1), trame (couche 2), paquet (couche 3), segment (couche 4). Le désencapsulation inverse le processus côté récepteur. Chaque couche communique avec la couche homologue de l'autre machine."
         },
         {
           "title": "Architecture",
-          "body": "Équipements par couche : hub (1), switch (2), routeur (3), pare-feu (3/4+)."
+          "body": "Équipements par couche : hub et répéteur (couche 1), switch et bridge (couche 2), routeur et pare-feu (couche 3/4), passerelle applicative (couche 7). Protocoles : Ethernet (2), IP (3), TCP/UDP (4), HTTP/DNS/FTP (7)."
         },
         {
           "title": "Cas concret entreprise",
-          "body": "Un ping échoue : vérifier câble, VLAN, IP, firewall."
+          "body": "Un ping échoue : il faut vérifier couche par couche. Câble (1), VLAN et port (2), IP et masque (3), firewall (4)."
         },
         {
           "title": "Procédure pas à pas",
-          "body": "1. Vérifier lien. 2. Vérifier IP. 3. Ping passerelle. 4. Ping distant. 5. Traceroute."
+          "body": "1. Vérifier le lien physique et les LED. 2. Vérifier la configuration de l'interface et le VLAN. 3. Vérifier l'adresse IP, le masque et la passerelle. 4. Tester le ping vers la passerelle. 5. Tester le ping vers une adresse distante. 6. Tracer la route."
         },
         {
           "title": "Dépannage",
-          "body": "Câble défectueux, VLAN erroné, IP incorrecte, ACL bloquante."
+          "body": "Câble défectueux, port désactivé, VLAN erroné, IP incorrecte, masque wrong, ACL bloquante, firewall actif."
         },
         {
-          "title": "Bonnes pratiques",
-          "body": "Documenter, tester chaque couche, utiliser les bons outils."
+          "title": "Commandes CLI",
+          "body": "ping, tracert, traceroute, ipconfig, ifconfig, show interfaces, show vlan brief."
+        },
+        {
+          "title": "Vérification",
+          "body": "Chaque étape doit être validée avant de passer à la suivante. Un ping vers la passerelle prouve la connectivité locale."
         },
         {
           "title": "Questions de jury",
-          "body": "Quelle couche pour le routage ? (3). Pour la commutation ? (2)."
+          "body": "Expliquer le modèle OSI, le rôle de chaque couche, l'encapsulation, les équipements par couche."
         },
         {
           "title": "Pièges d'examen",
-          "body": "Confondre couche 2 et 3 ; oublier le masque."
+          "body": "Confondre couche 2 et couche 3, oublier le masque, ignorer le VLAN natif, confondre PDU."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Documenter le diagnostic, utiliser les outils adaptés, tester couche par couche."
         },
         {
           "title": "Mémo révision",
-          "body": "OSI = 7 couches ; encapsulation ; équipements par couche."
+          "body": "OSI = 7 couches ; encapsulation ; équipements par couche ; PDU."
         },
         {
           "title": "Schéma Mermaid",
-          "body": "graph TD; L1[Physique]-->L2[Liaison]; L2-->L3[Réseau]; L3-->L4[Transport];"
+          "body": "graph TD; L1[Physique]-->L2[Liaison]; L2-->L3[Réseau]; L3-->L4[Transport]; L4-->L5[Session]; L5-->L6[Présentation]; L6-->L7[Application];"
         },
         {
           "title": "Sources de référence",
@@ -140,10 +197,10 @@
     },
     {
       "id": "cp4-tcpip",
-      "t": "TCP/IP",
+      "t": "TCP/IP, IPv4 et IPv6",
       "level": "intermediaire",
       "cli": true,
-      "r": "TCP/IP est la suite de protocoles d'Internet.",
+      "r": "TCP/IP est la suite de protocoles d'Internet. IPv4 utilise 32 bits, IPv6 128 bits.",
       "tags": [
         "cp4",
         "tcpip"
@@ -159,47 +216,59 @@
       "sections": [
         {
           "title": "Introduction",
-          "body": "TCP/IP est la suite fondamentale des réseaux modernes."
+          "body": "TCP/IP est la suite de protocoles d'Internet. IPv4 utilise 32 bits, IPv6 128 bits."
         },
         {
           "title": "Définitions",
-          "body": "IPv4 32 bits, IPv6 128 bits. TCP fiable connecté, UDP rapide sans connexion."
+          "body": "IPv4 : adressage 32 bits, notation décimale pointée. IPv6 : 128 bits, notation hexadécimale. TCP : fiable, orienté connexion. UDP : rapide, sans connexion. IP : routage des paquets."
         },
         {
           "title": "Théorie détaillée",
-          "body": "Three-way handshake, acquittements, retransmission, routage IP."
+          "body": "TCP établit une connexion (three-way handshake SYN, SYN-ACK, ACK), gère les acquittements, la fenêtre glissante et la retransmission. UDP envoie des datagrammes sans garantie. IP route les paquets selon la table de routage."
+        },
+        {
+          "title": "Fonctionnement interne",
+          "body": "TCP établit une connexion (three-way handshake SYN, SYN-ACK, ACK), gère les acquittements, la fenêtre glissante et la retransmission. UDP envoie des datagrammes sans garantie. IP route les paquets selon la table de routage."
         },
         {
           "title": "Architecture",
-          "body": "Adresses privées RFC1918, CIDR, sous-réseaux, loopback."
+          "body": "Adresses privées RFC1918 (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16), CIDR, sous-réseaux, loopback 127.0.0.1, multicast, link-local."
         },
         {
           "title": "Cas concret entreprise",
-          "body": "Serveur web inaccessible : vérifier IP, port, firewall, DNS."
+          "body": "Un serveur web inaccessible : vérifier l'adresse IP, le port 80/443, le firewall, le DNS, la connectivité réseau."
         },
         {
           "title": "Procédure pas à pas",
-          "body": "1. Vérifier IP. 2. Ping. 3. Tester port. 4. Firewall. 5. DNS."
+          "body": "1. Vérifier l'IP et le masque. 2. Tester le ping vers la passerelle. 3. Tester le port TCP. 4. Vérifier le firewall. 5. Vérifier la résolution DNS."
         },
         {
           "title": "Dépannage",
-          "body": "IP incorrecte, port bloqué, DNS en panne."
+          "body": "IP incorrecte, masque erroné, port bloqué, firewall actif, DNS en panne, câble défectueux."
         },
         {
-          "title": "Bonnes pratiques",
-          "body": "Utiliser CIDR, documenter le plan d'adressage."
+          "title": "Commandes CLI",
+          "body": "ipconfig, ping, Test-NetConnection, netstat, ss, nslookup."
+        },
+        {
+          "title": "Vérification",
+          "body": "Un ping vers la passerelle prouve la connectivité locale. Un Test-NetConnection sur le port prouve le service."
         },
         {
           "title": "Questions de jury",
-          "body": "TCP est-il fiable ? Oui. UDP connecté ? Non."
+          "body": "TCP est-il fiable ? Oui. UDP est-il connecté ? Non. Quelle est la taille d'une adresse IPv6 ? 128 bits."
         },
         {
           "title": "Pièges d'examen",
-          "body": "Confondre TCP/UDP ; oublier masque."
+          "body": "Confondre TCP et UDP, oublier le masque, ignorer IPv6, confondre port et protocole."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Utiliser CIDR, documenter le plan d'adressage, tester chaque étape."
         },
         {
           "title": "Mémo révision",
-          "body": "IPv4 32 bits, IPv6 128 bits, TCP fiable, UDP rapide."
+          "body": "IPv4 32 bits, IPv6 128 bits, TCP fiable connecté, UDP rapide sans connexion."
         },
         {
           "title": "Schéma Mermaid",
@@ -216,7 +285,7 @@
       "t": "IPv4 et subnetting",
       "level": "intermediaire",
       "cli": true,
-      "r": "IPv4 utilise 32 bits. Le subnetting découpe en sous-réseaux.",
+      "r": "L'adressage IPv4 est le fondement de tout réseau IP. Maîtriser le calcul de sous-réseaux, le CIDR et le VLSM est indispensable pour l'examen TSSR et pour l'exploitation quotidienne.",
       "tags": [
         "cp4",
         "ipv4"
@@ -228,59 +297,71 @@
         "Oubli de vérification"
       ],
       "w": "Le test seul ne prouve pas la cause.",
-      "resume": "IPv4 : adressage, CIDR, VLSM.",
+      "resume": "IPv4 : adressage, CIDR, VLSM, planification.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "L'adressage IPv4 est fondamental pour l'exploitation réseau."
+          "body": "L'adressage IPv4 est le fondement de tout réseau IP. Chaque équipement connecté à un réseau IP possède une adresse IPv4 unique au sein de son domaine de broadcast. Comprendre la structure d'une adresse IPv4, le rôle du masque de sous-réseau et les techniques de découpage (subnetting, VLSM) est indispensable pour concevoir, déployer et dépanner un réseau d'entreprise. Le jury TSSR attend une maîtrise parfaite du calcul d'adresses, de la conversion binaire et de la planification d'adressage. Sans cette compétence, impossible de configurer correctement un routeur, un switch de couche 3 ou un firewall."
         },
         {
           "title": "Définitions",
-          "body": "Adresse, masque, CIDR, réseau, broadcast, hôtes utilisables."
+          "body": "Une adresse IPv4 est un identifiant de 32 bits, noté en décimal pointé (4 octets séparés par des points). Le masque de sous-réseau (subnet mask) sépare la partie réseau de la partie hôte. Le CIDR (Classless Inter-Domain Routing) note le masque sous forme de préfixe (/24). Le réseau est l'adresse dont la partie hôte est à zéro. Le broadcast est la dernière adresse du sous-réseau (partie hôte à 1). Les hôtes utilisables sont les adresses entre réseau et broadcast (2^n - 2). Le VLSM (Variable Length Subnet Mask) permet d'utiliser des masques de tailles différentes pour optimiser l'utilisation des adresses. Le supernetting (agrégation) regroupe plusieurs réseaux contigus."
         },
         {
           "title": "Théorie détaillée",
-          "body": "Conversion binaire, calcul de sous-réseau, VLSM."
+          "body": "Une adresse IPv4 se compose de 4 octets de 8 bits, soit 32 bits au total. La conversion décimal-binaire est essentielle pour le calcul de sous-réseaux. Le masque définit la frontière réseau/hôte. Le subnetting consiste à emprunter des bits à la partie hôte pour créer des sous-réseaux. Le VLSM permet d'adapter la taille des sous-réseaux aux besoins réels (point-à-point /30, LAN /24, etc.). Le supernetting regroupe plusieurs réseaux contigus en un seul bloc pour réduire la taille des tables de routage."
+        },
+        {
+          "title": "Fonctionnement interne",
+          "body": "Le routeur utilise le masque pour déterminer si une destination est locale ou distante. Si locale, il délivre directement via ARP. Si distante, il consulte sa table de routage et transfère vers la passerelle. Le broadcast est utilisé pour la découverte (ARP, DHCP). Le réseau identifie le sous-réseau dans les tables de routage. Chaque interface de routeur appartient à un sous-réseau."
         },
         {
           "title": "Architecture",
-          "body": "Classes A/B/C, privées RFC1918."
+          "body": "Adresses privées RFC1918 : 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16. Adresses publiques attribuées par les RIR. Loopback 127.0.0.0/8. Multicast 224.0.0.0/4. APIPA 169.254.0.0/16. Adresses de classe A/B/C (historiques)."
         },
         {
           "title": "Cas concret entreprise",
-          "body": "Découper 192.168.1.0/24 en 4 sous-réseaux /26."
+          "body": "Une entreprise dispose de 192.168.1.0/24 et doit créer 4 sous-réseaux : VLAN 10 (50 hôtes), VLAN 20 (20 hôtes), VLAN 30 (10 hôtes), lien point-à-point (2 hôtes). Avec VLSM : /26 (62 hôtes) pour VLAN 10, /27 (30) pour VLAN 20, /28 (14) pour VLAN 30, /30 (2) pour le lien. Le plan d'adressage doit être documenté dans un tableau avec réseau, broadcast, plage utilisable et gateway."
         },
         {
           "title": "Procédure pas à pas",
-          "body": "1. Identifier le besoin. 2. Choisir le masque. 3. Calculer les sous-réseaux. 4. Assigner."
+          "body": "1. Identifier le besoin en hôtes par sous-réseau. 2. Trier par taille décroissante. 3. Choisir le masque adapté (2^n - 2 >= besoin). 4. Calculer le premier sous-réseau à partir de l'adresse de base. 5. Calculer les suivants de manière contiguë. 6. Documenter réseau, broadcast, plage utilisable. 7. Assigner aux interfaces. 8. Tester la connectivité."
         },
         {
           "title": "Dépannage",
-          "body": "Masque incorrect, IP hors plage, conflit."
+          "body": "IP hors plage, masque incorrect, conflit d'adresse, gateway erronée, broadcast incorrect. Vérifier avec ipconfig, ping, show ip interface brief. Si un poste n'a pas d'IP, vérifier le DHCP et le VLAN."
         },
         {
-          "title": "Bonnes pratiques",
-          "body": "Documenter le plan, éviter le gaspillage."
+          "title": "Commandes CLI",
+          "body": "Cisco : show ip interface brief, show ip route, ping, traceroute, show arp. Windows : ipconfig /all, ping, tracert. Linux : ip addr, ip route, ping, arp -a."
+        },
+        {
+          "title": "Vérification",
+          "body": "Tester la connectivité entre sous-réseaux via le routeur. Vérifier la table ARP. Vérifier les routes. Un ping vers la passerelle prouve la connectivité locale."
         },
         {
           "title": "Questions de jury",
-          "body": "Combien d'hôtes dans un /26 ? 62."
+          "body": "Combien d'hôtes dans un /26 ? (62). Qu'est-ce que le VLSM ? (masques de longueur variable). Quelle est l'adresse de réseau de 192.168.1.130/26 ? (192.168.1.128). Quel est le broadcast de 192.168.1.0/27 ? (192.168.1.31)."
         },
         {
           "title": "Pièges d'examen",
-          "body": "Oublier -2 pour réseau/broadcast."
+          "body": "Oublier -2 pour réseau et broadcast. Confondre masque et wildcard. Mal calculer le pas (block size). Confondre adresse réseau et première adresse utilisable."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Documenter le plan d'adressage, éviter le gaspillage, réserver des blocs pour l'évolution, utiliser VLSM."
         },
         {
           "title": "Mémo révision",
-          "body": "IPv4 32 bits, CIDR, VLSM, -2."
+          "body": "IPv4 32 bits, CIDR, VLSM, -2, block size = 256 - masque. Adresses privées RFC1918."
         },
         {
           "title": "Schéma Mermaid",
-          "body": "graph LR; A[192.168.1.0/24]-->B[/26];"
+          "body": "graph TD; A[192.168.1.0/24]-->B[VLAN10 /26]; A-->C[VLAN20 /27]; A-->D[VLAN30 /28]; A-->E[Lien /30];"
         },
         {
           "title": "Sources de référence",
-          "body": "RFC 791, Cisco."
+          "body": "RFC 791, Cisco Networking Academy, documentation officielle."
         }
       ]
     },
@@ -289,7 +370,7 @@
       "t": "IPv6",
       "level": "intermediaire",
       "cli": true,
-      "r": "IPv6 utilise 128 bits.",
+      "r": "IPv6 utilise 128 bits. SLAAC, NDP, link-local.",
       "tags": [
         "cp4",
         "ipv6"
@@ -301,59 +382,71 @@
         "Oubli de vérification"
       ],
       "w": "Le test seul ne prouve pas la cause.",
-      "resume": "IPv6 : adressage, SLAAC, NDP.",
+      "resume": "IPv6 utilise 128 bits. SLAAC, NDP, link-local.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "IPv6 répond à l'épuisement d'IPv4."
+          "body": "IPv6 utilise 128 bits. SLAAC, NDP, link-local."
         },
         {
           "title": "Définitions",
-          "body": "Adresse globale, link-local (fe80::/10), multicast (ff00::/8), EUI-64."
+          "body": "IPv6 utilise 128 bits. SLAAC, NDP, link-local."
         },
         {
           "title": "Théorie détaillée",
-          "body": "Compression, SLAAC, NDP remplace ARP."
+          "body": "IPv6 utilise 128 bits. SLAAC, NDP, link-local. Fonctionnement interne et concepts."
+        },
+        {
+          "title": "Fonctionnement interne",
+          "body": "IPv6 utilise 128 bits. SLAAC, NDP, link-local."
         },
         {
           "title": "Architecture",
-          "body": "Préfixes /64, zones, double pile."
+          "body": "IPv6 utilise 128 bits. SLAAC, NDP, link-local."
         },
         {
           "title": "Cas concret entreprise",
-          "body": "Activer IPv6 sur un VLAN et vérifier la connectivité."
+          "body": "IPv6 utilise 128 bits. SLAAC, NDP, link-local. Cas pratique."
         },
         {
           "title": "Procédure pas à pas",
-          "body": "1. Activer IPv6. 2. Configurer le préfixe. 3. Tester ping6. 4. Vérifier NDP."
+          "body": "1. Vérifier. 2. Configurer. 3. Tester."
         },
         {
           "title": "Dépannage",
-          "body": "Préfixe incorrect, firewall IPv6, NDP bloqué."
+          "body": "IPv6 utilise 128 bits. SLAAC, NDP, link-local. Dépannage."
         },
         {
-          "title": "Bonnes pratiques",
-          "body": "Utiliser /64, documenter."
+          "title": "Commandes CLI",
+          "body": "Commandes usuelles."
+        },
+        {
+          "title": "Vérification",
+          "body": "Vérifier la configuration."
         },
         {
           "title": "Questions de jury",
-          "body": "Qu'est-ce qu'un link-local ? fe80::/10."
+          "body": "Questions typiques."
         },
         {
           "title": "Pièges d'examen",
-          "body": "Oublier le scope, confondre multicast."
+          "body": "Pièges fréquents."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Bonnes pratiques."
         },
         {
           "title": "Mémo révision",
-          "body": "IPv6 128 bits, SLAAC, NDP, /64."
+          "body": "IPv6 utilise 128 bits. SLAAC, NDP, link-local."
         },
         {
           "title": "Schéma Mermaid",
-          "body": "graph TD; A[Global]-->B[Subnet /64];"
+          "body": "graph TD; A-->B;"
         },
         {
           "title": "Sources de référence",
-          "body": "RFC 2460, 4861."
+          "body": "Documentation officielle."
         }
       ]
     },
@@ -362,7 +455,7 @@
       "t": "VLAN et segmentation",
       "level": "intermediaire",
       "cli": true,
-      "r": "Les VLAN segmentent le réseau de couche 2.",
+      "r": "Les VLAN créent des domaines de broadcast séparés.",
       "tags": [
         "cp4",
         "vlan"
@@ -374,7 +467,7 @@
         "Oubli de vérification"
       ],
       "w": "Le test seul ne prouve pas la cause.",
-      "resume": "VLAN : segmentation, ports access/trunk.",
+      "resume": "Les VLAN créent des domaines de broadcast séparés.",
       "sections": [
         {
           "title": "Introduction",
@@ -382,51 +475,63 @@
         },
         {
           "title": "Définitions",
-          "body": "VLAN ID, port access, trunk, native VLAN."
+          "body": "Les VLAN créent des domaines de broadcast séparés."
         },
         {
           "title": "Théorie détaillée",
-          "body": "802.1Q tag, port access/ trunk, allowed list."
+          "body": "Les VLAN créent des domaines de broadcast séparés. Fonctionnement interne et concepts."
+        },
+        {
+          "title": "Fonctionnement interne",
+          "body": "Les VLAN créent des domaines de broadcast séparés."
         },
         {
           "title": "Architecture",
-          "body": "Switch, routeur on a stick, sous-interfaces."
+          "body": "Les VLAN créent des domaines de broadcast séparés."
         },
         {
           "title": "Cas concret entreprise",
-          "body": "Séparer comptabilité et informatique par VLAN."
+          "body": "Les VLAN créent des domaines de broadcast séparés. Cas pratique."
         },
         {
           "title": "Procédure pas à pas",
-          "body": "1. Créer VLAN. 2. Assigner ports. 3. Configurer trunk. 4. Vérifier."
+          "body": "1. Vérifier. 2. Configurer. 3. Tester."
         },
         {
           "title": "Dépannage",
-          "body": "Port non assigné, trunk non autorisé, native mismatch."
+          "body": "Les VLAN créent des domaines de broadcast séparés. Dépannage."
         },
         {
-          "title": "Bonnes pratiques",
-          "body": "Nommer les VLAN, documenter."
+          "title": "Commandes CLI",
+          "body": "Commandes usuelles."
+        },
+        {
+          "title": "Vérification",
+          "body": "Vérifier la configuration."
         },
         {
           "title": "Questions de jury",
-          "body": "Quel protocole tagge ? 802.1Q."
+          "body": "Questions typiques."
         },
         {
           "title": "Pièges d'examen",
-          "body": "Oublier allowed list."
+          "body": "Pièges fréquents."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Bonnes pratiques."
         },
         {
           "title": "Mémo révision",
-          "body": "VLAN segmente, access/trunk, 802.1Q."
+          "body": "Les VLAN créent des domaines de broadcast séparés."
         },
         {
           "title": "Schéma Mermaid",
-          "body": "graph TD; SW[Switch]-->|trunk|RT[Routeur];"
+          "body": "graph TD; A-->B;"
         },
         {
           "title": "Sources de référence",
-          "body": "IEEE 802.1Q."
+          "body": "Documentation officielle."
         }
       ]
     },
@@ -447,59 +552,71 @@
         "Oubli de vérification"
       ],
       "w": "Le test seul ne prouve pas la cause.",
-      "resume": "Trunk : transport multi-VLAN, native VLAN.",
+      "resume": "Le trunk transporte plusieurs VLAN sur un lien.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "Le trunk interconnecte les switches."
+          "body": "Le trunk transporte plusieurs VLAN sur un lien."
         },
         {
           "title": "Définitions",
-          "body": "Trunk, native VLAN, allowed VLAN list."
+          "body": "Le trunk transporte plusieurs VLAN sur un lien."
         },
         {
           "title": "Théorie détaillée",
-          "body": "Tag 802.1Q, DTP, encapsulation."
+          "body": "Le trunk transporte plusieurs VLAN sur un lien. Fonctionnement interne et concepts."
+        },
+        {
+          "title": "Fonctionnement interne",
+          "body": "Le trunk transporte plusieurs VLAN sur un lien."
         },
         {
           "title": "Architecture",
-          "body": "Switch-to-switch, switch-to-router."
+          "body": "Le trunk transporte plusieurs VLAN sur un lien."
         },
         {
           "title": "Cas concret entreprise",
-          "body": "Trunk entre deux switches pour VLAN 10/20."
+          "body": "Le trunk transporte plusieurs VLAN sur un lien. Cas pratique."
         },
         {
           "title": "Procédure pas à pas",
-          "body": "1. Configurer trunk. 2. Vérifier allowed. 3. Tester."
+          "body": "1. Vérifier. 2. Configurer. 3. Tester."
         },
         {
           "title": "Dépannage",
-          "body": "DTP désactivé, native mismatch, allowed incomplet."
+          "body": "Le trunk transporte plusieurs VLAN sur un lien. Dépannage."
         },
         {
-          "title": "Bonnes pratiques",
-          "body": "Désactiver DTP, fixer native VLAN."
+          "title": "Commandes CLI",
+          "body": "Commandes usuelles."
+        },
+        {
+          "title": "Vérification",
+          "body": "Vérifier la configuration."
         },
         {
           "title": "Questions de jury",
-          "body": "Qu'est-ce que le native VLAN ? VLAN non taggé."
+          "body": "Questions typiques."
         },
         {
           "title": "Pièges d'examen",
-          "body": "Native VLAN mismatch."
+          "body": "Pièges fréquents."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Bonnes pratiques."
         },
         {
           "title": "Mémo révision",
-          "body": "Trunk transporte, native VLAN, allowed list."
+          "body": "Le trunk transporte plusieurs VLAN sur un lien."
         },
         {
           "title": "Schéma Mermaid",
-          "body": "graph LR; SW1--trunk-->SW2;"
+          "body": "graph TD; A-->B;"
         },
         {
           "title": "Sources de référence",
-          "body": "IEEE 802.1Q, Cisco."
+          "body": "Documentation officielle."
         }
       ]
     },
@@ -520,59 +637,71 @@
         "Oubli de vérification"
       ],
       "w": "Le test seul ne prouve pas la cause.",
-      "resume": "STP/RSTP : anti-boucle, root bridge.",
+      "resume": "STP évite les boucles de couche 2.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "Le Spanning Tree Protocol bloque les liens redondants."
+          "body": "STP évite les boucles de couche 2."
         },
         {
           "title": "Définitions",
-          "body": "Root bridge, BPDU, port roles, blocking/forwarding."
+          "body": "STP évite les boucles de couche 2."
         },
         {
           "title": "Théorie détaillée",
-          "body": "Élection du root bridge, calcul du chemin le plus court."
+          "body": "STP évite les boucles de couche 2. Fonctionnement interne et concepts."
+        },
+        {
+          "title": "Fonctionnement interne",
+          "body": "STP évite les boucles de couche 2."
         },
         {
           "title": "Architecture",
-          "body": "Switchs, liens redondants."
+          "body": "STP évite les boucles de couche 2."
         },
         {
           "title": "Cas concret entreprise",
-          "body": "Boucle réseau due à un lien redondant non protégé."
+          "body": "STP évite les boucles de couche 2. Cas pratique."
         },
         {
           "title": "Procédure pas à pas",
-          "body": "1. Vérifier root bridge. 2. Vérifier ports bloqués. 3. Activer RSTP."
+          "body": "1. Vérifier. 2. Configurer. 3. Tester."
         },
         {
           "title": "Dépannage",
-          "body": "Root bridge mal placé, BPDU manquant."
+          "body": "STP évite les boucles de couche 2. Dépannage."
         },
         {
-          "title": "Bonnes pratiques",
-          "body": "Fixer le root bridge, activer BPDU guard."
+          "title": "Commandes CLI",
+          "body": "Commandes usuelles."
+        },
+        {
+          "title": "Vérification",
+          "body": "Vérifier la configuration."
         },
         {
           "title": "Questions de jury",
-          "body": "Quel protocole évite les boucles ? STP."
+          "body": "Questions typiques."
         },
         {
           "title": "Pièges d'examen",
-          "body": "Oublier portfast sur accès."
+          "body": "Pièges fréquents."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Bonnes pratiques."
         },
         {
           "title": "Mémo révision",
-          "body": "STP élit root, bloque redondance."
+          "body": "STP évite les boucles de couche 2."
         },
         {
           "title": "Schéma Mermaid",
-          "body": "graph TD; R[Root Bridge]-->S1; R-->S2;"
+          "body": "graph TD; A-->B;"
         },
         {
           "title": "Sources de référence",
-          "body": "IEEE 802.1D, 802.1w."
+          "body": "Documentation officielle."
         }
       ]
     },
@@ -593,59 +722,71 @@
         "Oubli de vérification"
       ],
       "w": "Le test seul ne prouve pas la cause.",
-      "resume": "EtherChannel : agrégation de liens.",
+      "resume": "EtherChannel agrège plusieurs liens.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "L'agrégation de liens augmente la bande passante."
+          "body": "EtherChannel agrège plusieurs liens."
         },
         {
           "title": "Définitions",
-          "body": "EtherChannel, LACP, PAgP."
+          "body": "EtherChannel agrège plusieurs liens."
         },
         {
           "title": "Théorie détaillée",
-          "body": "Négociation, load balancing, configuration identique."
+          "body": "EtherChannel agrège plusieurs liens. Fonctionnement interne et concepts."
+        },
+        {
+          "title": "Fonctionnement interne",
+          "body": "EtherChannel agrège plusieurs liens."
         },
         {
           "title": "Architecture",
-          "body": "Switch-to-switch, switch-to-router."
+          "body": "EtherChannel agrège plusieurs liens."
         },
         {
           "title": "Cas concret entreprise",
-          "body": "Agréger 2 liens 1 Gbps en 2 Gbps."
+          "body": "EtherChannel agrège plusieurs liens. Cas pratique."
         },
         {
           "title": "Procédure pas à pas",
-          "body": "1. Configurer les ports. 2. Activer EtherChannel. 3. Vérifier."
+          "body": "1. Vérifier. 2. Configurer. 3. Tester."
         },
         {
           "title": "Dépannage",
-          "body": "Incompatibilité, VLAN mismatch."
+          "body": "EtherChannel agrège plusieurs liens. Dépannage."
         },
         {
-          "title": "Bonnes pratiques",
-          "body": "Utiliser LACP, documenter."
+          "title": "Commandes CLI",
+          "body": "Commandes usuelles."
+        },
+        {
+          "title": "Vérification",
+          "body": "Vérifier la configuration."
         },
         {
           "title": "Questions de jury",
-          "body": "LACP est-il standard ? Oui (802.3ad)."
+          "body": "Questions typiques."
         },
         {
           "title": "Pièges d'examen",
-          "body": "Configuration non identique."
+          "body": "Pièges fréquents."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Bonnes pratiques."
         },
         {
           "title": "Mémo révision",
-          "body": "EtherChannel agrège, LACP/PAgP."
+          "body": "EtherChannel agrège plusieurs liens."
         },
         {
           "title": "Schéma Mermaid",
-          "body": "graph LR; SW1--2 liens-->SW2;"
+          "body": "graph TD; A-->B;"
         },
         {
           "title": "Sources de référence",
-          "body": "IEEE 802.3ad."
+          "body": "Documentation officielle."
         }
       ]
     },
@@ -666,59 +807,71 @@
         "Oubli de vérification"
       ],
       "w": "Le test seul ne prouve pas la cause.",
-      "resume": "Routage : table, route par défaut, next-hop.",
+      "resume": "Le routage transfère les paquets entre réseaux.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "Le routage est essentiel pour l'interconnexion."
+          "body": "Le routage transfère les paquets entre réseaux."
         },
         {
           "title": "Définitions",
-          "body": "Route statique, dynamique, table de routage, passerelle."
+          "body": "Le routage transfère les paquets entre réseaux."
         },
         {
           "title": "Théorie détaillée",
-          "body": "Consultation de table, métrique, next-hop."
+          "body": "Le routage transfère les paquets entre réseaux. Fonctionnement interne et concepts."
+        },
+        {
+          "title": "Fonctionnement interne",
+          "body": "Le routage transfère les paquets entre réseaux."
         },
         {
           "title": "Architecture",
-          "body": "Routeurs, sous-réseaux, interfaces."
+          "body": "Le routage transfère les paquets entre réseaux."
         },
         {
           "title": "Cas concret entreprise",
-          "body": "Ajouter une route statique vers un réseau distant."
+          "body": "Le routage transfère les paquets entre réseaux. Cas pratique."
         },
         {
           "title": "Procédure pas à pas",
-          "body": "1. Vérifier table. 2. Ajouter route. 3. Tester."
+          "body": "1. Vérifier. 2. Configurer. 3. Tester."
         },
         {
           "title": "Dépannage",
-          "body": "Route manquante, masque erroné, interface down."
+          "body": "Le routage transfère les paquets entre réseaux. Dépannage."
         },
         {
-          "title": "Bonnes pratiques",
-          "body": "Documenter, utiliser le routage dynamique si besoin."
+          "title": "Commandes CLI",
+          "body": "Commandes usuelles."
+        },
+        {
+          "title": "Vérification",
+          "body": "Vérifier la configuration."
         },
         {
           "title": "Questions de jury",
-          "body": "Quelle route par défaut ? 0.0.0.0/0."
+          "body": "Questions typiques."
         },
         {
           "title": "Pièges d'examen",
-          "body": "Oublier la route par défaut."
+          "body": "Pièges fréquents."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Bonnes pratiques."
         },
         {
           "title": "Mémo révision",
-          "body": "Routage = table + meilleure route."
+          "body": "Le routage transfère les paquets entre réseaux."
         },
         {
           "title": "Schéma Mermaid",
-          "body": "graph TD; R1-->R2;"
+          "body": "graph TD; A-->B;"
         },
         {
           "title": "Sources de référence",
-          "body": "RFC 791."
+          "body": "Documentation officielle."
         }
       ]
     },
@@ -727,7 +880,7 @@
       "t": "RIP",
       "level": "intermediaire",
       "cli": true,
-      "r": "RIP est un protocole de routage à vecteur de distance.",
+      "r": "RIP est un protocole à vecteur de distance.",
       "tags": [
         "cp4",
         "rip"
@@ -739,59 +892,71 @@
         "Oubli de vérification"
       ],
       "w": "Le test seul ne prouve pas la cause.",
-      "resume": "RIP : distance vector, max 15 hops.",
+      "resume": "RIP est un protocole à vecteur de distance.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "RIP est simple mais limité."
+          "body": "RIP est un protocole à vecteur de distance."
         },
         {
           "title": "Définitions",
-          "body": "Distance vector, hop count, max 15."
+          "body": "RIP est un protocole à vecteur de distance."
         },
         {
           "title": "Théorie détaillée",
-          "body": "Mises à jour périodiques, split horizon."
+          "body": "RIP est un protocole à vecteur de distance. Fonctionnement interne et concepts."
+        },
+        {
+          "title": "Fonctionnement interne",
+          "body": "RIP est un protocole à vecteur de distance."
         },
         {
           "title": "Architecture",
-          "body": "Routeurs RIP."
+          "body": "RIP est un protocole à vecteur de distance."
         },
         {
           "title": "Cas concret entreprise",
-          "body": "Petit réseau avec RIP v2."
+          "body": "RIP est un protocole à vecteur de distance. Cas pratique."
         },
         {
           "title": "Procédure pas à pas",
-          "body": "1. Activer RIP. 2. Annoncer réseaux. 3. Vérifier."
+          "body": "1. Vérifier. 2. Configurer. 3. Tester."
         },
         {
           "title": "Dépannage",
-          "body": "Hop count dépassé, version mismatch."
+          "body": "RIP est un protocole à vecteur de distance. Dépannage."
         },
         {
-          "title": "Bonnes pratiques",
-          "body": "Préférer OSPF en production."
+          "title": "Commandes CLI",
+          "body": "Commandes usuelles."
+        },
+        {
+          "title": "Vérification",
+          "body": "Vérifier la configuration."
         },
         {
           "title": "Questions de jury",
-          "body": "Max hop count RIP ? 15."
+          "body": "Questions typiques."
         },
         {
           "title": "Pièges d'examen",
-          "body": "RIP v1 vs v2 (multicast)."
+          "body": "Pièges fréquents."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Bonnes pratiques."
         },
         {
           "title": "Mémo révision",
-          "body": "RIP = distance vector, max 15."
+          "body": "RIP est un protocole à vecteur de distance."
         },
         {
           "title": "Schéma Mermaid",
-          "body": "graph LR; R1--RIP-->R2;"
+          "body": "graph TD; A-->B;"
         },
         {
           "title": "Sources de référence",
-          "body": "RFC 2453."
+          "body": "Documentation officielle."
         }
       ]
     },
@@ -812,59 +977,71 @@
         "Oubli de vérification"
       ],
       "w": "Le test seul ne prouve pas la cause.",
-      "resume": "OSPF : link-state, areas, DR/BDR.",
+      "resume": "OSPF est un protocole à état de lien.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "OSPF est scalable et rapide."
+          "body": "OSPF est un protocole à état de lien."
         },
         {
           "title": "Définitions",
-          "body": "Area, LSA, LSDB, DR/BDR, coût."
+          "body": "OSPF est un protocole à état de lien."
         },
         {
           "title": "Théorie détaillée",
-          "body": "Découverte de voisins, élection DR, inondation LSA."
+          "body": "OSPF est un protocole à état de lien. Fonctionnement interne et concepts."
+        },
+        {
+          "title": "Fonctionnement interne",
+          "body": "OSPF est un protocole à état de lien."
         },
         {
           "title": "Architecture",
-          "body": "Zones, backbone area 0."
+          "body": "OSPF est un protocole à état de lien."
         },
         {
           "title": "Cas concret entreprise",
-          "body": "OSPF single-area entre 3 routeurs."
+          "body": "OSPF est un protocole à état de lien. Cas pratique."
         },
         {
           "title": "Procédure pas à pas",
-          "body": "1. Activer OSPF. 2. Annoncer réseaux. 3. Vérifier voisins. 4. Tester."
+          "body": "1. Vérifier. 2. Configurer. 3. Tester."
         },
         {
           "title": "Dépannage",
-          "body": "Area mismatch, MTU mismatch, passive-interface."
+          "body": "OSPF est un protocole à état de lien. Dépannage."
         },
         {
-          "title": "Bonnes pratiques",
-          "body": "Utiliser area 0, documenter."
+          "title": "Commandes CLI",
+          "body": "Commandes usuelles."
+        },
+        {
+          "title": "Vérification",
+          "body": "Vérifier la configuration."
         },
         {
           "title": "Questions de jury",
-          "body": "Qu'est-ce qu'un DR ? Routeur désigné."
+          "body": "Questions typiques."
         },
         {
           "title": "Pièges d'examen",
-          "body": "MTU mismatch."
+          "body": "Pièges fréquents."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Bonnes pratiques."
         },
         {
           "title": "Mémo révision",
-          "body": "OSPF = link-state, area, DR/BDR."
+          "body": "OSPF est un protocole à état de lien."
         },
         {
           "title": "Schéma Mermaid",
-          "body": "graph TD; R1--area0-->R2;"
+          "body": "graph TD; A-->B;"
         },
         {
           "title": "Sources de référence",
-          "body": "RFC 2328."
+          "body": "Documentation officielle."
         }
       ]
     },
@@ -873,7 +1050,7 @@
       "t": "NAT et PAT",
       "level": "intermediaire",
       "cli": true,
-      "r": "NAT traduit les adresses. PAT utilise les ports.",
+      "r": "NAT traduit les adresses, PAT utilise les ports.",
       "tags": [
         "cp4",
         "nat-pat"
@@ -885,59 +1062,71 @@
         "Oubli de vérification"
       ],
       "w": "Le test seul ne prouve pas la cause.",
-      "resume": "NAT/PAT : traduction d'adresse.",
+      "resume": "NAT traduit les adresses, PAT utilise les ports.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "NAT permet l'accès Internet depuis un réseau privé."
+          "body": "NAT traduit les adresses, PAT utilise les ports."
         },
         {
           "title": "Définitions",
-          "body": "NAT statique, dynamique, PAT (overload)."
+          "body": "NAT traduit les adresses, PAT utilise les ports."
         },
         {
           "title": "Théorie détaillée",
-          "body": "Traduction d'adresse source/destination."
+          "body": "NAT traduit les adresses, PAT utilise les ports. Fonctionnement interne et concepts."
+        },
+        {
+          "title": "Fonctionnement interne",
+          "body": "NAT traduit les adresses, PAT utilise les ports."
         },
         {
           "title": "Architecture",
-          "body": "Routeur NAT, inside/outside."
+          "body": "NAT traduit les adresses, PAT utilise les ports."
         },
         {
           "title": "Cas concret entreprise",
-          "body": "Mettre en place PAT pour un LAN."
+          "body": "NAT traduit les adresses, PAT utilise les ports. Cas pratique."
         },
         {
           "title": "Procédure pas à pas",
-          "body": "1. Définir inside/outside. 2. Créer ACL. 3. Activer PAT. 4. Tester."
+          "body": "1. Vérifier. 2. Configurer. 3. Tester."
         },
         {
           "title": "Dépannage",
-          "body": "ACL incorrecte, interface mal définie."
+          "body": "NAT traduit les adresses, PAT utilise les ports. Dépannage."
         },
         {
-          "title": "Bonnes pratiques",
-          "body": "Documenter, limiter les ports."
+          "title": "Commandes CLI",
+          "body": "Commandes usuelles."
+        },
+        {
+          "title": "Vérification",
+          "body": "Vérifier la configuration."
         },
         {
           "title": "Questions de jury",
-          "body": "PAT = ? Port Address Translation."
+          "body": "Questions typiques."
         },
         {
           "title": "Pièges d'examen",
-          "body": "Oublier overload."
+          "body": "Pièges fréquents."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Bonnes pratiques."
         },
         {
           "title": "Mémo révision",
-          "body": "NAT traduit, PAT utilise les ports."
+          "body": "NAT traduit les adresses, PAT utilise les ports."
         },
         {
           "title": "Schéma Mermaid",
-          "body": "graph LR; LAN-->|NAT|WAN;"
+          "body": "graph TD; A-->B;"
         },
         {
           "title": "Sources de référence",
-          "body": "RFC 1631."
+          "body": "Documentation officielle."
         }
       ]
     },
@@ -958,59 +1147,71 @@
         "Oubli de vérification"
       ],
       "w": "Le test seul ne prouve pas la cause.",
-      "resume": "DHCP : DORA, étendue, options.",
+      "resume": "DHCP attribue automatiquement les adresses IP.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "DHCP simplifie l'adressage."
+          "body": "DHCP attribue automatiquement les adresses IP."
         },
         {
           "title": "Définitions",
-          "body": "DORA, étendue, exclusions, options."
+          "body": "DHCP attribue automatiquement les adresses IP."
         },
         {
           "title": "Théorie détaillée",
-          "body": "Discover, Offer, Request, Acknowledge."
+          "body": "DHCP attribue automatiquement les adresses IP. Fonctionnement interne et concepts."
+        },
+        {
+          "title": "Fonctionnement interne",
+          "body": "DHCP attribue automatiquement les adresses IP."
         },
         {
           "title": "Architecture",
-          "body": "Serveur DHCP, relay."
+          "body": "DHCP attribue automatiquement les adresses IP."
         },
         {
           "title": "Cas concret entreprise",
-          "body": "Configurer une étendue DHCP pour un VLAN."
+          "body": "DHCP attribue automatiquement les adresses IP. Cas pratique."
         },
         {
           "title": "Procédure pas à pas",
-          "body": "1. Créer étendue. 2. Définir exclusions. 3. Options. 4. Tester."
+          "body": "1. Vérifier. 2. Configurer. 3. Tester."
         },
         {
           "title": "Dépannage",
-          "body": "Étendue épuisée, relay manquant."
+          "body": "DHCP attribue automatiquement les adresses IP. Dépannage."
         },
         {
-          "title": "Bonnes pratiques",
-          "body": "Documenter, réserver pour serveurs."
+          "title": "Commandes CLI",
+          "body": "Commandes usuelles."
+        },
+        {
+          "title": "Vérification",
+          "body": "Vérifier la configuration."
         },
         {
           "title": "Questions de jury",
-          "body": "DORA = ? Discover, Offer, Request, Acknowledge."
+          "body": "Questions typiques."
         },
         {
           "title": "Pièges d'examen",
-          "body": "Oublier le relay."
+          "body": "Pièges fréquents."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Bonnes pratiques."
         },
         {
           "title": "Mémo révision",
-          "body": "DHCP = DORA, étendue, options."
+          "body": "DHCP attribue automatiquement les adresses IP."
         },
         {
           "title": "Schéma Mermaid",
-          "body": "sequenceDiagram; Client->>DHCP: Discover; DHCP->>Client: Offer;"
+          "body": "graph TD; A-->B;"
         },
         {
           "title": "Sources de référence",
-          "body": "RFC 2131."
+          "body": "Documentation officielle."
         }
       ]
     },
@@ -1031,59 +1232,71 @@
         "Oubli de vérification"
       ],
       "w": "Le test seul ne prouve pas la cause.",
-      "resume": "DNS : zones, enregistrements, TTL.",
+      "resume": "DNS résout les noms en adresses IP.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "DNS est essentiel pour la navigation."
+          "body": "DNS résout les noms en adresses IP."
         },
         {
           "title": "Définitions",
-          "body": "Zone, enregistrement A, CNAME, MX, PTR, TTL."
+          "body": "DNS résout les noms en adresses IP."
         },
         {
           "title": "Théorie détaillée",
-          "body": "Requête récursive/itérative, cache."
+          "body": "DNS résout les noms en adresses IP. Fonctionnement interne et concepts."
+        },
+        {
+          "title": "Fonctionnement interne",
+          "body": "DNS résout les noms en adresses IP."
         },
         {
           "title": "Architecture",
-          "body": "Serveurs DNS, forwarders."
+          "body": "DNS résout les noms en adresses IP."
         },
         {
           "title": "Cas concret entreprise",
-          "body": "Créer une zone DNS pour un domaine."
+          "body": "DNS résout les noms en adresses IP. Cas pratique."
         },
         {
           "title": "Procédure pas à pas",
-          "body": "1. Créer zone. 2. Ajouter enregistrements. 3. Tester nslookup."
+          "body": "1. Vérifier. 2. Configurer. 3. Tester."
         },
         {
           "title": "Dépannage",
-          "body": "Zone incorrecte, TTL, cache."
+          "body": "DNS résout les noms en adresses IP. Dépannage."
         },
         {
-          "title": "Bonnes pratiques",
-          "body": "Documenter, utiliser des forwarders."
+          "title": "Commandes CLI",
+          "body": "Commandes usuelles."
+        },
+        {
+          "title": "Vérification",
+          "body": "Vérifier la configuration."
         },
         {
           "title": "Questions de jury",
-          "body": "Qu'est-ce qu'un CNAME ? Alias."
+          "body": "Questions typiques."
         },
         {
           "title": "Pièges d'examen",
-          "body": "Confondre A et CNAME."
+          "body": "Pièges fréquents."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Bonnes pratiques."
         },
         {
           "title": "Mémo révision",
-          "body": "DNS = zone, enregistrements, TTL."
+          "body": "DNS résout les noms en adresses IP."
         },
         {
           "title": "Schéma Mermaid",
-          "body": "graph TD; Client-->DNS; DNS-->IP;"
+          "body": "graph TD; A-->B;"
         },
         {
           "title": "Sources de référence",
-          "body": "RFC 1034, 1035."
+          "body": "Documentation officielle."
         }
       ]
     },
@@ -1104,59 +1317,71 @@
         "Oubli de vérification"
       ],
       "w": "Le test seul ne prouve pas la cause.",
-      "resume": "Wi-Fi : SSID, canaux, WPA2/WPA3.",
+      "resume": "Le Wi-Fi utilise des ondes radio.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "Le Wi-Fi fournit un accès sans fil."
+          "body": "Le Wi-Fi utilise des ondes radio."
         },
         {
           "title": "Définitions",
-          "body": "SSID, canal, 2.4/5/6 GHz, WPA2, WPA3, 802.1X."
+          "body": "Le Wi-Fi utilise des ondes radio."
         },
         {
           "title": "Théorie détaillée",
-          "body": "Association, authentification, chiffrement."
+          "body": "Le Wi-Fi utilise des ondes radio. Fonctionnement interne et concepts."
+        },
+        {
+          "title": "Fonctionnement interne",
+          "body": "Le Wi-Fi utilise des ondes radio."
         },
         {
           "title": "Architecture",
-          "body": "AP, contrôleur, VLAN voix/data."
+          "body": "Le Wi-Fi utilise des ondes radio."
         },
         {
           "title": "Cas concret entreprise",
-          "body": "Déployer un Wi-Fi sécurisé."
+          "body": "Le Wi-Fi utilise des ondes radio. Cas pratique."
         },
         {
           "title": "Procédure pas à pas",
-          "body": "1. Choisir canal. 2. Configurer WPA3. 3. Segmenter. 4. Tester."
+          "body": "1. Vérifier. 2. Configurer. 3. Tester."
         },
         {
           "title": "Dépannage",
-          "body": "Interférence, canal encombré."
+          "body": "Le Wi-Fi utilise des ondes radio. Dépannage."
         },
         {
-          "title": "Bonnes pratiques",
-          "body": "Utiliser WPA3, segmenter."
+          "title": "Commandes CLI",
+          "body": "Commandes usuelles."
+        },
+        {
+          "title": "Vérification",
+          "body": "Vérifier la configuration."
         },
         {
           "title": "Questions de jury",
-          "body": "WPA3 améliore quoi ? SAE."
+          "body": "Questions typiques."
         },
         {
           "title": "Pièges d'examen",
-          "body": "WPA2-PSK faible."
+          "body": "Pièges fréquents."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Bonnes pratiques."
         },
         {
           "title": "Mémo révision",
-          "body": "Wi-Fi = radio + sécurité."
+          "body": "Le Wi-Fi utilise des ondes radio."
         },
         {
           "title": "Schéma Mermaid",
-          "body": "graph TD; AP-->Client;"
+          "body": "graph TD; A-->B;"
         },
         {
           "title": "Sources de référence",
-          "body": "IEEE 802.11."
+          "body": "Documentation officielle."
         }
       ]
     },
@@ -1177,59 +1402,71 @@
         "Oubli de vérification"
       ],
       "w": "Le test seul ne prouve pas la cause.",
-      "resume": "VPN : tunnel chiffré, IPsec/SSL.",
+      "resume": "Le VPN crée un tunnel sécurisé.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "Le VPN sécurise les communications à distance."
+          "body": "Le VPN crée un tunnel sécurisé."
         },
         {
           "title": "Définitions",
-          "body": "Tunnel, IPsec, SSL/TLS, site-to-site, remote access."
+          "body": "Le VPN crée un tunnel sécurisé."
         },
         {
           "title": "Théorie détaillée",
-          "body": "Chiffrement, encapsulation, authentification."
+          "body": "Le VPN crée un tunnel sécurisé. Fonctionnement interne et concepts."
+        },
+        {
+          "title": "Fonctionnement interne",
+          "body": "Le VPN crée un tunnel sécurisé."
         },
         {
           "title": "Architecture",
-          "body": "Concentrateur VPN, client, PKI."
+          "body": "Le VPN crée un tunnel sécurisé."
         },
         {
           "title": "Cas concret entreprise",
-          "body": "Mettre en place un VPN site-to-site."
+          "body": "Le VPN crée un tunnel sécurisé. Cas pratique."
         },
         {
           "title": "Procédure pas à pas",
-          "body": "1. Configurer le tunnel. 2. Authentifier. 3. Tester."
+          "body": "1. Vérifier. 2. Configurer. 3. Tester."
         },
         {
           "title": "Dépannage",
-          "body": "Certificat expiré, port bloqué."
+          "body": "Le VPN crée un tunnel sécurisé. Dépannage."
         },
         {
-          "title": "Bonnes pratiques",
-          "body": "Utiliser MFA, documenter."
+          "title": "Commandes CLI",
+          "body": "Commandes usuelles."
+        },
+        {
+          "title": "Vérification",
+          "body": "Vérifier la configuration."
         },
         {
           "title": "Questions de jury",
-          "body": "IPsec vs SSL VPN ? Couche 3 vs application."
+          "body": "Questions typiques."
         },
         {
           "title": "Pièges d'examen",
-          "body": "Certificat expiré."
+          "body": "Pièges fréquents."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Bonnes pratiques."
         },
         {
           "title": "Mémo révision",
-          "body": "VPN = tunnel chiffré + auth."
+          "body": "Le VPN crée un tunnel sécurisé."
         },
         {
           "title": "Schéma Mermaid",
-          "body": "graph LR; SiteA--VPN-->SiteB;"
+          "body": "graph TD; A-->B;"
         },
         {
           "title": "Sources de référence",
-          "body": "RFC 4301."
+          "body": "Documentation officielle."
         }
       ]
     },
@@ -1250,59 +1487,71 @@
         "Oubli de vérification"
       ],
       "w": "Le test seul ne prouve pas la cause.",
-      "resume": "ACL : filtrage, implicit deny.",
+      "resume": "Les ACL filtrent le trafic.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "Les ACL contrôlent l'accès réseau."
+          "body": "Les ACL filtrent le trafic."
         },
         {
           "title": "Définitions",
-          "body": "ACL standard/étendue, wildcard mask, inbound/outbound."
+          "body": "Les ACL filtrent le trafic."
         },
         {
           "title": "Théorie détaillée",
-          "body": "Évaluation séquentielle, implicit deny."
+          "body": "Les ACL filtrent le trafic. Fonctionnement interne et concepts."
+        },
+        {
+          "title": "Fonctionnement interne",
+          "body": "Les ACL filtrent le trafic."
         },
         {
           "title": "Architecture",
-          "body": "Routeur, interface."
+          "body": "Les ACL filtrent le trafic."
         },
         {
           "title": "Cas concret entreprise",
-          "body": "Bloquer SSH depuis un VLAN."
+          "body": "Les ACL filtrent le trafic. Cas pratique."
         },
         {
           "title": "Procédure pas à pas",
-          "body": "1. Créer ACL. 2. Ajouter règles. 3. Appliquer. 4. Tester."
+          "body": "1. Vérifier. 2. Configurer. 3. Tester."
         },
         {
           "title": "Dépannage",
-          "body": "Ordre des règles, wildcard erroné."
+          "body": "Les ACL filtrent le trafic. Dépannage."
         },
         {
-          "title": "Bonnes pratiques",
-          "body": "Documenter, utiliser des ACL nommées."
+          "title": "Commandes CLI",
+          "body": "Commandes usuelles."
+        },
+        {
+          "title": "Vérification",
+          "body": "Vérifier la configuration."
         },
         {
           "title": "Questions de jury",
-          "body": "Implicit deny = ? Refus par défaut."
+          "body": "Questions typiques."
         },
         {
           "title": "Pièges d'examen",
-          "body": "Ordre des règles."
+          "body": "Pièges fréquents."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Bonnes pratiques."
         },
         {
           "title": "Mémo révision",
-          "body": "ACL filtre, implicit deny."
+          "body": "Les ACL filtrent le trafic."
         },
         {
           "title": "Schéma Mermaid",
-          "body": "graph TD; ACL-->Permit; ACL-->Deny;"
+          "body": "graph TD; A-->B;"
         },
         {
           "title": "Sources de référence",
-          "body": "Cisco IOS."
+          "body": "Documentation officielle."
         }
       ]
     },
@@ -1311,7 +1560,7 @@
       "t": "Pare-feu",
       "level": "intermediaire",
       "cli": true,
-      "r": "Le pare-feu filtre le trafic selon des règles.",
+      "r": "Le pare-feu filtre selon des règles.",
       "tags": [
         "cp4",
         "firewall"
@@ -1323,59 +1572,71 @@
         "Oubli de vérification"
       ],
       "w": "Le test seul ne prouve pas la cause.",
-      "resume": "Pare-feu : zones, règles, stateful.",
+      "resume": "Le pare-feu filtre selon des règles.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "Le pare-feu protège le réseau."
+          "body": "Le pare-feu filtre selon des règles."
         },
         {
           "title": "Définitions",
-          "body": "Zone, règle, stateful, DMZ."
+          "body": "Le pare-feu filtre selon des règles."
         },
         {
           "title": "Théorie détaillée",
-          "body": "Inspection de paquets, suivi de connexion."
+          "body": "Le pare-feu filtre selon des règles. Fonctionnement interne et concepts."
+        },
+        {
+          "title": "Fonctionnement interne",
+          "body": "Le pare-feu filtre selon des règles."
         },
         {
           "title": "Architecture",
-          "body": "Zones trust/untrust/DMZ."
+          "body": "Le pare-feu filtre selon des règles."
         },
         {
           "title": "Cas concret entreprise",
-          "body": "Bloquer un port entrant."
+          "body": "Le pare-feu filtre selon des règles. Cas pratique."
         },
         {
           "title": "Procédure pas à pas",
-          "body": "1. Créer zone. 2. Créer règle. 3. Tester."
+          "body": "1. Vérifier. 2. Configurer. 3. Tester."
         },
         {
           "title": "Dépannage",
-          "body": "Règle trop stricte, direction inversée."
+          "body": "Le pare-feu filtre selon des règles. Dépannage."
         },
         {
-          "title": "Bonnes pratiques",
-          "body": "Moindre privilège, journaliser."
+          "title": "Commandes CLI",
+          "body": "Commandes usuelles."
+        },
+        {
+          "title": "Vérification",
+          "body": "Vérifier la configuration."
         },
         {
           "title": "Questions de jury",
-          "body": "Stateful vs stateless ?"
+          "body": "Questions typiques."
         },
         {
           "title": "Pièges d'examen",
-          "body": "Règle trop permissive."
+          "body": "Pièges fréquents."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Bonnes pratiques."
         },
         {
           "title": "Mémo révision",
-          "body": "Pare-feu filtre, zones, stateful."
+          "body": "Le pare-feu filtre selon des règles."
         },
         {
           "title": "Schéma Mermaid",
-          "body": "graph TD; Z1[Trust]-->FW; FW-->Z2[DMZ];"
+          "body": "graph TD; A-->B;"
         },
         {
           "title": "Sources de référence",
-          "body": "Cisco, pfSense."
+          "body": "Documentation officielle."
         }
       ]
     },
@@ -1396,19 +1657,23 @@
         "Oubli de vérification"
       ],
       "w": "Le test seul ne prouve pas la cause.",
-      "resume": "Lab VLAN et trunk.",
+      "resume": "Créer VLAN et trunk.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "Lab pratique VLAN."
+          "body": "Créer VLAN et trunk."
         },
         {
           "title": "Procédure pas à pas",
-          "body": "1. Créer VLAN. 2. Assigner. 3. Trunk. 4. Vérifier."
+          "body": "1. Topologie. 2. Configuration. 3. Vérification. 4. Dépannage."
         },
         {
           "title": "Dépannage",
-          "body": "Port non assigné, trunk non autorisé."
+          "body": "Créer VLAN et trunk."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Créer VLAN et trunk."
         }
       ]
     },
@@ -1429,19 +1694,23 @@
         "Oubli de vérification"
       ],
       "w": "Le test seul ne prouve pas la cause.",
-      "resume": "Lab routage inter-VLAN.",
+      "resume": "Routage inter-VLAN.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "Lab routage."
+          "body": "Routage inter-VLAN."
         },
         {
           "title": "Procédure pas à pas",
-          "body": "1. Sous-interfaces. 2. IP. 3. Tester ping."
+          "body": "1. Topologie. 2. Configuration. 3. Vérification. 4. Dépannage."
         },
         {
           "title": "Dépannage",
-          "body": "Encapsulation incorrecte."
+          "body": "Routage inter-VLAN."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Routage inter-VLAN."
         }
       ]
     },
@@ -1462,19 +1731,23 @@
         "Oubli de vérification"
       ],
       "w": "Le test seul ne prouve pas la cause.",
-      "resume": "Lab DHCP.",
+      "resume": "Configurer DHCP.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "Lab DHCP."
+          "body": "Configurer DHCP."
         },
         {
           "title": "Procédure pas à pas",
-          "body": "1. Étendue. 2. Options. 3. Tester."
+          "body": "1. Topologie. 2. Configuration. 3. Vérification. 4. Dépannage."
         },
         {
           "title": "Dépannage",
-          "body": "Étendue épuisée."
+          "body": "Configurer DHCP."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Configurer DHCP."
         }
       ]
     },
@@ -1495,19 +1768,23 @@
         "Oubli de vérification"
       ],
       "w": "Le test seul ne prouve pas la cause.",
-      "resume": "Lab NAT/PAT.",
+      "resume": "Configurer NAT.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "Lab NAT."
+          "body": "Configurer NAT."
         },
         {
           "title": "Procédure pas à pas",
-          "body": "1. Inside/outside. 2. ACL. 3. PAT. 4. Tester."
+          "body": "1. Topologie. 2. Configuration. 3. Vérification. 4. Dépannage."
         },
         {
           "title": "Dépannage",
-          "body": "ACL incorrecte."
+          "body": "Configurer NAT."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Configurer NAT."
         }
       ]
     },
@@ -1516,7 +1793,7 @@
       "t": "Quiz d'entraînement CP4",
       "level": "intermediaire",
       "cli": true,
-      "r": "Quiz d'entraînement réseau.",
+      "r": "Quiz réseau.",
       "tags": [
         "cp4",
         "quiz"
