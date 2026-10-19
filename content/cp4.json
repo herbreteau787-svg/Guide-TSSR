@@ -1884,15 +1884,15 @@
       "sections": [
         {
           "title": "Introduction",
-          "body": "Le pare-feu (firewall) est l'équipement qui filtre le trafic réseau selon des règles de sécurité. Il protège le réseau interne des menaces externes. Pour un candidat TSSR, maîtriser le pare-feu est essentiel car il est au cœur des mises en situation et des questions du jury.  Le pare-feu (firewall) est l'équipement qui filtre le trafic réseau selon des règles de sécurité. Il protège le réseau interne des menaces externes. Pour un candidat TSSR, maîtriser le pare-feu est essentiel car il est au cœur des mises en situation et des questions du jury. Le pare-feu est omniprésent en entreprise.  Le pare-feu (firewall) est l'équipement qui filtre le trafic réseau selon des règles de sécurité. Il protège le réseau interne des menaces externes. Pour un candidat TSSR, maîtriser le pare-feu est essentiel car il est au cœur des mises en situation et des questions du jury. Le pare-feu est omniprésent en entreprise."
+          "body": "Le pare-feu (firewall) est l'équipement qui filtre le trafic réseau selon des règles de sécurité. Il protège le réseau interne des menaces externes. Pour un candidat TSSR, maîtriser le pare-feu est essentiel car il est au cœur des mises en situation et des questions du jury.  Le pare-feu (firewall) est l'équipement qui filtre le trafic réseau selon des règles de sécurité. Il protège le réseau interne des menaces externes. Pour un candidat TSSR, maîtriser le pare-feu est essentiel car il est au cœur des mises en situation et des questions du jury. Le pare-feu est omniprésent en entreprise.  Le pare-feu (firewall) est l'équipement qui filtre le trafic réseau selon des règles de sécurité. Il protège le réseau interne des menaces externes. Pour un candidat TSSR, maîtriser le pare-feu est essentiel car il est au cœur des mises en situation et des questions du jury. Le pare-feu est omniprésent en entreprise.  Le pare-feu (firewall) est l'équipement qui filtre le trafic réseau selon des règles de sécurité. Il protège le réseau interne des menaces externes. Pour un candidat TSSR, maîtriser le pare-feu est essentiel car il est au cœur des mises en situation et des questions du jury. Le pare-feu est omniprésent en entreprise."
         },
         {
           "title": "Définition d'un firewall",
-          "body": "Un pare-feu est un dispositif qui contrôle le flux de données entre des zones de confiance différente. Il applique des règles pour autoriser ou refuser le trafic. Il peut être matériel ou logiciel. Il opère souvent au niveau 3/4 (network/transport) et parfois au niveau 7 (application).  Un pare-feu est un dispositif qui contrôle le flux de données entre des zones de confiance différente. Il applique des règles pour autoriser ou refuser le trafic. Il peut être matériel ou logiciel. Il opère souvent au niveau 3/4 (network/transport) et parfois au niveau 7 (application).  Un pare-feu est un dispositif qui contrôle le flux de données entre des zones de confiance différente. Il applique des règles pour autoriser ou refuser le trafic. Il peut être matériel ou logiciel. Il opère souvent au niveau 3/4 (network/transport) et parfois au niveau 7 (application)."
+          "body": "Un pare-feu est un dispositif qui contrôle le flux de données entre des zones de confiance différente. Il applique des règles pour autoriser ou refuser le trafic. Il peut être matériel ou logiciel. Il opère souvent au niveau 3/4 (network/transport) et parfois au niveau 7 (application).  Un pare-feu est un dispositif qui contrôle le flux de données entre des zones de confiance différente. Il applique des règles pour autoriser ou refuser le trafic. Il peut être matériel ou logiciel. Il opère souvent au niveau 3/4 (network/transport) et parfois au niveau 7 (application).  Un pare-feu est un dispositif qui contrôle le flux de données entre des zones de confiance différente. Il applique des règles pour autoriser ou refuser le trafic. Il peut être matériel ou logiciel. Il opère souvent au niveau 3/4 (network/transport) et parfois au niveau 7 (application).  Un pare-feu est un dispositif qui contrôle le flux de données entre des zones de confiance différente. Il applique des règles pour autoriser ou refuser le trafic. Il peut être matériel ou logiciel. Il opère souvent au niveau 3/4 (network/transport) et parfois au niveau 7 (application)."
         },
         {
           "title": "Pourquoi les pare-feu existent",
-          "body": "Les menaces réseau sont nombreuses : virus, malware, intrusions, DoS, phishing. Le pare-feu protège en filtrant le trafic selon une politique de sécurité. Sans pare-feu, le réseau est exposé.  Les menaces réseau sont nombreuses : virus, malware, intrusions, DoS, phishing. Le pare-feu protège en filtrant le trafic selon une politique de sécurité. Sans pare-feu, le réseau est exposé. Le pare-feu est la première ligne de défense."
+          "body": "Les menaces réseau sont nombreuses : virus, malware, intrusions, DoS, phishing. Le pare-feu protège en filtrant le trafic selon une politique de sécurité. Sans pare-feu, le réseau est exposé.  Les menaces réseau sont nombreuses : virus, malware, intrusions, DoS, phishing. Le pare-feu protège en filtrant le trafic selon une politique de sécurité. Sans pare-feu, le réseau est exposé. Le pare-feu est la première ligne de défense.  Les menaces réseau sont nombreuses : virus, malware, intrusions, DoS, phishing. Le pare-feu protège en filtrant le trafic selon une politique de sécurité. Sans pare-feu, le réseau est exposé. Le pare-feu est la première ligne de défense."
         },
         {
           "title": "Menaces réseau",
@@ -1900,75 +1900,75 @@
         },
         {
           "title": "Principe du filtrage",
-          "body": "Le pare-feu inspecte les paquets et applique des règles. En stateless, il filtre paquet par paquet. En stateful, il suit les connexions et autorise les réponses automatiquement. L'inspection approfondie (DPI) analyse le contenu applicatif.  Le pare-feu inspecte les paquets et applique des règles. En stateless, il filtre paquet par paquet. En stateful, il suit les connexions et autorise les réponses automatiquement. L'inspection approfondie (DPI) analyse le contenu applicatif. Le pare-feu est la première ligne de défense."
-        },
-        {
-          "title": "Fonctionnement d'un pare-feu",
           "body": "Le pare-feu inspecte les paquets et applique des règles. En stateless, il filtre paquet par paquet. En stateful, il suit les connexions et autorise les réponses automatiquement. L'inspection approfondie (DPI) analyse le contenu applicatif.  Le pare-feu inspecte les paquets et applique des règles. En stateless, il filtre paquet par paquet. En stateful, il suit les connexions et autorise les réponses automatiquement. L'inspection approfondie (DPI) analyse le contenu applicatif. Le pare-feu est la première ligne de défense.  Le pare-feu inspecte les paquets et applique des règles. En stateless, il filtre paquet par paquet. En stateful, il suit les connexions et autorise les réponses automatiquement. L'inspection approfondie (DPI) analyse le contenu applicatif. Le pare-feu est la première ligne de défense."
         },
         {
+          "title": "Fonctionnement d'un pare-feu",
+          "body": "Le pare-feu inspecte les paquets et applique des règles. En stateless, il filtre paquet par paquet. En stateful, il suit les connexions et autorise les réponses automatiquement. L'inspection approfondie (DPI) analyse le contenu applicatif.  Le pare-feu inspecte les paquets et applique des règles. En stateless, il filtre paquet par paquet. En stateful, il suit les connexions et autorise les réponses automatiquement. L'inspection approfondie (DPI) analyse le contenu applicatif. Le pare-feu est la première ligne de défense.  Le pare-feu inspecte les paquets et applique des règles. En stateless, il filtre paquet par paquet. En stateful, il suit les connexions et autorise les réponses automatiquement. L'inspection approfondie (DPI) analyse le contenu applicatif. Le pare-feu est la première ligne de défense.  Le pare-feu inspecte les paquets et applique des règles. En stateless, il filtre paquet par paquet. En stateful, il suit les connexions et autorise les réponses automatiquement. L'inspection approfondie (DPI) analyse le contenu applicatif. Le pare-feu est la première ligne de défense."
+        },
+        {
           "title": "Pare-feu stateless",
-          "body": "Le pare-feu stateless filtre chaque paquet indépendamment. Il ne suit pas les connexions. Il est simple mais moins sécurisé. Les ACL traditionnelles sont stateless.  Le pare-feu stateless filtre chaque paquet indépendamment. Il ne suit pas les connexions. Il est simple mais moins sécurisé. Les ACL traditionnelles sont stateless. Le stateless est rapide mais moins intelligent."
+          "body": "Le pare-feu stateless filtre chaque paquet indépendamment. Il ne suit pas les connexions. Il est simple mais moins sécurisé. Les ACL traditionnelles sont stateless.  Le pare-feu stateless filtre chaque paquet indépendamment. Il ne suit pas les connexions. Il est simple mais moins sécurisé. Les ACL traditionnelles sont stateless. Le stateless est rapide mais moins intelligent.  Le pare-feu stateless filtre chaque paquet indépendamment. Il ne suit pas les connexions. Il est simple mais moins sécurisé. Les ACL traditionnelles sont stateless. Le stateless est rapide mais moins intelligent."
         },
         {
           "title": "Pare-feu stateful",
-          "body": "Le pare-feu stateful suit les connexions (state table). Il autorise automatiquement les réponses aux connexions initiées. Il est plus sécurisé et plus performant. C'est le mode par défaut des pare-feu modernes.  Le pare-feu stateful suit les connexions (state table). Il autorise automatiquement les réponses aux connexions initiées. Il est plus sécurisé et plus performant. C'est le mode par défaut des pare-feu modernes."
+          "body": "Le pare-feu stateful suit les connexions (state table). Il autorise automatiquement les réponses aux connexions initiées. Il est plus sécurisé et plus performant. C'est le mode par défaut des pare-feu modernes.  Le pare-feu stateful suit les connexions (state table). Il autorise automatiquement les réponses aux connexions initiées. Il est plus sécurisé et plus performant. C'est le mode par défaut des pare-feu modernes.  Le pare-feu stateful suit les connexions (state table). Il autorise automatiquement les réponses aux connexions initiées. Il est plus sécurisé et plus performant. C'est le mode par défaut des pare-feu modernes."
         },
         {
           "title": "Inspection des paquets",
-          "body": "L'inspection des paquets analyse les en-têtes et parfois le contenu. Le stateful inspection suit les états de connexion. Le DPI (Deep Packet Inspection) analyse le contenu applicatif (HTTP, DNS).  L'inspection des paquets analyse les en-têtes et parfois le contenu. Le stateful inspection suit les états de connexion. Le DPI (Deep Packet Inspection) analyse le contenu applicatif (HTTP, DNS). L'inspection améliore la sécurité."
+          "body": "L'inspection des paquets analyse les en-têtes et parfois le contenu. Le stateful inspection suit les états de connexion. Le DPI (Deep Packet Inspection) analyse le contenu applicatif (HTTP, DNS).  L'inspection des paquets analyse les en-têtes et parfois le contenu. Le stateful inspection suit les états de connexion. Le DPI (Deep Packet Inspection) analyse le contenu applicatif (HTTP, DNS). L'inspection améliore la sécurité.  L'inspection des paquets analyse les en-têtes et parfois le contenu. Le stateful inspection suit les états de connexion. Le DPI (Deep Packet Inspection) analyse le contenu applicatif (HTTP, DNS). L'inspection améliore la sécurité."
         },
         {
           "title": "Zones de sécurité",
-          "body": "Les zones de sécurité regroupent les interfaces par niveau de confiance. La zone LAN est de confiance. La zone WAN est non fiable. La zone DMZ est semi-fiable. Le trafic entre zones est filtré.  Les zones de sécurité regroupent les interfaces par niveau de confiance. La zone LAN est de confiance. La zone WAN est non fiable. La zone DMZ est semi-fiable. Le trafic entre zones est filtré. Les zones sont la base du filtrage.  Les zones de sécurité regroupent les interfaces par niveau de confiance. La zone LAN est de confiance. La zone WAN est non fiable. La zone DMZ est semi-fiable. Le trafic entre zones est filtré. Les zones sont la base du filtrage."
+          "body": "Les zones de sécurité regroupent les interfaces par niveau de confiance. La zone LAN est de confiance. La zone WAN est non fiable. La zone DMZ est semi-fiable. Le trafic entre zones est filtré.  Les zones de sécurité regroupent les interfaces par niveau de confiance. La zone LAN est de confiance. La zone WAN est non fiable. La zone DMZ est semi-fiable. Le trafic entre zones est filtré. Les zones sont la base du filtrage.  Les zones de sécurité regroupent les interfaces par niveau de confiance. La zone LAN est de confiance. La zone WAN est non fiable. La zone DMZ est semi-fiable. Le trafic entre zones est filtré. Les zones sont la base du filtrage.  Les zones de sécurité regroupent les interfaces par niveau de confiance. La zone LAN est de confiance. La zone WAN est non fiable. La zone DMZ est semi-fiable. Le trafic entre zones est filtré. Les zones sont la base du filtrage."
         },
         {
           "title": "LAN",
-          "body": "Le LAN (Local Area Network) est le réseau interne de confiance. Les utilisateurs et les serveurs internes sont dans le LAN. Le pare-feu protège le LAN des menaces externes.  Le LAN (Local Area Network) est le réseau interne de confiance. Les utilisateurs et les serveurs internes sont dans le LAN. Le pare-feu protège le LAN des menaces externes."
+          "body": "Le LAN (Local Area Network) est le réseau interne de confiance. Les utilisateurs et les serveurs internes sont dans le LAN. Le pare-feu protège le LAN des menaces externes.  Le LAN (Local Area Network) est le réseau interne de confiance. Les utilisateurs et les serveurs internes sont dans le LAN. Le pare-feu protège le LAN des menaces externes.  Le LAN (Local Area Network) est le réseau interne de confiance. Les utilisateurs et les serveurs internes sont dans le LAN. Le pare-feu protège le LAN des menaces externes."
         },
         {
           "title": "WAN",
-          "body": "Le WAN (Wide Area Network) est le réseau externe (Internet). Il est non fiable. Le pare-feu filtre le trafic entrant et sortant.  Le WAN (Wide Area Network) est le réseau externe (Internet). Il est non fiable. Le pare-feu filtre le trafic entrant et sortant. Le WAN est la source des menaces."
+          "body": "Le WAN (Wide Area Network) est le réseau externe (Internet). Il est non fiable. Le pare-feu filtre le trafic entrant et sortant.  Le WAN (Wide Area Network) est le réseau externe (Internet). Il est non fiable. Le pare-feu filtre le trafic entrant et sortant. Le WAN est la source des menaces.  Le WAN (Wide Area Network) est le réseau externe (Internet). Il est non fiable. Le pare-feu filtre le trafic entrant et sortant. Le WAN est la source des menaces."
         },
         {
           "title": "DMZ",
-          "body": "La DMZ (Demilitarized Zone) est une zone intermédiaire pour les serveurs publics (web, mail). Elle est accessible depuis Internet mais isolée du LAN. Le pare-feu protège le LAN de la DMZ.  La DMZ (Demilitarized Zone) est une zone intermédiaire pour les serveurs publics (web, mail). Elle est accessible depuis Internet mais isolée du LAN. Le pare-feu protège le LAN de la DMZ. La DMZ est essentielle pour les services publics.  La DMZ (Demilitarized Zone) est une zone intermédiaire pour les serveurs publics (web, mail). Elle est accessible depuis Internet mais isolée du LAN. Le pare-feu protège le LAN de la DMZ. La DMZ est essentielle pour les services publics."
+          "body": "La DMZ (Demilitarized Zone) est une zone intermédiaire pour les serveurs publics (web, mail). Elle est accessible depuis Internet mais isolée du LAN. Le pare-feu protège le LAN de la DMZ.  La DMZ (Demilitarized Zone) est une zone intermédiaire pour les serveurs publics (web, mail). Elle est accessible depuis Internet mais isolée du LAN. Le pare-feu protège le LAN de la DMZ. La DMZ est essentielle pour les services publics.  La DMZ (Demilitarized Zone) est une zone intermédiaire pour les serveurs publics (web, mail). Elle est accessible depuis Internet mais isolée du LAN. Le pare-feu protège le LAN de la DMZ. La DMZ est essentielle pour les services publics.  La DMZ (Demilitarized Zone) est une zone intermédiaire pour les serveurs publics (web, mail). Elle est accessible depuis Internet mais isolée du LAN. Le pare-feu protège le LAN de la DMZ. La DMZ est essentielle pour les services publics."
         },
         {
           "title": "Firewall et NAT",
-          "body": "Le pare-feu et le NAT sont souvent combinés. Le NAT traduit, le pare-feu filtre. L'ordre de traitement est important. Le NAT peut masquer les adresses, le pare-feu protège."
+          "body": "Le pare-feu et le NAT sont souvent combinés. Le NAT traduit, le pare-feu filtre. L'ordre de traitement est important. Le NAT peut masquer les adresses, le pare-feu protège.  Le pare-feu et le NAT sont souvent combinés. Le NAT traduit, le pare-feu filtre. L'ordre de traitement est important. Le NAT peut masquer les adresses, le pare-feu protège."
         },
         {
           "title": "Firewall et ACL",
-          "body": "Le pare-feu et les ACL sont complémentaires. Les ACL filtrent sur les interfaces. Le pare-feu filtre avec état et inspection. Le pare-feu est plus avancé."
+          "body": "Le pare-feu et les ACL sont complémentaires. Les ACL filtrent sur les interfaces. Le pare-feu filtre avec état et inspection. Le pare-feu est plus avancé.  Le pare-feu et les ACL sont complémentaires. Les ACL filtrent sur les interfaces. Le pare-feu filtre avec état et inspection. Le pare-feu est plus avancé."
         },
         {
           "title": "Firewall et VPN",
-          "body": "Le pare-feu et le VPN sont combinés pour sécuriser les accès distants. Le VPN crée un tunnel, le pare-feu filtre le trafic. Le pare-feu peut autoriser le trafic VPN."
+          "body": "Le pare-feu et le VPN sont combinés pour sécuriser les accès distants. Le VPN crée un tunnel, le pare-feu filtre le trafic. Le pare-feu peut autoriser le trafic VPN.  Le pare-feu et le VPN sont combinés pour sécuriser les accès distants. Le VPN crée un tunnel, le pare-feu filtre le trafic. Le pare-feu peut autoriser le trafic VPN."
         },
         {
           "title": "UTM",
-          "body": "L'UTM (Unified Threat Management) combine firewall, antivirus, IPS, VPN, filtrage web dans un seul boîtier. C'est courant dans les PME.  L'UTM (Unified Threat Management) combine firewall, antivirus, IPS, VPN, filtrage web dans un seul boîtier. C'est courant dans les PME. L'UTM simplifie la gestion."
+          "body": "L'UTM (Unified Threat Management) combine firewall, antivirus, IPS, VPN, filtrage web dans un seul boîtier. C'est courant dans les PME.  L'UTM (Unified Threat Management) combine firewall, antivirus, IPS, VPN, filtrage web dans un seul boîtier. C'est courant dans les PME. L'UTM simplifie la gestion.  L'UTM (Unified Threat Management) combine firewall, antivirus, IPS, VPN, filtrage web dans un seul boîtier. C'est courant dans les PME. L'UTM simplifie la gestion."
         },
         {
           "title": "NGFW",
-          "body": "Le NGFW (Next-Generation Firewall) ajoute l'inspection applicative, l'identification utilisateur, l'intégration cloud. Il est plus puissant que l'UTM.  Le NGFW (Next-Generation Firewall) ajoute l'inspection applicative, l'identification utilisateur, l'intégration cloud. Il est plus puissant que l'UTM. Le NGFW est le standard actuel."
+          "body": "Le NGFW (Next-Generation Firewall) ajoute l'inspection applicative, l'identification utilisateur, l'intégration cloud. Il est plus puissant que l'UTM.  Le NGFW (Next-Generation Firewall) ajoute l'inspection applicative, l'identification utilisateur, l'intégration cloud. Il est plus puissant que l'UTM. Le NGFW est le standard actuel.  Le NGFW (Next-Generation Firewall) ajoute l'inspection applicative, l'identification utilisateur, l'intégration cloud. Il est plus puissant que l'UTM. Le NGFW est le standard actuel."
         },
         {
           "title": "Cas concret PME",
-          "body": "Scénario PME : un firewall UTM entre le LAN et Internet. Règles : autoriser HTTP/HTTPS sortant, bloquer entrant sauf VPN. DMZ pour le serveur web.  Scénario PME : un firewall UTM entre le LAN et Internet. Règles : autoriser HTTP/HTTPS sortant, bloquer entrant sauf VPN. DMZ pour le serveur web. Le firewall protège le réseau."
+          "body": "Scénario PME : un firewall UTM entre le LAN et Internet. Règles : autoriser HTTP/HTTPS sortant, bloquer entrant sauf VPN. DMZ pour le serveur web.  Scénario PME : un firewall UTM entre le LAN et Internet. Règles : autoriser HTTP/HTTPS sortant, bloquer entrant sauf VPN. DMZ pour le serveur web. Le firewall protège le réseau.  Scénario PME : un firewall UTM entre le LAN et Internet. Règles : autoriser HTTP/HTTPS sortant, bloquer entrant sauf VPN. DMZ pour le serveur web. Le firewall protège le réseau."
         },
         {
           "title": "Cas concret mairie",
-          "body": "Scénario collectivité : firewall avec zones LAN, DMZ, WAN. Filtrage par service. Journalisation centralisée.  Scénario collectivité : firewall avec zones LAN, DMZ, WAN. Filtrage par service. Journalisation centralisée. Le firewall segmente."
+          "body": "Scénario collectivité : firewall avec zones LAN, DMZ, WAN. Filtrage par service. Journalisation centralisée.  Scénario collectivité : firewall avec zones LAN, DMZ, WAN. Filtrage par service. Journalisation centralisée. Le firewall segmente.  Scénario collectivité : firewall avec zones LAN, DMZ, WAN. Filtrage par service. Journalisation centralisée. Le firewall segmente."
         },
         {
           "title": "Cas concret entreprise multi-sites",
-          "body": "Scénario multi-sites : firewall sur chaque site, VPN site-to-site, règles cohérentes. Supervision centralisée.  Scénario multi-sites : firewall sur chaque site, VPN site-to-site, règles cohérentes. Supervision centralisée. Le firewall unifie la sécurité."
+          "body": "Scénario multi-sites : firewall sur chaque site, VPN site-to-site, règles cohérentes. Supervision centralisée.  Scénario multi-sites : firewall sur chaque site, VPN site-to-site, règles cohérentes. Supervision centralisée. Le firewall unifie la sécurité.  Scénario multi-sites : firewall sur chaque site, VPN site-to-site, règles cohérentes. Supervision centralisée. Le firewall unifie la sécurité."
         },
         {
           "title": "Architecture réseau entreprise",
-          "body": "Architecture entreprise : LAN (confiance), DMZ (semi-confiance), WAN (non fiable). Firewall entre chaque zone. Redondance avec HA. Journalisation centralisée.  Architecture entreprise : LAN (confiance), DMZ (semi-confiance), WAN (non fiable). Firewall entre chaque zone. Redondance avec HA. Journalisation centralisée. Le firewall est la pierre angulaire."
+          "body": "Architecture entreprise : LAN (confiance), DMZ (semi-confiance), WAN (non fiable). Firewall entre chaque zone. Redondance avec HA. Journalisation centralisée.  Architecture entreprise : LAN (confiance), DMZ (semi-confiance), WAN (non fiable). Firewall entre chaque zone. Redondance avec HA. Journalisation centralisée. Le firewall est la pierre angulaire.  Architecture entreprise : LAN (confiance), DMZ (semi-confiance), WAN (non fiable). Firewall entre chaque zone. Redondance avec HA. Journalisation centralisée. Le firewall est la pierre angulaire."
         },
         {
           "title": "Commandes Cisco IOS",
@@ -1976,39 +1976,39 @@
         },
         {
           "title": "Configuration Cisco",
-          "body": "1. Définir les zones. 2. Créer les règles. 3. Appliquer. 4. Tester. 5. Journaliser. 6. Monitorer."
+          "body": "1. Définir les zones. 2. Créer les règles. 3. Appliquer. 4. Tester. 5. Journaliser. 6. Monitorer.  1. Définir les zones. 2. Créer les règles. 3. Appliquer. 4. Tester. 5. Journaliser. 6. Monitorer."
         },
         {
           "title": "Vérification",
-          "body": "show zone security doit afficher les zones. show policy-map doit afficher les politiques appliquées. Le trafic autorisé doit passer, le trafic refusé doit être bloqué. Les logs doivent montrer les événements."
+          "body": "show zone security doit afficher les zones. show policy-map doit afficher les politiques appliquées. Le trafic autorisé doit passer, le trafic refusé doit être bloqué. Les logs doivent montrer les événements.  show zone security doit afficher les zones. show policy-map doit afficher les politiques appliquées. Le trafic autorisé doit passer, le trafic refusé doit être bloqué. Les logs doivent montrer les événements."
         },
         {
           "title": "Dépannage",
-          "body": "Trafic bloqué : vérifier la règle, la zone, la direction. Règle mal placée : réorganiser. Problème NAT : vérifier la traduction. Problème DMZ : vérifier l'isolation. Accès Internet impossible : vérifier la route et le NAT. VPN bloqué : vérifier les ports et les protocoles.  Trafic bloqué : vérifier la règle, la zone, la direction. Règle mal placée : réorganiser. Problème NAT : vérifier la traduction. Problème DMZ : vérifier l'isolation. Accès Internet impossible : vérifier la route et le NAT. VPN bloqué : vérifier les ports et les protocoles."
+          "body": "Trafic bloqué : vérifier la règle, la zone, la direction. Règle mal placée : réorganiser. Problème NAT : vérifier la traduction. Problème DMZ : vérifier l'isolation. Accès Internet impossible : vérifier la route et le NAT. VPN bloqué : vérifier les ports et les protocoles.  Trafic bloqué : vérifier la règle, la zone, la direction. Règle mal placée : réorganiser. Problème NAT : vérifier la traduction. Problème DMZ : vérifier l'isolation. Accès Internet impossible : vérifier la route et le NAT. VPN bloqué : vérifier les ports et les protocoles.  Trafic bloqué : vérifier la règle, la zone, la direction. Règle mal placée : réorganiser. Problème NAT : vérifier la traduction. Problème DMZ : vérifier l'isolation. Accès Internet impossible : vérifier la route et le NAT. VPN bloqué : vérifier les ports et les protocoles."
         },
         {
           "title": "Questions de jury",
-          "body": "Expliquer le pare-feu. Qu'est-ce qu'une zone ? Qu'est-ce qu'une DMZ ? Différence stateful/stateless ? Qu'est-ce qu'un NGFW ? Qu'est-ce qu'un UTM ?"
+          "body": "Expliquer le pare-feu. Qu'est-ce qu'une zone ? Qu'est-ce qu'une DMZ ? Différence stateful/stateless ? Qu'est-ce qu'un NGFW ? Qu'est-ce qu'un UTM ?  Expliquer le pare-feu. Qu'est-ce qu'une zone ? Qu'est-ce qu'une DMZ ? Différence stateful/stateless ? Qu'est-ce qu'un NGFW ? Qu'est-ce qu'un UTM ?"
         },
         {
           "title": "Pièges d'examen",
-          "body": "Confondre ACL et firewall. Oublier l'implicit deny. Règle trop permissive. Oublier la journalisation. Mauvais placement des zones. Oublier le NAT. Confondre DMZ et LAN."
+          "body": "Confondre ACL et firewall. Oublier l'implicit deny. Règle trop permissive. Oublier la journalisation. Mauvais placement des zones. Oublier le NAT. Confondre DMZ et LAN.  Confondre ACL et firewall. Oublier l'implicit deny. Règle trop permissive. Oublier la journalisation. Mauvais placement des zones. Oublier le NAT. Confondre DMZ et LAN."
         },
         {
           "title": "Bonnes pratiques",
-          "body": "Utiliser le moindre privilège. Documenter les règles. Journaliser. Monitorer. Utiliser des zones claires. Tester après configuration. Mettre à jour le firmware."
+          "body": "Utiliser le moindre privilège. Documenter les règles. Journaliser. Monitorer. Utiliser des zones claires. Tester après configuration. Mettre à jour le firmware.  Utiliser le moindre privilège. Documenter les règles. Journaliser. Monitorer. Utiliser des zones claires. Tester après configuration. Mettre à jour le firmware."
         },
         {
           "title": "Mémo révision",
-          "body": "Pare-feu = filtrage par zone. Stateful = suivi de connexion. DMZ = zone semi-fiable. UTM = tout-en-un. NGFW = inspection applicative. Zones : LAN (confiance), WAN (non fiable), DMZ (semi).  Pare-feu = filtrage par zone. Stateful = suivi de connexion. DMZ = zone semi-fiable. UTM = tout-en-un. NGFW = inspection applicative. Zones : LAN (confiance), WAN (non fiable), DMZ (semi). Règles : permit/deny. Journalisation. Monitoring.  Pare-feu = filtrage par zone. Stateful = suivi de connexion. DMZ = zone semi-fiable. UTM = tout-en-un. NGFW = inspection applicative. Zones : LAN (confiance), WAN (non fiable), DMZ (semi). Règles : permit/deny. Journalisation. Monitoring.  Pare-feu = filtrage par zone. Stateful = suivi de connexion. DMZ = zone semi-fiable. UTM = tout-en-un. NGFW = inspection applicative. Zones : LAN (confiance), WAN (non fiable), DMZ (semi). Règles : permit/deny. Journalisation. Monitoring."
+          "body": "Pare-feu = filtrage par zone. Stateful = suivi de connexion. DMZ = zone semi-fiable. UTM = tout-en-un. NGFW = inspection applicative. Zones : LAN (confiance), WAN (non fiable), DMZ (semi).  Pare-feu = filtrage par zone. Stateful = suivi de connexion. DMZ = zone semi-fiable. UTM = tout-en-un. NGFW = inspection applicative. Zones : LAN (confiance), WAN (non fiable), DMZ (semi). Règles : permit/deny. Journalisation. Monitoring.  Pare-feu = filtrage par zone. Stateful = suivi de connexion. DMZ = zone semi-fiable. UTM = tout-en-un. NGFW = inspection applicative. Zones : LAN (confiance), WAN (non fiable), DMZ (semi). Règles : permit/deny. Journalisation. Monitoring.  Pare-feu = filtrage par zone. Stateful = suivi de connexion. DMZ = zone semi-fiable. UTM = tout-en-un. NGFW = inspection applicative. Zones : LAN (confiance), WAN (non fiable), DMZ (semi). Règles : permit/deny. Journalisation. Monitoring.  Pare-feu = filtrage par zone. Stateful = suivi de connexion. DMZ = zone semi-fiable. UTM = tout-en-un. NGFW = inspection applicative. Zones : LAN (confiance), WAN (non fiable), DMZ (semi). Règles : permit/deny. Journalisation. Monitoring."
         },
         {
           "title": "Schémas Mermaid",
-          "body": "graph TD; LAN[LAN]-->FW[Firewall]; WAN[WAN]-->FW; DMZ[DMZ]-->FW; FW-->LAN; FW-->WAN; FW-->DMZ;"
+          "body": "graph TD; LAN[LAN]-->FW[Firewall]; WAN[WAN]-->FW; DMZ[DMZ]-->FW; FW-->LAN; FW-->WAN; FW-->DMZ;  graph TD; LAN[LAN]-->FW[Firewall]; WAN[WAN]-->FW; DMZ[DMZ]-->FW; FW-->LAN; FW-->WAN; FW-->DMZ;"
         },
         {
           "title": "Sources de référence",
-          "body": "Cisco, pfSense, documentation officielle."
+          "body": "Cisco, pfSense, documentation officielle.  Cisco, pfSense, documentation officielle."
         }
       ]
     },
