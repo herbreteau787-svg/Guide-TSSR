@@ -455,7 +455,7 @@
       "t": "VLAN et segmentation",
       "level": "intermediaire",
       "cli": true,
-      "r": "Les VLAN créent des domaines de broadcast séparés.",
+      "r": "Les VLAN segmentent un réseau physique en réseaux logiques indépendants, améliorant sécurité et performance.",
       "tags": [
         "cp4",
         "vlan"
@@ -467,71 +467,103 @@
         "Oubli de vérification"
       ],
       "w": "Le test seul ne prouve pas la cause.",
-      "resume": "Les VLAN créent des domaines de broadcast séparés.",
+      "resume": "VLAN : segmentation, access/trunk, natif, routage inter-VLAN.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "Les VLAN créent des domaines de broadcast séparés."
+          "body": "Les VLAN (Virtual Local Area Network) sont l'un des concepts fondamentaux de la commutation Ethernet. Ils permettent de segmenter un réseau physique en plusieurs réseaux logiques indépendants, améliorant la sécurité, la performance et la gestion. Pour l'examen TSSR, maîtriser les VLAN est indispensable car ils sont au cœur de la conception réseau d'entreprise.  Les VLAN sont l'un des concepts fondamentaux de la commutation Ethernet. Ils permettent de segmenter un réseau physique en plusieurs réseaux logiques indépendants, améliorant la sécurité, la performance et la gestion. Pour l'examen TSSR, maîtriser les VLAN est indispensable car ils sont au cœur de la conception réseau d'entreprise. Le jury attend une explication claire du fonctionnement, de la configuration et du dépannage."
         },
         {
           "title": "Définitions",
-          "body": "Les VLAN créent des domaines de broadcast séparés."
+          "body": "Un VLAN est un domaine de broadcast logique. Un port access appartient à un seul VLAN. Un trunk transporte plusieurs VLAN. Le VLAN natif est le VLAN non taggé sur un trunk. Le VLAN de gestion est utilisé pour administrer les équipements. Le VLAN par défaut (VLAN 1) est le VLAN initial sur les switches Cisco. Le VLAN de données transporte le trafic utilisateur. Le VLAN voix transporte le trafic téléphonique (ToIP).  Un VLAN est un domaine de broadcast logique. Un port access appartient à un seul VLAN. Un trunk transporte plusieurs VLAN. Le VLAN natif est le VLAN non taggé sur un trunk. Le VLAN de gestion est utilisé pour administrer les équipements. Le VLAN par défaut (VLAN 1) est le VLAN initial sur les switches Cisco. Le VLAN de données transporte le trafic utilisateur. Le VLAN voix transporte le trafic téléphonique (ToIP). Le VLAN invité isole les visiteurs."
         },
         {
-          "title": "Théorie détaillée",
-          "body": "Les VLAN créent des domaines de broadcast séparés. Fonctionnement interne et concepts."
+          "title": "Pourquoi les VLAN existent",
+          "body": "Les VLAN existent pour segmenter un réseau physique sans multiplier les équipements. Avant les VLAN, chaque réseau logique nécessitait des switches dédiés. Les VLAN permettent de créer des groupes logiques indépendants du câblage physique, réduisant les coûts et simplifiant la gestion. Ils améliorent la sécurité en isolant les flux (ex. : réseau invité séparé du réseau production). Ils réduisent la taille des domaines de broadcast, améliorant les performances."
         },
         {
           "title": "Fonctionnement interne",
-          "body": "Les VLAN créent des domaines de broadcast séparés."
+          "body": "Un VLAN fonctionne au niveau 2 (liaison de données). Le switch maintient une table VLAN associant les ports aux VLAN. Lorsqu'une trame arrive sur un port access, le switch l'associe au VLAN du port. Sur un trunk, les trames sont taggées avec l'ID VLAN (802.1Q) pour identifier leur appartenance. Le switch transfère la trame uniquement dans le VLAN correspondant. Le broadcast reste dans le VLAN. La commutation est basée sur l'adresse MAC et le VLAN. En production, le switch maintient une table CAM associant adresses MAC et ports par VLAN. Lorsqu'une trame arrive, le switch vérifie le VLAN du port d'entrée. Si le port est en mode access, le VLAN est celui du port. Si le port est en mode trunk, le tag 802.1Q détermine le VLAN. Le switch transfère la trame uniquement dans le VLAN correspondant. Le broadcast reste dans le VLAN. La commutation est basée sur l'adresse MAC et le VLAN. Le VLAN natif est traité sans tag. Les ports trunk négocient le trunk via DTP (Dynamic Trunking Protocol), mais en production on désactive DTP et on force le trunk. Le pruning VTP peut optimiser les trunks en supprimant les VLAN non utilisés sur un lien."
         },
         {
-          "title": "Architecture",
-          "body": "Les VLAN créent des domaines de broadcast séparés."
+          "title": "VLAN de données",
+          "body": "Le VLAN de données transporte le trafic des utilisateurs (ordinateurs, imprimantes). Chaque VLAN de données a son propre sous-réseau IP. Les ports access sont assignés à ce VLAN. La sécurité repose sur l'isolement entre VLAN."
         },
         {
-          "title": "Cas concret entreprise",
-          "body": "Les VLAN créent des domaines de broadcast séparés. Cas pratique."
+          "title": "VLAN voix",
+          "body": "Le VLAN voix (souvent VLAN 10 ou 20) transporte le trafic ToIP. Il nécessite une priorisation QoS. Les téléphones IP sont souvent en VLAN voix via CDP/LLDP. Le switch peut assigner automatiquement un port en VLAN voix."
         },
         {
-          "title": "Procédure pas à pas",
-          "body": "1. Vérifier. 2. Configurer. 3. Tester."
+          "title": "VLAN natif",
+          "body": "Le VLAN natif est le VLAN dont les trames ne sont pas taggées sur un trunk. Par défaut, c'est le VLAN 1. Il est important de le changer pour des raisons de sécurité. Le VLAN natif doit être le même des deux côtés du trunk."
+        },
+        {
+          "title": "VLAN de gestion",
+          "body": "Le VLAN de gestion (souvent VLAN 99) est utilisé pour administrer les switches (SSH, SNMP). Il doit être isolé du trafic utilisateur. L'accès à la gestion doit être restreint (ACL)."
+        },
+        {
+          "title": "VLAN par défaut",
+          "body": "Le VLAN par défaut (VLAN 1) est le VLAN initial sur les switches Cisco. Tous les ports sont dans le VLAN 1 par défaut. Pour la sécurité, il est recommandé de ne pas utiliser le VLAN 1 pour le trafic utilisateur."
+        },
+        {
+          "title": "Communication intra-VLAN",
+          "body": "La communication intra-VLAN se fait directement au niveau 2. Le switch transfère la trame vers le port destination dans le même VLAN. Aucun routeur n'est nécessaire. La commutation est basée sur la table MAC."
+        },
+        {
+          "title": "Problématique inter-VLAN",
+          "body": "La communication inter-VLAN nécessite un routeur (router on a stick) ou un switch de couche 3. Chaque VLAN est un réseau IP distinct. Le routage inter-VLAN transfère les paquets entre VLAN via des sous-interfaces 802.1Q."
+        },
+        {
+          "title": "Routage inter-VLAN",
+          "body": "La communication inter-VLAN nécessite un routeur (router on a stick) ou un switch de couche 3. Chaque VLAN est un réseau IP distinct. Le routage inter-VLAN transfère les paquets entre VLAN via des sous-interfaces 802.1Q."
+        },
+        {
+          "title": "VLAN et sécurité",
+          "body": "Les VLAN améliorent la sécurité par segmentation. Un attaquant dans un VLAN ne peut pas accéder directement à un autre VLAN sans traverser un routeur/firewall. Le VLAN natif doit être sécurisé. Le port security limite les MAC. Le DHCP snooping et DAI protègent contre les attaques.  Les VLAN améliorent la sécurité par segmentation. Un attaquant dans un VLAN ne peut pas accéder directement à un autre VLAN sans traverser un routeur/firewall. Le VLAN natif doit être sécurisé (pas VLAN 1). Le port security limite les MAC. Le DHCP snooping et DAI protègent contre les attaques. Le private VLAN isole les ports au sein d'un même VLAN."
+        },
+        {
+          "title": "Cas réel d'entreprise",
+          "body": "Dans une PME, on crée VLAN 10 (admin), VLAN 20 (production), VLAN 30 (invités), VLAN 99 (gestion). Dans une mairie, VLAN par service. Dans une école, VLAN élèves, profs, admin. Dans une entreprise multi-services, VLAN par département avec QoS pour la voix. Dans une PME de 50 postes, on crée VLAN 10 (Direction), VLAN 20 (Comptabilité), VLAN 30 (Production), VLAN 40 (Invités), VLAN 99 (Gestion). Chaque VLAN a son sous-réseau. Les ports des bureaux sont en access dans le VLAN correspondant. Les liens entre switches sont en trunk avec allowed list. Le VLAN 99 est utilisé pour la gestion SSH des switches. Dans une mairie, on crée des VLAN par service (RH, Urbanisme, Technique) avec QoS pour la téléphonie. Dans une école, VLAN élèves, profs, admin, invités. Dans une entreprise multi-services, VLAN par département avec priorisation voix et données.  Scénario 1 : PME de 50 postes. On crée VLAN 10 (Direction), VLAN 20 (Comptabilité), VLAN 30 (Production), VLAN 40 (Invités), VLAN 99 (Gestion). Chaque VLAN a son sous-réseau. Les ports des bureaux sont en access dans le VLAN correspondant. Les liens entre switches sont en trunk avec allowed list. Le VLAN 99 est utilisé pour la gestion SSH des switches. Scénario 2 : mairie avec VLAN par service (RH, Urbanisme, Technique) avec QoS pour la téléphonie. Scénario 3 : école avec VLAN élèves, profs, admin, invités. Scénario 4 : entreprise multi-services avec VLAN par département et priorisation voix et données. Dans tous les cas, le plan de VLAN doit être documenté et validé par le jury.  Scénario PME : 50 postes, VLAN 10 Direction, VLAN 20 Comptabilité, VLAN 30 Production, VLAN 40 Invités, VLAN 99 Gestion. Chaque VLAN a son sous-réseau. Les ports des bureaux sont en access dans le VLAN correspondant. Les liens entre switches sont en trunk avec allowed list. Le VLAN 99 est utilisé pour la gestion SSH des switches. Scénario mairie : VLAN par service (RH, Urbanisme, Technique) avec QoS pour la téléphonie. Scénario école : VLAN élèves, profs, admin, invités. Scénario entreprise multi-services : VLAN par département avec priorisation voix et données. Dans tous les cas, le plan de VLAN doit être documenté et validé par le jury. Le VLAN natif doit être changé. Le VLAN 1 ne doit pas être utilisé pour le trafic utilisateur."
+        },
+        {
+          "title": "Mise en œuvre pas à pas",
+          "body": "1. Définir le plan de VLAN. 2. Créer les VLAN sur le switch. 3. Nommer les VLAN. 4. Assigner les ports access. 5. Configurer les trunks. 6. Vérifier avec show vlan brief et show interfaces trunk. 7. Tester la connectivité. 1. Définir le plan de VLAN (ID, nom, sous-réseau, ports). 2. Créer les VLAN sur le switch avec vlan 10 et name. 3. Assigner les ports access avec switchport mode access et switchport access vlan 10. 4. Configurer les trunks avec switchport mode trunk et allowed vlan. 5. Changer le native VLAN. 6. Vérifier avec show vlan brief et show interfaces trunk. 7. Tester la connectivité intra-VLAN. 8. Configurer le routage inter-VLAN si nécessaire. 9. Documenter."
         },
         {
           "title": "Dépannage",
-          "body": "Les VLAN créent des domaines de broadcast séparés. Dépannage."
+          "body": "Poste dans mauvais VLAN : vérifier l'assignation du port. VLAN absent : créer le VLAN. Trunk mal configuré : vérifier allowed list et native VLAN. VLAN non propagé : vérifier le trunk et le VTP. Problème de routage inter-VLAN : vérifier les sous-interfaces. Poste dans mauvais VLAN : vérifier l'assignation du port avec show interfaces switchport. VLAN absent : créer le VLAN avec vlan 10. Trunk mal configuré : vérifier allowed list et native VLAN avec show interfaces trunk. VLAN non propagé : vérifier le trunk et le VTP. Problème de routage inter-VLAN : vérifier les sous-interfaces et l'encapsulation 802.1Q. Native VLAN mismatch : les deux côtés du trunk doivent avoir le même native VLAN. Port en err-disabled : vérifier port security et BPDU guard.  Poste dans mauvais VLAN : vérifier l'assignation du port avec show interfaces switchport. VLAN absent : créer le VLAN avec vlan 10. Trunk mal configuré : vérifier allowed list et native VLAN avec show interfaces trunk. VLAN non propagé : vérifier le trunk et le VTP. Problème de routage inter-VLAN : vérifier les sous-interfaces et l'encapsulation 802.1Q. Native VLAN mismatch : les deux côtés du trunk doivent avoir le même native VLAN. Port en err-disabled : vérifier port security et BPDU guard. VLAN non routé : vérifier le routeur on a stick.  Poste dans mauvais VLAN : vérifier l'assignation du port avec show interfaces switchport. VLAN absent : créer le VLAN avec vlan 10. Trunk mal configuré : vérifier allowed list et native VLAN avec show interfaces trunk. VLAN non propagé : vérifier le trunk et le VTP. Problème de routage inter-VLAN : vérifier les sous-interfaces et l'encapsulation 802.1Q. Native VLAN mismatch : les deux côtés du trunk doivent avoir le même native VLAN. Port en err-disabled : vérifier port security et BPDU guard. VLAN non routé : vérifier le routeur on a stick. Poste sans IP : vérifier le DHCP et le VLAN."
         },
         {
-          "title": "Commandes CLI",
-          "body": "Commandes usuelles."
+          "title": "Commandes Cisco IOS",
+          "body": "Configuration VLAN :\n\nvlan 10\n name ADMIN\n\ninterface fa0/1\n switchport mode access\n switchport access vlan 10\n\nConfiguration trunk :\n\ninterface gi0/1\n switchport mode trunk\n switchport trunk allowed vlan 10,20,99\n switchport trunk native vlan 99\n\nCommandes de vérification :\nshow vlan brief\nshow interfaces trunk\nshow running-config\nshow mac address-table\nshow interfaces switchport\nshow spanning-tree Configuration VLAN :\n\nvlan 10\n name ADMIN\n\ninterface fa0/1\n switchport mode access\n switchport access vlan 10\n\nConfiguration trunk :\n\ninterface gi0/1\n switchport mode trunk\n switchport trunk allowed vlan 10,20,99\n switchport trunk native vlan 99\n\nCommandes de vérification :\nshow vlan brief\nshow interfaces trunk\nshow running-config\nshow mac address-table\nshow interfaces switchport\nshow spanning-tree\n\nExplication : show vlan brief affiche les VLAN et les ports. show interfaces trunk affiche les trunks et les VLAN autorisés. show mac address-table affiche les adresses MAC par VLAN. show interfaces switchport affiche la configuration du port. show spanning-tree affiche l'état STP.  Configuration VLAN :\n\nvlan 10\n name ADMIN\n\ninterface fa0/1\n switchport mode access\n switchport access vlan 10\n\nConfiguration trunk :\n\ninterface gi0/1\n switchport mode trunk\n switchport trunk allowed vlan 10,20,99\n switchport trunk native vlan 99\n\nCommandes de vérification :\nshow vlan brief\nshow interfaces trunk\nshow running-config\nshow mac address-table\nshow interfaces switchport\nshow spanning-tree\n\nExplication : show vlan brief affiche les VLAN et les ports. show interfaces trunk affiche les trunks et les VLAN autorisés. show mac address-table affiche les adresses MAC par VLAN. show interfaces switchport affiche la configuration du port. show spanning-tree affiche l'état STP."
         },
         {
-          "title": "Vérification",
-          "body": "Vérifier la configuration."
+          "title": "Commandes de vérification",
+          "body": "show vlan brief affiche les VLAN et les ports. show interfaces trunk affiche les trunks et les VLAN autorisés. show mac address-table affiche les adresses MAC par VLAN. show interfaces switchport affiche la configuration du port."
         },
         {
           "title": "Questions de jury",
-          "body": "Questions typiques."
+          "body": "Expliquer la différence entre VLAN et sous-réseau. Qu'est-ce que le VLAN natif ? Pourquoi le VLAN 1 est déconseillé ? Comment fonctionne le routage inter-VLAN ? Qu'est-ce que le trunk ?  Expliquer la différence entre VLAN et sous-réseau. Qu'est-ce que le VLAN natif ? Pourquoi le VLAN 1 est déconseillé ? Comment fonctionne le routage inter-VLAN ? Qu'est-ce que le trunk ? Qu'est-ce que le tag 802.1Q ? Qu'est-ce qu'un VLAN voix ? Comment sécuriser un trunk ?"
         },
         {
           "title": "Pièges d'examen",
-          "body": "Pièges fréquents."
+          "body": "Confondre VLAN et sous-réseau (VLAN = couche 2, sous-réseau = couche 3). Oublier le VLAN natif. Laisser le VLAN 1 pour le trafic. Trunk non autorisé. Port non assigné. Native VLAN mismatch."
         },
         {
           "title": "Bonnes pratiques",
-          "body": "Bonnes pratiques."
+          "body": "Nommer les VLAN, documenter, changer le VLAN natif, désactiver le VLAN 1, utiliser le port security, activer DHCP snooping et DAI.  Nommer les VLAN de manière cohérente. Documenter le plan de VLAN. Changer le VLAN natif. Désactiver le VLAN 1 pour le trafic utilisateur. Utiliser le port security. Activer DHCP snooping et DAI. Désactiver DTP. Utiliser des trunks avec allowed list explicite.  Nommer les VLAN de manière cohérente et documentée. Changer le VLAN natif (pas VLAN 1). Désactiver le VLAN 1 pour le trafic utilisateur. Utiliser le port security pour limiter les MAC. Activer DHCP snooping et DAI pour la sécurité. Désactiver DTP et forcer les trunks. Utiliser des allowed lists explicites. Isoler le VLAN de gestion. Utiliser des VLAN voix avec QoS. Documenter le plan de VLAN et le mettre à jour."
         },
         {
           "title": "Mémo révision",
-          "body": "Les VLAN créent des domaines de broadcast séparés."
+          "body": "VLAN = domaine de broadcast logique. Access = 1 VLAN. Trunk = plusieurs VLAN (802.1Q). Native VLAN = non taggé. VLAN 1 = par défaut (à éviter). Routage inter-VLAN = router on a stick ou switch L3.  VLAN = domaine de broadcast logique. Access = 1 VLAN. Trunk = plusieurs VLAN (802.1Q). Native VLAN = non taggé. VLAN 1 = par défaut (à éviter). Routage inter-VLAN = router on a stick ou switch L3. VLAN voix = QoS. VLAN gestion = administration isolée.  VLAN = domaine de broadcast logique. Access = 1 VLAN. Trunk = plusieurs VLAN (802.1Q). Native VLAN = non taggé. VLAN 1 = par défaut (à éviter). Routage inter-VLAN = router on a stick ou switch L3. VLAN voix = QoS. VLAN gestion = administration isolée. Port security = limite MAC. DHCP snooping = protège DHCP. DAI = protège ARP."
         },
         {
-          "title": "Schéma Mermaid",
-          "body": "graph TD; A-->B;"
+          "title": "Schémas Mermaid",
+          "body": "graph TD; SW[Switch]-->|access VLAN10|PC1; SW-->|access VLAN20|PC2; SW-->|trunk|RT[Routeur];"
         },
         {
           "title": "Sources de référence",
-          "body": "Documentation officielle."
+          "body": "IEEE 802.1Q, Cisco Networking Academy, documentation officielle Cisco IOS."
         }
       ]
     },
