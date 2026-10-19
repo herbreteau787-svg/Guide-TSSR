@@ -1174,7 +1174,7 @@
       "t": "NAT et PAT",
       "level": "intermediaire",
       "cli": true,
-      "r": "NAT traduit les adresses, PAT utilise les ports.",
+      "r": "Le NAT traduit les adresses privées en publiques et permet l'accès Internet depuis un réseau privé.",
       "tags": [
         "cp4",
         "nat-pat"
@@ -1186,71 +1186,131 @@
         "Oubli de vérification"
       ],
       "w": "Le test seul ne prouve pas la cause.",
-      "resume": "NAT traduit les adresses, PAT utilise les ports.",
+      "resume": "NAT/PAT : traduction d'adresse, inside/outside, overload.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "NAT traduit les adresses, PAT utilise les ports."
+          "body": "Le NAT (Network Address Translation) est le mécanisme qui permet à un réseau privé d'accéder à Internet en traduisant les adresses privées en adresses publiques. Sans NAT, le manque d'adresses IPv4 empêcherait la connectivité. Pour un candidat TSSR, maîtriser le NAT est essentiel car il est au cœur des mises en situation et des questions du jury.  Le NAT (Network Address Translation) est le mécanisme qui permet à un réseau privé d'accéder à Internet en traduisant les adresses privées en adresses publiques. Sans NAT, le manque d'adresses IPv4 empêcherait la connectivité. Pour un candidat TSSR, maîtriser le NAT est essentiel car il est au cœur des mises en situation et des questions du jury. Le NAT est omniprésent en entreprise.  Le NAT (Network Address Translation) est le mécanisme qui permet à un réseau privé d'accéder à Internet en traduisant les adresses privées en adresses publiques. Sans NAT, le manque d'adresses IPv4 empêcherait la connectivité. Pour un candidat TSSR, maîtriser le NAT est essentiel car il est au cœur des mises en situation et des questions du jury. Le NAT est omniprésent en entreprise."
         },
         {
-          "title": "Définitions",
-          "body": "NAT traduit les adresses, PAT utilise les ports."
+          "title": "Pourquoi NAT existe",
+          "body": "La pénurie d'adresses IPv4 a conduit à l'utilisation d'adresses privées (RFC1918). Ces adresses ne sont pas routables sur Internet. Le NAT traduit les adresses privées en adresses publiques, permettant à plusieurs équipements de partager une ou plusieurs adresses publiques.  La pénurie d'adresses IPv4 a conduit à l'utilisation d'adresses privées (RFC1918). Ces adresses ne sont pas routables sur Internet. Le NAT traduit les adresses privées en adresses publiques, permettant à plusieurs équipements de partager une ou plusieurs adresses publiques. Le NAT a sauvé Internet."
         },
         {
-          "title": "Théorie détaillée",
-          "body": "NAT traduit les adresses, PAT utilise les ports. Fonctionnement interne et concepts."
+          "title": "Pénurie IPv4",
+          "body": "La pénurie d'adresses IPv4 a conduit à l'utilisation d'adresses privées (RFC1918). Ces adresses ne sont pas routables sur Internet. Le NAT traduit les adresses privées en adresses publiques, permettant à plusieurs équipements de partager une ou plusieurs adresses publiques.  Les adresses IPv4 sont limitées à 4,3 milliards. La croissance d'Internet a épuisé les adresses. Le NAT permet de réutiliser les adresses privées. IPv6 résout le problème mais le NAT reste omniprésent."
         },
         {
-          "title": "Fonctionnement interne",
-          "body": "NAT traduit les adresses, PAT utilise les ports."
+          "title": "Adresses privées RFC1918",
+          "body": "Les adresses privées sont définies par la RFC1918 : 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16. Elles ne sont pas routables sur Internet. Elles sont utilisées dans les réseaux locaux.  Les adresses privées sont définies par la RFC1918 : 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16. Elles ne sont pas routables sur Internet. Elles sont utilisées dans les réseaux locaux. Le NAT les traduit en adresses publiques."
         },
         {
-          "title": "Architecture",
-          "body": "NAT traduit les adresses, PAT utilise les ports."
+          "title": "Adresses publiques",
+          "body": "Les adresses publiques sont attribuées par les RIR (Regional Internet Registries). Elles sont routables sur Internet. Une entreprise dispose généralement d'un bloc d'adresses publiques.  Les adresses publiques sont attribuées par les RIR (Regional Internet Registries). Elles sont routables sur Internet. Une entreprise dispose généralement d'un bloc d'adresses publiques. Le NAT utilise ces adresses pour l'accès Internet."
+        },
+        {
+          "title": "Fonctionnement du NAT",
+          "body": "Le NAT fonctionne en traduisant l'adresse source (inside) en adresse publique (outside) pour le trafic sortant, et en traduisant l'adresse destination (outside) en adresse privée (inside) pour le trafic entrant. Le routeur maintient une table de traduction.  Le NAT fonctionne en traduisant l'adresse source (inside) en adresse publique (outside) pour le trafic sortant, et en traduisant l'adresse destination (outside) en adresse privée (inside) pour le trafic entrant. Le routeur maintient une table de traduction. Le processus est transparent pour les utilisateurs."
+        },
+        {
+          "title": "NAT statique",
+          "body": "Le NAT statique associe une adresse privée à une adresse publique de manière permanente. Il est utilisé pour les serveurs accessibles depuis Internet (web, mail)."
+        },
+        {
+          "title": "NAT dynamique",
+          "body": "Le NAT dynamique associe une adresse privée à une adresse publique disponible dans un pool. Il est utilisé lorsque le nombre d'adresses publiques est limité."
+        },
+        {
+          "title": "PAT (Port Address Translation)",
+          "body": "Le PAT (Port Address Translation), aussi appelé NAT overload, associe plusieurs adresses privées à une seule adresse publique en utilisant les ports. C'est le mode le plus courant en entreprise.  Le PAT (Port Address Translation), aussi appelé NAT overload, associe plusieurs adresses privées à une seule adresse publique en utilisant les ports. C'est le mode le plus courant en entreprise. Le routeur utilise les ports TCP/UDP pour distinguer les flux."
+        },
+        {
+          "title": "Surcharge NAT",
+          "body": "La surcharge NAT (overload) permet à plusieurs équipements de partager une seule adresse publique. Le routeur utilise les ports TCP/UDP pour distinguer les flux. C'est le mode par défaut sur les routeurs Cisco (ip nat inside source list ... overload).  La surcharge NAT (overload) permet à plusieurs équipements de partager une seule adresse publique. Le routeur utilise les ports TCP/UDP pour distinguer les flux. C'est le mode par défaut sur les routeurs Cisco (ip nat inside source list ... overload)."
+        },
+        {
+          "title": "Traduction d'adresses",
+          "body": "Le NAT traduit les adresses IP. Le PAT traduit les adresses et les ports. Le NAT statique est permanent, le dynamique est temporaire. Le PAT est une forme de NAT dynamique avec surcharge.  Le NAT traduit les adresses IP. Le PAT traduit les adresses et les ports. Le NAT statique est permanent, le dynamique est temporaire. Le PAT est une forme de NAT dynamique avec surcharge.  Le NAT traduit les adresses IP. Le PAT traduit les adresses et les ports. Le NAT statique est permanent, le dynamique est temporaire. Le PAT est une forme de NAT dynamique avec surcharge."
+        },
+        {
+          "title": "Traduction de ports",
+          "body": "Le NAT traduit les adresses IP. Le PAT traduit les adresses et les ports TCP/UDP pour distinguer les flux. Le PAT est une forme de NAT avec surcharge (overload).  Le PAT traduit les ports TCP/UDP pour distinguer les flux. Chaque connexion sortante utilise un port source unique. Le routeur maintient la correspondance dans la table NAT."
+        },
+        {
+          "title": "Tables NAT",
+          "body": "Le routeur maintient une table de traduction NAT (show ip nat translations). Elle contient les mappings inside/outside. Chaque entrée montre l'adresse locale et globale.  Le routeur maintient une table de traduction NAT (show ip nat translations). Elle contient les mappings inside/outside. Chaque entrée montre l'adresse locale et globale. La table est dynamique.  Le routeur maintient une table de traduction NAT (show ip nat translations). Elle contient les mappings inside/outside. Chaque entrée montre l'adresse locale et globale. La table est dynamique et se vide avec clear ip nat translation *."
+        },
+        {
+          "title": "Flux entrant",
+          "body": "Le flux entrant est initié depuis Internet vers le réseau interne. Il nécessite une traduction destination (DNAT) ou un port forwarding. Le firewall doit autoriser le flux.  Le flux entrant est initié depuis Internet vers le réseau interne. Il nécessite une traduction destination (DNAT) ou un port forwarding. Le firewall doit autoriser le flux. Le NAT statique est utilisé pour les serveurs.  Le flux entrant est initié depuis Internet vers le réseau interne. Il nécessite une traduction destination (DNAT) ou un port forwarding. Le firewall doit autoriser le flux. Le NAT statique est utilisé pour les serveurs."
+        },
+        {
+          "title": "Flux sortant",
+          "body": "Le flux sortant est initié depuis le réseau interne vers Internet. Il nécessite une traduction source (SNAT). C'est le cas le plus courant (PAT).  Le flux sortant est initié depuis le réseau interne vers Internet. Il nécessite une traduction source (SNAT). C'est le cas le plus courant (PAT). Le flux sortant est automatique.  Le flux sortant est initié depuis le réseau interne vers Internet. Il nécessite une traduction source (SNAT). C'est le cas le plus courant (PAT). Le flux sortant est automatique."
+        },
+        {
+          "title": "NAT et sécurité",
+          "body": "Le NAT cache les adresses privées derrière une adresse publique, améliorant la sécurité. Cependant, le NAT n'est pas un firewall. Il doit être combiné avec des ACL et un firewall.  Le NAT cache les adresses privées derrière une adresse publique, améliorant la sécurité. Cependant, le NAT n'est pas un firewall. Il doit être combiné avec des ACL et un firewall.  Le NAT cache les adresses privées derrière une adresse publique, améliorant la sécurité. Cependant, le NAT n'est pas un firewall. Il doit être combiné avec des ACL et un firewall."
+        },
+        {
+          "title": "NAT et pare-feu",
+          "body": "Le NAT et le firewall sont souvent combinés. Le NAT traduit, le firewall filtre. L'ordre de traitement est important : NAT puis firewall ou inverse selon la plateforme.  Le NAT et le firewall sont souvent combinés. Le NAT traduit, le firewall filtre. L'ordre de traitement est important : NAT puis firewall ou inverse selon la plateforme.  Le NAT et le firewall sont souvent combinés. Le NAT traduit, le firewall filtre. L'ordre de traitement est important : NAT puis firewall ou inverse selon la plateforme."
+        },
+        {
+          "title": "NAT et VPN",
+          "body": "Le NAT et le VPN peuvent entrer en conflit (NAT traversal). L'IPsec utilise des protocoles qui ne traversent pas bien le NAT. Des solutions existent (NAT-T, UDP encapsulation).  Le NAT et le VPN peuvent entrer en conflit (NAT traversal). L'IPsec utilise des protocoles qui ne traversent pas bien le NAT. Des solutions existent (NAT-T, UDP encapsulation).  Le NAT et le VPN peuvent entrer en conflit (NAT traversal). L'IPsec utilise des protocoles qui ne traversent pas bien le NAT. Des solutions existent (NAT-T, UDP encapsulation)."
+        },
+        {
+          "title": "NAT dans une PME",
+          "body": "Scénario PME 50 postes : un routeur avec PAT sur une adresse publique. Tous les postes partagent la même IP publique via des ports différents."
+        },
+        {
+          "title": "NAT dans une école",
+          "body": "Scénario école : PAT pour les élèves, serveur web publié via NAT statique."
+        },
+        {
+          "title": "NAT dans une collectivité",
+          "body": "Scénario collectivité : multi-sites avec NAT et VPN."
         },
         {
           "title": "Cas concret entreprise",
-          "body": "NAT traduit les adresses, PAT utilise les ports. Cas pratique."
+          "body": "Cas concret : une entreprise avec un réseau privé 192.168.1.0/24 veut accéder à Internet. Le routeur traduit les adresses privées en une adresse publique via PAT. Les serveurs web sont publiés via NAT statique.  Cas concret : une entreprise avec un réseau privé 192.168.1.0/24 veut accéder à Internet. Le routeur traduit les adresses privées en une adresse publique via PAT. Les serveurs web sont publiés via NAT statique. Le NAT est transparent pour les utilisateurs.  Cas concret : une entreprise avec un réseau privé 192.168.1.0/24 veut accéder à Internet. Le routeur traduit les adresses privées en une adresse publique via PAT. Les serveurs web sont publiés via NAT statique. Le NAT est transparent pour les utilisateurs."
         },
         {
-          "title": "Procédure pas à pas",
-          "body": "1. Vérifier. 2. Configurer. 3. Tester."
-        },
-        {
-          "title": "Dépannage",
-          "body": "NAT traduit les adresses, PAT utilise les ports. Dépannage."
-        },
-        {
-          "title": "Commandes CLI",
-          "body": "Commandes usuelles."
+          "title": "Configuration Cisco IOS",
+          "body": "1. Définir les interfaces inside et outside. 2. Créer une ACL pour les réseaux à traduire. 3. Configurer le NAT (statique, dynamique ou PAT). 4. Vérifier la table de traduction. 5. Tester l'accès Internet. Configuration Cisco IOS :\ninterface gi0/0\n ip nat inside\ninterface gi0/1\n ip nat outside\n\nip access-list standard LAN\n permit 192.168.1.0 0.0.0.255\n\nip nat inside source list LAN interface gi0/1 overload\n\nip nat inside source static 192.168.1.10 203.0.113.10\n\nCommandes de vérification :\nshow ip nat translations\nshow ip nat statistics\nshow running-config\nshow access-lists\nclear ip nat translation *\n\nExplication :\nshow ip nat translations affiche la table de traduction.\nshow ip nat statistics affiche les statistiques.\nshow running-config affiche la configuration.\nshow access-lists affiche les ACL.\nclear ip nat translation * vide la table."
         },
         {
           "title": "Vérification",
-          "body": "Vérifier la configuration."
+          "body": "show ip nat translations doit afficher les mappings. show ip nat statistics doit afficher les hits. Un poste interne doit accéder à Internet. Un serveur publié doit être accessible depuis l'extérieur."
+        },
+        {
+          "title": "Dépannage",
+          "body": "Accès Internet impossible : vérifier la route par défaut, le NAT, les interfaces. ACL incorrecte : vérifier l'ACL. Interface inside/outside inversée : corriger. Route par défaut absente : ajouter la route. Surcharge NAT mal configurée : vérifier overload. PAT non fonctionnel : vérifier les ports."
         },
         {
           "title": "Questions de jury",
-          "body": "Questions typiques."
+          "body": "Expliquer le NAT. Qu'est-ce que le PAT ? Quelle est la différence entre NAT statique et dynamique ? Pourquoi le NAT est-il nécessaire ? Qu'est-ce que l'overload ?"
         },
         {
           "title": "Pièges d'examen",
-          "body": "Pièges fréquents."
+          "body": "Confondre NAT et PAT. Oublier overload. Interface inside/outside inversée. ACL incorrecte. Route par défaut absente. Oublier clear ip nat translation. Confondre inside et outside."
         },
         {
           "title": "Bonnes pratiques",
-          "body": "Bonnes pratiques."
+          "body": "Documenter les traductions. Utiliser PAT pour les LAN. Utiliser NAT statique pour les serveurs. Vérifier les ACL. Tester après configuration. Monitorer les traductions."
         },
         {
           "title": "Mémo révision",
-          "body": "NAT traduit les adresses, PAT utilise les ports."
+          "body": "NAT = traduction d'adresse. PAT = NAT + ports (overload). Inside = réseau privé. Outside = Internet. Table de traduction. clear ip nat translation *. NAT statique pour serveurs."
         },
         {
-          "title": "Schéma Mermaid",
-          "body": "graph TD; A-->B;"
+          "title": "Schémas Mermaid",
+          "body": "graph LR; LAN[LAN privé]-->|NAT|WAN[Internet];"
         },
         {
           "title": "Sources de référence",
-          "body": "Documentation officielle."
+          "body": "RFC 1631, Cisco Networking Academy, documentation Cisco IOS."
         }
       ]
     },
