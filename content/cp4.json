@@ -741,7 +741,7 @@
       "t": "STP et RSTP",
       "level": "intermediaire",
       "cli": true,
-      "r": "STP évite les boucles de couche 2.",
+      "r": "STP empêche les boucles dans les réseaux Ethernet redondants en bloquant les ports redondants.",
       "tags": [
         "cp4",
         "stp"
@@ -753,71 +753,147 @@
         "Oubli de vérification"
       ],
       "w": "Le test seul ne prouve pas la cause.",
-      "resume": "STP évite les boucles de couche 2.",
+      "resume": "STP : anti-boucle, root bridge, ports, états, RSTP, PVST.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "STP évite les boucles de couche 2."
+          "body": "STP (Spanning Tree Protocol) est le protocole qui empêche les boucles dans les réseaux Ethernet redondants. Pour un candidat TSSR, maîtriser STP est essentiel car il est au cœur des mises en situation et des questions du jury. Une boucle réseau peut paralyser toute l'infrastructure en quelques secondes.  STP (Spanning Tree Protocol) est le protocole qui empêche les boucles dans les réseaux Ethernet redondants. Pour un candidat TSSR, maîtriser STP est essentiel car il est au cœur des mises en situation et des questions du jury. Une boucle réseau peut paralyser toute l'infrastructure en quelques secondes."
         },
         {
-          "title": "Définitions",
-          "body": "STP évite les boucles de couche 2."
+          "title": "Pourquoi STP existe",
+          "body": "Dans un réseau avec des liens redondants, une boucle de couche 2 peut se former. Les trames de broadcast sont répliquées indéfiniment, saturant les liens et les tables MAC. STP bloque les ports redondants pour empêcher les boucles tout en conservant la redondance physique.  Dans un réseau avec des liens redondants, une boucle de couche 2 peut se former. Les trames de broadcast sont répliquées indéfiniment, saturant les liens et les tables MAC. STP bloque les ports redondants pour empêcher les boucles tout en conservant la redondance physique."
         },
         {
-          "title": "Théorie détaillée",
-          "body": "STP évite les boucles de couche 2. Fonctionnement interne et concepts."
+          "title": "Boucles Ethernet",
+          "body": "Une boucle Ethernet se produit lorsqu'il existe plusieurs chemins entre deux points. Les trames de broadcast sont répliquées à l'infini. Les switches inondent les trames, créant une tempête de broadcast. Le réseau devient inutilisable en quelques secondes."
         },
         {
-          "title": "Fonctionnement interne",
-          "body": "STP évite les boucles de couche 2."
+          "title": "Tempêtes de broadcast",
+          "body": "Une tempête de broadcast se manifeste par une saturation des liens, des CPU de switches à 100%, des connexions qui tombent. Les LED des ports clignotent frénétiquement. La tempête se propage rapidement dans tout le réseau."
         },
         {
-          "title": "Architecture",
-          "body": "STP évite les boucles de couche 2."
+          "title": "Saturation des tables MAC",
+          "body": "Les switches maintiennent une table MAC associant les adresses MAC aux ports. En cas de boucle, la même adresse MAC arrive sur plusieurs ports. La table MAC s'instabilise, les trames sont envoyées sur les mauvais ports. La commutation devient erratique."
+        },
+        {
+          "title": "Fonctionnement de STP",
+          "body": "STP (IEEE 802.1D) utilise des BPDU (Bridge Protocol Data Units) pour échanger des informations entre switches. Il élit un Root Bridge, calcule le chemin le plus court vers le root, et bloque les ports redondants. Les ports bloqués restent en veille pour la redondance.  STP (IEEE 802.1D) utilise des BPDU (Bridge Protocol Data Units) pour échanger des informations entre switches. Il élit un Root Bridge, calcule le chemin le plus court vers le root, et bloque les ports redondants. Les ports bloqués restent en veille pour la redondance. Le processus est automatique."
+        },
+        {
+          "title": "Élection du Root Bridge",
+          "body": "L'élection du Root Bridge se base sur le Bridge ID (priorité + adresse MAC). Le switch avec le Bridge ID le plus bas devient le Root Bridge. La priorité par défaut est 32768. On peut modifier la priorité pour forcer un switch comme root.  L'élection du Root Bridge se base sur le Bridge ID (priorité + adresse MAC). Le switch avec le Bridge ID le plus bas devient le Root Bridge. La priorité par défaut est 32768. On peut modifier la priorité pour forcer un switch comme root. Le Root Bridge est le point de référence."
+        },
+        {
+          "title": "Bridge ID",
+          "body": "Le Bridge ID est composé de la priorité (2 octets) et de l'adresse MAC (6 octets). La priorité par défaut est 32768. Le Bridge ID le plus bas gagne l'élection. Le Root Bridge est le point de référence du spanning tree.  Le Bridge ID est composé de la priorité (2 octets) et de l'adresse MAC (6 octets). La priorité par défaut est 32768. Le Bridge ID le plus bas gagne l'élection. Le Root Bridge est le point de référence du spanning tree."
+        },
+        {
+          "title": "Election des ports",
+          "body": "Après l'élection du Root Bridge, chaque switch calcule le chemin le plus court vers le root. Le port avec le coût le plus bas vers le root devient le Root Port. Sur chaque segment, le switch avec le meilleur chemin vers le root devient le Designated Bridge et son port devient le Designated Port. Les autres ports sont bloqués."
+        },
+        {
+          "title": "Root Port",
+          "body": "Le Root Port est le port d'un switch qui offre le chemin le plus court vers le Root Bridge. Il est en état Forwarding. Chaque switch (sauf le root) a un Root Port. C'est le port par lequel le switch atteint le root."
+        },
+        {
+          "title": "Designated Port",
+          "body": "Le Designated Port est le port sur un segment qui offre le meilleur chemin vers le Root Bridge. Il est en état Forwarding. Il transfère le trafic vers le root. Il est le port actif du segment."
+        },
+        {
+          "title": "Blocked Port",
+          "body": "Le port bloqué (Blocked) ne transfère pas le trafic. Il écoute les BPDU pour détecter les changements. Il peut passer en Forwarding si un lien tombe. Il assure la redondance physique."
+        },
+        {
+          "title": "États STP",
+          "body": "Les états STP sont : Blocking (écoute les BPDU, ne transfère pas), Listening (apprend la topologie, 15s), Learning (apprend les MAC, 15s), Forwarding (transfère le trafic), Disabled (port down). Le passage de Blocking à Forwarding prend 30 secondes (2x forward delay).  Les états STP sont : Blocking (écoute les BPDU, ne transfère pas), Listening (apprend la topologie, 15s), Learning (apprend les MAC, 15s), Forwarding (transfère le trafic), Disabled (port down). Le passage de Blocking à Forwarding prend 30 secondes (2x forward delay).  Les états STP sont : Blocking (écoute les BPDU, ne transfère pas), Listening (apprend la topologie, 15s), Learning (apprend les MAC, 15s), Forwarding (transfère le trafic), Disabled (port down). Le passage de Blocking à Forwarding prend 30 secondes (2x forward delay)."
+        },
+        {
+          "title": "Listening",
+          "body": "L'état Listening dure 15 secondes (forward delay). Le switch écoute les BPDU et apprend la topologie. Aucune trame de données n'est transférée. L'état est transitoire."
+        },
+        {
+          "title": "Learning",
+          "body": "L'état Learning dure 15 secondes. Le switch apprend les adresses MAC mais ne transfère pas encore le trafic. L'état est transitoire. Après Learning, le port passe en Forwarding."
+        },
+        {
+          "title": "Forwarding",
+          "body": "L'état Forwarding transfère le trafic normalement. Le port est actif. C'est l'état final pour les ports Root et Designated. Le trafic est commuté normalement."
+        },
+        {
+          "title": "Blocking",
+          "body": "L'état Blocking écoute les BPDU mais ne transfère pas le trafic. Le port est en veille. Il peut passer en Forwarding si un lien tombe. L'état Blocking assure la redondance."
+        },
+        {
+          "title": "RSTP",
+          "body": "RSTP (Rapid Spanning Tree Protocol, 802.1w) accélère la convergence. Les états sont simplifiés : Discarding, Learning, Forwarding. La convergence est de quelques secondes. RSTP est recommandé en production.  RSTP (Rapid Spanning Tree Protocol, 802.1w) accélère la convergence. Les états sont simplifiés : Discarding, Learning, Forwarding. La convergence est de quelques secondes. RSTP est recommandé en production. RSTP est plus rapide que STP.  RSTP (Rapid Spanning Tree Protocol, 802.1w) accélère la convergence. Les états sont simplifiés : Discarding, Learning, Forwarding. La convergence est de quelques secondes. RSTP est recommandé en production. RSTP est plus rapide que STP."
+        },
+        {
+          "title": "PVST",
+          "body": "PVST (Per-VLAN Spanning Tree) crée un spanning tree par VLAN. Chaque VLAN a son propre root bridge et sa propre topologie. C'est le mode par défaut sur Cisco. Il permet d'optimiser les chemins par VLAN.  PVST (Per-VLAN Spanning Tree) crée un spanning tree par VLAN. Chaque VLAN a son propre root bridge et sa propre topologie. C'est le mode par défaut sur Cisco. Il permet d'optimiser les chemins par VLAN."
+        },
+        {
+          "title": "Rapid PVST",
+          "body": "Rapid PVST+ combine RSTP et PVST. Il offre la convergence rapide de RSTP et la flexibilité de PVST. C'est le mode recommandé sur Cisco."
+        },
+        {
+          "title": "STP et VLAN",
+          "body": "STP et VLAN : PVST crée un spanning tree par VLAN. Chaque VLAN a son propre root bridge. Le trunk transporte les BPDU pour tous les VLAN. Le native VLAN est important pour STP."
+        },
+        {
+          "title": "STP et Trunk",
+          "body": "STP et Trunk : les BPDU sont envoyés sur le native VLAN du trunk. Le trunk doit être configuré correctement. Un trunk mal configuré peut créer des boucles."
+        },
+        {
+          "title": "STP et EtherChannel",
+          "body": "STP et EtherChannel : EtherChannel est vu comme un seul lien par STP. Les ports membres sont traités comme un seul port. Cela évite les blocages. L'EtherChannel doit être configuré avant STP."
+        },
+        {
+          "title": "Cas concret PME",
+          "body": "Scénario PME : un switch avec des liens redondants. STP élit un root bridge et bloque les ports redondants. RSTP accélère la convergence. Le réseau est protégé contre les boucles.  Scénario PME : un switch avec des liens redondants. STP élit un root bridge et bloque les ports redondants. RSTP accélère la convergence. Le réseau est protégé contre les boucles. Le root bridge est placé stratégiquement."
+        },
+        {
+          "title": "Commandes Cisco IOS",
+          "body": "Commandes Cisco IOS :\nshow spanning-tree\nshow spanning-tree vlan 10\nshow spanning-tree root\nshow interfaces trunk\nshow mac address-table\nshow running-config\n\nConfiguration :\nspanning-tree vlan 10 priority 4096\nspanning-tree mode rapid-pvst\ninterface gi0/1\n spanning-tree portfast\n spanning-tree bpduguard enable\n\nExplication :\nshow spanning-tree affiche l'état STP global.\nshow spanning-tree vlan 10 affiche STP pour le VLAN 10.\nshow spanning-tree root affiche le root bridge.\nshow interfaces trunk affiche les trunks.\nshow mac address-table affiche les MAC.\nspanning-tree vlan 10 priority change la priorité.\nspanning-tree mode rapid-pvst active RSTP.\nspanning-tree portfast accélère les ports edge.\nspanning-tree bpduguard protège contre les BPDU.  Commandes Cisco IOS :\nshow spanning-tree\nshow spanning-tree vlan 10\nshow spanning-tree root\nshow interfaces trunk\nshow mac address-table\nshow running-config\n\nConfiguration :\nspanning-tree vlan 10 priority 4096\nspanning-tree mode rapid-pvst\ninterface gi0/1\n spanning-tree portfast\n spanning-tree bpduguard enable\n\nExplication :\nshow spanning-tree affiche l'état STP global.\nshow spanning-tree vlan 10 affiche STP pour le VLAN 10.\nshow spanning-tree root affiche le root bridge.\nshow interfaces trunk affiche les trunks.\nshow mac address-table affiche les MAC.\nspanning-tree vlan 10 priority change la priorité.\nspanning-tree mode rapid-pvst active RSTP.\nspanning-tree portfast accélère les ports edge.\nspanning-tree bpduguard protège contre les BPDU.  Commandes Cisco IOS :\nshow spanning-tree\nshow spanning-tree vlan 10\nshow spanning-tree root\nshow interfaces trunk\nshow mac address-table\nshow running-config\n\nConfiguration :\nspanning-tree vlan 10 priority 4096\nspanning-tree mode rapid-pvst\ninterface gi0/1\n spanning-tree portfast\n spanning-tree bpduguard enable\n\nExplication :\nshow spanning-tree affiche l'état STP global.\nshow spanning-tree vlan 10 affiche STP pour le VLAN 10.\nshow spanning-tree root affiche le root bridge.\nshow interfaces trunk affiche les trunks.\nshow mac address-table affiche les MAC.\nspanning-tree vlan 10 priority change la priorité.\nspanning-tree mode rapid-pvst active RSTP.\nspanning-tree portfast accélère les ports edge.\nspanning-tree bpduguard protège contre les BPDU."
         },
         {
           "title": "Cas concret entreprise",
-          "body": "STP évite les boucles de couche 2. Cas pratique."
+          "body": "Scénario entreprise : plusieurs switches avec des liens redondants. PVST+ permet d'optimiser les chemins par VLAN. Le root bridge est placé stratégiquement. Les ports edge sont en portfast.  Scénario entreprise : plusieurs switches avec des liens redondants. PVST+ permet d'optimiser les chemins par VLAN. Le root bridge est placé stratégiquement. Les ports edge sont en portfast. La redondance est assurée."
         },
         {
-          "title": "Procédure pas à pas",
-          "body": "1. Vérifier. 2. Configurer. 3. Tester."
-        },
-        {
-          "title": "Dépannage",
-          "body": "STP évite les boucles de couche 2. Dépannage."
-        },
-        {
-          "title": "Commandes CLI",
-          "body": "Commandes usuelles."
+          "title": "Configuration Cisco IOS",
+          "body": "1. Vérifier le root bridge (show spanning-tree). 2. Vérifier les ports bloqués. 3. Vérifier les états. 4. Activer RSTP si nécessaire. 5. Tester la convergence. 6. Documenter."
         },
         {
           "title": "Vérification",
-          "body": "Vérifier la configuration."
+          "body": "show spanning-tree doit afficher le root bridge et les ports. Les ports Root et Designated sont en Forwarding. Les ports bloqués sont en Blocking. La convergence doit être rapide (RSTP)."
+        },
+        {
+          "title": "Dépannage",
+          "body": "Root Bridge inattendu : vérifier la priorité et l'élection. Port bloqué : vérifier la topologie et les coûts. Boucle réseau : vérifier les BPDU et les liens. Trunk mal configuré : vérifier le native VLAN. VLAN absent : créer le VLAN. Instabilité réseau : vérifier les BPDU et les timers.  Root Bridge inattendu : vérifier la priorité et l'élection. Port bloqué : vérifier la topologie et les coûts. Boucle réseau : vérifier les BPDU et les liens. Trunk mal configuré : vérifier le native VLAN. VLAN absent : créer le VLAN. Instabilité réseau : vérifier les BPDU et les timers."
         },
         {
           "title": "Questions de jury",
-          "body": "Questions typiques."
+          "body": "Expliquer STP. Qu'est-ce qu'un Root Bridge ? Qu'est-ce qu'un BPDU ? Quels sont les états STP ? Qu'est-ce que RSTP ? Qu'est-ce que PVST ? Pourquoi éviter les boucles ?"
         },
         {
           "title": "Pièges d'examen",
-          "body": "Pièges fréquents."
+          "body": "Oublier de fixer le root bridge. Confondre Root Port et Designated Port. Oublier portfast sur les ports edge. Native VLAN mismatch. BPDU guard non activé. Confondre blocking et disabled."
         },
         {
           "title": "Bonnes pratiques",
-          "body": "Bonnes pratiques."
+          "body": "Fixer le root bridge stratégiquement. Utiliser RSTP. Activer portfast sur les ports edge. Activer BPDU guard. Documenter la topologie. Vérifier les états. Monitorer les changements."
         },
         {
-          "title": "Mémo révision",
-          "body": "STP évite les boucles de couche 2."
+          "title": "Mémo de révision",
+          "body": "STP = anti-boucle. Root Bridge élu par Bridge ID. Ports : Root, Designated, Blocked. États : Blocking, Listening, Learning, Forwarding. RSTP = convergence rapide. PVST = par VLAN. Portfast = ports edge.  STP = anti-boucle. Root Bridge élu par Bridge ID. Ports : Root, Designated, Blocked. États : Blocking, Listening, Learning, Forwarding. RSTP = convergence rapide. PVST = par VLAN. Portfast = ports edge. BPDU guard = protection."
         },
         {
-          "title": "Schéma Mermaid",
-          "body": "graph TD; A-->B;"
+          "title": "Schémas Mermaid",
+          "body": "graph TD; R[Root Bridge]-->S1; R-->S2; S1--blocked-->S2;"
         },
         {
           "title": "Sources de référence",
-          "body": "Documentation officielle."
+          "body": "IEEE 802.1D, 802.1w, Cisco Networking Academy."
         }
       ]
     },
