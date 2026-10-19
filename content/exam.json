@@ -7,7 +7,7 @@
   "fiches": [
     {
       "id": "exam-q-ad",
-      "t": "QCM/Réponse : comment vérifie-t-on un accès AD ?",
+      "t": "Question/Réponse : comment vérifie-t-on un accès AD ?",
       "level": "exam",
       "r": "On vérifie l'utilisateur avec Get-ADUser, l'appartenance aux groupes, puis le droit effectif sur la ressource avec test réel et revue des ACL. Vérification : accès accordé uniquement au profil autorisé et refus pour le profil non autorisé.",
       "tags": [
@@ -30,7 +30,7 @@
     },
     {
       "id": "exam-q-reseau",
-      "t": "QCM/Réponse : un poste n'accède plus au réseau, diagnostic ?",
+      "t": "Question/Réponse : un poste n'accède plus au réseau, diagnostic ?",
       "level": "exam",
       "r": "On suit la couche par couche : câble/Voyant, IP/passerelle/DNS, ping par IP puis par nom, trace. On corrige un élément à la fois et on reteste.",
       "tags": [
@@ -54,7 +54,7 @@
     },
     {
       "id": "exam-q-vlan",
-      "t": "QCM/Réponse : pourquoi un port d'accès mal affecté isole un poste ?",
+      "t": "Question/Réponse : pourquoi un port d'accès mal affecté isole un poste ?",
       "level": "exam",
       "r": "La communication L2 se limite au VLAN du port. Si le poste est en VLAN non attendu, il est dans un domaine de broadcast différent sans passerelle inter-VLAN.",
       "tags": [
@@ -77,7 +77,7 @@
     },
     {
       "id": "exam-q-linux",
-      "t": "QCM/Réponse : comment sécuriser l'accès SSH ?",
+      "t": "Question/Réponse : comment sécuriser l'accès SSH ?",
       "level": "exam",
       "r": "Authentification par clé ed25519, désactivation du root direct, PasswordAuthentication no, et test avant fermeture de session. Conclure avec journalisation.",
       "tags": [
@@ -102,7 +102,7 @@
     },
     {
       "id": "exam-q-cron",
-      "t": "QCM/Réponse : comment mettre une sauvegarde automatique fiable ?",
+      "t": "Question/Réponse : comment mettre une sauvegarde automatique fiable ?",
       "level": "exam",
       "r": "Script avec shebang, variables, journal, code retour. Planifier dans cron à 02:30 et vérifier le lendemain. Expliquer chaque ligne à l'oral.",
       "tags": [
@@ -127,7 +127,7 @@
     },
     {
       "id": "exam-q-ad-2",
-      "t": "QCM/Réponse : créer un utilisateur, ses groupes et un partage",
+      "t": "Question/Réponse : créer un utilisateur, ses groupes et un partage",
       "level": "exam",
       "r": "Créer l'OU et le user, ajouter aux groupes Global/DomainLocal (AGDLP), créer le partage, configurer ACL, puis tester accès autorisé et non autorisé.",
       "tags": [
@@ -152,7 +152,7 @@
     },
     {
       "id": "exam-q-snap",
-      "t": "QCM/Réponse : différences snapshot, sauvegarde et restauration ?",
+      "t": "Question/Réponse : différences snapshot, sauvegarde et restauration ?",
       "level": "exam",
       "r": "Snapshot = point temporel dépendant de la VM source, sauvegarde = copie indépendante et testée, restauration = remise en exploitation vérifiée.",
       "tags": [
@@ -177,7 +177,7 @@
     },
     {
       "id": "exam-q-oral",
-      "t": "QCM/Réponse : comment présenter une mise en situation à l'oral ?",
+      "t": "Question/Réponse : comment présenter une mise en situation à l'oral ?",
       "level": "exam",
       "r": "Contexte, objectif, actions, preuves, difficultés et améliorations. Répondre avec méthode, admettre ce qui n'est pas fini.",
       "tags": [
