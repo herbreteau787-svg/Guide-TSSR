@@ -1344,7 +1344,7 @@
       "t": "DNS",
       "level": "intermediaire",
       "cli": true,
-      "r": "DNS résout les noms en adresses IP.",
+      "r": "Le DNS traduit les noms de domaine en adresses IP et est essentiel pour AD, le web et la messagerie.",
       "tags": [
         "cp4",
         "dns"
@@ -1356,71 +1356,79 @@
         "Oubli de vérification"
       ],
       "w": "Le test seul ne prouve pas la cause.",
-      "resume": "DNS résout les noms en adresses IP.",
+      "resume": "DNS : zones, enregistrements, résolution, TTL, forwarders.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "DNS résout les noms en adresses IP."
+          "body": "Le DNS (Domain Name System) est le service qui traduit les noms de domaine en adresses IP. Sans DNS, les utilisateurs devraient mémoriser des adresses IP. Le DNS est indispensable pour le fonctionnement d'Active Directory, du web et de la messagerie. Pour un candidat TSSR, maîtriser le DNS est essentiel car il est au cœur des mises en situation et des questions du jury.  Le DNS (Domain Name System) est le service qui traduit les noms de domaine en adresses IP. Sans DNS, les utilisateurs devraient mémoriser des adresses IP. Le DNS est indispensable pour le fonctionnement d'Active Directory, du web et de la messagerie. Pour un candidat TSSR, maîtriser le DNS est essentiel car il est au cœur des mises en situation et des questions du jury. Le DNS est souvent la cause de pannes réseau.  Le DNS (Domain Name System) est le service qui traduit les noms de domaine en adresses IP. Sans DNS, les utilisateurs devraient mémoriser des adresses IP. Le DNS est indispensable pour le fonctionnement d'Active Directory, du web et de la messagerie. Pour un candidat TSSR, maîtriser le DNS est essentiel car il est au cœur des mises en situation et des questions du jury. Le DNS est souvent la cause de pannes réseau. Une panne DNS paralyse l'accès aux ressources."
         },
         {
           "title": "Définitions",
-          "body": "DNS résout les noms en adresses IP."
+          "body": "Le DNS est un système hiérarchique et distribué. Une zone DNS contient les enregistrements pour un domaine. Les enregistrements principaux sont : A (adresse IPv4), AAAA (IPv6), CNAME (alias), MX (serveur de messagerie), NS (serveur de noms), PTR (résolution inverse), SOA (autorité de zone), TXT (texte). Le TTL (Time To Live) définit la durée de mise en cache. Le DNS utilise le port 53 (UDP et TCP).  Le DNS est un système hiérarchique et distribué. Une zone DNS contient les enregistrements pour un domaine. Les enregistrements principaux sont : A (adresse IPv4), AAAA (IPv6), CNAME (alias), MX (serveur de messagerie), NS (serveur de noms), PTR (résolution inverse), SOA (autorité de zone), TXT (texte). Le TTL (Time To Live) définit la durée de mise en cache. Le DNS utilise le port 53 (UDP et TCP).  Le DNS est un système hiérarchique et distribué. Une zone DNS contient les enregistrements pour un domaine. Les enregistrements principaux sont : A (adresse IPv4), AAAA (IPv6), CNAME (alias), MX (serveur de messagerie), NS (serveur de noms), PTR (résolution inverse), SOA (autorité de zone), TXT (texte). Le TTL (Time To Live) définit la durée de mise en cache. Le DNS utilise le port 53 (UDP et TCP)."
         },
         {
-          "title": "Théorie détaillée",
-          "body": "DNS résout les noms en adresses IP. Fonctionnement interne et concepts."
+          "title": "Pourquoi le DNS existe",
+          "body": "Les noms de domaine sont plus faciles à mémoriser que les adresses IP. Le DNS permet la résolution automatique. Il est essentiel pour Active Directory (enregistrements SRV), le web (A, CNAME) et la messagerie (MX). Sans DNS, pas de navigation web ni de messagerie."
         },
         {
           "title": "Fonctionnement interne",
-          "body": "DNS résout les noms en adresses IP."
+          "body": "Le DNS fonctionne en requêtes récursives et itératives. Un client interroge un résolveur récursif. Le résolveur interroge les serveurs racine, puis les TLD, puis les serveurs autoritaires. Les résultats sont mis en cache. Le DNS utilise UDP pour les requêtes standard et TCP pour les transferts de zone et les réponses volumineuses. La résolution DNS commence par le cache local, puis le résolveur configuré. Si le résolveur n'a pas la réponse, il interroge les serveurs racine, puis le TLD, puis le serveur autoritaire. La réponse est mise en cache selon le TTL. Le DNS inverse utilise les zones in-addr.arpa.  La résolution DNS commence par le cache local, puis le résolveur configuré. Si le résolveur n'a pas la réponse, il interroge les serveurs racine, puis le TLD, puis le serveur autoritaire. Les résultats sont mis en cache selon le TTL. Le DNS inverse utilise les zones in-addr.arpa. Le DNS utilise UDP pour les requêtes standard et TCP pour les transferts de zone et les réponses volumineuses.  La résolution DNS commence par le cache local, puis le résolveur configuré. Si le résolveur n'a pas la réponse, il interroge les serveurs racine, puis le TLD, puis le serveur autoritaire. Les résultats sont mis en cache selon le TTL. Le DNS inverse utilise les zones in-addr.arpa. Le DNS utilise UDP pour les requêtes standard et TCP pour les transferts de zone et les réponses volumineuses.  La résolution DNS commence par le cache local, puis le résolveur configuré. Si le résolveur n'a pas la réponse, il interroge les serveurs racine, puis le TLD, puis le serveur autoritaire. Les résultats sont mis en cache selon le TTL. Le DNS inverse utilise les zones in-addr.arpa. Le DNS utilise UDP pour les requêtes standard et TCP pour les transferts de zone et les réponses volumineuses."
         },
         {
           "title": "Architecture",
-          "body": "DNS résout les noms en adresses IP."
+          "body": "Architecture DNS d'entreprise : serveurs DNS internes (Active Directory), forwarders vers des DNS externes (8.8.8.8, 1.1.1.1), zones internes pour les noms privés, zones publiques pour le site web. Le DNS est souvent installé sur les contrôleurs de domaine.  Architecture DNS d'entreprise : serveurs DNS internes (Active Directory), forwarders vers des DNS externes (8.8.8.8, 1.1.1.1), zones internes pour les noms privés, zones publiques pour le site web. Le DNS est souvent installé sur les contrôleurs de domaine. La redondance est assurée par plusieurs serveurs DNS."
+        },
+        {
+          "title": "Zones DNS",
+          "body": "Une zone DNS contient les enregistrements pour un domaine. La zone primaire est modifiable. La zone secondaire est une copie en lecture seule. La zone stub contient uniquement les enregistrements NS. Les zones de recherche directe résolvent nom->IP. Les zones de recherche inverse résolvent IP->nom.  Une zone DNS contient les enregistrements pour un domaine. La zone primaire est modifiable. La zone secondaire est une copie en lecture seule. La zone stub contient uniquement les enregistrements NS. Les zones de recherche directe résolvent nom->IP. Les zones de recherche inverse résolvent IP->nom. Les zones conditionnelles redirigent vers des serveurs spécifiques."
+        },
+        {
+          "title": "Enregistrements DNS",
+          "body": "Les enregistrements DNS définissent les ressources. A : adresse IPv4. AAAA : IPv6. CNAME : alias. MX : serveur mail. NS : serveur de noms. PTR : résolution inverse. SOA : autorité. TXT : texte. SRV : service (AD).  Les enregistrements DNS définissent les ressources. A : adresse IPv4. AAAA : IPv6. CNAME : alias. MX : serveur mail. NS : serveur de noms. PTR : résolution inverse. SOA : autorité. TXT : texte. SRV : service (AD). Les enregistrements sont la base du DNS."
         },
         {
           "title": "Cas concret entreprise",
-          "body": "DNS résout les noms en adresses IP. Cas pratique."
+          "body": "Scénario PME : DNS Windows Server sur le DC, zone interne pour le domaine, forwarders externes. Scénario école : DNS pour les postes et les serveurs. Scénario mairie : DNS multi-sites avec réplication. Scénario entreprise : DNS haute disponibilité avec plusieurs serveurs.  Scénario PME : DNS Windows Server sur le DC, zone interne pour le domaine, forwarders externes. Scénario école : DNS pour les postes et les serveurs. Scénario mairie : DNS multi-sites avec réplication. Scénario entreprise : DNS haute disponibilité avec plusieurs serveurs. Le DNS est critique pour AD et la messagerie.  Scénario PME : DNS Windows Server sur le DC, zone interne pour le domaine, forwarders externes. Scénario école : DNS pour les postes et les serveurs. Scénario mairie : DNS multi-sites avec réplication. Scénario entreprise : DNS haute disponibilité avec plusieurs serveurs. Le DNS est critique pour AD et la messagerie. Une panne DNS paralyse le réseau."
         },
         {
           "title": "Procédure pas à pas",
-          "body": "1. Vérifier. 2. Configurer. 3. Tester."
+          "body": "1. Installer le rôle DNS. 2. Créer la zone primaire. 3. Ajouter les enregistrements (A, CNAME, MX). 4. Configurer les forwarders. 5. Tester avec nslookup et dig. 6. Vérifier la résolution inverse.  1. Installer le rôle DNS. 2. Créer la zone primaire. 3. Ajouter les enregistrements (A, CNAME, MX). 4. Configurer les forwarders. 5. Tester avec nslookup et dig. 6. Vérifier la résolution inverse. 7. Vérifier la santé AD avec dcdiag."
         },
         {
           "title": "Dépannage",
-          "body": "DNS résout les noms en adresses IP. Dépannage."
+          "body": "Nom ne résout pas : vérifier l'enregistrement, le TTL, le cache. Zone incorrecte : vérifier la zone et les NS. Transfert de zone échoue : vérifier les permissions et le firewall. DNS lent : vérifier les forwarders et le cache. Erreur SRV : vérifier la santé AD.  Nom ne résout pas : vérifier l'enregistrement, le TTL, le cache. Zone incorrecte : vérifier la zone et les NS. Transfert de zone échoue : vérifier les permissions et le firewall. DNS lent : vérifier les forwarders et le cache. Erreur SRV : vérifier la santé AD. Cache obsolète : purger le cache.  Nom ne résout pas : vérifier l'enregistrement, le TTL, le cache. Zone incorrecte : vérifier la zone et les NS. Transfert de zone échoue : vérifier les permissions et le firewall. DNS lent : vérifier les forwarders et le cache. Erreur SRV : vérifier la santé AD. Cache obsolète : purger le cache. DNS ne répond pas : vérifier le service et le port 53."
         },
         {
           "title": "Commandes CLI",
-          "body": "Commandes usuelles."
+          "body": "Commandes Windows :\nnslookup nom.domaine\nipconfig /flushdns\nipconfig /registerdns\n\nCommandes PowerShell :\nResolve-DnsName nom.domaine\nGet-DnsServerResourceRecord -ZoneName domaine.local\nAdd-DnsServerResourceRecordA -Name host -ZoneName domaine.local -IPv4Address 192.168.1.10\n\nCommandes Cisco/Linux :\ndig nom.domaine\nhost nom.domaine\n\nExplication :\nnslookup teste la résolution.\nipconfig /flushdns purge le cache.\nResolve-DnsName résout via PowerShell.\nGet-DnsServerResourceRecord liste les enregistrements.\ndig est l'outil Linux de référence.  Commandes Windows :\nnslookup nom.domaine\nipconfig /flushdns\nipconfig /registerdns\n\nCommandes PowerShell :\nResolve-DnsName nom.domaine\nGet-DnsServerResourceRecord -ZoneName domaine.local\nAdd-DnsServerResourceRecordA -Name host -ZoneName domaine.local -IPv4Address 192.168.1.10\n\nCommandes Cisco/Linux :\ndig nom.domaine\nhost nom.domaine\n\nExplication :\nnslookup teste la résolution.\nipconfig /flushdns purge le cache.\nResolve-DnsName résout via PowerShell.\nGet-DnsServerResourceRecord liste les enregistrements.\ndig est l'outil Linux de référence.  Commandes Windows :\nnslookup nom.domaine\nipconfig /flushdns\nipconfig /registerdns\n\nCommandes PowerShell :\nResolve-DnsName nom.domaine\nGet-DnsServerResourceRecord -ZoneName domaine.local\nAdd-DnsServerResourceRecordA -Name host -ZoneName domaine.local -IPv4Address 192.168.1.10\n\nCommandes Cisco/Linux :\ndig nom.domaine\nhost nom.domaine\n\nExplication :\nnslookup teste la résolution.\nipconfig /flushdns purge le cache.\nResolve-DnsName résout via PowerShell.\nGet-DnsServerResourceRecord liste les enregistrements.\ndig est l'outil Linux de référence."
         },
         {
           "title": "Vérification",
-          "body": "Vérifier la configuration."
+          "body": "nslookup doit retourner l'adresse IP. dig doit retourner la réponse avec le flag aa (authoritative). La zone doit être chargée. Les enregistrements SRV doivent être présents pour AD.  nslookup doit retourner l'adresse IP. dig doit retourner la réponse avec le flag aa (authoritative). La zone doit être chargée. Les enregistrements SRV doivent être présents pour AD. La résolution inverse doit fonctionner."
         },
         {
           "title": "Questions de jury",
-          "body": "Questions typiques."
+          "body": "Expliquer le DNS. Qu'est-ce qu'une zone ? Qu'est-ce qu'un enregistrement A ? Qu'est-ce qu'un CNAME ? Qu'est-ce qu'un MX ? Qu'est-ce que le TTL ? Comment fonctionne la résolution récursive ?  Expliquer le DNS. Qu'est-ce qu'une zone ? Qu'est-ce qu'un enregistrement A ? Qu'est-ce qu'un CNAME ? Qu'est-ce qu'un MX ? Qu'est-ce que le TTL ? Comment fonctionne la résolution récursive ? Qu'est-ce qu'un SRV ?"
         },
         {
           "title": "Pièges d'examen",
-          "body": "Pièges fréquents."
+          "body": "Confondre zone et domaine. Oublier le TTL. Oublier les enregistrements SRV pour AD. Pointer le DNS client vers un serveur externe. Oublier la zone inverse. Cache obsolète.  Confondre zone et domaine. Oublier le TTL. Oublier les enregistrements SRV pour AD. Pointer le DNS client vers un serveur externe. Oublier la zone inverse. Cache obsolète. Confondre résolution directe et inverse."
         },
         {
           "title": "Bonnes pratiques",
-          "body": "Bonnes pratiques."
+          "body": "Documenter les zones et les enregistrements. Utiliser des TTL adaptés. Configurer des forwarders fiables. Vérifier la santé AD avec dcdiag. Monitorer le DNS.  Documenter les zones et les enregistrements. Utiliser des TTL adaptés. Configurer des forwarders fiables. Vérifier la santé AD avec dcdiag. Monitorer le DNS. Utiliser des zones secondaires pour la redondance. Vérifier les enregistrements SRV."
         },
         {
-          "title": "Mémo révision",
-          "body": "DNS résout les noms en adresses IP."
+          "title": "Mémo de révision",
+          "body": "DNS = résolution de noms. Zone = conteneur d'enregistrements. Enregistrements : A, AAAA, CNAME, MX, NS, PTR, SOA, TXT, SRV. TTL = durée de cache. Port 53. Forwarders pour l'externe.  DNS = résolution de noms. Zone = conteneur d'enregistrements. Enregistrements : A, AAAA, CNAME, MX, NS, PTR, SOA, TXT, SRV. TTL = durée de cache. Port 53. Forwarders pour l'externe. Résolution récursive et itérative.  DNS = résolution de noms. Zone = conteneur d'enregistrements. Enregistrements : A, AAAA, CNAME, MX, NS, PTR, SOA, TXT, SRV. TTL = durée de cache. Port 53. Forwarders pour l'externe. Résolution récursive et itérative."
         },
         {
-          "title": "Schéma Mermaid",
-          "body": "graph TD; A-->B;"
+          "title": "Schémas Mermaid",
+          "body": "graph TD; Client-->DNS; DNS-->Root; Root-->TLD; TLD-->Auth; Auth-->IP;"
         },
         {
           "title": "Sources de référence",
-          "body": "Documentation officielle."
+          "body": "RFC 1034, 1035, documentation Microsoft DNS."
         }
       ]
     },
