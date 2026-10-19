@@ -75,6 +75,21 @@ for(const file of manifest.files){
      const ficheText=JSON.stringify(f||{}).toLowerCase(); if(ficheText.includes("qcm")) issues.push(p+": fiche contient un QCM : "+f.id);
    }
  }
+    if(base==="cp1"||base==="cp2"){
+      const ess=(sec.fiches||[]).find(f=>f&&f.id===base+"-essentiel");
+      if(ess){
+        if(!Array.isArray(ess.couvre)) issues.push(p+": essentiel sans couvre");
+        else {
+          const others=(sec.fiches||[]).filter(f=>f&&f.id!==ess.id).map(f=>f.id);
+          for(const id of others){ if(!ess.couvre.includes(id)) issues.push(p+": couvre manquant "+id); }
+          for(const id of ess.couvre){ if(!globalIds.has(id)) issues.push(p+": couvre inexistante "+id); }
+        }
+      }
+      for(const f of (sec.fiches||[])){
+        if(!f||typeof f.id!=="string"||f.id.endsWith("-essentiel")) continue;
+        if(typeof f.resume!=="string"||!f.resume.trim()) issues.push(p+": resume manquant "+f.id);
+      }
+    }
  sections.push({file,sec});
  if(sec && Array.isArray(sec.quiz)){
    for(const q of sec.quiz){

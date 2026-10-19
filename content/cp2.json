@@ -6,6 +6,69 @@
   "desc": "Installation de Windows Server, promotion Active Directory, DNS/DHCP, GPO, partages, matrice de droits, diagnostic et preuves pour la mise en situation professionnelle 2026.",
   "fiches": [
     {
+      "id": "cp2-essentiel",
+      "t": "CP2 — L'essentiel (serveurs Windows et domaine Active Directory)",
+      "level": "exam",
+      "r": "Objectif et compétence évaluée : installer et administrer un domaine Active Directory, gérer utilisateurs/groupes/GPO, DNS/DHCP, partages, et produire les preuves MEP. | Notions à connaître : AD DS, forêt, domaine, OU, AGDLP, GPO, DNS, DHCP, NTFS, SMB, FSMO, réplication. | Tableau Je veux faire… | Interface graphique | Ligne de commande | Vérification : Promouvoir un DC | Gestionnaire serveur | Install-ADDSForest (À VÉRIFIER) | dcdiag /q ; Créer un utilisateur | ADUC | New-ADUser (À VÉRIFIER) | Get-ADUser ; Lier une GPO | GPMC | New-GPLink (À VÉRIFIER) | gpresult /r ; Créer une zone DNS | DNS Manager | Add-DnsServerPrimaryZone (À VÉRIFIER) | nslookup ; Créer une étendue DHCP | DHCP Manager | Add-DhcpServerv4Scope (À VÉRIFIER) | Get-DhcpServerv4Lease. | À connaître par cœur : ports 53, 88, 135, 389, 445, 636 ; rôles FSMO ; événements 4624, 4625. | Diagnostic express : symptôme -> vérification -> commande. | Pièges : DNS mal pointé, GPO non liée à l'OU, réplication en échec. | Ce que le jury peut demander (MEP phases 1-3) : installation AD, jonction, GPO, DNS/DHCP, preuves. | Index : voir champ couvre.",
+      "tags": [
+        "cp2",
+        "essentiel"
+      ],
+      "g": [
+        "Objectif et compétence évaluée",
+        "Notions à connaître",
+        "Tableau GUI / CLI / Vérification",
+        "À connaître par cœur",
+        "Diagnostic express",
+        "Pièges",
+        "Ce que le jury peut demander",
+        "Index des fiches"
+      ],
+      "c": "Commandes marquées À VÉRIFIER : voir tableau.",
+      "p": [
+        "Ne pas confondre GUI et CLI",
+        "Oublier les preuves MEP"
+      ],
+      "w": "L'essentiel résume ; les fiches détaillées précisent.",
+      "resume": "Fiche essentielle du CP : objectifs, tableau GUI/CLI/vérification, diagnostic express, pièges et index.",
+      "couvre": [
+        "cp2-objectifs",
+        "cp2-dc",
+        "cp2-ipdns",
+        "cp2-join",
+        "cp2-ou",
+        "cp2-users",
+        "cp2-gpo",
+        "cp2-dns",
+        "cp2-dhcp",
+        "cp2-share",
+        "cp2-drive",
+        "cp2-fsrm",
+        "cp2-tasks",
+        "cp2-events",
+        "cp2-verification",
+        "cp2-pieges",
+        "cp2-open",
+        "mig-legacy-cp2-backup",
+        "mig-legacy-cp2-patch",
+        "mig-legacy-cp2-hard",
+        "mig-legacy-cp2-monitor",
+        "cp2-adinstall",
+        "cp2-fsmo",
+        "cp2-agdlp",
+        "cp2-dnsdhcp",
+        "cp2-repl",
+        "cp2-file",
+        "cp2-print",
+        "cp2-powershell",
+        "cp2-ad-debutant",
+        "cp2-windows-debutant",
+        "pedagogie-ccp2",
+        "mig-legacy-cp2-join",
+        "pedagogie-cp2-serveurs"
+      ]
+    },
+    {
       "id": "cp2-objectifs",
       "t": "Objectifs et lien avec la MEP 2026",
       "level": "exam",
@@ -29,7 +92,8 @@
         "Créer l'utilisateur avant le DNS",
         "Tester avec un administrateur"
       ],
-      "w": "Conclusion : CP2 se joue sur le contrôle et la preuve."
+      "w": "Conclusion : CP2 se joue sur le contrôle et la preuve.",
+      "resume": "CP2 - Objectifs : installer et exploiter un serveur Windows dans un domaine Active Directory, puis prouver qu'un utilisateur accède uniquement aux ressources prévues."
     },
     {
       "id": "cp2-dc",
@@ -56,7 +120,8 @@
         "DNS mal configuré",
         "Heure désynchronisée"
       ],
-      "w": "Conclusion : la promotion n'est fiable que si le serveur est déjà propre."
+      "w": "Conclusion : la promotion n'est fiable que si le serveur est déjà propre.",
+      "resume": "CP2 - Contrôleur de domaine : vérifier l'IP fixe, le nom DNS du serveur, l'heure, puis installer la fonctionnalité et promouvoir le domaine."
     },
     {
       "id": "cp2-ipdns",
@@ -82,7 +147,8 @@
         "DNS pointant vers Internet",
         "Masque incorrect"
       ],
-      "w": "Conclusion : contrôle l'adresse avant de promouvoir."
+      "w": "Conclusion : contrôle l'adresse avant de promouvoir.",
+      "resume": "CP2 - IP et DNS : un DC ne doit pas dépendre du DHCP et doit se connaître lui-même."
     },
     {
       "id": "cp2-join",
@@ -109,7 +175,8 @@
         "Compte non autorisé",
         "Redémarrage oublié"
       ],
-      "w": "Conclusion : la jonction commence par le DNS."
+      "w": "Conclusion : la jonction commence par le DNS.",
+      "resume": "CP2 - Jonction : le poste doit connaître le DNS du domaine et disposer d'un compte autorisé."
     },
     {
       "id": "cp2-ou",
@@ -136,7 +203,8 @@
         "AGDLP inversé",
         "Permission sur personne"
       ],
-      "w": "Conclusion : AGDLP se défend à l'oral."
+      "w": "Conclusion : AGDLP se défend à l'oral.",
+      "resume": "CP2 - AGDLP : A pour comptes, G pour groupes globaux métier, DL pour groupes de ressources, P pour permission."
     },
     {
       "id": "cp2-users",
@@ -162,7 +230,8 @@
         "Compte créé sans mot de passe",
         "Ouvert dans la mauvaise OU"
       ],
-      "w": "Conclusion : un compte sans test ne prouve rien."
+      "w": "Conclusion : un compte sans test ne prouve rien.",
+      "resume": "CP2 - Utilisateur : créer le compte, définir le mot de passe et l'ajouter au groupe métier."
     },
     {
       "id": "cp2-gpo",
@@ -189,7 +258,8 @@
         "Oublier gpupdate",
         "Conflit de paramètres"
       ],
-      "w": "Conclusion : une GPO utile est testable et auditable."
+      "w": "Conclusion : une GPO utile est testable et auditable.",
+      "resume": "CP2 - GPO : créer une stratégie, la lier à une OU, puis vérifier son application."
     },
     {
       "id": "cp2-dns",
@@ -215,7 +285,8 @@
         "TTL inadapté",
         "Forwarder incorrect"
       ],
-      "w": "Conclusion : DNS doit précéder beaucoup d'autres services."
+      "w": "Conclusion : DNS doit précéder beaucoup d'autres services.",
+      "resume": "CP2 - DNS : créer une zone primaire, ajouter les enregistrements et vérifier la résolution DHCP/clients."
     },
     {
       "id": "cp2-dhcp",
@@ -242,7 +313,8 @@
         "Exclusion inutile",
         "DHCP autorisé trop tôt"
       ],
-      "w": "Conclusion : DHCP s'administre avec les options."
+      "w": "Conclusion : DHCP s'administre avec les options.",
+      "resume": "CP2 - DHCP : créer une étendue avec options obligatoires pour les clients."
     },
     {
       "id": "cp2-share",
@@ -270,7 +342,8 @@
         "ACL sans héritage",
         "Test avec administrateur"
       ],
-      "w": "Conclusion : la permission se valide en agissant."
+      "w": "Conclusion : la permission se valide en agissant.",
+      "resume": "CP2 - Partage : créer un dossier commercial avec une matrice de droits, puis appliquer AGDLP."
     },
     {
       "id": "cp2-drive",
@@ -297,7 +370,8 @@
         "GPP non appliqué",
         "Lettre oubliée"
       ],
-      "w": "Conclusion : le lecteur n'est utile que s'il se reconnecte."
+      "w": "Conclusion : le lecteur n'est utile que s'il se reconnecte.",
+      "resume": "CP2 - Mappage : notre lecteur réseau doit persister et se reconnecter."
     },
     {
       "id": "cp2-fsrm",
@@ -323,7 +397,8 @@
         "Quota trop bas",
         "Alerte non testée"
       ],
-      "w": "Conclusion : planifier la capacité avant saturation."
+      "w": "Conclusion : planifier la capacité avant saturation.",
+      "resume": "CP2 - FSRM : poser des quotas sur un dossier partagé pour éviter la saturation."
     },
     {
       "id": "cp2-tasks",
@@ -349,7 +424,8 @@
         "Chemin UNC inaccessible",
         "Déclencheur mal réglé"
       ],
-      "w": "Conclusion : la tâche planifiée se teste."
+      "w": "Conclusion : la tâche planifiée se teste.",
+      "resume": "CP2 - Tâches planifiées : créer une tâche qui s'exécute avec le bon compte et les bons privilèges."
     },
     {
       "id": "cp2-events",
@@ -375,7 +451,8 @@
         "Droits insuffisants",
         "Journal filtré trop vite"
       ],
-      "w": "Conclusion : les événements prouvent."
+      "w": "Conclusion : les événements prouvent.",
+      "resume": "CP2 - Événements : lire les journaux de sécurité pour prouver les connexions et les refus."
     },
     {
       "id": "cp2-verification",
@@ -403,7 +480,8 @@
         "Session non fermée",
         "Preuves non conservées"
       ],
-      "w": "Conclusion : la preuve est dans le comportement."
+      "w": "Conclusion : la preuve est dans le comportement.",
+      "resume": "CP2 - Vérification : prouver l'accès autorisé puis le refus."
     },
     {
       "id": "cp2-pieges",
@@ -428,7 +506,8 @@
         "Jonction non redémarrée",
         "GPO non liée"
       ],
-      "w": "Conclusion : les détails se défendent par le principe."
+      "w": "Conclusion : les détails se défendent par le principe.",
+      "resume": "CP2 - Pièges : différences de concepts et commandes de base."
     },
     {
       "id": "cp2-open",
@@ -449,7 +528,8 @@
       "p": [
         "Rester trop théorique"
       ],
-      "w": "Conclusion : l'expérience professionnelle valorise CP2."
+      "w": "Conclusion : l'expérience professionnelle valorise CP2.",
+      "resume": "CP2 - Questions ouvertes : 1."
     },
     {
       "id": "mig-legacy-cp2-backup",
@@ -476,7 +556,8 @@
         "Chiffrer les sauvegardes"
       ],
       "w": "Un snapshot resté ouvert trop longtemps dégrade fortement les performances I/O.",
-      "alt": "Schéma CP2"
+      "alt": "Schéma CP2",
+      "resume": "Contenu migré de l'ancienne fiche sans réécriture : Protection avec Veeam/Azure ? à tester, snapshot pour maintenance, sauvegarde pour reprise."
     },
     {
       "id": "mig-legacy-cp2-patch",
@@ -501,7 +582,8 @@
         "Reboot critique"
       ],
       "w": "Conclusion : patch contrôlé.",
-      "alt": "Schéma serveurs"
+      "alt": "Schéma serveurs",
+      "resume": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : mise à jour serveur."
     },
     {
       "id": "mig-legacy-cp2-hard",
@@ -526,7 +608,8 @@
         "Fermeture production"
       ],
       "w": "Conclusion : durcir progressivement.",
-      "alt": "Schéma serveurs"
+      "alt": "Schéma serveurs",
+      "resume": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : réduire surface attaque."
     },
     {
       "id": "mig-legacy-cp2-monitor",
@@ -551,7 +634,8 @@
         "Pas d'escalade"
       ],
       "w": "Conclusion : supervision par seuils.",
-      "alt": "Schéma serveurs"
+      "alt": "Schéma serveurs",
+      "resume": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : surveiller serveurs."
     },
     {
       "id": "cp2-adinstall",
@@ -577,7 +661,8 @@
         "NTP : l'émulateur PDC est la source de temps de la forêt"
       ],
       "w": "Jamais un seul DC en production. Toujours tester la restauration AD avant le premier incident.",
-      "cp": "cp9"
+      "cp": "cp9",
+      "resume": "Un DC = ADDS + DNS + heure synchronisée."
     },
     {
       "id": "cp2-fsmo",
@@ -601,7 +686,8 @@
         "Documenter l'emplacement des rôles dans la matrice d'infrastructure"
       ],
       "w": "Déplacer les rôles sans planification peut perturber la réplication et le temps Kerberos.",
-      "cp": "cp9"
+      "cp": "cp9",
+      "resume": "Forêt : Schéma + Nom de domaine."
     },
     {
       "id": "cp2-agdlp",
@@ -627,7 +713,8 @@
         "Toujours tester sur un poste pilote avec gpresult /h rapport.html"
       ],
       "w": "Ajouter un utilisateur directement au groupe DomainLocal contourne la méthode AGDLP et complique les audits.",
-      "cp": "cp9"
+      "cp": "cp9",
+      "resume": "AGDLP : User → Global → DomainLocal → Permission."
     },
     {
       "id": "cp2-dnsdhcp",
@@ -652,7 +739,8 @@
         "Réserver les adresses serveurs hors étendue"
       ],
       "w": "Un serveur AD doit utiliser son propre DNS ; pointer ailleurs casse Kerberos.",
-      "cp": "cp9"
+      "cp": "cp9",
+      "resume": "DNS AD intégré avec zones directes/inverses et dynamic DNS sécurisé."
     },
     {
       "id": "cp2-repl",
@@ -678,7 +766,8 @@
         "Un partenariat d'origine unique suffit dans la plupart des sites"
       ],
       "w": "Restaurer un DC depuis un snapshot sans sauvegarde AD autorité peut créer une divergence irréversible.",
-      "cp": "cp9"
+      "cp": "cp9",
+      "resume": "Multi-DC = réplication toutes les 15 s (intra-site) et planifiée inter-site."
     },
     {
       "id": "cp2-file",
@@ -705,7 +794,8 @@
         "Sauvegarder les listes ACL exportées"
       ],
       "w": "La suppression d'un partage n'efface pas les fichiers; vérifier les permissions minimales.",
-      "cp": "cp9"
+      "cp": "cp9",
+      "resume": "Partages SMB avec permissions NTFS + partage, quotas FSRM, DFS-N pour l'abstraction et la haute disponibilité."
     },
     {
       "id": "cp2-print",
@@ -730,7 +820,8 @@
         "Surveiller les files bloquées (spouleur)"
       ],
       "w": "La spooler.exe bloquée se répare souvent en vidant SPOOL\\PRINTERS puis en redémarrant le service.",
-      "cp": "cp9"
+      "cp": "cp9",
+      "resume": "Centraliser les files d'attente et déployer les imprimantes par OU ou groupe avec GPO."
     },
     {
       "id": "cp2-powershell",
@@ -755,7 +846,8 @@
         "Minimiser les droits du compte de service"
       ],
       "w": "Les cmdlets AD s'exécutent par défaut contre le DC le plus proche ; forcer avec -Server si besoin.",
-      "cp": "cp9"
+      "cp": "cp9",
+      "resume": "Le module ActiveDirectory expose une API complète."
     },
     {
       "id": "cp2-ad-debutant",
@@ -780,7 +872,8 @@
         "Compte local vs compte domaine"
       ],
       "w": "Un mauvais placement d'OU casse l'héritage des GPO.",
-      "cp": "cp9"
+      "cp": "cp9",
+      "resume": "AD centralise utilisateurs/machines dans un domaine."
     },
     {
       "id": "cp2-windows-debutant",
@@ -805,7 +898,8 @@
         " Sauvegarder avant MAJ"
       ],
       "w": " Ne pas ouvrir le partage en Contrôle total pour Tout le monde.",
-      "cp": "cp9"
+      "cp": "cp9",
+      "resume": "Partages SMB + droits NTFS (le plus restrictif gagne)."
     },
     {
       "id": "pedagogie-ccp2",
@@ -830,7 +924,8 @@
         "Absence de support utilisateur"
       ],
       "w": "Conclusion : le deploiement reussit quand technique et accompagnement avancent ensemble.",
-      "cp": "cp9"
+      "cp": "cp9",
+      "resume": "Definition : deployer des equipements numériques et accompagner les outils collaboratifs."
     },
     {
       "id": "mig-legacy-cp2-join",
@@ -857,7 +952,8 @@
       ],
       "w": "Jonction réussie mais GPO absentes = vérifier DNS et emplacement de l'ordinateur dans l'AD.",
       "cp": "cp9",
-      "doublon_de": "cp2-join"
+      "doublon_de": "cp2-join",
+      "resume": "Le DNS du poste doit pointer vers le DC."
     },
     {
       "id": "pedagogie-cp2-serveurs",
@@ -881,7 +977,8 @@
         "Sauvegarde absente"
       ],
       "w": "Conclusion : la documentation fait partie de l'exploitation.",
-      "cp": "cp3"
+      "cp": "cp3",
+      "resume": "Definition : installer et exploiter des serveurs."
     }
   ],
   "quiz": [

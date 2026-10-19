@@ -6,6 +6,63 @@
   "desc": "Support utilisateur, tickets, assistance à distance, outils collaboratifs, usage encadré de l'IA, ToIP côté utilisateur. Contenu réécrit en phase 2, appuyé sur les sources puis complété.",
   "fiches": [
     {
+      "id": "cp1-essentiel",
+      "t": "CP1 — L'essentiel (support utilisateur en centre de services)",
+      "level": "exam",
+      "r": "Objectif et compétence évaluée : résoudre un incident utilisateur en centre de services sans bloquer la production, puis documenter et escalader correctement. | Notions à connaître : ITSM, ticket, incident, problème, demande de service, SLA, escalade, niveau 1/2/3, communication utilisateur, diagnostic en entonnoir. | Tableau Je veux faire… | Interface graphique | Ligne de commande | Vérification : Débloquer un compte | ADUC / portail ITSM | Unlock-ADAccount (À VÉRIFIER) | événement 4767 ; Diagnostiquer un poste | Observateur d'événements | Get-WinEvent (À VÉRIFIER) | code retour 0 ; Tester la connectivité | ping / Test-NetConnection | Test-NetConnection hôte -Port 443 (À VÉRIFIER) | latence < 50 ms ; Consulter les journaux | Event Viewer | Get-EventLog (À VÉRIFIER) | pas d'erreur critique ; Escalader | portail ITSM | n/a | ticket mis à jour. | À connaître par cœur : ports 53, 88, 135, 389, 443, 445 ; événements 4624, 4625, 4740, 41 ; chemins %SystemRoot%\\System32. | Diagnostic express : symptôme -> vérification -> commande. | Pièges : commencer par la commande sans qualifier ; oublier le contexte métier. | Ce que le jury peut demander (MEP phases 1-3) : qualification, diagnostic, communication, escalade, traçabilité. | Index : voir champ couvre.",
+      "tags": [
+        "cp1",
+        "essentiel"
+      ],
+      "g": [
+        "Objectif et compétence évaluée",
+        "Notions à connaître",
+        "Tableau GUI / CLI / Vérification",
+        "À connaître par cœur",
+        "Diagnostic express",
+        "Pièges",
+        "Ce que le jury peut demander",
+        "Index des fiches"
+      ],
+      "c": "Commandes marquées À VÉRIFIER : voir tableau.",
+      "p": [
+        "Ne pas confondre GUI et CLI",
+        "Oublier les preuves MEP"
+      ],
+      "w": "L'essentiel résume ; les fiches détaillées précisent.",
+      "resume": "Fiche essentielle du CP : objectifs, tableau GUI/CLI/vérification, diagnostic express, pièges et index.",
+      "couvre": [
+        "cp1-objectifs",
+        "cp1-itil",
+        "cp1-diagnostic",
+        "cp1-poste",
+        "cp1-collab",
+        "cp1-toip",
+        "cp1-ia",
+        "cp1-gui",
+        "cp1-verification",
+        "cp1-pieges",
+        "cp1-questions-ouvertes",
+        "mig-legacy-pedagogie-ccp3",
+        "mig-legacy-cp1-ticketing",
+        "mig-legacy-cp1-entretien",
+        "mig-legacy-cp1-print",
+        "mig-legacy-cp1-mail",
+        "mig-legacy-cp1-remote",
+        "mig-legacy-cp1-escalade",
+        "cp1-malware-premier-niveau",
+        "cyber-hygiene",
+        "cp1-legacy-ccp12-sec-debutant",
+        "cp1-tickets",
+        "cp1-comptes",
+        "cp1-evenements",
+        "cp1-wsus",
+        "cp1-outils",
+        "mig-legacy-cp1-poste",
+        "pedagogie-cp1"
+      ]
+    },
+    {
       "id": "cp1-objectifs",
       "t": "Objectifs et lien avec la mise en situation professionnelle",
       "level": "exam",
@@ -29,7 +86,8 @@
         "Oublier le contexte métier",
         "Sauter la qualification"
       ],
-      "w": "Conclusion : CP1 se joue sur la méthode et la communication."
+      "w": "Conclusion : CP1 se joue sur la méthode et la communication.",
+      "resume": "CP1 - Objectifs et lien MEP : l'objectif est de résoudre un incident utilisateur en centre de services sans bloquer la production, puis de documenter et d'escalader correctement."
     },
     {
       "id": "cp1-itil",
@@ -57,7 +115,8 @@
         "Mélanger incident et demande",
         "Transmettre sans contexte"
       ],
-      "w": "Conclusion : un support humain reste structuré."
+      "w": "Conclusion : un support humain reste structuré.",
+      "resume": "CP1 - ITSM : gestion des incidents, requêtes, problèmes et changements."
     },
     {
       "id": "cp1-diagnostic",
@@ -85,7 +144,8 @@
         "Juger sans test",
         "Réinstaller à l'aveugle"
       ],
-      "w": "Conclusion : la méthode vaut plus que la vitesse."
+      "w": "Conclusion : la méthode vaut plus que la vitesse.",
+      "resume": "CP1 - Diagnostic : méthode en couches pour aller du plus simple au plus complexe."
     },
     {
       "id": "cp1-poste",
@@ -111,7 +171,8 @@
         "Supprimer le mauvais dossier",
         "Croire au cache sans test"
       ],
-      "w": "Conclusion : comparer web et client isolé la couche réseau."
+      "w": "Conclusion : comparer web et client isolé la couche réseau.",
+      "resume": "CP1 - Poste Windows : verification des ressources, du lancement, du navigateur et de l'identité locale."
     },
     {
       "id": "cp1-collab",
@@ -138,7 +199,8 @@
         "Groupe absent",
         "Accès Sharepoint trop large"
       ],
-      "w": "Conclusion : accès et accompagnement vont de pair."
+      "w": "Conclusion : accès et accompagnement vont de pair.",
+      "resume": "CP1 - Outils collaboratifs : déploiement et accompagnement des usages M365."
     },
     {
       "id": "cp1-toip",
@@ -164,7 +226,8 @@
         "Panne réseau confondue",
         "Casque non configuré"
       ],
-      "w": "Conclusion : support ToIP = terminaux + utilisateur."
+      "w": "Conclusion : support ToIP = terminaux + utilisateur.",
+      "resume": "CP1 - ToIP côté utilisateur : téléphone IP, softphone, casque et accès NTP/DNS."
     },
     {
       "id": "cp1-ia",
@@ -189,7 +252,8 @@
         "Secrets divulgués",
         "Prompt vague"
       ],
-      "w": "Conclusion : encadrer l'IA pour mieux accompagner."
+      "w": "Conclusion : encadrer l'IA pour mieux accompagner.",
+      "resume": "CP1 - IA encadrée : l'assistant accélère, il ne prend pas la décision."
     },
     {
       "id": "cp1-gui",
@@ -214,7 +278,8 @@
         "Clic non documenté",
         "Modification sans retour arrière"
       ],
-      "w": "Conclusion : la GUI se joue sur la clarté."
+      "w": "Conclusion : la GUI se joue sur la clarté.",
+      "resume": "CP1 - GUI : actions graphiques à connaître et à décrire à l'oral."
     },
     {
       "id": "cp1-verification",
@@ -239,7 +304,8 @@
         "Surinterpréter un ping",
         "Tester hors contexte"
       ],
-      "w": "Conclusion : la preuve doit être ciblée."
+      "w": "Conclusion : la preuve doit être ciblée.",
+      "resume": "CP1 - Vérification : un test doit être choisi selon l'hypothèse et ses limites."
     },
     {
       "id": "cp1-pieges",
@@ -263,7 +329,8 @@
         "Promesse non validée",
         "Pas de sauvegarde"
       ],
-      "w": "Conclusion : les détails se défendent par la preuve."
+      "w": "Conclusion : les détails se défendent par la preuve.",
+      "resume": "CP1 - Pièges : liste de raccourcis qui coûtent des points."
     },
     {
       "id": "cp1-questions-ouvertes",
@@ -284,7 +351,8 @@
       "p": [
         "Rester trop théorique"
       ],
-      "w": "Conclusion : l'expérience professionnelle valorise CP1."
+      "w": "Conclusion : l'expérience professionnelle valorise CP1.",
+      "resume": "CP1 - Questions ouvertes pour l'oral et l'examen : 1."
     },
     {
       "id": "mig-legacy-pedagogie-ccp3",
@@ -310,7 +378,8 @@
         "Absence de communication"
       ],
       "w": "Conclusion : structure et communication valent autant que la commande.",
-      "alt": "Schéma CP1"
+      "alt": "Schéma CP1",
+      "resume": "Contenu migré de l'ancienne fiche sans réécriture : Definition : diagnostiquer et resoudre en respectant l'utilisateur."
     },
     {
       "id": "mig-legacy-cp1-ticketing",
@@ -337,7 +406,8 @@
         "Pas de priorité"
       ],
       "w": "Conclusion : un ticket clair sauve du temps.",
-      "alt": "Schéma CP1"
+      "alt": "Schéma CP1",
+      "resume": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : gestion normalisée des incidents."
     },
     {
       "id": "mig-legacy-cp1-entretien",
@@ -364,7 +434,8 @@
         "Couper parole"
       ],
       "w": "Conclusion : support humain.",
-      "alt": "Schéma CP1"
+      "alt": "Schéma CP1",
+      "resume": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : accompagnement humain du support."
     },
     {
       "id": "mig-legacy-cp1-print",
@@ -391,7 +462,8 @@
         "Droits insuffisants"
       ],
       "w": "Conclusion : patience et procédure.",
-      "alt": "Schéma CP1"
+      "alt": "Schéma CP1",
+      "resume": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : support d'impression."
     },
     {
       "id": "mig-legacy-cp1-mail",
@@ -417,7 +489,8 @@
         "Licence manquante"
       ],
       "w": "Conclusion : isoler le client.",
-      "alt": "Schéma CP1"
+      "alt": "Schéma CP1",
+      "resume": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : support M365 et Outlook."
     },
     {
       "id": "mig-legacy-cp1-remote",
@@ -443,7 +516,8 @@
         "Pas de journal"
       ],
       "w": "Conclusion : sécuriser l'assistance.",
-      "alt": "Schéma CP1"
+      "alt": "Schéma CP1",
+      "resume": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : prise en main sécurisée."
     },
     {
       "id": "mig-legacy-cp1-escalade",
@@ -468,7 +542,8 @@
         "Transfert sans contexte"
       ],
       "w": "Conclusion : documentation d'escalade.",
-      "alt": "Schéma CP1"
+      "alt": "Schéma CP1",
+      "resume": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : élevé aux équipes supérieures."
     },
     {
       "id": "cp1-malware-premier-niveau",
@@ -494,7 +569,8 @@
         "Perte de preuves"
       ],
       "w": "Conclusion : contenir puis analyser.",
-      "cp": "cp1"
+      "cp": "cp1",
+      "resume": "CP1 - Malware, premier niveau : isoler, ne pas éteindre, collecter, escalader."
     },
     {
       "cp": "cp1",
@@ -521,7 +597,8 @@
         "Chiffrement des disques"
       ],
       "w": "Un poste non patché est la porte d'entrée la plus courante.",
-      "alt": ""
+      "alt": "",
+      "resume": "Mettre à jour, limiter les droits, chiffrer, désactiver services inutiles, protéger les navigateurs."
     },
     {
       "cp": "cp1",
@@ -549,7 +626,8 @@
         "Journalisation centrale"
       ],
       "w": "La sécurité est un processus continu.",
-      "alt": ""
+      "alt": "",
+      "resume": "L'hygiène : patcher, moindre privilège, MFA, segmentation, EDR, sauvegardes hors ligne immuables."
     },
     {
       "id": "cp1-tickets",
@@ -576,7 +654,8 @@
         "On ne ferme un ticket qu'après validation réelle et sans contournement caché"
       ],
       "w": "Reformuler en langage simple ; jamais de jargon face à l'utilisateur. Un ticket flou = un incident mal routé.",
-      "cp": "cp6"
+      "cp": "cp6",
+      "resume": "Incident = service dégradé à rétablir vite."
     },
     {
       "id": "cp1-comptes",
@@ -602,7 +681,8 @@
         "Un compte verrouillé en boucle = forcer sa déconnexion partout"
       ],
       "w": "Ne jamais envoyer le mot de passe dans le même canal que l'identifiant. Les groupes d'accès doivent rester inchangés lors d'un reset.",
-      "cp": "cp6"
+      "cp": "cp6",
+      "resume": "Vérifier l'identité avant toute réinitialisation."
     },
     {
       "id": "cp1-evenements",
@@ -628,7 +708,8 @@
         "Exporter en EVTX avant une réinstallation"
       ],
       "w": "L'absence d'erreur dans les journaux n'exclut pas un problème réseau ou applicatif.",
-      "cp": "cp6"
+      "cp": "cp6",
+      "resume": "Les journaux Application/Sécurité/Système + PowerShell Get-EventLog sont la mémoire de la machine."
     },
     {
       "id": "cp1-wsus",
@@ -654,7 +735,8 @@
         "Garder 1-2 snapshots avant mise à jour majeure"
       ],
       "w": "Les mises à jour WSUS ne couvrent que les produits Microsoft ; les applicatifs tiers nécessitent un outil dédié.",
-      "cp": "cp6"
+      "cp": "cp6",
+      "resume": "Séparation anneaux (pilote/production), fenêtre de maintenance, rollback documenté."
     },
     {
       "id": "cp1-outils",
@@ -679,7 +761,8 @@
         "Durée moyenne de résolution à suivre an par mois"
       ],
       "w": "Le silence crée l'angoisse ; un statut intermédiaire est toujours mieux.",
-      "cp": "cp6"
+      "cp": "cp6",
+      "resume": "Un bon support = diagnostic structuré + écoute active + trajectoire claire pour l'utilisateur."
     },
     {
       "id": "mig-legacy-cp1-poste",
@@ -706,7 +789,8 @@
       ],
       "w": "Ne jamais remettre une IP manuelle sans documenter ; cela masque le vrai défaut DHCP.",
       "cp": "cp6",
-      "doublon_de": "cp1-poste"
+      "doublon_de": "cp1-poste",
+      "resume": "Physique → IP → passerelle → DNS → Internet."
     },
     {
       "id": "pedagogie-cp1",
@@ -732,7 +816,8 @@
         "Oublier la preuve"
       ],
       "w": "Conclusion : l'IA est un accelerateur, la validation humaine reste obligatoire.",
-      "cp": "cp6"
+      "cp": "cp6",
+      "resume": "Definition : l'IA assiste l'humain mais ne decide pas a sa place."
     }
   ],
   "quiz": [

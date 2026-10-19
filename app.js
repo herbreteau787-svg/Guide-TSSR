@@ -46,6 +46,8 @@ const state = {
   q: '',
   level: '',
   favOnly: false,
+  expandAll: false,
+  expandedKeys: new Set(),
   glossaryQ: '',
   cheatCat: 'Tous',
   cheatQ: '',
@@ -223,10 +225,10 @@ function renderCours(){
     if (!found) html += `<div class="card"><p class="muted">Aucun résultat. Essayez un autre mot-clé.</p></div>`;
   } else {
     const sec = G.sections.find(s=>s.id===state.section) || G.sections[0];
-    html += `<div class="hero"><h1>${escapeHtml(sec.icon||'')} ${escapeHtml(sec.title)}</h1><p>${escapeHtml(sec.desc||'')}</p><p class="muted small">${(sec.fiches||[]).length} fiches · ${escapeHtml(sec.group||'')}</p></div>`;
-    const ms = (sec.fiches||[]).filter(f=>matchesFiche(f,sec));
+    const ms = (sec.fiches||[]).filter(f=>matchesFiche(f,sec)).sort((a,b)=> String(a.id||'').endsWith('-essentiel') ? -1 : (String(b.id||'').endsWith('-essentiel') ? 1 : 0));
+    html += `<div class="hero"><h1>${escapeHtml(sec.icon||'')} ${escapeHtml(sec.title)}</h1><p>${escapeHtml(sec.desc||'')}</p><p class="muted small">${(sec.fiches||[]).length} fiches · ${escapeHtml(sec.group||'')}</p><div class="button-row" style="margin-top:8px"><button class="ghost-btn" id="toggleAll">${state.expandAll?'Tout replier':'Tout déplier'}</button></div></div>`;
     if (!ms.length) html += `<div class="card"><p class="muted">Aucune fiche avec ces filtres.</p></div>`;
-    else html += ms.map(f=> renderFiche(sec,f,sec.fiches.indexOf(f),done,favs)).join('');
+    else html += ms.map(f=> renderFiche(sec,f,sec.fiches.indexOf(f),done,favs,state.q.trim()!=='' )).join('');
   }
   panel.innerHTML = html;
   // wire clipboard and tabs via delegation (already)
@@ -237,12 +239,15 @@ function ficheKey(secId, f, index){
   // stable key using f.id when possible
   return secId + ':' + (f.id || index);
 }
-function renderFiche(sec, f, index, done, favs){
+function renderFiche(sec, f, index, done, favs, forceExpanded){
   const key = ficheKey(sec.id, f, index);
   const isDone = done.has(key);
   const isFav = favs.has(key);
   const hasCli = Boolean(f.cli) && (f.c || '').trim().length > 0;
   const isRenvoi = (f.id || "").toLowerCase().includes("-renvoi-");
+  const isEssentiel = String(f.id || "").endsWith("-essentiel");
+  const keyExpanded = (state.expandedKeys instanceof Set) ? state.expandedKeys.has(key) : false;
+  const expanded = !!forceExpanded || !!state.expandAll || isEssentiel || keyExpanded;
   const cleanPts = (f.p||[]).filter(x=>{const t=String(x||"").trim(); return t && t.toLowerCase() !== "sans note";});
   const cleanWarn = String(f.w||"").trim();
   const renvoiTargets = Array.isArray(f.renvoi_vers) ? f.renvoi_vers : [];
@@ -256,6 +261,8 @@ function renderFiche(sec, f, index, done, favs){
     <div class="badges">${badgeLevel(f.level)} ${tags}</div>
     <h3>${escapeHtml(f.t)}</h3>
     <p class="summary">${formatInline(f.r||'')}</p>
+    ${isEssentiel ? '<span class="badge" style="background:var(--acc);color:#020617">Essentiel</span>' : `<button class="ghost-btn fiche-toggle" data-key="${escapeHtml(key)}">${expanded?'Replier':'Déplier'}</button>`}
+    <div class="fiche-body" style="display:${expanded?'block':'none'}">
     ${imgTag}
     ${hasCli ? `<div class="tabs-mode">
       <button class="on" data-mode="gui">🔍 GUI</button>
@@ -273,6 +280,7 @@ function renderFiche(sec, f, index, done, favs){
     ${pts ? `<ul class="pts">${pts}</ul>` : ''}
     ${cleanWarn ? `<div class="warn-box">${formatInline(cleanWarn)}</div>` : ''}
     ${isRenvoi ? `<div class="renvoi-links"><span class="muted small">Voir :</span> ${renvoiTargets.map(target=>`<button class="mini-qcm-btn" data-open-fiche="${escapeHtml(target)}">${escapeHtml(target)}</button>`).join("")}</div>` : ''}
+    </div>
     <div class="label-row">
       <label class="check"><input type="checkbox" data-key="${escapeHtml(key)}" ${isDone?'checked':''}> Marquer comme lue</label>
       <button class="favorite-btn ${isFav?'on':''}" data-key="${escapeHtml(key)}">${isFav?' Favori':' Favori'}</button>
@@ -310,6 +318,21 @@ document.addEventListener('click', e=>{
   // favorite
   const favBtn = e.target.closest('.favorite-btn');
   if (favBtn){ toggleFav(favBtn.dataset.key); return; }
+  // fiche toggle
+  const ficheToggle = e.target.closest('.fiche-toggle');
+  if (ficheToggle){
+    const k = ficheToggle.dataset.key;
+    if (!state.expandedKeys) state.expandedKeys = new Set();
+    if (state.expandedKeys.has(k)) state.expandedKeys.delete(k); else state.expandedKeys.add(k);
+    renderCours();
+    return;
+  }
+  // toggle all
+  if (e.target.closest('#toggleAll')){
+    state.expandAll = !state.expandAll;
+    renderCours();
+    return;
+  }
   // doc export
   const docBtn = e.target.closest('.doc-btn');
   if (docBtn){ exportFiche(docBtn.dataset.doc); return; }
