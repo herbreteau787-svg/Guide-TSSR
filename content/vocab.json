@@ -6,2548 +6,2807 @@
       "id": "vocab-001",
       "en": "computer",
       "fr": "ordinateur",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-002",
       "en": "workstation",
       "fr": "poste de travail",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-003",
       "en": "server",
       "fr": "serveur",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-004",
       "en": "device",
       "fr": "appareil / périphérique",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
-      "fiabilite": "sure"
+      "section": "Logiciel et système",
+      "fiabilite": "a_verifier"
     },
     {
       "id": "vocab-005",
       "en": "hardware",
       "fr": "matériel informatique",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-006",
       "en": "software",
       "fr": "logiciel",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-007",
       "en": "operating system",
-      "fr": "système d’exploitation",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "fr": "système d'exploitation",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-008",
-      "en": "path",
-      "fr": "chemin (d’accès)",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "program",
+      "fr": "programme",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-009",
-      "en": "desktop",
-      "fr": "bureau (interface) / ordinateur de bureau",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "file",
+      "fr": "fichier",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-010",
-      "en": "password",
-      "fr": "mot de passe",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "folder",
+      "fr": "dossier",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-011",
-      "en": "Ce chapitre pose les fondations : le vocabulaire que tu rencontreras absolument partout,",
-      "fr": "dès les premiers cours comme dans n’importe quelle documentation.",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "directory",
+      "fr": "répertoire",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-012",
-      "en": "🇬🇧 English: computer 🇫🇷 FR: ordinateur Prononciation approximative: keum-",
-      "fr": "pyou-teur",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "path",
+      "fr": "chemin d'accès",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-013",
-      "en": "électronique qui traite des données.",
-      "fr": "Exemple informatique : > The computer won’t turn on.",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
-      "fiabilite": "sure"
+      "en": "desktop",
+      "fr": "bureau (interface)",
+      "section": "Logiciel et système",
+      "fiabilite": "a_verifier"
     },
     {
       "id": "vocab-014",
-      "en": "Contexte professionnel : Terme générique ; en entreprise on précise souvent workstation,",
-      "fr": "server, laptop, etc. Termes associés : device, machine, PC, workstation |",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "user",
+      "fr": "utilisateur",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-015",
-      "en": "🇬🇧 English: workstation 🇫🇷 FR: poste de travail Prononciation approximative:",
-      "fr": "weurk-stéï-cheunn",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "account",
+      "fr": "compte",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-016",
-      "en": "Traduction : Un ordinateur utilisé par un employé pour ses tâches quotidiennes.",
-      "fr": "Exemple informatique : > I need to reinstall the workstation.",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "login",
+      "fr": "connexion",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-017",
-      "en": "Contexte professionnel : Très utilisé en support IT et en ticket, pour désigner le poste",
-      "fr": "d’un utilisateur (par opposition à un serveur). Termes associés : PC, desktop, laptop,",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "logout",
+      "fr": "déconnexion",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-018",
-      "en": "(clients). Traduction : Un ordinateur qui fournit des services ou des ressources à d’autres",
-      "fr": "ordinateurs (clients).",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "password",
+      "fr": "mot de passe",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-019",
-      "en": "Traduction : > Le serveur est actuellement indisponible.",
-      "fr": "Contexte professionnel : Un des mots les plus utilisés en admin sys/réseau. On parle de",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "credentials",
+      "fr": "identifiants",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-020",
-      "en": "datacenter, service |",
-      "fr": "Device",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "kernel",
+      "fr": "noyau",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-021",
-      "en": "approximative: di-vaïs",
-      "fr": "Définition simple : Any piece of equipment that can be connected to or is part of a",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "process",
+      "fr": "processus",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-022",
-      "en": "informatique ou en faisant partie.",
-      "fr": "Exemple informatique : > Please connect your mobile device to the guest network.",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "daemon",
+      "fr": "démon",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-023",
-      "en": "Contexte professionnel : Terme très large : un smartphone, une imprimante, un routeur",
-      "fr": "sont tous des devices. Termes associés : hardware, equipment, peripheral, endpoint",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "driver",
+      "fr": "pilote",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-024",
-      "en": "Définition simple : The physical components of a computer system. Traduction : Les",
-      "fr": "composants physiques d’un système informatique.",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "update",
+      "fr": "mise à jour",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-025",
-      "en": "Traduction : > Ce problème semble être un problème matériel, pas logiciel.",
-      "fr": "Ne pas confondre : hardware (le matériel physique) vs software (les programmes).",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "patch",
+      "fr": "correctif",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-026",
-      "en": "Programmes et instructions qui s’exécutent sur un ordinateur.",
-      "fr": "Exemple informatique : > Please update the software to the latest version.",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "boot",
+      "fr": "démarrage",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-027",
-      "en": "Termes associés : application, program, app, system |",
-      "fr": "Operating system (OS)",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "reboot",
+      "fr": "redémarrage",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-028",
-      "en": "approximative: o-peu-réï-ting sis-teum",
-      "fr": "Définition simple : The main software that manages hardware and other software on a",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "shutdown",
+      "fr": "arrêt",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-029",
-      "en": "ordinateur.",
-      "fr": "Exemple informatique : > Which operating system are you running, Windows or Linux?",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "startup",
+      "fr": "démarrage automatique",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-030",
-      "en": "Contexte professionnel : Toujours abrégé OS à l’oral et dans les tickets. Termes associés",
-      "fr": ": Windows, Linux, kernel, system |",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "task",
+      "fr": "tâche",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-031",
-      "en": "Un logiciel conçu pour accomplir une tâche spécifique.",
-      "fr": "Exemple informatique : > The application crashes every time I open it.",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "command line",
+      "fr": "ligne de commande",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-032",
-      "en": "Ne pas confondre : application est souvent utilisé côté utilisateur final (mobile,",
-      "fr": "bureautique) ; program est plus générique et englobe aussi les scripts, services, etc.",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "environment variable",
+      "fr": "variable d'environnement",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-033",
-      "en": "Un fichier stocke des données ; un dossier (ou répertoire) organise les fichiers.",
-      "fr": "Exemple informatique : > The configuration file is located in the /etc directory.",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "CPU",
+      "fr": "processeur",
+      "section": "Matériel",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-034",
-      "en": "directory est plus technique et utilisé en ligne de commande (Linux, CMD). Termes",
-      "fr": "associés : path, file system, subfolder, root |",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "processor",
+      "fr": "processeur",
+      "section": "Matériel",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-035",
-      "en": "(th comme dans “think”)",
-      "fr": "Définition simple : The location of a file or folder in the file system. Traduction :",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "RAM",
+      "fr": "mémoire vive",
+      "section": "Matériel",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-036",
-      "en": "Traduction : > Veuillez vérifier le chemin d’accès au fichier de log.",
-      "fr": "Termes associés : directory, file, location, route |",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "memory",
+      "fr": "mémoire",
+      "section": "Matériel",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-037",
-      "en": "Prononciation approximative: desk-top",
-      "fr": "Définition simple : The main screen of a computer (with icons), or a non-portable",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "motherboard",
+      "fr": "carte mère",
+      "section": "Matériel",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-038",
-      "en": "Faux ami partiel : desktop ne veut pas dire “bureau” au sens meuble (ça, c’est desk).",
-      "fr": "Exemple informatique : > There’s a new icon on the desktop.",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "storage",
+      "fr": "stockage",
+      "section": "Matériel",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-039",
-      "en": "Exemple informatique : > The user account has been locked after several failed attempts.",
-      "fr": "Traduction : > Le compte utilisateur a été verrouillé après plusieurs tentatives échouées.",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "hard drive",
+      "fr": "disque dur",
+      "section": "Matériel",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-040",
-      "en": "Définition simple : To log in is to access a system with credentials; to log out is to end the",
-      "fr": "session. Traduction : Se connecter, c’est accéder à un système avec des identifiants ; se",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "HDD",
+      "fr": "disque dur HDD",
+      "section": "Matériel",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-041",
-      "en": "Exemple informatique : > I can’t log in to my account.",
-      "fr": "Traduction : > Je n’arrive pas à me connecter à mon compte.",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "SSD",
+      "fr": "disque SSD",
+      "section": "Matériel",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-042",
-      "en": "formel : “to log in”). En anglais soigné, on écrit “I need to log in” (deux mots) mais “the login",
-      "fr": "page” (un mot, adjectif/nom). Termes associés : credentials, authenticate, session, sign in",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "power supply",
+      "fr": "bloc d'alimentation",
+      "section": "Matériel",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-043",
-      "en": "Exemple informatique : > Your password has expired. Please reset it.",
-      "fr": "Traduction : > Votre mot de passe a expiré. Veuillez le réinitialiser.",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "graphics card",
+      "fr": "carte graphique",
+      "section": "Matériel",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-044",
-      "en": "✅ À retenir — Chapitre 1",
-      "fr": "computer, workstation, server, device, hardware, software, operating system, application,",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "GPU",
+      "fr": "processeur graphique",
+      "section": "Matériel",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-045",
-      "en": "credentials",
-      "fr": "📝 Mini-quiz — Chapitre 1",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "network card",
+      "fr": "carte réseau",
+      "section": "Matériel",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-046",
-      "en": "utilisateur",
-      "fr": "2. Que veut dire “The server is currently unavailable” ? A. Le serveur est en panne",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "NIC",
+      "fr": "carte réseau",
+      "section": "Matériel",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-047",
-      "en": "redémarre",
-      "fr": "3. “Folder” et “directory” désignent tous les deux : A. Un fichier B. Un",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "peripheral",
+      "fr": "périphérique",
+      "section": "Matériel",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-048",
-      "en": "4. “To log in” signifie : A. Se déconnecter B. Se connecter C. Installer D. Redémarrer",
-      "fr": "5. Quel terme désigne le système principal qui gère le matériel ? A. Application B.",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "keyboard",
+      "fr": "clavier",
+      "section": "Matériel",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-049",
-      "en": "Réponses : 1-B, 2-B, 3-B, 4-B, 5-C",
-      "fr": "🔁 Exercices de traduction — Chapitre 1",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "mouse",
+      "fr": "souris",
+      "section": "Matériel",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-050",
-      "en": "Réponse : J’ai oublié mon mot de passe et je n’arrive pas à me connecter.",
-      "fr": "FR → Anglais > Le fichier de configuration est dans le mauvais dossier.",
-      "section": "Chapitre 1 — Les bases de l’anglais informatique 🟢",
+      "en": "monitor",
+      "fr": "moniteur",
+      "section": "Matériel",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-051",
-      "en": "motherboard",
-      "fr": "carte mère",
-      "section": "Chapitre 2 — Matériel informatique (Hardware) 🟢🟠",
-      "fiabilite": "sure"
+      "en": "rack",
+      "fr": "baie (informatique)",
+      "section": "Matériel",
+      "fiabilite": "a_verifier"
     },
     {
       "id": "vocab-052",
-      "en": "power supply (unit)",
-      "fr": "bloc d’alimentation",
-      "section": "Chapitre 2 — Matériel informatique (Hardware) 🟢🟠",
+      "en": "cable",
+      "fr": "câble",
+      "section": "Matériel",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-053",
-      "en": "graphics card (GPU)",
-      "fr": "carte graphique",
-      "section": "Chapitre 2 — Matériel informatique (Hardware) 🟢🟠",
+      "en": "connector",
+      "fr": "connecteur",
+      "section": "Matériel",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-054",
-      "en": "peripheral",
-      "fr": "périphérique",
-      "section": "Chapitre 2 — Matériel informatique (Hardware) 🟢🟠",
+      "en": "Active Directory",
+      "fr": "annuaire Active Directory",
+      "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-055",
-      "en": "rack",
-      "fr": "baie (informatique)",
-      "section": "Chapitre 2 — Matériel informatique (Hardware) 🟢🟠",
+      "en": "domain controller",
+      "fr": "contrôleur de domaine",
+      "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-056",
-      "en": "Définition simple : The main component that executes instructions (“the brain” of the",
-      "fr": "computer). Traduction : Le composant principal qui exécute les instructions (le “cerveau”",
-      "section": "Chapitre 2 — Matériel informatique (Hardware) 🟢🟠",
+      "en": "domain",
+      "fr": "domaine",
+      "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-057",
-      "en": "Traduction : > L’utilisation du processeur est à 95 %.",
-      "fr": "Termes associés : core, processing, performance, load |",
-      "section": "Chapitre 2 — Matériel informatique (Hardware) 🟢🟠",
+      "en": "forest",
+      "fr": "forêt",
+      "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-058",
-      "en": "Exemple informatique : > The server is running out of memory.",
-      "fr": "Traduction : > Le serveur manque de mémoire vive.",
-      "section": "Chapitre 2 — Matériel informatique (Hardware) 🟢🟠",
+      "en": "organizational unit",
+      "fr": "unité d'organisation",
+      "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-059",
-      "en": "🇬🇧 English: motherboard 🇫🇷 FR: carte mère Prononciation approximative: ma-",
-      "fr": "zeur-bord",
-      "section": "Chapitre 2 — Matériel informatique (Hardware) 🟢🟠",
+      "en": "Group Policy Object",
+      "fr": "stratégie de groupe",
+      "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-060",
-      "en": "(flash-based, faster) are two types of drives. Traduction : Le stockage est l’endroit où les",
-      "fr": "données sont conservées de façon permanente ; le HDD (mécanique) et le SSD (à mémoire",
-      "section": "Chapitre 2 — Matériel informatique (Hardware) 🟢🟠",
+      "en": "user account",
+      "fr": "compte utilisateur",
+      "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-061",
-      "en": "Traduction : > Nous devrions migrer du disque dur classique vers un SSD pour de",
-      "fr": "meilleures performances.",
-      "section": "Chapitre 2 — Matériel informatique (Hardware) 🟢🟠",
+      "en": "computer account",
+      "fr": "compte ordinateur",
+      "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-062",
-      "en": "Termes associés : disk, drive, capacity, partition |",
-      "fr": "Power supply / PSU",
-      "section": "Chapitre 2 — Matériel informatique (Hardware) 🟢🟠",
+      "en": "security group",
+      "fr": "groupe de sécurité",
+      "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-063",
-      "en": "🇬🇧 English: power supply (unit) 🇫🇷 FR: bloc d’alimentation Prononciation",
-      "fr": "approximative: paour su-plaï",
-      "section": "Chapitre 2 — Matériel informatique (Hardware) 🟢🟠",
+      "en": "distribution group",
+      "fr": "groupe de distribution",
+      "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-064",
-      "en": "Exemple informatique : > The server won’t boot; we suspect a faulty power supply.",
-      "fr": "Traduction : > Le serveur ne démarre pas ; nous suspectons un bloc d’alimentation",
-      "section": "Chapitre 2 — Matériel informatique (Hardware) 🟢🟠",
+      "en": "permissions",
+      "fr": "droits d'accès",
+      "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-065",
-      "en": "défectueux.",
-      "fr": "|",
-      "section": "Chapitre 2 — Matériel informatique (Hardware) 🟢🟠",
+      "en": "NTFS",
+      "fr": "système de fichiers NTFS",
+      "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-066",
-      "en": "Graphics card",
-      "fr": "🇬🇧 English: graphics card (GPU) 🇫🇷 FR: carte graphique",
-      "section": "Chapitre 2 — Matériel informatique (Hardware) 🟢🟠",
+      "en": "file server",
+      "fr": "serveur de fichiers",
+      "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-067",
-      "en": "approximative: gra-fiks kard",
-      "fr": "|",
-      "section": "Chapitre 2 — Matériel informatique (Hardware) 🟢🟠",
+      "en": "print server",
+      "fr": "serveur d'impression",
+      "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-068",
-      "en": "Traduction : > La carte réseau n’est pas détectée par le système d’exploitation.",
-      "fr": "Termes associés : interface, MAC address, driver, port |",
-      "section": "Chapitre 2 — Matériel informatique (Hardware) 🟢🟠",
+      "en": "DNS",
+      "fr": "serveur de noms",
+      "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-069",
-      "en": "ri-feu-reul",
-      "fr": "Définition simple : An external device connected to a computer (keyboard, mouse,",
-      "section": "Chapitre 2 — Matériel informatique (Hardware) 🟢🟠",
+      "en": "DHCP",
+      "fr": "attribution automatique d'IP",
+      "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-070",
-      "en": "printer…). Traduction : Un appareil externe connecté à un ordinateur (clavier, souris,",
-      "fr": "imprimante…).",
-      "section": "Chapitre 2 — Matériel informatique (Hardware) 🟢🟠",
+      "en": "Windows services",
+      "fr": "services Windows",
+      "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-071",
-      "en": "|",
-      "fr": "Rack",
-      "section": "Chapitre 2 — Matériel informatique (Hardware) 🟢🟠",
+      "en": "Event Viewer",
+      "fr": "observateur d'événements",
+      "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-072",
-      "en": "🇬🇧 English: rack 🇫🇷 FR: baie (informatique) Prononciation approximative: rak",
-      "fr": "Exemple informatique : > The new server will be mounted in rack 3.",
-      "section": "Chapitre 2 — Matériel informatique (Hardware) 🟢🟠",
+      "en": "registry",
+      "fr": "registre",
+      "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-073",
-      "en": "Traduction : > Le nouveau serveur sera monté dans la baie 3.",
-      "fr": "|",
-      "section": "Chapitre 2 — Matériel informatique (Hardware) 🟢🟠",
+      "en": "package",
+      "fr": "paquet",
+      "section": "Linux et administration",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-074",
-      "en": "the port.",
-      "fr": "Traduction : > Veuillez vérifier que le câble Ethernet est correctement branché sur le port.",
-      "section": "Chapitre 2 — Matériel informatique (Hardware) 🟢🟠",
+      "en": "repository",
+      "fr": "dépôt",
+      "section": "Linux et administration",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-075",
-      "en": "CPU, processor, RAM, memory, motherboard, storage, HDD, SSD, power supply, graphics",
-      "fr": "card, NIC, network card, peripheral, keyboard, mouse, monitor, rack, cable, connector, port",
-      "section": "Chapitre 2 — Matériel informatique (Hardware) 🟢🟠",
+      "en": "package manager",
+      "fr": "gestionnaire de paquets",
+      "section": "Linux et administration",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-076",
-      "en": "📝 Mini-quiz — Chapitre 2",
-      "fr": "1. “Memory” en anglais informatique désigne généralement : A. Le disque dur B.",
-      "section": "Chapitre 2 — Matériel informatique (Hardware) 🟢🟠",
-      "fiabilite": "sure"
+      "en": "sudo",
+      "fr": "sudo (élévation de privilèges)",
+      "section": "Linux et administration",
+      "fiabilite": "a_verifier"
     },
     {
       "id": "vocab-077",
-      "en": "La RAM C. Le processeur D. La carte réseau",
-      "fr": "2. “NIC” signifie : A. Network Interface Card B. New Internet Connection C. Network",
-      "section": "Chapitre 2 — Matériel informatique (Hardware) 🟢🟠",
-      "fiabilite": "sure"
+      "en": "root",
+      "fr": "super-utilisateur (root)",
+      "section": "Linux et administration",
+      "fiabilite": "a_verifier"
     },
     {
       "id": "vocab-078",
-      "en": "Internal Component D. Node Identity Code",
-      "fr": "3. Un SSD est : A. Plus lent qu’un HDD B. Un type de carte graphique C. Un disque à",
-      "section": "Chapitre 2 — Matériel informatique (Hardware) 🟢🟠",
+      "en": "command",
+      "fr": "commande",
+      "section": "Linux et administration",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-079",
-      "en": "mémoire flash, plus rapide qu’un HDD D. Une carte réseau",
-      "fr": "Réponses : 1-B, 2-A, 3-C",
-      "section": "Chapitre 2 — Matériel informatique (Hardware) 🟢🟠",
-      "fiabilite": "sure"
+      "en": "pipe",
+      "fr": "tube (pipe)",
+      "section": "Linux et administration",
+      "fiabilite": "a_verifier"
     },
     {
       "id": "vocab-080",
-      "en": "🔁 Exercice de traduction — Chapitre 2",
-      "fr": "Le serveur manque de RAM et le CPU est à 100 %.",
-      "section": "Chapitre 2 — Matériel informatique (Hardware) 🟢🟠",
+      "en": "filesystem",
+      "fr": "système de fichiers",
+      "section": "Linux et administration",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-081",
-      "en": "kernel",
-      "fr": "noyau",
-      "section": "Chapitre 3 — Systèmes d’exploitation 🟢🟠",
+      "en": "mount",
+      "fr": "montage",
+      "section": "Linux et administration",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-082",
-      "en": "driver",
-      "fr": "pilote",
-      "section": "Chapitre 3 — Systèmes d’exploitation 🟢🟠",
+      "en": "ownership",
+      "fr": "propriété",
+      "section": "Linux et administration",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-083",
-      "en": "environment variable",
-      "fr": "variable d’environnement",
-      "section": "Chapitre 3 — Systèmes d’exploitation 🟢🟠",
+      "en": "symbolic link",
+      "fr": "lien symbolique",
+      "section": "Linux et administration",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-084",
-      "en": "Définition simple : A process is a running program; a service (or daemon on Linux) runs",
-      "fr": "in the background. Traduction : Un processus est un programme en cours d’exécution ; un",
-      "section": "Chapitre 3 — Systèmes d’exploitation 🟢🟠",
+      "en": "log",
+      "fr": "journal",
+      "section": "Linux et administration",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-085",
-      "en": "Traduction : > Le service DNS s’est arrêté de manière inattendue.",
-      "fr": "Ne pas confondre : service (Windows) et daemon (Linux) désignent le même concept,",
-      "section": "Chapitre 3 — Systèmes d’exploitation 🟢🟠",
+      "en": "cron",
+      "fr": "planificateur cron",
+      "section": "Linux et administration",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-086",
-      "en": "🇬🇧 English: driver 🇫🇷 FR: pilote Prononciation approximative: draï-veur",
-      "fr": "Exemple informatique : > You need to install the latest driver for this printer.",
-      "section": "Chapitre 3 — Systèmes d’exploitation 🟢🟠",
+      "en": "SSH",
+      "fr": "protocole d'accès distant sécurisé",
+      "section": "Linux et administration",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-087",
-      "en": "fonctionnalités) ; patch est un correctif ciblé, souvent lié à la sécurité.",
-      "fr": "Exemple informatique : > A security patch has been released for this vulnerability.",
-      "section": "Chapitre 3 — Systèmes d’exploitation 🟢🟠",
+      "en": "virtual machine",
+      "fr": "machine virtuelle",
+      "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-088",
-      "en": "Traduction : > Un correctif de sécurité a été publié pour cette vulnérabilité.",
-      "fr": "|",
-      "section": "Chapitre 3 — Systèmes d’exploitation 🟢🟠",
+      "en": "hypervisor",
+      "fr": "hyperviseur",
+      "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-089",
-      "en": "d’exploitation complet. - Reset : réinitialiser (remettre à zéro), pas forcément redémarrer",
-      "fr": "— ex. “reset the password”.",
-      "section": "Chapitre 3 — Systèmes d’exploitation 🟢🟠",
+      "en": "container",
+      "fr": "conteneur",
+      "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-090",
-      "en": "Exemple informatique : > Please reboot the server after applying the patch.",
-      "fr": "Traduction : > Veuillez redémarrer le serveur après avoir appliqué le correctif.",
-      "section": "Chapitre 3 — Systèmes d’exploitation 🟢🟠",
+      "en": "snapshot",
+      "fr": "instantané",
+      "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-091",
-      "en": "Traduction : > Ouvrez un terminal et exécutez cette commande.",
-      "fr": "|",
-      "section": "Chapitre 3 — Systèmes d’exploitation 🟢🟠",
+      "en": "high availability",
+      "fr": "haute disponibilité",
+      "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-092",
-      "en": "✅ À retenir — Chapitre 3",
-      "fr": "command line, terminal, shell, environment variable",
-      "section": "Chapitre 3 — Systèmes d’exploitation 🟢🟠",
+      "en": "cluster",
+      "fr": "grappe",
+      "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-093",
-      "en": "1. “Daemon” est l’équivalent Linux de quel mot Windows ? A. Driver B. Service C.",
-      "fr": "2. “Reboot” signifie précisément : A. Éteindre définitivement B. Redémarrer le",
-      "section": "Chapitre 3 — Systèmes d’exploitation 🟢🟠",
+      "en": "router",
+      "fr": "routeur",
+      "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-094",
-      "en": "3. Un “patch” est généralement : A. Une mise à jour majeure avec de nouvelles",
-      "fr": "type de mémoire",
-      "section": "Chapitre 3 — Systèmes d’exploitation 🟢🟠",
+      "en": "switch",
+      "fr": "commutateur",
+      "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-095",
-      "en": "🔁 Exercices de traduction — Chapitre 3",
-      "fr": "Réponse : Le service DNS doit être redémarré après la mise à jour.",
-      "section": "Chapitre 3 — Systèmes d’exploitation 🟢🟠",
+      "en": "firewall",
+      "fr": "pare-feu",
+      "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-096",
-      "en": "Réponse : The kernel doesn’t detect the network card after the reboot.",
-      "fr": "Faux amis rencontrés dans cette partie",
-      "section": "Chapitre 3 — Systèmes d’exploitation 🟢🟠",
+      "en": "IP address",
+      "fr": "adresse IP",
+      "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-097",
-      "en": "interprétation Bonne traduction Exemple informatique",
-      "fr": "y compris disque)",
-      "section": "Chapitre 3 — Systèmes d’exploitation 🟢🟠",
+      "en": "subnet",
+      "fr": "sous-réseau",
+      "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-098",
-      "en": "uniquement",
-      "fr": "vive faible, pas manque de",
-      "section": "Chapitre 3 — Systèmes d’exploitation 🟢🟠",
+      "en": "gateway",
+      "fr": "passerelle",
+      "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-099",
-      "en": "desktop bureau (meuble) bureau (écran",
-      "fr": "ordinateur fixe",
-      "section": "Chapitre 3 — Systèmes d’exploitation 🟢🟠",
+      "en": "VLAN",
+      "fr": "réseau local virtuel",
+      "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-100",
-      "en": "Mauvaise",
-      "fr": "actually actuellement en fait / en réalité “Actually, the server is up.” =",
-      "section": "Chapitre 3 — Systèmes d’exploitation 🟢🟠",
+      "en": "bandwidth",
+      "fr": "bande passante",
+      "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-101",
-      "en": "Active Directory",
-      "fr": "Active Directory (annuaire de domaines",
-      "section": "Chapitre 4 — Windows / Windows Server 🟠🔴",
+      "en": "latency",
+      "fr": "latence",
+      "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-102",
-      "en": "domain controller",
-      "fr": "contrôleur de domaine",
-      "section": "Chapitre 4 — Windows / Windows Server 🟠🔴",
+      "en": "packet",
+      "fr": "paquet",
+      "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-103",
-      "en": "organizational unit",
-      "fr": "unité d’organisation",
-      "section": "Chapitre 4 — Windows / Windows Server 🟠🔴",
+      "en": "protocol",
+      "fr": "protocole",
+      "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-104",
-      "en": "Group Policy Object",
-      "fr": "stratégie de groupe",
-      "section": "Chapitre 4 — Windows / Windows Server 🟠🔴",
+      "en": "VPN",
+      "fr": "réseau privé virtuel",
+      "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-105",
-      "en": "permissions",
-      "fr": "permissions / droits d’accès",
-      "section": "Chapitre 4 — Windows / Windows Server 🟠🔴",
+      "en": "malware",
+      "fr": "logiciel malveillant",
+      "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-106",
-      "en": "NTFS (New Technology File System)",
-      "fr": "NTFS (système de fichiers",
-      "section": "Chapitre 4 — Windows / Windows Server 🟠🔴",
+      "en": "phishing",
+      "fr": "hameçonnage",
+      "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-107",
-      "en": "PowerShell",
-      "fr": "PowerShell (langage de script Windows)",
-      "section": "Chapitre 4 — Windows / Windows Server 🟠🔴",
+      "en": "hacker",
+      "fr": "pirate informatique",
+      "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-108",
-      "en": "Windows services",
-      "fr": "services Windows",
-      "section": "Chapitre 4 — Windows / Windows Server 🟠🔴",
+      "en": "data breach",
+      "fr": "fuite de données",
+      "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-109",
-      "en": "Event Viewer",
-      "fr": "Observateur d’événements",
-      "section": "Chapitre 4 — Windows / Windows Server 🟠🔴",
+      "en": "encryption",
+      "fr": "chiffrement",
+      "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-110",
-      "en": "registry",
-      "fr": "registre (base de configuration Windows)",
-      "section": "Chapitre 4 — Windows / Windows Server 🟠🔴",
+      "en": "backup",
+      "fr": "sauvegarde",
+      "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-111",
-      "en": "permissions in a network. Traduction : Un service d’annuaire Microsoft qui gère les",
-      "fr": "utilisateurs, ordinateurs et permissions dans un réseau.",
-      "section": "Chapitre 4 — Windows / Windows Server 🟠🔴",
+      "en": "two-factor authentication",
+      "fr": "authentification à deux facteurs",
+      "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-112",
-      "en": "Contexte professionnel : Toujours abrégé AD à l’oral. Terme conservé tel quel en FR.",
-      "fr": "Termes associés : domain controller, domain, forest, OU, GPO |",
-      "section": "Chapitre 4 — Windows / Windows Server 🟠🔴",
+      "en": "certificate",
+      "fr": "certificat",
+      "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-113",
-      "en": "approximative: do-méïn keun-tro-leur",
-      "fr": "Exemple informatique : > The domain controller is not responding to authentication",
-      "section": "Chapitre 4 — Windows / Windows Server 🟠🔴",
+      "en": "restore",
+      "fr": "restauration",
+      "section": "Sauvegarde et supervision",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-114",
-      "en": "Définition simple : A domain groups objects under one authority; a forest is a collection of",
-      "fr": "one or more domains. Traduction : Un domaine regroupe des objets sous une même",
-      "section": "Chapitre 4 — Windows / Windows Server 🟠🔴",
+      "en": "monitoring",
+      "fr": "supervision",
+      "section": "Sauvegarde et supervision",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-115",
-      "en": "approximative: or-ga-naï-zé-cheu-neul you-nit",
-      "fr": "Exemple informatique : > Move this computer to the correct OU before applying the",
-      "section": "Chapitre 4 — Windows / Windows Server 🟠🔴",
+      "en": "alert",
+      "fr": "alerte",
+      "section": "Sauvegarde et supervision",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-116",
-      "en": "Traduction : > Déplacez cet ordinateur vers la bonne unité d’organisation avant",
-      "fr": "d’appliquer la stratégie.",
-      "section": "Chapitre 4 — Windows / Windows Server 🟠🔴",
+      "en": "metric",
+      "fr": "métrique",
+      "section": "Sauvegarde et supervision",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-117",
-      "en": "Group Policy (GPO)",
-      "fr": "🇬🇧 English: Group Policy Object 🇫🇷 FR: stratégie de groupe",
-      "section": "Chapitre 4 — Windows / Windows Server 🟠🔴",
+      "en": "dashboard",
+      "fr": "tableau de bord",
+      "section": "Sauvegarde et supervision",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-118",
-      "en": "Exemple informatique : > This setting is enforced by a GPO applied at the domain level.",
-      "fr": "Traduction : > Ce paramètre est imposé par une GPO appliquée au niveau du domaine.",
-      "section": "Chapitre 4 — Windows / Windows Server 🟠🔴",
+      "en": "event",
+      "fr": "événement",
+      "section": "Sauvegarde et supervision",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-119",
-      "en": "Ne pas confondre : un security group sert à assigner des permissions ; un distribution",
-      "fr": "group sert uniquement à envoyer des emails groupés — il n’a aucune fonction de sécurité.",
-      "section": "Chapitre 4 — Windows / Windows Server 🟠🔴",
+      "en": "uptime",
+      "fr": "temps de fonctionnement",
+      "section": "Sauvegarde et supervision",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-120",
-      "en": "Traduction : > Vous n’avez pas les permissions nécessaires pour accéder à ce dossier.",
-      "fr": "Termes associés : rights, access, NTFS, share permissions |",
-      "section": "Chapitre 4 — Windows / Windows Server 🟠🔴",
+      "en": "crash",
+      "fr": "plantage",
+      "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-121",
-      "en": "Windows) Prononciation approximative: ène-ti-èf-ess",
-      "fr": "|",
-      "section": "Chapitre 4 — Windows / Windows Server 🟠🔴",
-      "fiabilite": "sure"
+      "en": "freeze",
+      "fr": "blocage / figement",
+      "section": "Dépannage et support",
+      "fiabilite": "a_verifier"
     },
     {
       "id": "vocab-122",
-      "en": "Traduction : > Exécutez ce script PowerShell pour lister tous les comptes verrouillés.",
-      "fr": "|",
-      "section": "Chapitre 4 — Windows / Windows Server 🟠🔴",
+      "en": "error message",
+      "fr": "message d'erreur",
+      "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-123",
-      "en": "approximative: win-daouz seur-vi-siz",
-      "fr": "Exemple informatique : > The Print Spooler service failed to start.",
-      "section": "Chapitre 4 — Windows / Windows Server 🟠🔴",
+      "en": "troubleshoot",
+      "fr": "dépanner",
+      "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-124",
-      "en": "Traduction : > Vérifiez l’Observateur d’événements pour toute erreur liée.",
-      "fr": "|",
-      "section": "Chapitre 4 — Windows / Windows Server 🟠🔴",
-      "fiabilite": "sure"
+      "en": "glitch",
+      "fr": "anomalie (défaut mineur et passager)",
+      "section": "Dépannage et support",
+      "fiabilite": "a_verifier"
     },
     {
       "id": "vocab-125",
-      "en": "Prononciation approximative: rè-djis-tri",
-      "fr": "Exemple informatique : > This setting is stored in the Windows registry.",
-      "section": "Chapitre 4 — Windows / Windows Server 🟠🔴",
-      "fiabilite": "sure"
+      "en": "lag",
+      "fr": "latence / décalage d'affichage",
+      "section": "Dépannage et support",
+      "fiabilite": "a_verifier"
     },
     {
       "id": "vocab-126",
-      "en": "✅ À retenir — Chapitre 4",
-      "fr": "Active Directory, domain controller, domain, forest, organizational unit (OU), Group Policy",
-      "section": "Chapitre 4 — Windows / Windows Server 🟠🔴",
-      "fiabilite": "sure"
+      "en": "timeout",
+      "fr": "expiration / délai dépassé",
+      "section": "Dépannage et support",
+      "fiabilite": "a_verifier"
     },
     {
       "id": "vocab-127",
-      "en": "📝 Mini-quiz — Chapitre 4",
-      "fr": "1. Un “domain controller” est : A. Un pare-feu B. Un serveur qui gère",
-      "section": "Chapitre 4 — Windows / Windows Server 🟠🔴",
+      "en": "failure",
+      "fr": "panne",
+      "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-128",
-      "en": "permissions à plusieurs utilisateurs C. Stocker des fichiers D. Router le trafic réseau",
-      "fr": "3. Une “GPO” permet de : A. Créer des comptes B. Appliquer des paramètres de",
-      "section": "Chapitre 4 — Windows / Windows Server 🟠🔴",
+      "en": "outage",
+      "fr": "interruption de service",
+      "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-129",
-      "en": "🔁 Exercice de traduction — Chapitre 4",
-      "fr": "Le contrôleur de domaine ne répond plus, les utilisateurs ne peuvent plus",
-      "section": "Chapitre 4 — Windows / Windows Server 🟠🔴",
-      "fiabilite": "sure"
+      "en": "OS",
+      "fr": "système d'exploitation",
+      "section": "Abréviations",
+      "fiabilite": "a_verifier"
     },
     {
       "id": "vocab-130",
-      "en": "symbolic link (symlink)",
-      "fr": "lien symbolique",
-      "section": "Chapitre 5 — Linux 🟠🔴",
-      "fiabilite": "sure"
+      "en": "AD",
+      "fr": "Active Directory",
+      "section": "Abréviations",
+      "fiabilite": "a_verifier"
     },
     {
       "id": "vocab-131",
-      "en": "SSH (Secure Shell)",
-      "fr": "SSH (protocole d’accès distant sécurisé)",
-      "section": "Chapitre 5 — Linux 🟠🔴",
-      "fiabilite": "sure"
+      "en": "VM",
+      "fr": "machine virtuelle",
+      "section": "Abréviations",
+      "fiabilite": "a_verifier"
     },
     {
       "id": "vocab-132",
-      "en": "Prononciation approximative: dis-tri-bou-cheunn",
-      "fr": "Exemple informatique : > Which Linux distribution are you using, Ubuntu or Debian?",
-      "section": "Chapitre 5 — Linux 🟠🔴",
-      "fiabilite": "sure"
+      "en": "SLA",
+      "fr": "accord de niveau de service",
+      "section": "Abréviations",
+      "fiabilite": "a_verifier"
     },
     {
       "id": "vocab-133",
-      "en": "Traduction : > Quelle distribution Linux utilisez-vous, Ubuntu ou Debian ?",
-      "fr": "|",
-      "section": "Chapitre 5 — Linux 🟠🔴",
+      "en": "incident",
+      "fr": "incident (interruption de service)",
+      "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-134",
-      "en": "Traduction : > Mettez à jour la liste des paquets avant d’installer un nouveau logiciel.",
-      "fr": "Termes associés : apt, yum, dnf, install, update |",
-      "section": "Chapitre 5 — Linux 🟠🔴",
+      "en": "problem",
+      "fr": "problème (cause racine)",
+      "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-135",
-      "en": "privilèges.",
-      "fr": "Exemple informatique : > You need to run this command with sudo.",
-      "section": "Chapitre 5 — Linux 🟠🔴",
+      "en": "change request",
+      "fr": "demande de changement",
+      "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-136",
-      "en": "Traduction : > Ajoutez l’option “-l” pour afficher les fichiers sous forme de liste détaillée.",
-      "fr": "| (voir aussi Chapitre 21 dans la Partie 7)",
-      "section": "Chapitre 5 — Linux 🟠🔴",
+      "en": "service request",
+      "fr": "demande de service",
+      "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-137",
-      "en": "Définition simple : A pipe (|) sends the output of one command as input to another;",
-      "fr": "redirection (> or >>) sends output to a file. Traduction : Un pipe (|) envoie la sortie d’une",
-      "section": "Chapitre 5 — Linux 🟠🔴",
+      "en": "escalation",
+      "fr": "escalade",
+      "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-138",
-      "en": "commande comme entrée à une autre ; la redirection (> ou >>) envoie la sortie vers un",
-      "fr": "fichier.",
-      "section": "Chapitre 5 — Linux 🟠🔴",
+      "en": "tier 1",
+      "fr": "niveau 1 (premier contact)",
+      "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-139",
-      "en": "Exemple informatique : > Pipe the output of this command into grep to filter the results.",
-      "fr": "Traduction : > Redirigez (via un pipe) la sortie de cette commande vers grep pour filtrer",
-      "section": "Chapitre 5 — Linux 🟠🔴",
+      "en": "tier 2",
+      "fr": "niveau 2 (support spécialisé)",
+      "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-140",
-      "en": "les résultats.",
-      "fr": "|",
-      "section": "Chapitre 5 — Linux 🟠🔴",
+      "en": "tier 3",
+      "fr": "niveau 3 (experts)",
+      "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-141",
-      "en": "Traduction : > Utilisez systemctl pour vérifier le statut de ce démon.",
-      "fr": "|",
-      "section": "Chapitre 5 — Linux 🟠🔴",
+      "en": "knowledge base",
+      "fr": "base de connaissances",
+      "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-142",
-      "en": "Traduction : > La partition du disque n’est pas montée correctement.",
-      "fr": "|",
-      "section": "Chapitre 5 — Linux 🟠🔴",
+      "en": "ticket",
+      "fr": "ticket / demande",
+      "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-143",
-      "en": "Traduction : > Changez le propriétaire de ce fichier pour le bon utilisateur.",
-      "fr": "|",
-      "section": "Chapitre 5 — Linux 🟠🔴",
+      "en": "open",
+      "fr": "ouvert",
+      "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-144",
-      "en": "Symbolic link",
-      "fr": "🇬🇧 English: symbolic link (symlink) 🇫🇷 FR: lien symbolique",
-      "section": "Chapitre 5 — Linux 🟠🔴",
+      "en": "in progress",
+      "fr": "en cours",
+      "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-145",
-      "en": "| (détaillé au Chapitre 22, Partie 7)",
-      "fr": "SSH",
-      "section": "Chapitre 5 — Linux 🟠🔴",
+      "en": "resolved",
+      "fr": "résolu",
+      "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-146",
-      "en": "Prononciation approximative: ess-ess-atche",
-      "fr": "Exemple informatique : > I can’t connect to the server via SSH.",
-      "section": "Chapitre 5 — Linux 🟠🔴",
+      "en": "closed",
+      "fr": "fermé",
+      "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-147",
-      "en": "Windows Linux Sens commun",
-      "fr": "service daemon processus en arrière-plan",
-      "section": "Chapitre 5 — Linux 🟠🔴",
+      "en": "pending",
+      "fr": "en attente",
+      "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-148",
-      "en": "distribution, kernel, package, repository, package manager, sudo, root, shell, Bash,",
-      "fr": "command, option, argument, pipe, redirection, process, service, systemd, daemon,",
-      "section": "Chapitre 5 — Linux 🟠🔴",
+      "en": "workaround",
+      "fr": "solution de contournement",
+      "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-149",
-      "en": "📝 Mini-quiz — Chapitre 5",
-      "fr": "tous les privilèges C. Un type de paquet D. Un protocole réseau",
-      "section": "Chapitre 5 — Linux 🟠🔴",
+      "en": "root cause",
+      "fr": "cause racine",
+      "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-150",
-      "en": "commande vers une autre commande C. Redémarrer un service D. Créer un",
-      "fr": "3. “systemd” est principalement lié à : A. La gestion des services/processus sous",
-      "section": "Chapitre 5 — Linux 🟠🔴",
+      "en": "priority",
+      "fr": "priorité",
+      "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-151",
-      "en": "Réponses : 1-B, 2-B, 3-A",
-      "fr": "Anglais → FR > Run this command with sudo and check the logs afterward.",
-      "section": "Chapitre 5 — Linux 🟠🔴",
+      "en": "severity",
+      "fr": "gravité",
+      "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-152",
-      "en": "FR → Anglais > Le service n’a pas démarré, vérifiez le fichier de configuration dans",
-      "fr": "Réponse : The service didn’t start, check the configuration file in /etc.",
-      "section": "Chapitre 5 — Linux 🟠🔴",
+      "en": "resolution",
+      "fr": "résolution",
+      "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-153",
-      "en": "Faux amis rencontrés dans cette partie",
-      "fr": "interprétation Bonne traduction Exemple",
-      "section": "Chapitre 5 — Linux 🟠🔴",
+      "en": "closure",
+      "fr": "clôture",
+      "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-154",
-      "en": "livres)",
-      "fr": "code)",
-      "section": "Chapitre 5 — Linux 🟠🔴",
+      "en": "reassignment",
+      "fr": "réaffectation",
+      "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-155",
-      "en": "Terme FR Exemple EN Traduction",
-      "fr": "network réseau The network is down. Le réseau est en panne.",
-      "section": "Chapitre 6 — Réseaux informatiques 🟠",
+      "en": "callback",
+      "fr": "rappel",
+      "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-156",
-      "en": "joindre le serveur.",
-      "fr": "node nœud Each node in the",
-      "section": "Chapitre 6 — Réseaux informatiques 🟠",
+      "en": "follow-up",
+      "fr": "suivi",
+      "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-157",
-      "en": "Chaque nœud du cluster",
-      "fr": "a un identifiant unique.",
-      "section": "Chapitre 6 — Réseaux informatiques 🟠",
+      "en": "customer",
+      "fr": "utilisateur / client",
+      "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-158",
-      "en": "Le routeur a besoin d’une",
-      "fr": "mise à jour de firmware.",
-      "section": "Chapitre 6 — Réseaux informatiques 🟠",
+      "en": "survey",
+      "fr": "enquête de satisfaction",
+      "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-159",
-      "en": "Branchez le câble sur le",
-      "fr": "port 4 du switch.",
-      "section": "Chapitre 6 — Réseaux informatiques 🟠",
+      "en": "status",
+      "fr": "statut",
+      "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-160",
-      "en": "Le pare-feu bloque ce",
-      "fr": "trafic.",
-      "section": "Chapitre 6 — Réseaux informatiques 🟠",
+      "en": "I have an issue with my computer.",
+      "fr": "J'ai un problème avec mon ordinateur.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-161",
-      "en": "Le point d’accès est hors",
-      "fr": "ligne.",
-      "section": "Chapitre 6 — Réseaux informatiques 🟠",
+      "en": "My screen is flickering.",
+      "fr": "Mon écran scintille.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-162",
-      "en": "Vérifiez la configuration",
-      "fr": "de la passerelle par",
-      "section": "Chapitre 6 — Réseaux informatiques 🟠",
+      "en": "The application keeps crashing.",
+      "fr": "L'application plante constamment.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-163",
-      "en": "(inactive).",
-      "fr": "IP address adresse IP This IP address is",
-      "section": "Chapitre 6 — Réseaux informatiques 🟠",
+      "en": "I cannot log in.",
+      "fr": "Je n'arrive pas à me connecter.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-164",
-      "en": "utilisée.",
-      "fr": "MAC address adresse MAC The MAC address is",
-      "section": "Chapitre 6 — Réseaux informatiques 🟠",
+      "en": "My account is locked.",
+      "fr": "Mon compte est verrouillé.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-165",
-      "en": "reconnue.",
-      "fr": "subnet /",
-      "section": "Chapitre 6 — Réseaux informatiques 🟠",
+      "en": "The printer is not responding.",
+      "fr": "L'imprimante ne répond pas.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-166",
-      "en": "masque de sous-",
-      "fr": "réseau",
-      "section": "Chapitre 6 — Réseaux informatiques 🟠",
+      "en": "The network is down.",
+      "fr": "Le réseau est hors service.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-167",
-      "en": "Le masque de sous-",
-      "fr": "réseau est incorrect.",
-      "section": "Chapitre 6 — Réseaux informatiques 🟠",
+      "en": "I need to reset my password.",
+      "fr": "Je dois réinitialiser mon mot de passe.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-168",
-      "en": "Ce réseau utilise un bloc",
-      "fr": "CIDR /24.",
-      "section": "Chapitre 6 — Réseaux informatiques 🟠",
+      "en": "Could you please help me?",
+      "fr": "Pourriez-vous m'aider s'il vous plaît ?",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-169",
-      "en": "passerelle par défaut No default gateway is",
-      "fr": "configured.",
-      "section": "Chapitre 6 — Réseaux informatiques 🟠",
+      "en": "I will escalate this ticket.",
+      "fr": "Je vais escalader ce ticket.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-170",
-      "en": "NAT translation",
-      "fr": "d’adresses",
-      "section": "Chapitre 6 — Réseaux informatiques 🟠",
+      "en": "Please provide more details.",
+      "fr": "Veuillez fournir plus de détails.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-171",
-      "en": "Le NAT est activé sur ce",
-      "fr": "routeur.",
-      "section": "Chapitre 6 — Réseaux informatiques 🟠",
+      "en": "The issue has been resolved.",
+      "fr": "Le problème a été résolu.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-172",
-      "en": "This port belongs to",
-      "fr": "VLAN 10.",
-      "section": "Chapitre 6 — Réseaux informatiques 🟠",
+      "en": "We are working on it.",
+      "fr": "Nous travaillons dessus.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-173",
-      "en": "Configure this port as",
-      "fr": "a trunk.",
-      "section": "Chapitre 6 — Réseaux informatiques 🟠",
+      "en": "It will be fixed shortly.",
+      "fr": "Ce sera corrigé sous peu.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-174",
-      "en": "Routing between",
-      "fr": "VLANs is not working.",
-      "section": "Chapitre 6 — Réseaux informatiques 🟠",
+      "en": "Please restart your computer.",
+      "fr": "Veuillez redémarrer votre ordinateur.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-175",
-      "en": "Quel protocole cette",
-      "fr": "application utilise-t-elle ?",
-      "section": "Chapitre 6 — Réseaux informatiques 🟠",
+      "en": "Have you tried turning it off and on again?",
+      "fr": "Avez-vous essayé de l'éteindre et de le rallumer ?",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-176",
-      "en": "bandwidth.",
-      "fr": "Nous manquons de bande",
-      "section": "Chapitre 6 — Réseaux informatiques 🟠",
+      "en": "I will get back to you.",
+      "fr": "Je reviendrai vers vous.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-177",
-      "en": "latency latence Latency is very high",
-      "fr": "on this link.",
-      "section": "Chapitre 6 — Réseaux informatiques 🟠",
+      "en": "Thank you for your patience.",
+      "fr": "Merci pour votre patience.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-178",
-      "en": "sur ce lien.",
-      "fr": "throughput débit effectif Throughput has",
-      "section": "Chapitre 6 — Réseaux informatiques 🟠",
+      "en": "The service is restored.",
+      "fr": "Le service est rétabli.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-179",
-      "en": "Le débit effectif a",
-      "fr": "fortement chuté.",
-      "section": "Chapitre 6 — Réseaux informatiques 🟠",
+      "en": "Please check your email.",
+      "fr": "Veuillez vérifier votre messagerie.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-180",
-      "en": "général. Internet = le réseau mondial public. Un réseau d’entreprise (LAN) n’est pas “the",
-      "fr": "Internet”.",
-      "section": "Chapitre 6 — Réseaux informatiques 🟠",
+      "en": "I am sending you the procedure.",
+      "fr": "Je vous envoie la procédure.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-181",
-      "en": "adresse IP (peut être un poste, un serveur, un routeur). Server = un hôte qui fournit",
-      "fr": "spécifiquement un service.",
-      "section": "Chapitre 6 — Réseaux informatiques 🟠",
+      "en": "The incident is closed.",
+      "fr": "L'incident est clos.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-182",
-      "en": "gateway, interface, IP address, MAC address, subnet, subnet mask, CIDR, default gateway,",
-      "fr": "NAT, VLAN, trunk, routing, switching, packet, frame, protocol, bandwidth, latency,",
-      "section": "Chapitre 6 — Réseaux informatiques 🟠",
+      "en": "We need a workaround.",
+      "fr": "Nous avons besoin d'un contournement.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-183",
-      "en": "Protocole Rôle (en anglais, simplifié) Rôle en FR",
-      "fr": "TCP Ensures reliable, ordered delivery",
-      "section": "Chapitre 7 — Protocoles réseau 🟠🔴",
+      "en": "The root cause has been identified.",
+      "fr": "La cause racine a été identifiée.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-184",
-      "en": "des données.",
-      "fr": "UDP Sends data fast, without",
-      "section": "Chapitre 7 — Protocoles réseau 🟠🔴",
+      "en": "A change request has been submitted.",
+      "fr": "Une demande de changement a été soumise.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-185",
-      "en": "garantir la livraison.",
-      "fr": "IP Routes packets between networks",
-      "section": "Chapitre 7 — Protocoles réseau 🟠🔴",
+      "en": "The SLA has been met.",
+      "fr": "Le SLA a été respecté.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-186",
-      "en": "des adresses.",
-      "fr": "ICMP Used for diagnostics (e.g. ping). Utilisé pour le diagnostic (ex. ping).",
-      "section": "Chapitre 7 — Protocoles réseau 🟠🔴",
+      "en": "Please update the ticket.",
+      "fr": "Veuillez mettre à jour le ticket.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-187",
-      "en": "Résout une adresse IP en adresse MAC.",
-      "fr": "DNS Translates domain names into IP",
-      "section": "Chapitre 7 — Protocoles réseau 🟠🔴",
+      "en": "I will follow up tomorrow.",
+      "fr": "Je ferai un suivi demain.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-188",
-      "en": "adresses IP.",
-      "fr": "DHCP Automatically assigns IP",
-      "section": "Chapitre 7 — Protocoles réseau 🟠🔴",
+      "en": "The problem is under investigation.",
+      "fr": "Le problème est en cours d'investigation.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-189",
-      "en": "IP.",
-      "fr": "HTTP /",
-      "section": "Chapitre 7 — Protocoles réseau 🟠🔴",
+      "en": "We need to escalate to tier 3.",
+      "fr": "Nous devons escalader au niveau 3.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-190",
-      "en": "via SSH).",
-      "fr": "SSH Provides secure remote access to a",
-      "section": "Chapitre 7 — Protocoles réseau 🟠🔴",
+      "en": "The knowledge base has been updated.",
+      "fr": "La base de connaissances a été mise à jour.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-191",
-      "en": "système.",
-      "fr": "Telnet Provides remote access, but",
-      "section": "Chapitre 7 — Protocoles réseau 🟠🔴",
+      "en": "Please confirm the resolution.",
+      "fr": "Veuillez confirmer la résolution.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-192",
-      "en": "(obsolète).",
-      "fr": "SMTP Sends emails. Envoie les e-mails.",
-      "section": "Chapitre 7 — Protocoles réseau 🟠🔴",
+      "en": "The change is scheduled tonight.",
+      "fr": "Le changement est prévu cette nuit.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-193",
-      "en": "Retrieve emails from a mail",
-      "fr": "server.",
-      "section": "Chapitre 7 — Protocoles réseau 🟠🔴",
+      "en": "There is a known issue.",
+      "fr": "Il s'agit d'un problème connu.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-194",
-      "en": "SNMP Monitors and manages network",
-      "fr": "devices.",
-      "section": "Chapitre 7 — Protocoles réseau 🟠🔴",
+      "en": "We are applying a patch.",
+      "fr": "Nous appliquons un correctif.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-195",
-      "en": "NTP Synchronizes the time across",
-      "fr": "systems.",
-      "section": "Chapitre 7 — Protocoles réseau 🟠🔴",
+      "en": "The backup is completed.",
+      "fr": "La sauvegarde est terminée.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-196",
-      "en": "information.",
-      "fr": "Interroge et gère un annuaire (ex.",
-      "section": "Chapitre 7 — Protocoles réseau 🟠🔴",
+      "en": "The server is unreachable.",
+      "fr": "Le serveur est inaccessible.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-197",
-      "en": "network (Windows).",
-      "fr": "Partage fichiers/imprimantes sur le",
-      "section": "Chapitre 7 — Protocoles réseau 🟠🔴",
+      "en": "Please check the logs.",
+      "fr": "Veuillez consulter les journaux.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-198",
-      "en": "a Windows machine.",
-      "fr": "Permet l’accès graphique distant à une",
-      "section": "Chapitre 7 — Protocoles réseau 🟠🔴",
+      "en": "The connection is unstable.",
+      "fr": "La connexion est instable.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-199",
-      "en": "Terme FR Exemple",
-      "fr": "routing table table de routage The routing table is missing an entry.",
-      "section": "Chapitre 8 — Routage et infrastructure réseau 🔴",
+      "en": "I will contact the provider.",
+      "fr": "Je vais contacter le prestataire.",
+      "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-200",
-      "en": "automatically to network changes.",
-      "fr": "next hop prochain saut The packet is forwarded to the next",
-      "section": "Chapitre 8 — Routage et infrastructure réseau 🔴",
+      "en": "deploy",
+      "fr": "déployer",
+      "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-201",
-      "en": "metric métrique The route with the lowest metric is",
-      "fr": "preferred.",
-      "section": "Chapitre 8 — Routage et infrastructure réseau 🔴",
+      "en": "roll back",
+      "fr": "revenir en arrière",
+      "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-202",
-      "en": "autonomous",
-      "fr": "system (AS)",
-      "section": "Chapitre 8 — Routage et infrastructure réseau 🔴",
+      "en": "escalate",
+      "fr": "escalader",
+      "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-203",
-      "en": "système autonome Each AS has its own routing policy.",
-      "fr": "✅ À retenir : routing table, static route, dynamic routing, next hop, default route, routing",
-      "section": "Chapitre 8 — Routage et infrastructure réseau 🔴",
+      "en": "follow up",
+      "fr": "faire un suivi",
+      "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-204",
-      "en": "protocol, OSPF, BGP, RIP, metric, autonomous system",
-      "fr": "🔁 Exercice — Partie 3",
-      "section": "Chapitre 8 — Routage et infrastructure réseau 🔴",
+      "en": "sign off",
+      "fr": "valider / approuver",
+      "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-205",
-      "en": "FR → EN : Le routeur n’a pas de route par défaut configurée, c’est pourquoi le trafic n’est",
-      "fr": "pas routé vers Internet. Réponse : The router has no default route configured, which is why",
-      "section": "Chapitre 8 — Routage et infrastructure réseau 🔴",
+      "en": "investigate",
+      "fr": "investiguer",
+      "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-206",
-      "en": "traffic is not routed to the Internet.",
-      "fr": "PARTIE 4 — Active Directory, Cybersécurité & Sécurité réseau",
-      "section": "Chapitre 8 — Routage et infrastructure réseau 🔴",
+      "en": "resolve",
+      "fr": "résoudre",
+      "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-207",
-      "en": "Identity management centralizes",
-      "fr": "user access.",
-      "section": "Chapitre 9 — Active Directory et identité 🔴",
+      "en": "upgrade",
+      "fr": "mettre à niveau",
+      "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-208",
-      "en": "Kerberos Kerberos (protocole",
-      "fr": "d’authentification)",
-      "section": "Chapitre 9 — Active Directory et identité 🔴",
+      "en": "install",
+      "fr": "installer",
+      "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-209",
-      "en": "privilege privilège This account has elevated",
-      "fr": "privileges.",
-      "section": "Chapitre 9 — Active Directory et identité 🔴",
+      "en": "uninstall",
+      "fr": "désinstaller",
+      "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-210",
-      "en": "administration déléguée Delegated administration lets a",
-      "fr": "team manage its own OU.",
-      "section": "Chapitre 9 — Active Directory et identité 🔴",
+      "en": "configure",
+      "fr": "configurer",
+      "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-211",
-      "en": "✅ À retenir : authentication, authorization, identity, identity management, directory",
-      "fr": "service, LDAP, Kerberos, policy, privilege, administrator, delegated administration",
-      "section": "Chapitre 9 — Active Directory et identité 🔴",
+      "en": "migrate",
+      "fr": "migrer",
+      "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-212",
-      "en": "trojan",
-      "fr": "virus / ver / cheval de",
-      "section": "Chapitre 10 — Cybersécurité 🔴",
+      "en": "reset",
+      "fr": "réinitialiser",
+      "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-213",
-      "en": "automatically.",
-      "fr": "ransomware rançongiciel The ransomware encrypted all files on the",
-      "section": "Chapitre 10 — Cybersécurité 🔴",
+      "en": "assign",
+      "fr": "affecter",
+      "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-214",
-      "en": "social engineering ingénierie sociale Social engineering exploits human trust, not",
-      "fr": "technology.",
-      "section": "Chapitre 10 — Cybersécurité 🔴",
+      "en": "reassign",
+      "fr": "réaffecter",
+      "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-215",
-      "en": "password spraying pulvérisation de mots",
-      "fr": "de passe",
-      "section": "Chapitre 10 — Cybersécurité 🔴",
+      "en": "close",
+      "fr": "clôturer",
+      "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-216",
-      "en": "credential stuffing bourrage d’identifiants Credential stuffing reuses leaked",
-      "fr": "credentials.",
-      "section": "Chapitre 10 — Cybersécurité 🔴",
+      "en": "reopen",
+      "fr": "réouvrir",
+      "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-217",
-      "en": "compromised server.",
-      "fr": "privilege escalation élévation de privilèges Privilege escalation allowed the attacker to",
-      "section": "Chapitre 10 — Cybersécurité 🔴",
+      "en": "document",
+      "fr": "documenter",
+      "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-218",
-      "en": "other servers.",
-      "fr": "persistence persistance The malware ensures persistence via a",
-      "section": "Chapitre 10 — Cybersécurité 🔴",
+      "en": "notify",
+      "fr": "notifier",
+      "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-219",
-      "en": "incident incident (de sécurité) This incident is under investigation.",
-      "fr": "mitigation /",
-      "section": "Chapitre 10 — Cybersécurité 🔴",
+      "en": "verify",
+      "fr": "vérifier",
+      "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-220",
-      "en": "exploitable. Threat = ce qui pourrait exploiter cette faille (un attaquant, un malware). Risk =",
-      "fr": "la probabilité et l’impact combinés qu’une menace exploite une vulnérabilité.",
-      "section": "Chapitre 10 — Cybersécurité 🔴",
+      "en": "test",
+      "fr": "tester",
+      "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-221",
-      "en": "ransomware, phishing, social engineering, brute-force attack, password spraying, credential",
-      "fr": "stuffing, exploit, payload, backdoor, privilege escalation, lateral movement, persistence, data",
-      "section": "Chapitre 10 — Cybersécurité 🔴",
+      "en": "restart",
+      "fr": "redémarrage",
+      "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-222",
-      "en": "control list)",
-      "fr": "liste de contrôle d’accès The ACL denies traffic from this",
-      "section": "Chapitre 11 — Sécurité réseau 🔴",
+      "en": "log in",
+      "fr": "se connecter",
+      "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-223",
-      "en": "outbound",
-      "fr": "entrant / sortant Inbound traffic is blocked by",
-      "section": "Chapitre 11 — Sécurité réseau 🔴",
+      "en": "log out",
+      "fr": "se déconnecter",
+      "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-224",
-      "en": "block",
-      "fr": "autoriser / refuser / bloquer This rule denies all outbound",
-      "section": "Chapitre 11 — Sécurité réseau 🔴",
+      "en": "slow",
+      "fr": "lent",
+      "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-225",
-      "en": "blacklist.",
-      "fr": "VPN / tunnel VPN / tunnel The site-to-site VPN tunnel is",
-      "section": "Chapitre 11 — Sécurité réseau 🔴",
+      "en": "unresponsive",
+      "fr": "ne répond pas",
+      "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-226",
-      "en": "decryption",
-      "fr": "chiffrement / déchiffrement Data is encrypted in transit.",
-      "section": "Chapitre 11 — Sécurité réseau 🔴",
+      "en": "down",
+      "fr": "hors service",
+      "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-227",
-      "en": "1.2.",
-      "fr": "IPS / IDS système de prévention/détection",
-      "section": "Chapitre 11 — Sécurité réseau 🔴",
+      "en": "up",
+      "fr": "en service",
+      "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-228",
-      "en": "traffic.",
-      "fr": "proxy / reverse",
-      "section": "Chapitre 11 — Sécurité réseau 🔴",
+      "en": "offline",
+      "fr": "hors ligne",
+      "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-229",
-      "en": "proxy.",
-      "fr": "DMZ zone démilitarisée The web server sits in the DMZ.",
-      "section": "Chapitre 11 — Sécurité réseau 🔴",
+      "en": "online",
+      "fr": "en ligne",
+      "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-230",
-      "en": "VPN, tunnel, encryption, decryption, certificate, TLS, IPS, IDS, proxy, reverse proxy, DMZ,",
-      "fr": "segmentation, zero trust",
-      "section": "Chapitre 11 — Sécurité réseau 🔴",
+      "en": "flickering",
+      "fr": "scintillement",
+      "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-231",
-      "en": "FR → EN : Un certificat expiré empêche les utilisateurs d’accéder au site en HTTPS.",
-      "fr": "Réponse : An expired certificate prevents users from accessing the site over HTTPS.",
-      "section": "Chapitre 11 — Sécurité réseau 🔴",
+      "en": "freezing",
+      "fr": "figement",
+      "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-232",
-      "en": "Verbes indispensables (infinitif → traduction → exemple → traduction) :",
-      "fr": "Verbe Traduction Exemple Traduction",
-      "section": "Chapitre 12 — Administration des systèmes 🟠",
+      "en": "diagnosis",
+      "fr": "diagnostic",
+      "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-233",
-      "en": "rule.",
-      "fr": "Configurez la règle de pare-",
-      "section": "Chapitre 12 — Administration des systèmes 🟠",
+      "en": "network",
+      "fr": "réseau",
+      "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-234",
-      "en": "to deploy déployer We deployed a new",
-      "fr": "VM.",
-      "section": "Chapitre 12 — Administration des systèmes 🟠",
+      "en": "trunk",
+      "fr": "liaison agrégée",
+      "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-235",
-      "en": "nouvelle VM.",
-      "fr": "to monitor superviser Monitor CPU usage",
-      "section": "Chapitre 12 — Administration des systèmes 🟠",
+      "en": "frame",
+      "fr": "trame",
+      "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-236",
-      "en": "Surveillez de près l’utilisation",
-      "fr": "du CPU.",
-      "section": "Chapitre 12 — Administration des systèmes 🟠",
+      "en": "throughput",
+      "fr": "débit",
+      "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-237",
-      "en": "troubleshoot",
-      "fr": "dépanner Troubleshoot the",
-      "section": "Chapitre 12 — Administration des systèmes 🟠",
+      "en": "topology",
+      "fr": "topologie",
+      "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-238",
-      "en": "Dépannez le problème réseau.",
-      "fr": "to restart /",
-      "section": "Chapitre 12 — Administration des systèmes 🟠",
+      "en": "redundancy",
+      "fr": "redondance",
+      "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-239",
-      "en": "redémarrer Restart the service. Redémarrez le service.",
-      "fr": "to enable /",
-      "section": "Chapitre 12 — Administration des systèmes 🟠",
+      "en": "failover",
+      "fr": "basculement",
+      "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-240",
-      "en": "restaurer",
-      "fr": "Restore the server",
-      "section": "Chapitre 12 — Administration des systèmes 🟠",
+      "en": "load balancer",
+      "fr": "répartiteur de charge",
+      "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-241",
-      "en": "Restaurez le serveur depuis la",
-      "fr": "sauvegarde.",
-      "section": "Chapitre 12 — Administration des systèmes 🟠",
+      "en": "NAT",
+      "fr": "translation d'adresse",
+      "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-242",
-      "en": "another host.",
-      "fr": "Migrez la VM vers un autre",
-      "section": "Chapitre 12 — Administration des systèmes 🟠",
+      "en": "ACL",
+      "fr": "liste de contrôle d'accès",
+      "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-243",
-      "en": "révoquer",
-      "fr": "Revoke the user’s",
-      "section": "Chapitre 12 — Administration des systèmes 🟠",
+      "en": "routing",
+      "fr": "routage",
+      "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-244",
-      "en": "Révoquez l’accès de",
-      "fr": "l’utilisateur.",
-      "section": "Chapitre 12 — Administration des systèmes 🟠",
+      "en": "switching",
+      "fr": "commutation",
+      "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-245",
-      "en": "server automatically.",
-      "fr": "Provisionnez un nouveau",
-      "section": "Chapitre 12 — Administration des systèmes 🟠",
+      "en": "broadcast",
+      "fr": "diffusion",
+      "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-246",
-      "en": "Attach a new virtual disk to",
-      "fr": "the VM.",
-      "section": "Chapitre 13 — Virtualisation 🔴",
+      "en": "unicast",
+      "fr": "monodiffusion",
+      "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-247",
-      "en": "high availability (HA) haute disponibilité HA automatically restarts the",
-      "fr": "VM on another host.",
-      "section": "Chapitre 13 — Virtualisation 🔴",
+      "en": "GPO",
+      "fr": "stratégie de groupe",
+      "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-248",
-      "en": "resource allocation allocation des ressources Increase CPU allocation for",
-      "fr": "this VM.",
-      "section": "Chapitre 13 — Virtualisation 🔴",
+      "en": "trust",
+      "fr": "relation d'approbation",
+      "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-249",
-      "en": "Launch a new instance.",
-      "fr": "container conteneur The application runs in a container.",
-      "section": "Chapitre 14 — Cloud computing 🔴",
+      "en": "replication",
+      "fr": "réplication",
+      "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-250",
-      "en": "Deploy across two availability",
-      "fr": "zones.",
-      "section": "Chapitre 14 — Cloud computing 🔴",
+      "en": "global catalog",
+      "fr": "catalogue global",
+      "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-251",
-      "en": "load balancer répartiteur de charge The load balancer distributes traffic",
-      "fr": "across servers.",
-      "section": "Chapitre 14 — Cloud computing 🔴",
+      "en": "FSMO",
+      "fr": "rôles FSMO",
+      "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-252",
-      "en": "IAM policies control who can access",
-      "fr": "this resource.",
-      "section": "Chapitre 14 — Cloud computing 🔴",
+      "en": "site",
+      "fr": "site (AD)",
+      "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-253",
-      "en": "this dependency.",
-      "fr": "registry / repository registre / dépôt (d’images) Push the image to the registry.",
-      "section": "Chapitre 15 — Conteneurs et Docker 🔴",
+      "en": "roaming profile",
+      "fr": "profil itinérant",
+      "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-254",
-      "en": "data.",
-      "fr": "container runtime moteur de conteneurs Docker is a popular container",
-      "section": "Chapitre 15 — Conteneurs et Docker 🔴",
+      "en": "apt",
+      "fr": "gestionnaire apt",
+      "section": "Linux et administration",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-255",
-      "en": "orchestration orchestration Kubernetes handles container",
-      "fr": "orchestration.",
-      "section": "Chapitre 15 — Conteneurs et Docker 🔴",
+      "en": "yum",
+      "fr": "gestionnaire yum",
+      "section": "Linux et administration",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-256",
-      "en": "de noms (K8s)",
-      "fr": "Scale the deployment to 3",
-      "section": "Chapitre 15 — Conteneurs et Docker 🔴",
+      "en": "dnf",
+      "fr": "gestionnaire dnf",
+      "section": "Linux et administration",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-257",
-      "en": "✅ À retenir : container, image, Dockerfile, registry, repository, volume, container runtime,",
-      "fr": "orchestration, Docker Compose, Kubernetes, pod, deployment, service, namespace",
-      "section": "Chapitre 15 — Conteneurs et Docker 🔴",
+      "en": "template",
+      "fr": "modèle",
+      "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-258",
-      "en": "month.",
-      "fr": "business continuity continuité d’activité Business continuity",
-      "section": "Chapitre 16 — Sauvegarde et restauration 🟠🔴",
+      "en": "vCPU",
+      "fr": "processeur virtuel",
+      "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-259",
-      "en": "period",
-      "fr": "rétention / période de rétention Backups follow a 30-day",
-      "section": "Chapitre 16 — Sauvegarde et restauration 🟠🔴",
+      "en": "vRAM",
+      "fr": "mémoire virtuelle",
+      "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-260",
-      "en": "differential backup",
-      "fr": "sauvegarde complète /",
-      "section": "Chapitre 16 — Sauvegarde et restauration 🟠🔴",
+      "en": "live migration",
+      "fr": "migration à chaud",
+      "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-261",
-      "en": "Sunday.",
-      "fr": "replication réplication Data is replicated to a",
-      "section": "Chapitre 16 — Sauvegarde et restauration 🟠🔴",
+      "en": "node",
+      "fr": "nœud",
+      "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-262",
-      "en": "récupération",
-      "fr": "The RPO is set to 15",
-      "section": "Chapitre 16 — Sauvegarde et restauration 🟠🔴",
+      "en": "resource pool",
+      "fr": "pool de ressources",
+      "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-263",
-      "en": "un instant T, stockée séparément. Snapshot = image instantanée d’un système (souvent liée",
-      "fr": "à la source, pas une vraie sauvegarde indépendante). Replication = copie continue en quasi",
-      "section": "Chapitre 16 — Sauvegarde et restauration 🟠🔴",
+      "en": "cloud",
+      "fr": "informatique en nuage",
+      "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-264",
-      "en": "downtime",
-      "fr": "temps de fonctionnement /",
-      "section": "Chapitre 17 — Supervision et monitoring 🟠",
+      "en": "IaaS",
+      "fr": "infrastructure en tant que service",
+      "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-265",
-      "en": "dashboard tableau de bord Check the monitoring dashboard.",
-      "fr": "metric métrique This metric tracks disk usage.",
-      "section": "Chapitre 17 — Supervision et monitoring 🟠",
+      "en": "PaaS",
+      "fr": "plateforme en tant que service",
+      "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-266",
-      "en": "outage interruption de service The outage lasted 20 minutes.",
-      "fr": "troubleshoot / diagnose /",
-      "section": "Chapitre 18 — Dépannage / Troubleshooting 🟠🔴",
+      "en": "SaaS",
+      "fr": "logiciel en tant que service",
+      "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-267",
-      "en": "enquêter",
-      "fr": "I’m investigating the root cause.",
-      "section": "Chapitre 18 — Dépannage / Troubleshooting 🟠🔴",
+      "en": "elasticity",
+      "fr": "élasticité",
+      "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-268",
-      "en": "workaround solution de contournement We applied a temporary",
-      "fr": "workaround.",
-      "section": "Chapitre 18 — Dépannage / Troubleshooting 🟠🔴",
+      "en": "scalability",
+      "fr": "scalabilité",
+      "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-269",
-      "en": "✅ À retenir : issue, problem, failure, fault, error, outage, downtime, troubleshoot, diagnose,",
-      "fr": "investigate, reproduce, isolate, identify, resolve, workaround, root cause, fix",
-      "section": "Chapitre 18 — Dépannage / Troubleshooting 🟠🔴",
+      "en": "retention",
+      "fr": "rétention",
+      "section": "Sauvegarde et supervision",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-270",
-      "en": "Terme FR",
-      "fr": "support ticket / ticket ticket de support",
-      "section": "Chapitre 19 — Tickets et support informatique 🟠",
+      "en": "incremental",
+      "fr": "incrémental",
+      "section": "Sauvegarde et supervision",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-271",
-      "en": "escalation escalade",
-      "fr": "assigned / pending / resolved / closed /",
-      "section": "Chapitre 19 — Tickets et support informatique 🟠",
+      "en": "differential",
+      "fr": "différentiel",
+      "section": "Sauvegarde et supervision",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-272",
-      "en": "rouvert",
-      "fr": "SLA accord de niveau de service",
-      "section": "Chapitre 19 — Tickets et support informatique 🟠",
+      "en": "full backup",
+      "fr": "sauvegarde complète",
+      "section": "Sauvegarde et supervision",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-273",
-      "en": "credentials. Please try again.",
-      "fr": "Traduction : Sujet : Problème de connexion VPN. Description utilisateur : Je n’arrive pas à me",
-      "section": "Chapitre 19 — Tickets et support informatique 🟠",
+      "en": "threshold",
+      "fr": "seuil",
+      "section": "Sauvegarde et supervision",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-274",
-      "en": "Méthode : décomposer le message mot par mot plutôt que de le traduire en bloc. >",
-      "fr": "Exemple : Permission denied → permission = autorisation ; denied = refusé → accès/droit",
-      "section": "Chapitre 22 — Logs et messages d’erreur 🟠🔴",
+      "en": "probe",
+      "fr": "sonde",
+      "section": "Sauvegarde et supervision",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-275",
-      "en": "Access denied Accès refusé",
-      "fr": "Permission denied Permission refusée",
-      "section": "Chapitre 22 — Logs et messages d’erreur 🟠🔴",
+      "en": "availability",
+      "fr": "disponibilité",
+      "section": "Sauvegarde et supervision",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-276",
-      "en": "Authentication failed Échec de l’authentification",
-      "fr": "Invalid credentials Identifiants invalides",
-      "section": "Chapitre 22 — Logs et messages d’erreur 🟠🔴",
+      "en": "downtime",
+      "fr": "temps d'arrêt",
+      "section": "Sauvegarde et supervision",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-277",
-      "en": "Message d’erreur Traduction",
-      "fr": "Service unavailable Service indisponible",
-      "section": "Chapitre 22 — Logs et messages d’erreur 🟠🔴",
+      "en": "MFA",
+      "fr": "authentification multifacteur",
+      "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-278",
-      "en": "Certificate expired Certificat expiré",
-      "fr": "Unauthorized Non autorisé",
-      "section": "Chapitre 22 — Logs et messages d’erreur 🟠🔴",
+      "en": "IDS",
+      "fr": "système de détection d'intrusion",
+      "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-279",
-      "en": "Forbidden Interdit",
-      "fr": "Request timed out Requête expirée",
-      "section": "Chapitre 22 — Logs et messages d’erreur 🟠🔴",
+      "en": "IPS",
+      "fr": "système de prévention d'intrusion",
+      "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-280",
-      "en": "Address already in use Adresse déjà utilisée",
-      "fr": "No route to host Aucune route vers l’hôte",
-      "section": "Chapitre 22 — Logs et messages d’erreur 🟠🔴",
+      "en": "zero trust",
+      "fr": "confiance zéro",
+      "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-281",
-      "en": "DNS resolution failed Échec de résolution DNS",
-      "fr": "Out of memory Mémoire insuffisante",
-      "section": "Chapitre 22 — Logs et messages d’erreur 🟠🔴",
+      "en": "vulnerability",
+      "fr": "vulnérabilité",
+      "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-282",
-      "en": "Disk quota exceeded Quota disque dépassé",
-      "fr": "Login failed Échec de connexion",
-      "section": "Chapitre 22 — Logs et messages d’erreur 🟠🔴",
+      "en": "hardening",
+      "fr": "durcissement",
+      "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-283",
-      "en": "(Liste extensible — la logique de décomposition mot par mot s’applique à la majorité des",
-      "fr": "messages système en anglais.)",
-      "section": "Chapitre 22 — Logs et messages d’erreur 🟠🔴",
+      "en": "least privilege",
+      "fr": "moindre privilège",
+      "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-284",
-      "en": "tenir informé si le problème persiste.",
-      "fr": "Scénarios TSSR (aperçu)",
-      "section": "Chapitre 23 — Anglais professionnel IT 🟠",
+      "en": "laptop",
+      "fr": "ordinateur portable",
+      "section": "Matériel",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-285",
-      "en": "Internet.”",
-      "fr": "2. Compte verrouillé — “Your account has been locked after several failed attempts.”",
-      "section": "Chapitre 23 — Anglais professionnel IT 🟠",
+      "en": "screen",
+      "fr": "écran",
+      "section": "Matériel",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-286",
-      "en": "Incident de sécurité, serveur compromis, règle firewall, certificat expiré, attaque brute",
-      "fr": "force — vocabulaire des Chapitres 10 et 11 directement réutilisable dans un contexte de",
-      "section": "Chapitre 23 — Anglais professionnel IT 🟠",
+      "en": "USB drive",
+      "fr": "clé USB",
+      "section": "Matériel",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-287",
-      "en": "Acronyme Anglais FR",
-      "fr": "RAM Random Access Memory Mémoire vive",
-      "section": "Chapitre 24 — Abréviations informatiques",
+      "en": "printer",
+      "fr": "imprimante",
+      "section": "Matériel",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-288",
-      "en": "HDD Hard Disk Drive Disque dur",
-      "fr": "GPU Graphics Processing Unit Processeur graphique",
-      "section": "Chapitre 24 — Abréviations informatiques",
+      "en": "scanner",
+      "fr": "numériseur",
+      "section": "Matériel",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-289",
-      "en": "PSU Power Supply Unit Bloc d’alimentation",
-      "fr": "BIOS/UEFI Basic I/O System / Unified",
-      "section": "Chapitre 24 — Abréviations informatiques",
+      "en": "headset",
+      "fr": "casque (avec micro)",
+      "section": "Matériel",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-290",
-      "en": "Extensible Firmware",
-      "fr": "Micrologiciel de démarrage",
-      "section": "Chapitre 24 — Abréviations informatiques",
+      "en": "save",
+      "fr": "enregistrer",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-291",
-      "en": "OS Operating System Système d’exploitation",
-      "fr": "User Interface",
-      "section": "Chapitre 24 — Abréviations informatiques",
+      "en": "delete",
+      "fr": "supprimer",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-292",
-      "en": "Interface en ligne de",
-      "fr": "API Application Programming",
-      "section": "Chapitre 24 — Abréviations informatiques",
+      "en": "copy",
+      "fr": "copier",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-293",
-      "en": "Interface",
-      "fr": "programmation",
-      "section": "Chapitre 24 — Abréviations informatiques",
+      "en": "paste",
+      "fr": "coller",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-294",
-      "en": "Event Management",
-      "fr": "événements de sécurité",
-      "section": "Chapitre 24 — Abréviations informatiques",
+      "en": "shortcut",
+      "fr": "raccourci",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-295",
-      "en": "SOC Security Operations Center Centre opérationnel de",
-      "fr": "MFA/2FA Multi/Two-Factor",
-      "section": "Chapitre 24 — Abréviations informatiques",
+      "en": "settings",
+      "fr": "paramètres",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-296",
-      "en": "Authentication",
-      "fr": "plusieurs/deux facteurs",
-      "section": "Chapitre 24 — Abréviations informatiques",
+      "en": "browser",
+      "fr": "navigateur",
+      "section": "Internet et Web",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-297",
-      "en": "IAM Identity and Access",
-      "fr": "Gestion des identités et",
-      "section": "Chapitre 24 — Abréviations informatiques",
+      "en": "search engine",
+      "fr": "moteur de recherche",
+      "section": "Internet et Web",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-298",
-      "en": "accès",
-      "fr": "publiques",
-      "section": "Chapitre 24 — Abréviations informatiques",
+      "en": "website",
+      "fr": "site Web",
+      "section": "Internet et Web",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-299",
-      "en": "Secure Sockets Layer",
-      "fr": "Protocoles de chiffrement",
-      "section": "Chapitre 24 — Abréviations informatiques",
+      "en": "link",
+      "fr": "lien",
+      "section": "Internet et Web",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-300",
-      "en": "des connexions",
-      "fr": "VM/VDI Virtual Machine / Virtual",
-      "section": "Chapitre 24 — Abréviations informatiques",
+      "en": "download",
+      "fr": "télécharger",
+      "section": "Internet et Web",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-301",
-      "en": "Desktop Infrastructure",
-      "fr": "Machine virtuelle /",
-      "section": "Chapitre 24 — Abréviations informatiques",
+      "en": "upload",
+      "fr": "envoyer / mettre en ligne",
+      "section": "Internet et Web",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-302",
-      "en": "infrastructure de bureaux",
-      "fr": "virtuels",
-      "section": "Chapitre 24 — Abréviations informatiques",
+      "en": "email",
+      "fr": "courriel",
+      "section": "Internet et Web",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-303",
-      "en": "SLA Service Level Agreement Accord de niveau de service",
-      "fr": "SSO Single Sign-On Authentification unique",
-      "section": "Chapitre 24 — Abréviations informatiques",
+      "en": "attachment",
+      "fr": "pièce jointe",
+      "section": "Internet et Web",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-304",
-      "en": "RBAC Role-Based Access Control Contrôle d’accès basé sur",
-      "fr": "les rôles",
-      "section": "Chapitre 24 — Abréviations informatiques",
+      "en": "spam",
+      "fr": "courrier indésirable",
+      "section": "Internet et Web",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-305",
-      "en": "A — Access : accès · Account : compte · Active Directory : annuaire AD · Address : adresse ·",
-      "fr": "Administrator : administrateur · Alert : alerte · Application : application · Authentication :",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "streaming",
+      "fr": "diffusion en continu",
+      "section": "Internet et Web",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-306",
-      "en": "· Container : conteneur · CPU : processeur D — Daemon : démon · Data breach : fuite de",
-      "fr": "données · Deploy : déployer · DHCP/DNS : (voir Ch.7) · Domain : domaine · Driver : pilote E",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "URL",
+      "fr": "adresse Web",
+      "section": "Internet et Web",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-307",
-      "en": "— Incident : incident · Interface : interface · IP address : adresse IP K — Kernel : noyau L —",
-      "fr": "Latency : latence · Load balancer : répartiteur de charge · Log : journal M — Malware :",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "HTTP",
+      "fr": "protocole HTTP",
+      "section": "Internet et Web",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-308",
-      "en": "système d’exploitation · Outage : interruption de service P — Password : mot de passe ·",
-      "fr": "Patch : correctif · Permission : permission · Phishing : hameçonnage · Protocol : protocole R",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "HTTPS",
+      "fr": "protocole HTTPS",
+      "section": "Internet et Web",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-309",
-      "en": "ticket · Troubleshoot : dépanner U — Update : mise à jour · User : utilisateur V — VLAN :",
-      "fr": "réseau virtuel · VM : machine virtuelle · VPN : réseau privé virtuel · Vulnerability :",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "IP",
+      "fr": "adresse IP",
+      "section": "Internet et Web",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-310",
-      "en": "A — Access",
-      "fr": "accès",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "hosting",
+      "fr": "hébergement",
+      "section": "Internet et Web",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-311",
-      "en": "Account",
-      "fr": "compte",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "to code",
+      "fr": "coder",
+      "section": "Développement",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-312",
-      "en": "Address",
-      "fr": "adresse",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "bug",
+      "fr": "bogue",
+      "section": "Développement",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-313",
-      "en": "Administrator",
-      "fr": "administrateur",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "debug",
+      "fr": "déboguer",
+      "section": "Développement",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-314",
-      "en": "Alert",
-      "fr": "alerte",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "database",
+      "fr": "base de données",
+      "section": "Développement",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-315",
-      "en": "Application",
-      "fr": "application",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "algorithm",
+      "fr": "algorithme",
+      "section": "Développement",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-316",
-      "en": "Authorization",
-      "fr": "autorisation",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "front-end",
+      "fr": "interface utilisateur",
+      "section": "Développement",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-317",
-      "en": "B — Backup",
-      "fr": "sauvegarde",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "back-end",
+      "fr": "côté serveur",
+      "section": "Développement",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-318",
-      "en": "Boot",
-      "fr": "démarrer",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "framework",
+      "fr": "cadre de développement",
+      "section": "Développement",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-319",
-      "en": "C — Certificate",
-      "fr": "certificat",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "API",
+      "fr": "interface de programmation",
+      "section": "Développement",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-320",
-      "en": "Cloud",
-      "fr": "informatique en nuage",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "open source",
+      "fr": "code libre",
+      "section": "Développement",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-321",
-      "en": "Container",
-      "fr": "conteneur",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "deployment",
+      "fr": "déploiement",
+      "section": "Développement",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-322",
-      "en": "CPU",
-      "fr": "processeur",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "on the same page",
+      "fr": "sur la même longueur d'onde",
+      "section": "Expressions et idiomes professionnels",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-323",
-      "en": "D — Daemon",
-      "fr": "démon",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "pull the plug",
+      "fr": "tout arrêter / couper le service",
+      "section": "Expressions et idiomes professionnels",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-324",
-      "en": "Data breach",
-      "fr": "fuite de",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "go offline",
+      "fr": "se déconnecter / ne plus être disponible",
+      "section": "Expressions et idiomes professionnels",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-325",
-      "en": "Deploy",
-      "fr": "déployer",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "glitch in the system",
+      "fr": "anomalie dans le système",
+      "section": "Expressions et idiomes professionnels",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-326",
-      "en": "Domain",
-      "fr": "domaine",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "garbage in, garbage out",
+      "fr": "données erronées, résultats erronés",
+      "section": "Expressions et idiomes professionnels",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-327",
-      "en": "— Encryption",
-      "fr": "chiffrement",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "think outside the box",
+      "fr": "penser autrement",
+      "section": "Expressions et idiomes professionnels",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-328",
-      "en": "Event",
-      "fr": "événement",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "heads up",
+      "fr": "information préalable",
+      "section": "Expressions et idiomes professionnels",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-329",
-      "en": "F — Firewall",
-      "fr": "pare-feu",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "action item",
+      "fr": "action à réaliser",
+      "section": "Expressions et idiomes professionnels",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-330",
-      "en": "Folder",
-      "fr": "dossier G",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "takeaway",
+      "fr": "point clé à retenir",
+      "section": "Expressions et idiomes professionnels",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-331",
-      "en": "— Gateway",
-      "fr": "passerelle",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "bottleneck",
+      "fr": "goulot d'étranglement",
+      "section": "Expressions et idiomes professionnels",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-332",
-      "en": "GPO",
-      "fr": "stratégie de groupe",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "deadline",
+      "fr": "échéance",
+      "section": "Expressions et idiomes professionnels",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-333",
-      "en": "H — Hardware",
-      "fr": "matériel",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "milestone",
+      "fr": "étape clé",
+      "section": "Expressions et idiomes professionnels",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-334",
-      "en": "Host",
-      "fr": "hôte I",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "PSU",
+      "fr": "bloc d'alimentation",
+      "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-335",
-      "en": "— Incident",
-      "fr": "incident",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "LAN",
+      "fr": "réseau local",
+      "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-336",
-      "en": "IP address",
-      "fr": "adresse IP",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "WAN",
+      "fr": "réseau étendu",
+      "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-337",
-      "en": "K — Kernel",
-      "fr": "noyau L —",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "VPS",
+      "fr": "serveur privé virtuel",
+      "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-338",
-      "en": "Latency",
-      "fr": "latence",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "hardware / software",
+      "fr": "matériel physique / logiciel",
+      "section": "Faux amis et confusions",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-339",
-      "en": "Load balancer",
-      "fr": "répartiteur de charge",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "update / upgrade",
+      "fr": "mise à jour mineure / mise à niveau",
+      "section": "Faux amis et confusions",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-340",
-      "en": "Log",
-      "fr": "journal",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "download / upload",
+      "fr": "télécharger / envoyer en ligne",
+      "section": "Faux amis et confusions",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-341",
-      "en": "Memory",
-      "fr": "mémoire vive",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "reboot / reset",
+      "fr": "redémarrer / réinitialiser",
+      "section": "Faux amis et confusions",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-342",
-      "en": "Monitoring",
-      "fr": "supervision",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "save / store",
+      "fr": "enregistrer / stocker",
+      "section": "Faux amis et confusions",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-343",
-      "en": "Network",
-      "fr": "réseau",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "path / pathway",
+      "fr": "chemin d'accès / parcours",
+      "section": "Faux amis et confusions",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-344",
-      "en": "NIC",
-      "fr": "carte réseau",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "actual / current",
+      "fr": "réel / actuel",
+      "section": "Faux amis et confusions",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-345",
-      "en": "Outage",
-      "fr": "interruption de service",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "sensible / sensitive",
+      "fr": "raisonnable / sensible",
+      "section": "Faux amis et confusions",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-346",
-      "en": "P — Password",
-      "fr": "mot de passe",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "library / librairie",
+      "fr": "bibliothèque / librairie",
+      "section": "Faux amis et confusions",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-347",
-      "en": "Patch",
-      "fr": "correctif",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "eventually / possibly",
+      "fr": "finalement / éventuellement",
+      "section": "Faux amis et confusions",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-348",
-      "en": "Permission",
-      "fr": "permission",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "assist / attend",
+      "fr": "assister / assister à",
+      "section": "Faux amis et confusions",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-349",
-      "en": "Phishing",
-      "fr": "hameçonnage",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "demand / request",
+      "fr": "exiger / demander",
+      "section": "Faux amis et confusions",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-350",
-      "en": "Protocol",
-      "fr": "protocole R",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "fabric / factory",
+      "fr": "tissu / usine",
+      "section": "Faux amis et confusions",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-351",
-      "en": "— RAM",
-      "fr": "mémoire vive",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "sympathetic / nice",
+      "fr": "compatissant / sympathique",
+      "section": "Faux amis et confusions",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-352",
-      "en": "Reboot",
-      "fr": "redémarrer",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "to realize / to achieve",
+      "fr": "se rendre compte / réaliser",
+      "section": "Faux amis et confusions",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-353",
-      "en": "Restore",
-      "fr": "restaurer",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "clipboard",
+      "fr": "presse-papiers",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-354",
-      "en": "Router",
-      "fr": "routeur S —",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "screenshot",
+      "fr": "capture d'écran",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-355",
-      "en": "Service",
-      "fr": "service",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "restore point",
+      "fr": "point de restauration",
+      "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-356",
-      "en": "Snapshot",
-      "fr": "instantané",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "tower",
+      "fr": "tour",
+      "section": "Matériel",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-357",
-      "en": "SSH",
-      "fr": "(voir Ch.7)",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "tablet",
+      "fr": "tablette",
+      "section": "Matériel",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-358",
-      "en": "Subnet",
-      "fr": "sous-réseau",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "projector",
+      "fr": "projecteur",
+      "section": "Matériel",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-359",
-      "en": "Switch",
-      "fr": "commutateur",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "speaker",
+      "fr": "enceinte",
+      "section": "Matériel",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-360",
-      "en": "T — Threat",
-      "fr": "menace",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "docking station",
+      "fr": "station d'accueil",
+      "section": "Matériel",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-361",
-      "en": "U — Update",
-      "fr": "mise à jour",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "fiber",
+      "fr": "fibre",
+      "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-362",
-      "en": "User",
-      "fr": "utilisateur",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "access point",
+      "fr": "point d'accès",
+      "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-363",
-      "en": "VM",
-      "fr": "machine virtuelle",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "spyware",
+      "fr": "logiciel espion",
+      "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
       "id": "vocab-364",
-      "en": "VPN",
-      "fr": "réseau privé virtuel",
-      "section": "Chapitre 26 — Mini-dictionnaire alphabétique (extrait)",
+      "en": "ransomware",
+      "fr": "rançongiciel",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-365",
+      "en": "trojan",
+      "fr": "cheval de Troie",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-366",
+      "en": "brute force",
+      "fr": "force brute",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-367",
+      "en": "password spraying",
+      "fr": "pulvérisation de mots de passe",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-368",
+      "en": "The server is down.",
+      "fr": "Le serveur est hors service.",
+      "section": "Phrases types",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-369",
+      "en": "The backup failed.",
+      "fr": "La sauvegarde a échoué.",
+      "section": "Phrases types",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-370",
+      "en": "Please restart the service.",
+      "fr": "Veuillez redémarrer le service.",
+      "section": "Phrases types",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-371",
+      "en": "The ticket is assigned to you.",
+      "fr": "Le ticket vous est affecté.",
+      "section": "Phrases types",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-372",
+      "en": "The issue is resolved.",
+      "fr": "Le problème est résolu.",
+      "section": "Phrases types",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-373",
+      "en": "major incident",
+      "fr": "incident majeur",
+      "section": "Support utilisateur et tickets (ITIL)",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-374",
+      "en": "service catalog",
+      "fr": "catalogue de services",
+      "section": "Support utilisateur et tickets (ITIL)",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-375",
+      "en": "incident manager",
+      "fr": "responsable d'incident",
+      "section": "Support utilisateur et tickets (ITIL)",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-376",
+      "en": "change advisory board",
+      "fr": "comité consultatif des changements",
+      "section": "Support utilisateur et tickets (ITIL)",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-377",
+      "en": "BIOS",
+      "fr": "micrologiciel de démarrage",
+      "section": "Abréviations",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-378",
+      "en": "UEFI",
+      "fr": "interface micrologiciel unifiée",
+      "section": "Abréviations",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-379",
+      "en": "MAC",
+      "fr": "adresse physique",
+      "section": "Abréviations",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-380",
+      "en": "TCP",
+      "fr": "protocole de contrôle de transmission",
+      "section": "Abréviations",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-381",
+      "en": "UDP",
+      "fr": "protocole de datagramme utilisateur",
+      "section": "Abréviations",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-382",
+      "en": "FTP",
+      "fr": "protocole de transfert de fichiers",
+      "section": "Abréviations",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-383",
+      "en": "RDP",
+      "fr": "bureau à distance",
+      "section": "Abréviations",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-384",
+      "en": "SMB",
+      "fr": "bloc de messages serveur",
+      "section": "Abréviations",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-385",
+      "en": "NFS",
+      "fr": "système de fichiers réseau",
+      "section": "Abréviations",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-386",
+      "en": "iSCSI",
+      "fr": "SCSI sur IP",
+      "section": "Abréviations",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-387",
+      "en": "SAN",
+      "fr": "réseau de stockage",
+      "section": "Abréviations",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-388",
+      "en": "NAS",
+      "fr": "stockage en réseau",
+      "section": "Abréviations",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-389",
+      "en": "RAID",
+      "fr": "ensemble redondant de disques",
+      "section": "Abréviations",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-390",
+      "en": "UPS",
+      "fr": "onduleur",
+      "section": "Abréviations",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-391",
+      "en": "PDU",
+      "fr": "bloc de distribution électrique",
+      "section": "Abréviations",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-392",
+      "en": "KVM",
+      "fr": "clavier-écran-souris",
+      "section": "Abréviations",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-393",
+      "en": "PoE",
+      "fr": "alimentation par Ethernet",
+      "section": "Abréviations",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-394",
+      "en": "QoS",
+      "fr": "qualité de service",
+      "section": "Abréviations",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-395",
+      "en": "LDAP",
+      "fr": "protocole d'accès aux annuaires",
+      "section": "Abréviations",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-396",
+      "en": "Kerberos",
+      "fr": "protocole d'authentification",
+      "section": "Abréviations",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-397",
+      "en": "RADIUS",
+      "fr": "service d'authentification à distance",
+      "section": "Abréviations",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-398",
+      "en": "TACACS",
+      "fr": "contrôle d'accès",
+      "section": "Abréviations",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-399",
+      "en": "SNMP",
+      "fr": "protocole de gestion de réseau",
+      "section": "Abréviations",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-400",
+      "en": "ICMP",
+      "fr": "protocole de contrôle Internet",
+      "section": "Abréviations",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-401",
+      "en": "ARP",
+      "fr": "protocole de résolution d'adresse",
+      "section": "Abréviations",
       "fiabilite": "sure"
     }
   ]

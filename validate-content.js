@@ -19,7 +19,7 @@ for(const file of manifest.files){
      if(!e||typeof e.id!=="string"||!e.id) issues.push(p+": entry sans id");
      if(!e||typeof e.en!=="string"||!e.en) issues.push(p+": entree sans en "+(e.id||"?"));
      if(!e||typeof e.fr!=="string"||!e.fr) issues.push(p+": entree sans fr "+(e.id||"?"));
-     if(!e||typeof e.section!=="string"||!/^Chapitre \d+ \u2014 .+$/.test(e.section)) issues.push(p+": section invalide "+(e.section||"?"));
+     if(!e||typeof e.section!=="string"||e.section.trim().length<3) issues.push(p+": section invalide "+(e.section||"?"));
      if(e&&e.id){ if(globalIds.has(e.id)) issues.push(p+": id duplique "+e.id); globalIds.add(e.id); }
      const key=String(e&&e.en||"").toLowerCase().trim(); if(key){ if(sectionEn.has(key)) issues.push(p+": terme EN doublon dans la section "+e.section+" : "+e.en); sectionEn.add(key); }
    }

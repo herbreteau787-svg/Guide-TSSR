@@ -690,8 +690,10 @@ function renderCheat(){
 function getVocabPool(){
   const entries = G.vocab || [];
   const search = String(state.vocabSearch || "").toLowerCase();
+  const section = String(state.vocabSection || "all");
   const out = [];
   for (const e of entries){
+    if (section !== "all" && String(e.section) !== section) continue;
     if (search && !(String(e.en).toLowerCase().includes(search) || String(e.fr).toLowerCase().includes(search) || String(e.definition || "").toLowerCase().includes(search))) continue;
     out.push(e);
   }
@@ -724,6 +726,7 @@ function renderAnglais(){
   if (state.vocabCP === undefined) state.vocabCP = "all";
   if (state.vocabCat === undefined) state.vocabCat = "all";
   if (state.vocabUnsure === undefined) state.vocabUnsure = false;
+  if (state.vocabSection === undefined) state.vocabSection = "all";
   if (state.vocabSearch === undefined) state.vocabSearch = "";
   if (state.vocabFlashIndex === undefined) state.vocabFlashIndex = 0;
   if (state.vocabFlashReveal === undefined) state.vocabFlashReveal = false;
@@ -731,6 +734,8 @@ function renderAnglais(){
   let html = "<div class=\"hero\"><h1>Vocabulaire Anglais technique</h1><p>" + entries.length + " entrées, " + pool.length + " filtrées, " + (progress.known||[]).length + " connues / " + (progress.review||[]).length + " à revoir. Meilleur score quiz : " + (progress.quizBest||0) + ".</p></div>";
   html += "<div class=\"card\"><div class=\"button-row\" style=\"flex-wrap:wrap\">";
   html += "<input class=\"search\" id=\"vocabSearch\" placeholder=\"Rechercher Terme, traduction, definition...\" value=\"" + escapeHtml(state.vocabSearch||"") + "\"></input>";
+  const vocabSections = Array.from(new Set(entries.map(e=>e.section).filter(Boolean))).sort();
+  html += "<select class=\"search\" id=\"vocabSection\" style=\"margin-left:8px\"><option value=\"all\">Toutes les sections</option>" + vocabSections.map(s=>"<option value=\""+escapeHtml(s)+"\""+(state.vocabSection===s?" selected":"")+">"+escapeHtml(s)+"</option>").join("") + "</select>";
   html += "</div><div class=\"button-row\" style=\"flex-wrap:wrap;margin-top:8px\">";
   html += "<button class=\"ghost-btn"+(mode==="list"?" on":"")+"\" data-vocab-mode=\"list\">Liste</button><button class=\"ghost-btn"+(mode==="flash"?" on":"")+"\" data-vocab-mode=\"flash\">Flashcards</button><button class=\"ghost-btn"+(mode==="quizEN"?" on":"")+"\" data-vocab-mode=\"quizEN\">Quiz EN / FR</button><button class=\"ghost-btn"+(mode==="quizFR"?" on":"")+"\" data-vocab-mode=\"quizFR\">Quiz FR / EN</button>";
   html += "</div></div>";
@@ -796,6 +801,7 @@ function renderAnglais(){
   if (sinput){ sinput.oninput = function(ev){ vocabSearch(ev.target.value); if (document.getElementById("vocabSearch") === sinput) sinput.focus(); }; }
   const cpSel = document.getElementById("vocabCP"); if (cpSel) cpSel.onchange = function(ev){ vocabSetCP(ev.target.value); };
   const catSel = document.getElementById("vocabCat"); if (catSel) catSel.onchange = function(ev){ vocabSetCat(ev.target.value); };
+  const secSel = document.getElementById("vocabSection"); if (secSel) secSel.onchange = function(ev){ state.vocabSection = ev.target.value; renderAnglais(); };
   const unsure = document.getElementById("vocabUnsure"); if (unsure) unsure.onchange = function(ev){ vocabSetUnsure(ev.target.checked); };
   panel.querySelectorAll("[data-vocab-mode]").forEach(function(b){ b.onclick = function(){ vocabSetMode(b.getAttribute("data-vocab-mode")); }; });
   panel.querySelectorAll("[data-vocab-answer]").forEach(function(b){ b.onclick = function(){ vocabAnswerQuestion(parseInt(b.getAttribute("data-vocab-answer"),10)); }; });
