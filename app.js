@@ -76,6 +76,9 @@ function formatInline(s){
     .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
     .replace(/`([^`]+)`/g,'<code>$1</code>');
 }
+function formatBlock(s){
+  return String(s||"").split(/\n\s*\n/).map(part=>part.trim()).filter(Boolean).map(part=>"<p>"+part.split(/\n/).map(line=>formatInline(line)).join("<br>")+"</p>").join("");
+}
 function badgeLevel(level){
   const map = { debutant:'level-debutant', intermediaire:'', avance:'level-avance', exam:'level-exam' };
   const labels = { debutant:'Débutant', intermediaire:'Intermédiaire', avance:'Avancé', exam:'Examen' };

@@ -66,6 +66,36 @@
         "pedagogie-ccp2",
         "mig-legacy-cp2-join",
         "pedagogie-cp2-serveurs"
+      ],
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Objectif et compétence évaluée : installer et administrer un domaine Active Directory, gérer utilisateurs/groupes/GPO, DNS/DHCP, partages, et produire les preuves MEP. | Notions à connaître : AD DS, forêt, domaine, OU, AGDLP, GPO, DNS, DHCP, NTFS, SMB, FSMO, réplication. | Tableau Je veux faire… | Interface graphique | Ligne de commande | Vérification : Promouvoir un DC | Gestionnaire serveur | In"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Objectif et compétence évaluée : installer et administrer un domaine Active Directory, gérer utilisateurs/groupes/GPO, DNS/DHCP, partages, et produire les preuves MEP. | Notions à connaître : AD DS, forêt, domaine, OU, AGDLP, GPO, DNS, DHCP, NTFS, SMB, FSMO, réplication. | Tableau Je veux faire… | Interface graphique | Ligne de commande | Vérification : Promouvoir un DC | Gestionnaire serveur | Install-ADDSForest (À VÉRIFIER) | dcdiag /q ; Créer un utilisateur | ADUC | New-ADUser (À VÉRIFIER) | Get-ADUser ; Lier une GPO | GPMC | New-GPLink (À VÉRIFIER) | gpresult /r ; Créer une zone DNS | DNS Manager | Add-DnsServerPrimaryZone (À VÉRIFIER) | nslookup ; Créer une étendue DHCP | DHCP Manager | Add-DhcpServerv4Scope (À VÉRIFIER) | Get-DhcpServerv4Lease. | À connaître par cœur : ports 53, 88, 135, 389, 445, 636 ; rôles FSMO ; événements 4624, 4625. | Diagnostic express : symptôme -> vérification -> commande. | Pièges : DNS mal pointé, GPO non liée à l'OU, réplication en échec. | Ce que le jury peut demander (MEP phases 1-3) : installation AD, jonction, GPO, DNS/DHCP, preuves. | Index : voir champ couvre."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Objectif et compétence évaluée\nNotions à connaître\nTableau GUI / CLI / Vérification\nÀ connaître par cœur\nDiagnostic express\nPièges\nCe que le jury peut demander\nIndex des fiches"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Commandes marquées À VÉRIFIER : voir tableau."
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Ne pas confondre GUI et CLI\nOublier les preuves MEP"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "L'essentiel résume ; les fiches détaillées précisent."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Objectif et compétence évaluée : installer et administrer un domaine Active Directory, gérer utilisateurs/groupes/GPO, DNS/DHCP, partages, et produire les preuves MEP. | Notions à connaître : AD DS, f"
+        }
       ]
     },
     {
@@ -93,7 +123,37 @@
         "Tester avec un administrateur"
       ],
       "w": "Conclusion : CP2 se joue sur le contrôle et la preuve.",
-      "resume": "CP2 - Objectifs : installer et exploiter un serveur Windows dans un domaine Active Directory, puis prouver qu'un utilisateur accède uniquement aux ressources prévues."
+      "resume": "CP2 - Objectifs : installer et exploiter un serveur Windows dans un domaine Active Directory, puis prouver qu'un utilisateur accède uniquement aux ressources prévues.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP2 - Objectifs : installer et exploiter un serveur Windows dans un domaine Active Directory, puis prouver qu'un utilisateur accède uniquement aux ressources prévues. | Lien avec la MEP : phases de préparation (outils et documents fournis), missions de création et de test d'access, puis bilan et preuves. | Scénario : créer le compte d'un salarié, l'ajouter à un groupe, donner un accès dossier Comm"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP2 - Objectifs : installer et exploiter un serveur Windows dans un domaine Active Directory, puis prouver qu'un utilisateur accède uniquement aux ressources prévues. | Lien avec la MEP : phases de préparation (outils et documents fournis), missions de création et de test d'access, puis bilan et preuves. | Scénario : créer le compte d'un salarié, l'ajouter à un groupe, donner un accès dossier Commercial selon la matrice de droits, tester l'autorisation puis le refus. | Synthèse : Active Directory est une base d'identification, mais la permission effective dépend toujours du plus restrictif entre le partage et NTFS. | Schéma : accès utilisateur -> jeton Kerberos -> ACL fichier -> partage SMB -> résultat autorisé/refusé. | À retenir : identifier, grouper, autoriser, tester, prouver."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Lire la MEP\nIdentifier les groupes AGDLP\nPréparer le server\nCréer les accès\nTester et collecter les preuves"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Aucune commande native dans cette fiche théorique."
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Créer l'utilisateur avant le DNS\nTester avec un administrateur"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : CP2 se joue sur le contrôle et la preuve."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP2 - Objectifs : installer et exploiter un serveur Windows dans un domaine Active Directory, puis prouver qu'un utilisateur accède uniquement aux ressources prévues. | Lien avec la MEP : phases de pr"
+        }
+      ]
     },
     {
       "id": "cp2-dc",
@@ -121,7 +181,37 @@
         "Heure désynchronisée"
       ],
       "w": "Conclusion : la promotion n'est fiable que si le serveur est déjà propre.",
-      "resume": "CP2 - Contrôleur de domaine : vérifier l'IP fixe, le nom DNS du serveur, l'heure, puis installer la fonctionnalité et promouvoir le domaine."
+      "resume": "CP2 - Contrôleur de domaine : vérifier l'IP fixe, le nom DNS du serveur, l'heure, puis installer la fonctionnalité et promouvoir le domaine.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP2 - Contrôleur de domaine : vérifier l'IP fixe, le nom DNS du serveur, l'heure, puis installer la fonctionnalité et promouvoir le domaine. | Cas réel : un serveur Windows Server 2022 devient le premier DC de tssr.local. | Fonctionnement détaillé : DNS est installé avec AD DS, SYSVOL est créé, la zone intégrée AD est créée, les rôles FSMO sont placés sur ce premier DC. | Procédure GUI : Gestionna"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP2 - Contrôleur de domaine : vérifier l'IP fixe, le nom DNS du serveur, l'heure, puis installer la fonctionnalité et promouvoir le domaine. | Cas réel : un serveur Windows Server 2022 devient le premier DC de tssr.local. | Fonctionnement détaillé : DNS est installé avec AD DS, SYSVOL est créé, la zone intégrée AD est créée, les rôles FSMO sont placés sur ce premier DC. | Procédure GUI : Gestionnaire de serveur > Ajouter rôles et fonctionnalités > Services AD DS et DNS > Configurer les services AD DS > Assistant promotion. | Procédure CLI : installer la fonctionnalité, puis promouvoir. | Vérification : Get-ADDomain, Get-ADDomainController, nslookup pour les enregistrements SRV. | Pièges : répromouvoir un serveur mal nommé, oublier l'heure, DNS client pointant vers Internet. | Questions jury : rôle FSMO, pourquoi DNS doit être sain, différence promotion d'un nouveau domaine et ajout d'un DC. | À retenir : IP fixe, nom clair, DNS, puis promotion."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Configurer une IP fixe\nVérifier le nom du serveur\nAjouter AD DS et DNS\nPromouvoir le domaine\nRedémarrer et valider"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Get-NetIPConfiguration\nRename-Computer -NewName DC01 -Restart\nInstall-WindowsFeature AD-Domain-Services -IncludeManagementTools\nInstall-ADDSForest -DomainName tssr.local -DomainNetbiosName TSSR -InstallDns:$true -SafeModeAdministratorPassword (ConvertTo-SecureString 'P@ssw0rd!' -AsPlainText -Force) -Force\nGet-ADDomain\nGet-ADDomainController -Discover"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "IP non fixe\nDNS mal configuré\nHeure désynchronisée"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : la promotion n'est fiable que si le serveur est déjà propre."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP2 - Contrôleur de domaine : vérifier l'IP fixe, le nom DNS du serveur, l'heure, puis installer la fonctionnalité et promouvoir le domaine. | Cas réel : un serveur Windows Server 2022 devient le prem"
+        }
+      ]
     },
     {
       "id": "cp2-ipdns",
@@ -148,7 +238,37 @@
         "Masque incorrect"
       ],
       "w": "Conclusion : contrôle l'adresse avant de promouvoir.",
-      "resume": "CP2 - IP et DNS : un DC ne doit pas dépendre du DHCP et doit se connaître lui-même."
+      "resume": "CP2 - IP et DNS : un DC ne doit pas dépendre du DHCP et doit se connaître lui-même.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP2 - IP et DNS : un DC ne doit pas dépendre du DHCP et doit se connaître lui-même. | Objectif professionnel : éviter les pannes d'enregistrement AD. | Fonctionnement détaillé : adresse IPv4, masque, passerelle, DNS primaire sur l'adresse du DC, DNS secondaire sur le partenaire si présent. | Procédure GUI : Paramètres Windows > Réseau > Ethernet > IP > fixe. | Procédure CLI : attribuer l'IP et le "
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP2 - IP et DNS : un DC ne doit pas dépendre du DHCP et doit se connaître lui-même. | Objectif professionnel : éviter les pannes d'enregistrement AD. | Fonctionnement détaillé : adresse IPv4, masque, passerelle, DNS primaire sur l'adresse du DC, DNS secondaire sur le partenaire si présent. | Procédure GUI : Paramètres Windows > Réseau > Ethernet > IP > fixe. | Procédure CLI : attribuer l'IP et le DNS. | Vérification : Get-NetIPAddress, Get-DnsClientServerAddress, Test-NetConnection et Resolve-DnsName. | Pièges : DNS secondaire public, IP changée après promotion, passerelle manquante sur réseau isolé. | À retenir : le DC utilise son propre DNS."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Ouvrir les paramètres réseau\nSaisir l'IP fixe\nSaisir le masque\nSaisir la passerelle et le DNS\nTester la connexion"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "New-NetIPAddress -IPAddress 192.168.10.10 -PrefixLength 24 -DefaultGateway 192.168.10.1 -InterfaceAlias Ethernet\nSet-DnsClientServerAddress -InterfaceAlias Ethernet -ServerAddresses 192.168.10.10,192.168.10.11\nGet-NetIPAddress\nGet-DnsClientServerAddress\nResolve-DnsName dc01.tssr.local"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "DNS pointant vers Internet\nMasque incorrect"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : contrôle l'adresse avant de promouvoir."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP2 - IP et DNS : un DC ne doit pas dépendre du DHCP et doit se connaître lui-même. | Objectif professionnel : éviter les pannes d'enregistrement AD. | Fonctionnement détaillé : adresse IPv4, masque, "
+        }
+      ]
     },
     {
       "id": "cp2-join",
@@ -176,7 +296,37 @@
         "Redémarrage oublié"
       ],
       "w": "Conclusion : la jonction commence par le DNS.",
-      "resume": "CP2 - Jonction : le poste doit connaître le DNS du domaine et disposer d'un compte autorisé."
+      "resume": "CP2 - Jonction : le poste doit connaître le DNS du domaine et disposer d'un compte autorisé.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP2 - Jonction : le poste doit connaître le DNS du domaine et disposer d'un compte autorisé. | Objectif : intégrer les postes au domaine. | Fonctionnement détaillé : DNS, objet ordinateur, SID, profil utilisateur, GPO à la prochaine ouverture. | Procédure GUI : Système > Renommer ce PC > Domaine > redémarrer. | Procédure CLI : Add-Computer, puis redémarrage. | Vérification : whoami, Test-ComputerS"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP2 - Jonction : le poste doit connaître le DNS du domaine et disposer d'un compte autorisé. | Objectif : intégrer les postes au domaine. | Fonctionnement détaillé : DNS, objet ordinateur, SID, profil utilisateur, GPO à la prochaine ouverture. | Procédure GUI : Système > Renommer ce PC > Domaine > redémarrer. | Procédure CLI : Add-Computer, puis redémarrage. | Vérification : whoami, Test-ComputerSecureChannel, Get-ADComputer dans la console. | Pièges : mauvais DNS, compte sans droit de jonction, redémarrage oublié, time zone. | Questions jury : jonction versus pré-stage, importance du DNS. | À retenir : DNS d'abord."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Vérifier le DNS\nOuvrir les propriétés système\nRejoindre le domaine\nSaisir les identifiants\nRedémarrer"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Add-Computer -DomainName tssr.local -Credential (Get-Credential) -Restart\nwhoami\ntest-computersecurechannel\nGet-ADComputer -Identity POSTE01"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "DNS internet\nCompte non autorisé\nRedémarrage oublié"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : la jonction commence par le DNS."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP2 - Jonction : le poste doit connaître le DNS du domaine et disposer d'un compte autorisé. | Objectif : intégrer les postes au domaine. | Fonctionnement détaillé : DNS, objet ordinateur, SID, profil"
+        }
+      ]
     },
     {
       "id": "cp2-ou",
@@ -204,7 +354,37 @@
         "Permission sur personne"
       ],
       "w": "Conclusion : AGDLP se défend à l'oral.",
-      "resume": "CP2 - AGDLP : A pour comptes, G pour groupes globaux métier, DL pour groupes de ressources, P pour permission."
+      "resume": "CP2 - AGDLP : A pour comptes, G pour groupes globaux métier, DL pour groupes de ressources, P pour permission.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP2 - AGDLP : A pour comptes, G pour groupes globaux métier, DL pour groupes de ressources, P pour permission. | Objectif professionnel : déléguer et maintenir une structure lisible. | Cas réel : OU _Usuarios, _Grupos, _Computadoras, puis une OU Commerciale contenant les utilisateurs. | Fonctionnement détaillé : OU pour GPO et délégation, groupes pour l'accès aux ressources. | Procédure GUI : Util"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP2 - AGDLP : A pour comptes, G pour groupes globaux métier, DL pour groupes de ressources, P pour permission. | Objectif professionnel : déléguer et maintenir une structure lisible. | Cas réel : OU _Usuarios, _Grupos, _Computadoras, puis une OU Commerciale contenant les utilisateurs. | Fonctionnement détaillé : OU pour GPO et délégation, groupes pour l'accès aux ressources. | Procédure GUI : Utilisateurs et ordinateurs Active Directory > Nouvelle unité d'organisation. | Procédure CLI : New-ADOrganizationalUnit, New-ADGroup. | Vérification : Get-ADOrganizationalUnit, Get-ADGroup. | Pièges : OU profondes sans besoin, groupe directement sur dossier, permissions non testées. | Questions jury : différence compte global et ressource, pourquoi AGDLP. | À retenir : les comptes ne portent pas les permissions directement."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Créer les OU\nCréer le groupe global\nCréer le groupe de domaine local\nAjouter le groupe global dans le groupe DL\nAjouter l'utilisateur au groupe global"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "New-ADOrganizationalUnit -Name '_Utilisateurs' -Path 'DC=tssr,DC=local'\nNew-ADOrganizationalUnit -Name '_Groupes' -Path 'DC=tssr,DC=local'\nNew-ADGroup -Name 'G-Commerciaux' -GroupScope Global -GroupCategory Security -Path 'OU=_Groupes,DC=tssr,DC=local'\nNew-ADGroup -Name 'DL-Commercial-FC' -GroupScope DomainLocal -GroupCategory Security -Path 'OU=_Groupes,DC=tssr,DC=local'\nAdd-ADGroupMember -Identity 'DL-Commercial-FC' -Members 'G-Commerciaux'\nGet-ADOrganizationalUnit -Filter *"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Groupe avec le mauvais scope\nAGDLP inversé\nPermission sur personne"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : AGDLP se défend à l'oral."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP2 - AGDLP : A pour comptes, G pour groupes globaux métier, DL pour groupes de ressources, P pour permission. | Objectif professionnel : déléguer et maintenir une structure lisible. | Cas réel : OU _"
+        }
+      ]
     },
     {
       "id": "cp2-users",
@@ -231,7 +411,37 @@
         "Ouvert dans la mauvaise OU"
       ],
       "w": "Conclusion : un compte sans test ne prouve rien.",
-      "resume": "CP2 - Utilisateur : créer le compte, définir le mot de passe et l'ajouter au groupe métier."
+      "resume": "CP2 - Utilisateur : créer le compte, définir le mot de passe et l'ajouter au groupe métier.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP2 - Utilisateur : créer le compte, définir le mot de passe et l'ajouter au groupe métier. | Objectif professionnel : préparer l'expérience à un test réel. | Cas réel : nouveau collaborateur Commercial. | Fonctionnement détaillé : UPN, profils, mot de passe initial, expiration, appartenance au groupe. | Procédure GUI : Utilisateurs et ordinateurs Active Directory > Nouvel utilisateur. | Procédure"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP2 - Utilisateur : créer le compte, définir le mot de passe et l'ajouter au groupe métier. | Objectif professionnel : préparer l'expérience à un test réel. | Cas réel : nouveau collaborateur Commercial. | Fonctionnement détaillé : UPN, profils, mot de passe initial, expiration, appartenance au groupe. | Procédure GUI : Utilisateurs et ordinateurs Active Directory > Nouvel utilisateur. | Procédure CLI : New-ADUser puis Enable-ADAccount si nécessaire. | Vérification : Get-ADUser, Get-ADGroupMember, Test-ADAccount. | Pièges : compte désactivé, groupe faux, mot de passe expiré. | Questions jury : UPN, mandatory profile, password policy. | À retenir : compte test, groupe test."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Ouvrir dsa.msc\nCréer l'utilisateur\nDéfinir le mot de passe\nDécocher 'le mot de passe n'expire jamais' si requis\nAjouter au groupe G-Commerciaux"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "New-ADUser -Name 'Jean Dupont' -SamAccountName jdupont -UserPrincipalName jdupont@tssr.local -GivenName Jean -Surname Dupont -DisplayName 'Jean Dupont' -Path 'OU=Utilisateurs,DC=tssr,DC=local' -AccountPassword (ConvertTo-SecureString 'P@ssw0rd!' -AsPlainText -Force) -Enabled $true\nAdd-ADGroupMember -Identity 'G-Commerciaux' -Members 'jdupont'\nGet-ADUser -Identity jdupont -Properties MemberOf\nGet-ADGroupMember -Identity 'G-Commerciaux'"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Compte créé sans mot de passe\nOuvert dans la mauvaise OU"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : un compte sans test ne prouve rien."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP2 - Utilisateur : créer le compte, définir le mot de passe et l'ajouter au groupe métier. | Objectif professionnel : préparer l'expérience à un test réel. | Cas réel : nouveau collaborateur Commerci"
+        }
+      ]
     },
     {
       "id": "cp2-gpo",
@@ -259,7 +469,37 @@
         "Conflit de paramètres"
       ],
       "w": "Conclusion : une GPO utile est testable et auditable.",
-      "resume": "CP2 - GPO : créer une stratégie, la lier à une OU, puis vérifier son application."
+      "resume": "CP2 - GPO : créer une stratégie, la lier à une OU, puis vérifier son application.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP2 - GPO : créer une stratégie, la lier à une OU, puis vérifier son application. | Objectif professionnel : standardiser les postes sans toucher manuellement chaque machine. | Cas réel : imposer le firewall et mapper un disque Z. | Fonctionnement détaillé : CSE, ordre LSDOU, filtrage de sécurité, blocage d'héritage. | Procédure GUI : GPMC puis gpmc.msc > Nouvelle GPO > Modifier > lier. | Procédur"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP2 - GPO : créer une stratégie, la lier à une OU, puis vérifier son application. | Objectif professionnel : standardiser les postes sans toucher manuellement chaque machine. | Cas réel : imposer le firewall et mapper un disque Z. | Fonctionnement détaillé : CSE, ordre LSDOU, filtrage de sécurité, blocage d'héritage. | Procédure GUI : GPMC puis gpmc.msc > Nouvelle GPO > Modifier > lier. | Procédure CLI : New-GPO, New-GPLink, gpupdate, gpresult. | Vérification : gpresult /R et Get-GPO report. | Pièges : GPO liée à un mauvais niveau, ordre inversé, filtre trop large. | Questions jury : LSDOU, héritage bloqué, GPO de sécurité. | À retenir : créer, lier, tester, audit."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Ouvrir gpmc.msc\nCréer une nouvelle GPO\nModifier la GPO\nLier à l'OU\nLancer gpupdate /force\nVérifier avec gpresult /R"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "New-GPO -Name 'GPO-Postes-Base'\nNew-GPLink -Name 'GPO-Postes-Base' -Target 'OU=Postes,DC=tssr,DC=local'\ngpupdate /force\ngpresult /R\nGet-GPO -All\nGet-GPResultantSetOfPolicy -ReportType Html -Path C:\\temp\\rsop.html"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Lier au mauvais objet\nOublier gpupdate\nConflit de paramètres"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : une GPO utile est testable et auditable."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP2 - GPO : créer une stratégie, la lier à une OU, puis vérifier son application. | Objectif professionnel : standardiser les postes sans toucher manuellement chaque machine. | Cas réel : imposer le f"
+        }
+      ]
     },
     {
       "id": "cp2-dns",
@@ -286,7 +526,37 @@
         "Forwarder incorrect"
       ],
       "w": "Conclusion : DNS doit précéder beaucoup d'autres services.",
-      "resume": "CP2 - DNS : créer une zone primaire, ajouter les enregistrements et vérifier la résolution DHCP/clients."
+      "resume": "CP2 - DNS : créer une zone primaire, ajouter les enregistrements et vérifier la résolution DHCP/clients.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP2 - DNS : créer une zone primaire, ajouter les enregistrements et vérifier la résolution DHCP/clients. | Objectif professionnel : permettre la réussite de plusieurs services AD. | Fonctionnement détaillé : zone de recherche directe, zone inverse, A, CNAME, SRV automatiques, TTL. | Procédure GUI : DNS Manager > ajouter une zone. | Procédure CLI : Add-DnsServerPrimaryZone et Add-DnsServerResourceR"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP2 - DNS : créer une zone primaire, ajouter les enregistrements et vérifier la résolution DHCP/clients. | Objectif professionnel : permettre la réussite de plusieurs services AD. | Fonctionnement détaillé : zone de recherche directe, zone inverse, A, CNAME, SRV automatiques, TTL. | Procédure GUI : DNS Manager > ajouter une zone. | Procédure CLI : Add-DnsServerPrimaryZone et Add-DnsServerResourceRecord. | Vérification : Resolve-DnsName, Get-DnsServerResourceRecord et nslookup. | Pièges : mauvais apex, TTL trop court, forwarder manquant. | Questions jury : zone inverse, enregistrements SRV, cache DNS. | À retenir : penser application et client."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Ouvrir la console DNS\nCréer une zone primaire\nAjouter un enregistrement A\nAjouter un alias CNAME\nTester avec nslookup"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Add-DnsServerPrimaryZone -Name 'tssr.local' -ZoneFile 'tssr.local.dns'\nAdd-DnsServerResourceRecordA -Name 'web' -ZoneName 'tssr.local' -IPv4Address '192.168.10.20'\nAdd-DnsServerResourceRecordCName -Name 'intranet' -ZoneName 'tssr.local' -HostNameAlias 'web.tssr.local'\nResolve-DnsName intranet.tssr.local\nGet-DnsServerResourceRecord -ZoneName 'tssr.local'"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Zone secondaire confondue\nTTL inadapté\nForwarder incorrect"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : DNS doit précéder beaucoup d'autres services."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP2 - DNS : créer une zone primaire, ajouter les enregistrements et vérifier la résolution DHCP/clients. | Objectif professionnel : permettre la réussite de plusieurs services AD. | Fonctionnement dét"
+        }
+      ]
     },
     {
       "id": "cp2-dhcp",
@@ -314,7 +584,37 @@
         "DHCP autorisé trop tôt"
       ],
       "w": "Conclusion : DHCP s'administre avec les options.",
-      "resume": "CP2 - DHCP : créer une étendue avec options obligatoires pour les clients."
+      "resume": "CP2 - DHCP : créer une étendue avec options obligatoires pour les clients.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP2 - DHCP : créer une étendue avec options obligatoires pour les clients. | Objectif professionnel : attribuer IP, DNS et passerelle sans conflit. | Fonctionnement détaillé : DORA, bail, scope, exclusions, options 003 passerelle, 006 DNS, 015 suffixe. | Procédure GUI : Console DHCP > nouvelle étendue. | Procédure CLI : Add-DhcpServerv4Scope puis options. | Vérification : Get-DhcpServerv4Scope, Ge"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP2 - DHCP : créer une étendue avec options obligatoires pour les clients. | Objectif professionnel : attribuer IP, DNS et passerelle sans conflit. | Fonctionnement détaillé : DORA, bail, scope, exclusions, options 003 passerelle, 006 DNS, 015 suffixe. | Procédure GUI : Console DHCP > nouvelle étendue. | Procédure CLI : Add-DhcpServerv4Scope puis options. | Vérification : Get-DhcpServerv4Scope, Get-DhcpServerv4Lease et ipconfig /renew. | Pièges : étendue sur mauvaise interface, IP conflicting, options incomplètes. | Questions jury : DORA, bail, exclusions. | À retenir : IP statique avant services clés."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Installer le rôle DHCP\nCréer une étendue\nDéfinir les exclusions\nDéfinir le routeur\nDéfinir les DNS et le suffixe\nTester ipconfig /renew"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Install-WindowsFeature DHCP -IncludeManagementTools\nAdd-DhcpServerv4Scope -Name 'Postes' -StartRange 192.168.10.100 -EndRange 192.168.10.200 -SubnetMask 255.255.255.0 -LeaseDuration 8.00:00:00\nAdd-DhcpServerv4ExclusionRange -ScopeId 192.168.10.0 -StartRange 192.168.10.150 -EndRange 192.168.10.160\nSet-DhcpServerv4OptionValue -ScopeId 192.168.10.0 -Router 192.168.10.1 -DnsServer 192.168.10.10 -DnsDomain tssr.local\nGet-DhcpServerv4Scope\nGet-DhcpServerv4Lease -ScopeId 192.168.10.0"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Étendue sans DNS\nExclusion inutile\nDHCP autorisé trop tôt"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : DHCP s'administre avec les options."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP2 - DHCP : créer une étendue avec options obligatoires pour les clients. | Objectif professionnel : attribuer IP, DNS et passerelle sans conflit. | Fonctionnement détaillé : DORA, bail, scope, exclu"
+        }
+      ]
     },
     {
       "id": "cp2-share",
@@ -343,7 +643,37 @@
         "Test avec administrateur"
       ],
       "w": "Conclusion : la permission se valide en agissant.",
-      "resume": "CP2 - Partage : créer un dossier commercial avec une matrice de droits, puis appliquer AGDLP."
+      "resume": "CP2 - Partage : créer un dossier commercial avec une matrice de droits, puis appliquer AGDLP.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP2 - Partage : créer un dossier commercial avec une matrice de droits, puis appliquer AGDLP. | Objectif professionnel : donner l'accès autorisé et refuser le non-autorisé. | Cas réel : le dossier Commercial est accessible aux commerciaux en lecture/écriture, et aux dirigeants en lecture et écriture. | Fonctionnement détaillé : partage SMB, ACL NTFS, ordre d'évaluation, permission effective, DENY "
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP2 - Partage : créer un dossier commercial avec une matrice de droits, puis appliquer AGDLP. | Objectif professionnel : donner l'accès autorisé et refuser le non-autorisé. | Cas réel : le dossier Commercial est accessible aux commerciaux en lecture/écriture, et aux dirigeants en lecture et écriture. | Fonctionnement détaillé : partage SMB, ACL NTFS, ordre d'évaluation, permission effective, DENY prioritaire. | Procédure GUI : propriétés du dossier > Partage et Sécurité. | Procédure CLI : New-SmbShare puis icacls. | Vérification : Test-NetConnection série, Test-Path, Get-Item avec RunAs d'un utilisateur. | Pièges : croire que les permissions se cumulent, donner Full Control au groupe Everyone, oublier l'héritage. | Questions jury : permission effective, héritage, DENY. | À retenir : NTFS le plus restrictif, partage le moins restrictif."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Créer le dossier\nCréer les groupes\nDéfinir les ACL\nCréer le partage\nTester authorized\nTester denied"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "New-Item -ItemType Directory -Path 'D:\\Partages\\Commercial'\nNew-SmbShare -Name 'Commercial' -Path 'D:\\Partages\\Commercial' -FullAccess 'TSSR\\DL-Commercial-FC'\nicacls 'D:\\Partages\\Commercial' /grant 'TSSR\\G-Commerciaux:(OI)(CI)(RX)'\nicacls 'D:\\Partages\\Commercial' /grant 'TSSR\\G-Direction:(OI)(CI)F'\nGet-SmbShare -Name 'Commercial'\nGet-SmbShareAccess -Name 'Commercial'\nicacls 'D:\\Partages\\Commercial'"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Groupe Everyone présent\nACL sans héritage\nTest avec administrateur"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : la permission se valide en agissant."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP2 - Partage : créer un dossier commercial avec une matrice de droits, puis appliquer AGDLP. | Objectif professionnel : donner l'accès autorisé et refuser le non-autorisé. | Cas réel : le dossier Com"
+        }
+      ]
     },
     {
       "id": "cp2-drive",
@@ -371,7 +701,37 @@
         "Lettre oubliée"
       ],
       "w": "Conclusion : le lecteur n'est utile que s'il se reconnecte.",
-      "resume": "CP2 - Mappage : notre lecteur réseau doit persister et se reconnecter."
+      "resume": "CP2 - Mappage : notre lecteur réseau doit persister et se reconnecter.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP2 - Mappage : notre lecteur réseau doit persister et se reconnecter. | Objectif professionnel : simplifier l'expérience et maîtriser l'approvisionnement. | Fonctionnement détaillé : profil utilisateur, scripts de connexion, GPO Preferences, GPP. | Procédure GUI : Poste de travail > connecter un lecteur réseau. | Procédure CLI : net use ou New-SmbMapping. | Vérification : Get-SmbMapping et Test-P"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP2 - Mappage : notre lecteur réseau doit persister et se reconnecter. | Objectif professionnel : simplifier l'expérience et maîtriser l'approvisionnement. | Fonctionnement détaillé : profil utilisateur, scripts de connexion, GPO Preferences, GPP. | Procédure GUI : Poste de travail > connecter un lecteur réseau. | Procédure CLI : net use ou New-SmbMapping. | Vérification : Get-SmbMapping et Test-Path Z:\\. | Pièges : mapper avec une lettre occupée, oublier /persistent, groupe faux. | Questions jury : GPO Preference drive map versus script. | À retenir : utilisateur et lettre."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Ouvrir les préférences GPO\nCréer un drive map\nDéfinir la lettre et le chemin\nCible le groupe\nTester gpupdate"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "net use Z: '\\\\Serveur\\Commercial' /persistent:yes\nNew-SmbMapping -LocalPath Z: -RemotePath '\\\\Serveur\\Commercial' -Persistent $true\nGet-SmbMapping\nTest-Path Z:\\"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Lettre occupée\nGPP non appliqué\nLettre oubliée"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : le lecteur n'est utile que s'il se reconnecte."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP2 - Mappage : notre lecteur réseau doit persister et se reconnecter. | Objectif professionnel : simplifier l'expérience et maîtriser l'approvisionnement. | Fonctionnement détaillé : profil utilisate"
+        }
+      ]
     },
     {
       "id": "cp2-fsrm",
@@ -398,7 +758,37 @@
         "Alerte non testée"
       ],
       "w": "Conclusion : planifier la capacité avant saturation.",
-      "resume": "CP2 - FSRM : poser des quotas sur un dossier partagé pour éviter la saturation."
+      "resume": "CP2 - FSRM : poser des quotas sur un dossier partagé pour éviter la saturation.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP2 - FSRM : poser des quotas sur un dossier partagé pour éviter la saturation. | Objectif professionnel : maîtriser les risques de capacité. | Fonctionnement détaillé : installation du rôle, quota, seuil, action email. | Procédure GUI : Gestionnaire de ressources du serveur de fichiers. | Procédure CLI : Install-WindowsFeature et New-FsrmQuota. | Vérification : Get-FsrmQuota et test de création d"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP2 - FSRM : poser des quotas sur un dossier partagé pour éviter la saturation. | Objectif professionnel : maîtriser les risques de capacité. | Fonctionnement détaillé : installation du rôle, quota, seuil, action email. | Procédure GUI : Gestionnaire de ressources du serveur de fichiers. | Procédure CLI : Install-WindowsFeature et New-FsrmQuota. | Vérification : Get-FsrmQuota et test de création d'un fichier. | Pièges : quota sur mauvais dossier, absence de notification, capacité trop basse. | Questions jury : quota dur versus seuil alerte. | À retenir : capacity et notification."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Installer le rôle FSRM\nCréer un quota\nDéfinir un seuil\nLier une action\nTester"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Install-WindowsFeature FS-Resource-Manager -IncludeManagementTools\nNew-FsrmQuota -Path 'D:\\Partages\\Commercial' -Size '5GB'\nGet-FsrmQuota -Path 'D:\\Partages\\Commercial'"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Quota trop bas\nAlerte non testée"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : planifier la capacité avant saturation."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP2 - FSRM : poser des quotas sur un dossier partagé pour éviter la saturation. | Objectif professionnel : maîtriser les risques de capacité. | Fonctionnement détaillé : installation du rôle, quota, s"
+        }
+      ]
     },
     {
       "id": "cp2-tasks",
@@ -425,7 +815,37 @@
         "Déclencheur mal réglé"
       ],
       "w": "Conclusion : la tâche planifiée se teste.",
-      "resume": "CP2 - Tâches planifiées : créer une tâche qui s'exécute avec le bon compte et les bons privilèges."
+      "resume": "CP2 - Tâches planifiées : créer une tâche qui s'exécute avec le bon compte et les bons privilèges.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP2 - Tâches planifiées : créer une tâche qui s'exécute avec le bon compte et les bons privilèges. | Objectif professionnel : automatiser sans intervention. | Fonctionnement détaillé : déclencheur, action, compte safestorage, historique, privilèges. | Procédure GUI : taskschd.msc > Nouvelle tâche. | Procédure CLI : schtasks. | Vérification : Get-ScheduledTask, Get-ScheduledTaskInfo. | Pièges : mau"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP2 - Tâches planifiées : créer une tâche qui s'exécute avec le bon compte et les bons privilèges. | Objectif professionnel : automatiser sans intervention. | Fonctionnement détaillé : déclencheur, action, compte safestorage, historique, privilèges. | Procédure GUI : taskschd.msc > Nouvelle tâche. | Procédure CLI : schtasks. | Vérification : Get-ScheduledTask, Get-ScheduledTaskInfo. | Pièges : mauvais compte, tâche désactivée, chemin UNC inaccessible. | Questions jury : compte de service et journal. À VÉRIFIER : options exactes selon la version Windows."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Ouvrir taskschd.msc\nCréer une nouvelle tâche\nDéfinir le déclencheur\nDéfinir l'action\nTester l'exécution"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "schtasks /create /tn 'Sauvegarde-Commercial' /tr 'robocopy D:\\Partages\\Commercial D:\\Backup /MIR' /sc DAILY /st 02:00 /ru SYSTEM\nschtasks /run /tn 'Sauvegarde-Commercial'\nGet-ScheduledTask -TaskName 'Sauvegarde-Commercial'\nGet-ScheduledTaskInfo -TaskName 'Sauvegarde-Commercial'"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Compte sans droit\nChemin UNC inaccessible\nDéclencheur mal réglé"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : la tâche planifiée se teste."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP2 - Tâches planifiées : créer une tâche qui s'exécute avec le bon compte et les bons privilèges. | Objectif professionnel : automatiser sans intervention. | Fonctionnement détaillé : déclencheur, ac"
+        }
+      ]
     },
     {
       "id": "cp2-events",
@@ -452,7 +872,37 @@
         "Journal filtré trop vite"
       ],
       "w": "Conclusion : les événements prouvent.",
-      "resume": "CP2 - Événements : lire les journaux de sécurité pour prouver les connexions et les refus."
+      "resume": "CP2 - Événements : lire les journaux de sécurité pour prouver les connexions et les refus.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP2 - Événements : lire les journaux de sécurité pour prouver les connexions et les refus. | Objectif professionnel : diagnostiquer et auditer. | Fonctionnement détaillé : ID 4624 pour une connexion réussie, 4625 pour un échec de connexion, ID 41 à vérifier selon le journal et le contexte système pour identifier un arrêt anormal ou une panne. | Procédure GUI : eventvwr.msc > Journal Windows > Sécu"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP2 - Événements : lire les journaux de sécurité pour prouver les connexions et les refus. | Objectif professionnel : diagnostiquer et auditer. | Fonctionnement détaillé : ID 4624 pour une connexion réussie, 4625 pour un échec de connexion, ID 41 à vérifier selon le journal et le contexte système pour identifier un arrêt anormal ou une panne. | Procédure GUI : eventvwr.msc > Journal Windows > Sécurité. | Procédure CLI : Get-WinEvent ou Get-EventLog. | Vérification : le journal montre heure, compte et poste source. | Pièges : chercher uniquement 4625 et oublier 4624, temps incorrect. | Questions jury : où trouver les connexions, différence sécurité/système. | À retenir : heure et compte. À VÉRIFIER : ID 41 selon l'environnement."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Ouvrir eventvwr.msc\nFiltrer l'ID 4624\nFiltrer l'ID 4625\nFiltrer l'ID 41\nConsigner l'heure et le compte"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Get-WinEvent -FilterHashtable @{LogName='Security'; Id=4624,4625} -MaxEvents 20 | Format-Table TimeCreated,Id,Message -Wrap\nGet-EventLog -LogName System -InstanceId 41 | Select-Object TimeGenerated,EventID,Message"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Heure erronée\nDroits insuffisants\nJournal filtré trop vite"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : les événements prouvent."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP2 - Événements : lire les journaux de sécurité pour prouver les connexions et les refus. | Objectif professionnel : diagnostiquer et auditer. | Fonctionnement détaillé : ID 4624 pour une connexion r"
+        }
+      ]
     },
     {
       "id": "cp2-verification",
@@ -481,7 +931,37 @@
         "Preuves non conservées"
       ],
       "w": "Conclusion : la preuve est dans le comportement.",
-      "resume": "CP2 - Vérification : prouver l'accès autorisé puis le refus."
+      "resume": "CP2 - Vérification : prouver l'accès autorisé puis le refus.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP2 - Vérification : prouver l'accès autorisé puis le refus. | Objectif professionnel : fournir des preuves propres et reproductibles au jury. | Cas réel : Jean Dupont doit accéder à \\\\Serveur\\Commercial, Sophie non. | Procédure pas à pas : 1. ouvrir le poste avec le compte Jean ; 2. tester Properties de Commercial ; 3. créer et modifier un fichier ; 4. se déconnecter ; 5. ouvrir avec Sophie ; 6. "
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP2 - Vérification : prouver l'accès autorisé puis le refus. | Objectif professionnel : fournir des preuves propres et reproductibles au jury. | Cas réel : Jean Dupont doit accéder à \\\\Serveur\\Commercial, Sophie non. | Procédure pas à pas : 1. ouvrir le poste avec le compte Jean ; 2. tester Properties de Commercial ; 3. créer et modifier un fichier ; 4. se déconnecter ; 5. ouvrir avec Sophie ; 6. vérifier le refus ; 7. consulter les événements et la GPO. | Vérification : Test-Path, Get-Item, Get-SmbShareAccess, icacls, gpresult, Get-WinEvent. | Pièges : tester avec administrateur, oublier de fermer la session, perdre les copies écran. | Questions jury : comment prouvez-vous un refus, comment collectez-vous les preuves. | À retenir : preuves, pas promesses."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Se connecter comme Jean\nTester accès authorized\nCréer fichier\nSe déconnecter\nSe connecter comme Sophie\nVérifier accès refusé\nSauvegarder les preuves"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "whoami\nTest-Path 'Z:\\'\nNew-Item -ItemType File -Path 'Z:\\test-jean.txt'\nGet-SmbShareAccess -Name 'Commercial'\nicacls 'D:\\Partages\\Commercial'\ngpresult /R"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Session non fermée\nPreuves non conservées"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : la preuve est dans le comportement."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP2 - Vérification : prouver l'accès autorisé puis le refus. | Objectif professionnel : fournir des preuves propres et reproductibles au jury. | Cas réel : Jean Dupont doit accéder à \\\\Serveur\\Commerc"
+        }
+      ]
     },
     {
       "id": "cp2-pieges",
@@ -507,7 +987,37 @@
         "GPO non liée"
       ],
       "w": "Conclusion : les détails se défendent par le principe.",
-      "resume": "CP2 - Pièges : différences de concepts et commandes de base."
+      "resume": "CP2 - Pièges : différences de concepts et commandes de base.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP2 - Pièges : différences de concepts et commandes de base. | Objectif professionnel : arrêter les réponses trop rapides. | Pièges fréquents : confondre groupes globaux et de domaine local ; give Full Control à Everyone ; oublier de lier la GPO ; croire que les permissions NTFS se cumulent ; ne pas redémarrer après jonction ; confondre scope DHCP et IP; powershell sans elevation. | Erreurs fréque"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP2 - Pièges : différences de concepts et commandes de base. | Objectif professionnel : arrêter les réponses trop rapides. | Pièges fréquents : confondre groupes globaux et de domaine local ; give Full Control à Everyone ; oublier de lier la GPO ; croire que les permissions NTFS se cumulent ; ne pas redémarrer après jonction ; confondre scope DHCP et IP; powershell sans elevation. | Erreurs fréquentes : gpresult sans gpupdate, ACL sans test autre compte. | Questions jury : permission effective, DENY, LSDOU. | À retenir : expliquer et prouver."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Nommer AGDLP\nExpliquer permission effective\nMontrer la GPO\nDire le test"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Aucune commande native."
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Full Controleveryone\nJonction non redémarrée\nGPO non liée"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : les détails se défendent par le principe."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP2 - Pièges : différences de concepts et commandes de base. | Objectif professionnel : arrêter les réponses trop rapides. | Pièges fréquents : confondre groupes globaux et de domaine local ; give Ful"
+        }
+      ]
     },
     {
       "id": "cp2-open",
@@ -529,7 +1039,37 @@
         "Rester trop théorique"
       ],
       "w": "Conclusion : l'expérience professionnelle valorise CP2.",
-      "resume": "CP2 - Questions ouvertes : 1."
+      "resume": "CP2 - Questions ouvertes : 1.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP2 - Questions ouvertes : 1. Expliquez la promotion d'un DC. 2. Décrivez AGDLP. 3. Expliquez l'ordre d'application des GPO. 4. Pourquoi NTFS est plus restrictif que le partage. 5. Comment testez-vous le refus d'accès. 6. Quel est le risque d'un compte test désactivé non supprimé. 7. Comment détectez-vous une mauvaise GPO avec gpresult. 8. Quel événement indique une connexion réussie. | Correction"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP2 - Questions ouvertes : 1. Expliquez la promotion d'un DC. 2. Décrivez AGDLP. 3. Expliquez l'ordre d'application des GPO. 4. Pourquoi NTFS est plus restrictif que le partage. 5. Comment testez-vous le refus d'accès. 6. Quel est le risque d'un compte test désactivé non supprimé. 7. Comment détectez-vous une mauvaise GPO avec gpresult. 8. Quel événement indique une connexion réussie. | Corrections détaillées : 1 IP fixe, DNS, AD DS, promotion, redémarrage, test SYSVOL ; 2 comptes globaux puis groupes domain local puis ACL ; 3 LSDOU avec exceptions à expliquer au jury ; 4 l'intersection des autorisations et DENY qui l'emporte ; 5 test avec un compte non autorisé et journal ; 6 sécurité et audit ; 7 rsop et journal d'application ; 8 event 4624 avec heure et compte."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Préparer les réponses\nStructurer avec expérience"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Aucune commande native."
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Rester trop théorique"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : l'expérience professionnelle valorise CP2."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP2 - Questions ouvertes : 1. Expliquez la promotion d'un DC. 2. Décrivez AGDLP. 3. Expliquez l'ordre d'application des GPO. 4. Pourquoi NTFS est plus restrictif que le partage. 5. Comment testez-vous"
+        }
+      ]
     },
     {
       "id": "mig-legacy-cp2-backup",
@@ -557,7 +1097,37 @@
       ],
       "w": "Un snapshot resté ouvert trop longtemps dégrade fortement les performances I/O.",
       "alt": "Schéma CP2",
-      "resume": "Contenu migré de l'ancienne fiche sans réécriture : Protection avec Veeam/Azure ? à tester, snapshot pour maintenance, sauvegarde pour reprise."
+      "resume": "Contenu migré de l'ancienne fiche sans réécriture : Protection avec Veeam/Azure ? à tester, snapshot pour maintenance, sauvegarde pour reprise.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : Protection avec Veeam/Azure ? à tester, snapshot pour maintenance, sauvegarde pour reprise."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : Protection avec Veeam/Azure ? à tester, snapshot pour maintenance, sauvegarde pour reprise."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Définir SLA par machine (RPO/RTO)\nPlanification des sauvegardes incrémentielles\nTest de restauration trimestriel\nNettoyage des snapshots > 72 h"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "# Veeam CLI / PowerCLI examples\nBackup-VM -Name SRV1 -Repository \"Repo-NAS\"\nRestore-VM -Name SRV1 -RestorePoint (Get-RestorePoint SRV1 | Select -Last 1)\nGet-Snapshot SRV1 | Where Created -lt (Get-Date).AddDays(-3)"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Snapshot chaîne fragile si trop long\nApplication-consistent avec guest processing\nChiffrer les sauvegardes"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Un snapshot resté ouvert trop longtemps dégrade fortement les performances I/O."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : Protection avec Veeam/Azure ? à tester, snapshot pour maintenance, sauvegarde pour reprise."
+        }
+      ]
     },
     {
       "id": "mig-legacy-cp2-patch",
@@ -583,7 +1153,37 @@
       ],
       "w": "Conclusion : patch contrôlé.",
       "alt": "Schéma serveurs",
-      "resume": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : mise à jour serveur."
+      "resume": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : mise à jour serveur.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : mise à jour serveur. | Objectif : sécurité. | Cas réel : patch tuesday. | Fonctionnement détaillé : WSUS, hotfix, reboot. | Exemple : patch test. | Procédure : test, pilot, deploy. | Erreurs : reboot non planifié. | Jury : patch et MCO. | Retenir : maintenance window."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : mise à jour serveur. | Objectif : sécurité. | Cas réel : patch tuesday. | Fonctionnement détaillé : WSUS, hotfix, reboot. | Exemple : patch test. | Procédure : test, pilot, deploy. | Erreurs : reboot non planifié. | Jury : patch et MCO. | Retenir : maintenance window."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Test\nPilot\nDeploy\nAudit"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Install-Module PSWindowsUpdate; Invoke-WUJob"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Reboot critique"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : patch contrôlé."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : mise à jour serveur. | Objectif : sécurité. | Cas réel : patch tuesday. | Fonctionnement détaillé : WSUS, hotfix, reboot. | Exemp"
+        }
+      ]
     },
     {
       "id": "mig-legacy-cp2-hard",
@@ -609,7 +1209,37 @@
       ],
       "w": "Conclusion : durcir progressivement.",
       "alt": "Schéma serveurs",
-      "resume": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : réduire surface attaque."
+      "resume": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : réduire surface attaque.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : réduire surface attaque. | Objectif : sécuriser. | Cas réel : port inutile. | Fonctionnement détaillé : firewall, comptes, patch, logs. | Exemple : fermer port. | Procédure : baseline, test, audit. | Erreurs : fermer production. | Jury : baseline. | Retenir : moindre priv de service."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : réduire surface attaque. | Objectif : sécuriser. | Cas réel : port inutile. | Fonctionnement détaillé : firewall, comptes, patch, logs. | Exemple : fermer port. | Procédure : baseline, test, audit. | Erreurs : fermer production. | Jury : baseline. | Retenir : moindre priv de service."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Inventaire ports\nFirewall\nComptes\nAudit"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Invoke-AzVMRunCommand; chronyc tracking"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Fermeture production"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : durcir progressivement."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : réduire surface attaque. | Objectif : sécuriser. | Cas réel : port inutile. | Fonctionnement détaillé : firewall, comptes, patch,"
+        }
+      ]
     },
     {
       "id": "mig-legacy-cp2-monitor",
@@ -635,7 +1265,37 @@
       ],
       "w": "Conclusion : supervision par seuils.",
       "alt": "Schéma serveurs",
-      "resume": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : surveiller serveurs."
+      "resume": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : surveiller serveurs.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : surveiller serveurs. | Objectif : anticiper incident. | Cas réel : CPU sat. | Fonctionnement détaillé : métriques, seuils, logs. | Exemple : alerte disque. | Procédure : agent, seuil, escalade. | Erreurs : pas de seuil. | Jury : SLA. | Retenir : alerting."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : surveiller serveurs. | Objectif : anticiper incident. | Cas réel : CPU sat. | Fonctionnement détaillé : métriques, seuils, logs. | Exemple : alerte disque. | Procédure : agent, seuil, escalade. | Erreurs : pas de seuil. | Jury : SLA. | Retenir : alerting."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Agent\nMétrique\nSeuil\nAlerte"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Get-Counter; Get-WinEvent"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Pas d'escalade"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : supervision par seuils."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : surveiller serveurs. | Objectif : anticiper incident. | Cas réel : CPU sat. | Fonctionnement détaillé : métriques, seuils, logs. "
+        }
+      ]
     },
     {
       "id": "cp2-adinstall",
@@ -662,7 +1322,37 @@
       ],
       "w": "Jamais un seul DC en production. Toujours tester la restauration AD avant le premier incident.",
       "cp": "cp9",
-      "resume": "Un DC = ADDS + DNS + heure synchronisée."
+      "resume": "Un DC = ADDS + DNS + heure synchronisée.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Un DC = ADDS + DNS + heure synchronisée. Prévoir 2 contrôleurs minimum pour la résilience et la réplication."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Un DC = ADDS + DNS + heure synchronisée. Prévoir 2 contrôleurs minimum pour la résilience et la réplication."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Gestionnaire de serveur > Ajouter rôles : AD DS + DNS\nPromouvoir en contrôleur : nouvelle forêt ex. tssr.local\nDéfinir mot de passe DSRM et niveau fonctionnel\nVérifier DNS, Sites et services, réplication"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Install-WindowsFeature AD-Domain-Services -IncludeManagementTools\nInstall-ADDSForest -DomainName tssr.local -InstallDns -DomainNetbiosName TSSR\nGet-ADDomainController\ndcdiag /q /s:DC1"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "NetBIOS <=15 caractères\nNiveau fonctionnel le plus haut compatible avec les plus vieux DC\nNTP : l'émulateur PDC est la source de temps de la forêt"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Jamais un seul DC en production. Toujours tester la restauration AD avant le premier incident."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Un DC = ADDS + DNS + heure synchronisée. Prévoir 2 contrôleurs minimum pour la résilience et la réplication."
+        }
+      ]
     },
     {
       "id": "cp2-fsmo",
@@ -687,7 +1377,37 @@
       ],
       "w": "Déplacer les rôles sans planification peut perturber la réplication et le temps Kerberos.",
       "cp": "cp9",
-      "resume": "Forêt : Schéma + Nom de domaine."
+      "resume": "Forêt : Schéma + Nom de domaine.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Forêt : Schéma + Nom de domaine. Domaine : PDCe, RID, Infrastructure. Chaque rôle a une fonction précise."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Forêt : Schéma + Nom de domaine. Domaine : PDCe, RID, Infrastructure. Chaque rôle a une fonction précise."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "ADUC : voir Maîtres d'opérations (RID/PDC/Infrastructure)\nDomaines et approbations : maître nom de domaine\nSchéma : regsvr32 schmmgmt puis console du schéma"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "netdom query fsmo\nMove-ADDirectoryServerOperationMasterRole -Identity DC2 -OperationMasterRole PDCEmulator,RIDMaster -Force\nGet-ADForest | Select SchemaMaster,DomainNamingMaster\nGet-ADDomain | Select PDCEmulator,RIDMaster,InfrastructureMaster"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "PDC = temps, verrouillage et mot de passe prioritaires\nTransfert gracieux si le DC est disponible, saisie (seize) si panne\nDocumenter l'emplacement des rôles dans la matrice d'infrastructure"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Déplacer les rôles sans planification peut perturber la réplication et le temps Kerberos."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Forêt : Schéma + Nom de domaine. Domaine : PDCe, RID, Infrastructure. Chaque rôle a une fonction précise."
+        }
+      ]
     },
     {
       "id": "cp2-agdlp",
@@ -714,7 +1434,37 @@
       ],
       "w": "Ajouter un utilisateur directement au groupe DomainLocal contourne la méthode AGDLP et complique les audits.",
       "cp": "cp9",
-      "resume": "AGDLP : User → Global → DomainLocal → Permission."
+      "resume": "AGDLP : User → Global → DomainLocal → Permission.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "AGDLP : User → Global → DomainLocal → Permission. GPO : Ordinateur vs Utilisateur selon LSDOU (Local, Site, Domaine, OU)."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "AGDLP : User → Global → DomainLocal → Permission. GPO : Ordinateur vs Utilisateur selon LSDOU (Local, Site, Domaine, OU)."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "ADUC : créer OU puis groupes Global (métier) et DomainLocal (ressource)\nPartage : ajouter le groupe LD en autorisation NTFS/Partage\nGPMC : lier GPO à OU, filtrer par groupe de sécurité\nTester : gpupdate /force puis gpresult /r"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "New-ADGroup -Name G_Compta -GroupScope Global -GroupCategory Security\nNew-ADGroup -Name LD_PartageCompta -GroupScope DomainLocal -GroupCategory Security\nAdd-ADGroupMember -Identity LD_PartageCompta -Members G_Compta\ngpupdate /force\ngpresult /r | Out-File C:\\temp\\gpo.txt"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Bouclage de stratégie pour les sessions RDS\nPermissions NTFS + Partage : la plus restrictive gagne\nToujours tester sur un poste pilote avec gpresult /h rapport.html"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Ajouter un utilisateur directement au groupe DomainLocal contourne la méthode AGDLP et complique les audits."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "AGDLP : User → Global → DomainLocal → Permission. GPO : Ordinateur vs Utilisateur selon LSDOU (Local, Site, Domaine, OU)."
+        }
+      ]
     },
     {
       "id": "cp2-dnsdhcp",
@@ -740,7 +1490,37 @@
       ],
       "w": "Un serveur AD doit utiliser son propre DNS ; pointer ailleurs casse Kerberos.",
       "cp": "cp9",
-      "resume": "DNS AD intégré avec zones directes/inverses et dynamic DNS sécurisé."
+      "resume": "DNS AD intégré avec zones directes/inverses et dynamic DNS sécurisé.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "DNS AD intégré avec zones directes/inverses et dynamic DNS sécurisé. DHCP : étendue, options, réservations, bascule."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "DNS AD intégré avec zones directes/inverses et dynamic DNS sécurisé. DHCP : étendue, options, réservations, bascule."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "DNS : créer zones directe tssr.local et inverse, activer scavenging\nDHCP : nouvelle étendue avec masque, passerelle (003), DNS (006)\nRéservation par MAC pour imprimantes/serveurs\nSauvegarder et répliquer la configuration"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Add-DnsServerPrimaryZone -Name tssr.local -ZoneFile tssr.local.dns -DynamicUpdate Secure\nAdd-DhcpServerv4Scope -Name LAN -StartRange 192.168.1.100 -EndRange 192.168.1.200 -SubnetMask 255.255.255.0\nSet-DhcpServerv4OptionValue -Router 192.168.1.1 -DnsServer 192.168.1.10\nAdd-DhcpServerv4Reservation -ScopeId 192.168.1.0 -IPAddress 192.168.1.50 -ClientId 00-11-22-33-44-55\nGet-DhcpServerv4Lease -ScopeId 192.168.1.0"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Bail court pour Wi-Fi invités, normal pour LAN\nMettre en place une bascule DHCP (failover) pour la continuité\nRéserver les adresses serveurs hors étendue"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Un serveur AD doit utiliser son propre DNS ; pointer ailleurs casse Kerberos."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "DNS AD intégré avec zones directes/inverses et dynamic DNS sécurisé. DHCP : étendue, options, réservations, bascule."
+        }
+      ]
     },
     {
       "id": "cp2-repl",
@@ -767,7 +1547,37 @@
       ],
       "w": "Restaurer un DC depuis un snapshot sans sauvegarde AD autorité peut créer une divergence irréversible.",
       "cp": "cp9",
-      "resume": "Multi-DC = réplication toutes les 15 s (intra-site) et planifiée inter-site."
+      "resume": "Multi-DC = réplication toutes les 15 s (intra-site) et planifiée inter-site.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Multi-DC = réplication toutes les 15 s (intra-site) et planifiée inter-site. Les échecs laissent des objets incohérents."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Multi-DC = réplication toutes les 15 s (intra-site) et planifiée inter-site. Les échecs laissent des objets incohérents."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Sites et services AD : vérifier liens inter-sites, coût et horaires\nForcer la réplication depuis DC1 vers DC2\nSurveiller le backlog et les conflits d'attributs\nDocumenter la topologie dans le dossier pro"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "repadmin /showrepl\nrepadmin /syncall /AdeP\nrepadmin /replsummary\ndcdiag /test:replications /s:DC1\nGet-ADReplicationPartnerMetadata -Target DC1"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "USN rollback possible après restauration VM non Autorité\nKCC recalcule automatiquement les connexions\nUn partenariat d'origine unique suffit dans la plupart des sites"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Restaurer un DC depuis un snapshot sans sauvegarde AD autorité peut créer une divergence irréversible."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Multi-DC = réplication toutes les 15 s (intra-site) et planifiée inter-site. Les échecs laissent des objets incohérents."
+        }
+      ]
     },
     {
       "id": "cp2-file",
@@ -795,7 +1605,37 @@
       ],
       "w": "La suppression d'un partage n'efface pas les fichiers; vérifier les permissions minimales.",
       "cp": "cp9",
-      "resume": "Partages SMB avec permissions NTFS + partage, quotas FSRM, DFS-N pour l'abstraction et la haute disponibilité."
+      "resume": "Partages SMB avec permissions NTFS + partage, quotas FSRM, DFS-N pour l'abstraction et la haute disponibilité.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Partages SMB avec permissions NTFS + partage, quotas FSRM, DFS-N pour l'abstraction et la haute disponibilité."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Partages SMB avec permissions NTFS + partage, quotas FSRM, DFS-N pour l'abstraction et la haute disponibilité."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Créer dossiers avec structure par service\nDéfinir permissions NTFS selon AGDLP\nCréer partage avec \\serveur\\ressource\nMettre en place DFS-N et espaces de noms"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "New-SmbShare -Name Compta -Path D:\\Shares\\Compta -FullAccess \"TSSR\\LD_PartageCompta\"\nGrant-SmbShareAccess -Name Compta -AccountName \"TSSR\\G_Compta\" -AccessRight Change\nGet-SmbShare\n# DFS\nNew-DfsnRoot -Path \\\\tssr.local\\partages -TargetPath \\\\DC1\\partages -Type DomainV2\ndfsutil /addftroot:domain"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Indexation et recherche par Windows Search sur serveur de fichiers\nFSRM : quotas par dossier et filtrage d'extensions (ransomware)\nSauvegarder les listes ACL exportées"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "La suppression d'un partage n'efface pas les fichiers; vérifier les permissions minimales."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Partages SMB avec permissions NTFS + partage, quotas FSRM, DFS-N pour l'abstraction et la haute disponibilité."
+        }
+      ]
     },
     {
       "id": "cp2-print",
@@ -821,7 +1661,37 @@
       ],
       "w": "La spooler.exe bloquée se répare souvent en vidant SPOOL\\PRINTERS puis en redémarrant le service.",
       "cp": "cp9",
-      "resume": "Centraliser les files d'attente et déployer les imprimantes par OU ou groupe avec GPO."
+      "resume": "Centraliser les files d'attente et déployer les imprimantes par OU ou groupe avec GPO.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Centraliser les files d'attente et déployer les imprimantes par OU ou groupe avec GPO."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Centraliser les files d'attente et déployer les imprimantes par OU ou groupe avec GPO."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Ajouter le rôle Impression et documents\nInstaller le pilote signé x64 et x86\nCréer la file d'attente par imprimante\nDéployer via GPO Computers/Users"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Install-WindowsFeature Print-Services\nAdd-Printer -Name \"Impr-Compta\" -DriverName \"HP Universal PCL6\" -PortName \"IP_192.168.1.50\"\n# Déploiement GPO côté utilisateur\nSet-GPRegistryValue -Name \"Deploiement Imprimantes\" -Key \"HKCU\\Software\\...\""
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Pilotes PCL vs PS selon l'équipement\nDésactiver l'impression directe pour les postes via GPO\nSurveiller les files bloquées (spouleur)"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "La spooler.exe bloquée se répare souvent en vidant SPOOL\\PRINTERS puis en redémarrant le service."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Centraliser les files d'attente et déployer les imprimantes par OU ou groupe avec GPO."
+        }
+      ]
     },
     {
       "id": "cp2-powershell",
@@ -847,7 +1717,37 @@
       ],
       "w": "Les cmdlets AD s'exécutent par défaut contre le DC le plus proche ; forcer avec -Server si besoin.",
       "cp": "cp9",
-      "resume": "Le module ActiveDirectory expose une API complète."
+      "resume": "Le module ActiveDirectory expose une API complète.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Le module ActiveDirectory expose une API complète. Préférer les cmdlets aux clics pour tracer et automatiser."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Le module ActiveDirectory expose une API complète. Préférer les cmdlets aux clics pour tracer et automatiser."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Importer le module sur un poste admin\nLire avant d'écrire (Get- avant Set-)\nTester sur un objet pilote\nExporter les résultats pour audit"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Import-Module ActiveDirectory\nGet-ADUser -Filter \"Enabled -eq 'True'\" -Properties LastLogonDate | Select Name, SamAccountName, LastLogonDate\nNew-ADUser -Name \"Jean Martin\" -SamAccountName jmartin -Enabled $true -Path \"OU=Users,DC=tssr,DC=local\"\nDisable-ADAccount -Identity jmartin\nSearch-ADAccount -LockedOut | Unlock-ADAccount"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Lecture/export régulier des utilisateurs inactifs\nUtiliser try/catch et -ErrorAction Stop dans les scripts\nMinimiser les droits du compte de service"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Les cmdlets AD s'exécutent par défaut contre le DC le plus proche ; forcer avec -Server si besoin."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Le module ActiveDirectory expose une API complète. Préférer les cmdlets aux clics pour tracer et automatiser."
+        }
+      ]
     },
     {
       "id": "cp2-ad-debutant",
@@ -873,7 +1773,37 @@
       ],
       "w": "Un mauvais placement d'OU casse l'héritage des GPO.",
       "cp": "cp9",
-      "resume": "AD centralise utilisateurs/machines dans un domaine."
+      "resume": "AD centralise utilisateurs/machines dans un domaine.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "AD centralise utilisateurs/machines dans un domaine. OU = dossiers, groupes = droits, GPO = paramètres poussés."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "AD centralise utilisateurs/machines dans un domaine. OU = dossiers, groupes = droits, GPO = paramètres poussés."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Créer user/group/OU\nDéplacer objet puis lier GPO\ngpupdate /force et gpresult"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "# Objets AD courants\nUtilisateur, Groupe, Ordinateur, OU\n# GPO\ngpupdate /force\ngpresult /r"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "AGDLP pour les droits\nLSDOU : Local, Site, Domaine, OU\nCompte local vs compte domaine"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Un mauvais placement d'OU casse l'héritage des GPO."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "AD centralise utilisateurs/machines dans un domaine. OU = dossiers, groupes = droits, GPO = paramètres poussés."
+        }
+      ]
     },
     {
       "id": "cp2-windows-debutant",
@@ -899,7 +1829,37 @@
       ],
       "w": " Ne pas ouvrir le partage en Contrôle total pour Tout le monde.",
       "cp": "cp9",
-      "resume": "Partages SMB + droits NTFS (le plus restrictif gagne)."
+      "resume": "Partages SMB + droits NTFS (le plus restrictif gagne).",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Partages SMB + droits NTFS (le plus restrictif gagne). Logs dans Observateur d'événements. Planifier avec Task Scheduler."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Partages SMB + droits NTFS (le plus restrictif gagne). Logs dans Observateur d'événements. Planifier avec Task Scheduler."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Partager un dossier avec matrix de droits\nTester accès autorisé/refusé\nPlanifier une tâche nightly"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "# Permissions\nicacls D:\\Partage /grant G_Compta:(RX)\n# Planification\nschtasks /create /tn Backup /tr \"backup.bat\" /sc daily /st 02:00"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Surveillance : CPU/RAM/disque avec PerfMon\nEventID 4625 (échec logon)\n Sauvegarder avant MAJ"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": " Ne pas ouvrir le partage en Contrôle total pour Tout le monde."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Partages SMB + droits NTFS (le plus restrictif gagne). Logs dans Observateur d'événements. Planifier avec Task Scheduler."
+        }
+      ]
     },
     {
       "id": "pedagogie-ccp2",
@@ -925,7 +1885,37 @@
       ],
       "w": "Conclusion : le deploiement reussit quand technique et accompagnement avancent ensemble.",
       "cp": "cp9",
-      "resume": "Definition : deployer des equipements numériques et accompagner les outils collaboratifs."
+      "resume": "Definition : deployer des equipements numériques et accompagner les outils collaboratifs.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Definition : deployer des equipements numériques et accompagner les outils collaboratifs. Contexte : installer un parc avec image, AD, GPO et O365. Objectif : industrialiser et standardiser. Details : Sysprep, PXE, enrôlement Entra ID, M365, tests et communication utilisateur. Exemple : adoption d'un nouvel outil avec formation et documentation. Erreurs : sinon cloner sans Sysprep, oublier pilotes"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Definition : deployer des equipements numériques et accompagner les outils collaboratifs. Contexte : installer un parc avec image, AD, GPO et O365. Objectif : industrialiser et standardiser. Details : Sysprep, PXE, enrôlement Entra ID, M365, tests et communication utilisateur. Exemple : adoption d'un nouvel outil avec formation et documentation. Erreurs : sinon cloner sans Sysprep, oublier pilotes, ne pas accompagner. Jury : risque clone direct, accompagnement utilisateur, difference AD/Entra."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Preparer l'image\nDeployer PXE\nJoindre au domaine\nAppliquer GPO\nAccompagner l'utilisateur"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "sysprep /oobe /generalize /shutdown ; dism /Capture-Image"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Clonage direct\nAbsence de support utilisateur"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : le deploiement reussit quand technique et accompagnement avancent ensemble."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Definition : deployer des equipements numériques et accompagner les outils collaboratifs. Contexte : installer un parc avec image, AD, GPO et O365. Objectif : industrialiser et standardiser. Details :"
+        }
+      ]
     },
     {
       "id": "mig-legacy-cp2-join",
@@ -953,7 +1943,37 @@
       "w": "Jonction réussie mais GPO absentes = vérifier DNS et emplacement de l'ordinateur dans l'AD.",
       "cp": "cp9",
       "doublon_de": "cp2-join",
-      "resume": "Le DNS du poste doit pointer vers le DC."
+      "resume": "Le DNS du poste doit pointer vers le DC.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Le DNS du poste doit pointer vers le DC. Compte administrateur domaine requis. Horloge <5 minutes d'écart."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Le DNS du poste doit pointer vers le DC. Compte administrateur domaine requis. Horloge <5 minutes d'écart."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Renommer le PC selon convention\nAccès professionnel/établissement > Joindre le domaine\nEntrer admin domaine puis redémarrer\nOuvrir session domaine et vérifier application des GPO"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Rename-Computer -NewName PC-012 -Restart\nAdd-Computer -DomainName tssr.local -Credential (Get-Credential) -Restart\nTest-ComputerSecureChannel\nnltest /dsgetdc:tssr.local\ngpresult /r"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Supprimer l'ancien compte ordinateur en cas de doublon\nVérifier l'OU de destination via GPO de jonction\nGarder le compte local admin en secours"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Jonction réussie mais GPO absentes = vérifier DNS et emplacement de l'ordinateur dans l'AD."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Le DNS du poste doit pointer vers le DC. Compte administrateur domaine requis. Horloge <5 minutes d'écart."
+        }
+      ]
     },
     {
       "id": "pedagogie-cp2-serveurs",
@@ -978,7 +1998,37 @@
       ],
       "w": "Conclusion : la documentation fait partie de l'exploitation.",
       "cp": "cp3",
-      "resume": "Definition : installer et exploiter des serveurs."
+      "resume": "Definition : installer et exploiter des serveurs.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Definition : installer et exploiter des serveurs. Contexte : mise en production AD/DNS/DHCP. Objectif : securiser et superviser. Details : AD DS, GPO, Linux systemd, journaux, patch et permissions. Exemple : creation DC et test GPO. Erreurs : compte admin unique, patch sans test. Jury : difference OU et groupe, GPO, reset mot de passe."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Definition : installer et exploiter des serveurs. Contexte : mise en production AD/DNS/DHCP. Objectif : securiser et superviser. Details : AD DS, GPO, Linux systemd, journaux, patch et permissions. Exemple : creation DC et test GPO. Erreurs : compte admin unique, patch sans test. Jury : difference OU et groupe, GPO, reset mot de passe."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Installer\nConfigurer\nSecuriser\nTester\nSuperviser"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "server-manager ; dcdiag; Get-ADUser"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Permissions excessives\nSauvegarde absente"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : la documentation fait partie de l'exploitation."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Definition : installer et exploiter des serveurs. Contexte : mise en production AD/DNS/DHCP. Objectif : securiser et superviser. Details : AD DS, GPO, Linux systemd, journaux, patch et permissions. Ex"
+        }
+      ]
     }
   ],
   "quiz": [

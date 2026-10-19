@@ -60,6 +60,36 @@
         "cp1-outils",
         "mig-legacy-cp1-poste",
         "pedagogie-cp1"
+      ],
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Objectif et compétence évaluée : résoudre un incident utilisateur en centre de services sans bloquer la production, puis documenter et escalader correctement. | Notions à connaître : ITSM, ticket, incident, problème, demande de service, SLA, escalade, niveau 1/2/3, communication utilisateur, diagnostic en entonnoir. | Tableau Je veux faire… | Interface graphique | Ligne de commande | Vérification "
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Objectif et compétence évaluée : résoudre un incident utilisateur en centre de services sans bloquer la production, puis documenter et escalader correctement. | Notions à connaître : ITSM, ticket, incident, problème, demande de service, SLA, escalade, niveau 1/2/3, communication utilisateur, diagnostic en entonnoir. | Tableau Je veux faire… | Interface graphique | Ligne de commande | Vérification : Débloquer un compte | ADUC / portail ITSM | Unlock-ADAccount (À VÉRIFIER) | événement 4767 ; Diagnostiquer un poste | Observateur d'événements | Get-WinEvent (À VÉRIFIER) | code retour 0 ; Tester la connectivité | ping / Test-NetConnection | Test-NetConnection hôte -Port 443 (À VÉRIFIER) | latence < 50 ms ; Consulter les journaux | Event Viewer | Get-EventLog (À VÉRIFIER) | pas d'erreur critique ; Escalader | portail ITSM | n/a | ticket mis à jour. | À connaître par cœur : ports 53, 88, 135, 389, 443, 445 ; événements 4624, 4625, 4740, 41 ; chemins %SystemRoot%\\System32. | Diagnostic express : symptôme -> vérification -> commande. | Pièges : commencer par la commande sans qualifier ; oublier le contexte métier. | Ce que le jury peut demander (MEP phases 1-3) : qualification, diagnostic, communication, escalade, traçabilité. | Index : voir champ couvre."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Objectif et compétence évaluée\nNotions à connaître\nTableau GUI / CLI / Vérification\nÀ connaître par cœur\nDiagnostic express\nPièges\nCe que le jury peut demander\nIndex des fiches"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Commandes marquées À VÉRIFIER : voir tableau."
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Ne pas confondre GUI et CLI\nOublier les preuves MEP"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "L'essentiel résume ; les fiches détaillées précisent."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Objectif et compétence évaluée : résoudre un incident utilisateur en centre de services sans bloquer la production, puis documenter et escalader correctement. | Notions à connaître : ITSM, ticket, inc"
+        }
       ]
     },
     {
@@ -87,7 +117,37 @@
         "Sauter la qualification"
       ],
       "w": "Conclusion : CP1 se joue sur la méthode et la communication.",
-      "resume": "CP1 - Objectifs et lien MEP : l'objectif est de résoudre un incident utilisateur en centre de services sans bloquer la production, puis de documenter et d'escalader correctement."
+      "resume": "CP1 - Objectifs et lien MEP : l'objectif est de résoudre un incident utilisateur en centre de services sans bloquer la production, puis de documenter et d'escalader correctement.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP1 - Objectifs et lien MEP : l'objectif est de résoudre un incident utilisateur en centre de services sans bloquer la production, puis de documenter et d'escalader correctement. | Lien avec la MEP 2026 : phase 1 de préparation avec les outils fournis (tickets, comptes, documentation), puis missions de diagnostic et de communication avec l'utilisateur, puis bilan final. | Synthèse : un bon support"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP1 - Objectifs et lien MEP : l'objectif est de résoudre un incident utilisateur en centre de services sans bloquer la production, puis de documenter et d'escalader correctement. | Lien avec la MEP 2026 : phase 1 de préparation avec les outils fournis (tickets, comptes, documentation), puis missions de diagnostic et de communication avec l'utilisateur, puis bilan final. | Synthèse : un bon support est une méthode, pas une collection de recettes. | Schéma utile : utilisateur -> portail ITSM -> centre de services -> files de niveaux 1/2/3 -> résolution ou escalade. | GUI : portail ITSM, liste des tickets, fiche utilisateur, inventaire. | CLI : Get-Help, Get-Command et Get-ADUser pour vérifier rapidement. | Vérification : ticket cloturé avec cause, action et preuve. | Pièges : débuter par la commande sans qualifier le symptôme. | À retenir : écouter, qualifier, tester, documenter."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Lire la MEP et le scénario\nQualifier le symptôme\nChoisir le bon niveau de support\nDocumenter la cause et l'action\nClôturer le ticket avec preuve"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Aucune commande native indispensable pour cette fiche théorique."
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Oublier le contexte métier\nSauter la qualification"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : CP1 se joue sur la méthode et la communication."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP1 - Objectifs et lien MEP : l'objectif est de résoudre un incident utilisateur en centre de services sans bloquer la production, puis de documenter et d'escalader correctement. | Lien avec la MEP 20"
+        }
+      ]
     },
     {
       "id": "cp1-itil",
@@ -116,7 +176,37 @@
         "Transmettre sans contexte"
       ],
       "w": "Conclusion : un support humain reste structuré.",
-      "resume": "CP1 - ITSM : gestion des incidents, requêtes, problèmes et changements."
+      "resume": "CP1 - ITSM : gestion des incidents, requêtes, problèmes et changements.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP1 - ITSM : gestion des incidents, requêtes, problèmes et changements. | Objectif professionnel : traiter un incident au bon rythme et sans erreur de communication. | Cas réel en entreprise : un utilisateur signale un accès VPN impossible avant une présentation. | Fonctionnement détaillé : portail ITSM, file de tickets, SLA, priorité (impact × urgence), SPOC et niveaux de support. | Exemple concr"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP1 - ITSM : gestion des incidents, requêtes, problèmes et changements. | Objectif professionnel : traiter un incident au bon rythme et sans erreur de communication. | Cas réel en entreprise : un utilisateur signale un accès VPN impossible avant une présentation. | Fonctionnement détaillé : portail ITSM, file de tickets, SLA, priorité (impact × urgence), SPOC et niveaux de support. | Exemple concret : ticket incident réseau priorité haute, ticket demande standard priorité basse. | Procédure pas à pas : saluer, qualifier, reformuler, catégoriser, prioriser, agir, informer. | Erreurs fréquentes : promettre sans vérifier, utiliser le jargon, oublier l'étape de clôture. | Questions jury : différence incident/problème/changement ; comment prioriser ; pourquoi documenter. | À retenir : un ticket sans cause n'est pas clos. | Ajout par l'assistant : checklist de communication pour limiter la frustration."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Saluer et rassurer\nQualifier le symptôme\nCatégoriser\nPrioriser avec impact × urgence\nAgir et documenter\nClôturer avec preuve"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Aucune commande native : processus et communication."
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Jargon technique\nMélanger incident et demande\nTransmettre sans contexte"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : un support humain reste structuré."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP1 - ITSM : gestion des incidents, requêtes, problèmes et changements. | Objectif professionnel : traiter un incident au bon rythme et sans erreur de communication. | Cas réel en entreprise : un util"
+        }
+      ]
     },
     {
       "id": "cp1-diagnostic",
@@ -145,7 +235,37 @@
         "Réinstaller à l'aveugle"
       ],
       "w": "Conclusion : la méthode vaut plus que la vitesse.",
-      "resume": "CP1 - Diagnostic : méthode en couches pour aller du plus simple au plus complexe."
+      "resume": "CP1 - Diagnostic : méthode en couches pour aller du plus simple au plus complexe.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP1 - Diagnostic : méthode en couches pour aller du plus simple au plus complexe. | Objectif professionnel : rétablir rapidement sans aggraver la panne. | Cas réel : le poste n'a plus accès à Teams. | Fonctionnement détaillé : vérifier l'utilisateur, le matériel, la couche physique, l'IP, la passerelle, le DNS, l'application. | Exemple concret : le câble débranché donne le même symptôme qu'un DNS "
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP1 - Diagnostic : méthode en couches pour aller du plus simple au plus complexe. | Objectif professionnel : rétablir rapidement sans aggraver la panne. | Cas réel : le poste n'a plus accès à Teams. | Fonctionnement détaillé : vérifier l'utilisateur, le matériel, la couche physique, l'IP, la passerelle, le DNS, l'application. | Exemple concret : le câble débranché donne le même symptôme qu'un DNS erroné. | Procédure pas à pas : 1. reproduire et isoler le symptôme ; 2. vérifier account, mot de passe et groupes ; 3. tester la connexion réseau ; 4. tester passerelle et DNS ; 5. tester l'application ; 6. documenter. | Erreurs fréquentes : sauter une couche, réinstaller sans cause, généraliser un symptôme. | Questions jury : comment localiser une panne, différence réseau et application, quoi prouver. | À retenir : du physique vers l'applicatif. | Ajout par l'assistant : une fiche vierge pour chaque incident récurrent."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Reproduire le symptôme\nVérifier compte et droits\nTester couche physique\nTester IP, passerelle et DNS\nTester l'application\nDocumenter"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "ipconfig /all\nnslookup exemple.local\ntracert 8.8.8.8\nTest-NetConnection -ComputerName teams.microsoft.com -Port 443\nTest-Connection 192.168.1.1"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Omettre le DNS\nJuger sans test\nRéinstaller à l'aveugle"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : la méthode vaut plus que la vitesse."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP1 - Diagnostic : méthode en couches pour aller du plus simple au plus complexe. | Objectif professionnel : rétablir rapidement sans aggraver la panne. | Cas réel : le poste n'a plus accès à Teams. |"
+        }
+      ]
     },
     {
       "id": "cp1-poste",
@@ -172,7 +292,37 @@
         "Croire au cache sans test"
       ],
       "w": "Conclusion : comparer web et client isolé la couche réseau.",
-      "resume": "CP1 - Poste Windows : verification des ressources, du lancement, du navigateur et de l'identité locale."
+      "resume": "CP1 - Poste Windows : verification des ressources, du lancement, du navigateur et de l'identité locale.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP1 - Poste Windows : verification des ressources, du lancement, du navigateur et de l'identité locale. | Objectif professionnel : déterminer si la panne est locale ou dans le service. | Cas réel : Teams se lance mais ne reçoit pas les messages. | Fonctionnement détaillé : cache navigateur, profil Teams, espace disque, services, antivirus, proxy. | Exemple concret : suppression du cache Teams sans"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP1 - Poste Windows : verification des ressources, du lancement, du navigateur et de l'identité locale. | Objectif professionnel : déterminer si la panne est locale ou dans le service. | Cas réel : Teams se lance mais ne reçoit pas les messages. | Fonctionnement détaillé : cache navigateur, profil Teams, espace disque, services, antivirus, proxy. | Exemple concret : suppression du cache Teams sans réinstaller le logiciel. | Procédure pas à pas : 1. verifier l'espace disque et la santé du profil ; 2. tester en navigation privée ; 3. vider le cache ; 4. redémarrer l'application ; 5. vérifier le réseau. | CLI utile : exécuter les commandes réelles dans PowerShell sans risque, puis comparer avec une commande GUI. | Vérification : le service s'authentifie, le statut passe à Disponible, les messages sont reçus. | Pièges : confondre panne applicative et panne réseau ; perdre les données locales. | À retenir : tester la même action en navigateur web puis en client."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Vérifier l'espace disque\nTester en navigation privée\nVider le cache\nRedémarrer l'application\nComparer web et client"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Get-PSDrive\nGet-Process Teams\nRemove-Item -Recurse -Force $env:APPDATA\\Microsoft\\Teams\\Cache\ntest-netconnection teams.microsoft.com -port 443\nmsinfo32\n# À VÉRIFIER : chemin exact du cache Teams selon la version installée"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Supprimer le mauvais dossier\nCroire au cache sans test"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : comparer web et client isolé la couche réseau."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP1 - Poste Windows : verification des ressources, du lancement, du navigateur et de l'identité locale. | Objectif professionnel : déterminer si la panne est locale ou dans le service. | Cas réel : Te"
+        }
+      ]
     },
     {
       "id": "cp1-collab",
@@ -200,7 +350,37 @@
         "Accès Sharepoint trop large"
       ],
       "w": "Conclusion : accès et accompagnement vont de pair.",
-      "resume": "CP1 - Outils collaboratifs : déploiement et accompagnement des usages M365."
+      "resume": "CP1 - Outils collaboratifs : déploiement et accompagnement des usages M365.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP1 - Outils collaboratifs : déploiement et accompagnement des usages M365. | Objectif professionnel : donner accès, vérifier les droits et accompagner le changement. | Cas réel en entreprise : nouvel arrivant sans accès Teams ni OneDrive. | Fonctionnement détaillé : identité Entra ID, licences, SharePoint permissions, OneDrive provionnement, Teams meeting policies. | Exemple concret : créer un co"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP1 - Outils collaboratifs : déploiement et accompagnement des usages M365. | Objectif professionnel : donner accès, vérifier les droits et accompagner le changement. | Cas réel en entreprise : nouvel arrivant sans accès Teams ni OneDrive. | Fonctionnement détaillé : identité Entra ID, licences, SharePoint permissions, OneDrive provionnement, Teams meeting policies. | Exemple concret : créer un compte sans licence puis tester sous identité utilisateur. | Procédure pas à pas : 1. vérifier le compte et la licence ; 2. tester Outlook Web puis Teams ; 3. attribuer les groupes et les permissions SharePoint ; 4. accompagner l'utilisateur ; 5. clôturer. | Vérification : Outlook Web fonctionne, Teams rejoint la réunion, OneDrive synchronise. | Pièges : croire que le client Teams est prêt sans licence, oublier la gouvernance SharePoint. | Question jury : AD versus Entra ID, rôle de la licence, gestion du changement. À retenir : identité avant accompagnement."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Vérifier le compte et la licence\nTester Outlook Web\nAttribuer les groupes SharePoint\nAccompagner\nClôturer"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Get-MgUser -UserId user@domaine.fr\nGet-MgUserLicenseDetail -UserId user@domaine.fr\nGet-ADUser -Identity user -Properties MemberOf\nConnect-MgGraph -Scopes User.Read.All\n# À VÉRIFIER : syntaxe et disponibilité module Microsoft.Graph"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Licence manquante\nGroupe absent\nAccès Sharepoint trop large"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : accès et accompagnement vont de pair."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP1 - Outils collaboratifs : déploiement et accompagnement des usages M365. | Objectif professionnel : donner accès, vérifier les droits et accompagner le changement. | Cas réel en entreprise : nouvel"
+        }
+      ]
     },
     {
       "id": "cp1-toip",
@@ -227,7 +407,37 @@
         "Casque non configuré"
       ],
       "w": "Conclusion : support ToIP = terminaux + utilisateur.",
-      "resume": "CP1 - ToIP côté utilisateur : téléphone IP, softphone, casque et accès NTP/DNS."
+      "resume": "CP1 - ToIP côté utilisateur : téléphone IP, softphone, casque et accès NTP/DNS.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP1 - ToIP côté utilisateur : téléphone IP, softphone, casque et accès NTP/DNS. Le cœur technique de la ToIP (VLAN Voix, DHCP option 150, QoS, CME) se trouve en CP4. | Objectif professionnel : rétablir l'usage téléphonique et accompagner. | Cas réel : le téléphone s'allume mais reste sans tonalité. | Fonctionnement détaillé : boot firmware, provisioning via TFTP, enregistrement SIP/SCCP, réseau ut"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP1 - ToIP côté utilisateur : téléphone IP, softphone, casque et accès NTP/DNS. Le cœur technique de la ToIP (VLAN Voix, DHCP option 150, QoS, CME) se trouve en CP4. | Objectif professionnel : rétablir l'usage téléphonique et accompagner. | Cas réel : le téléphone s'allume mais reste sans tonalité. | Fonctionnement détaillé : boot firmware, provisioning via TFTP, enregistrement SIP/SCCP, réseau utilisateur, codec voix, repli softphone. | Exemple concret : un poste sur un VLAN utilisateur avec option 150 manquante. | Procédure côté support : 1. vérifier le câble et l'alimentation POE ; 2. reproduire le boot ; 3. vérifier l'enregistrement ; 4. tester la ligne ; 5. accompagner. | Vérification : l'écran affiche le numéro, l'appel aboutit, la tonalité de retour est présente. | Pièges : confondre panne réseau et panne terminale, oublier le micro casque, réinstaller le firmware sans sauvegarde. | Questions jury : firmware, option 150, SIP versus SCCP. | À retenir : ToIP se diagnostique de l'alimentation à la voix."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Vérifier l'alimentation\nReproduire le boot\nVérifier l'enregistrement\nTester l'appel\nAccompagner"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Aucune commande native pour le périmètre utilisateur."
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Panne réseau confondue\nCasque non configuré"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : support ToIP = terminaux + utilisateur."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP1 - ToIP côté utilisateur : téléphone IP, softphone, casque et accès NTP/DNS. Le cœur technique de la ToIP (VLAN Voix, DHCP option 150, QoS, CME) se trouve en CP4. | Objectif professionnel : rétabli"
+        }
+      ]
     },
     {
       "id": "cp1-ia",
@@ -253,7 +463,37 @@
         "Prompt vague"
       ],
       "w": "Conclusion : encadrer l'IA pour mieux accompagner.",
-      "resume": "CP1 - IA encadrée : l'assistant accélère, il ne prend pas la décision."
+      "resume": "CP1 - IA encadrée : l'assistant accélère, il ne prend pas la décision.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP1 - IA encadrée : l'assistant accélère, il ne prend pas la décision. | Objectif professionnel : aider l'utilisateur et le technicien technique de façon fiable et traçable. | Cas réel : générer une procédure de résolution VPN puis la valider. | Fonctionnement détaillé : prompt structuré, anonymisation, hallucination, validation, traçabilité. | Exemple concret : générer un squelette de fiche utili"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP1 - IA encadrée : l'assistant accélère, il ne prend pas la décision. | Objectif professionnel : aider l'utilisateur et le technicien technique de façon fiable et traçable. | Cas réel : générer une procédure de résolution VPN puis la valider. | Fonctionnement détaillé : prompt structuré, anonymisation, hallucination, validation, traçabilité. | Exemple concret : générer un squelette de fiche utilisateur puis le relire. | Procédure pas à pas : 1. cadrer le besoin ; 2. anonymiser les données ; 3. rédiger le prompt ; 4. vérifier et tester ; 5. documenter. | Vérification : la réponse est relue contre la documentation ; absence de secret. | Pièges : copier sans contrôle, divulguer des identifiants. | Question jury : hallucination, gouvernance et responsabilité. | À retenir : l'IA propose, l'humain dispose."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Cadrer le besoin\nAnonymiser\nRédiger le prompt\nVérifier et tester\nDocumenter"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Aucune commande native indispensable."
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Secrets divulgués\nPrompt vague"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : encadrer l'IA pour mieux accompagner."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP1 - IA encadrée : l'assistant accélère, il ne prend pas la décision. | Objectif professionnel : aider l'utilisateur et le technicien technique de façon fiable et traçable. | Cas réel : générer une p"
+        }
+      ]
     },
     {
       "id": "cp1-gui",
@@ -279,7 +519,37 @@
         "Modification sans retour arrière"
       ],
       "w": "Conclusion : la GUI se joue sur la clarté.",
-      "resume": "CP1 - GUI : actions graphiques à connaître et à décrire à l'oral."
+      "resume": "CP1 - GUI : actions graphiques à connaître et à décrire à l'oral.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP1 - GUI : actions graphiques à connaître et à décrire à l'oral. | Objectif professionnel : montrer un parcours clair quand le jury demande une démonstration. | Cas réel : dépanner un utilisateur à distance sans commande. | Fonctionnement détaillé : portail ITSM, onglet actif, Centre de contrôle Windows, gestionnaire des tâches, paramètres réseau. | Exemple concret : ouvrir les paramètres réseau "
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP1 - GUI : actions graphiques à connaître et à décrire à l'oral. | Objectif professionnel : montrer un parcours clair quand le jury demande une démonstration. | Cas réel : dépanner un utilisateur à distance sans commande. | Fonctionnement détaillé : portail ITSM, onglet actif, Centre de contrôle Windows, gestionnaire des tâches, paramètres réseau. | Exemple concret : ouvrir les paramètres réseau pour désactiver/réactiver la carte. | Procédure : 1. ouvrir le bon outil ; 2. retrouver le paramètre ; 3. modifier ; 4. tester ; 5. revenir en arrière si erreur. | Vérification : l'état change immédiatement et l'utilisateur comprend l'action. | Pièges : navigation sans plan, menu confus, modification sans sécurité. | Question jury : comment guidez-vous l'utilisateur. | À retenir : cinq étapes claires. | Complément ajouté : table de correspondance clic / commande."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Ouvrir l'outil\nRetrouver le réglage\nModifier\nTester\nAnnuler si besoin"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Aucune commande native dans cette fiche graphique."
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Clic non documenté\nModification sans retour arrière"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : la GUI se joue sur la clarté."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP1 - GUI : actions graphiques à connaître et à décrire à l'oral. | Objectif professionnel : montrer un parcours clair quand le jury demande une démonstration. | Cas réel : dépanner un utilisateur à d"
+        }
+      ]
     },
     {
       "id": "cp1-verification",
@@ -305,7 +575,37 @@
         "Tester hors contexte"
       ],
       "w": "Conclusion : la preuve doit être ciblée.",
-      "resume": "CP1 - Vérification : un test doit être choisi selon l'hypothèse et ses limites."
+      "resume": "CP1 - Vérification : un test doit être choisi selon l'hypothèse et ses limites.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP1 - Vérification : un test doit être choisi selon l'hypothèse et ses limites. | Objectif professionnel : prouver au jury et à l'utilisateur. | Cas réel : ipconfig /all renvoie bien une IP, mais Teams ne se connecte pas. | Fonctionnement détaillé : ping, HTTP, DNS, port applicatif, compte et licence. | Exemple concret : Get-NetConnectionProfile et Test-NetConnection port 443 prouvent un réseau ma"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP1 - Vérification : un test doit être choisi selon l'hypothèse et ses limites. | Objectif professionnel : prouver au jury et à l'utilisateur. | Cas réel : ipconfig /all renvoie bien une IP, mais Teams ne se connecte pas. | Fonctionnement détaillé : ping, HTTP, DNS, port applicatif, compte et licence. | Exemple concret : Get-NetConnectionProfile et Test-NetConnection port 443 prouvent un réseau mais pas l'authentification M365. | Procédure pas à pas : 1. adapter le test à l'hypothèse ; 2. tester le réseau ; 3. tester l'application ; 4. tester l'identité ; 5. consigner. | Vérification : chaque test est relié à une hypothèse explicite. | Pièges : ping réussi = service OK, ipconfig réussi = réseau parfait. | Questions jury : que ne prouve pas un ping, différence DORA dans DHCP. | À retenir : tester l'hypothèse, pas la panne."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Adapter le test\nTester le réseau\nTester l'application\nTester l'identité\nConsigner"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Test-NetConnection -ComputerName teams.microsoft.com -Port 443\nTest-Connection 8.8.8.8\nResolve-DnsName teams.microsoft.com\nGet-NetConnectionProfile\nGet-NetIPConfiguration"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Surinterpréter un ping\nTester hors contexte"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : la preuve doit être ciblée."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP1 - Vérification : un test doit être choisi selon l'hypothèse et ses limites. | Objectif professionnel : prouver au jury et à l'utilisateur. | Cas réel : ipconfig /all renvoie bien une IP, mais Team"
+        }
+      ]
     },
     {
       "id": "cp1-pieges",
@@ -330,7 +630,37 @@
         "Pas de sauvegarde"
       ],
       "w": "Conclusion : les détails se défendent par la preuve.",
-      "resume": "CP1 - Pièges : liste de raccourcis qui coûtent des points."
+      "resume": "CP1 - Pièges : liste de raccourcis qui coûtent des points.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP1 - Pièges : liste de raccourcis qui coûtent des points. | Objectif professionnel : éviter les réponses rapides mais inexactes. | Cas réel : le jury demande d'aller plus vite sans preuves. | Fonctionnement détaillé : priorité, communication, diagnostic, sécurité. | Exemple concret : citer une commande sans dire ce qu'elle ne prouve pas. | Pièges : confondre incident et demande, promettre une dat"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP1 - Pièges : liste de raccourcis qui coûtent des points. | Objectif professionnel : éviter les réponses rapides mais inexactes. | Cas réel : le jury demande d'aller plus vite sans preuves. | Fonctionnement détaillé : priorité, communication, diagnostic, sécurité. | Exemple concret : citer une commande sans dire ce qu'elle ne prouve pas. | Pièges : confondre incident et demande, promettre une date sans validation, réinstaller sans sauvegarde, ignorer l'utilisateur, utiliser un langage trop technique, attribuer au mauvais niveau. | Erreurs fréquentes : négliger le portail ITSM, ne pas consigner la cause. | Questions jury : estimer la criticité, expliquer une démonstration dégradée. | À retenir : méthodologie et communication."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Eviter la précipitation\nCiter la cause\nMontrer la preuve\nExpliquer simplement"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Aucune commande native."
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Promesse non validée\nPas de sauvegarde"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : les détails se défendent par la preuve."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP1 - Pièges : liste de raccourcis qui coûtent des points. | Objectif professionnel : éviter les réponses rapides mais inexactes. | Cas réel : le jury demande d'aller plus vite sans preuves. | Fonctio"
+        }
+      ]
     },
     {
       "id": "cp1-questions-ouvertes",
@@ -352,7 +682,37 @@
         "Rester trop théorique"
       ],
       "w": "Conclusion : l'expérience professionnelle valorise CP1.",
-      "resume": "CP1 - Questions ouvertes pour l'oral et l'examen : 1."
+      "resume": "CP1 - Questions ouvertes pour l'oral et l'examen : 1.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP1 - Questions ouvertes pour l'oral et l'examen : 1. Racontez un incident utilisateur compliqué et votre résolution. 2. Comment priorisez-vous un ticket sans impact métier majeur ? 3. Comment expliquez-vous simplement le DNS à un utilisateur ? 4. Quelles preuves donnez-vous au jury pour une panne Teams ? 5. Comment traitez-vous une demande d'accompagnement d'un nouvel outil collaboratif ? 6. Comm"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP1 - Questions ouvertes pour l'oral et l'examen : 1. Racontez un incident utilisateur compliqué et votre résolution. 2. Comment priorisez-vous un ticket sans impact métier majeur ? 3. Comment expliquez-vous simplement le DNS à un utilisateur ? 4. Quelles preuves donnez-vous au jury pour une panne Teams ? 5. Comment traitez-vous une demande d'accompagnement d'un nouvel outil collaboratif ? 6. Comment encadrez-vous l'IA dans votre centre de services ? | Références à citer si présentes dans vos sources : ITIL, SPOC, SLA, incident, requête, problème, changement."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Préparer des réponses\nStructurer avec expérience"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Aucune commande native."
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Rester trop théorique"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : l'expérience professionnelle valorise CP1."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP1 - Questions ouvertes pour l'oral et l'examen : 1. Racontez un incident utilisateur compliqué et votre résolution. 2. Comment priorisez-vous un ticket sans impact métier majeur ? 3. Comment expliqu"
+        }
+      ]
     },
     {
       "id": "mig-legacy-pedagogie-ccp3",
@@ -379,7 +739,37 @@
       ],
       "w": "Conclusion : structure et communication valent autant que la commande.",
       "alt": "Schéma CP1",
-      "resume": "Contenu migré de l'ancienne fiche sans réécriture : Definition : diagnostiquer et resoudre en respectant l'utilisateur."
+      "resume": "Contenu migré de l'ancienne fiche sans réécriture : Definition : diagnostiquer et resoudre en respectant l'utilisateur.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : Definition : diagnostiquer et resoudre en respectant l'utilisateur. Contexte : panne VPN ou poste. Objectif : retablir vite et documenter. Details : methode entonnoir, physique, IP, passerelle, DNS, applicatif. Exemple : cable debranche puis IP APIPA. Erreurs : changer plusieurs parametres ace fois, fermer sans validation. Jury : priorite inciden"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : Definition : diagnostiquer et resoudre en respectant l'utilisateur. Contexte : panne VPN ou poste. Objectif : retablir vite et documenter. Details : methode entonnoir, physique, IP, passerelle, DNS, applicatif. Exemple : cable debranche puis IP APIPA. Erreurs : changer plusieurs parametres ace fois, fermer sans validation. Jury : priorite incident, difference incident/probleme/demande, escalade."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Identifier et rassurer\nReproduire\nTester couche par couche\nCorriger\nValider et documenter"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "ipconfig /all; ping; nslookup; tracert"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Diagnostic trop rapide\nAbsence de communication"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : structure et communication valent autant que la commande."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : Definition : diagnostiquer et resoudre en respectant l'utilisateur. Contexte : panne VPN ou poste. Objectif : retablir vite et documenter. Details :"
+        }
+      ]
     },
     {
       "id": "mig-legacy-cp1-ticketing",
@@ -407,7 +797,37 @@
       ],
       "w": "Conclusion : un ticket clair sauve du temps.",
       "alt": "Schéma CP1",
-      "resume": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : gestion normalisée des incidents."
+      "resume": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : gestion normalisée des incidents.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : gestion normalisée des incidents. | Objectif professionnel : prioriser et tracer. | Cas réel : panne VPN multi-utilisateurs. | Fonctionnement détaillé : impact, urgence, priorité, SLA. | Exemple : ticket bloquant paie. | Procédure pas à pas : qualifier, catégoriser, prioriser, résoudre, clore. | Erreurs : pas de description. | "
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : gestion normalisée des incidents. | Objectif professionnel : prioriser et tracer. | Cas réel : panne VPN multi-utilisateurs. | Fonctionnement détaillé : impact, urgence, priorité, SLA. | Exemple : ticket bloquant paie. | Procédure pas à pas : qualifier, catégoriser, prioriser, résoudre, clore. | Erreurs : pas de description. | Jury : SLA, escalade. | À retenir : impact et urgence."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Qualifier\nCatégoriser\nPrioriser\nRésoudre\nClôre"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Get-Service; Get-WinEvent -LogName Application"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Ticket vague\nPas de priorité"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : un ticket clair sauve du temps."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : gestion normalisée des incidents. | Objectif professionnel : prioriser et tracer. | Cas réel : panne VPN multi-utilisateurs. | Fo"
+        }
+      ]
     },
     {
       "id": "mig-legacy-cp1-entretien",
@@ -435,7 +855,37 @@
       ],
       "w": "Conclusion : support humain.",
       "alt": "Schéma CP1",
-      "resume": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : accompagnement humain du support."
+      "resume": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : accompagnement humain du support.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : accompagnement humain du support. | Objectif : réduire la frustration. | Cas réel : blocage outlook. | Fonctionnement détaillé : écoute, reformulation, explication simple. | Exemple : guider par téléphone. | Procédure : saluer, écouter, reformuler, accompagner. | Erreurs : jargon. | Jury : gestion relationnelle. | À retenir : e"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : accompagnement humain du support. | Objectif : réduire la frustration. | Cas réel : blocage outlook. | Fonctionnement détaillé : écoute, reformulation, explication simple. | Exemple : guider par téléphone. | Procédure : saluer, écouter, reformuler, accompagner. | Erreurs : jargon. | Jury : gestion relationnelle. | À retenir : empathie."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Saluer\nÉcouter\nReformuler\nGuider\nClôturer"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Aucune commande native pertinente pour cette fiche."
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Jargon\nCouper parole"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : support humain."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : accompagnement humain du support. | Objectif : réduire la frustration. | Cas réel : blocage outlook. | Fonctionnement détaillé : "
+        }
+      ]
     },
     {
       "id": "mig-legacy-cp1-print",
@@ -463,7 +913,37 @@
       ],
       "w": "Conclusion : patience et procédure.",
       "alt": "Schéma CP1",
-      "resume": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : support d'impression."
+      "resume": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : support d'impression.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : support d'impression. | Objectif : remettre en service. | Cas réel : job bloqué. | Fonctionnement détaillé : spooler, drivers, queue, droits. | Exemple : spouleur planté. | Procédure : arrêt spouleur, nettoyage, redémarrage, test. | Erreurs : driver corrompu. | Jury : spooler et pilote. | À retenir : spoul et driver."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : support d'impression. | Objectif : remettre en service. | Cas réel : job bloqué. | Fonctionnement détaillé : spooler, drivers, queue, droits. | Exemple : spouleur planté. | Procédure : arrêt spouleur, nettoyage, redémarrage, test. | Erreurs : driver corrompu. | Jury : spooler et pilote. | À retenir : spoul et driver."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Vérifier queue\nArrêter spouleur\nNettoyer\nRedémarrer\nTester"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "net stop spooler; net start spooler; Get-Printer\n# À VÉRIFIER : droits et comportement spouleur selon version Windows"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Pilote cassé\nDroits insuffisants"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : patience et procédure."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : support d'impression. | Objectif : remettre en service. | Cas réel : job bloqué. | Fonctionnement détaillé : spooler, drivers, qu"
+        }
+      ]
     },
     {
       "id": "mig-legacy-cp1-mail",
@@ -490,7 +970,37 @@
       ],
       "w": "Conclusion : isoler le client.",
       "alt": "Schéma CP1",
-      "resume": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : support M365 et Outlook."
+      "resume": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : support M365 et Outlook.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : support M365 et Outlook. | Objectif : rétablir mail. | Cas réel : profil corrompu. | Fonctionnement détaillé : profil, cache ost, licence, proxy/autodiscover. | Exemple : inbox en erreur. | Procédure : tester web, refaire profil, vider cache. | Erreurs : accusé sans contrôle. | Jury : webmail vs desktop. | À retenir : client et"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : support M365 et Outlook. | Objectif : rétablir mail. | Cas réel : profil corrompu. | Fonctionnement détaillé : profil, cache ost, licence, proxy/autodiscover. | Exemple : inbox en erreur. | Procédure : tester web, refaire profil, vider cache. | Erreurs : accusé sans contrôle. | Jury : webmail vs desktop. | À retenir : client et réseau."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Webmail\nProfil\nSupprimer cache\nRelancer"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Test-OutlookConnectivity; Get-Mailbox\n# À VÉRIFIER : Test-OutlookConnectivity dépend de l'environnement Exchange/possibilité d'exécution"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Autodiscover bloqué\nLicence manquante"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : isoler le client."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : support M365 et Outlook. | Objectif : rétablir mail. | Cas réel : profil corrompu. | Fonctionnement détaillé : profil, cache ost,"
+        }
+      ]
     },
     {
       "id": "mig-legacy-cp1-remote",
@@ -517,7 +1027,37 @@
       ],
       "w": "Conclusion : sécuriser l'assistance.",
       "alt": "Schéma CP1",
-      "resume": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : prise en main sécurisée."
+      "resume": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : prise en main sécurisée.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : prise en main sécurisée. | Objectif : dépanner à distance. | Cas réel : erreur sur site éloigné. | Fonctionnement détaillé : authentification, consentement, journal. | Exemple : TeamViewer sous contrôle. | Procédure : demander accord, lancer, observer, clore. | Erreurs : accès non supervisé. | Jury : sécurité et consentement. |"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : prise en main sécurisée. | Objectif : dépanner à distance. | Cas réel : erreur sur site éloigné. | Fonctionnement détaillé : authentification, consentement, journal. | Exemple : TeamViewer sous contrôle. | Procédure : demander accord, lancer, observer, clore. | Erreurs : accès non supervisé. | Jury : sécurité et consentement. | À retenir : jamais sans accord."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Consentement\nLancer session\nDiagnostiquer\nDocumenter"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Aucune commande native pertinente pour cette fiche."
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Accès sans accord\nPas de journal"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : sécuriser l'assistance."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : prise en main sécurisée. | Objectif : dépanner à distance. | Cas réel : erreur sur site éloigné. | Fonctionnement détaillé : auth"
+        }
+      ]
     },
     {
       "id": "mig-legacy-cp1-escalade",
@@ -543,7 +1083,37 @@
       ],
       "w": "Conclusion : documentation d'escalade.",
       "alt": "Schéma CP1",
-      "resume": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : élevé aux équipes supérieures."
+      "resume": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : élevé aux équipes supérieures.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : élevé aux équipes supérieures. | Objectif : résoudre rapidement. | Cas réel : irrésolu par support N1. | Fonctionnement détaillé : contexte, invest, logs, attentes. | Exemple : problème réseau site. | Procédure : documenter, prévenir, transférer. | Erreurs : transfert nu. | Jury : escalade structurée. | À retenir : contexte com"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : élevé aux équipes supérieures. | Objectif : résoudre rapidement. | Cas réel : irrésolu par support N1. | Fonctionnement détaillé : contexte, invest, logs, attentes. | Exemple : problème réseau site. | Procédure : documenter, prévenir, transférer. | Erreurs : transfert nu. | Jury : escalade structurée. | À retenir : contexte complet."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Résumer\nJoindre preuves\nNotifier utilisateur\nTransmettre"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Aucune commande native pertinente pour cette fiche."
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Transfert sans contexte"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : documentation d'escalade."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : élevé aux équipes supérieures. | Objectif : résoudre rapidement. | Cas réel : irrésolu par support N1. | Fonctionnement détaillé "
+        }
+      ]
     },
     {
       "id": "cp1-malware-premier-niveau",
@@ -570,7 +1140,37 @@
       ],
       "w": "Conclusion : contenir puis analyser.",
       "cp": "cp1",
-      "resume": "CP1 - Malware, premier niveau : isoler, ne pas éteindre, collecter, escalader."
+      "resume": "CP1 - Malware, premier niveau : isoler, ne pas éteindre, collecter, escalader.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP1 - Malware, premier niveau : isoler, ne pas éteindre, collecter, escalader. | Objectif : limiter l'impact et éviter la propagation. | Procédure : déconnecter du réseau sans éteindre, isoler le poste, conserver les preuves (ticket, capture, journal), collecter les éléments, escalader au niveau 2 / sécurité. | Vérification : l'utilisateur est protégé, la panne limitée, les données utiles transmis"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP1 - Malware, premier niveau : isoler, ne pas éteindre, collecter, escalader. | Objectif : limiter l'impact et éviter la propagation. | Procédure : déconnecter du réseau sans éteindre, isoler le poste, conserver les preuves (ticket, capture, journal), collecter les éléments, escalader au niveau 2 / sécurité. | Vérification : l'utilisateur est protégé, la panne limitée, les données utiles transmises. | Pièges : éteindre la machine, continuer d'utiliser, supprimer des traces. | À retenir : contenir d'abord. | Ajout par l'assistant : fiche courte de premier niveau."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Isoler\nNe pas éteindre\nCollecter\nEscalader"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Aucune commande native au premier niveau."
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Propagation\nPerte de preuves"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : contenir puis analyser."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP1 - Malware, premier niveau : isoler, ne pas éteindre, collecter, escalader. | Objectif : limiter l'impact et éviter la propagation. | Procédure : déconnecter du réseau sans éteindre, isoler le post"
+        }
+      ]
     },
     {
       "cp": "cp1",
@@ -598,7 +1198,37 @@
       ],
       "w": "Un poste non patché est la porte d'entrée la plus courante.",
       "alt": "",
-      "resume": "Mettre à jour, limiter les droits, chiffrer, désactiver services inutiles, protéger les navigateurs."
+      "resume": "Mettre à jour, limiter les droits, chiffrer, désactiver services inutiles, protéger les navigateurs.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Mettre à jour, limiter les droits, chiffrer, désactiver services inutiles, protéger les navigateurs."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Mettre à jour, limiter les droits, chiffrer, désactiver services inutiles, protéger les navigateurs."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Patch OS et apps automatiquement\nActiver BitLocker/LUKS\nDésactiver services inutiles\nConfigurer Pare-feu hôte"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "# Windows\nGet-MpComputerStatus\n# Linux\napt unattended-upgrade -d\nufw enable\nlynis audit system"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Mots de passe gérés (gestionnaire)\nMFA obligatoire admins\nChiffrement des disques"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Un poste non patché est la porte d'entrée la plus courante."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Mettre à jour, limiter les droits, chiffrer, désactiver services inutiles, protéger les navigateurs."
+        }
+      ]
     },
     {
       "cp": "cp1",
@@ -627,7 +1257,37 @@
       ],
       "w": "La sécurité est un processus continu.",
       "alt": "",
-      "resume": "L'hygiène : patcher, moindre privilège, MFA, segmentation, EDR, sauvegardes hors ligne immuables."
+      "resume": "L'hygiène : patcher, moindre privilège, MFA, segmentation, EDR, sauvegardes hors ligne immuables.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "L'hygiène : patcher, moindre privilège, MFA, segmentation, EDR, sauvegardes hors ligne immuables."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "L'hygiène : patcher, moindre privilège, MFA, segmentation, EDR, sauvegardes hors ligne immuables."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Activer MFA admin/remote\nDurcir postes et serveurs\nSauvegardes testées hors ligne"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "# Vérifier Defender\nGet-MpComputerStatus\n# Firewall Linux\nufw enable\nufw status"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "ANSSI/CERT-FR comme référentiels\nPRA avec RPO/RTO\nJournalisation centrale"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "La sécurité est un processus continu."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "L'hygiène : patcher, moindre privilège, MFA, segmentation, EDR, sauvegardes hors ligne immuables."
+        }
+      ]
     },
     {
       "id": "cp1-tickets",
@@ -655,7 +1315,37 @@
       ],
       "w": "Reformuler en langage simple ; jamais de jargon face à l'utilisateur. Un ticket flou = un incident mal routé.",
       "cp": "cp6",
-      "resume": "Incident = service dégradé à rétablir vite."
+      "resume": "Incident = service dégradé à rétablir vite.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Incident = service dégradé à rétablir vite. Problème = cause racine à éliminer. Demande = besoin prévu. Priorité = Impact → Urgence → Criticité."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Incident = service dégradé à rétablir vite. Problème = cause racine à éliminer. Demande = besoin prévu. Priorité = Impact → Urgence → Criticité."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Identifier le service impacté et la criticité métier\nCréer le ticket dans GLPI/iTop avec catégories et impact\nQualifier : utilisateur, poste, site, heure de début\nAssigner, documenter chaque action horodatée\nClôturer avec validation utilisateur + base de connaissances"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "# Diagnostic rapide d'un poste\nipconfig /all\nping 8.8.8.8\nping intranet.local\nnslookup intranet.local\nGet-Service | Where Status -eq Stopped"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "P1 critique 4h, P2 8h, P3 24h, P4 72h (adapter au SLA signé)\nEscalade N2/N3 si hors périmètre ou échéance dépassée\nOn ne ferme un ticket qu'après validation réelle et sans contournement caché"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Reformuler en langage simple ; jamais de jargon face à l'utilisateur. Un ticket flou = un incident mal routé."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Incident = service dégradé à rétablir vite. Problème = cause racine à éliminer. Demande = besoin prévu. Priorité = Impact → Urgence → Criticité."
+        }
+      ]
     },
     {
       "id": "cp1-comptes",
@@ -682,7 +1372,37 @@
       ],
       "w": "Ne jamais envoyer le mot de passe dans le même canal que l'identifiant. Les groupes d'accès doivent rester inchangés lors d'un reset.",
       "cp": "cp6",
-      "resume": "Vérifier l'identité avant toute réinitialisation."
+      "resume": "Vérifier l'identité avant toute réinitialisation.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Vérifier l'identité avant toute réinitialisation. Forcer le changement à la prochaine ouverture. Canal séparé pour le mot de passe."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Vérifier l'identité avant toute réinitialisation. Forcer le changement à la prochaine ouverture. Canal séparé pour le mot de passe."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "ADUC (dsa.msc) → Users → clic droit sur l'utilisateur\nCompte : décocher Verrouillé / Réinitialiser le mot de passe\nCocher 'Doit changer le mot de passe à la prochaine ouverture'\nPrévenir par canal séparé (téléphone) et documenter"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Set-ADAccountPassword -Identity jdupont -Reset -NewPassword (ConvertTo-SecureString 'Temp2026!' -AsPlainText -Force)\nSet-ADUser -Identity jdupont -ChangePasswordAtLogon $true\nUnlock-ADAccount -Identity jdupont\nGet-ADUser jdupont -Properties LockedOut, Enabled, PasswordExpired"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Double vérification d'identité : badge + manager ou question confidentielle\nMots de passe temporaires : 12+ car., maj/min/chiffre/spécial\nUn compte verrouillé en boucle = forcer sa déconnexion partout"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Ne jamais envoyer le mot de passe dans le même canal que l'identifiant. Les groupes d'accès doivent rester inchangés lors d'un reset."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Vérifier l'identité avant toute réinitialisation. Forcer le changement à la prochaine ouverture. Canal séparé pour le mot de passe."
+        }
+      ]
     },
     {
       "id": "cp1-evenements",
@@ -709,7 +1429,37 @@
       ],
       "w": "L'absence d'erreur dans les journaux n'exclut pas un problème réseau ou applicatif.",
       "cp": "cp6",
-      "resume": "Les journaux Application/Sécurité/Système + PowerShell Get-EventLog sont la mémoire de la machine."
+      "resume": "Les journaux Application/Sécurité/Système + PowerShell Get-EventLog sont la mémoire de la machine.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Les journaux Application/Sécurité/Système + PowerShell Get-EventLog sont la mémoire de la machine. Toujours croiser codes d'événement avec la KB."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Les journaux Application/Sécurité/Système + PowerShell Get-EventLog sont la mémoire de la machine. Toujours croiser codes d'événement avec la KB."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Ouvrir eventvwr.msc ; filtrer par niveau Erreur/Critique\nIdentifier l'EventID et la source exacte\nRechercher l'ID officiel Microsoft\nTester la correction et noter dans le ticket"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Get-WinEvent -LogName System -MaxEvents 30 | Select TimeCreated, Id, ProviderName, Message\nGet-EventLog -LogName Application -EntryType Error -Newest 20\n# Filtrer un ID précis :\nGet-WinEvent -FilterHashtable @{LogName='Security'; Id=4625} | Select TimeCreated, Message -First 10"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "4625 = échec d'ouverture de session ; 4740 = verrouillage de compte\nLes journaux sont tournants : augmenter la taille si audit avancé\nExporter en EVTX avant une réinstallation"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "L'absence d'erreur dans les journaux n'exclut pas un problème réseau ou applicatif."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Les journaux Application/Sécurité/Système + PowerShell Get-EventLog sont la mémoire de la machine. Toujours croiser codes d'événement avec la KB."
+        }
+      ]
     },
     {
       "id": "cp1-wsus",
@@ -736,7 +1486,37 @@
       ],
       "w": "Les mises à jour WSUS ne couvrent que les produits Microsoft ; les applicatifs tiers nécessitent un outil dédié.",
       "cp": "cp6",
-      "resume": "Séparation anneaux (pilote/production), fenêtre de maintenance, rollback documenté."
+      "resume": "Séparation anneaux (pilote/production), fenêtre de maintenance, rollback documenté.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Séparation anneaux (pilote/production), fenêtre de maintenance, rollback documenté."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Séparation anneaux (pilote/production), fenêtre de maintenance, rollback documenté."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Console WSUS : approuver pour le groupe pilote d'abord\nSurveiller la conformité et les échecs\nGPO : Configure Automatic Updates + intranet Microsoft update service\nPlanifier redémarrage hors heures creuses"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "wsusutil.exe checkhealth\nwuauclt /detectnow /updatenow\nGet-WindowsUpdateLog\n# PowerShell module PSWindowsUpdate :\nInstall-Module PSWindowsUpdate -Force\nGet-WUList | Select Title, Size\nInstall-WUUpdates -AcceptAll -AutoReboot"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Gardiens : serveurs d'abord puis postes\nKB critiques de sécurité prioritaires\nGarder 1-2 snapshots avant mise à jour majeure"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Les mises à jour WSUS ne couvrent que les produits Microsoft ; les applicatifs tiers nécessitent un outil dédié."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Séparation anneaux (pilote/production), fenêtre de maintenance, rollback documenté."
+        }
+      ]
     },
     {
       "id": "cp1-outils",
@@ -762,7 +1542,37 @@
       ],
       "w": "Le silence crée l'angoisse ; un statut intermédiaire est toujours mieux.",
       "cp": "cp6",
-      "resume": "Un bon support = diagnostic structuré + écoute active + trajectoire claire pour l'utilisateur."
+      "resume": "Un bon support = diagnostic structuré + écoute active + trajectoire claire pour l'utilisateur.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Un bon support = diagnostic structuré + écoute active + trajectoire claire pour l'utilisateur."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Un bon support = diagnostic structuré + écoute active + trajectoire claire pour l'utilisateur."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Accueil : identifier, reformuler le besoin, rassurer\nExpliquer ce qui va être fait et le délai\nPoint de contact unique até la clôture\nCompléter la base de connaissances"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "# Grilles d'entretien (extrait)\n# 1. Quoi ? 2. Depuis quand ? 3. Pour qui ? 4. Impact ?\n# 5. Changement récent ? 6. Reproductible ?\n# Rappel final : \"Je vous rappelle avant 17h avec la solution ou une escalade.\""
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Ne jamais promettre l'impossible : dépendances fournisseurs externes\nUtiliser des gabarits de mail pour la cohérence\nDurée moyenne de résolution à suivre an par mois"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Le silence crée l'angoisse ; un statut intermédiaire est toujours mieux."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Un bon support = diagnostic structuré + écoute active + trajectoire claire pour l'utilisateur."
+        }
+      ]
     },
     {
       "id": "mig-legacy-cp1-poste",
@@ -790,7 +1600,37 @@
       "w": "Ne jamais remettre une IP manuelle sans documenter ; cela masque le vrai défaut DHCP.",
       "cp": "cp6",
       "doublon_de": "cp1-poste",
-      "resume": "Physique → IP → passerelle → DNS → Internet."
+      "resume": "Physique → IP → passerelle → DNS → Internet.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Physique → IP → passerelle → DNS → Internet. Tester couche par couche sans sauter d'étapes."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Physique → IP → passerelle → DNS → Internet. Tester couche par couche sans sauter d'étapes."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Vérifier voyant carte + câble, Wi-Fi activé, profil Privé/Public\nCentre Réseau et partage : IP, passerelle, DNS\nTester navigation et accès au partage\nPurger le cache si le nom échoue"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "ipconfig /all\nping 192.168.1.1\nping 8.8.8.8\nnslookup google.com\ntracert google.com\nipconfig /release\nipconfig /renew\nipconfig /flushdns\nTest-NetConnection google.com -Port 443"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "169.254.x.x = APIPA → DHCP KO ou pas de réponse serveur\nPing OK par IP mais KO par nom = DNS KO\nTracert s'arrête à la passerelle = problème routage amont"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Ne jamais remettre une IP manuelle sans documenter ; cela masque le vrai défaut DHCP."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Physique → IP → passerelle → DNS → Internet. Tester couche par couche sans sauter d'étapes."
+        }
+      ]
     },
     {
       "id": "pedagogie-cp1",
@@ -817,7 +1657,37 @@
       ],
       "w": "Conclusion : l'IA est un accelerateur, la validation humaine reste obligatoire.",
       "cp": "cp6",
-      "resume": "Definition : l'IA assiste l'humain mais ne decide pas a sa place."
+      "resume": "Definition : l'IA assiste l'humain mais ne decide pas a sa place.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Definition : l'IA assiste l'humain mais ne decide pas a sa place. Contexte professionnel : un utilisateur ou un technicien utilise un assistant pour rediger une procedure ou suggere un script. Objectif : utiliser l'IA de facon fiable, securisee et documentee. Explication detaillee : l'IA n'a pas la verite terrain et peut halluciner ; elle doit etre bornee par des donnees propres et validee. Exempl"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Definition : l'IA assiste l'humain mais ne decide pas a sa place. Contexte professionnel : un utilisateur ou un technicien utilise un assistant pour rediger une procedure ou suggere un script. Objectif : utiliser l'IA de facon fiable, securisee et documentee. Explication detaillee : l'IA n'a pas la verite terrain et peut halluciner ; elle doit etre bornee par des donnees propres et validee. Exemple concret : generer un script PowerShell de sauvegarde puis le tester en bac a sable. Erreurs frequentes : copier sans verifier, fournir des secrets, confondre suggestion et preuve. Questions jury : comment encadrez-vous l'IA, quelle est une hallucination, comment protegez-vous les donnees."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Identifier le besoin\nPreparer un prompt structure et anonyme\nVerifier le resultat\nTester en bac a sable\nDocumenter dans le ticket"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "No native command; validation manuelle et test obligatoire."
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Copier sans controle\nPublier des donnees sensibles\nOublier la preuve"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : l'IA est un accelerateur, la validation humaine reste obligatoire."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Definition : l'IA assiste l'humain mais ne decide pas a sa place. Contexte professionnel : un utilisateur ou un technicien utilise un assistant pour rediger une procedure ou suggere un script. Objecti"
+        }
+      ]
     }
   ],
   "quiz": [
