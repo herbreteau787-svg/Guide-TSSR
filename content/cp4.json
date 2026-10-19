@@ -2408,5 +2408,8 @@
       ]
     }
   ],
-  "quiz": []
+  "quiz": [],
+  "group": "Compétences Professionnelles",
+  "icon": "🌐",
+  "desc": "Exploiter un réseau IP."
 }

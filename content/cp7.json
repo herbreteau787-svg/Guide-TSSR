@@ -824,5 +824,8 @@
       ]
     }
   ],
-  "quiz": []
+  "quiz": [],
+  "group": "Compétences Professionnelles",
+  "icon": "🔒",
+  "desc": "Gérer les accès et la sécurité dans un environnement hybride."
 }

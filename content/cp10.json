@@ -926,5 +926,8 @@
       ]
     }
   ],
-  "quiz": []
+  "quiz": [],
+  "group": "Compétences Professionnelles",
+  "icon": "📊",
+  "desc": "Mettre à jour et superviser les éléments d'infrastructure."
 }

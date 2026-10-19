@@ -677,5 +677,8 @@
       ]
     }
   ],
-  "quiz": []
+  "quiz": [],
+  "group": "Compétences Professionnelles",
+  "icon": "🤖",
+  "desc": "Exploiter l'intelligence artificielle et encadrer son usage."
 }

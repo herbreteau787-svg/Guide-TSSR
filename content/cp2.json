@@ -541,5 +541,8 @@
       ]
     }
   ],
-  "quiz": []
+  "quiz": [],
+  "group": "Compétences Professionnelles",
+  "icon": "💻",
+  "desc": "Assurer le déploiement des équipements numériques et accompagner à l'utilisation des outils collaboratifs."
 }

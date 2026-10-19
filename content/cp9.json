@@ -1253,5 +1253,8 @@
       ]
     }
   ],
-  "quiz": []
+  "quiz": [],
+  "group": "Compétences Professionnelles",
+  "icon": "🔄",
+  "desc": "Assurer la continuité et la reprise de l'infrastructure."
 }

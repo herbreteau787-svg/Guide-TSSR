@@ -2276,5 +2276,8 @@
       ]
     }
   ],
-  "quiz": []
+  "quiz": [],
+  "group": "Compétences Professionnelles",
+  "icon": "🖥️",
+  "desc": "Installer et assurer l'exploitation de serveurs Windows et Linux."
 }

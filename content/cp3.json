@@ -295,5 +295,8 @@
       ]
     }
   ],
-  "quiz": []
+  "quiz": [],
+  "group": "Compétences Professionnelles",
+  "icon": "🛠️",
+  "desc": "Apporter une assistance technique."
 }
