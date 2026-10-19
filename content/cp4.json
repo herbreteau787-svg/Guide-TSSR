@@ -1719,7 +1719,7 @@
       "t": "ACL",
       "level": "intermediaire",
       "cli": true,
-      "r": "Les ACL filtrent le trafic.",
+      "r": "Les ACL filtrent le trafic réseau selon des critères et sont la base de la sécurité réseau.",
       "tags": [
         "cp4",
         "acl"
@@ -1731,71 +1731,135 @@
         "Oubli de vérification"
       ],
       "w": "Le test seul ne prouve pas la cause.",
-      "resume": "Les ACL filtrent le trafic.",
+      "resume": "ACL : standard/étendue, implicit deny, placement, masque wildcard.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "Les ACL filtrent le trafic."
+          "body": "Les ACL (Access Control Lists) sont des filtres qui contrôlent le trafic réseau selon des critères (adresses, protocoles, ports). Elles sont fondamentales pour la sécurité réseau. Pour un candidat TSSR, maîtriser les ACL est essentiel car elles sont au cœur des mises en situation et des questions du jury.  Les ACL (Access Control Lists) sont des filtres qui contrôlent le trafic réseau selon des critères (adresses, protocoles, ports). Elles sont fondamentales pour la sécurité réseau. Pour un candidat TSSR, maîtriser les ACL est essentiel car elles sont au cœur des mises en situation et des questions du jury. Les ACL sont omniprésentes en entreprise.  Les ACL (Access Control Lists) sont des filtres qui contrôlent le trafic réseau selon des critères (adresses, protocoles, ports). Elles sont fondamentales pour la sécurité réseau. Pour un candidat TSSR, maîtriser les ACL est essentiel car elles sont au cœur des mises en situation et des questions du jury. Les ACL sont omniprésentes en entreprise."
         },
         {
-          "title": "Définitions",
-          "body": "Les ACL filtrent le trafic."
+          "title": "Définition d'une ACL",
+          "body": "Une ACL est une liste ordonnée de règles (permit/deny). Chaque règle est évaluée séquentiellement. La première règle qui correspond s'applique. S'il n'y a pas de correspondance, l'implicit deny bloque tout. Les ACL peuvent être standard (source uniquement) ou étendues (source, destination, protocole, port).  Une ACL est une liste ordonnée de règles (permit/deny). Chaque règle est évaluée séquentiellement. La première règle qui correspond s'applique. S'il n'y a pas de correspondance, l'implicit deny bloque tout. Les ACL peuvent être standard (source uniquement) ou étendues (source, destination, protocole, port)."
         },
         {
-          "title": "Théorie détaillée",
-          "body": "Les ACL filtrent le trafic. Fonctionnement interne et concepts."
+          "title": "Pourquoi les ACL existent",
+          "body": "Les ACL existent pour contrôler l'accès réseau, segmenter le trafic, protéger les ressources et appliquer la politique de sécurité. Elles sont la base du filtrage réseau. Sans ACL, tout trafic est autorisé.  Les ACL existent pour contrôler l'accès réseau, segmenter le trafic, protéger les ressources et appliquer la politique de sécurité. Elles sont la base du filtrage réseau. Sans ACL, tout trafic est autorisé."
         },
         {
-          "title": "Fonctionnement interne",
-          "body": "Les ACL filtrent le trafic."
+          "title": "Contrôle d'accès réseau",
+          "body": "Le contrôle d'accès réseau consiste à autoriser ou refuser le trafic selon des critères. Les ACL sont le mécanisme de base. Elles s'appliquent sur les interfaces (inbound/outbound) ou sur les lignes VTY.  Le contrôle d'accès réseau consiste à autoriser ou refuser le trafic selon des critères. Les ACL sont le mécanisme de base. Elles s'appliquent sur les interfaces (inbound/outbound) ou sur les lignes VTY. Le contrôle d'accès est la base de la sécurité réseau."
         },
         {
-          "title": "Architecture",
-          "body": "Les ACL filtrent le trafic."
+          "title": "Fonctionnement d'une ACL",
+          "body": "Une ACL est évaluée séquentiellement. Chaque paquet est comparé à chaque règle dans l'ordre. La première règle qui correspond s'applique. Si aucune règle ne correspond, l'implicit deny bloque le paquet. L'ordre des règles est donc critique.  Une ACL est évaluée séquentiellement. Chaque paquet est comparé à chaque règle dans l'ordre. La première règle qui correspond s'applique. Si aucune règle ne correspond, l'implicit deny bloque le paquet. L'ordre des règles est donc critique. Une règle large doit être placée après une règle spécifique."
+        },
+        {
+          "title": "ACL standard",
+          "body": "Les ACL standard filtrent uniquement sur l'adresse source. Elles sont simples mais peu précises. Elles se placent près de la destination. Numéros : 1-99, 1300-1999.  Les ACL standard filtrent uniquement sur l'adresse source. Elles sont simples mais peu précises. Elles se placent près de la destination. Numéros : 1-99, 1300-1999. Elles sont historiques mais encore utilisées."
+        },
+        {
+          "title": "ACL étendue",
+          "body": "Les ACL étendues filtrent sur la source, la destination, le protocole et les ports. Elles sont précises. Elles se placent près de la source. Numéros : 100-199, 2000-2699.  Les ACL étendues filtrent sur la source, la destination, le protocole et les ports. Elles sont précises. Elles se placent près de la source. Numéros : 100-199, 2000-2699. Elles sont recommandées."
+        },
+        {
+          "title": "Numérotation des ACL",
+          "body": "Les ACL sont numérotées (1-199, 1300-2699) ou nommées. Les ACL nommées sont plus lisibles et permettent l'édition ligne par ligne. Les ACL numérotées sont historiques."
+        },
+        {
+          "title": "ACL nommées",
+          "body": "Les ACL nommées utilisent un nom au lieu d'un numéro. Elles permettent l'édition ligne par ligne (permit/deny avec sequence number). Elles sont recommandées en production."
+        },
+        {
+          "title": "ACL IPv4",
+          "body": "Les ACL IPv4 utilisent la syntaxe standard/étendue avec masques wildcard. Les adresses sont en décimal pointé. Les protocoles sont tcp, udp, icmp, ip. Les ports sont par nom ou numéro."
+        },
+        {
+          "title": "ACL IPv6",
+          "body": "Les ACL IPv6 utilisent une syntaxe différente. Elles filtrent sur les adresses IPv6. Elles sont nommées par défaut. La syntaxe est plus verbeuse mais similaire."
+        },
+        {
+          "title": "Traitement séquentiel",
+          "body": "Les règles sont évaluées dans l'ordre. La première correspondance s'applique. L'ordre est donc critique. Une règle large doit être placée après une règle spécifique.  Les règles sont évaluées dans l'ordre. La première correspondance s'applique. L'ordre est donc critique. Une règle large doit être placée après une règle spécifique. Le traitement séquentiel est la base du filtrage."
+        },
+        {
+          "title": "Implicit Deny",
+          "body": "L'implicit deny est la règle invisible à la fin de toute ACL. Si aucune règle ne correspond, le paquet est bloqué. C'est une sécurité par défaut. Il faut toujours ajouter un permit si nécessaire.  L'implicit deny est la règle invisible à la fin de toute ACL. Si aucune règle ne correspond, le paquet est bloqué. C'est une sécurité par défaut. Il faut toujours ajouter un permit si nécessaire. L'implicit deny protège par défaut."
+        },
+        {
+          "title": "Sens de lecture des ACL",
+          "body": "Le sens de lecture (inbound/outbound) détermine quand l'ACL est appliquée. Inbound : trafic entrant sur l'interface. Outbound : trafic sortant. Le choix du sens affecte la sécurité et la performance.  Le sens de lecture (inbound/outbound) détermine quand l'ACL est appliquée. Inbound : trafic entrant sur l'interface. Outbound : trafic sortant. Le choix du sens affecte la sécurité et la performance. Le sens doit être cohérent avec le flux."
+        },
+        {
+          "title": "Placement des ACL",
+          "body": "Les ACL standard se placent près de la destination (pour ne pas bloquer le trafic inutilement). Les ACL étendues se placent près de la source (pour filtrer tôt). Le placement est une décision de design.  Les ACL standard se placent près de la destination (pour ne pas bloquer le trafic inutilement). Les ACL étendues se placent près de la source (pour filtrer tôt). Le placement est une décision de design. Un mauvais placement peut bloquer du trafic légitime.  Les ACL standard se placent près de la destination (pour ne pas bloquer le trafic inutilement). Les ACL étendues se placent près de la source (pour filtrer tôt). Le placement est une décision de design. Un mauvais placement peut bloquer du trafic légitime."
+        },
+        {
+          "title": "ACL et sécurité",
+          "body": "Les ACL améliorent la sécurité en filtrant le trafic. Elles protègent les ressources, segmentent le réseau et contrôlent l'accès. Elles doivent être combinées avec un firewall pour une sécurité complète.  Les ACL améliorent la sécurité en filtrant le trafic. Elles protègent les ressources, segmentent le réseau et contrôlent l'accès. Elles doivent être combinées avec un firewall pour une sécurité complète."
+        },
+        {
+          "title": "ACL et filtrage Internet",
+          "body": "Le filtrage Internet utilise des ACL pour bloquer ou autoriser des sites, des protocoles ou des adresses. Les ACL peuvent filtrer par URL, par IP, par port. Elles sont la base du contrôle d'accès Internet.  Le filtrage Internet utilise des ACL pour bloquer ou autoriser des sites, des protocoles ou des adresses. Les ACL peuvent filtrer par URL, par IP, par port. Elles sont la base du contrôle d'accès Internet."
+        },
+        {
+          "title": "ACL et VLAN",
+          "body": "Les ACL peuvent filtrer le trafic entre VLAN. Elles sont appliquées sur les sous-interfaces du routeur ou sur les ports du switch (port ACL). Elles permettent de segmenter les VLAN.  Les ACL peuvent filtrer le trafic entre VLAN. Elles sont appliquées sur les sous-interfaces du routeur ou sur les ports du switch (port ACL). Elles permettent de segmenter les VLAN."
+        },
+        {
+          "title": "ACL et routage",
+          "body": "Les ACL sont utilisées dans le routage (route filtering), le NAT (ACL pour les réseaux à traduire) et le QoS (classification). Elles sont polyvalentes.  Les ACL sont utilisées dans le routage (route filtering), le NAT (ACL pour les réseaux à traduire) et le QoS (classification). Elles sont polyvalentes."
+        },
+        {
+          "title": "Cas concret PME",
+          "body": "Scénario PME : bloquer l'accès SSH depuis le VLAN invités. Créer une ACL étendue deny tcp VLAN invités any eq 22, puis permit ip any any. Appliquer inbound sur l'interface du VLAN invités.  Scénario PME : bloquer l'accès SSH depuis le VLAN invités. Créer une ACL étendue deny tcp VLAN invités any eq 22, puis permit ip any any. Appliquer inbound sur l'interface du VLAN invités."
+        },
+        {
+          "title": "Cas concret école",
+          "body": "Scénario école : séparer la comptabilité des autres services. ACL étendue deny ip VLAN compta VLAN autres, permit ip any any.  Scénario école : séparer la comptabilité des autres services. ACL étendue deny ip VLAN compta VLAN autres, permit ip any any."
+        },
+        {
+          "title": "Cas concret entreprise multi-sites",
+          "body": "Scénario entreprise multi-sites : filtrage Internet. ACL étendue pour bloquer les sites non autorisés, permit pour le reste.  Scénario entreprise multi-sites : filtrage Internet. ACL étendue pour bloquer les sites non autorisés, permit pour le reste."
         },
         {
           "title": "Cas concret entreprise",
-          "body": "Les ACL filtrent le trafic. Cas pratique."
+          "body": "Cas concret : un service est bloqué. Vérifier la règle, la direction, le port, le masque wildcard. L'ordre des règles est critique. L'implicit deny peut bloquer si la règle permit est absente.  Cas concret : un service est bloqué. Vérifier la règle, la direction, le port, le masque wildcard. L'ordre des règles est critique. L'implicit deny peut bloquer si la règle permit est absente."
         },
         {
-          "title": "Procédure pas à pas",
-          "body": "1. Vérifier. 2. Configurer. 3. Tester."
-        },
-        {
-          "title": "Dépannage",
-          "body": "Les ACL filtrent le trafic. Dépannage."
-        },
-        {
-          "title": "Commandes CLI",
-          "body": "Commandes usuelles."
+          "title": "Configuration Cisco IOS",
+          "body": "1. Identifier le flux à filtrer (source, destination, protocole, port). 2. Créer l'ACL (standard ou étendue). 3. Ajouter les règles (permit/deny). 4. Appliquer l'ACL sur l'interface (inbound/outbound). 5. Vérifier avec show access-lists. 6. Tester le trafic. Configuration Cisco IOS :\n\naccess-list 10 permit 192.168.1.0 0.0.0.255\naccess-list 10 deny any\n\nip access-list extended LAN-FILTER\n permit tcp 192.168.10.0 0.0.0.255 any eq 443\n deny tcp 192.168.10.0 0.0.0.255 any eq 22\n permit ip any any\n\ninterface gi0/0\n ip access-group LAN-FILTER in\n\nCommandes de vérification :\nshow access-lists\nshow running-config\nshow ip interface\nshow ip protocols\n\nExplication :\naccess-list 10 crée une ACL standard.\nip access-list extended crée une ACL étendue nommée.\npermit/deny définissent les règles.\nip access-group applique l'ACL sur l'interface.\nshow access-lists affiche les règles et les hits.\nshow running-config affiche la configuration.\nshow ip interface affiche les ACL appliquées."
         },
         {
           "title": "Vérification",
-          "body": "Vérifier la configuration."
+          "body": "show access-lists doit afficher les règles et les compteurs de hits. Le trafic autorisé doit passer, le trafic refusé doit être bloqué. Un test de ping ou de connexion valide la configuration."
+        },
+        {
+          "title": "Dépannage",
+          "body": "Trafic bloqué : vérifier la règle, la direction, le port. ACL dans le mauvais sens : inverser inbound/outbound. Règle dans le mauvais ordre : réorganiser. Oubli du permit : ajouter la règle. Masque wildcard incorrect : corriger. ACL appliquée sur la mauvaise interface : déplacer.  Trafic bloqué : vérifier la règle, la direction, le port. ACL dans le mauvais sens : inverser inbound/outbound. Règle dans le mauvais ordre : réorganiser. Oubli du permit : ajouter la règle. Masque wildcard incorrect : corriger. ACL appliquée sur la mauvaise interface : déplacer.  Trafic bloqué : vérifier la règle, la direction, le port. ACL dans le mauvais sens : inverser inbound/outbound. Règle dans le mauvais ordre : réorganiser. Oubli du permit : ajouter la règle. Masque wildcard incorrect : corriger. ACL appliquée sur la mauvaise interface : déplacer."
         },
         {
           "title": "Questions de jury",
-          "body": "Questions typiques."
+          "body": "Expliquer les ACL. Qu'est-ce qu'une ACL standard ? Qu'est-ce qu'une ACL étendue ? Qu'est-ce que l'implicit deny ? Où placer une ACL standard ? Où placer une ACL étendue ? Qu'est-ce qu'un masque wildcard ?"
         },
         {
           "title": "Pièges d'examen",
-          "body": "Pièges fréquents."
+          "body": "Confondre standard et étendue. Oublier l'implicit deny. Placer l'ACL au mauvais endroit. Oublier le permit final. Masque wildcard incorrect. Sens inbound/outbound inversé. Oublier de tester."
         },
         {
           "title": "Bonnes pratiques",
-          "body": "Bonnes pratiques."
+          "body": "Documenter les ACL. Utiliser des ACL nommées. Placer les ACL au bon endroit. Tester après configuration. Utiliser le moindre privilège. Vérifier les compteurs de hits."
         },
         {
           "title": "Mémo révision",
-          "body": "Les ACL filtrent le trafic."
+          "body": "ACL = liste de règles permit/deny. Standard = source uniquement (1-99). Étendue = source/destination/protocole/port (100-199). Implicit deny = refus par défaut. Placement : standard près de la destination, étendue près de la source.  ACL = liste de règles permit/deny. Standard = source uniquement (1-99). Étendue = source/destination/protocole/port (100-199). Implicit deny = refus par défaut. Placement : standard près de la destination, étendue près de la source. Masque wildcard. Traitement séquentiel."
         },
         {
-          "title": "Schéma Mermaid",
-          "body": "graph TD; A-->B;"
+          "title": "Schémas Mermaid",
+          "body": "graph TD; ACL-->Permit; ACL-->Deny; ACL-->ImplicitDeny;"
         },
         {
           "title": "Sources de référence",
-          "body": "Documentation officielle."
+          "body": "Cisco IOS, Cisco Networking Academy, documentation officielle."
         }
       ]
     },
