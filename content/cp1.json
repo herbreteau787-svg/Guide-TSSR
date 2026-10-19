@@ -677,7 +677,405 @@
       ]
     }
   ],
-  "quiz": [],
+  "quiz": [
+    {
+      "id": "cp1-qcm-01",
+      "fiche": "cp1-essentiel",
+      "section": "cp1",
+      "difficulty": "examen",
+      "q": "Quel resultat professionnel attendu du support utilisateur TSSR ?",
+      "choices": [
+        "Resoudre seul sans tracer",
+        " Servir l'utilisateur et tracer le ticket"
+      ],
+      "answer": 1,
+      "explain": "Objectif du support : accueillir, diagnostiquer, tracer et valider."
+    },
+    {
+      "id": "cp1-qcm-02",
+      "fiche": "cp1-essentiel",
+      "section": "cp1",
+      "difficulty": "moyen",
+      "q": "Qu est ce qu un incident ?",
+      "choices": [
+        "Un besoin prevu",
+        "Un service degrade a retablir vite",
+        "Une cause racine encore inconnue",
+        "Un changement approuve"
+      ],
+      "answer": 1,
+      "explain": "Incident = interruption ou degradation de service a retablir au plus vite."
+    },
+    {
+      "id": "cp1-qcm-03",
+      "fiche": "cp1-essentiel",
+      "section": "cp1",
+      "difficulty": "moyen",
+      "q": "Quel symptome oriente vers un probleme DHCP ?",
+      "choices": [
+        "IP 169.254.x.x",
+        "Nom resolu mais HTTP refuse",
+        "Ping passerelle OK",
+        "DNS absent seulement"
+      ],
+      "answer": 0,
+      "explain": "169.254.x.x (APIPA) indique pas de reponse DHCP."
+    },
+    {
+      "id": "cp1-qcm-04",
+      "fiche": "cp1-essentiel",
+      "section": "cp1",
+      "difficulty": "moyen",
+      "q": "Teams se lance mais n echoue pas en web : premier reflexe ?",
+      "choices": [
+        "Supprimer tout le profil Windows",
+        " Vider le cache Teams et tester en web"
+      ],
+      "answer": 1,
+      "explain": "Vider le cache Teams et comparer client/web sans reinstall."
+    },
+    {
+      "id": "cp1-qcm-05",
+      "fiche": "cp1-essentiel",
+      "section": "cp1",
+      "difficulty": "debutant",
+      "q": "Un utilisateur ne recoit pas les appels Teams : que verifier en plus du reseau ?",
+      "choices": [
+        "Les licences et l affectation modele/tel",
+        " Uniquement le cable reseau"
+      ],
+      "answer": 0,
+      "explain": "Licences, telephonie et profil M365 a verifier cote collaboration."
+    },
+    {
+      "id": "cp1-qcm-06",
+      "fiche": "cp1-essentiel",
+      "section": "cp1",
+      "difficulty": "moyen",
+      "q": "Un telephone IP sans tonalite : premier controle ?",
+      "choices": [
+        "Alimentation PoE, boot, enregistrement",
+        " Remplacer le telephone immediatement"
+      ],
+      "answer": 0,
+      "explain": "PoE, boot et enregistrement avant remplacement materiel."
+    },
+    {
+      "id": "cp1-qcm-07",
+      "fiche": "cp1-essentiel",
+      "section": "cp1",
+      "difficulty": "moyen",
+      "q": "Comment anonymiser des donnees pour l IA ?",
+      "choices": [
+        "Supprimer donnees personnelles et identifiants",
+        " Ajouter plus d historique utilisateur"
+      ],
+      "answer": 0,
+      "explain": "Supprimer donnees personnelles et identifiants avant prompt."
+    },
+    {
+      "id": "cp1-qcm-08",
+      "fiche": "cp1-essentiel",
+      "section": "cp1",
+      "difficulty": "debutant",
+      "q": " apres une action via GUI, que faire ?",
+      "choices": [
+        "Rien, car l interface suffit",
+        " Documenter le resultat et prouver"
+      ],
+      "answer": 1,
+      "explain": "Documenter le resultat pour la tracabilite."
+    },
+    {
+      "id": "cp1-qcm-09",
+      "fiche": "cp1-essentiel",
+      "section": "cp1",
+      "difficulty": "moyen",
+      "q": "Que prouve Test-NetConnection ... -Port 443 ?",
+      "choices": [
+        "Port distant accessible",
+        " Authentification applicative reussie"
+      ],
+      "answer": 0,
+      "explain": "Port joignable, pas authentification applicative."
+    },
+    {
+      "id": "cp1-qcm-10",
+      "fiche": "cp1-essentiel",
+      "section": "cp1",
+      "difficulty": "debutant",
+      "q": "Une ping OK par IP mais KO par nom indique quoi ?",
+      "choices": [
+        "DNS defectueux",
+        " Cable debranche"
+      ],
+      "answer": 0,
+      "explain": "DNS defectueux, a verifier avec Resolve-DnsName."
+    },
+    {
+      "id": "cp1-qcm-11",
+      "fiche": "cp1-essentiel",
+      "section": "cp1",
+      "difficulty": "moyen",
+      "q": "Que doit contenir un ticket bien clos ?",
+      "choices": [
+        "Symptome, cause, action et preuve",
+        "Uniquement le numero"
+      ],
+      "answer": 0,
+      "explain": "Symptome, cause, action et preuve dans le ticket."
+    },
+    {
+      "id": "cp1-qcm-12",
+      "fiche": "cp1-essentiel",
+      "section": "cp1",
+      "difficulty": "debutant",
+      "q": "En entonnoir, quelle couche verifier d abord ?",
+      "choices": [
+        "Physique/cable",
+        " Application"
+      ],
+      "answer": 0,
+      "explain": "Physique d abord, sans sauter d etapes."
+    },
+    {
+      "id": "cp1-qcm-13",
+      "fiche": "cp1-essentiel",
+      "section": "cp1",
+      "difficulty": "moyen",
+      "q": "Qu est ce qu un bon ticket d incident ?",
+      "choices": [
+        "Service coupe a retablir rapidement",
+        " Un besoin prevu",
+        " Une cause racine definitive"
+      ],
+      "answer": 0,
+      "explain": "Incident = service coupe a retablir rapidement."
+    },
+    {
+      "id": "cp1-qcm-14",
+      "fiche": "cp1-essentiel",
+      "section": "cp1",
+      "difficulty": "debutant",
+      "q": "Premier reflexe dans l entretien avec l utilisateur ?",
+      "choices": [
+        "Ecouter et clarifier les symptomes",
+        " Accuser le materiel"
+      ],
+      "answer": 0,
+      "explain": "Ecoute active et clarification des symptomes."
+    },
+    {
+      "id": "cp1-qcm-15",
+      "fiche": "cp1-essentiel",
+      "section": "cp1",
+      "difficulty": "moyen",
+      "q": "Impression echouee : quel premier controle ?",
+      "choices": [
+        "Imprimante par defaut et file d attente",
+        " Reinstallation complete"
+      ],
+      "answer": 0,
+      "explain": "Verifier l imprimante par defaut et la file d attente."
+    },
+    {
+      "id": "cp1-qcm-16",
+      "fiche": "cp1-essentiel",
+      "section": "cp1",
+      "difficulty": "moyen",
+      "q": "Profil Outlook errorne : premier reflexe ?",
+      "choices": [
+        "Controler profil et cache",
+        " Supprimer compte sans sauvegarde"
+      ],
+      "answer": 0,
+      "explain": "Controler le profil et le cache avec sauvegarde."
+    },
+    {
+      "id": "cp1-qcm-17",
+      "fiche": "cp1-essentiel",
+      "section": "cp1",
+      "difficulty": "moyen",
+      "q": "Quel evenement confirme ou non le VPN ?",
+      "choices": [
+        "Le port distant repond et la resolution marche",
+        " Le poste s allume"
+      ],
+      "answer": 0,
+      "explain": "Verifier port distant et DNS avant portail."
+    },
+    {
+      "id": "cp1-qcm-18",
+      "fiche": "cp1-essentiel",
+      "section": "cp1",
+      "difficulty": "moyen",
+      "q": "Quand escalader ?",
+      "choices": [
+        "Quand PC1 n a pas la competence ou l autorite",
+        " Quand l utilisateur est contrarie"
+      ],
+      "answer": 0,
+      "explain": "Escalader selon competence et autorite, pas emotion."
+    },
+    {
+      "id": "cp1-qcm-19",
+      "fiche": "cp1-essentiel",
+      "section": "cp1",
+      "difficulty": "moyen",
+      "q": "Quelle commande verifie l etat Defender ?",
+      "choices": [
+        "Get-MpComputerStatus",
+        " net user",
+        " Test-NetConnection 8.8.8.8",
+        " ipconfig /all"
+      ],
+      "answer": 0,
+      "explain": "Get-MpComputerStatus verifie Defender."
+    },
+    {
+      "id": "cp1-qcm-20",
+      "fiche": "cp1-essentiel",
+      "section": "cp1",
+      "difficulty": "debutant",
+      "q": "Quel geste renforce l hygiene poste ?",
+      "choices": [
+        "Activer BitLocker et patchs automatiques",
+        " Desactiver les maj"
+      ],
+      "answer": 0,
+      "explain": "BitLocker et mises a jour automatiques pour l hygiene."
+    },
+    {
+      "id": "cp1-qcm-21",
+      "fiche": "cp1-essentiel",
+      "section": "cp1",
+      "difficulty": "debutant",
+      "q": "Quel prerequis de securite basique sur le poste ?",
+      "choices": [
+        "Patchs, moindre privilege, pare-feu hote",
+        " Navigateur par defaut seul"
+      ],
+      "answer": 0,
+      "explain": "Patchs, moindre privilege et pare-feu hote pour posture de base."
+    },
+    {
+      "id": "cp1-qcm-22",
+      "fiche": "cp1-essentiel",
+      "section": "cp1",
+      "difficulty": "moyen",
+      "q": "La priorite est generalement calculee selon ?",
+      "choices": [
+        "Impact x Urgence",
+        " Le nom du manager"
+      ],
+      "answer": 0,
+      "explain": "Priorite = Impact et Urgence combinees."
+    },
+    {
+      "id": "cp1-qcm-23",
+      "fiche": "cp1-essentiel",
+      "section": "cp1",
+      "difficulty": "moyen",
+      "q": "Avant de reinitialiser un mot de passe AD, que verifier ?",
+      "choices": [
+        "L identite du demandeur et la politique",
+        " Le bureau seul"
+      ],
+      "answer": 0,
+      "explain": "Verifier l identite et la politique de reinitialisation."
+    },
+    {
+      "id": "cp1-qcm-24",
+      "fiche": "cp1-essentiel",
+      "section": "cp1",
+      "difficulty": "moyen",
+      "q": "Quel journal donnera la trace d un refus d acces ?",
+      "choices": [
+        "Securite",
+        " Application"
+      ],
+      "answer": 0,
+      "explain": "Le journal Securite trace l echec d acces et la connexion."
+    },
+    {
+      "id": "cp1-qcm-25",
+      "fiche": "cp1-essentiel",
+      "section": "cp1",
+      "difficulty": "moyen",
+      "q": "Comment risque-t-on en prod sur WSUS ?",
+      "choices": [
+        "Sans anneaux de test",
+        " En testant toujours d abord"
+      ],
+      "answer": 0,
+      "explain": "Deployer sans anneaux de test risque une panne massive."
+    },
+    {
+      "id": "cp1-qcm-26",
+      "fiche": "cp1-essentiel",
+      "section": "cp1",
+      "difficulty": "debutant",
+      "q": "Un bon outil de support sert a ?",
+      "choices": [
+        "Structurer diagnostic et communication",
+        " Éviter de documenter"
+      ],
+      "answer": 0,
+      "explain": "Structurer diagnostic, communication et trajectoire."
+    },
+    {
+      "id": "cp1-qcm-27",
+      "fiche": "cp1-essentiel",
+      "section": "cp1",
+      "difficulty": "moyen",
+      "q": "Une IP 169.254.x.x indique quoi ?",
+      "choices": [
+        "DHCP KO (APIPA)",
+        " Câble debranche"
+      ],
+      "answer": 0,
+      "explain": "APIPA indique pas de reponse DHCP, voir ipconfig."
+    },
+    {
+      "id": "cp1-qcm-28",
+      "fiche": "cp1-essentiel",
+      "section": "cp1",
+      "difficulty": "debutant",
+      "q": "L IA decorre les procedures : quelle precaution ?",
+      "choices": [
+        "La verifier et conserver la responsabilite",
+        " Publier sans relecture"
+      ],
+      "answer": 0,
+      "explain": "L IA assiste, l humain reste responsable."
+    },
+    {
+      "id": "cp1-qcm-29",
+      "fiche": "cp1-essentiel",
+      "section": "cp1",
+      "difficulty": "moyen",
+      "q": "Un telephone IP sans VLAN voie configure quoi ?",
+      "choices": [
+        "Souvent pas d enregistrement",
+        " Sonnerie impossible seulement"
+      ],
+      "answer": 0,
+      "explain": "Le telephone peut ne pas s enregistrer sans VLAN voix."
+    },
+    {
+      "id": "cp1-qcm-30",
+      "fiche": "cp1-essentiel",
+      "section": "cp1",
+      "difficulty": "moyen",
+      "q": "Injection de prompt : premier mecanisme de defense ?",
+      "choices": [
+        "Ne jamais executer les instructions cachees",
+        " Donner plus de contexte sensible"
+      ],
+      "answer": 0,
+      "explain": "Ne pas executer les instructions cachees issues de la donnee."
+    }
+  ],
   "group": "Compétences Professionnelles",
   "icon": "🤖",
   "desc": "Exploiter l'intelligence artificielle et encadrer son usage."

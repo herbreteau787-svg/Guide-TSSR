@@ -541,7 +541,472 @@
       ]
     }
   ],
-  "quiz": [],
+  "quiz": [
+    {
+      "id": "cp2-qcm-01",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "debutant",
+      "q": "Que vise le deploiement CP2 ?",
+      "choices": [
+        "Industrialiser et standardiser le parc",
+        " Reinstaller a la main chaque poste"
+      ],
+      "answer": 0,
+      "explain": "Industrialiser le parc avec image, AD et GPO."
+    },
+    {
+      "id": "cp2-qcm-02",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Quelle commande installe AD DS ?",
+      "choices": [
+        "Install-WindowsFeature AD-Domain-Services -IncludeManagementTools",
+        "Install-ADDSForest",
+        "Import-Module ActiveDirectory",
+        "New-ADUser"
+      ],
+      "answer": 0,
+      "explain": "Installe le role AD DS et outils de gestion."
+    },
+    {
+      "id": "cp2-qcm-03",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Quel type d adresse IP pour le premier DC ?",
+      "choices": [
+        "IP fixe",
+        "DHCP sans exclusion"
+      ],
+      "answer": 0,
+      "explain": "Le premier DC utilise une IP fixe."
+    },
+    {
+      "id": "cp2-qcm-04",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Avant la jonction AD, que verifier ?",
+      "choices": [
+        "Le DNS pointe vers le DC et l horloge est syncrone",
+        " Seulement l espace disque"
+      ],
+      "answer": 0,
+      "explain": "DNS vers DC et horloge pour la jonction."
+    },
+    {
+      "id": "cp2-qcm-05",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Qu est ce qu une OU ?",
+      "choices": [
+        "Un conteneur pour objets et GPO",
+        " Un groupe avec permissions"
+      ],
+      "answer": 0,
+      "explain": "OU = conteneur pour structurer et appliquer les GPO."
+    },
+    {
+      "id": "cp2-qcm-06",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Quelle commande cree un utilisateur AD ?",
+      "choices": [
+        "New-ADUser",
+        " Get-ADUser",
+        " Add-ADGroupMember",
+        " Set-ADAccountPassword"
+      ],
+      "answer": 0,
+      "explain": "New-ADUser cree le compte AD."
+    },
+    {
+      "id": "cp2-qcm-07",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Quelle commande lie une GPO a une OU ?",
+      "choices": [
+        "New-GPLink",
+        " New-GPO",
+        " Set-GPRegistryValue",
+        " gpupdate"
+      ],
+      "answer": 0,
+      "explain": "New-GPLink associe la GPO a l OU."
+    },
+    {
+      "id": "cp2-qcm-08",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Quel type d enregistrement donne le DC a un poste pour jouer sa fonction ?",
+      "choices": [
+        "SRV",
+        " A",
+        " PTR",
+        " CNAME"
+      ],
+      "answer": 0,
+      "explain": "Les enregistrements SRV permettent de localiser le DC."
+    },
+    {
+      "id": "cp2-qcm-09",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Quel port AD valide que le DC est accessible ?",
+      "choices": [
+        "389 LDAP",
+        " 443 HTTPS",
+        " 3389 RDP",
+        " 139 SMB"
+      ],
+      "answer": 0,
+      "explain": "Test-NetConnection port 389 prouve la joignabilite LDAP, pas l authentification."
+    },
+    {
+      "id": "cp2-qcm-10",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Quelle commande cree un partage SMB ?",
+      "choices": [
+        "New-SmbShare",
+        " New-Item -ItemType Directory",
+        " icacls",
+        " Set-Acl"
+      ],
+      "answer": 0,
+      "explain": "New-SmbShare cree le partage SMB."
+    },
+    {
+      "id": "cp2-qcm-11",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Comment mapper un lecteur simple au demarrage ?",
+      "choices": [
+        "GPO DriveMaps ou net use",
+        " Desinstaller DNS"
+      ],
+      "answer": 0,
+      "explain": "GPO DriveMaps ou net use pour mapper le lecteur."
+    },
+    {
+      "id": "cp2-qcm-12",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Quel outil impose des quotas et l examen des fichiers ?",
+      "choices": [
+        "FSRM",
+        " Search-ADAccount"
+      ],
+      "answer": 0,
+      "explain": "FSRM gere quotas et filtrage de fichiers."
+    },
+    {
+      "id": "cp2-qcm-13",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Quelle commande cree une tache planifiee generique ?",
+      "choices": [
+        "schtasks /Create ...",
+        " Test-NetConnection 127.0.0.1 -Port 80"
+      ],
+      "answer": 0,
+      "explain": "schtasks /Create est generique (a verifier selon la version Windows)."
+    },
+    {
+      "id": "cp2-qcm-14",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Quel evenement indique une connexion reussie ?",
+      "choices": [
+        "4624",
+        " 4625",
+        " 4688",
+        " 4634"
+      ],
+      "answer": 0,
+      "explain": "4624 indique une connexion reussie."
+    },
+    {
+      "id": "cp2-qcm-15",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "gpresult /R sert a ?",
+      "choices": [
+        "Voir les GPO appliquees",
+        " Defragmenter",
+        " Creer une OU",
+        " Promouvoir le DC"
+      ],
+      "answer": 0,
+      "explain": "gpresult /R affiche les GPO appliquees."
+    },
+    {
+      "id": "cp2-qcm-16",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "debutant",
+      "q": "Pourquoi NTFS l emporte sur le partage ?",
+      "choices": [
+        "La plus restrictive gagne",
+        " La plus large gagne"
+      ],
+      "answer": 0,
+      "explain": "La permission la plus restrictive entre partage et NTFS l emporte."
+    },
+    {
+      "id": "cp2-qcm-17",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "examen",
+      "q": "Un test restreint montre l echec d acces : avec quoi ?",
+      "choices": [
+        "Compte non autorise et journal Securite",
+        " Administrateur local"
+      ],
+      "answer": 0,
+      "explain": "Tester avec un compte non autorise et consulter le journal."
+    },
+    {
+      "id": "cp2-qcm-18",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Avant migration AD, quoi faire d abord ?",
+      "choices": [
+        "Sauvegarde et restauration testee",
+        " Supprimer l ancien compte ordinateur sans backup"
+      ],
+      "answer": 0,
+      "explain": "Sauvegarde et restauration testee avant modification."
+    },
+    {
+      "id": "cp2-qcm-19",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Comment tester un patch serveur ?",
+      "choices": [
+        " Anneau pilote puis validation",
+        " Installation sans test en production"
+      ],
+      "answer": 0,
+      "explain": "Anneaux pilotes et validation avant prod."
+    },
+    {
+      "id": "cp2-qcm-20",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Quel durcissement serveur premier ?",
+      "choices": [
+        "Desactiver services inutiles et patchs",
+        " Ouvrir RDP admin pour tous"
+      ],
+      "answer": 0,
+      "explain": "Desactiver services inutiles et maintenir les patchs."
+    },
+    {
+      "id": "cp2-qcm-21",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Pourquoi superviser un DC ?",
+      "choices": [
+        "Prevenir saturation et incident",
+        " Uniquement pour le rapport mensuel"
+      ],
+      "answer": 0,
+      "explain": "Supervision proactive pour eviter l incident."
+    },
+    {
+      "id": "cp2-qcm-22",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Que comporte la promotion d un DC ?",
+      "choices": [
+        "IP fixe, DNS, AD DS, redemarrage, test SYSVOL",
+        "Installation a la main"
+      ],
+      "answer": 0,
+      "explain": "Promotion avec IP fixe DNS AD DS, redemarrage, test SYSVOL."
+    },
+    {
+      "id": "cp2-qcm-23",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "debutant",
+      "q": "Quel role FSMO gere le temps et les erreurs de mots de passe ?",
+      "choices": [
+        "PDC Emulator",
+        " Infrastructure",
+        " RID",
+        " Schema"
+      ],
+      "answer": 0,
+      "explain": "PDC Emulator gere temps et mots de passe."
+    },
+    {
+      "id": "cp2-qcm-24",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Dans AGDLP, quel groupe reçoit la permission NTFS ?",
+      "choices": [
+        "Groupe Domain Local",
+        " Groupe Global"
+      ],
+      "answer": 0,
+      "explain": "AGDLP met les permissions sur le Domain Local."
+    },
+    {
+      "id": "cp2-qcm-25",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Quel enregistrement DNS permet au poste de trouver le DC ?",
+      "choices": [
+        "SRV",
+        " TXT",
+        " CNAME",
+        " MX"
+      ],
+      "answer": 0,
+      "explain": "SRV localise le DC.",
+      "fiche": "cp2-essentiel"
+    },
+    {
+      "id": "cp2-qcm-26",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Quel intervalle intra site est typique pour la replique AD ?",
+      "choices": [
+        "Toutes les 15 secondes",
+        " Toutes les heures"
+      ],
+      "answer": 0,
+      "explain": "Intra site toutes les 15 secondes."
+    },
+    {
+      "id": "cp2-qcm-27",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Que combine NTFS avec le partage ?",
+      "choices": [
+        "La plus restrictive",
+        " La plus large"
+      ],
+      "answer": 0,
+      "explain": "La plus restrictive l emporte."
+    },
+    {
+      "id": "cp2-qcm-28",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Comment deployer une imprimante par OU ?",
+      "choices": [
+        "GPO imprimantes",
+        " Installation manuelle"
+      ],
+      "answer": 0,
+      "explain": "GPO de deploiement pour imprimantes par OU."
+    },
+    {
+      "id": "cp2-qcm-29",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Quel cmdlet cree un utilisateur AD?",
+      "choices": [
+        "New-ADUser",
+        " Get-ADUser",
+        " Add-ADGroupMember",
+        " Test-NetConnection"
+      ],
+      "answer": 0,
+      "explain": "New-ADUser cree le compte."
+    },
+    {
+      "id": "cp2-qcm-30",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "debutant",
+      "q": "Dans un domaine, qui centralise utilisateurs et machines ?",
+      "choices": [
+        "Active Directory",
+        " Workgroup"
+      ],
+      "answer": 0,
+      "explain": "AD centralise utilisateurs et ordinateurs."
+    },
+    {
+      "id": "cp2-qcm-31",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "debutant",
+      "q": "Comment tester le port LDAP d un DC ?",
+      "choices": [
+        "Test-NetConnection ip -Port 389",
+        " ipconfig /all"
+      ],
+      "answer": 0,
+      "explain": "Test-NetConnection valide la joignabilite."
+    },
+    {
+      "id": "cp2-qcm-32",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Un parc stable exige quoi ?",
+      "choices": [
+        "Image standardisee et tests",
+        " Installation ad hoc"
+      ],
+      "answer": 0,
+      "explain": "Image standardisee et tests avant prod."
+    },
+    {
+      "id": "cp2-qcm-33",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Quel preparatif DNS avant join ?",
+      "choices": [
+        "Point DNS du poste vers le DC",
+        " Serveur public uniquement"
+      ],
+      "answer": 0,
+      "explain": "Le poste doit resoudre le DC via DNS interne."
+    },
+    {
+      "id": "cp2-qcm-34",
+      "fiche": "cp2-essentiel",
+      "section": "cp2",
+      "difficulty": "moyen",
+      "q": "Quel pre-requis avant promotion serveur DC ?",
+      "choices": [
+        "L IP statique et le DNS maitrise",
+        "DHCP sans plan IP"
+      ],
+      "answer": 0,
+      "explain": "IP fixe et DNS maitrise avant promotion."
+    }
+  ],
   "group": "Compétences Professionnelles",
   "icon": "💻",
   "desc": "Assurer le déploiement des équipements numériques et accompagner à l'utilisation des outils collaboratifs."
