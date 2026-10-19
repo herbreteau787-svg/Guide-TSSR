@@ -103,7 +103,11 @@
         "cp4-firewall",
         "cp4-quiz",
         "cp4-entretien-jury",
-        "cp4-cheatsheet"
+        "cp4-cheatsheet",
+        "cp4-quiz-debutant",
+        "cp4-quiz-intermediaire",
+        "cp4-quiz-avance",
+        "cp4-quiz-examen-blanc"
       ]
     },
     {
@@ -2294,9 +2298,1610 @@
           "body": "ping, traceroute, show vlan brief, show ip route, ipconfig."
         }
       ]
+    },
+    {
+      "id": "cp4-quiz-debutant",
+      "t": "quiz debutant",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "Quiz par compétence.",
+      "tags": [
+        "cp4",
+        "quiz"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [
+        "Erreur",
+        "Vérification"
+      ],
+      "w": "Quiz.",
+      "resume": "Quiz par niveau.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Quiz."
+        }
+      ]
+    },
+    {
+      "id": "cp4-quiz-intermediaire",
+      "t": "quiz intermediaire",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "Quiz par compétence.",
+      "tags": [
+        "cp4",
+        "quiz"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [
+        "Erreur",
+        "Vérification"
+      ],
+      "w": "Quiz.",
+      "resume": "Quiz par niveau.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Quiz."
+        }
+      ]
+    },
+    {
+      "id": "cp4-quiz-avance",
+      "t": "quiz avance",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "Quiz par compétence.",
+      "tags": [
+        "cp4",
+        "quiz"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [
+        "Erreur",
+        "Vérification"
+      ],
+      "w": "Quiz.",
+      "resume": "Quiz par niveau.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Quiz."
+        }
+      ]
+    },
+    {
+      "id": "cp4-quiz-examen-blanc",
+      "t": "quiz examen blanc",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "Quiz par compétence.",
+      "tags": [
+        "cp4",
+        "quiz"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [
+        "Erreur",
+        "Vérification"
+      ],
+      "w": "Quiz.",
+      "resume": "Quiz par niveau.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Quiz."
+        }
+      ]
     }
   ],
-  "quiz": [],
+  "quiz": [
+    {
+      "id": "cp4-qcm-ipv4-01",
+      "fiche": "cp4-ipv4",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quelle est la taille d’une adresse IPv4 en bits ?",
+      "choices": [
+        "16 bits",
+        "32 bits",
+        "64 bits",
+        "128 bits"
+      ],
+      "answer": 1,
+      "explain": "Une adresse IPv4 est codée sur 32 bits (4 octets), soit environ 4,3 milliards d’adresses possibles."
+    },
+    {
+      "id": "cp4-qcm-ipv4-02",
+      "fiche": "cp4-ipv4",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Combien d’hôtes utilisables contient un réseau IPv4 en /24 ?",
+      "choices": [
+        "254",
+        "256",
+        "255",
+        "253"
+      ],
+      "answer": 0,
+      "explain": "Un /24 laisse 8 bits d’hôte : 2^8 - 2 = 254 (on retire l’adresse réseau et le broadcast)."
+    },
+    {
+      "id": "cp4-qcm-ipv4-03",
+      "fiche": "cp4-ipv4",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quelle est l’adresse de broadcast de 192.168.10.64/26 ?",
+      "choices": [
+        "192.168.10.63",
+        "192.168.10.127",
+        "192.168.10.191",
+        "192.168.10.255"
+      ],
+      "answer": 1,
+      "explain": "Avec un masque /26, la taille du bloc est 64. Le sous-réseau commence à 192.168.10.64, le broadcast est donc 192.168.10.127."
+    },
+    {
+      "id": "cp4-qcm-ipv4-04",
+      "fiche": "cp4-ipv4",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quelle est l’adresse réseau de 10.5.100.100/24 ?",
+      "choices": [
+        "10.5.100.100",
+        "10.5.100.0",
+        "10.5.0.0",
+        "10.0.0.0"
+      ],
+      "answer": 1,
+      "explain": "En /24, les 24 premiers bits forment l’adresse réseau : 10.5.100.0."
+    },
+    {
+      "id": "cp4-qcm-ipv4-05",
+      "fiche": "cp4-ipv4",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Un masque /26 correspond à combien d’hôtes utilisables ?",
+      "choices": [
+        "62",
+        "64",
+        "63",
+        "30"
+      ],
+      "answer": 0,
+      "explain": "Un /26 laisse 6 bits d’hôte : 2^6 - 2 = 62."
+    },
+    {
+      "id": "cp4-qcm-ipv4-06",
+      "fiche": "cp4-ipv4",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "Combien de sous-réseaux /26 peut-on créer depuis un réseau /24 ?",
+      "choices": [
+        "2",
+        "4",
+        "8",
+        "16"
+      ],
+      "answer": 1,
+      "explain": "Un /24 découpé en /26 emprunte 2 bits d’hôte : 2^2 = 4 sous-réseaux."
+    },
+    {
+      "id": "cp4-qcm-ipv4-07",
+      "fiche": "cp4-ipv4",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "Quel est le masque CIDR /25 en notation décimale pointée ?",
+      "choices": [
+        "255.255.255.0",
+        "255.255.255.128",
+        "255.255.255.192",
+        "255.255.255.224"
+      ],
+      "answer": 1,
+      "explain": "Un /25 laisse 7 bits d’hôte ; le masque est donc 255.255.255.128."
+    },
+    {
+      "id": "cp4-qcm-ipv4-08",
+      "fiche": "cp4-ipv4",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Laquelle de ces adresses est une adresse privée RFC1918 de classe C ?",
+      "choices": [
+        "172.16.0.0/12",
+        "10.0.0.0/8",
+        "192.168.0.0/16",
+        "1.1.1.1/32"
+      ],
+      "answer": 2,
+      "explain": "192.168.0.0/16 est la plage privée de classe C définie par la RFC 1918."
+    },
+    {
+      "id": "cp4-qcm-ipv4-09",
+      "fiche": "cp4-ipv4",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "Un masque /30 fournit combien d’hôtes utilisables ?",
+      "choices": [
+        "4",
+        "2",
+        "1",
+        "0"
+      ],
+      "answer": 1,
+      "explain": "Un /30 laisse 2 bits d’hôte : 2^2 - 2 = 2, idéal pour un lien point à point."
+    },
+    {
+      "id": "cp4-qcm-ipv4-10",
+      "fiche": "cp4-ipv4",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "Quelle est l’adresse de broadcast de 172.16.10.128/26 ?",
+      "choices": [
+        "172.16.10.191",
+        "172.16.10.127",
+        "172.16.10.255",
+        "172.16.10.63"
+      ],
+      "answer": 1,
+      "explain": "Bloc de 64 à partir de 172.16.10.128 : broadcast = 172.16.10.191."
+    },
+    {
+      "id": "cp4-qcm-ipv4-11",
+      "fiche": "cp4-ipv4",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "En découpant un /24 en /27, combien de sous-réseaux obtient-on ?",
+      "choices": [
+        "4",
+        "8",
+        "16",
+        "2"
+      ],
+      "answer": 1,
+      "explain": "Un /24 en /27 emprunte 3 bits : 2^3 = 8 sous-réseaux."
+    },
+    {
+      "id": "cp4-qcm-ipv4-12",
+      "fiche": "cp4-ipv4",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "Quel est le nombre d’hôtes utilisables dans un réseau /22 ?",
+      "choices": [
+        "1022",
+        "1024",
+        "510",
+        "254"
+      ],
+      "answer": 0,
+      "explain": "Un /22 laisse 10 bits d’hôte : 2^10 - 2 = 1022."
+    },
+    {
+      "id": "cp4-qcm-ipv4-13",
+      "fiche": "cp4-ipv4",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quelle plage d’adresses IP est réservée aux adresses de boucle (loopback) ?",
+      "choices": [
+        "127.0.0.0/8",
+        "10.0.0.0/8",
+        "192.168.0.0/16",
+        "169.254.0.0/16"
+      ],
+      "answer": 0,
+      "explain": "La plage 127.0.0.0/8 est réservée à la boucle (localhost)."
+    },
+    {
+      "id": "cp4-qcm-ipv4-14",
+      "fiche": "cp4-ipv4",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quel est le masque par défaut d’une adresse de classe B ?",
+      "choices": [
+        "255.0.0.0",
+        "255.255.0.0",
+        "255.255.255.0",
+        "255.255.255.255"
+      ],
+      "answer": 1,
+      "explain": "Une classe B utilise par défaut le masque /16, soit 255.255.0.0."
+    },
+    {
+      "id": "cp4-qcm-ipv4-15",
+      "fiche": "cp4-ipv4",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "Quelle notation CIDR correspond au masque 255.255.252.0 ?",
+      "choices": [
+        "/20",
+        "/21",
+        "/22",
+        "/23"
+      ],
+      "answer": 2,
+      "explain": "255.255.252.0 laisse 10 bits d’hôte, donc 22 bits réseau : /22."
+    },
+    {
+      "id": "cp4-qcm-ipv6-01",
+      "fiche": "cp4-ipv6",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quelle est la taille d’une adresse IPv6 en bits ?",
+      "choices": [
+        "32 bits",
+        "64 bits",
+        "128 bits",
+        "256 bits"
+      ],
+      "answer": 2,
+      "explain": "Une adresse IPv6 est codée sur 128 bits."
+    },
+    {
+      "id": "cp4-qcm-ipv6-02",
+      "fiche": "cp4-ipv6",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quel est le préfixe des adresses link-local IPv6 ?",
+      "choices": [
+        "2000::/3",
+        "fc00::/7",
+        "fe80::/10",
+        "ff00::/8"
+      ],
+      "answer": 2,
+      "explain": "Les adresses link-local utilisent le préfixe fe80::/10."
+    },
+    {
+      "id": "cp4-qcm-ipv6-03",
+      "fiche": "cp4-ipv6",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quel est le préfixe des adresses unicast globales IPv6 ?",
+      "choices": [
+        "fe80::/10",
+        "fc00::/7",
+        "2000::/3",
+        "ff00::/8"
+      ],
+      "answer": 2,
+      "explain": "Les adresses unicast globales (routables sur Internet) commencent par 2000::/3."
+    },
+    {
+      "id": "cp4-qcm-ipv6-04",
+      "fiche": "cp4-ipv6",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quel protocole remplace ARP en IPv6 ?",
+      "choices": [
+        "NDP",
+        "DHCPv6",
+        "ICMPv4",
+        "NDPv4"
+      ],
+      "answer": 0,
+      "explain": "NDP (Neighbor Discovery Protocol) remplace ARP en IPv6."
+    },
+    {
+      "id": "cp4-qcm-ipv6-05",
+      "fiche": "cp4-ipv6",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "Quel est le préfixe des adresses multicast IPv6 ?",
+      "choices": [
+        "fe80::/10",
+        "2000::/3",
+        "fc00::/7",
+        "ff00::/8"
+      ],
+      "answer": 3,
+      "explain": "Le multicast IPv6 utilise le préfixe ff00::/8."
+    },
+    {
+      "id": "cp4-qcm-ipv6-06",
+      "fiche": "cp4-ipv6",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quelle adresse IPv6 est l’équivalent de 127.0.0.1 ?",
+      "choices": [
+        "::1",
+        "fe80::1",
+        "2001::1",
+        "ff02::1"
+      ],
+      "answer": 0,
+      "explain": "::1 est l’adresse de boucle IPv6."
+    },
+    {
+      "id": "cp4-qcm-ipv6-07",
+      "fiche": "cp4-ipv6",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quel est le rôle du SLAAC en IPv6 ?",
+      "choices": [
+        "Attribuer une adresse IP automatiquement sans serveur",
+        "Filtrer le trafic",
+        "Router entre les VLAN",
+        "Chiffrer le trafic"
+      ],
+      "answer": 0,
+      "explain": "SLAAC permet l’autoconfiguration sans état via les annonces de routeur (RA)."
+    },
+    {
+      "id": "cp4-qcm-ipv6-08",
+      "fiche": "cp4-ipv6",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "Quel message ICMPv6 est utilisé pour découvrir les routeurs voisins ?",
+      "choices": [
+        "Router Solicitation",
+        "Router Advertisement",
+        "Neighbor Solicitation",
+        "Redirect"
+      ],
+      "answer": 1,
+      "explain": "Le RA (Router Advertisement) annonce la présence des routeurs et les préfixes."
+    },
+    {
+      "id": "cp4-qcm-ipv6-09",
+      "fiche": "cp4-ipv6",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quelle est la taille du préfixe standard d’un sous-réseau IPv6 ?",
+      "choices": [
+        "/48",
+        "/56",
+        "/64",
+        "/128"
+      ],
+      "answer": 2,
+      "explain": "Le préfixe standard d’un sous-réseau IPv6 est /64."
+    },
+    {
+      "id": "cp4-qcm-ipv6-10",
+      "fiche": "cp4-ipv6",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Qu’est-ce que le dual stack en IPv6 ?",
+      "choices": [
+        "Utiliser IPv4 et IPv6 simultanément",
+        "Remplacer IPv4 par IPv6",
+        "Tunneler IPv4 dans IPv6",
+        "Traduire IPv6 en IPv4"
+      ],
+      "answer": 0,
+      "explain": "Le dual stack fait coexister IPv4 et IPv6 sur les mêmes équipements."
+    },
+    {
+      "id": "cp4-qcm-vlan-01",
+      "fiche": "cp4-vlan",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Un VLAN est principalement :",
+      "choices": [
+        "Un domaine de broadcast logique",
+        "Un protocole de routage",
+        "Un type de câble",
+        "Une adresse IP"
+      ],
+      "answer": 0,
+      "explain": "Un VLAN segmente un domaine de broadcast au niveau 2."
+    },
+    {
+      "id": "cp4-qcm-vlan-02",
+      "fiche": "cp4-vlan",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Un port switch en mode access appartient à :",
+      "choices": [
+        "Plusieurs VLAN",
+        "Un seul VLAN",
+        "Aucun VLAN",
+        "Tous les VLAN"
+      ],
+      "answer": 1,
+      "explain": "Un port access est affecté à un seul VLAN."
+    },
+    {
+      "id": "cp4-qcm-vlan-03",
+      "fiche": "cp4-vlan",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quel protocole permet de transporter plusieurs VLAN sur un seul lien physique ?",
+      "choices": [
+        "STP",
+        "802.1Q",
+        "OSPF",
+        "DHCP"
+      ],
+      "answer": 1,
+      "explain": "Le trunking 802.1Q tagge les trames pour transporter plusieurs VLAN sur un lien."
+    },
+    {
+      "id": "cp4-qcm-vlan-04",
+      "fiche": "cp4-vlan",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Qu’est-ce qu’un VLAN natif ?",
+      "choices": [
+        "Le VLAN 1 uniquement",
+        "Le VLAN dont les trames ne sont pas taggées sur un trunk",
+        "Le VLAN de gestion",
+        "Le VLAN voix"
+      ],
+      "answer": 1,
+      "explain": "Le VLAN natif transporte les trames non taggées sur un trunk 802.1Q."
+    },
+    {
+      "id": "cp4-qcm-vlan-05",
+      "fiche": "cp4-vlan",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Pourquoi le VLAN 1 est-il déconseillé pour le trafic utilisateur ?",
+      "choices": [
+        "Il est trop lent",
+        "C’est le VLAN par défaut, moins sécurisé",
+        "Il ne supporte pas le trunk",
+        "Il n’existe pas"
+      ],
+      "answer": 1,
+      "explain": "Le VLAN 1 est le VLAN par défaut et présente des risques de sécurité s’il est utilisé pour le trafic utilisateur."
+    },
+    {
+      "id": "cp4-qcm-vlan-06",
+      "fiche": "cp4-vlan",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "Quel VLAN est généralement réservé à l’administration des équipements réseau ?",
+      "choices": [
+        "VLAN 1",
+        "VLAN de données",
+        "VLAN de gestion",
+        "VLAN voix"
+      ],
+      "answer": 2,
+      "explain": "Le VLAN de gestion isole le trafic d’administration (SSH, SNMP)."
+    },
+    {
+      "id": "cp4-qcm-vlan-07",
+      "fiche": "cp4-vlan",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "Un poste placé dans le mauvais VLAN ne peut pas :",
+      "choices": [
+        "Communiquer avec ses pairs du même VLAN",
+        "Accéder à Internet",
+        "Communiquer avec les postes d’un autre VLAN sans routage",
+        "Obtenir une adresse IP"
+      ],
+      "answer": 2,
+      "explain": "Sans routage inter-VLAN, les VLAN sont isolés au niveau 2."
+    },
+    {
+      "id": "cp4-qcm-vlan-08",
+      "fiche": "cp4-vlan",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Qu’est-ce qu’un VLAN voix ?",
+      "choices": [
+        "Un VLAN pour la données",
+        "Un VLAN dédié au trafic téléphonique avec QoS",
+        "Un VLAN de gestion",
+        "Le VLAN 1"
+      ],
+      "answer": 1,
+      "explain": "Le VLAN voix isole le trafic ToIP et permet d’appliquer une QoS prioritaire."
+    },
+    {
+      "id": "cp4-qcm-vlan-09",
+      "fiche": "cp4-vlan",
+      "section": "cp4",
+      "difficulty": "avance",
+      "q": "Qu’est-ce qu’un native VLAN mismatch sur un trunk ?",
+      "choices": [
+        "Deux trunk avec des vitesses différentes",
+        "Des VLAN natifs différents de chaque côté du trunk",
+        "Un VLAN absent",
+        "Un port en erreur"
+      ],
+      "answer": 1,
+      "explain": "Un native VLAN mismatch peut provoquer des fuites de trafic et des problèmes de sécurité."
+    },
+    {
+      "id": "cp4-qcm-vlan-10",
+      "fiche": "cp4-vlan",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "Le routage inter-VLAN nécessite :",
+      "choices": [
+        "Un hub",
+        "Un routeur ou un switch de couche 3",
+        "Un répétiteur",
+        "Un seul VLAN"
+      ],
+      "answer": 1,
+      "explain": "Comme les VLAN sont des domaines de broadcast distincts, il faut un routeur (ou switch L3) pour les faire communiquer."
+    },
+    {
+      "id": "cp4-qcm-trunk-01",
+      "fiche": "cp4-trunk",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Qu’est-ce qu’un trunk 802.1Q ?",
+      "choices": [
+        "Un lien transportant plusieurs VLAN taggés",
+        "Un câble Ethernet",
+        "Un protocole de routage",
+        "Une adresse IP"
+      ],
+      "answer": 0,
+      "explain": "Un trunk transporte les trames de plusieurs VLAN grâce au tag 802.1Q."
+    },
+    {
+      "id": "cp4-qcm-trunk-02",
+      "fiche": "cp4-trunk",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "Quel risque en cas de native VLAN mismatch sur un trunk ?",
+      "choices": [
+        "Aucun",
+        "Erreurs de trame et risque de sécurité (VLAN hopping)",
+        "Vitesse réduite",
+        "Pas de duplex"
+      ],
+      "answer": 1,
+      "explain": "Un native VLAN mismatch peut permettre le VLAN hopping et créer des erreurs de trame."
+    },
+    {
+      "id": "cp4-qcm-trunk-03",
+      "fiche": "cp4-trunk",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "Pourquoi désactiver DTP sur un lien trunk ?",
+      "choices": [
+        "Pour augmenter la vitesse",
+        "Pour éviter la négociation non souhaitée de trunk",
+        "Pour activer le VLAN 1",
+        "Pour désactiver le trunk"
+      ],
+      "answer": 1,
+      "explain": "DTP peut négocier un trunk involontairement ; il est recommandé de le désactiver et de forcer le trunk."
+    },
+    {
+      "id": "cp4-qcm-trunk-04",
+      "fiche": "cp4-trunk",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Qu’est-ce que la liste allowed VLAN sur un trunk ?",
+      "choices": [
+        "La liste des VLAN autorisés à traverser le trunk",
+        "La liste des adresses IP autorisées",
+        "La liste des ports access",
+        "La liste des routes"
+      ],
+      "answer": 0,
+      "explain": "L’allowed VLAN list restreint quels VLAN peuvent traverser le trunk."
+    },
+    {
+      "id": "cp4-qcm-trunk-05",
+      "fiche": "cp4-trunk",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Un trunk transporte-t-il les trames du VLAN natif sans tag ?",
+      "choices": [
+        "Oui",
+        "Non",
+        "Uniquement en mode access",
+        "Uniquement en mode dynamic"
+      ],
+      "answer": 0,
+      "explain": "Le VLAN natif transporte ses trames sans tag 802.1Q sur le trunk."
+    },
+    {
+      "id": "cp4-qcm-stp-01",
+      "fiche": "cp4-stp",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quel est le rôle principal de STP ?",
+      "choices": [
+        "Empêcher les boucles de couche 2",
+        "Router entre les VLAN",
+        "Attribuer des adresses IP",
+        "Chiffrer le trafic"
+      ],
+      "answer": 0,
+      "explain": "STP bloque les chemins redondants pour éviter les boucles de commutation."
+    },
+    {
+      "id": "cp4-qcm-stp-02",
+      "fiche": "cp4-stp",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Comment est élu le Root Bridge dans STP ?",
+      "choices": [
+        "Par l’adresse IP la plus basse",
+        "Par le Bridge ID le plus bas (priorité + MAC)",
+        "Par le port le plus rapide",
+        "Par l’adresse MAC la plus haute"
+      ],
+      "answer": 1,
+      "explain": "Le Bridge ID le plus bas détermine le Root Bridge."
+    },
+    {
+      "id": "cp4-qcm-stp-03",
+      "fiche": "cp4-stp",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "De quoi se compose le Bridge ID ?",
+      "choices": [
+        "Adresse IP + masque",
+        "Priorité + adresse MAC",
+        "VLAN + trunk",
+        "Port + vitesse"
+      ],
+      "answer": 1,
+      "explain": "Le Bridge ID combine la priorité (2 octets) et l’adresse MAC (6 octets)."
+    },
+    {
+      "id": "cp4-qcm-stp-04",
+      "fiche": "cp4-stp",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quel est le rôle du Root Port ?",
+      "choices": [
+        "Bloquer le trafic",
+        "Offrir le chemin le plus court vers le Root Bridge",
+        "Transporter le VLAN natif",
+        "Faire du trunk"
+      ],
+      "answer": 1,
+      "explain": "Le Root Port est le port offrant le meilleur chemin vers le Root Bridge."
+    },
+    {
+      "id": "cp4-qcm-stp-05",
+      "fiche": "cp4-stp",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "Quel est le rôle du Designated Port sur un segment ?",
+      "choices": [
+        "Bloquer le trafic",
+        "Offrir le meilleur chemin vers le Root Bridge sur ce segment",
+        "Être le port root",
+        "Transporter le VLAN 1"
+      ],
+      "answer": 1,
+      "explain": "Le Designated Port transfère le trafic vers le Root Bridge sur son segment."
+    },
+    {
+      "id": "cp4-qcm-stp-06",
+      "fiche": "cp4-stp",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quel protocole STP accélère la convergence par rapport au STP classique ?",
+      "choices": [
+        "PVST",
+        "RSTP",
+        "STP classique",
+        "DTP"
+      ],
+      "answer": 1,
+      "explain": "RSTP (802.1w) converge en quelques secondes contre 30-50 s pour STP classique."
+    },
+    {
+      "id": "cp4-qcm-stp-07",
+      "fiche": "cp4-stp",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Qu’est-ce que PVST ?",
+      "choices": [
+        "Un protocole de routage",
+        "Un spanning tree par VLAN",
+        "Un type de trunk",
+        "Une adresse IP"
+      ],
+      "answer": 1,
+      "explain": "PVST (Per-VLAN Spanning Tree) gère un spanning tree indépendant par VLAN."
+    },
+    {
+      "id": "cp4-qcm-stp-08",
+      "fiche": "cp4-stp",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quels sont les états classiques de STP ?",
+      "choices": [
+        "Blocking, Listening, Learning, Forwarding",
+        "Up, Down, Test",
+        "Inactif, Actif",
+        "Open, Closed"
+      ],
+      "answer": 0,
+      "explain": "Les états STP sont Blocking, Listening, Learning, Forwarding (et Disabled)."
+    },
+    {
+      "id": "cp4-qcm-stp-09",
+      "fiche": "cp4-stp",
+      "section": "cp4",
+      "difficulty": "avance",
+      "q": "Quel est le rôle de BPDU guard ?",
+      "choices": [
+        "Accélérer STP",
+        "Protéger les ports edge contre la réception de BPDU",
+        "Créer des VLAN",
+        "Router entre VLAN"
+      ],
+      "answer": 1,
+      "explain": "BPDU guard met un port en err-disabled s’il reçoit un BPDU, empêchant un switch non autorisé."
+    },
+    {
+      "id": "cp4-qcm-stp-10",
+      "fiche": "cp4-stp",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "Combien de temps dure environ la convergence STP classique ?",
+      "choices": [
+        "Quelques secondes",
+        "30 à 50 secondes",
+        "Quelques minutes",
+        "Instantanée"
+      ],
+      "answer": 1,
+      "explain": "STP classique met environ 30 à 50 secondes (2 × forward delay de 15 s + listening/learning)."
+    },
+    {
+      "id": "cp4-qcm-routage-01",
+      "fiche": "cp4-routage",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quel est le rôle du routage IP ?",
+      "choices": [
+        "Transférer des paquets entre des réseaux distincts",
+        "Attribuer des adresses IP",
+        "Filtrer le trafic Wi-Fi",
+        "Créer des VLAN"
+      ],
+      "answer": 0,
+      "explain": "Le routage permet la communication entre réseaux IP distincts."
+    },
+    {
+      "id": "cp4-qcm-routage-02",
+      "fiche": "cp4-routage",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quelle est la route par défaut dans le routage IP ?",
+      "choices": [
+        "0.0.0.0/0",
+        "255.255.255.255",
+        "127.0.0.1/32",
+        "10.0.0.0/8"
+      ],
+      "answer": 0,
+      "explain": "La route par défaut est 0.0.0.0/0, utilisée quand aucune route spécifique ne correspond."
+    },
+    {
+      "id": "cp4-qcm-routage-03",
+      "fiche": "cp4-routage",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "Qu’est-ce que le longest prefix match ?",
+      "choices": [
+        "Choisir la route la plus courte",
+        "Choisir la route avec le préfixe le plus spécifique (le plus long)",
+        "Choisir la route par défaut",
+        "Ignorer les routes statiques"
+      ],
+      "answer": 1,
+      "explain": "Le routeur choisit toujours la route dont le préfixe réseau est le plus long (le plus précis)."
+    },
+    {
+      "id": "cp4-qcm-routage-04",
+      "fiche": "cp4-routage",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quelle est la différence entre une route statique et une route dynamique ?",
+      "choices": [
+        "Statique = manuelle, dynamique = apprise par protocole",
+        "Statique = rapide, dynamique = lente",
+        "Statique = IPv6, dynamique = IPv4",
+        "Aucune différence"
+      ],
+      "answer": 0,
+      "explain": "Une route statique est configurée à la main ; une route dynamique est apprise via un protocole (OSPF, RIP, etc.)."
+    },
+    {
+      "id": "cp4-qcm-routage-05",
+      "fiche": "cp4-routage",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quel est le rôle de la passerelle par défaut ?",
+      "choices": [
+        "Attribuer des adresses IP",
+        "Être le routeur vers les autres réseaux",
+        "Créer des VLAN",
+        "Filtrer le DNS"
+      ],
+      "answer": 1,
+      "explain": "La passerelle par défaut est le routeur utilisé pour atteindre les réseaux externes."
+    },
+    {
+      "id": "cp4-qcm-routage-06",
+      "fiche": "cp4-routage",
+      "section": "cp4",
+      "difficulty": "avance",
+      "q": "Qu’est-ce que la distance administrative dans le routage ?",
+      "choices": [
+        "La métrique d’une route",
+        "La priorité entre différents protocoles de routage",
+        "La vitesse d’un lien",
+        "Le nombre de sauts"
+      ],
+      "answer": 1,
+      "explain": "La distance administrative départage les routes apprises par différents protocoles (plus bas = prioritaire)."
+    },
+    {
+      "id": "cp4-qcm-routage-07",
+      "fiche": "cp4-routage",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Que contient une table de routage ?",
+      "choices": [
+        "Les adresses MAC",
+        "Les routes connues et leurs next-hop",
+        "Les adresses IP des clients",
+        "Les VLAN"
+      ],
+      "answer": 1,
+      "explain": "La table de routage contient les destinations, les masques, les next-hop et les interfaces de sortie."
+    },
+    {
+      "id": "cp4-qcm-routage-08",
+      "fiche": "cp4-routage",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "À quoi sert une métrique de routage ?",
+      "choices": [
+        "À chiffrer le trafic",
+        "À choisir le meilleur chemin entre plusieurs routes",
+        "À créer des VLAN",
+        "À attribuer des IP"
+      ],
+      "answer": 1,
+      "explain": "La métrique (coût, sauts, bande passante) permet de départager plusieurs routes vers une même destination."
+    },
+    {
+      "id": "cp4-qcm-routage-09",
+      "fiche": "cp4-routage",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "Quel protocole de routage est à vecteur de distance ?",
+      "choices": [
+        "OSPF",
+        "RIP",
+        "BGP",
+        "IS-IS"
+      ],
+      "answer": 1,
+      "explain": "RIP est un protocole à vecteur de distance basé sur le nombre de sauts."
+    },
+    {
+      "id": "cp4-qcm-routage-10",
+      "fiche": "cp4-routage",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "À quoi sert le routage inter-VLAN ?",
+      "choices": [
+        "À créer des VLAN",
+        "À faire communiquer des VLAN entre eux",
+        "À supprimer des VLAN",
+        "À attribuer des IP"
+      ],
+      "answer": 1,
+      "explain": "Le routage inter-VLAN permet la communication entre VLAN via un routeur ou switch L3."
+    },
+    {
+      "id": "cp4-qcm-ospf-01",
+      "fiche": "cp4-ospf",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quel type de protocole de routage est OSPF ?",
+      "choices": [
+        "Vecteur de distance",
+        "Link-state (état de lien)",
+        "Hybride",
+        "Statique"
+      ],
+      "answer": 1,
+      "explain": "OSPF est un protocole link-state qui diffuse l’état complet des liens."
+    },
+    {
+      "id": "cp4-qcm-ospf-02",
+      "fiche": "cp4-ospf",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quel est le rôle de la zone 0 (backbone) dans OSPF ?",
+      "choices": [
+        "Transporter le trafic voix",
+        "Être le cœur du réseau ; toutes les zones s’y connectent",
+        "Attribuer des IP",
+        "Filtrer le trafic"
+      ],
+      "answer": 1,
+      "explain": "Toutes les zones OSPF non backbone doivent être connectées à la zone 0."
+    },
+    {
+      "id": "cp4-qcm-ospf-03",
+      "fiche": "cp4-ospf",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quel est le rôle du DR (Designated Router) dans OSPF ?",
+      "choices": [
+        "Router tout le trafic",
+        "Réduire les échanges d’informations sur un réseau multi-accès",
+        "Attribuer des IP",
+        "Bloquer les boucles"
+      ],
+      "answer": 1,
+      "explain": "Le DR centralise les échanges d’informations OSPF sur un segment multi-accès (Ethernet)."
+    },
+    {
+      "id": "cp4-qcm-ospf-04",
+      "fiche": "cp4-ospf",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "Qu’est-ce qu’une LSA (Link-State Advertisement) dans OSPF ?",
+      "choices": [
+        "Une route par défaut",
+        "Une annonce décrivant l’état d’un lien",
+        "Une adresse IP",
+        "Un VLAN"
+      ],
+      "answer": 1,
+      "explain": "Une LSA décrit l’état d’un lien ou d’un routeur et est diffusée dans la zone."
+    },
+    {
+      "id": "cp4-qcm-ospf-05",
+      "fiche": "cp4-ospf",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "Quel algorithme OSPF utilise-t-il pour calculer les routes ?",
+      "choices": [
+        "RIP",
+        "SPF (Dijkstra)",
+        "BGP",
+        "NAT"
+      ],
+      "answer": 1,
+      "explain": "OSPF utilise l’algorithme SPF de Dijkstra pour calculer l’arbre des plus courts chemins."
+    },
+    {
+      "id": "cp4-qcm-ospf-06",
+      "fiche": "cp4-ospf",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "Quelle est la métrique OSPF ?",
+      "choices": [
+        "Le nombre de sauts",
+        "Le coût basé sur la bande passante",
+        "La latence",
+        "L’adresse IP"
+      ],
+      "answer": 1,
+      "explain": "Le coût OSPF = référence de bande passante (souvent 100 Mbps) divisée par la bande passante du lien."
+    },
+    {
+      "id": "cp4-qcm-ospf-07",
+      "fiche": "cp4-ospf",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "Quel est l’intervalle Hello par défaut d’OSPF sur Ethernet ?",
+      "choices": [
+        "5 secondes",
+        "10 secondes",
+        "40 secondes",
+        "60 secondes"
+      ],
+      "answer": 1,
+      "explain": "L’intervalle Hello par défaut d’OSPF sur Ethernet est de 10 secondes."
+    },
+    {
+      "id": "cp4-qcm-ospf-08",
+      "fiche": "cp4-ospf",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "Quel est l’intervalle Dead par défaut d’OSPF ?",
+      "choices": [
+        "10 secondes",
+        "20 secondes",
+        "40 secondes",
+        "60 secondes"
+      ],
+      "answer": 2,
+      "explain": "L’intervalle Dead par défaut est de 40 secondes (4 × Hello sur Ethernet)."
+    },
+    {
+      "id": "cp4-qcm-ospf-09",
+      "fiche": "cp4-ospf",
+      "section": "cp4",
+      "difficulty": "avance",
+      "q": "Quelle version d’OSPF supporte IPv6 ?",
+      "choices": [
+        "OSPFv2",
+        "OSPFv3",
+        "OSPFv1",
+        "RIPng"
+      ],
+      "answer": 1,
+      "explain": "OSPFv3 est la version d’OSPF adaptée à IPv6."
+    },
+    {
+      "id": "cp4-qcm-ospf-10",
+      "fiche": "cp4-ospf",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "Que contient la LSDB dans OSPF ?",
+      "choices": [
+        "Les adresses IP des clients",
+        "La base de données des états de liens de la zone",
+        "Les mots de passe",
+        "Les VLAN"
+      ],
+      "answer": 1,
+      "explain": "La LSDB (Link-State Database) contient toutes les LSA de la zone, identiques chez tous les routeurs de la zone."
+    },
+    {
+      "id": "cp4-qcm-dhcp-01",
+      "fiche": "cp4-dhcp",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Que signifie l’acronyme DORA dans DHCP ?",
+      "choices": [
+        "Discover, Offer, Request, Acknowledge",
+        "Dynamic, Offer, Request, Acknowledge",
+        "Discover, Offer, Reply, Ack",
+        "Dynamic, Offer, Reply, Ack"
+      ],
+      "answer": 0,
+      "explain": "DORA correspond aux quatre étapes : Discover, Offer, Request, Acknowledge."
+    },
+    {
+      "id": "cp4-qcm-dhcp-02",
+      "fiche": "cp4-dhcp",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Qu’est-ce qu’un bail DHCP ?",
+      "choices": [
+        "Une adresse IP attribuée définitivement",
+        "La durée pendant laquelle une adresse IP est attribuée à un client",
+        "Une règle de pare-feu",
+        "Un type de VLAN"
+      ],
+      "answer": 1,
+      "explain": "Le bail est la période de validité d’une attribution d’adresse IP par le serveur DHCP."
+    },
+    {
+      "id": "cp4-qcm-dhcp-03",
+      "fiche": "cp4-dhcp",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Qu’est-ce qu’une réservation DHCP ?",
+      "choices": [
+        "Une adresse IP exclue",
+        "Une adresse IP liée de façon permanente à une adresse MAC",
+        "Un serveur DNS",
+        "Un VLAN"
+      ],
+      "answer": 1,
+      "explain": "La réservation lie une adresse IP à une adresse MAC spécifique pour qu’elle soit toujours attribuée."
+    },
+    {
+      "id": "cp4-qcm-dhcp-04",
+      "fiche": "cp4-dhcp",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Qu’est-ce qu’une exclusion DHCP ?",
+      "choices": [
+        "Des adresses IP que le serveur ne distribuera jamais",
+        "Une adresse IP réservée",
+        "Un serveur DNS",
+        "Un VLAN"
+      ],
+      "answer": 0,
+      "explain": "Les exclusions retirent des adresses de la plage distribuable (pour les serveurs, imprimantes, etc.)."
+    },
+    {
+      "id": "cp4-qcm-dhcp-05",
+      "fiche": "cp4-dhcp",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "À quoi sert un relay DHCP (ip helper-address) ?",
+      "choices": [
+        "Attribuer des IP localement",
+        "Transférer les requêtes DHCP broadcast vers un serveur DHCP distant",
+        "Bloquer le DHCP",
+        "Créer des VLAN"
+      ],
+      "answer": 1,
+      "explain": "Le relay permet à un routeur de transférer les requêtes DHCP broadcast vers un serveur centralisé."
+    },
+    {
+      "id": "cp4-qcm-dns-01",
+      "fiche": "cp4-dns",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quel est le rôle principal du DNS ?",
+      "choices": [
+        "Attribuer des adresses IP",
+        "Résoudre les noms de domaine en adresses IP",
+        "Filtrer le trafic",
+        "Créer des VLAN"
+      ],
+      "answer": 0,
+      "explain": "Le DNS traduit les noms (ex: www.exemple.com) en adresses IP."
+    },
+    {
+      "id": "cp4-qcm-dns-02",
+      "fiche": "cp4-dns",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quel type d’enregistrement DNS associe un nom à une adresse IPv4 ?",
+      "choices": [
+        "AAAA",
+        "A",
+        "MX",
+        "PTR"
+      ],
+      "answer": 1,
+      "explain": "L’enregistrement A associe un nom à une adresse IPv4."
+    },
+    {
+      "id": "cp4-qcm-dns-03",
+      "fiche": "cp4-dns",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quel type d’enregistrement DNS sert pour la messagerie ?",
+      "choices": [
+        "A",
+        "MX",
+        "CNAME",
+        "PTR"
+      ],
+      "answer": 1,
+      "explain": "L’enregistrement MX (Mail Exchange) désigne le serveur de messagerie d’un domaine."
+    },
+    {
+      "id": "cp4-qcm-dns-04",
+      "fiche": "cp4-dns",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "Quel type d’enregistrement DNS fait la résolution inverse (adresse IP vers nom) ?",
+      "choices": [
+        "A",
+        "AAAA",
+        "PTR",
+        "CNAME"
+      ],
+      "answer": 2,
+      "explain": "L’enregistrement PTR résout une adresse IP vers un nom de domaine."
+    },
+    {
+      "id": "cp4-qcm-dns-05",
+      "fiche": "cp4-dns",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quel est le rôle du TTL dans un enregistrement DNS ?",
+      "choices": [
+        "Définir la durée de mise en cache",
+        "Attribuer une adresse IP",
+        "Créer un VLAN",
+        "Filtrer le trafic"
+      ],
+      "answer": 0,
+      "explain": "Le TTL (Time To Live) indique pendant combien de temps un enregistrement DNS peut être mis en cache."
+    },
+    {
+      "id": "cp4-qcm-nat-01",
+      "fiche": "cp4-nat-pat",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quel est le rôle principal du NAT ?",
+      "choices": [
+        "Attribuer des adresses IP",
+        "Traduire les adresses privées en adresses publiques",
+        "Créer des VLAN",
+        "Filtrer le DNS"
+      ],
+      "answer": 0,
+      "explain": "Le NAT traduit les adresses IP privées en adresses publiques pour l’accès à Internet."
+    },
+    {
+      "id": "cp4-qcm-nat-02",
+      "fiche": "cp4-nat-pat",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quelle est la différence entre NAT et PAT ?",
+      "choices": [
+        "NAT traduit les adresses, PAT traduit aussi les ports",
+        "NAT est plus rapide",
+        "PAT est obsolète",
+        "Aucune différence"
+      ],
+      "answer": 0,
+      "explain": "Le PAT (Port Address Translation) ajoute la traduction des ports pour multiplexer plusieurs hôtes sur une adresse publique."
+    },
+    {
+      "id": "cp4-qcm-nat-03",
+      "fiche": "cp4-nat-pat",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Qu’est-ce que le NAT overload (PAT overload) ?",
+      "choices": [
+        "Plusieurs adresses privées partagent une adresse publique via les ports",
+        "Une adresse publique par hôte",
+        "Une traduction statique uniquement",
+        "Un filtrage de ports"
+      ],
+      "answer": 0,
+      "explain": "L’overload permet à de nombreux hôtes privés de partager une seule adresse IP publique en distinguant les flux par les ports."
+    },
+    {
+      "id": "cp4-qcm-nat-04",
+      "fiche": "cp4-nat-pat",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "Quel est le rôle du NAT statique ?",
+      "choices": [
+        "Attribuer des IP dynamiquement",
+        "Associer une adresse privée à une adresse publique de façon permanente",
+        "Bloquer le trafic entrant",
+        "Créer des VLAN"
+      ],
+      "answer": 1,
+      "explain": "Le NAT statique crée une correspondance fixe entre une adresse privée et une adresse publique (serveur publié)."
+    },
+    {
+      "id": "cp4-qcm-nat-05",
+      "fiche": "cp4-nat-pat",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Le NAT améliore-t-il la sécurité du réseau ?",
+      "choices": [
+        "Oui, en masquant les adresses internes",
+        "Non",
+        "Uniquement avec le pare-feu",
+        "Uniquement en IPv6"
+      ],
+      "answer": 0,
+      "explain": "Le NAT cache la topologie et les adresses internes derrière une ou quelques adresses publiques."
+    },
+    {
+      "id": "cp4-qcm-acl-01",
+      "fiche": "cp4-acl",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Que signifie ACL ?",
+      "choices": [
+        "Access Control List",
+        "Access Control Layer",
+        "Automatic Control List",
+        "Address Control List"
+      ],
+      "answer": 0,
+      "explain": "ACL = Access Control List (liste de contrôle d’accès)."
+    },
+    {
+      "id": "cp4-qcm-acl-02",
+      "fiche": "cp4-acl",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quelle est la différence entre ACL standard et ACL étendue ?",
+      "choices": [
+        "Standard filtre sur la source, étendue sur source/destination/protocole/port",
+        "Standard est plus rapide",
+        "Étendue est obsolète",
+        "Aucune différence"
+      ],
+      "answer": 1,
+      "explain": "L’ACL standard ne filtre que sur l’adresse source ; l’étendue ajoute destination, protocole et ports."
+    },
+    {
+      "id": "cp4-qcm-acl-03",
+      "fiche": "cp4-acl",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Que signifie « implicit deny » dans une ACL ?",
+      "choices": [
+        "Tout le trafic est autorisé",
+        "Tout trafic non explicitement autorisé est bloqué",
+        "Seul le trafic HTTP est autorisé",
+        "Seul le trafic DNS est autorisé"
+      ],
+      "answer": 1,
+      "explain": "À la fin de toute ACL, un refus implicite bloque tout ce qui n’a pas été explicitement autorisé."
+    },
+    {
+      "id": "cp4-qcm-acl-04",
+      "fiche": "cp4-acl",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "Où placer une ACL standard ?",
+      "choices": [
+        "Près de la source",
+        "Près de la destination",
+        "N’importe où",
+        "Uniquement sur le routeur cœur"
+      ],
+      "answer": 1,
+      "explain": "Une ACL standard, ne filtrant que sur la source, se place près de la destination pour éviter de bloquer inutilement d’autres trafics."
+    },
+    {
+      "id": "cp4-qcm-acl-05",
+      "fiche": "cp4-acl",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "Où placer une ACL étendue ?",
+      "choices": [
+        "Près de la destination",
+        "Près de la source",
+        "N’importe où",
+        "Uniquement sur le routeur cœur"
+      ],
+      "answer": 1,
+      "explain": "Une ACL étendue, précise, se place près de la source pour filtrer le trafic dès son origine."
+    },
+    {
+      "id": "cp4-qcm-acl-06",
+      "fiche": "cp4-acl",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "Qu’est-ce qu’un masque wildcard dans une ACL ?",
+      "choices": [
+        "Un masque de sous-réseau",
+        "Un masque inversé indiquant les bits à vérifier",
+        "Une adresse IP",
+        "Un port"
+      ],
+      "answer": 1,
+      "explain": "Le masque wildcard indique quels bits de l’adresse doivent correspondre (0 = vérifier, 1 = ignorer)."
+    },
+    {
+      "id": "cp4-qcm-acl-07",
+      "fiche": "cp4-acl",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Une ACL est-elle évaluée séquentiellement ?",
+      "choices": [
+        "Oui, la première correspondance l’emporte",
+        "Non, toutes les règles s’appliquent",
+        "Uniquement la dernière règle",
+        "Uniquement la première"
+      ],
+      "answer": 0,
+      "explain": "Les règles d’une ACL sont évaluées dans l’ordre ; la première correspondance gagne."
+    },
+    {
+      "id": "cp4-qcm-acl-08",
+      "fiche": "cp4-acl",
+      "section": "cp4",
+      "difficulty": "intermediaire",
+      "q": "Une ACL est appliquée sur une interface dans quel sens ?",
+      "choices": [
+        "Inbound ou outbound",
+        "Uniquement inbound",
+        "Uniquement outbound",
+        "Ni l’un ni l’autre"
+      ],
+      "answer": 0,
+      "explain": "Une ACL peut être appliquée en inbound (trafic entrant) ou outbound (trafic sortant) sur une interface."
+    },
+    {
+      "id": "cp4-qcm-acl-09",
+      "fiche": "cp4-acl",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quelle plage de numéros pour les ACL standards IP ?",
+      "choices": [
+        "1-99 et 1300-1999",
+        "100-199",
+        "200-299",
+        "1000-1999"
+      ],
+      "answer": 0,
+      "explain": "Les ACL standards IP utilisent les plages 1-99 et 1300-1999."
+    },
+    {
+      "id": "cp4-qcm-acl-10",
+      "fiche": "cp4-acl",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quelle plage de numéros pour les ACL étendues IP ?",
+      "choices": [
+        "1-99",
+        "100-199 et 2000-2699",
+        "200-299",
+        "1000-1999"
+      ],
+      "answer": 1,
+      "explain": "Les ACL étendues IP utilisent les plages 100-199 et 2000-2699."
+    },
+    {
+      "id": "cp4-qcm-fw-01",
+      "fiche": "cp4-firewall",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quel est le rôle principal d’un pare-feu ?",
+      "choices": [
+        "Attribuer des adresses IP",
+        "Filtrer le trafic selon des règles de sécurité",
+        "Créer des VLAN",
+        "Router entre VLAN"
+      ],
+      "answer": 0,
+      "explain": "Le pare-feu autorise ou bloque le trafic en fonction d’une politique de sécurité."
+    },
+    {
+      "id": "cp4-qcm-fw-02",
+      "fiche": "cp4-firewall",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quelle est la différence entre pare-feu stateless et stateful ?",
+      "choices": [
+        "Stateless filtre paquet par paquet, stateful suit les connexions",
+        "Stateless est plus rapide",
+        "Stateful est obsolète",
+        "Aucune différence"
+      ],
+      "answer": 1,
+      "explain": "Le stateful conserve l’état des connexions et autorise automatiquement les réponses."
+    },
+    {
+      "id": "cp4-qcm-fw-03",
+      "fiche": "cp4-firewall",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Quel est le rôle d’une DMZ ?",
+      "choices": [
+        "Isoler le LAN",
+        "Zone intermédiaire pour les serveurs publics, isolée du LAN",
+        "Attribuer des IP",
+        "Router entre VLAN"
+      ],
+      "answer": 1,
+      "explain": "La DMZ héberge les serveurs publics (web, mail) accessibles depuis Internet tout en restant isolée du LAN."
+    },
+    {
+      "id": "cp4-qcm-fw-04",
+      "fiche": "cp4-firewall",
+      "section": "cp4",
+      "difficulty": "debutant",
+      "q": "Qu’est-ce qu’un UTM ?",
+      "choices": [
+        "Un type de câble",
+        "Un pare-feu combinant plusieurs fonctions de sécurité (antivirus, IPS, VPN, filtrage web)",
+        "Un protocole de routage",
+        "Un VLAN"
+      ],
+      "answer": 1,
+      "explain": "L’UTM (Unified Threat Management) rassemble plusieurs fonctions de sécurité dans un seul équipement."
+    },
+    {
+      "id": "cp4-qcm-fw-05",
+      "fiche": "cp4-firewall",
+      "section": "cp4",
+      "difficulty": "avance",
+      "q": "Qu’est-ce qu’un NGFW ?",
+      "choices": [
+        "Un vieux pare-feu",
+        "Un pare-feu avec inspection applicative avancée et identification utilisateur",
+        "Un hub",
+        "Un répéteur"
+      ],
+      "answer": 1,
+      "explain": "Le NGFW (Next-Generation Firewall) ajoute l’inspection applicative (DPI) et l’identité utilisateur."
+    }
+  ],
   "group": "Compétences Professionnelles",
   "icon": "🌐",
   "desc": "Exploiter un réseau IP."
