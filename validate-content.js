@@ -25,6 +25,26 @@ for(const file of manifest.files){
    }
    continue;
  }
+ if(base==="labs"){
+   if(!sec||!Array.isArray(sec.labs)) { issues.push(p+": labs non array"); continue; }
+   for(const l of sec.labs){ if(!l||typeof l.id!=="string"||!l.id) issues.push(p+": lab sans id"); if(l&&l.id){ if(globalIds.has(l.id)) issues.push(p+": id duplique "+l.id); globalIds.add(l.id);} }
+   continue;
+ }
+ if(base==="glossary"){
+   if(!sec||!Array.isArray(sec.glossary)) { issues.push(p+": glossary non array"); continue; }
+   for(const g of sec.glossary){ if(!g||typeof g.term!=="string"||!g.term) issues.push(p+": terme sans nom"); if(!g||typeof g.def!=="string"||!g.def) issues.push(p+": definition manquante "+(g.term||"?")); }
+   continue;
+ }
+ if(base==="cheats"){
+   if(!sec||!Array.isArray(sec.cheats)) { issues.push(p+": cheats non array"); continue; }
+   for(const c of sec.cheats){ if(!c||typeof c.title!=="string"||!c.title) issues.push(p+": cheat sans titre"); }
+   continue;
+ }
+ if(base==="resources"){
+   if(!sec||!Array.isArray(sec.resources)) { issues.push(p+": resources non array"); continue; }
+   for(const r of sec.resources){ if(!r||typeof r.title!=="string"||!r.title) issues.push(p+": ressource sans titre"); }
+   continue;
+ }
  if(base==="supports"){
    if(!sec||!Array.isArray(sec.items)) { issues.push(p+": items non array"); continue; }
    for(const it of sec.items){

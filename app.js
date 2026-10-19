@@ -24,6 +24,10 @@ async function loadContentSections(){
       }
       if (file === 'supports.json' || (sec && sec.id === 'supports')) { G.supports = Array.isArray(sec.items) ? sec.items : []; }
       else if (file === 'vocab.json' || (sec && sec.id === 'vocab')) { G.vocab = Array.isArray(sec.entries) ? sec.entries : []; }
+      else if (file === 'labs.json' || (sec && sec.id === 'labs')) { G.labs = Array.isArray(sec.labs) ? sec.labs : []; }
+      else if (file === 'glossary.json' || (sec && sec.id === 'glossary')) { G.glossary = Array.isArray(sec.glossary) ? sec.glossary : []; }
+      else if (file === 'cheats.json' || (sec && sec.id === 'cheats')) { G.cheats = Array.isArray(sec.cheats) ? sec.cheats : []; }
+      else if (file === 'resources.json' || (sec && sec.id === 'resources')) { G.resources = Array.isArray(sec.resources) ? sec.resources : []; }
       else { sections.push(sec); }
     }
     if (sections.length) G.sections = sections;

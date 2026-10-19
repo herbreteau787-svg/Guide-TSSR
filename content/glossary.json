@@ -1,0 +1,781 @@
+{
+  "id": "glossary",
+  "title": "Glossaire",
+  "glossary": [
+    {
+      "term": "ACL",
+      "def": "Liste de contrôle d'accès filtrant le trafic réseau selon des critères.",
+      "cat": "Réseau"
+    },
+    {
+      "term": "AD (Active Directory)",
+      "def": "Service d'annuaire Microsoft pour authentification et gestion centralisée.",
+      "cat": "Windows"
+    },
+    {
+      "term": "AD DS",
+      "def": "Rôle Windows Server fournissant Active Directory Domain Services.",
+      "cat": "Windows"
+    },
+    {
+      "term": "AGDLP",
+      "def": "Méthode de gestion des accès : User→Global→DomainLocal→Permission.",
+      "cat": "Windows"
+    },
+    {
+      "term": "API",
+      "def": "Interface de programmation permettant l'automatisation et l'intégration.",
+      "cat": "Dev"
+    },
+    {
+      "term": "APIPA",
+      "def": "Adresse 169.254.x.x auto-assignée sans DHCP.",
+      "cat": "Réseau"
+    },
+    {
+      "term": "Ansible",
+      "def": "Outil d'automatisation agentless via SSH et playbooks YAML.",
+      "cat": "Automation"
+    },
+    {
+      "term": "Apache",
+      "def": "Serveur HTTP(S) open source.",
+      "cat": "Web"
+    },
+    {
+      "term": "ARP",
+      "def": "Protocole résolvant une adresse IP en adresse MAC.",
+      "cat": "Réseau"
+    },
+    {
+      "term": "Asterisk",
+      "def": "PBX/VoIP open source.",
+      "cat": "VoIP"
+    },
+    {
+      "term": "Ansible Role",
+      "def": "Ensemble réutilisable de tâches et variables.",
+      "cat": "Automation"
+    },
+    {
+      "term": "Backup",
+      "def": "Copie de données pour restauration.",
+      "cat": "PRA"
+    },
+    {
+      "term": "Bash",
+      "def": "Shell Unix/Linux pour scripts d'administration.",
+      "cat": "Linux"
+    },
+    {
+      "term": "Bridge ID",
+      "def": "Identifiant pour élire le root bridge STP.",
+      "cat": "Réseau"
+    },
+    {
+      "term": "BPDU",
+      "def": "Bridge Protocol Data Unit pour STP.",
+      "cat": "Réseau"
+    },
+    {
+      "term": "Bare-metal",
+      "def": "Installation directe sur le matériel sans host OS.",
+      "cat": "Virtualisation"
+    },
+    {
+      "term": "CIDR",
+      "def": "Notation de préfixe réseau (ex. /24).",
+      "cat": "Réseau"
+    },
+    {
+      "term": "Cisco IOS",
+      "def": "Système d'exploitation des équipements Cisco.",
+      "cat": "Réseau"
+    },
+    {
+      "term": "CMD",
+      "def": "Interpréteur de commandes Windows.",
+      "cat": "Windows"
+    },
+    {
+      "term": "CPU",
+      "def": "Unité centrale de traitement.",
+      "cat": "Matériel"
+    },
+    {
+      "term": "cron",
+      "def": "Planificateur de tâches Unix/Linux.",
+      "cat": "Linux"
+    },
+    {
+      "term": "Commutateur (switch)",
+      "def": "Équipement réseau de couche 2/3.",
+      "cat": "Réseau"
+    },
+    {
+      "term": "Container",
+      "def": "Instance légère partageant le noyau hôte.",
+      "cat": "Conteneurs"
+    },
+    {
+      "term": "DHCP",
+      "def": "Attribution automatique d'adresses IP et options.",
+      "cat": "Réseau"
+    },
+    {
+      "term": "DNS",
+      "def": "Résolution de noms en adresses IP.",
+      "cat": "Réseau"
+    },
+    {
+      "term": "DRS",
+      "def": "Dynamic Resource Scheduler VMware pour l'équilibrage.",
+      "cat": "Virtualisation"
+    },
+    {
+      "term": "DFS",
+      "def": "Distributed File System pour partages réseau.",
+      "cat": "Windows"
+    },
+    {
+      "term": "DMZ",
+      "def": "Zone démilitarisée entre WAN et LAN.",
+      "cat": "Sécurité"
+    },
+    {
+      "term": "Docker",
+      "def": "Plateforme de conteneurisation.",
+      "cat": "Conteneurs"
+    },
+    {
+      "term": "Docker Compose",
+      "def": "Outil déclaratif pour conteneurs multi-services.",
+      "cat": "Conteneurs"
+    },
+    {
+      "term": "DSRM",
+      "def": "Directory Services Restore Mode (récupération AD).",
+      "cat": "Windows"
+    },
+    {
+      "term": "ESXi",
+      "def": "Hyperviseur bare-metal VMware.",
+      "cat": "Virtualisation"
+    },
+    {
+      "term": "EtherChannel",
+      "def": "Agrégation de liens réseau (LACP/PAgP).",
+      "cat": "Réseau"
+    },
+    {
+      "term": "Event ID",
+      "def": "Identifiant d'événement Windows.",
+      "cat": "Windows"
+    },
+    {
+      "term": "FSMO",
+      "def": "Flexible Single Master Operations, 5 rôles AD.",
+      "cat": "Windows"
+    },
+    {
+      "term": "GPO",
+      "def": "Group Policy Object pour configurer postes/utilisateurs.",
+      "cat": "Windows"
+    },
+    {
+      "term": "GPMC",
+      "def": "Console de gestion des GPO.",
+      "cat": "Windows"
+    },
+    {
+      "term": "Grafana",
+      "def": "Plateforme de visualisation de métriques/logs.",
+      "cat": "Supervision"
+    },
+    {
+      "term": "Hyperviseur",
+      "def": "Logiciel de virtualisation.",
+      "cat": "Virtualisation"
+    },
+    {
+      "term": "HA (High Availability)",
+      "def": "Haute disponibilité par redémarrage automatique.",
+      "cat": "Virtualisation"
+    },
+    {
+      "term": "Hyper-V",
+      "def": "Hyperviseur Windows Server.",
+      "cat": "Virtualisation"
+    },
+    {
+      "term": "IaC",
+      "def": "Infrastructure as Code : infra déclarative et versionnée.",
+      "cat": "Automation"
+    },
+    {
+      "term": "IDS/IPS",
+      "def": "Détection/prévention d'intrusions.",
+      "cat": "Sécurité"
+    },
+    {
+      "term": "IOS",
+      "def": "Système réseau Cisco.",
+      "cat": "Réseau"
+    },
+    {
+      "term": "IPsec",
+      "def": "Suite de protocoles pour VPN sécurisés.",
+      "cat": "VPN"
+    },
+    {
+      "term": "IPv4",
+      "def": "Adressage 32 bits.",
+      "cat": "Réseau"
+    },
+    {
+      "term": "IPv6",
+      "def": "Adressage 128 bits.",
+      "cat": "Réseau"
+    },
+    {
+      "term": "ITIL",
+      "def": "Cadre de bonnes pratiques ITSM.",
+      "cat": "Support"
+    },
+    {
+      "term": "Journal (log)",
+      "def": "Trace d'événements système/application.",
+      "cat": "Linux/Windows"
+    },
+    {
+      "term": "Kerberos",
+      "def": "Protocole d'authentification du domaine AD.",
+      "cat": "Windows"
+    },
+    {
+      "term": "KPI",
+      "def": "Indicateur de performance.",
+      "cat": "Gestion"
+    },
+    {
+      "term": "LDAP",
+      "def": "Protocole d'accès aux annuaires.",
+      "cat": "Identité"
+    },
+    {
+      "term": "Linux",
+      "def": "Famille d'OS open source.",
+      "cat": "Linux"
+    },
+    {
+      "term": "LVM",
+      "def": "Logical Volume Manager pour le stockage.",
+      "cat": "Linux"
+    },
+    {
+      "term": "Load balancer",
+      "def": "Répartiteur de charge.",
+      "cat": "Réseau"
+    },
+    {
+      "term": "MDT",
+      "def": "Microsoft Deployment Toolkit.",
+      "cat": "Déploiement"
+    },
+    {
+      "term": "MFA",
+      "def": "Authentification multifacteur.",
+      "cat": "Sécurité"
+    },
+    {
+      "term": "MIB",
+      "def": "Base d'informations SNMP.",
+      "cat": "Supervision"
+    },
+    {
+      "term": "MPLS",
+      "def": "Technologie WAN de commutation d'étiquettes.",
+      "cat": "Réseau"
+    },
+    {
+      "term": "MTU",
+      "def": "Maximum Transmission Unit (taille max de trame).",
+      "cat": "Réseau"
+    },
+    {
+      "term": "NAT",
+      "def": "Network Address Translation.",
+      "cat": "Réseau"
+    },
+    {
+      "term": "Netplan",
+      "def": "Outil de config réseau Ubuntu (YAML).",
+      "cat": "Linux"
+    },
+    {
+      "term": "NFS",
+      "def": "Network File System (partage Unix).",
+      "cat": "Linux"
+    },
+    {
+      "term": "NTP",
+      "def": "Network Time Protocol (synchronisation heure).",
+      "cat": "Réseau"
+    },
+    {
+      "term": "OCI",
+      "def": "Open Container Initiative.",
+      "cat": "Conteneurs"
+    },
+    {
+      "term": "OpenVPN",
+      "def": "VPN TLS open source.",
+      "cat": "VPN"
+    },
+    {
+      "term": "OSPF",
+      "def": "Open Shortest Path First, protocole de routage.",
+      "cat": "Réseau"
+    },
+    {
+      "term": "OU (Unité d'Organisation)",
+      "def": "Conteneur AD pour objets et GPO.",
+      "cat": "Windows"
+    },
+    {
+      "term": "PAM",
+      "def": "Pluggable Authentication Modules (Linux).",
+      "cat": "Linux"
+    },
+    {
+      "term": "PAT",
+      "def": "Port Address Translation (surchage).",
+      "cat": "Réseau"
+    },
+    {
+      "term": "PDC Emulator",
+      "def": "Rôle FSMO central pour temps/MDP.",
+      "cat": "Windows"
+    },
+    {
+      "term": "pfSense",
+      "def": "Pare-feu open source (FreeBSD).",
+      "cat": "Sécurité"
+    },
+    {
+      "term": "Pipeline",
+      "def": "Enchaînement de commandes/objets.",
+      "cat": "Scripting"
+    },
+    {
+      "term": "PowerShell",
+      "def": "Shell objet pour Windows/automation.",
+      "cat": "Scripting"
+    },
+    {
+      "term": "Prometheus",
+      "def": "Système de métriques time series.",
+      "cat": "Supervision"
+    },
+    {
+      "term": "Proxmox",
+      "def": "Plateforme de virtualisation open source.",
+      "cat": "Virtualisation"
+    },
+    {
+      "term": "PXE",
+      "def": "Boot réseau (Preboot Execution Environment).",
+      "cat": "Déploiement"
+    },
+    {
+      "term": "QoS",
+      "def": "Quality of Service (priorisation trafic).",
+      "cat": "Réseau"
+    },
+    {
+      "term": "RBAC",
+      "def": "Role-Based Access Control.",
+      "cat": "Sécurité"
+    },
+    {
+      "term": "RDP",
+      "def": "Remote Desktop Protocol (port 3389).",
+      "cat": "Windows"
+    },
+    {
+      "term": "RID Master",
+      "def": "Rôle FSMO pour allocation RID.",
+      "cat": "Windows"
+    },
+    {
+      "term": "RPO",
+      "def": "Recovery Point Objective (perte max).",
+      "cat": "PRA"
+    },
+    {
+      "term": "RTO",
+      "def": "Recovery Time Objective (durée panne max).",
+      "cat": "PRA"
+    },
+    {
+      "term": "RSTP",
+      "def": "Rapid Spanning Tree Protocol.",
+      "cat": "Réseau"
+    },
+    {
+      "term": "rsync",
+      "def": "Synchronisation incrémentale de fichiers.",
+      "cat": "Linux"
+    },
+    {
+      "term": "SAML",
+      "def": "Standard SSO pour l'identité fédérée.",
+      "cat": "Identité"
+    },
+    {
+      "term": "SCP",
+      "def": "Secure Copy Protocol.",
+      "cat": "Réseau"
+    },
+    {
+      "term": "SDN",
+      "def": "Software-Defined Networking.",
+      "cat": "Réseau"
+    },
+    {
+      "term": "SIP",
+      "def": "Session Initiation Protocol (VoIP).",
+      "cat": "VoIP"
+    },
+    {
+      "term": "SMB",
+      "def": "Server Message Block (partage Windows).",
+      "cat": "Windows"
+    },
+    {
+      "term": "SMTP",
+      "def": "Simple Mail Transfer Protocol (port 25/587).",
+      "cat": "Mail"
+    },
+    {
+      "term": "SNMP",
+      "def": "Simple Network Management Protocol.",
+      "cat": "Supervision"
+    },
+    {
+      "term": "SSH",
+      "def": "Secure Shell (port 22).",
+      "cat": "Sécurité"
+    },
+    {
+      "term": "SSO",
+      "def": "Single Sign-On.",
+      "cat": "Identité"
+    },
+    {
+      "term": "STP",
+      "def": "Spanning Tree Protocol (anti-boucle).",
+      "cat": "Réseau"
+    },
+    {
+      "term": "Syslog",
+      "def": "Protocole de journalisation.",
+      "cat": "Supervision"
+    },
+    {
+      "term": "Sysprep",
+      "def": "Outil de généralisation d'image Windows.",
+      "cat": "Déploiement"
+    },
+    {
+      "term": "systemd",
+      "def": "Gestionnaire de services Linux.",
+      "cat": "Linux"
+    },
+    {
+      "term": "Terraform",
+      "def": "IaC multi-cloud.",
+      "cat": "Automation"
+    },
+    {
+      "term": "TLS",
+      "def": "Transport Layer Security.",
+      "cat": "Sécurité"
+    },
+    {
+      "term": "Trunk",
+      "def": "Lien transportant plusieurs VLAN.",
+      "cat": "Réseau"
+    },
+    {
+      "term": "vCenter",
+      "def": "Gestion centralisée VMware.",
+      "cat": "Virtualisation"
+    },
+    {
+      "term": "vMotion",
+      "def": "Migration à chaud de VM.",
+      "cat": "Virtualisation"
+    },
+    {
+      "term": "VLAN",
+      "def": "Réseau local virtuel (802.1Q).",
+      "cat": "Réseau"
+    },
+    {
+      "term": "VM",
+      "def": "Machine virtuelle.",
+      "cat": "Virtualisation"
+    },
+    {
+      "term": "VPN",
+      "def": "Virtual Private Network.",
+      "cat": "Réseau"
+    },
+    {
+      "term": "VRRP",
+      "def": "Virtual Router Redundancy Protocol (FHRP).",
+      "cat": "Réseau"
+    },
+    {
+      "term": "WSUS",
+      "def": "Windows Server Update Services.",
+      "cat": "Windows"
+    },
+    {
+      "term": "YAML",
+      "def": "Format de données lisible.",
+      "cat": "Config"
+    },
+    {
+      "term": "Zabbix",
+      "def": "Plateforme de supervision.",
+      "cat": "Supervision"
+    },
+    {
+      "term": "ZFS",
+      "def": "Système de fichiers avec checksums et snapshots.",
+      "cat": "Linux"
+    },
+    {
+      "term": " Ticket P1-P4",
+      "def": "Classification des priorités ITSM.",
+      "cat": "Support"
+    },
+    {
+      "term": "OU (Active Directory)",
+      "def": "Conteneur pour objets et stratégie.",
+      "cat": "Windows"
+    },
+    {
+      "term": "SLA",
+      "def": "Service Level Agreement.",
+      "cat": "Support"
+    },
+    {
+      "term": "SLI/SLO",
+      "def": "Indicateurs/objectifs de niveau de service.",
+      "cat": "Support"
+    },
+    {
+      "term": "SLO",
+      "def": "Objectif de niveau de service.",
+      "cat": "Support"
+    },
+    {
+      "term": "LDAP bind",
+      "def": "Authentification à un annuaire.",
+      "cat": "Identité"
+    },
+    {
+      "term": "Zabbix agent",
+      "def": "Collecte locale des métriques.",
+      "cat": "Supervision"
+    },
+    {
+      "term": "NetFlow",
+      "def": "Analyse de flux réseau.",
+      "cat": "Réseau"
+    },
+    {
+      "term": "QoS DSCP EF",
+      "def": "Marquage prioritaire pour la voix.",
+      "cat": "Réseau"
+    },
+    {
+      "term": "LLQ",
+      "def": "Low Latency Queuing.",
+      "cat": "Réseau"
+    },
+    {
+      "term": "CBWFQ",
+      "def": "Class-Based Weighted Fair Queuing.",
+      "cat": "Réseau"
+    },
+    {
+      "term": "VRRP",
+      "def": "Redondance de passerelle.",
+      "cat": "Réseau"
+    },
+    {
+      "term": "HSRP",
+      "def": "Hot Standby Router Protocol (Cisco).",
+      "cat": "Réseau"
+    },
+    {
+      "term": "GLBP",
+      "def": "Gateway Load Balancing Protocol.",
+      "cat": "Réseau"
+    },
+    {
+      "term": "WDS",
+      "def": "Windows Deployment Services (boot PXE).",
+      "cat": "Déploiement"
+    },
+    {
+      "term": "CMDB",
+      "def": "Base de données de gestion des configurations.",
+      "cat": "Support"
+    },
+    {
+      "term": "RMM",
+      "def": "Remote Monitoring & Management.",
+      "cat": "Support"
+    },
+    {
+      "term": "FSMO",
+      "def": "Rôles maîtres uniques AD.",
+      "cat": "Windows"
+    },
+    {
+      "term": "RODC",
+      "def": "Read-Only Domain Controller.",
+      "cat": "Windows"
+    },
+    {
+      "term": "LSA",
+      "def": "Local Security Authority (protection des identifiants).",
+      "cat": "Windows"
+    },
+    {
+      "term": "UAC",
+      "def": "User Account Control.",
+      "cat": "Windows"
+    },
+    {
+      "term": "BitLocker",
+      "def": "Chiffrement disque Windows.",
+      "cat": "Sécurité"
+    },
+    {
+      "term": "Defender ATP",
+      "def": "EDR Microsoft.",
+      "cat": "Sécurité"
+    },
+    {
+      "term": "SIEM",
+      "def": "Security Information and Event Management.",
+      "cat": "Sécurité"
+    },
+    {
+      "term": "WAF",
+      "def": "Web Application Firewall.",
+      "cat": "Sécurité"
+    },
+    {
+      "term": "DLP",
+      "def": "Data Loss Prevention.",
+      "cat": "Sécurité"
+    },
+    {
+      "term": "ESXi Host Client",
+      "def": "Interface web pour gérer un host ESXi.",
+      "cat": "Virtualisation"
+    },
+    {
+      "term": "vSAN",
+      "def": "Stockage distribué VMware.",
+      "cat": "Virtualisation"
+    },
+    {
+      "term": "NSX",
+      "def": "Virtualisation réseau VMware.",
+      "cat": "Virtualisation"
+    },
+    {
+      "term": "Hyper-V Replica",
+      "def": "Réplication de VM Hyper-V.",
+      "cat": "Virtualisation"
+    },
+    {
+      "term": "Live Migration",
+      "def": "Migration à chaud Hyper-V.",
+      "cat": "Virtualisation"
+    },
+    {
+      "term": "Ansible Playbook",
+      "def": "Fichier YAML décrivant l'état désiré.",
+      "cat": "Automation"
+    },
+    {
+      "term": "Terraform Plan",
+      "def": "Prévision des changements infra.",
+      "cat": "Automation"
+    },
+    {
+      "term": "State (Terraform)",
+      "def": "Fichier d'état Terraform.",
+      "cat": "Automation"
+    },
+    {
+      "term": "Container Registry",
+      "def": "Registre d'images conteneur.",
+      "cat": "Conteneurs"
+    },
+    {
+      "term": "CI/CD",
+      "def": "Intégration et déploiement continus.",
+      "cat": "Automation"
+    },
+    {
+      "term": "Git",
+      "def": "Système de versionnement décentralisé.",
+      "cat": "Dev"
+    },
+    {
+      "term": "REST API",
+      "def": "API basée sur HTTP et ressources.",
+      "cat": "Dev"
+    },
+    {
+      "term": "JSON",
+      "def": "Format d'échange de données.",
+      "cat": "Dev"
+    },
+    {
+      "term": "YAML",
+      "def": "Format de configuration lisible.",
+      "cat": "Dev"
+    },
+    {
+      "term": "Regex",
+      "def": "Expression régulière de recherche de texte.",
+      "cat": "Dev"
+    },
+    {
+      "term": "grep",
+      "def": "Outil de recherche de motifs.",
+      "cat": "Linux"
+    },
+    {
+      "term": "awk",
+      "def": "Outil de traitement de texte colonnes.",
+      "cat": "Linux"
+    },
+    {
+      "term": "sed",
+      "def": "Outil de substitution de texte.",
+      "cat": "Linux"
+    }
+  ]
+}

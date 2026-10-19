@@ -16,6 +16,10 @@
     "exemples.json",
     "exam.json",
     "supports.json",
-    "vocab.json"
+    "vocab.json",
+    "labs.json",
+    "glossary.json",
+    "cheats.json",
+    "resources.json"
   ]
 }

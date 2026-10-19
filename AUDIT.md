@@ -66,6 +66,15 @@ Les documents suivants sont hors périmètre TSSR et ne doivent pas être mélan
 ## F. Prochaine étape
 
 Commit/push de phase 0 puis attente du "ok" utilisateur pour la phase 1 (architecture).
+
+## H. Phase 1 — Unification des sources (2026-10-19)
+
+- Branche de sauvegarde : avant-unification (snapshot avant migration).
+- Migration : labs (16), glossaire (155), cheat sheets (36, 846 lignes), ressources (10) vers content/labs.json, content/glossary.json, content/cheats.json, content/resources.json.
+- Totaux avant/après identiques (hors doublons aucun).
+- Suppression : data.js, build-data.js, chunks/ (archive dans git, plus de référence dans index.html).
+- Onglets vérifiés sans data.js : Cours, QCM, Labos, Glossaire, Cheat sheets, Vocabulaire Anglais, Support cours (console sans erreur).
+- Doublons cyber/ccp12 : sources supprimées (chunks/data.js) ; fiches cyber/ccp12 restantes dans content/ sont le contenu canonique (transverse et CP).
 ## G. Supports cours et fichiers locaux non suivis
 
 - La branche de travail ne conserve que deux supports suivis : supports/ccna1.pdf et supports/fiche-revision-itnv7.docx. Les anciens supports sont git rm et ne sortent pas du cache initial.
