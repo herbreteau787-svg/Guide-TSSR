@@ -370,7 +370,7 @@
       "t": "IPv6",
       "level": "intermediaire",
       "cli": true,
-      "r": "IPv6 utilise 128 bits. SLAAC, NDP, link-local.",
+      "r": "IPv6 utilise 128 bits et remplace IPv4 avec autoconfiguration, NDP et un espace d'adressage immense.",
       "tags": [
         "cp4",
         "ipv6"
@@ -382,71 +382,155 @@
         "Oubli de vérification"
       ],
       "w": "Le test seul ne prouve pas la cause.",
-      "resume": "IPv6 utilise 128 bits. SLAAC, NDP, link-local.",
+      "resume": "IPv6 : 128 bits, SLAAC, NDP, link-local, /64, dual stack.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "IPv6 utilise 128 bits. SLAAC, NDP, link-local."
+          "body": "IPv6 est la nouvelle version du protocole IP, conçue pour remplacer IPv4 et résoudre la pénurie d'adresses. Pour un candidat TSSR, maîtriser IPv6 est essentiel car il est de plus en plus présent dans les réseaux d'entreprise et les questions du jury.  IPv6 est la nouvelle version du protocole IP, conçue pour remplacer IPv4 et résoudre la pénurie d'adresses. Pour un candidat TSSR, maîtriser IPv6 est essentiel car il est de plus en plus présent dans les réseaux d'entreprise et les questions du jury. IPv6 est l'avenir du réseau."
         },
         {
-          "title": "Définitions",
-          "body": "IPv6 utilise 128 bits. SLAAC, NDP, link-local."
+          "title": "Pourquoi IPv6 existe",
+          "body": "IPv4 utilise 32 bits (4,3 milliards d'adresses). La croissance d'Internet a épuisé les adresses. Les solutions temporaires (NAT, CIDR) ont retardé le problème mais ne le résolvent pas. IPv6 utilise 128 bits, offrant un espace d'adressage immense.  IPv4 utilise 32 bits (4,3 milliards d'adresses). La croissance d'Internet a épuisé les adresses. Les solutions temporaires (NAT, CIDR) ont retardé le problème mais ne le résolvent pas. IPv6 utilise 128 bits, offrant un espace d'adressage immense.  IPv4 utilise 32 bits (4,3 milliards d'adresses). La croissance d'Internet a épuisé les adresses. Les solutions temporaires (NAT, CIDR) ont retardé le problème mais ne le résolvent pas. IPv6 utilise 128 bits, offrant un espace d'adressage immense."
         },
         {
-          "title": "Théorie détaillée",
-          "body": "IPv6 utilise 128 bits. SLAAC, NDP, link-local. Fonctionnement interne et concepts."
+          "title": "Limites d'IPv4",
+          "body": "IPv4 utilise 32 bits (4,3 milliards d'adresses). La croissance d'Internet a épuisé les adresses. Les solutions temporaires (NAT, CIDR) ont retardé le problème mais ne le résolvent pas. IPv6 utilise 128 bits, offrant un espace d'adressage immense."
         },
         {
-          "title": "Fonctionnement interne",
-          "body": "IPv6 utilise 128 bits. SLAAC, NDP, link-local."
+          "title": "Pénurie des adresses IPv4",
+          "body": "IPv4 utilise 32 bits (4,3 milliards d'adresses). La croissance d'Internet a épuisé les adresses. Les solutions temporaires (NAT, CIDR) ont retardé le problème mais ne le résolvent pas. IPv6 utilise 128 bits, offrant un espace d'adressage immense."
         },
         {
-          "title": "Architecture",
-          "body": "IPv6 utilise 128 bits. SLAAC, NDP, link-local."
+          "title": "Présentation d'IPv6",
+          "body": "IPv6 a été développé par l'IETF pour remplacer IPv4. Il est normalisé par la RFC 2460 (puis 8200). Il intègre des améliorations : autoconfiguration, sécurité intégrée, pas de broadcast, en-tête simplifié.  IPv6 a été développé par l'IETF pour remplacer IPv4. Il est normalisé par la RFC 2460 (puis 8200). Il intègre des améliorations : autoconfiguration, sécurité intégrée, pas de broadcast, en-tête simplifié."
+        },
+        {
+          "title": "Structure d'une adresse IPv6",
+          "body": "Une adresse IPv6 fait 128 bits, notée en hexadécimal (8 groupes de 4 hexadécimaux séparés par des deux-points). Exemple : 2001:0db8:85a3:0000:0000:8a2e:0370:7334. Les zéros en tête peuvent être omis. Les groupes de zéros consécutifs peuvent être remplacés par :: (une seule fois).  Une adresse IPv6 fait 128 bits, notée en hexadécimal (8 groupes de 4 hexadécimaux séparés par des deux-points). Exemple : 2001:0db8:85a3:0000:0000:8a2e:0370:7334. Les zéros en tête peuvent être omis. Les groupes de zéros consécutifs peuvent être remplacés par :: (une seule fois).  Une adresse IPv6 fait 128 bits, notée en hexadécimal (8 groupes de 4 hexadécimaux séparés par des deux-points). Exemple : 2001:0db8:85a3:0000:0000:8a2e:0370:7334. Les zéros en tête peuvent être omis. Les groupes de zéros consécutifs peuvent être remplacés par :: (une seule fois)."
+        },
+        {
+          "title": "Représentation hexadécimale",
+          "body": "Une adresse IPv6 fait 128 bits, notée en hexadécimal (8 groupes de 4 hexadécimaux séparés par des deux-points). Exemple : 2001:0db8:85a3:0000:0000:8a2e:0370:7334. Les zéros en tête peuvent être omis. Les groupes de zéros consécutifs peuvent être remplacés par :: (une seule fois)."
+        },
+        {
+          "title": "Compression des adresses IPv6",
+          "body": "La compression consiste à omettre les zéros en tête et à remplacer les groupes de zéros consécutifs par ::. Exemple : 2001:db8:85a3::8a2e:370:7334. Le :: ne peut être utilisé qu'une seule fois par adresse.  La compression consiste à omettre les zéros en tête et à remplacer les groupes de zéros consécutifs par ::. Exemple : 2001:db8:85a3::8a2e:370:7334. Le :: ne peut être utilisé qu'une seule fois par adresse. La compression simplifie la notation."
+        },
+        {
+          "title": "Types d'adresses IPv6",
+          "body": "L'unicast identifie une seule interface. Types : global unicast (2000::/3), link-local (fe80::/10), unique local (fc00::/7), loopback (::1), unspecified (::). Le multicast identifie un groupe d'interfaces. Préfixe ff00::/8. Exemples : ff02::1 (tous les nœuds), ff02::2 (tous les routeurs), ff02::1:ff00:0/104 (solicited-node). L'anycast identifie un groupe d'interfaces, mais le paquet est délivré à la plus proche (selon le routage). Utilisé pour les serveurs DNS, les CDN.  L'unicast identifie une seule interface. Types : global unicast (2000::/3), link-local (fe80::/10), unique local (fc00::/7), loopback (::1), unspecified (::). Le multicast identifie un groupe (ff00::/8). L'anycast identifie le plus proche."
+        },
+        {
+          "title": "Unicast",
+          "body": "L'unicast identifie une seule interface. Types : global unicast (2000::/3), link-local (fe80::/10), unique local (fc00::/7), loopback (::1), unspecified (::).  L'unicast identifie une seule interface. Types : global unicast (2000::/3), link-local (fe80::/10), unique local (fc00::/7), loopback (::1), unspecified (::)."
+        },
+        {
+          "title": "Multicast",
+          "body": "Le multicast identifie un groupe d'interfaces. Préfixe ff00::/8. Exemples : ff02::1 (tous les nœuds), ff02::2 (tous les routeurs), ff02::1:ff00:0/104 (solicited-node).  Le multicast identifie un groupe d'interfaces. Préfixe ff00::/8. Exemples : ff02::1 (tous les nœuds), ff02::2 (tous les routeurs), ff02::1:ff00:0/104 (solicited-node). Le multicast remplace le broadcast."
+        },
+        {
+          "title": "Anycast",
+          "body": "L'anycast identifie un groupe d'interfaces, mais le paquet est délivré à la plus proche (selon le routage). Utilisé pour les serveurs DNS, les CDN.  L'anycast identifie un groupe d'interfaces, mais le paquet est délivré à la plus proche (selon le routage). Utilisé pour les serveurs DNS, les CDN. L'anycast améliore la performance."
+        },
+        {
+          "title": "Link Local",
+          "body": "Le link-local (fe80::/10) est utilisé sur un lien local. Il est obligatoire sur chaque interface IPv6. Il est utilisé pour NDP, le routage (next-hop). Il n'est pas routable.  Le link-local (fe80::/10) est utilisé sur un lien local. Il est obligatoire sur chaque interface IPv6. Il est utilisé pour NDP, le routage (next-hop). Il n'est pas routable. Le link-local est toujours présent."
+        },
+        {
+          "title": "Global Unicast",
+          "body": "Le global unicast (2000::/3) est routable sur Internet. Il est équivalent à l'adresse publique IPv4. Le préfixe est attribué par le RIR.  Le global unicast (2000::/3) est routable sur Internet. Il est équivalent à l'adresse publique IPv4. Le préfixe est attribué par le RIR. Le global unicast est l'adresse principale."
+        },
+        {
+          "title": "Unique Local",
+          "body": "Le unique local (fc00::/7) est l'équivalent des adresses privées IPv4. Il est utilisé dans les réseaux privés. Il n'est pas routable sur Internet.  Le unique local (fc00::/7) est l'équivalent des adresses privées IPv4. Il est utilisé dans les réseaux privés. Il n'est pas routable sur Internet. Le unique local est pour les réseaux internes."
+        },
+        {
+          "title": "Préfixes IPv6",
+          "body": "Les préfixes IPv6 définissent la structure. /64 est le préfixe standard pour un sous-réseau. /128 pour une adresse unique. /48 pour un site. /56 pour un client. Le préfixe est attribué par le RIR ou l'ISP.  Les préfixes IPv6 définissent la structure. /64 est le préfixe standard pour un sous-réseau. /128 pour une adresse unique. /48 pour un site. /56 pour un client. Le préfixe est attribué par le RIR ou l'ISP."
+        },
+        {
+          "title": "SLAAC",
+          "body": "Le SLAAC (Stateless Address Autoconfiguration) permet à un hôte de s'auto-configurer sans serveur DHCP. Le routeur envoie des Router Advertisements (RA) contenant le préfixe. L'hôte génère son adresse (EUI-64 ou random). Le SLAAC est simple et automatique.  Le SLAAC (Stateless Address Autoconfiguration) permet à un hôte de s'auto-configurer sans serveur DHCP. Le routeur envoie des Router Advertisements (RA) contenant le préfixe. L'hôte génère son adresse (EUI-64 ou random). Le SLAAC est simple et automatique."
+        },
+        {
+          "title": "DHCPv6",
+          "body": "Le DHCPv6 attribue les adresses et les paramètres. Mode stateful (adresse + paramètres) ou stateless (paramètres uniquement). Le DHCPv6 utilise les messages Solicit, Advertise, Request, Reply. Il nécessite des Router Advertisements.  Le DHCPv6 attribue les adresses et les paramètres. Mode stateful (adresse + paramètres) ou stateless (paramètres uniquement). Le DHCPv6 utilise les messages Solicit, Advertise, Request, Reply. Il nécessite des Router Advertisements."
+        },
+        {
+          "title": "Neighbor Discovery Protocol",
+          "body": "Le Neighbor Discovery Protocol (NDP) remplace ARP en IPv6. Il utilise ICMPv6. Il permet la découverte des voisins, la résolution d'adresses, la détection des routeurs et des préfixes. Les messages : Router Solicitation (RS), Router Advertisement (RA), Neighbor Solicitation (NS), Neighbor Advertisement (NA), Redirect.  Le Neighbor Discovery Protocol (NDP) remplace ARP en IPv6. Il utilise ICMPv6. Il permet la découverte des voisins, la résolution d'adresses, la détection des routeurs et des préfixes. Les messages : Router Solicitation (RS), Router Advertisement (RA), Neighbor Solicitation (NS), Neighbor Advertisement (NA), Redirect."
+        },
+        {
+          "title": "ICMPv6",
+          "body": "ICMPv6 est essentiel en IPv6. Il remplace ARP (NDP). Il est utilisé pour la découverte des voisins, la gestion des erreurs, la fragmentation. Il ne doit pas être bloqué par le firewall.  ICMPv6 est essentiel en IPv6. Il remplace ARP (NDP). Il est utilisé pour la découverte des voisins, la gestion des erreurs, la fragmentation. Il ne doit pas être bloqué par le firewall."
+        },
+        {
+          "title": "DNS et IPv6",
+          "body": "Le DNS résout les noms en adresses IPv6 (enregistrement AAAA). Le DNS est essentiel pour IPv6. Les serveurs DNS doivent supporter IPv6. La résolution AAAA est automatique.  Le DNS résout les noms en adresses IPv6 (enregistrement AAAA). Le DNS est essentiel pour IPv6. Les serveurs DNS doivent supporter IPv6. La résolution AAAA est automatique."
+        },
+        {
+          "title": "Routage IPv6",
+          "body": "Le routage IPv6 fonctionne comme IPv4 mais avec des adresses 128 bits. Les protocoles de routage ont été adaptés : OSPFv3, EIGRP for IPv6, BGP (multiprotocole). Le routage est basé sur le préfixe.  Le routage IPv6 fonctionne comme IPv4 mais avec des adresses 128 bits. Les protocoles de routage ont été adaptés : OSPFv3, EIGRP for IPv6, BGP (multiprotocole). Le routage est basé sur le préfixe."
+        },
+        {
+          "title": "OSPFv3",
+          "body": "OSPFv3 est la version IPv6 d'OSPF. Il utilise les mêmes concepts (areas, DR/BDR, LSA) mais avec des adresses IPv6. Les LSA sont transportées via IPv6. La configuration est similaire à OSPFv2.  OSPFv3 est la version IPv6 d'OSPF. Il utilise les mêmes concepts (areas, DR/BDR, LSA) mais avec des adresses IPv6. Les LSA sont transportées via IPv6. La configuration est similaire à OSPFv2."
+        },
+        {
+          "title": "Sécurité IPv6",
+          "body": "La sécurité IPv6 est intégrée (IPsec obligatoire dans la spec, mais pas toujours implémenté). Le NDP peut être vulnérable (spoofing). Le RA guard et le DHCPv6 guard protègent. Le firewall doit filtrer ICMPv6 (pas tout bloquer).  La sécurité IPv6 est intégrée (IPsec obligatoire dans la spec, mais pas toujours implémenté). Le NDP peut être vulnérable (spoofing). Le RA guard et le DHCPv6 guard protègent. Le firewall doit filtrer ICMPv6 (pas tout bloquer)."
         },
         {
           "title": "Cas concret entreprise",
-          "body": "IPv6 utilise 128 bits. SLAAC, NDP, link-local. Cas pratique."
+          "body": "Scénario PME : activer IPv6 sur un VLAN et vérifier la connectivité. Scénario collectivité : déployer IPv6 sur le réseau. Scénario école : IPv6 pour les postes. Scénario migration : double pile IPv4/IPv6. Scénario coexistence : IPv4 et IPv6 simultanément.  Scénario PME : activer IPv6 sur un VLAN et vérifier la connectivité. Scénario collectivité : déployer IPv6 sur le réseau. Scénario école : IPv6 pour les postes. Scénario migration : double pile IPv4/IPv6. Scénario coexistence : IPv4 et IPv6 simultanément."
         },
         {
-          "title": "Procédure pas à pas",
-          "body": "1. Vérifier. 2. Configurer. 3. Tester."
+          "title": "Migration IPv4 vers IPv6",
+          "body": "La migration IPv4 vers IPv6 peut se faire par double pile (dual stack), tunneling (6to4, Teredo, ISATAP) ou translation (NAT64). Le dual stack est le plus courant. La migration est progressive.  La migration IPv4 vers IPv6 peut se faire par double pile (dual stack), tunneling (6to4, Teredo, ISATAP) ou translation (NAT64). Le dual stack est le plus courant. La migration est progressive."
         },
         {
-          "title": "Dépannage",
-          "body": "IPv6 utilise 128 bits. SLAAC, NDP, link-local. Dépannage."
+          "title": "Commandes Cisco IOS",
+          "body": "Configuration Cisco IOS :\nipv6 unicast-routing\ninterface gi0/0\n ipv6 address 2001:db8:1::1/64\n ipv6 address fe80::1 link-local\n\nCommandes de vérification :\nshow ipv6 interface brief\nshow ipv6 route\nshow ipv6 neighbors\nshow ipv6 interface\nshow running-config\nping ipv6\ntraceroute ipv6\n\nExplication :\nshow ipv6 interface brief affiche les adresses IPv6.\nshow ipv6 route affiche la table de routage IPv6.\nshow ipv6 neighbors affiche la table NDP (équivalent ARP).\nshow ipv6 interface affiche les détails.\nping ipv6 teste la connectivité.\ntraceroute ipv6 trace le chemin."
         },
         {
-          "title": "Commandes CLI",
-          "body": "Commandes usuelles."
+          "title": "Double pile IPv4/IPv6",
+          "body": "Le dual stack permet à un équipement de parler IPv4 et IPv6 simultanément. Chaque interface a une adresse IPv4 et une adresse IPv6. Les applications choisissent le protocole. Le dual stack est la transition la plus simple.  Le dual stack permet à un équipement de parler IPv4 et IPv6 simultanément. Chaque interface a une adresse IPv4 et une adresse IPv6. Les applications choisissent le protocole. Le dual stack est la transition la plus simple."
+        },
+        {
+          "title": "Configuration Cisco IOS",
+          "body": "1. Activer ipv6 unicast-routing. 2. Configurer l'adresse IPv6 sur l'interface. 3. Vérifier avec show ipv6 interface brief. 4. Tester le ping IPv6. 5. Vérifier le NDP. 6. Tester la connectivité.  Configuration Cisco IOS :\nipv6 unicast-routing\ninterface gi0/0\n ipv6 address 2001:db8:1::1/64\n ipv6 address fe80::1 link-local\n\nCommandes de vérification :\nshow ipv6 interface brief\nshow ipv6 route\nshow ipv6 neighbors\nshow ipv6 interface\nshow running-config\nping ipv6\ntraceroute ipv6\n\nExplication :\nshow ipv6 interface brief affiche les adresses IPv6.\nshow ipv6 route affiche la table de routage IPv6.\nshow ipv6 neighbors affiche la table NDP (équivalent ARP).\nshow ipv6 interface affiche les détails.\nping ipv6 teste la connectivité.\ntraceroute ipv6 trace le chemin."
         },
         {
           "title": "Vérification",
-          "body": "Vérifier la configuration."
+          "body": "show ipv6 interface brief doit afficher les adresses. show ipv6 neighbors doit afficher les voisins. Le ping IPv6 doit réussir. La table de routage doit contenir les routes.  show ipv6 interface brief doit afficher les adresses. show ipv6 neighbors doit afficher les voisins. Le ping IPv6 doit réussir. La table de routage doit contenir les routes."
+        },
+        {
+          "title": "Dépannage",
+          "body": "Absence d'adresse IPv6 : vérifier l'activation et la configuration. Problème SLAAC : vérifier les RA. Passerelle invalide : vérifier l'adresse du routeur. Voisinage NDP : vérifier show ipv6 neighbors. Problème DNS IPv6 : vérifier les enregistrements AAAA.  Absence d'adresse IPv6 : vérifier l'activation et la configuration. Problème SLAAC : vérifier les RA. Passerelle invalide : vérifier l'adresse du routeur. Voisinage NDP : vérifier show ipv6 neighbors. Problème DNS IPv6 : vérifier les enregistrements AAAA."
         },
         {
           "title": "Questions de jury",
-          "body": "Questions typiques."
+          "body": "Expliquer IPv6. Qu'est-ce qu'un link-local ? Qu'est-ce que le SLAAC ? Qu'est-ce que NDP ? Quelle est la taille d'une adresse IPv6 ? Qu'est-ce qu'un préfixe /64 ? Qu'est-ce que le dual stack ?  Expliquer IPv6. Qu'est-ce qu'un link-local ? Qu'est-ce que le SLAAC ? Qu'est-ce que NDP ? Quelle est la taille d'une adresse IPv6 ? Qu'est-ce qu'un préfixe /64 ? Qu'est-ce que le dual stack ?"
         },
         {
           "title": "Pièges d'examen",
-          "body": "Pièges fréquents."
+          "body": "Oublier ipv6 unicast-routing. Mauvais préfixe. Oublier le link-local. Bloquer ICMPv6 (NDP). Confondre /64 et /128. Oublier les enregistrements AAAA. Confondre SLAAC et DHCPv6.  Oublier ipv6 unicast-routing. Mauvais préfixe. Oublier le link-local. Bloquer ICMPv6 (NDP). Confondre /64 et /128. Oublier les enregistrements AAAA. Confondre SLAAC et DHCPv6."
         },
         {
           "title": "Bonnes pratiques",
-          "body": "Bonnes pratiques."
+          "body": "Utiliser /64 pour les sous-réseaux. Activer ipv6 unicast-routing. Ne pas bloquer ICMPv6. Documenter le plan d'adressage. Tester la connectivité IPv6. Utiliser le dual stack pour la transition.  Utiliser /64 pour les sous-réseaux. Activer ipv6 unicast-routing. Ne pas bloquer ICMPv6. Documenter le plan d'adressage. Tester la connectivité IPv6. Utiliser le dual stack pour la transition."
         },
         {
           "title": "Mémo révision",
-          "body": "IPv6 utilise 128 bits. SLAAC, NDP, link-local."
+          "body": "IPv6 = 128 bits, hexadécimal. Link-local fe80::/10. Global unicast 2000::/3. SLAAC = autoconfiguration. NDP = remplace ARP. /64 = sous-réseau. Dual stack = IPv4+IPv6.  IPv6 = 128 bits, hexadécimal. Link-local fe80::/10. Global unicast 2000::/3. SLAAC = autoconfiguration. NDP = remplace ARP. /64 = sous-réseau. Dual stack = IPv4+IPv6.  IPv6 = 128 bits, hexadécimal. Link-local fe80::/10. Global unicast 2000::/3. SLAAC = autoconfiguration. NDP = remplace ARP. /64 = sous-réseau. Dual stack = IPv4+IPv6. ICMPv6 essentiel. NDP remplace ARP."
         },
         {
-          "title": "Schéma Mermaid",
-          "body": "graph TD; A-->B;"
+          "title": "Schémas Mermaid",
+          "body": "graph TD; A[IPv4]-->B[Dual Stack]; C[IPv6]-->B; B-->D[Réseau];  graph TD; A[IPv4]-->B[Dual Stack]; C[IPv6]-->B; B-->D[Réseau];"
         },
         {
           "title": "Sources de référence",
-          "body": "Documentation officielle."
+          "body": "RFC 2460, 4861, 4862, Cisco Networking Academy.  RFC 2460, 4861, 4862, Cisco Networking Academy."
         }
       ]
     },
