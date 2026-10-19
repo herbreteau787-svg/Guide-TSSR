@@ -687,6 +687,26 @@ function renderCheat(){
 }
 
 /* ---------- vocabulaire anglais ---------- */
+const VOCAB_SECTION_ORDER = [
+ "Support utilisateur et tickets (ITIL)",
+ "Phrases types",
+ "Verbes de travail",
+ "Dépannage et support",
+ "Réseau et infrastructure",
+ "Windows et Active Directory",
+ "Linux et administration",
+ "Virtualisation et cloud",
+ "Sauvegarde et supervision",
+ "Cybersécurité",
+ "Matériel",
+ "Logiciel et système",
+ "Internet et Web",
+ "Développement",
+ "Expressions et idiomes professionnels",
+ "Abréviations",
+ "Faux amis et confusions"
+];
+function vocabSectionRank(s){ const i=VOCAB_SECTION_ORDER.indexOf(s); return i===-1?999:i; }
 function getVocabPool(){
   const entries = G.vocab || [];
   const search = String(state.vocabSearch || "").toLowerCase();
@@ -734,7 +754,7 @@ function renderAnglais(){
   let html = "<div class=\"hero\"><h1>Vocabulaire Anglais technique</h1><p>" + entries.length + " entrées, " + pool.length + " filtrées, " + (progress.known||[]).length + " connues / " + (progress.review||[]).length + " à revoir. Meilleur score quiz : " + (progress.quizBest||0) + ".</p></div>";
   html += "<div class=\"card\"><div class=\"button-row\" style=\"flex-wrap:wrap\">";
   html += "<input class=\"search\" id=\"vocabSearch\" placeholder=\"Rechercher Terme, traduction, definition...\" value=\"" + escapeHtml(state.vocabSearch||"") + "\"></input>";
-  const vocabSections = Array.from(new Set(entries.map(e=>e.section).filter(Boolean))).sort();
+  const vocabSections = Array.from(new Set(entries.map(e=>e.section).filter(Boolean))).sort((a,b)=>vocabSectionRank(a)-vocabSectionRank(b));
   html += "<select class=\"search\" id=\"vocabSection\" style=\"margin-left:8px\"><option value=\"all\">Toutes les sections</option>" + vocabSections.map(s=>"<option value=\""+escapeHtml(s)+"\""+(state.vocabSection===s?" selected":"")+">"+escapeHtml(s)+"</option>").join("") + "</select>";
   html += "</div><div class=\"button-row\" style=\"flex-wrap:wrap;margin-top:8px\">";
   html += "<button class=\"ghost-btn"+(mode==="list"?" on":"")+"\" data-vocab-mode=\"list\">Liste</button><button class=\"ghost-btn"+(mode==="flash"?" on":"")+"\" data-vocab-mode=\"flash\">Flashcards</button><button class=\"ghost-btn"+(mode==="quizEN"?" on":"")+"\" data-vocab-mode=\"quizEN\">Quiz EN / FR</button><button class=\"ghost-btn"+(mode==="quizFR"?" on":"")+"\" data-vocab-mode=\"quizFR\">Quiz FR / EN</button>";
@@ -742,7 +762,7 @@ function renderAnglais(){
   if (mode === "list"){
     const groups = {};
     for (const e of pool){ const k=e.section||"Autres"; if (!groups[k]) groups[k]=[]; groups[k].push(e); }
-    const cats = Object.keys(groups).sort();
+    const cats = Object.keys(groups).sort((a,b)=>vocabSectionRank(a)-vocabSectionRank(b));
     for (const cat of cats){
       html += "<div class=\"card\"><h3>"+escapeHtml(cat)+"</h3><table class=\"cheat-table\"><thead><tr><th>English</th><th>Traduction</th></tr></thead><tbody>";
       for (const e of groups[cat]){

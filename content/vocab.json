@@ -357,7 +357,7 @@
       "en": "rack",
       "fr": "baie (informatique)",
       "section": "Matériel",
-      "fiabilite": "a_verifier"
+      "fiabilite": "sure"
     },
     {
       "id": "vocab-052",
@@ -529,2284 +529,3355 @@
     },
     {
       "id": "vocab-076",
-      "en": "sudo",
-      "fr": "sudo (élévation de privilèges)",
+      "en": "root",
+      "fr": "super-utilisateur",
       "section": "Linux et administration",
-      "fiabilite": "a_verifier"
+      "fiabilite": "sure"
     },
     {
       "id": "vocab-077",
-      "en": "root",
-      "fr": "super-utilisateur (root)",
-      "section": "Linux et administration",
-      "fiabilite": "a_verifier"
-    },
-    {
-      "id": "vocab-078",
       "en": "command",
       "fr": "commande",
       "section": "Linux et administration",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-079",
+      "id": "vocab-078",
       "en": "pipe",
-      "fr": "tube (pipe)",
+      "fr": "tube (redirection)",
       "section": "Linux et administration",
-      "fiabilite": "a_verifier"
+      "fiabilite": "sure"
     },
     {
-      "id": "vocab-080",
+      "id": "vocab-079",
       "en": "filesystem",
       "fr": "système de fichiers",
       "section": "Linux et administration",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-081",
+      "id": "vocab-080",
       "en": "mount",
       "fr": "montage",
       "section": "Linux et administration",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-082",
+      "id": "vocab-081",
       "en": "ownership",
       "fr": "propriété",
       "section": "Linux et administration",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-083",
+      "id": "vocab-082",
       "en": "symbolic link",
       "fr": "lien symbolique",
       "section": "Linux et administration",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-084",
+      "id": "vocab-083",
       "en": "log",
       "fr": "journal",
       "section": "Linux et administration",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-085",
+      "id": "vocab-084",
       "en": "cron",
       "fr": "planificateur cron",
       "section": "Linux et administration",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-086",
+      "id": "vocab-085",
       "en": "SSH",
       "fr": "protocole d'accès distant sécurisé",
       "section": "Linux et administration",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-087",
+      "id": "vocab-086",
       "en": "virtual machine",
       "fr": "machine virtuelle",
       "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-088",
+      "id": "vocab-087",
       "en": "hypervisor",
       "fr": "hyperviseur",
       "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-089",
+      "id": "vocab-088",
       "en": "container",
       "fr": "conteneur",
       "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-090",
+      "id": "vocab-089",
       "en": "snapshot",
       "fr": "instantané",
       "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-091",
+      "id": "vocab-090",
       "en": "high availability",
       "fr": "haute disponibilité",
       "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-092",
+      "id": "vocab-091",
       "en": "cluster",
       "fr": "grappe",
       "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-093",
+      "id": "vocab-092",
       "en": "router",
       "fr": "routeur",
       "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-094",
+      "id": "vocab-093",
       "en": "switch",
       "fr": "commutateur",
       "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-095",
+      "id": "vocab-094",
       "en": "firewall",
       "fr": "pare-feu",
       "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-096",
+      "id": "vocab-095",
       "en": "IP address",
       "fr": "adresse IP",
       "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-097",
+      "id": "vocab-096",
       "en": "subnet",
       "fr": "sous-réseau",
       "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-098",
+      "id": "vocab-097",
       "en": "gateway",
       "fr": "passerelle",
       "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-099",
+      "id": "vocab-098",
       "en": "VLAN",
       "fr": "réseau local virtuel",
       "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-100",
+      "id": "vocab-099",
       "en": "bandwidth",
       "fr": "bande passante",
       "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-101",
+      "id": "vocab-100",
       "en": "latency",
       "fr": "latence",
       "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-102",
+      "id": "vocab-101",
       "en": "packet",
       "fr": "paquet",
       "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-103",
+      "id": "vocab-102",
       "en": "protocol",
       "fr": "protocole",
       "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-104",
+      "id": "vocab-103",
       "en": "VPN",
       "fr": "réseau privé virtuel",
       "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-105",
+      "id": "vocab-104",
       "en": "malware",
       "fr": "logiciel malveillant",
       "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-106",
+      "id": "vocab-105",
       "en": "phishing",
       "fr": "hameçonnage",
       "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-107",
+      "id": "vocab-106",
       "en": "hacker",
       "fr": "pirate informatique",
       "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-108",
+      "id": "vocab-107",
       "en": "data breach",
       "fr": "fuite de données",
       "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-109",
+      "id": "vocab-108",
       "en": "encryption",
       "fr": "chiffrement",
       "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-110",
+      "id": "vocab-109",
       "en": "backup",
       "fr": "sauvegarde",
       "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-111",
+      "id": "vocab-110",
       "en": "two-factor authentication",
       "fr": "authentification à deux facteurs",
       "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-112",
+      "id": "vocab-111",
       "en": "certificate",
       "fr": "certificat",
       "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-113",
+      "id": "vocab-112",
       "en": "restore",
       "fr": "restauration",
       "section": "Sauvegarde et supervision",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-114",
+      "id": "vocab-113",
       "en": "monitoring",
       "fr": "supervision",
       "section": "Sauvegarde et supervision",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-115",
+      "id": "vocab-114",
       "en": "alert",
       "fr": "alerte",
       "section": "Sauvegarde et supervision",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-116",
+      "id": "vocab-115",
       "en": "metric",
       "fr": "métrique",
       "section": "Sauvegarde et supervision",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-117",
+      "id": "vocab-116",
       "en": "dashboard",
       "fr": "tableau de bord",
       "section": "Sauvegarde et supervision",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-118",
+      "id": "vocab-117",
       "en": "event",
       "fr": "événement",
       "section": "Sauvegarde et supervision",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-119",
+      "id": "vocab-118",
       "en": "uptime",
       "fr": "temps de fonctionnement",
       "section": "Sauvegarde et supervision",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-120",
+      "id": "vocab-119",
       "en": "crash",
       "fr": "plantage",
       "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-121",
+      "id": "vocab-120",
       "en": "freeze",
       "fr": "blocage / figement",
       "section": "Dépannage et support",
-      "fiabilite": "a_verifier"
+      "fiabilite": "sure"
     },
     {
-      "id": "vocab-122",
+      "id": "vocab-121",
       "en": "error message",
       "fr": "message d'erreur",
       "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-123",
+      "id": "vocab-122",
       "en": "troubleshoot",
       "fr": "dépanner",
       "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-124",
+      "id": "vocab-123",
       "en": "glitch",
       "fr": "anomalie (défaut mineur et passager)",
       "section": "Dépannage et support",
       "fiabilite": "a_verifier"
     },
     {
-      "id": "vocab-125",
+      "id": "vocab-124",
       "en": "lag",
       "fr": "latence / décalage d'affichage",
       "section": "Dépannage et support",
       "fiabilite": "a_verifier"
     },
     {
-      "id": "vocab-126",
+      "id": "vocab-125",
       "en": "timeout",
       "fr": "expiration / délai dépassé",
       "section": "Dépannage et support",
-      "fiabilite": "a_verifier"
+      "fiabilite": "sure"
     },
     {
-      "id": "vocab-127",
+      "id": "vocab-126",
       "en": "failure",
       "fr": "panne",
       "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-128",
+      "id": "vocab-127",
       "en": "outage",
       "fr": "interruption de service",
       "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-129",
+      "id": "vocab-128",
       "en": "OS",
       "fr": "système d'exploitation",
       "section": "Abréviations",
-      "fiabilite": "a_verifier"
+      "fiabilite": "sure"
     },
     {
-      "id": "vocab-130",
+      "id": "vocab-129",
       "en": "AD",
       "fr": "Active Directory",
       "section": "Abréviations",
-      "fiabilite": "a_verifier"
+      "fiabilite": "sure"
     },
     {
-      "id": "vocab-131",
+      "id": "vocab-130",
       "en": "VM",
       "fr": "machine virtuelle",
       "section": "Abréviations",
-      "fiabilite": "a_verifier"
+      "fiabilite": "sure"
     },
     {
-      "id": "vocab-132",
+      "id": "vocab-131",
       "en": "SLA",
       "fr": "accord de niveau de service",
       "section": "Abréviations",
-      "fiabilite": "a_verifier"
+      "fiabilite": "sure"
     },
     {
-      "id": "vocab-133",
+      "id": "vocab-132",
       "en": "incident",
       "fr": "incident (interruption de service)",
       "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-134",
+      "id": "vocab-133",
       "en": "problem",
       "fr": "problème (cause racine)",
       "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-135",
+      "id": "vocab-134",
       "en": "change request",
       "fr": "demande de changement",
       "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-136",
+      "id": "vocab-135",
       "en": "service request",
       "fr": "demande de service",
       "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-137",
+      "id": "vocab-136",
       "en": "escalation",
       "fr": "escalade",
       "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-138",
+      "id": "vocab-137",
       "en": "tier 1",
       "fr": "niveau 1 (premier contact)",
       "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-139",
+      "id": "vocab-138",
       "en": "tier 2",
       "fr": "niveau 2 (support spécialisé)",
       "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-140",
+      "id": "vocab-139",
       "en": "tier 3",
       "fr": "niveau 3 (experts)",
       "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-141",
+      "id": "vocab-140",
       "en": "knowledge base",
       "fr": "base de connaissances",
       "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-142",
+      "id": "vocab-141",
       "en": "ticket",
       "fr": "ticket / demande",
       "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-143",
+      "id": "vocab-142",
       "en": "open",
       "fr": "ouvert",
       "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-144",
+      "id": "vocab-143",
       "en": "in progress",
       "fr": "en cours",
       "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-145",
+      "id": "vocab-144",
       "en": "resolved",
       "fr": "résolu",
       "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-146",
+      "id": "vocab-145",
       "en": "closed",
       "fr": "fermé",
       "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-147",
+      "id": "vocab-146",
       "en": "pending",
       "fr": "en attente",
       "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-148",
+      "id": "vocab-147",
       "en": "workaround",
       "fr": "solution de contournement",
       "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-149",
+      "id": "vocab-148",
       "en": "root cause",
       "fr": "cause racine",
       "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-150",
+      "id": "vocab-149",
       "en": "priority",
       "fr": "priorité",
       "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-151",
+      "id": "vocab-150",
       "en": "severity",
       "fr": "gravité",
       "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-152",
+      "id": "vocab-151",
       "en": "resolution",
       "fr": "résolution",
       "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-153",
+      "id": "vocab-152",
       "en": "closure",
       "fr": "clôture",
       "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-154",
+      "id": "vocab-153",
       "en": "reassignment",
       "fr": "réaffectation",
       "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-155",
+      "id": "vocab-154",
       "en": "callback",
       "fr": "rappel",
       "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-156",
+      "id": "vocab-155",
       "en": "follow-up",
       "fr": "suivi",
       "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-157",
+      "id": "vocab-156",
       "en": "customer",
       "fr": "utilisateur / client",
       "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-158",
+      "id": "vocab-157",
       "en": "survey",
       "fr": "enquête de satisfaction",
       "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-159",
+      "id": "vocab-158",
       "en": "status",
       "fr": "statut",
       "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-160",
+      "id": "vocab-159",
       "en": "I have an issue with my computer.",
       "fr": "J'ai un problème avec mon ordinateur.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-161",
+      "id": "vocab-160",
       "en": "My screen is flickering.",
       "fr": "Mon écran scintille.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-162",
+      "id": "vocab-161",
       "en": "The application keeps crashing.",
       "fr": "L'application plante constamment.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-163",
+      "id": "vocab-162",
       "en": "I cannot log in.",
       "fr": "Je n'arrive pas à me connecter.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-164",
+      "id": "vocab-163",
       "en": "My account is locked.",
       "fr": "Mon compte est verrouillé.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-165",
+      "id": "vocab-164",
       "en": "The printer is not responding.",
       "fr": "L'imprimante ne répond pas.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-166",
+      "id": "vocab-165",
       "en": "The network is down.",
       "fr": "Le réseau est hors service.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-167",
+      "id": "vocab-166",
       "en": "I need to reset my password.",
       "fr": "Je dois réinitialiser mon mot de passe.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-168",
+      "id": "vocab-167",
       "en": "Could you please help me?",
       "fr": "Pourriez-vous m'aider s'il vous plaît ?",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-169",
+      "id": "vocab-168",
       "en": "I will escalate this ticket.",
       "fr": "Je vais escalader ce ticket.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-170",
+      "id": "vocab-169",
       "en": "Please provide more details.",
       "fr": "Veuillez fournir plus de détails.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-171",
+      "id": "vocab-170",
       "en": "The issue has been resolved.",
       "fr": "Le problème a été résolu.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-172",
+      "id": "vocab-171",
       "en": "We are working on it.",
       "fr": "Nous travaillons dessus.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-173",
+      "id": "vocab-172",
       "en": "It will be fixed shortly.",
       "fr": "Ce sera corrigé sous peu.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-174",
+      "id": "vocab-173",
       "en": "Please restart your computer.",
       "fr": "Veuillez redémarrer votre ordinateur.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-175",
+      "id": "vocab-174",
       "en": "Have you tried turning it off and on again?",
       "fr": "Avez-vous essayé de l'éteindre et de le rallumer ?",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-176",
+      "id": "vocab-175",
       "en": "I will get back to you.",
       "fr": "Je reviendrai vers vous.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-177",
+      "id": "vocab-176",
       "en": "Thank you for your patience.",
       "fr": "Merci pour votre patience.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-178",
+      "id": "vocab-177",
       "en": "The service is restored.",
       "fr": "Le service est rétabli.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-179",
+      "id": "vocab-178",
       "en": "Please check your email.",
       "fr": "Veuillez vérifier votre messagerie.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-180",
+      "id": "vocab-179",
       "en": "I am sending you the procedure.",
       "fr": "Je vous envoie la procédure.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-181",
+      "id": "vocab-180",
       "en": "The incident is closed.",
       "fr": "L'incident est clos.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-182",
+      "id": "vocab-181",
       "en": "We need a workaround.",
       "fr": "Nous avons besoin d'un contournement.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-183",
+      "id": "vocab-182",
       "en": "The root cause has been identified.",
       "fr": "La cause racine a été identifiée.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-184",
+      "id": "vocab-183",
       "en": "A change request has been submitted.",
       "fr": "Une demande de changement a été soumise.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-185",
+      "id": "vocab-184",
       "en": "The SLA has been met.",
       "fr": "Le SLA a été respecté.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-186",
+      "id": "vocab-185",
       "en": "Please update the ticket.",
       "fr": "Veuillez mettre à jour le ticket.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-187",
+      "id": "vocab-186",
       "en": "I will follow up tomorrow.",
       "fr": "Je ferai un suivi demain.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-188",
+      "id": "vocab-187",
       "en": "The problem is under investigation.",
       "fr": "Le problème est en cours d'investigation.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-189",
+      "id": "vocab-188",
       "en": "We need to escalate to tier 3.",
       "fr": "Nous devons escalader au niveau 3.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-190",
+      "id": "vocab-189",
       "en": "The knowledge base has been updated.",
       "fr": "La base de connaissances a été mise à jour.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-191",
+      "id": "vocab-190",
       "en": "Please confirm the resolution.",
       "fr": "Veuillez confirmer la résolution.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-192",
+      "id": "vocab-191",
       "en": "The change is scheduled tonight.",
       "fr": "Le changement est prévu cette nuit.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-193",
+      "id": "vocab-192",
       "en": "There is a known issue.",
       "fr": "Il s'agit d'un problème connu.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-194",
+      "id": "vocab-193",
       "en": "We are applying a patch.",
       "fr": "Nous appliquons un correctif.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-195",
+      "id": "vocab-194",
       "en": "The backup is completed.",
       "fr": "La sauvegarde est terminée.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-196",
+      "id": "vocab-195",
       "en": "The server is unreachable.",
       "fr": "Le serveur est inaccessible.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-197",
+      "id": "vocab-196",
       "en": "Please check the logs.",
       "fr": "Veuillez consulter les journaux.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-198",
+      "id": "vocab-197",
       "en": "The connection is unstable.",
       "fr": "La connexion est instable.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-199",
+      "id": "vocab-198",
       "en": "I will contact the provider.",
       "fr": "Je vais contacter le prestataire.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-200",
+      "id": "vocab-199",
       "en": "deploy",
       "fr": "déployer",
       "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-201",
+      "id": "vocab-200",
       "en": "roll back",
       "fr": "revenir en arrière",
       "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-202",
+      "id": "vocab-201",
       "en": "escalate",
       "fr": "escalader",
       "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-203",
+      "id": "vocab-202",
       "en": "follow up",
       "fr": "faire un suivi",
       "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-204",
+      "id": "vocab-203",
       "en": "sign off",
       "fr": "valider / approuver",
       "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-205",
+      "id": "vocab-204",
       "en": "investigate",
       "fr": "investiguer",
       "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-206",
+      "id": "vocab-205",
       "en": "resolve",
       "fr": "résoudre",
       "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-207",
+      "id": "vocab-206",
       "en": "upgrade",
       "fr": "mettre à niveau",
       "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-208",
+      "id": "vocab-207",
       "en": "install",
       "fr": "installer",
       "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-209",
+      "id": "vocab-208",
       "en": "uninstall",
       "fr": "désinstaller",
       "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-210",
+      "id": "vocab-209",
       "en": "configure",
       "fr": "configurer",
       "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-211",
+      "id": "vocab-210",
       "en": "migrate",
       "fr": "migrer",
       "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-212",
+      "id": "vocab-211",
       "en": "reset",
       "fr": "réinitialiser",
       "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-213",
+      "id": "vocab-212",
       "en": "assign",
       "fr": "affecter",
       "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-214",
+      "id": "vocab-213",
       "en": "reassign",
       "fr": "réaffecter",
       "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-215",
+      "id": "vocab-214",
       "en": "close",
       "fr": "clôturer",
       "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-216",
+      "id": "vocab-215",
       "en": "reopen",
       "fr": "réouvrir",
       "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-217",
+      "id": "vocab-216",
       "en": "document",
       "fr": "documenter",
       "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-218",
+      "id": "vocab-217",
       "en": "notify",
       "fr": "notifier",
       "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-219",
+      "id": "vocab-218",
       "en": "verify",
       "fr": "vérifier",
       "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-220",
+      "id": "vocab-219",
       "en": "test",
       "fr": "tester",
       "section": "Verbes de travail",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-221",
+      "id": "vocab-220",
       "en": "restart",
       "fr": "redémarrage",
       "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-222",
+      "id": "vocab-221",
       "en": "log in",
       "fr": "se connecter",
       "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-223",
+      "id": "vocab-222",
       "en": "log out",
       "fr": "se déconnecter",
       "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-224",
+      "id": "vocab-223",
       "en": "slow",
       "fr": "lent",
       "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-225",
+      "id": "vocab-224",
       "en": "unresponsive",
       "fr": "ne répond pas",
       "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-226",
+      "id": "vocab-225",
       "en": "down",
       "fr": "hors service",
       "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-227",
+      "id": "vocab-226",
       "en": "up",
       "fr": "en service",
       "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-228",
+      "id": "vocab-227",
       "en": "offline",
       "fr": "hors ligne",
       "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-229",
+      "id": "vocab-228",
       "en": "online",
       "fr": "en ligne",
       "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-230",
+      "id": "vocab-229",
       "en": "flickering",
       "fr": "scintillement",
       "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-231",
+      "id": "vocab-230",
       "en": "freezing",
       "fr": "figement",
       "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-232",
+      "id": "vocab-231",
       "en": "diagnosis",
       "fr": "diagnostic",
       "section": "Dépannage et support",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-233",
+      "id": "vocab-232",
       "en": "network",
       "fr": "réseau",
       "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-234",
+      "id": "vocab-233",
       "en": "trunk",
       "fr": "liaison agrégée",
       "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-235",
+      "id": "vocab-234",
       "en": "frame",
       "fr": "trame",
       "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-236",
+      "id": "vocab-235",
       "en": "throughput",
       "fr": "débit",
       "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-237",
+      "id": "vocab-236",
       "en": "topology",
       "fr": "topologie",
       "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-238",
+      "id": "vocab-237",
       "en": "redundancy",
       "fr": "redondance",
       "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-239",
+      "id": "vocab-238",
       "en": "failover",
       "fr": "basculement",
       "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-240",
+      "id": "vocab-239",
       "en": "load balancer",
       "fr": "répartiteur de charge",
       "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-241",
+      "id": "vocab-240",
       "en": "NAT",
       "fr": "translation d'adresse",
       "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-242",
+      "id": "vocab-241",
       "en": "ACL",
       "fr": "liste de contrôle d'accès",
       "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-243",
+      "id": "vocab-242",
       "en": "routing",
       "fr": "routage",
       "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-244",
+      "id": "vocab-243",
       "en": "switching",
       "fr": "commutation",
       "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-245",
+      "id": "vocab-244",
       "en": "broadcast",
       "fr": "diffusion",
       "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-246",
+      "id": "vocab-245",
       "en": "unicast",
       "fr": "monodiffusion",
       "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-247",
+      "id": "vocab-246",
       "en": "GPO",
       "fr": "stratégie de groupe",
       "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-248",
+      "id": "vocab-247",
       "en": "trust",
       "fr": "relation d'approbation",
       "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-249",
+      "id": "vocab-248",
       "en": "replication",
       "fr": "réplication",
       "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-250",
+      "id": "vocab-249",
       "en": "global catalog",
       "fr": "catalogue global",
       "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-251",
+      "id": "vocab-250",
       "en": "FSMO",
       "fr": "rôles FSMO",
       "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-252",
+      "id": "vocab-251",
       "en": "site",
       "fr": "site (AD)",
       "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-253",
+      "id": "vocab-252",
       "en": "roaming profile",
       "fr": "profil itinérant",
       "section": "Windows et Active Directory",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-254",
-      "en": "apt",
-      "fr": "gestionnaire apt",
-      "section": "Linux et administration",
-      "fiabilite": "sure"
-    },
-    {
-      "id": "vocab-255",
-      "en": "yum",
-      "fr": "gestionnaire yum",
-      "section": "Linux et administration",
-      "fiabilite": "sure"
-    },
-    {
-      "id": "vocab-256",
-      "en": "dnf",
-      "fr": "gestionnaire dnf",
-      "section": "Linux et administration",
-      "fiabilite": "sure"
-    },
-    {
-      "id": "vocab-257",
+      "id": "vocab-253",
       "en": "template",
       "fr": "modèle",
       "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-258",
+      "id": "vocab-254",
       "en": "vCPU",
       "fr": "processeur virtuel",
       "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-259",
+      "id": "vocab-255",
       "en": "vRAM",
       "fr": "mémoire virtuelle",
       "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-260",
+      "id": "vocab-256",
       "en": "live migration",
       "fr": "migration à chaud",
       "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-261",
+      "id": "vocab-257",
       "en": "node",
       "fr": "nœud",
       "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-262",
+      "id": "vocab-258",
       "en": "resource pool",
       "fr": "pool de ressources",
       "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-263",
+      "id": "vocab-259",
       "en": "cloud",
       "fr": "informatique en nuage",
       "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-264",
+      "id": "vocab-260",
       "en": "IaaS",
       "fr": "infrastructure en tant que service",
       "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-265",
+      "id": "vocab-261",
       "en": "PaaS",
       "fr": "plateforme en tant que service",
       "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-266",
+      "id": "vocab-262",
       "en": "SaaS",
       "fr": "logiciel en tant que service",
       "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-267",
+      "id": "vocab-263",
       "en": "elasticity",
       "fr": "élasticité",
       "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-268",
+      "id": "vocab-264",
       "en": "scalability",
       "fr": "scalabilité",
       "section": "Virtualisation et cloud",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-269",
+      "id": "vocab-265",
       "en": "retention",
       "fr": "rétention",
       "section": "Sauvegarde et supervision",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-270",
+      "id": "vocab-266",
       "en": "incremental",
       "fr": "incrémental",
       "section": "Sauvegarde et supervision",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-271",
+      "id": "vocab-267",
       "en": "differential",
       "fr": "différentiel",
       "section": "Sauvegarde et supervision",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-272",
+      "id": "vocab-268",
       "en": "full backup",
       "fr": "sauvegarde complète",
       "section": "Sauvegarde et supervision",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-273",
+      "id": "vocab-269",
       "en": "threshold",
       "fr": "seuil",
       "section": "Sauvegarde et supervision",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-274",
+      "id": "vocab-270",
       "en": "probe",
       "fr": "sonde",
       "section": "Sauvegarde et supervision",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-275",
+      "id": "vocab-271",
       "en": "availability",
       "fr": "disponibilité",
       "section": "Sauvegarde et supervision",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-276",
+      "id": "vocab-272",
       "en": "downtime",
       "fr": "temps d'arrêt",
       "section": "Sauvegarde et supervision",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-277",
+      "id": "vocab-273",
       "en": "MFA",
       "fr": "authentification multifacteur",
       "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-278",
+      "id": "vocab-274",
       "en": "IDS",
       "fr": "système de détection d'intrusion",
       "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-279",
+      "id": "vocab-275",
       "en": "IPS",
       "fr": "système de prévention d'intrusion",
       "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-280",
+      "id": "vocab-276",
       "en": "zero trust",
       "fr": "confiance zéro",
       "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-281",
+      "id": "vocab-277",
       "en": "vulnerability",
       "fr": "vulnérabilité",
       "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-282",
+      "id": "vocab-278",
       "en": "hardening",
       "fr": "durcissement",
       "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-283",
+      "id": "vocab-279",
       "en": "least privilege",
       "fr": "moindre privilège",
       "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-284",
+      "id": "vocab-280",
       "en": "laptop",
       "fr": "ordinateur portable",
       "section": "Matériel",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-285",
+      "id": "vocab-281",
       "en": "screen",
       "fr": "écran",
       "section": "Matériel",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-286",
+      "id": "vocab-282",
       "en": "USB drive",
       "fr": "clé USB",
       "section": "Matériel",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-287",
+      "id": "vocab-283",
       "en": "printer",
       "fr": "imprimante",
       "section": "Matériel",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-288",
+      "id": "vocab-284",
       "en": "scanner",
       "fr": "numériseur",
       "section": "Matériel",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-289",
+      "id": "vocab-285",
       "en": "headset",
       "fr": "casque (avec micro)",
       "section": "Matériel",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-290",
+      "id": "vocab-286",
       "en": "save",
       "fr": "enregistrer",
       "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-291",
+      "id": "vocab-287",
       "en": "delete",
       "fr": "supprimer",
       "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-292",
+      "id": "vocab-288",
       "en": "copy",
       "fr": "copier",
       "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-293",
+      "id": "vocab-289",
       "en": "paste",
       "fr": "coller",
       "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-294",
+      "id": "vocab-290",
       "en": "shortcut",
       "fr": "raccourci",
       "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-295",
+      "id": "vocab-291",
       "en": "settings",
       "fr": "paramètres",
       "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-296",
+      "id": "vocab-292",
       "en": "browser",
       "fr": "navigateur",
       "section": "Internet et Web",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-297",
+      "id": "vocab-293",
       "en": "search engine",
       "fr": "moteur de recherche",
       "section": "Internet et Web",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-298",
+      "id": "vocab-294",
       "en": "website",
       "fr": "site Web",
       "section": "Internet et Web",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-299",
+      "id": "vocab-295",
       "en": "link",
       "fr": "lien",
       "section": "Internet et Web",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-300",
+      "id": "vocab-296",
       "en": "download",
       "fr": "télécharger",
       "section": "Internet et Web",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-301",
+      "id": "vocab-297",
       "en": "upload",
       "fr": "envoyer / mettre en ligne",
       "section": "Internet et Web",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-302",
+      "id": "vocab-298",
       "en": "email",
       "fr": "courriel",
       "section": "Internet et Web",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-303",
+      "id": "vocab-299",
       "en": "attachment",
       "fr": "pièce jointe",
       "section": "Internet et Web",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-304",
+      "id": "vocab-300",
       "en": "spam",
       "fr": "courrier indésirable",
       "section": "Internet et Web",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-305",
+      "id": "vocab-301",
       "en": "streaming",
       "fr": "diffusion en continu",
       "section": "Internet et Web",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-306",
+      "id": "vocab-302",
       "en": "URL",
       "fr": "adresse Web",
       "section": "Internet et Web",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-307",
+      "id": "vocab-303",
       "en": "HTTP",
       "fr": "protocole HTTP",
       "section": "Internet et Web",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-308",
+      "id": "vocab-304",
       "en": "HTTPS",
       "fr": "protocole HTTPS",
       "section": "Internet et Web",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-309",
+      "id": "vocab-305",
       "en": "IP",
       "fr": "adresse IP",
       "section": "Internet et Web",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-310",
+      "id": "vocab-306",
       "en": "hosting",
       "fr": "hébergement",
       "section": "Internet et Web",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-311",
+      "id": "vocab-307",
       "en": "to code",
       "fr": "coder",
       "section": "Développement",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-312",
+      "id": "vocab-308",
       "en": "bug",
       "fr": "bogue",
       "section": "Développement",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-313",
+      "id": "vocab-309",
       "en": "debug",
       "fr": "déboguer",
       "section": "Développement",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-314",
+      "id": "vocab-310",
       "en": "database",
       "fr": "base de données",
       "section": "Développement",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-315",
+      "id": "vocab-311",
       "en": "algorithm",
       "fr": "algorithme",
       "section": "Développement",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-316",
+      "id": "vocab-312",
       "en": "front-end",
       "fr": "interface utilisateur",
       "section": "Développement",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-317",
+      "id": "vocab-313",
       "en": "back-end",
       "fr": "côté serveur",
       "section": "Développement",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-318",
+      "id": "vocab-314",
       "en": "framework",
       "fr": "cadre de développement",
       "section": "Développement",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-319",
+      "id": "vocab-315",
       "en": "API",
       "fr": "interface de programmation",
       "section": "Développement",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-320",
+      "id": "vocab-316",
       "en": "open source",
       "fr": "code libre",
       "section": "Développement",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-321",
+      "id": "vocab-317",
       "en": "deployment",
       "fr": "déploiement",
       "section": "Développement",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-322",
+      "id": "vocab-318",
       "en": "on the same page",
       "fr": "sur la même longueur d'onde",
       "section": "Expressions et idiomes professionnels",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-323",
+      "id": "vocab-319",
       "en": "pull the plug",
       "fr": "tout arrêter / couper le service",
       "section": "Expressions et idiomes professionnels",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-324",
+      "id": "vocab-320",
       "en": "go offline",
       "fr": "se déconnecter / ne plus être disponible",
       "section": "Expressions et idiomes professionnels",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-325",
+      "id": "vocab-321",
       "en": "glitch in the system",
       "fr": "anomalie dans le système",
       "section": "Expressions et idiomes professionnels",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-326",
+      "id": "vocab-322",
       "en": "garbage in, garbage out",
       "fr": "données erronées, résultats erronés",
       "section": "Expressions et idiomes professionnels",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-327",
+      "id": "vocab-323",
       "en": "think outside the box",
       "fr": "penser autrement",
       "section": "Expressions et idiomes professionnels",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-328",
+      "id": "vocab-324",
       "en": "heads up",
       "fr": "information préalable",
       "section": "Expressions et idiomes professionnels",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-329",
+      "id": "vocab-325",
       "en": "action item",
       "fr": "action à réaliser",
       "section": "Expressions et idiomes professionnels",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-330",
+      "id": "vocab-326",
       "en": "takeaway",
       "fr": "point clé à retenir",
       "section": "Expressions et idiomes professionnels",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-331",
+      "id": "vocab-327",
       "en": "bottleneck",
       "fr": "goulot d'étranglement",
       "section": "Expressions et idiomes professionnels",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-332",
+      "id": "vocab-328",
       "en": "deadline",
       "fr": "échéance",
       "section": "Expressions et idiomes professionnels",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-333",
+      "id": "vocab-329",
       "en": "milestone",
       "fr": "étape clé",
       "section": "Expressions et idiomes professionnels",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-334",
+      "id": "vocab-330",
       "en": "PSU",
       "fr": "bloc d'alimentation",
       "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-335",
+      "id": "vocab-331",
       "en": "LAN",
       "fr": "réseau local",
       "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-336",
+      "id": "vocab-332",
       "en": "WAN",
       "fr": "réseau étendu",
       "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-337",
+      "id": "vocab-333",
       "en": "VPS",
       "fr": "serveur privé virtuel",
       "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-338",
+      "id": "vocab-334",
       "en": "hardware / software",
       "fr": "matériel physique / logiciel",
       "section": "Faux amis et confusions",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-339",
+      "id": "vocab-335",
       "en": "update / upgrade",
       "fr": "mise à jour mineure / mise à niveau",
       "section": "Faux amis et confusions",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-340",
+      "id": "vocab-336",
       "en": "download / upload",
       "fr": "télécharger / envoyer en ligne",
       "section": "Faux amis et confusions",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-341",
+      "id": "vocab-337",
       "en": "reboot / reset",
       "fr": "redémarrer / réinitialiser",
       "section": "Faux amis et confusions",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-342",
+      "id": "vocab-338",
       "en": "save / store",
       "fr": "enregistrer / stocker",
       "section": "Faux amis et confusions",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-343",
+      "id": "vocab-339",
       "en": "path / pathway",
       "fr": "chemin d'accès / parcours",
       "section": "Faux amis et confusions",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-344",
+      "id": "vocab-340",
       "en": "actual / current",
       "fr": "réel / actuel",
       "section": "Faux amis et confusions",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-345",
+      "id": "vocab-341",
       "en": "sensible / sensitive",
       "fr": "raisonnable / sensible",
       "section": "Faux amis et confusions",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-346",
+      "id": "vocab-342",
       "en": "library / librairie",
       "fr": "bibliothèque / librairie",
       "section": "Faux amis et confusions",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-347",
+      "id": "vocab-343",
       "en": "eventually / possibly",
       "fr": "finalement / éventuellement",
       "section": "Faux amis et confusions",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-348",
+      "id": "vocab-344",
       "en": "assist / attend",
       "fr": "assister / assister à",
       "section": "Faux amis et confusions",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-349",
+      "id": "vocab-345",
       "en": "demand / request",
       "fr": "exiger / demander",
       "section": "Faux amis et confusions",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-350",
+      "id": "vocab-346",
       "en": "fabric / factory",
       "fr": "tissu / usine",
       "section": "Faux amis et confusions",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-351",
+      "id": "vocab-347",
       "en": "sympathetic / nice",
       "fr": "compatissant / sympathique",
       "section": "Faux amis et confusions",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-352",
+      "id": "vocab-348",
       "en": "to realize / to achieve",
       "fr": "se rendre compte / réaliser",
       "section": "Faux amis et confusions",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-353",
+      "id": "vocab-349",
       "en": "clipboard",
       "fr": "presse-papiers",
       "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-354",
+      "id": "vocab-350",
       "en": "screenshot",
       "fr": "capture d'écran",
       "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-355",
+      "id": "vocab-351",
       "en": "restore point",
       "fr": "point de restauration",
       "section": "Logiciel et système",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-356",
+      "id": "vocab-352",
       "en": "tower",
       "fr": "tour",
       "section": "Matériel",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-357",
+      "id": "vocab-353",
       "en": "tablet",
       "fr": "tablette",
       "section": "Matériel",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-358",
+      "id": "vocab-354",
       "en": "projector",
       "fr": "projecteur",
       "section": "Matériel",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-359",
+      "id": "vocab-355",
       "en": "speaker",
       "fr": "enceinte",
       "section": "Matériel",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-360",
+      "id": "vocab-356",
       "en": "docking station",
       "fr": "station d'accueil",
       "section": "Matériel",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-361",
+      "id": "vocab-357",
       "en": "fiber",
       "fr": "fibre",
       "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-362",
+      "id": "vocab-358",
       "en": "access point",
       "fr": "point d'accès",
       "section": "Réseau et infrastructure",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-363",
+      "id": "vocab-359",
       "en": "spyware",
       "fr": "logiciel espion",
       "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-364",
+      "id": "vocab-360",
       "en": "ransomware",
       "fr": "rançongiciel",
       "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-365",
+      "id": "vocab-361",
       "en": "trojan",
       "fr": "cheval de Troie",
       "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-366",
+      "id": "vocab-362",
       "en": "brute force",
       "fr": "force brute",
       "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-367",
+      "id": "vocab-363",
       "en": "password spraying",
       "fr": "pulvérisation de mots de passe",
       "section": "Cybersécurité",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-368",
+      "id": "vocab-364",
       "en": "The server is down.",
       "fr": "Le serveur est hors service.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-369",
+      "id": "vocab-365",
       "en": "The backup failed.",
       "fr": "La sauvegarde a échoué.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-370",
+      "id": "vocab-366",
       "en": "Please restart the service.",
       "fr": "Veuillez redémarrer le service.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-371",
+      "id": "vocab-367",
       "en": "The ticket is assigned to you.",
       "fr": "Le ticket vous est affecté.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-372",
+      "id": "vocab-368",
       "en": "The issue is resolved.",
       "fr": "Le problème est résolu.",
       "section": "Phrases types",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-373",
+      "id": "vocab-369",
       "en": "major incident",
       "fr": "incident majeur",
       "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-374",
+      "id": "vocab-370",
       "en": "service catalog",
       "fr": "catalogue de services",
       "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-375",
+      "id": "vocab-371",
       "en": "incident manager",
       "fr": "responsable d'incident",
       "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-376",
+      "id": "vocab-372",
       "en": "change advisory board",
       "fr": "comité consultatif des changements",
       "section": "Support utilisateur et tickets (ITIL)",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-377",
+      "id": "vocab-373",
       "en": "BIOS",
       "fr": "micrologiciel de démarrage",
       "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-378",
+      "id": "vocab-374",
       "en": "UEFI",
       "fr": "interface micrologiciel unifiée",
       "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-379",
+      "id": "vocab-375",
       "en": "MAC",
       "fr": "adresse physique",
       "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-380",
+      "id": "vocab-376",
       "en": "TCP",
       "fr": "protocole de contrôle de transmission",
       "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-381",
+      "id": "vocab-377",
       "en": "UDP",
       "fr": "protocole de datagramme utilisateur",
       "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-382",
+      "id": "vocab-378",
       "en": "FTP",
       "fr": "protocole de transfert de fichiers",
       "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-383",
+      "id": "vocab-379",
       "en": "RDP",
       "fr": "bureau à distance",
       "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-384",
+      "id": "vocab-380",
       "en": "SMB",
       "fr": "bloc de messages serveur",
       "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-385",
+      "id": "vocab-381",
       "en": "NFS",
       "fr": "système de fichiers réseau",
       "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-386",
+      "id": "vocab-382",
       "en": "iSCSI",
       "fr": "SCSI sur IP",
       "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-387",
+      "id": "vocab-383",
       "en": "SAN",
       "fr": "réseau de stockage",
       "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-388",
+      "id": "vocab-384",
       "en": "NAS",
       "fr": "stockage en réseau",
       "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-389",
+      "id": "vocab-385",
       "en": "RAID",
       "fr": "ensemble redondant de disques",
       "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-390",
+      "id": "vocab-386",
       "en": "UPS",
       "fr": "onduleur",
       "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-391",
+      "id": "vocab-387",
       "en": "PDU",
       "fr": "bloc de distribution électrique",
       "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-392",
+      "id": "vocab-388",
       "en": "KVM",
       "fr": "clavier-écran-souris",
       "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-393",
+      "id": "vocab-389",
       "en": "PoE",
       "fr": "alimentation par Ethernet",
       "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-394",
+      "id": "vocab-390",
       "en": "QoS",
       "fr": "qualité de service",
       "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-395",
+      "id": "vocab-391",
       "en": "LDAP",
       "fr": "protocole d'accès aux annuaires",
       "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-396",
+      "id": "vocab-392",
       "en": "Kerberos",
       "fr": "protocole d'authentification",
       "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-397",
+      "id": "vocab-393",
       "en": "RADIUS",
       "fr": "service d'authentification à distance",
       "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-398",
+      "id": "vocab-394",
       "en": "TACACS",
       "fr": "contrôle d'accès",
       "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-399",
+      "id": "vocab-395",
       "en": "SNMP",
       "fr": "protocole de gestion de réseau",
       "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-400",
+      "id": "vocab-396",
       "en": "ICMP",
       "fr": "protocole de contrôle Internet",
       "section": "Abréviations",
       "fiabilite": "sure"
     },
     {
-      "id": "vocab-401",
+      "id": "vocab-397",
       "en": "ARP",
       "fr": "protocole de résolution d'adresse",
       "section": "Abréviations",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-398",
+      "en": "STP",
+      "fr": "protocole d'arbres recouvrants",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-399",
+      "en": "RSTP",
+      "fr": "protocole d'arbres recouvrants rapide",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-400",
+      "en": "OSPF",
+      "fr": "protocole de routage à état de lien",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-401",
+      "en": "static route",
+      "fr": "route statique",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-402",
+      "en": "default route",
+      "fr": "route par défaut",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-403",
+      "en": "PAT",
+      "fr": "translation d'adresses avec ports",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-404",
+      "en": "subnet mask",
+      "fr": "masque de sous-réseau",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-405",
+      "en": "packet loss",
+      "fr": "perte de paquets",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-406",
+      "en": "link-state",
+      "fr": "état de lien",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-407",
+      "en": "distance vector",
+      "fr": "vecteur de distance",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-408",
+      "en": "convergence",
+      "fr": "convergence",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-409",
+      "en": "neighbor",
+      "fr": "voisin",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-410",
+      "en": "adjacency",
+      "fr": "adjacence",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-411",
+      "en": "cost",
+      "fr": "coût",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-412",
+      "en": "area",
+      "fr": "zone (OSPF)",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-413",
+      "en": "backbone",
+      "fr": "dorsale",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-414",
+      "en": "hello packet",
+      "fr": "paquet hello",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-415",
+      "en": "LSA",
+      "fr": "annonce d'état de lien",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-416",
+      "en": "flooding",
+      "fr": "inondation",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-417",
+      "en": "DR",
+      "fr": "routeur désigné",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-418",
+      "en": "BDR",
+      "fr": "routeur désigné de secours",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-419",
+      "en": "FHRP",
+      "fr": "protocole de redondance de passerelle",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-420",
+      "en": "HSRP",
+      "fr": "protocole de secours",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-421",
+      "en": "VRRP",
+      "fr": "protocole de redondance de routeur",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-422",
+      "en": "GLBP",
+      "fr": "équilibrage de charge de passerelle",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-423",
+      "en": "EtherChannel",
+      "fr": "agrégation de liens",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-424",
+      "en": "LACP",
+      "fr": "protocole de contrôle d'agrégation",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-425",
+      "en": "PAgP",
+      "fr": "protocole d'agrégation propriétaire",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-426",
+      "en": "port security",
+      "fr": "sécurité de port",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-427",
+      "en": "sticky MAC",
+      "fr": "adresse MAC apprise",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-428",
+      "en": "BPDU",
+      "fr": "unité de données de pont",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-429",
+      "en": "root bridge",
+      "fr": "pont racine",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-430",
+      "en": "portfast",
+      "fr": "activation rapide de port",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-431",
+      "en": "bpduguard",
+      "fr": "protection BPDU",
+      "section": "Réseau et infrastructure",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-432",
+      "en": "systemd",
+      "fr": "gestionnaire systemd",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-433",
+      "en": "at",
+      "fr": "planification différée",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-434",
+      "en": "umask",
+      "fr": "masque de création",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-435",
+      "en": "Type 1",
+      "fr": "hyperviseur natif",
+      "section": "Virtualisation et cloud",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-436",
+      "en": "Type 2",
+      "fr": "hyperviseur hébergé",
+      "section": "Virtualisation et cloud",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-437",
+      "en": "ESXi",
+      "fr": "hyperviseur VMware",
+      "section": "Virtualisation et cloud",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-438",
+      "en": "Proxmox",
+      "fr": "plateforme de virtualisation",
+      "section": "Virtualisation et cloud",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-439",
+      "en": "Hyper-V",
+      "fr": "hyperviseur Microsoft",
+      "section": "Virtualisation et cloud",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-440",
+      "en": "VirtualBox",
+      "fr": "virtualisation de bureau",
+      "section": "Virtualisation et cloud",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-441",
+      "en": "VMware",
+      "fr": "virtualisation VMware",
+      "section": "Virtualisation et cloud",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-442",
+      "en": "vSphere",
+      "fr": "suite de virtualisation",
+      "section": "Virtualisation et cloud",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-443",
+      "en": "vCenter",
+      "fr": "gestion centralisée",
+      "section": "Virtualisation et cloud",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-444",
+      "en": "vMotion",
+      "fr": "migration à chaud",
+      "section": "Virtualisation et cloud",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-445",
+      "en": "DRS",
+      "fr": "répartition dynamique",
+      "section": "Virtualisation et cloud",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-446",
+      "en": "HA",
+      "fr": "haute disponibilité",
+      "section": "Virtualisation et cloud",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-447",
+      "en": "FT",
+      "fr": "tolérance aux pannes",
+      "section": "Virtualisation et cloud",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-448",
+      "en": "datastore",
+      "fr": "stockage de données",
+      "section": "Virtualisation et cloud",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-449",
+      "en": "VMDK",
+      "fr": "disque virtuel VMware",
+      "section": "Virtualisation et cloud",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-450",
+      "en": "VHDX",
+      "fr": "disque virtuel Hyper-V",
+      "section": "Virtualisation et cloud",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-451",
+      "en": "OVA",
+      "fr": "appliance virtuelle",
+      "section": "Virtualisation et cloud",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-452",
+      "en": "OVF",
+      "fr": "format de virtualisation ouvert",
+      "section": "Virtualisation et cloud",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-453",
+      "en": "cloud-init",
+      "fr": "initialisation cloud",
+      "section": "Virtualisation et cloud",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-454",
+      "en": "Terraform",
+      "fr": "infrastructure as code",
+      "section": "Virtualisation et cloud",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-455",
+      "en": "Ansible",
+      "fr": "automatisation",
+      "section": "Virtualisation et cloud",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-456",
+      "en": "Docker",
+      "fr": "conteneurisation",
+      "section": "Virtualisation et cloud",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-457",
+      "en": "Kubernetes",
+      "fr": "orchestration de conteneurs",
+      "section": "Virtualisation et cloud",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-458",
+      "en": "pod",
+      "fr": "groupe de conteneurs",
+      "section": "Virtualisation et cloud",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-459",
+      "en": "service",
+      "fr": "service (Kubernetes)",
+      "section": "Virtualisation et cloud",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-460",
+      "en": "namespace",
+      "fr": "espace de noms",
+      "section": "Virtualisation et cloud",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-461",
+      "en": "ingress",
+      "fr": "contrôleur d'entrée",
+      "section": "Virtualisation et cloud",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-462",
+      "en": "helm",
+      "fr": "gestionnaire de paquets K8s",
+      "section": "Virtualisation et cloud",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-463",
+      "en": "image",
+      "fr": "image de conteneur",
+      "section": "Virtualisation et cloud",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-464",
+      "en": "worm",
+      "fr": "ver informatique",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-465",
+      "en": "rootkit",
+      "fr": "kit de prise de contrôle",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-466",
+      "en": "keylogger",
+      "fr": "enregistreur de frappe",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-467",
+      "en": "credential stuffing",
+      "fr": "réutilisation d'identifiants",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-468",
+      "en": "social engineering",
+      "fr": "ingénierie sociale",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-469",
+      "en": "spear phishing",
+      "fr": "hameçonnage ciblé",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-470",
+      "en": "whaling",
+      "fr": "hameçonnage au harpon",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-471",
+      "en": "smishing",
+      "fr": "hameçonnage par SMS",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-472",
+      "en": "vishing",
+      "fr": "hameçonnage vocal",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-473",
+      "en": "man in the middle",
+      "fr": "homme du milieu",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-474",
+      "en": "DDoS",
+      "fr": "déni de service distribué",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-475",
+      "en": "DoS",
+      "fr": "déni de service",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-476",
+      "en": "zero day",
+      "fr": "vulnérabilité inconnue",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-477",
+      "en": "CVE",
+      "fr": "vulnérabilité répertoriée",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-478",
+      "en": "CVSS",
+      "fr": "score de gravité",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-479",
+      "en": "patch management",
+      "fr": "gestion des correctifs",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-480",
+      "en": "vulnerability scan",
+      "fr": "analyse de vulnérabilités",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-481",
+      "en": "penetration test",
+      "fr": "test d'intrusion",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-482",
+      "en": "red team",
+      "fr": "équipe rouge",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-483",
+      "en": "blue team",
+      "fr": "équipe bleue",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-484",
+      "en": "SOC",
+      "fr": "centre opérationnel de sécurité",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-485",
+      "en": "SIEM",
+      "fr": "gestion des événements de sécurité",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-486",
+      "en": "WAF",
+      "fr": "pare-feu applicatif",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-487",
+      "en": "DMZ",
+      "fr": "zone démilitarisée",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-488",
+      "en": "honeypot",
+      "fr": "pot de miel",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-489",
+      "en": "2FA",
+      "fr": "authentification à deux facteurs",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-490",
+      "en": "PKI",
+      "fr": "infrastructure à clé publique",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-491",
+      "en": "TLS",
+      "fr": "sécurité de la couche transport",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-492",
+      "en": "SSL",
+      "fr": "couche de sockets sécurisée",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-493",
+      "en": "IPsec",
+      "fr": "sécurité IP",
+      "section": "Cybersécurité",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-494",
+      "en": "tree",
+      "fr": "arbre de domaines",
+      "section": "Windows et Active Directory",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-495",
+      "en": "OU",
+      "fr": "unité d'organisation",
+      "section": "Windows et Active Directory",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-496",
+      "en": "share permissions",
+      "fr": "droits de partage",
+      "section": "Windows et Active Directory",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-497",
+      "en": "PowerShell",
+      "fr": "PowerShell",
+      "section": "Windows et Active Directory",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-498",
+      "en": "home folder",
+      "fr": "dossier personnel",
+      "section": "Windows et Active Directory",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-499",
+      "en": "logon script",
+      "fr": "script de connexion",
+      "section": "Windows et Active Directory",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-500",
+      "en": "Group Policy",
+      "fr": "stratégie de groupe",
+      "section": "Windows et Active Directory",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-501",
+      "en": "RSAT",
+      "fr": "outils d'administration à distance",
+      "section": "Windows et Active Directory",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-502",
+      "en": "logon",
+      "fr": "ouverture de session",
+      "section": "Windows et Active Directory",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-503",
+      "en": "logoff",
+      "fr": "fermeture de session",
+      "section": "Windows et Active Directory",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-504",
+      "en": "profile",
+      "fr": "profil utilisateur",
+      "section": "Windows et Active Directory",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-505",
+      "en": "home directory",
+      "fr": "répertoire personnel",
+      "section": "Windows et Active Directory",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-506",
+      "en": "mapped drive",
+      "fr": "lecteur réseau",
+      "section": "Windows et Active Directory",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-507",
+      "en": "share",
+      "fr": "partage",
+      "section": "Windows et Active Directory",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-508",
+      "en": "permission",
+      "fr": "droit d'accès",
+      "section": "Windows et Active Directory",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-509",
+      "en": "inheritance",
+      "fr": "héritage",
+      "section": "Windows et Active Directory",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-510",
+      "en": "propagation",
+      "fr": "propagation",
+      "section": "Windows et Active Directory",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-511",
+      "en": "delegation",
+      "fr": "délégation",
+      "section": "Windows et Active Directory",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-512",
+      "en": "auditing",
+      "fr": "audit",
+      "section": "Windows et Active Directory",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-513",
+      "en": "event log",
+      "fr": "journal d'événements",
+      "section": "Windows et Active Directory",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-514",
+      "en": "security log",
+      "fr": "journal de sécurité",
+      "section": "Windows et Active Directory",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-515",
+      "en": "system log",
+      "fr": "journal système",
+      "section": "Windows et Active Directory",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-516",
+      "en": "application log",
+      "fr": "journal d'applications",
+      "section": "Windows et Active Directory",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-517",
+      "en": "inode",
+      "fr": "inode",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-518",
+      "en": "block",
+      "fr": "bloc",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-519",
+      "en": "superblock",
+      "fr": "superbloc",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-520",
+      "en": "mount point",
+      "fr": "point de montage",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-521",
+      "en": "fstab",
+      "fr": "table de montage",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-522",
+      "en": "init",
+      "fr": "initialisation",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-523",
+      "en": "runlevel",
+      "fr": "niveau d'exécution",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-524",
+      "en": "target",
+      "fr": "cible (systemd)",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-525",
+      "en": "unit",
+      "fr": "unité (systemd)",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-526",
+      "en": "timer",
+      "fr": "minuterie",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-527",
+      "en": "socket",
+      "fr": "socket",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-528",
+      "en": "journal",
+      "fr": "journal (journald)",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-529",
+      "en": "logrotate",
+      "fr": "rotation des journaux",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-530",
+      "en": "environment",
+      "fr": "environnement",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-531",
+      "en": "variable",
+      "fr": "variable",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-532",
+      "en": "export",
+      "fr": "exportation",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-533",
+      "en": "source",
+      "fr": "source (script)",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-534",
+      "en": "alias",
+      "fr": "alias",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-535",
+      "en": "history",
+      "fr": "historique",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-536",
+      "en": "locale",
+      "fr": "paramètres régionaux",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-537",
+      "en": "timezone",
+      "fr": "fuseau horaire",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-538",
+      "en": "hostname",
+      "fr": "nom d'hôte",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-539",
+      "en": "fqdn",
+      "fr": "nom de domaine complet",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-540",
+      "en": "resolver",
+      "fr": "résolveur DNS",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-541",
+      "en": "network interface",
+      "fr": "interface réseau",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-542",
+      "en": "routing table",
+      "fr": "table de routage",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-543",
+      "en": "arp cache",
+      "fr": "cache ARP",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-544",
+      "en": "iptables",
+      "fr": "pare-feu Linux",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-545",
+      "en": "nftables",
+      "fr": "pare-feu nouvelle génération",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-546",
+      "en": "firewalld",
+      "fr": "gestionnaire de pare-feu",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-547",
+      "en": "ufw",
+      "fr": "pare-feu simplifié",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-548",
+      "en": "selinux",
+      "fr": "sécurité renforcée Linux",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-549",
+      "en": "apparmor",
+      "fr": "contrôle d'accès obligatoire",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-550",
+      "en": "pam",
+      "fr": "authentification modulaire",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-551",
+      "en": "sudoers",
+      "fr": "configuration sudo",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-552",
+      "en": "wheel",
+      "fr": "groupe d'administration",
+      "section": "Linux et administration",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-553",
+      "en": "dcdiag",
+      "fr": "diagnostic de contrôleur",
+      "section": "Windows et Active Directory",
+      "fiabilite": "sure"
+    },
+    {
+      "id": "vocab-554",
+      "en": "repadmin",
+      "fr": "administration de réplication",
+      "section": "Windows et Active Directory",
       "fiabilite": "sure"
     }
   ]
