@@ -902,7 +902,7 @@
       "t": "EtherChannel",
       "level": "intermediaire",
       "cli": true,
-      "r": "EtherChannel agrège plusieurs liens.",
+      "r": "EtherChannel agrège plusieurs liens physiques en un seul lien logique pour augmenter la bande passante et la redondance.",
       "tags": [
         "cp4",
         "etherchannel"
@@ -914,71 +914,111 @@
         "Oubli de vérification"
       ],
       "w": "Le test seul ne prouve pas la cause.",
-      "resume": "EtherChannel agrège plusieurs liens.",
+      "resume": "EtherChannel : agrégation, PAgP/LACP, redondance, STP.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "EtherChannel agrège plusieurs liens."
+          "body": "EtherChannel est la technologie d'agrégation de liens Cisco. Elle permet de combiner plusieurs liens physiques en un seul lien logique, augmentant la bande passante et la redondance. Pour un candidat TSSR, maîtriser EtherChannel est essentiel car il est au cœur des mises en situation et des questions du jury."
         },
         {
-          "title": "Définitions",
-          "body": "EtherChannel agrège plusieurs liens."
+          "title": "Pourquoi EtherChannel existe",
+          "body": "Dans un réseau, un lien unique entre deux switches peut être un goulot d'étranglement ou un point de défaillance unique (SPOF). L'agrégation de liens combine plusieurs liens en un seul lien logique, augmentant la bande passante et la redondance. EtherChannel est la solution Cisco."
         },
         {
-          "title": "Théorie détaillée",
-          "body": "EtherChannel agrège plusieurs liens. Fonctionnement interne et concepts."
+          "title": "Agrégation de liens",
+          "body": "L'agrégation de liens combine plusieurs liaisons physiques en un seul lien logique. Le trafic est réparti sur les liens membres. Si un lien tombe, le trafic est redistribué sur les liens restants. L'agrégation est transparente pour les protocoles de niveau supérieur."
         },
         {
-          "title": "Fonctionnement interne",
-          "body": "EtherChannel agrège plusieurs liens."
+          "title": "Répartition de charge",
+          "body": "L'agrégation de liens combine plusieurs liaisons physiques en un seul lien logique. Le trafic est réparti sur les liens membres. Si un lien tombe, le trafic est redistribué sur les liens restants. L'agrégation est transparente pour les protocoles de niveau supérieur."
         },
         {
-          "title": "Architecture",
-          "body": "EtherChannel agrège plusieurs liens."
+          "title": "Redondance",
+          "body": "La redondance est assurée par l'agrégation. Si un lien tombe, le trafic est redistribué. La convergence est rapide. L'agrégation évite les blocages STP sur les liens individuels."
+        },
+        {
+          "title": "Fonctionnement EtherChannel",
+          "body": "EtherChannel fonctionne en négociant l'agrégation entre les équipements. Les protocoles PAgP (Cisco propriétaire) ou LACP (standard IEEE 802.3ad) sont utilisés. Les deux extrémités doivent être configurées de manière compatible. Les ports membres sont traités comme un seul port logique (Port-Channel).  EtherChannel fonctionne en négociant l'agrégation entre les équipements. Les protocoles PAgP (Cisco propriétaire) ou LACP (standard IEEE 802.3ad) sont utilisés. Les deux extrémités doivent être configurées de manière compatible. Les ports membres sont traités comme un seul port logique (Port-Channel). La négociation est automatique."
+        },
+        {
+          "title": "PAgP",
+          "body": "PAgP (Port Aggregation Protocol) est le protocole Cisco propriétaire. Il négocie l'agrégation entre équipements Cisco. Il utilise des messages PAgP pour découvrir et maintenir l'agrégation. Les modes sont : desirable (actif) et auto (passif).  PAgP (Port Aggregation Protocol) est le protocole Cisco propriétaire. Il négocie l'agrégation entre équipements Cisco. Il utilise des messages PAgP pour découvrir et maintenir l'agrégation. Les modes sont : desirable (actif) et auto (passif). PAgP est pour les environnements Cisco uniquement."
+        },
+        {
+          "title": "LACP",
+          "body": "LACP (Link Aggregation Control Protocol) est le protocole standard IEEE 802.3ad. Il est interopérable entre équipements de différents constructeurs. Les modes sont : active (initie) et passive (répond). LACP est recommandé en production.  LACP (Link Aggregation Control Protocol) est le protocole standard IEEE 802.3ad. Il est interopérable entre équipements de différents constructeurs. Les modes sont : active (initie) et passive (répond). LACP est recommandé en production. LACP est le standard."
+        },
+        {
+          "title": "Différences PAgP / LACP",
+          "body": "PAgP est Cisco propriétaire, LACP est standard. PAgP utilise desirable/auto, LACP utilise active/passive. LACP est interopérable, PAgP non. LACP est recommandé pour les environnements multi-vendeurs.  PAgP est Cisco propriétaire, LACP est standard. PAgP utilise desirable/auto, LACP utilise active/passive. LACP est interopérable, PAgP non. LACP est recommandé pour les environnements multi-vendeurs."
+        },
+        {
+          "title": "Modes actifs et passifs",
+          "body": "Les modes actifs initient la négociation (desirable pour PAgP, active pour LACP). Les modes passifs répondent à une demande (auto pour PAgP, passive pour LACP). Les deux extrémités doivent être compatibles : actif/passif ou actif/actif.  Les modes actifs initient la négociation (desirable pour PAgP, active pour LACP). Les modes passifs répondent à une demande (auto pour PAgP, passive pour LACP). Les deux extrémités doivent être compatibles : actif/passif ou actif/actif."
+        },
+        {
+          "title": "Architecture réseau",
+          "body": "Architecture réseau : EtherChannel entre switches d'accès et de distribution, entre distribution et cœur. Les liens agrégés augmentent la bande passante et la redondance. STP voit l'EtherChannel comme un seul lien.  Architecture réseau : EtherChannel entre switches d'accès et de distribution, entre distribution et cœur. Les liens agrégés augmentent la bande passante et la redondance. STP voit l'EtherChannel comme un seul lien. L'architecture doit être cohérente."
+        },
+        {
+          "title": "EtherChannel et STP",
+          "body": "EtherChannel est vu comme un seul lien par STP. Les ports membres sont traités comme un seul port. Cela évite les blocages STP sur les liens individuels. L'EtherChannel doit être configuré avant STP. Le root bridge est élu normalement.  EtherChannel est vu comme un seul lien par STP. Les ports membres sont traités comme un seul port. Cela évite les blocages STP sur les liens individuels. L'EtherChannel doit être configuré avant STP. Le root bridge est élu normalement."
+        },
+        {
+          "title": "EtherChannel et Trunk",
+          "body": "EtherChannel et Trunk : les ports membres doivent être en mode trunk. Le trunk transporte les VLAN. L'EtherChannel doit être configuré avec le même mode trunk sur tous les ports membres. Le native VLAN doit être identique.  EtherChannel et Trunk : les ports membres doivent être en mode trunk. Le trunk transporte les VLAN. L'EtherChannel doit être configuré avec le même mode trunk sur tous les ports membres. Le native VLAN doit être identique."
+        },
+        {
+          "title": "EtherChannel et VLAN",
+          "body": "EtherChannel et VLAN : les ports membres doivent être dans les mêmes VLAN. Le VLAN de gestion doit être cohérent. L'EtherChannel transporte les VLAN via le trunk. La configuration VLAN doit être identique sur tous les ports membres.  EtherChannel et VLAN : les ports membres doivent être dans les mêmes VLAN. Le VLAN de gestion doit être cohérent. L'EtherChannel transporte les VLAN via le trunk. La configuration VLAN doit être identique sur tous les ports membres."
+        },
+        {
+          "title": "Cas concret PME",
+          "body": "Scénario PME : agréger 2 liens 1 Gbps entre le switch d'accès et le switch de distribution. La bande passante passe à 2 Gbps. Si un lien tombe, le trafic continue sur l'autre. La convergence est rapide.  Scénario PME : agréger 2 liens 1 Gbps entre le switch d'accès et le switch de distribution. La bande passante passe à 2 Gbps. Si un lien tombe, le trafic continue sur l'autre. La convergence est rapide."
         },
         {
           "title": "Cas concret entreprise",
-          "body": "EtherChannel agrège plusieurs liens. Cas pratique."
+          "body": "Scénario entreprise : EtherChannel entre le cœur et la distribution. Plusieurs liens agrégés pour augmenter la bande passante. LACP pour l'interopérabilité. Redondance et haute disponibilité.  Scénario entreprise : EtherChannel entre le cœur et la distribution. Plusieurs liens agrégés pour augmenter la bande passante. LACP pour l'interopérabilité. Redondance et haute disponibilité."
         },
         {
-          "title": "Procédure pas à pas",
-          "body": "1. Vérifier. 2. Configurer. 3. Tester."
+          "title": "Commandes Cisco IOS",
+          "body": "Configuration Cisco IOS :\n\ninterface range gi0/1-2\n channel-group 1 mode active\n\ninterface port-channel 1\n switchport mode trunk\n switchport trunk allowed vlan 10,20,99\n\nCommandes de vérification :\nshow etherchannel summary\nshow etherchannel port-channel\nshow interfaces trunk\nshow running-config\n\nExplication :\nshow etherchannel summary affiche l'état de l'agrégation.\nshow etherchannel port-channel affiche les détails du port-channel.\nshow interfaces trunk affiche les trunks.\nshow running-config affiche la configuration.\nchannel-group crée l'agrégation.\ninterface port-channel configure le lien logique.  Configuration Cisco IOS :\n\ninterface range gi0/1-2\n channel-group 1 mode active\n\ninterface port-channel 1\n switchport mode trunk\n switchport trunk allowed vlan 10,20,99\n\nCommandes de vérification :\nshow etherchannel summary\nshow etherchannel port-channel\nshow interfaces trunk\nshow running-config\n\nExplication :\nshow etherchannel summary affiche l'état de l'agrégation.\nshow etherchannel port-channel affiche les détails du port-channel.\nshow interfaces trunk affiche les trunks.\nshow running-config affiche la configuration.\nchannel-group crée l'agrégation.\ninterface port-channel configure le lien logique."
         },
         {
-          "title": "Dépannage",
-          "body": "EtherChannel agrège plusieurs liens. Dépannage."
-        },
-        {
-          "title": "Commandes CLI",
-          "body": "Commandes usuelles."
+          "title": "Configuration Cisco IOS",
+          "body": "1. Vérifier que les ports sont compatibles (vitesse, duplex, VLAN). 2. Configurer le channel-group sur les deux extrémités. 3. Vérifier la formation de l'EtherChannel. 4. Configurer le trunk si nécessaire. 5. Vérifier avec show etherchannel summary. 6. Tester la connectivité."
         },
         {
           "title": "Vérification",
-          "body": "Vérifier la configuration."
+          "body": "show etherchannel summary doit afficher (SU) pour les ports membres. Le port-channel doit être en état SU. Le trunk doit fonctionner. Le trafic doit être réparti. Si un lien tombe, le trafic continue."
+        },
+        {
+          "title": "Dépannage",
+          "body": "Agrégation non formée : vérifier la compatibilité des ports, le mode LACP/PAgP, la configuration. Mauvais mode LACP : corriger le mode (active/passive). Vitesse différente : uniformiser. Duplex différent : uniformiser. VLAN incohérents : vérifier les VLAN. Trunk incompatible : vérifier le trunk.  Agrégation non formée : vérifier la compatibilité des ports, le mode LACP/PAgP, la configuration. Mauvais mode LACP : corriger le mode (active/passive). Vitesse différente : uniformiser. Duplex différent : uniformiser. VLAN incohérents : vérifier les VLAN. Trunk incompatible : vérifier le trunk."
         },
         {
           "title": "Questions de jury",
-          "body": "Questions typiques."
+          "body": "Expliquer EtherChannel. Qu'est-ce que PAgP ? Qu'est-ce que LACP ? Quelle est la différence ? Quels sont les modes ? Pourquoi EtherChannel est-il vu comme un seul lien par STP ?  Expliquer EtherChannel. Qu'est-ce que PAgP ? Qu'est-ce que LACP ? Quelle est la différence ? Quels sont les modes ? Pourquoi EtherChannel est-il vu comme un seul lien par STP ?"
         },
         {
           "title": "Pièges d'examen",
-          "body": "Pièges fréquents."
+          "body": "Ports incompatibles (vitesse, duplex, VLAN). Mauvais mode (active/passive). Oublier le channel-group des deux côtés. Trunk non configuré. VLAN incohérents. Oublier de vérifier avec show etherchannel summary.  Ports incompatibles (vitesse, duplex, VLAN). Mauvais mode (active/passive). Oublier le channel-group des deux côtés. Trunk non configuré. VLAN incohérents. Oublier de vérifier avec show etherchannel summary."
         },
         {
           "title": "Bonnes pratiques",
-          "body": "Bonnes pratiques."
+          "body": "Vérifier la compatibilité des ports. Utiliser LACP pour l'interopérabilité. Documenter la configuration. Tester après configuration. Monitorer l'état. Vérifier les compteurs.  Vérifier la compatibilité des ports. Utiliser LACP pour l'interopérabilité. Documenter la configuration. Tester après configuration. Monitorer l'état. Vérifier les compteurs."
         },
         {
-          "title": "Mémo révision",
-          "body": "EtherChannel agrège plusieurs liens."
+          "title": "Mémo de révision",
+          "body": "EtherChannel = agrégation de liens. PAgP = Cisco propriétaire. LACP = standard 802.3ad. Modes : active/passive (LACP), desirable/auto (PAgP). STP voit un seul lien. Port-channel = lien logique."
         },
         {
-          "title": "Schéma Mermaid",
-          "body": "graph TD; A-->B;"
+          "title": "Schémas Mermaid",
+          "body": "graph LR; SW1--2 liens-->SW2; SW1--Port-Channel-->SW2;  graph LR; SW1--2 liens-->SW2; SW1--Port-Channel-->SW2;"
         },
         {
           "title": "Sources de référence",
-          "body": "Documentation officielle."
+          "body": "IEEE 802.3ad, Cisco Networking Academy, documentation Cisco IOS."
         }
       ]
     },
