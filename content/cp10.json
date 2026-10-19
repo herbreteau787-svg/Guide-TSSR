@@ -3,15 +3,12 @@
   "title": "CP10 — Mettre à jour et superviser les éléments d'infrastructure",
   "fiches": [
     {
-      "id": "[object Object]-essentiel",
-      "t": "CP10 — Mettre à jour et superviser les éléments d'infrastructure — L'essentiel",
+      "id": "cp10-essentiel",
+      "t": "CP10 — L'essentiel (supervision)",
       "level": "exam",
-      "r": "Fiche essentielle : objectifs, notions, tableau, diagnostic, pièges, index.",
+      "r": "Objectif : mettre à jour et superviser les éléments d'infrastructure.",
       "tags": [
-        {
-          "id": "cp10",
-          "title": "CP10 — Mettre à jour et superviser les éléments d'infrastructure"
-        },
+        "cp10",
         "essentiel"
       ],
       "g": [
@@ -22,970 +19,909 @@
         "Pièges",
         "Index"
       ],
-      "c": "À compléter.",
+      "c": "Commandes usuelles : systemctl, journalctl, snmpwalk, zabbix_get.",
       "p": [
-        "À compléter."
+        "Oublier le monitoring",
+        "Négliger les logs"
       ],
-      "w": "À compléter.",
-      "resume": "Fiche essentielle du CP.",
+      "w": "L'essentiel résume ; les fiches détaillées précisent.",
+      "resume": "Fiche essentielle CP10 : supervision.",
       "couvre": [
-        "mig-legacy-cp2-patch",
-        "mig-legacy-cp2-monitor",
-        "cp2-windows-debutant",
-        "cp3-linux-services",
-        "cp3-linux-logs-central",
-        "cp4-wifi6",
-        "cp4-legacy-cp10-toip",
-        "cp4-renvoi-ids-logs",
-        "cp6-bash-monitor",
-        "cp6-ps-service",
-        "cp7-legacy-ccp7-ids",
-        "cp7-monitoring",
-        "cp7-legacy-ccp10-dmz",
-        "cp7-legacy-ccp10-durc",
-        "pedagogie-ccp10",
-        "cp7-legacy-cp10-dmz",
-        "cp7-legacy-cp10-waf",
-        "cp7-legacy-cp10-proxy",
-        "cp7-legacy-cp10-intranet",
-        "cp7-legacy-cp10-extranet",
-        "cp7-legacy-cp10-dns",
-        "cp7-legacy-cp10-firewall",
-        "cp7-legacy-cp10-tls",
-        "cp7-legacy-cp10-ha",
-        "cp10-synthese",
-        "cyber-ids",
-        "cyber-logs",
-        "cp7-renvoi-reseau-ccp12",
-        "pedagogie-ccp8",
-        "cyber-patch",
-        "[object Object]-supervision",
-        "[object Object]-monitoring",
-        "[object Object]-patch-et-mises-a-jour",
-        "[object Object]-logs-centralises",
-        "[object Object]-metriques",
-        "[object Object]-alerting"
+        "cp10-supervision",
+        "cp10-monitoring",
+        "cp10-alerting",
+        "cp10-centreon",
+        "cp10-zabbix",
+        "cp10-grafana",
+        "cp10-glpi",
+        "cp10-inventaire",
+        "cp10-inventaire-automatise",
+        "cp10-patch-management",
+        "cp10-wsus",
+        "cp10-mises-a-jour-windows",
+        "cp10-mises-a-jour-linux",
+        "cp10-logs",
+        "cp10-journalisation",
+        "cp10-performance",
+        "cp10-capacite",
+        "cp10-gestion-incidents",
+        "cp10-tableaux-de-bord",
+        "cp10-lab-centreon",
+        "cp10-lab-zabbix",
+        "cp10-lab-glpi",
+        "cp10-lab-supervision-serveur",
+        "cp10-lab-monitoring-reseau",
+        "cp10-cheatsheet",
+        "cp10-entretien-jury",
+        "cp10-quiz"
       ],
       "sections": [
         {
           "title": "Introduction",
-          "body": "À compléter."
-        }
-      ]
-    },
-    {
-      "id": "mig-legacy-cp2-patch",
-      "t": "Patch Windows Server (contenu migré)",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : mise à jour serveur. | Objectif : sécurité. | Cas réel : patch tuesday. | Fonctionnement détaillé : WSUS, hotfix, reboot. | Exemple : patch test. | Procédure : test, pilot, deploy. | Erreurs : reboot non planifié. | Jury : patch et MCO. | Retenir : maintenance window.",
-      "tags": [
-        "cp5",
-        "serveurs",
-        "patch",
-        "migre-legacy"
-      ],
-      "g": [
-        "Test",
-        "Pilot",
-        "Deploy",
-        "Audit"
-      ],
-      "c": "Install-Module PSWindowsUpdate; Invoke-WUJob",
-      "p": [
-        "Reboot critique"
-      ],
-      "w": "Conclusion : patch contrôlé.",
-      "alt": "Schéma serveurs",
-      "resume": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : mise à jour serveur.",
-      "sections": [
-        {
-          "title": "Introduction",
-          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : mise à jour serveur. | Objectif : sécurité. | Cas réel : patch tuesday. | Fonctionnement détaillé : WSUS, hotfix, reboot. | Exemple : patch test. | Procédure : test, pilot, deploy. | Erreurs : reboot non planifié. | Jury : patch et MCO. | Retenir : maintenance window."
-        },
-        {
-          "title": "Définitions essentielles",
-          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : mise à jour serveur. | Objectif : sécurité. | Cas réel : patch tuesday. | Fonctionnement détaillé : WSUS, hotfix, reboot. | Exemple : patch test. | Procédure : test, pilot, deploy. | Erreurs : reboot non planifié. | Jury : patch et MCO. | Retenir : maintenance window."
-        },
-        {
-          "title": "Procédure pas à pas",
-          "body": "Test\nPilot\nDeploy\nAudit"
-        },
-        {
-          "title": "Commandes utiles",
-          "body": "Install-Module PSWindowsUpdate; Invoke-WUJob"
-        },
-        {
-          "title": "Points de vigilance",
-          "body": "Reboot critique"
-        },
-        {
-          "title": "Ce que le test ne prouve pas",
-          "body": "Conclusion : patch contrôlé."
+          "body": "Synthèse supervision."
         },
         {
           "title": "Mémo révision",
-          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : mise à jour serveur. | Objectif : sécurité. | Cas réel : patch tuesday. | Fonctionnement détaillé : WSUS, hotfix, reboot. | Exemp"
+          "body": "Monitoring, alerting, logs, patch, inventaire."
         }
       ]
     },
     {
-      "id": "mig-legacy-cp2-monitor",
-      "t": "Supervision des serveurs (contenu migré)",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : surveiller serveurs. | Objectif : anticiper incident. | Cas réel : CPU sat. | Fonctionnement détaillé : métriques, seuils, logs. | Exemple : alerte disque. | Procédure : agent, seuil, escalade. | Erreurs : pas de seuil. | Jury : SLA. | Retenir : alerting.",
-      "tags": [
-        "cp5",
-        "serveurs",
-        "monitor",
-        "migre-legacy"
-      ],
-      "g": [
-        "Agent",
-        "Métrique",
-        "Seuil",
-        "Alerte"
-      ],
-      "c": "Get-Counter; Get-WinEvent",
-      "p": [
-        "Pas d'escalade"
-      ],
-      "w": "Conclusion : supervision par seuils.",
-      "alt": "Schéma serveurs",
-      "resume": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : surveiller serveurs.",
-      "sections": [
-        {
-          "title": "Introduction",
-          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : surveiller serveurs. | Objectif : anticiper incident. | Cas réel : CPU sat. | Fonctionnement détaillé : métriques, seuils, logs. | Exemple : alerte disque. | Procédure : agent, seuil, escalade. | Erreurs : pas de seuil. | Jury : SLA. | Retenir : alerting."
-        },
-        {
-          "title": "Définitions essentielles",
-          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : surveiller serveurs. | Objectif : anticiper incident. | Cas réel : CPU sat. | Fonctionnement détaillé : métriques, seuils, logs. | Exemple : alerte disque. | Procédure : agent, seuil, escalade. | Erreurs : pas de seuil. | Jury : SLA. | Retenir : alerting."
-        },
-        {
-          "title": "Procédure pas à pas",
-          "body": "Agent\nMétrique\nSeuil\nAlerte"
-        },
-        {
-          "title": "Commandes utiles",
-          "body": "Get-Counter; Get-WinEvent"
-        },
-        {
-          "title": "Points de vigilance",
-          "body": "Pas d'escalade"
-        },
-        {
-          "title": "Ce que le test ne prouve pas",
-          "body": "Conclusion : supervision par seuils."
-        },
-        {
-          "title": "Mémo révision",
-          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : surveiller serveurs. | Objectif : anticiper incident. | Cas réel : CPU sat. | Fonctionnement détaillé : métriques, seuils, logs. "
-        }
-      ]
-    },
-    {
-      "id": "cp2-windows-debutant",
-      "t": "Windows : permissions, partages, logs, tâches (débutant)",
-      "level": "debutant",
-      "r": "Partages SMB + droits NTFS (le plus restrictif gagne). Logs dans Observateur d'événements. Planifier avec Task Scheduler.",
-      "tags": [
-        "windows",
-        "permissions",
-        "logs",
-        "debutant"
-      ],
-      "g": [
-        "Partager un dossier avec matrix de droits",
-        "Tester accès autorisé/refusé",
-        "Planifier une tâche nightly"
-      ],
-      "c": "# Permissions\nicacls D:\\Partage /grant G_Compta:(RX)\n# Planification\nschtasks /create /tn Backup /tr \"backup.bat\" /sc daily /st 02:00",
-      "p": [
-        "Surveillance : CPU/RAM/disque avec PerfMon",
-        "EventID 4625 (échec logon)",
-        " Sauvegarder avant MAJ"
-      ],
-      "w": " Ne pas ouvrir le partage en Contrôle total pour Tout le monde.",
-      "cp": "cp9",
-      "resume": "Partages SMB + droits NTFS (le plus restrictif gagne).",
-      "sections": [
-        {
-          "title": "Introduction",
-          "body": "Partages SMB + droits NTFS (le plus restrictif gagne). Logs dans Observateur d'événements. Planifier avec Task Scheduler."
-        },
-        {
-          "title": "Définitions essentielles",
-          "body": "Partages SMB + droits NTFS (le plus restrictif gagne). Logs dans Observateur d'événements. Planifier avec Task Scheduler."
-        },
-        {
-          "title": "Procédure pas à pas",
-          "body": "Partager un dossier avec matrix de droits\nTester accès autorisé/refusé\nPlanifier une tâche nightly"
-        },
-        {
-          "title": "Commandes utiles",
-          "body": "# Permissions\nicacls D:\\Partage /grant G_Compta:(RX)\n# Planification\nschtasks /create /tn Backup /tr \"backup.bat\" /sc daily /st 02:00"
-        },
-        {
-          "title": "Points de vigilance",
-          "body": "Surveillance : CPU/RAM/disque avec PerfMon\nEventID 4625 (échec logon)\n Sauvegarder avant MAJ"
-        },
-        {
-          "title": "Ce que le test ne prouve pas",
-          "body": " Ne pas ouvrir le partage en Contrôle total pour Tout le monde."
-        },
-        {
-          "title": "Mémo révision",
-          "body": "Partages SMB + droits NTFS (le plus restrictif gagne). Logs dans Observateur d'événements. Planifier avec Task Scheduler."
-        }
-      ]
-    },
-    {
-      "id": "cp3-linux-services",
-      "t": "Systemd : services, cibles et journaux",
-      "level": "intermediaire",
-      "r": "systemctl g??re le cycle de vie des unit??s ; journalctl filtre les logs binaires journald.",
-      "tags": [
-        "systemd",
-        "services",
-        "logs",
-        "linux"
-      ],
-      "g": [
-        "Identifier le service et son ??tat",
-        "Activer au boot + d??marrer maintenant",
-        "D??pendances et drop-in via systemctl edit",
-        "Consulter les logs r??cents"
-      ],
-      "c": "systemctl status sshd\nsystemctl enable --now sshd\nsystemctl restart sshd\nsystemctl daemon-reload\njournalctl -u sshd -n 50 --no-pager\njournalctl -p err -b\nloginctl show-session 1",
-      "p": [
-        "enabled = au boot, active = en cours",
-        "Masquer un service : systemctl mask",
-        "Journald persistant : Storage=persistent"
-      ],
-      "w": "Un service 'failed' laisse parfois un message d'erreur explicite dans journalctl -xe.",
-      "cp": "cp1"
-    },
-    {
-      "id": "cp3-linux-logs-central",
-      "t": "Logs centralis??s et logrotate",
-      "level": "avance",
-      "r": "Journalisation structur??e + rotation = diagnostic fiable et conservation ma??tris??e.",
-      "tags": [
-        "logs",
-        "journald",
-        "logrotate"
-      ],
-      "g": [
-        "D??couper par service pour limiter la taille",
-        "Configurer logrotate avec compression et r??tention",
-        "Exporter vers un collecteur (rsyslog) si plusieurs serveurs",
-        "Surveiller l'espace disque"
-      ],
-      "c": "# /etc/logrotate.d/myapp\n/var/log/myapp/*.log {\n    daily\n    rotate 14\n    compress\n    delaycompress\n    missingok\n    notifempty\n    create 0640 root adm\n}\nlogrotate -d /etc/logrotate.conf",
-      "p": [
-        "Tail -f pour suivre en live",
-        "logger pour ??crire dans journald",
-        "Centralisation avec Loki/Graylog en production"
-      ],
-      "w": "Les logs rotat??s peuvent ??chapper ?? la supervision si le chemin change.",
-      "cp": "cp1"
-    },
-    {
-      "id": "cp4-wifi6",
-      "t": "Supervision réseau",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "CP4 - Définition : surveiller utilisation. | Objectif : anticiper saturation. | Cas réel : lien WAN saturé. | Fonctionnement détaillé : SNMP, flow, graph. | Exemple : alerte bande. | Procédure : agent, dashboard, seuil. | Erreurs : polling trop dense. | Jury : NMS. | À retenir : seuils.",
-      "tags": [
-        "cp4",
-        "reseau",
-        "monitor"
-      ],
-      "g": [
-        "Agent",
-        "Dashboard",
-        "Seuil",
-        "Alerte"
-      ],
-      "c": "show interface; Get-NetAdapterStatistics",
-      "p": [
-        "Polling excessif",
-        "Pas de seuil"
-      ],
-      "w": "Conclusion : supervision proactive.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Schéma réseau",
-      "cp": "cp4"
-    },
-    {
-      "id": "cp4-legacy-cp10-toip",
-      "t": "ToIP dans DMZ",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "CP10 - Définition : intégration voix. | Objectif : continuité. | Cas réel : SIP externe. | Fonctionnement détaillé : NAT, ports sécurité. | Exemple : Teams direct. | Procédure : WAF, firewall. | Erreurs : ports. | Jury : NAT traversal. | Retenir : sécurité.",
-      "tags": [
-        "cp10"
-      ],
-      "g": [],
-      "c": "SIP debug; RTP analyze",
-      "p": [],
-      "w": "",
-      "img": "images/topologie-reseau.svg",
-      "alt": "DMZ/Intranet",
-      "cp": "cp4"
-    },
-    {
-      "id": "cp4-renvoi-ids-logs",
-      "t": "Renvoi depuis CP7 — surveillance, IDS/IPS et journaux",
-      "level": "exam",
-      "cli": false,
-      "r": "Renfort CCP12 : fondements réseau (syslog/SNMP, VLAN) en CP4; supervision et IDS/IPS détaillés en CP7. Voir CP7 pour stratégie et corrélation.",
-      "tags": [
-        "renvoi",
-        "cp4",
-        "ccp12",
-        "cp7"
-      ],
-      "g": [
-        "Comprendre syslog",
-        "Comprendre SNMP",
-        "Lire CP7"
-      ],
-      "c": "Aucune commande native.",
-      "p": [
-        "Confondre fondement et stratégie"
-      ],
-      "w": "Conclusion : CP4 prépare, CP7 sécurise",
-      "cp": "cp4",
-      "renvoi_vers": [
-        "cp7-network",
-        "cp7-siem",
-        "cp7-monitoring"
-      ]
-    },
-    {
-      "id": "cp6-bash-monitor",
-      "t": "Bash : vérification d'un service et alerte simple",
-      "level": "debutant",
-      "r": "systemctl + journalisation, boucle while, timeout. Expliquer : commandes courtes et codes de retour.",
-      "tags": [
-        "bash",
-        "systemd",
-        "monitoring",
-        "service"
-      ],
-      "g": [
-        "Vérifier le statut SSH toutes les 5 minutes via cron",
-        "Journaliser les indisponibilités",
-        "Envoyer un mail avec msmtp si le service est down"
-      ],
-      "c": "#!/bin/bash\nset -u\nSERVICE=\"sshd\"\nLOG=\"/var/log/check-service-sshd.log\"\nif systemctl is-active --quiet \"$SERVICE\"; then\n  status=\"OK\"\nelse\n  status=\"ERREUR\"\n  systemctl restart \"$SERVICE\"\nfi\necho \"$(date '+%F %T') - $SERVICE : $status\" >> \"$LOG\"",
-      "p": [
-        "Utiliser systemctl is-active rather than grep ps",
-        "Ajouter un lock pour éviter les redémarrages en boucle",
-        "Intégrer à Zabbix pour notification réelle"
-      ],
-      "w": "Alerter sans action peut masquer une panne ; toujours envisager automatique + escalade.",
-      "cp": "cp5"
-    },
-    {
-      "id": "cp6-ps-service",
-      "t": "PowerShell : surveillance et redémarrage contrôlé",
-      "level": "debutant",
-      "r": "Get-Service + boucle While + Start-Service. Expliquer : état Running/Stopped et tentatives de relance.",
-      "tags": [
-        "powershell",
-        "services",
-        "supervision"
-      ],
-      "g": [
-        "Vérifier le spooler et l'agent GLPI toutes les 15 minutes",
-        "Redémarrer si stopped",
-        "Journaliser la relance",
-        "Alerter l'utilisateur en cas d'échec"
-      ],
-      "c": "$Services = @(\"Spooler\",\"GLPI-Agent\")\nforeach ($Nom in $Services) {\n    $Svc = Get-Service -Name $Nom -ErrorAction SilentlyContinue\n    if ($null -eq $Svc) {\n        Write-Warning \"Le service $Nom n'existe pas\"\n        continue\n    }\n    if ($Svc.Status -ne \"Running\") {\n        Write-Host \"$Nom est arrêté : tentative de redémarrage\"\n        Start-Service -Name $Nom\n        Start-Sleep -Seconds 3\n        (Get-Service -Name $Nom).Status\n    } else {\n        Write-Host \"$Nom OK\"\n    }\n}",
-      "p": [
-        "Utiliser Invoke-Command pour exécuter sur plusieurs serveurs",
-        "Ajouter un timeout et un nombre max d'essais",
-        "Journaliser dans Windows Event Log"
-      ],
-      "w": "Un redémarrage automatique sans analyse peut masquer une panne récurrente.",
-      "cp": "cp5"
-    },
-    {
-      "id": "cp7-legacy-ccp7-ids",
-      "t": "IDS/IPS et supervision sécurité",
-      "level": "avance",
-      "r": "Suricata/Snort pour détecter et bloquer ; corréler alertes et logs, éviter les faux positifs.",
-      "tags": [
-        "ids",
-        "ips",
-        "suricata",
-        "securite"
-      ],
-      "g": [
-        "Activer le package Suricata",
-        "Choisir les règles ET open",
-        "Alerte puis block en mode legacy/block",
-        "Suivre les stats et top signatures"
-      ],
-      "c": "# pfSense Suricata\n# Services > Suricata > Interfaces > Add\n# Blocage via pfctl table\npfctl -t snort2c -T show | head\n# Mise à jour des règles\n# Suricata update",
-      "p": [
-        "Les sondes mirror/triple n'impactent pas la latence",
-        "Tuner les règles par groupe",
-        "Corréler avec SIEM pour vue globale"
-      ],
-      "w": "Une règle trop large peut bloquer le trafic légitime de production.",
-      "cp": "cp7"
-    },
-    {
-      "id": "cp7-monitoring",
-      "t": "Supervision sécurité",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "CP7 - Définition : collecte logs. | Objectif : détecter. | Cas réel : login failed. | Fonctionnement détaillé : SIEM, alert. | Exemple : brute force. | Procédure : centraliser, corréler, alert. | Erreurs : alert spam. | Jury : SIEM. | Retenir : corrélation.",
-      "tags": [
-        "cp7",
-        "securite"
-      ],
-      "g": [],
-      "c": "Get-WinEvent -FilterHashtable @{LogName='Security'}",
-      "p": [],
-      "w": "",
-      "img": "images/active-directory-schema.svg",
-      "alt": "Schéma hybride",
-      "cp": "cp7"
-    },
-    {
-      "id": "cp7-legacy-ccp10-dmz",
-      "t": "DMZ, Apache et filtrage IP",
-      "level": "intermediaire",
-      "r": "DMZ = zone tampon. LAN→DMZ OK, WAN→DMZ seulement 80/443, DMZ→LAN refusé.",
-      "tags": [
-        "dmz",
-        "apache",
-        "firewall",
-        "iptables"
-      ],
-      "g": [
-        "Apache : sites-available, a2ensite intranet",
-        "Restreindre : Require ip 192.168.1.0/24",
-        "Pare-feu : règles LAN/DMZ/WAN",
-        "Activer TLS interne"
-      ],
-      "c": "apt install apache2 -y\na2ensite intranet\nsystemctl reload apache2\n# restriction\n# <Directory /var/www/intranet> Require ip 192.168.1.0/24 </Directory>\niptables -A FORWARD -i eth0 -o dmz -j ACCEPT\niptables -A FORWARD -i wan -o dmz -p tcp --dport 443 -j ACCEPT\niptables -A FORWARD -i dmz -o lan -j DROP",
-      "p": [
-        "Reverse proxy en DMZ, données en LAN",
-        "Logs + rotation + TLS",
-        "HSTS et redirection 80→443"
-      ],
-      "w": "Exposer le SSH de la DMZ vers Internet est une erreur classique.",
-      "cp": "cp7"
-    },
-    {
-      "id": "cp7-legacy-ccp10-durc",
-      "t": "Durcissement Linux et web",
-      "level": "avance",
-      "r": "Réduire la surface d'attaque : services minimaux, permissions, fail2ban, HTTPS forcé.",
-      "tags": [
-        "hardening",
-        "securite",
-        "web"
-      ],
-      "g": [
-        "Désactiver les services inutiles",
-        "Mettre à jour et reboot planifié",
-        "Configurer fail2ban pour SSH",
-        "Scanner avec lynis"
-      ],
-      "c": "systemctl disable --now telnet.socket\napt install fail2ban -y\ncp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local\nsystemctl enable --now fail2ban\nlynis audit system",
-      "p": [
-        "Headers de sécurité Apache (CSP, HSTS)",
-        "Sudo avec groupes et logs",
-        "Chiffrement des certificats"
-      ],
-      "w": "Le durcissement sans communication peut casser des applications métier.",
-      "cp": "cp7"
-    },
-    {
-      "id": "pedagogie-ccp10",
-      "t": "Fiche pedagogique de reference - CP10 infrastructure supervisionnee",
-      "level": "intermediaire",
-      "r": "Definition : maintenir, mettre a jour et superviser le parc de maniere professionnelle. Contexte : inventaire, reporting, documentation et demonstration au jury. Objectif : assurer le suivi. Details : KPI, carnet de maintenance, scripts, tableau de bord. Exemple : rapport mensuel d'etat des services. Erreurs : KPI non mesurables, documentation non mise a jour, absence de tracabilite. Jury : quels KPI, comment documentez-vous, comment ameliorez-vous la supervision.",
-      "tags": [
-        "pedagogie",
-        "operations",
-        "reporting"
-      ],
-      "g": [
-        "Collecter les indicateurs",
-        "Produire le tableau de bord",
-        "Proposer des actions",
-        "Archiver"
-      ],
-      "c": "PowerShell reporting, export CSV et Excel",
-      "p": [
-        "Inventaire incomplet",
-        "Documentation non mise a jour"
-      ],
-      "w": "Conclusion : le suivi et la preuve sont indispensables au titre.",
-      "cp": "cp7"
-    },
-    {
-      "id": "cp7-legacy-cp10-dmz",
-      "t": "DMZ architecture",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "CP10 - Définition : zone démilitarisée. | Objectif : protéger. | Cas réel : web public. | Fonctionnement détaillé : ingress, reverse proxy. | Exemple : port 443. | Procédure : zone, ACL, test. | Erreurs : flat. | Jury : DMZ. | Retenir : principe.",
-      "tags": [
-        "cp10"
-      ],
-      "g": [],
-      "c": "show access-list; firewall rule",
-      "p": [],
-      "w": "",
-      "img": "images/topologie-reseau.svg",
-      "alt": "DMZ/Intranet",
-      "cp": "cp7"
-    },
-    {
-      "id": "cp7-legacy-cp10-waf",
-      "t": "WAF et protection",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "CP10 - Définition : filtrage web. | Objectif : bloquer attaques. | Cas réel : injection. | Fonctionnement détaillé : ruleset. | Exemple : OWASP. | Procédure : audit, blocage. | Erreurs : FP. | Jury : WAF. | Retenir : tuning.",
-      "tags": [
-        "cp10"
-      ],
-      "g": [],
-      "c": "Get-WAF rule; ModSecurity audit",
-      "p": [],
-      "w": "",
-      "img": "images/topologie-reseau.svg",
-      "alt": "DMZ/Intranet",
-      "cp": "cp7"
-    },
-    {
-      "id": "cp7-legacy-cp10-proxy",
-      "t": "Reverse proxy",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "CP10 - Définition : reverse proxy. | Objectif : abstraction. | Cas réel : SSL. | Fonctionnement détaillé : terminaison SSL. | Exemple : Nginx. | Procédure : conf, test. | Erreurs : route mauvaise. | Jury : proxy. | Retenir : log.",
-      "tags": [
-        "cp10"
-      ],
-      "g": [],
-      "c": "nginx -t; systemctl reload nginx",
-      "p": [],
-      "w": "",
-      "img": "images/topologie-reseau.svg",
-      "alt": "DMZ/Intranet",
-      "cp": "cp7"
-    },
-    {
-      "id": "cp7-legacy-cp10-intranet",
-      "t": "Intranet",
-      "level": "intermediaire",
-      "cli": false,
-      "r": "CP10 - Définition : intranet. | Objectif : communication interne. | Cas réel : portal. | Fonctionnement détaillé : auth SSO, DNS. | Exemple : SharePoint. | Procédure : DNS, certificats. | Erreurs : DNS externe. | Jury : SSO. | Retenir : SSO.",
-      "tags": [
-        "cp10"
-      ],
-      "g": [],
-      "c": "Aucune commande native pertinente.",
-      "p": [],
-      "w": "",
-      "img": "images/topologie-reseau.svg",
-      "alt": "DMZ/Intranet",
-      "cp": "cp7"
-    },
-    {
-      "id": "cp7-legacy-cp10-extranet",
-      "t": "Extranet",
-      "level": "intermediaire",
-      "cli": false,
-      "r": "CP10 - Définition : accès partenaires. | Objectif : collaboration. | Cas réel : partenaire. | Fonctionnement détaillé : auth, ACL. | Exemple : portail. | Procédure : scope et audits. | Erreurs : exposé. | Jury : contrôle. | Retenir : moindre accès.",
-      "tags": [
-        "cp10"
-      ],
-      "g": [],
-      "c": "Aucune commande native pertinente.",
-      "p": [],
-      "w": "",
-      "img": "images/topologie-reseau.svg",
-      "alt": "DMZ/Intranet",
-      "cp": "cp7"
-    },
-    {
-      "id": "cp7-legacy-cp10-dns",
-      "t": "DNS interne/externe",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "CP10 - Définition : DNS split-horizon. | Objectif : résoudre. | Cas réel : interne. | Fonctionnement détaillé : views. | Exemple : intranet. | Procédure : zones. | Erreurs : leakage. | Jury : split DNS. | Retenir : vues.",
-      "tags": [
-        "cp10"
-      ],
-      "g": [],
-      "c": "dnscmd; Resolve-DnsName intranet.local",
-      "p": [],
-      "w": "",
-      "img": "images/topologie-reseau.svg",
-      "alt": "DMZ/Intranet",
-      "cp": "cp7"
-    },
-    {
-      "id": "cp7-legacy-cp10-firewall",
-      "t": "Pare-feu et règles",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "CP10 - Définition : firewall. | Objectif : prévenir. | Cas réel : opening. | Fonctionnement détaillé : ACL. | Exemple : 443. | Procédure : least priv. | Erreurs : wide open. | Jury : policy. | Retenir : documenter.",
-      "tags": [
-        "cp10"
-      ],
-      "g": [],
-      "c": "show run; New-NetFirewallRule",
-      "p": [],
-      "w": "",
-      "img": "images/topologie-reseau.svg",
-      "alt": "DMZ/Intranet",
-      "cp": "cp7"
-    },
-    {
-      "id": "cp7-legacy-cp10-tls",
-      "t": "TLS et certificats",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "CP10 - Définition : TLS. | Objectif : chiffrement. | Cas réel : cert expiré. | Fonctionnement détaillé : chain, SAN, expiry. | Exemple : renew. | Procédure : renouvellement. | Erreurs : chain missing. | Jury : SAN. | Retenir : monitoring.",
-      "tags": [
-        "cp10"
-      ],
-      "g": [],
-      "c": "openssl x509 -in cert.pem; Get-ChildItem Cert:",
-      "p": [],
-      "w": "",
-      "img": "images/topologie-reseau.svg",
-      "alt": "DMZ/Intranet",
-      "cp": "cp7"
-    },
-    {
-      "id": "cp7-legacy-cp10-ha",
-      "t": "Disponibilité web",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "CP10 - Définition : HA web. | Objectif : disponibilité. | Cas réel : failover. | Fonctionnement détaillé : LB, health. | Exemple : IP virtuelle. | Procédure : pool, probe. | Erreurs : session. | Jury : LB. | Retenir : health check.",
-      "tags": [
-        "cp10"
-      ],
-      "g": [],
-      "c": "Load balancer config",
-      "p": [],
-      "w": "",
-      "img": "images/topologie-reseau.svg",
-      "alt": "DMZ/Intranet",
-      "cp": "cp7"
-    },
-    {
-      "id": "cp10-synthese",
-      "t": "Synthèse examen CP10",
-      "level": "intermediaire",
-      "cli": false,
-      "r": "CP10 - Définition : synthèse. | Objectif : expliquer. | Cas réel : jury demande DMZ. | Fonctionnement détaillé : sécurité, disponibilité. | Exemple : architecture. | Procédure : présentation. | Erreurs : over expose. | Jury : questions. | Retenir : principe.",
-      "tags": [
-        "cp10"
-      ],
-      "g": [],
-      "c": "Aucune commande native pertinente.",
-      "p": [],
-      "w": "",
-      "img": "images/topologie-reseau.svg",
-      "alt": "DMZ/Intranet",
-      "cp": "cp7"
-    },
-    {
-      "cp": "cp7",
-      "id": "cyber-ids",
-      "t": "IDS/IPS et supervision sécurité (réparti depuis ccp12)",
-      "level": "avance",
-      "cli": false,
-      "r": "Suricata/Snort, corrélation, blocage et tuning pour éviter faux positifs.",
-      "tags": [
-        "ids",
-        "ips",
-        "siem",
-        "migre-ccp12"
-      ],
-      "g": [
-        "Déployer Suricata",
-        "Activer règles communautaires",
-        "Mode alerte puis block",
-        "Corréler avec SIEM"
-      ],
-      "c": "# pfSense Suricata package\npfctl -t snort2c -T show | head\nlynis audit system",
-      "p": [
-        "Sondes réseau stratégiques",
-        "Tuning par groupe",
-        "Retention logs"
-      ],
-      "w": "Une règle trop large bloque la production.",
-      "alt": "",
-      "doublon_de": "cp7-siem"
-    },
-    {
-      "cp": "cp7",
-      "id": "cyber-logs",
-      "t": "Journalisation et réponse incident (réparti depuis ccp12)",
-      "level": "intermediaire",
-      "cli": false,
-      "r": "Centraliser, conserver, analyser, chaîne de custody, playbooks d'incident.",
-      "tags": [
-        "incident",
-        "logs",
-        "response",
-        "migre-ccp12"
-      ],
-      "g": [
-        "Centraliser syslog",
-        "Conserver 90+ jours",
-        "Playbook d'incident",
-        "Post-mortem"
-      ],
-      "c": "# Linux syslog forward\n*.* @siem:514\n# Collecter preuves",
-      "p": [
-        "Horodatage NTP",
-        "Intégrité des logs",
-        "Communication crise"
-      ],
-      "w": "Sans logs, l'analyse post-incident est impossible.",
-      "alt": "",
-      "doublon_de": "cp7-monitoring"
-    },
-    {
-      "id": "cp7-renvoi-reseau-ccp12",
-      "t": "Renvoi vers CP4 — cyber-réseau, cyber-ids, cyber-logs",
-      "level": "exam",
-      "cli": false,
-      "r": "Renfort CCP12 réparti : segmentation, firewall, DMZ, IDS/IPS et journalisation. Voir CP7 pour le détail durci; fondements réseau (syslog/SNMP, VLAN) en CP4.",
-      "tags": [
-        "renvoi",
-        "cp7",
-        "ccp12",
-        "cp4"
-      ],
-      "g": [
-        "Lire CP4 fondements",
-        "Lire CP7 sécurité",
-        "Appliquer ACL"
-      ],
-      "c": "Aucune commande native.",
-      "p": [
-        "Éparpiller"
-      ],
-      "w": "Conclusion : fondements CP4, durcissement CP7.",
-      "cp": "cp7",
-      "renvoi_vers": [
-        "cp7-network",
-        "cp7-siem",
-        "cp7-monitoring"
-      ]
-    },
-    {
-      "id": "pedagogie-ccp8",
-      "t": "Fiche pedagogique de reference - CP8 supervision et mise a jour",
-      "level": "intermediaire",
-      "r": "Definition : surveiller proactivement et mettre a jour le parc. Contexte : Zabbix/PRTG et WSUS/GPO. Objectif : maintenir la disponibilite. Details : agents, seuils, alertes, patch management, tests. Exemple : alerte CPU > 80 pendant 5 minutes. Erreurs : seuils inadaptes, faux positifs ignores. Jury : OID, agentless vs agent, priorite des correctifs.",
-      "tags": [
-        "pedagogie",
-        "supervision",
-        "mise a jour"
-      ],
-      "g": [
-        "Inventorier",
-        "Installer agent",
-        "Definir seuils",
-        "Tester notification",
-        "Documenter"
-      ],
-      "c": "zabbix_agentd -t system.cpu.load",
-      "p": [
-        "Pas de test annuel",
-        "KPI non mesurables"
-      ],
-      "w": "Conclusion : la supervision previent et favorise l'examen.",
-      "cp": "cp8"
-    },
-    {
-      "cp": "cp9",
-      "id": "cyber-patch",
-      "t": "Gestion des vulnérabilités et patching (réparti depuis ccp12)",
-      "level": "intermediaire",
-      "cli": false,
-      "r": "Recensement actifs, scans, priorisation CVSS, fenêtres maintenance, rollback.",
-      "tags": [
-        "vuln",
-        "patch",
-        "cve",
-        "migre-ccp12"
-      ],
-      "g": [
-        "Inventaire matériel/logiciel",
-        "Scan régulier",
-        "Prioriser CVE critiques",
-        "Planifier patch"
-      ],
-      "c": "# Scan\nnmap -sV --script vuln 192.168.1.10\n# WSUS / unattended-upgrades",
-      "p": [
-        "VE (Vulnerability Exploitability)",
-        "Exceptions documentées",
-        "Maintenance windows"
-      ],
-      "w": "Des vulnérabilités non patchées restent ouvertes des mois.",
-      "alt": "",
-      "doublon_de": "cp9-patch"
-    },
-    {
-      "id": "[object Object]-supervision",
+      "id": "cp10-supervision",
       "t": "Supervision",
-      "level": "debutant",
-      "r": "À compléter.",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "La supervision surveille les équipements et services.",
       "tags": [
-        {
-          "id": "cp10",
-          "title": "CP10 — Mettre à jour et superviser les éléments d'infrastructure"
-        },
+        "cp10",
         "supervision"
       ],
       "g": [],
-      "c": "Aucune.",
-      "p": [],
-      "w": "À compléter.",
-      "resume": "Fiche à développer.",
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Supervision : surveillance et alerting.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "À compléter."
+          "body": "La supervision est essentielle pour garantir la disponibilité."
+        },
+        {
+          "title": "Définitions",
+          "body": "Monitoring, alerting, métriques, logs."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Supervision = surveillance + alerting."
         }
       ]
     },
     {
-      "id": "[object Object]-monitoring",
+      "id": "cp10-monitoring",
       "t": "Monitoring",
-      "level": "debutant",
-      "r": "À compléter.",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Le monitoring collecte des métriques.",
       "tags": [
-        {
-          "id": "cp10",
-          "title": "CP10 — Mettre à jour et superviser les éléments d'infrastructure"
-        },
+        "cp10",
         "monitoring"
       ],
       "g": [],
-      "c": "Aucune.",
-      "p": [],
-      "w": "À compléter.",
-      "resume": "Fiche à développer.",
-      "sections": [
-        {
-          "title": "Introduction",
-          "body": "À compléter."
-        }
-      ]
-    },
-    {
-      "id": "[object Object]-patch-et-mises-a-jour",
-      "t": "Patch et mises à jour",
-      "level": "debutant",
-      "r": "À compléter.",
-      "tags": [
-        {
-          "id": "cp10",
-          "title": "CP10 — Mettre à jour et superviser les éléments d'infrastructure"
-        },
-        "patch-et-mises-a-jour"
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
       ],
-      "g": [],
-      "c": "Aucune.",
-      "p": [],
-      "w": "À compléter.",
-      "resume": "Fiche à développer.",
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Monitoring : collecte de métriques.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "À compléter."
-        }
-      ]
-    },
-    {
-      "id": "[object Object]-logs-centralises",
-      "t": "Logs centralisés",
-      "level": "debutant",
-      "r": "À compléter.",
-      "tags": [
-        {
-          "id": "cp10",
-          "title": "CP10 — Mettre à jour et superviser les éléments d'infrastructure"
+          "body": "Le monitoring collecte des métriques de performance."
         },
-        "logs-centralises"
-      ],
-      "g": [],
-      "c": "Aucune.",
-      "p": [],
-      "w": "À compléter.",
-      "resume": "Fiche à développer.",
-      "sections": [
         {
-          "title": "Introduction",
-          "body": "À compléter."
-        }
-      ]
-    },
-    {
-      "id": "[object Object]-metriques",
-      "t": "Métriques",
-      "level": "debutant",
-      "r": "À compléter.",
-      "tags": [
-        {
-          "id": "cp10",
-          "title": "CP10 — Mettre à jour et superviser les éléments d'infrastructure"
+          "title": "Définitions",
+          "body": "CPU, RAM, disque, réseau."
         },
-        "metriques"
-      ],
-      "g": [],
-      "c": "Aucune.",
-      "p": [],
-      "w": "À compléter.",
-      "resume": "Fiche à développer.",
-      "sections": [
         {
-          "title": "Introduction",
-          "body": "À compléter."
+          "title": "Mémo révision",
+          "body": "Monitoring = collecte de métriques."
         }
       ]
     },
     {
-      "id": "[object Object]-alerting",
+      "id": "cp10-alerting",
       "t": "Alerting",
-      "level": "debutant",
-      "r": "À compléter.",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "L'alerting notifie les anomalies.",
       "tags": [
-        {
-          "id": "cp10",
-          "title": "CP10 — Mettre à jour et superviser les éléments d'infrastructure"
-        },
+        "cp10",
         "alerting"
       ],
       "g": [],
-      "c": "Aucune.",
-      "p": [],
-      "w": "À compléter.",
-      "resume": "Fiche à développer.",
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Alerting : notification d'anomalie.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "À compléter."
+          "body": "L'alerting notifie les anomalies."
+        },
+        {
+          "title": "Définitions",
+          "body": "Seuil, notification, escalade."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Alerting = notification d'anomalie."
+        }
+      ]
+    },
+    {
+      "id": "cp10-centreon",
+      "t": "Centreon",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Centreon est une plateforme de supervision.",
+      "tags": [
+        "cp10",
+        "centreon"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Centreon : supervision open source.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Centreon supervise les infrastructures IT."
+        },
+        {
+          "title": "Définitions",
+          "body": "Hôte, service, métrique, graphique."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Centreon = supervision open source."
+        }
+      ]
+    },
+    {
+      "id": "cp10-zabbix",
+      "t": "Zabbix",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Zabbix est une solution de monitoring.",
+      "tags": [
+        "cp10",
+        "zabbix"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Zabbix : monitoring et alerting.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Zabbix collecte des métriques et génère des alertes."
+        },
+        {
+          "title": "Définitions",
+          "body": "Agent, template, trigger, action."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Zabbix = monitoring et alerting."
+        }
+      ]
+    },
+    {
+      "id": "cp10-grafana",
+      "t": "Grafana",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Grafana visualise les métriques.",
+      "tags": [
+        "cp10",
+        "grafana"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Grafana : visualisation.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Grafana crée des tableaux de bord."
+        },
+        {
+          "title": "Définitions",
+          "body": "Dashboard, panel, data source."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Grafana = visualisation."
+        }
+      ]
+    },
+    {
+      "id": "cp10-glpi",
+      "t": "GLPI",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "GLPI gère le parc informatique.",
+      "tags": [
+        "cp10",
+        "glpi"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "GLPI : gestion de parc.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "GLPI est un outil ITSM."
+        },
+        {
+          "title": "Définitions",
+          "body": "Ticket, inventaire, changement."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "GLPI = gestion de parc."
+        }
+      ]
+    },
+    {
+      "id": "cp10-inventaire",
+      "t": "Inventaire",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "L'inventaire recense le parc.",
+      "tags": [
+        "cp10",
+        "inventaire"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Inventaire : recensement.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "L'inventaire est essentiel pour la gestion."
+        },
+        {
+          "title": "Définitions",
+          "body": "Asset, configuration, lifecycle."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Inventaire = recensement."
+        }
+      ]
+    },
+    {
+      "id": "cp10-inventaire-automatise",
+      "t": "Inventaire automatisé",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "L'inventaire automatisé collecte automatiquement.",
+      "tags": [
+        "cp10",
+        "inventaire-automatise"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Inventaire automatisé.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "L'automatisation réduit les erreurs."
+        },
+        {
+          "title": "Définitions",
+          "body": "Agent, scan, découverte."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Inventaire auto = collecte automatique."
+        }
+      ]
+    },
+    {
+      "id": "cp10-patch-management",
+      "t": "Patch management",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "La gestion des correctifs maintient les systèmes à jour.",
+      "tags": [
+        "cp10",
+        "patch-management"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Patch management.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Le patch management est critique pour la sécurité."
+        },
+        {
+          "title": "Définitions",
+          "body": "Patch, mise à jour, WSUS."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Patch = correctif."
+        }
+      ]
+    },
+    {
+      "id": "cp10-wsus",
+      "t": "WSUS",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "WSUS gère les mises à jour Windows.",
+      "tags": [
+        "cp10",
+        "wsus"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "WSUS : gestion des MAJ.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "WSUS centralise les mises à jour."
+        },
+        {
+          "title": "Définitions",
+          "body": "Serveur, client, groupe, approbation."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "WSUS = gestion des MAJ Windows."
+        }
+      ]
+    },
+    {
+      "id": "cp10-mises-a-jour-windows",
+      "t": "Mises à jour Windows",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Les mises à jour Windows maintiennent le système.",
+      "tags": [
+        "cp10",
+        "mises-a-jour-windows"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "MAJ Windows.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Les MAJ Windows corrigent et sécurisent."
+        },
+        {
+          "title": "Définitions",
+          "body": "Cumulative, feature update."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "MAJ Windows = sécurité."
+        }
+      ]
+    },
+    {
+      "id": "cp10-mises-a-jour-linux",
+      "t": "Mises à jour Linux",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Les mises à jour Linux maintiennent le système.",
+      "tags": [
+        "cp10",
+        "mises-a-jour-linux"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "MAJ Linux.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Les MAJ Linux corrigent et sécurisent."
+        },
+        {
+          "title": "Définitions",
+          "body": "apt, yum, dnf."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "MAJ Linux = sécurité."
+        }
+      ]
+    },
+    {
+      "id": "cp10-logs",
+      "t": "Logs",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Les logs tracent les événements.",
+      "tags": [
+        "cp10",
+        "logs"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Logs : traces.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Les logs sont essentiels pour le diagnostic."
+        },
+        {
+          "title": "Définitions",
+          "body": "Syslog, journald, event log."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Logs = traces."
+        }
+      ]
+    },
+    {
+      "id": "cp10-journalisation",
+      "t": "Journalisation",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "La journalisation centralise les logs.",
+      "tags": [
+        "cp10",
+        "journalisation"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Journalisation : centralisation.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "La journalisation centralise les traces."
+        },
+        {
+          "title": "Définitions",
+          "body": "Syslog, SIEM, rétention."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Journalisation = centralisation."
+        }
+      ]
+    },
+    {
+      "id": "cp10-performance",
+      "t": "Performance",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "La performance mesure la capacité.",
+      "tags": [
+        "cp10",
+        "performance"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Performance : capacité.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "La performance est surveillée."
+        },
+        {
+          "title": "Définitions",
+          "body": "CPU, RAM, disque, réseau."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Performance = capacité."
+        }
+      ]
+    },
+    {
+      "id": "cp10-capacite",
+      "t": "Capacité",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "La capacité anticipe les besoins.",
+      "tags": [
+        "cp10",
+        "capacite"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Capacité : anticipation.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Le capacity planning anticipe."
+        },
+        {
+          "title": "Définitions",
+          "body": "Tendance, prévision."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Capacité = anticipation."
+        }
+      ]
+    },
+    {
+      "id": "cp10-gestion-incidents",
+      "t": "Gestion incidents",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "La gestion des incidents résout les problèmes.",
+      "tags": [
+        "cp10",
+        "gestion-incidents"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Gestion incidents.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "La gestion des incidents est structurée."
+        },
+        {
+          "title": "Définitions",
+          "body": "Incident, problème, changement."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Incident = interruption."
+        }
+      ]
+    },
+    {
+      "id": "cp10-tableaux-de-bord",
+      "t": "Tableaux de bord",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Les dashboards visualisent.",
+      "tags": [
+        "cp10",
+        "tableaux-de-bord"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Tableaux de bord.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Les tableaux de bord visualisent les métriques."
+        },
+        {
+          "title": "Définitions",
+          "body": "Dashboard, panel, KPI."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Dashboard = visualisation."
+        }
+      ]
+    },
+    {
+      "id": "cp10-lab-centreon",
+      "t": "Lab Centreon",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Installer Centreon.",
+      "tags": [
+        "cp10",
+        "lab-centreon"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Installer Centreon.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Installer Centreon."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "1. Installer. 2. Configurer. 3. Vérifier."
+        }
+      ]
+    },
+    {
+      "id": "cp10-lab-zabbix",
+      "t": "Lab Zabbix",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Installer Zabbix.",
+      "tags": [
+        "cp10",
+        "lab-zabbix"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Installer Zabbix.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Installer Zabbix."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "1. Installer. 2. Configurer. 3. Vérifier."
+        }
+      ]
+    },
+    {
+      "id": "cp10-lab-glpi",
+      "t": "Lab GLPI",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Installer GLPI.",
+      "tags": [
+        "cp10",
+        "lab-glpi"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Installer GLPI.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Installer GLPI."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "1. Installer. 2. Configurer. 3. Vérifier."
+        }
+      ]
+    },
+    {
+      "id": "cp10-lab-supervision-serveur",
+      "t": "Lab supervision serveur",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Superviser un serveur.",
+      "tags": [
+        "cp10",
+        "lab-supervision-serveur"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Superviser un serveur.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Superviser un serveur."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "1. Installer. 2. Configurer. 3. Vérifier."
+        }
+      ]
+    },
+    {
+      "id": "cp10-lab-monitoring-reseau",
+      "t": "Lab monitoring réseau",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Monitorer le réseau.",
+      "tags": [
+        "cp10",
+        "lab-monitoring-reseau"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Monitorer le réseau.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Monitorer le réseau."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "1. Installer. 2. Configurer. 3. Vérifier."
+        }
+      ]
+    },
+    {
+      "id": "cp10-cheatsheet",
+      "t": "Cheat sheet CP10",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Aide-mémoire supervision.",
+      "tags": [
+        "cp10",
+        "cheatsheet"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Cheat sheet supervision.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Commandes et concepts clés."
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "systemctl status, journalctl, snmpwalk, zabbix_get."
+        }
+      ]
+    },
+    {
+      "id": "cp10-entretien-jury",
+      "t": "Entretien jury CP10",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Questions jury supervision.",
+      "tags": [
+        "cp10",
+        "entretien-jury"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Entretien jury supervision.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Questions typiques du jury."
+        },
+        {
+          "title": "Questions de jury",
+          "body": "Expliquer supervision, monitoring, patch management."
+        }
+      ]
+    },
+    {
+      "id": "cp10-quiz",
+      "t": "Quiz CP10",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Quiz supervision.",
+      "tags": [
+        "cp10",
+        "quiz"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Quiz supervision.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Quiz supervision."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Réviser les notions clés."
         }
       ]
     }
