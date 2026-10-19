@@ -1,342 +1,2279 @@
 {
   "id": "cp5",
-  "group": "cp5",
-  "icon": "☁️",
-  "title": "CP5 — Serveurs en infrastructure virtualisée",
-  "desc": "Hyperviseurs, stockage, clusters HA/DRS, snapshots et backup VM.",
+  "title": "CP5 — Installer et assurer l'exploitation de serveurs Windows et Linux",
   "fiches": [
     {
-      "id": "pedagogie-cp5-virt",
-      "t": "Fiche pedagogique de reference - CP6 virtualisation",
+      "id": "cp5-essentiel",
+      "t": "CP5 — Installer et assurer l'exploitation de serveurs Windows et Linux — L'essentiel",
+      "level": "exam",
+      "r": "Fiche essentielle : objectifs, notions, tableau, diagnostic, pièges, index.",
+      "tags": [
+        {
+          "id": "cp5",
+          "title": "CP5 — Installer et assurer l'exploitation de serveurs Windows et Linux"
+        },
+        "essentiel"
+      ],
+      "g": [
+        "Objectif",
+        "Notions",
+        "Tableau",
+        "Diagnostic",
+        "Pièges",
+        "Index"
+      ],
+      "c": "À compléter.",
+      "p": [
+        "À compléter."
+      ],
+      "w": "À compléter.",
+      "resume": "Fiche essentielle du CP.",
+      "couvre": [
+        "mig-legacy-cp1-dhcpdns",
+        "mig-legacy-cp1-wifi",
+        "mig-legacy-cp2-objectifs",
+        "mig-legacy-cp2-ipdns",
+        "mig-legacy-cp2-join",
+        "mig-legacy-cp2-ou",
+        "mig-legacy-cp2-users",
+        "mig-legacy-cp2-dns",
+        "mig-legacy-cp2-dhcp",
+        "mig-legacy-cp2-fsrm",
+        "mig-legacy-cp2-adinstall",
+        "mig-legacy-cp2-fsmo",
+        "mig-legacy-cp2-agdlp",
+        "mig-legacy-cp2-dnsdhcp",
+        "mig-legacy-cp2-file",
+        "mig-legacy-cp2-print",
+        "mig-legacy-cp2-powershell",
+        "mig-legacy-cp2-ad-debutant",
+        "mig-legacy-cp2-join-2",
+        "pedagogie-cp2-serveurs",
+        "mig-legacy-cp3-legacy-cp5-linux",
+        "mig-legacy-cp3-legacy-cp5-ssh",
+        "mig-legacy-cp3-linux-base",
+        "mig-legacy-cp3-linux-users",
+        "mig-legacy-cp3-linux-reseau",
+        "mig-legacy-cp3-linux-paquets",
+        "mig-legacy-cp3-linux-ssh",
+        "mig-legacy-cp3-linux-cron",
+        "mig-legacy-cp3-linux-linux-debutant",
+        "mig-legacy-cp4-legacy-ccp4-trunk",
+        "mig-legacy-cp4-legacy-ccp4-nat",
+        "mig-legacy-cp4-legacy-ccp4-dns-dhcp-debutant",
+        "mig-legacy-cp4-dhcp",
+        "mig-legacy-cp4-dns",
+        "mig-legacy-cp4-wlan",
+        "mig-legacy-cp4-ipv4",
+        "toip-fiche-9",
+        "cp5-windows-server",
+        "cp5-active-directory",
+        "cp5-dns-microsoft",
+        "cp5-dhcp-microsoft",
+        "cp5-gpo",
+        "cp5-powershell",
+        "cp5-gestion-utilisateurs",
+        "cp5-gestion-groupes",
+        "cp5-roles-et-fonctionnalites",
+        "cp5-sauvegarde",
+        "cp5-haute-disponibilite",
+        "cp5-virtualisation-hyper-v",
+        "cp5-linux",
+        "cp5-apache",
+        "cp5-nginx",
+        "cp5-ssh",
+        "cp5-bash",
+        "cp5-scripts",
+        "cp5-mariadb",
+        "cp5-docker",
+        "cp5-supervision",
+        "cp5-centreon",
+        "cp5-grafana",
+        "cp5-sauvegarde-linux"
+      ],
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "mig-legacy-cp1-dhcpdns",
+      "t": "DHCP et DNS",
       "level": "intermediaire",
-      "r": "Definition : mutualiser des serveurs virtuels avec haute disponibilite. Contexte : VMware, Hyper-V ou Proxmox. Objectif : provisionner, sauvegarder et restaurer. Details : vSwitch, storage, snapshots vs sauvegardes, cluster HA/DRS. Exemple : creation VM puis sauvegarde pro. Erreurs : confondre snapshot et sauvegarde, ignorer ressources. Jury : pourquoi deux vSwitch, hotes vs invites, sauvegarde.",
+      "cli": true,
+      "r": "DHCP attribue automatiquement les adresses IP. DNS résout les noms en adresses IP.",
+      "tags": [
+        "cp1",
+        "dhcp",
+        "dns"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "DHCP/DNS : DORA, zones, enregistrements, cache.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "DHCP et DNS sont des services IP essentiels."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "DHCP : attribution automatique (DORA). DNS : résolution de noms. Zone, enregistrement A, CNAME, MX, PTR."
+        },
+        {
+          "title": "Fonctionnement détaillé",
+          "body": "DHCP Discover/Offer/Request/Acknowledge. DNS requête récursive/itérative, cache."
+        },
+        {
+          "title": "Architecture et concepts",
+          "body": "Étendue, exclusions, options (passerelle, DNS), TTL, forwarders."
+        },
+        {
+          "title": "Cas pratique",
+          "body": "Un poste n'a pas d'IP : vérifier DHCP, VLAN, relay. Nom ne résout pas : vérifier DNS."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "1. Vérifier l'étendue. 2. Vérifier les exclusions. 3. Tester ipconfig /renew. 4. Tester nslookup."
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "ipconfig /all, ipconfig /renew, nslookup, dig."
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "DHCP sur mauvais VLAN ; DNS mal pointé ; bail expiré."
+        },
+        {
+          "title": "Questions pièges",
+          "body": "DORA = ? Discover, Offer, Request, Acknowledge."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "DHCP attribue, DNS résout, DORA, TTL."
+        }
+      ]
+    },
+    {
+      "id": "mig-legacy-cp1-wifi",
+      "t": "Wi-Fi et sécurité radio",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Le Wi-Fi utilise des ondes radio. Sécurité via WPA2/WPA3 et segmentation.",
+      "tags": [
+        "cp1",
+        "wifi",
+        "radio"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Wi-Fi : SSID, canaux, WPA2/WPA3, segmentation.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Le Wi-Fi (IEEE 802.11) fournit un accès réseau sans fil."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "SSID, canal, bande 2.4/5/6 GHz, WPA2, WPA3, 802.1X, PSK."
+        },
+        {
+          "title": "Fonctionnement détaillé",
+          "body": "Association et authentification. Le chiffrement protège les données. Le roaming permet le passage d'un AP à un autre."
+        },
+        {
+          "title": "Architecture et concepts",
+          "body": "AP, contrôleur, VLAN voix/data, QoS, site survey."
+        },
+        {
+          "title": "Cas pratique",
+          "body": "Wi-Fi lent : vérifier canal, interférence, nombre de clients."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "1. Choisir le canal. 2. Configurer WPA3. 3. Segmenter par VLAN. 4. Tester le débit."
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "show wlan, show ap summary."
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Canal encombré ; WPA2-PSK faible ; pas de segmentation."
+        },
+        {
+          "title": "Questions pièges",
+          "body": "WPA3 améliore quoi ? SAE, protection contre brute force."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Wi-Fi = radio + sécurité + segmentation."
+        }
+      ]
+    },
+    {
+      "id": "mig-legacy-cp2-objectifs",
+      "t": "Objectifs et lien avec la MEP 2026",
+      "level": "exam",
+      "cli": false,
+      "r": "CP2 - Objectifs : installer et exploiter un serveur Windows dans un domaine Active Directory, puis prouver qu'un utilisateur accède uniquement aux ressources prévues. | Lien avec la MEP : phases de préparation (outils et documents fournis), missions de création et de test d'access, puis bilan et preuves. | Scénario : créer le compte d'un salarié, l'ajouter à un groupe, donner un accès dossier Commercial selon la matrice de droits, tester l'autorisation puis le refus. | Synthèse : Active Directory est une base d'identification, mais la permission effective dépend toujours du plus restrictif entre le partage et NTFS. | Schéma : accès utilisateur -> jeton Kerberos -> ACL fichier -> partage SMB -> résultat autorisé/refusé. | À retenir : identifier, grouper, autoriser, tester, prouver.",
+      "tags": [
+        "cp2",
+        "ad",
+        "mep",
+        "windows"
+      ],
+      "g": [
+        "Lire la MEP",
+        "Identifier les groupes AGDLP",
+        "Préparer le server",
+        "Créer les accès",
+        "Tester et collecter les preuves"
+      ],
+      "c": "Aucune commande native dans cette fiche théorique.",
+      "p": [
+        "Créer l'utilisateur avant le DNS",
+        "Tester avec un administrateur"
+      ],
+      "w": "Conclusion : CP2 se joue sur le contrôle et la preuve.",
+      "resume": "CP2 - Objectifs : installer et exploiter un serveur Windows dans un domaine Active Directory, puis prouver qu'un utilisateur accède uniquement aux ressources prévues.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP2 - Objectifs : installer et exploiter un serveur Windows dans un domaine Active Directory, puis prouver qu'un utilisateur accède uniquement aux ressources prévues. | Lien avec la MEP : phases de préparation (outils et documents fournis), missions de création et de test d'access, puis bilan et preuves. | Scénario : créer le compte d'un salarié, l'ajouter à un groupe, donner un accès dossier Comm"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP2 - Objectifs : installer et exploiter un serveur Windows dans un domaine Active Directory, puis prouver qu'un utilisateur accède uniquement aux ressources prévues. | Lien avec la MEP : phases de préparation (outils et documents fournis), missions de création et de test d'access, puis bilan et preuves. | Scénario : créer le compte d'un salarié, l'ajouter à un groupe, donner un accès dossier Commercial selon la matrice de droits, tester l'autorisation puis le refus. | Synthèse : Active Directory est une base d'identification, mais la permission effective dépend toujours du plus restrictif entre le partage et NTFS. | Schéma : accès utilisateur -> jeton Kerberos -> ACL fichier -> partage SMB -> résultat autorisé/refusé. | À retenir : identifier, grouper, autoriser, tester, prouver."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Lire la MEP\nIdentifier les groupes AGDLP\nPréparer le server\nCréer les accès\nTester et collecter les preuves"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Aucune commande native dans cette fiche théorique."
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Créer l'utilisateur avant le DNS\nTester avec un administrateur"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : CP2 se joue sur le contrôle et la preuve."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP2 - Objectifs : installer et exploiter un serveur Windows dans un domaine Active Directory, puis prouver qu'un utilisateur accède uniquement aux ressources prévues. | Lien avec la MEP : phases de pr"
+        }
+      ]
+    },
+    {
+      "id": "mig-legacy-cp2-ipdns",
+      "t": "IP fixe et DNS client du serveur",
+      "level": "debutant",
+      "cli": true,
+      "r": "CP2 - IP et DNS : un DC ne doit pas dépendre du DHCP et doit se connaître lui-même. | Objectif professionnel : éviter les pannes d'enregistrement AD. | Fonctionnement détaillé : adresse IPv4, masque, passerelle, DNS primaire sur l'adresse du DC, DNS secondaire sur le partenaire si présent. | Procédure GUI : Paramètres Windows > Réseau > Ethernet > IP > fixe. | Procédure CLI : attribuer l'IP et le DNS. | Vérification : Get-NetIPAddress, Get-DnsClientServerAddress, Test-NetConnection et Resolve-DnsName. | Pièges : DNS secondaire public, IP changée après promotion, passerelle manquante sur réseau isolé. | À retenir : le DC utilise son propre DNS.",
+      "tags": [
+        "cp2",
+        "ip",
+        "dns",
+        "windows"
+      ],
+      "g": [
+        "Ouvrir les paramètres réseau",
+        "Saisir l'IP fixe",
+        "Saisir le masque",
+        "Saisir la passerelle et le DNS",
+        "Tester la connexion"
+      ],
+      "c": "New-NetIPAddress -IPAddress 192.168.10.10 -PrefixLength 24 -DefaultGateway 192.168.10.1 -InterfaceAlias Ethernet\nSet-DnsClientServerAddress -InterfaceAlias Ethernet -ServerAddresses 192.168.10.10,192.168.10.11\nGet-NetIPAddress\nGet-DnsClientServerAddress\nResolve-DnsName dc01.tssr.local",
+      "p": [
+        "DNS pointant vers Internet",
+        "Masque incorrect"
+      ],
+      "w": "Conclusion : contrôle l'adresse avant de promouvoir.",
+      "resume": "CP2 - IP et DNS : un DC ne doit pas dépendre du DHCP et doit se connaître lui-même.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP2 - IP et DNS : un DC ne doit pas dépendre du DHCP et doit se connaître lui-même. | Objectif professionnel : éviter les pannes d'enregistrement AD. | Fonctionnement détaillé : adresse IPv4, masque, passerelle, DNS primaire sur l'adresse du DC, DNS secondaire sur le partenaire si présent. | Procédure GUI : Paramètres Windows > Réseau > Ethernet > IP > fixe. | Procédure CLI : attribuer l'IP et le "
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP2 - IP et DNS : un DC ne doit pas dépendre du DHCP et doit se connaître lui-même. | Objectif professionnel : éviter les pannes d'enregistrement AD. | Fonctionnement détaillé : adresse IPv4, masque, passerelle, DNS primaire sur l'adresse du DC, DNS secondaire sur le partenaire si présent. | Procédure GUI : Paramètres Windows > Réseau > Ethernet > IP > fixe. | Procédure CLI : attribuer l'IP et le DNS. | Vérification : Get-NetIPAddress, Get-DnsClientServerAddress, Test-NetConnection et Resolve-DnsName. | Pièges : DNS secondaire public, IP changée après promotion, passerelle manquante sur réseau isolé. | À retenir : le DC utilise son propre DNS."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Ouvrir les paramètres réseau\nSaisir l'IP fixe\nSaisir le masque\nSaisir la passerelle et le DNS\nTester la connexion"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "New-NetIPAddress -IPAddress 192.168.10.10 -PrefixLength 24 -DefaultGateway 192.168.10.1 -InterfaceAlias Ethernet\nSet-DnsClientServerAddress -InterfaceAlias Ethernet -ServerAddresses 192.168.10.10,192.168.10.11\nGet-NetIPAddress\nGet-DnsClientServerAddress\nResolve-DnsName dc01.tssr.local"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "DNS pointant vers Internet\nMasque incorrect"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : contrôle l'adresse avant de promouvoir."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP2 - IP et DNS : un DC ne doit pas dépendre du DHCP et doit se connaître lui-même. | Objectif professionnel : éviter les pannes d'enregistrement AD. | Fonctionnement détaillé : adresse IPv4, masque, "
+        }
+      ]
+    },
+    {
+      "id": "mig-legacy-cp2-join",
+      "t": "Jonction d'un poste au domaine",
+      "level": "debutant",
+      "cli": true,
+      "r": "CP2 - Jonction : le poste doit connaître le DNS du domaine et disposer d'un compte autorisé. | Objectif : intégrer les postes au domaine. | Fonctionnement détaillé : DNS, objet ordinateur, SID, profil utilisateur, GPO à la prochaine ouverture. | Procédure GUI : Système > Renommer ce PC > Domaine > redémarrer. | Procédure CLI : Add-Computer, puis redémarrage. | Vérification : whoami, Test-ComputerSecureChannel, Get-ADComputer dans la console. | Pièges : mauvais DNS, compte sans droit de jonction, redémarrage oublié, time zone. | Questions jury : jonction versus pré-stage, importance du DNS. | À retenir : DNS d'abord.",
+      "tags": [
+        "cp2",
+        "ad",
+        "poste",
+        "dns"
+      ],
+      "g": [
+        "Vérifier le DNS",
+        "Ouvrir les propriétés système",
+        "Rejoindre le domaine",
+        "Saisir les identifiants",
+        "Redémarrer"
+      ],
+      "c": "Add-Computer -DomainName tssr.local -Credential (Get-Credential) -Restart\nwhoami\ntest-computersecurechannel\nGet-ADComputer -Identity POSTE01",
+      "p": [
+        "DNS internet",
+        "Compte non autorisé",
+        "Redémarrage oublié"
+      ],
+      "w": "Conclusion : la jonction commence par le DNS.",
+      "resume": "CP2 - Jonction : le poste doit connaître le DNS du domaine et disposer d'un compte autorisé.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP2 - Jonction : le poste doit connaître le DNS du domaine et disposer d'un compte autorisé. | Objectif : intégrer les postes au domaine. | Fonctionnement détaillé : DNS, objet ordinateur, SID, profil utilisateur, GPO à la prochaine ouverture. | Procédure GUI : Système > Renommer ce PC > Domaine > redémarrer. | Procédure CLI : Add-Computer, puis redémarrage. | Vérification : whoami, Test-ComputerS"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP2 - Jonction : le poste doit connaître le DNS du domaine et disposer d'un compte autorisé. | Objectif : intégrer les postes au domaine. | Fonctionnement détaillé : DNS, objet ordinateur, SID, profil utilisateur, GPO à la prochaine ouverture. | Procédure GUI : Système > Renommer ce PC > Domaine > redémarrer. | Procédure CLI : Add-Computer, puis redémarrage. | Vérification : whoami, Test-ComputerSecureChannel, Get-ADComputer dans la console. | Pièges : mauvais DNS, compte sans droit de jonction, redémarrage oublié, time zone. | Questions jury : jonction versus pré-stage, importance du DNS. | À retenir : DNS d'abord."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Vérifier le DNS\nOuvrir les propriétés système\nRejoindre le domaine\nSaisir les identifiants\nRedémarrer"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Add-Computer -DomainName tssr.local -Credential (Get-Credential) -Restart\nwhoami\ntest-computersecurechannel\nGet-ADComputer -Identity POSTE01"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "DNS internet\nCompte non autorisé\nRedémarrage oublié"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : la jonction commence par le DNS."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP2 - Jonction : le poste doit connaître le DNS du domaine et disposer d'un compte autorisé. | Objectif : intégrer les postes au domaine. | Fonctionnement détaillé : DNS, objet ordinateur, SID, profil"
+        }
+      ]
+    },
+    {
+      "id": "mig-legacy-cp2-ou",
+      "t": "OU et AGDLP",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP2 - AGDLP : A pour comptes, G pour groupes globaux métier, DL pour groupes de ressources, P pour permission. | Objectif professionnel : déléguer et maintenir une structure lisible. | Cas réel : OU _Usuarios, _Grupos, _Computadoras, puis une OU Commerciale contenant les utilisateurs. | Fonctionnement détaillé : OU pour GPO et délégation, groupes pour l'accès aux ressources. | Procédure GUI : Utilisateurs et ordinateurs Active Directory > Nouvelle unité d'organisation. | Procédure CLI : New-ADOrganizationalUnit, New-ADGroup. | Vérification : Get-ADOrganizationalUnit, Get-ADGroup. | Pièges : OU profondes sans besoin, groupe directement sur dossier, permissions non testées. | Questions jury : différence compte global et ressource, pourquoi AGDLP. | À retenir : les comptes ne portent pas les permissions directement.",
+      "tags": [
+        "cp2",
+        "ad",
+        "ou",
+        "agdlp"
+      ],
+      "g": [
+        "Créer les OU",
+        "Créer le groupe global",
+        "Créer le groupe de domaine local",
+        "Ajouter le groupe global dans le groupe DL",
+        "Ajouter l'utilisateur au groupe global"
+      ],
+      "c": "New-ADOrganizationalUnit -Name '_Utilisateurs' -Path 'DC=tssr,DC=local'\nNew-ADOrganizationalUnit -Name '_Groupes' -Path 'DC=tssr,DC=local'\nNew-ADGroup -Name 'G-Commerciaux' -GroupScope Global -GroupCategory Security -Path 'OU=_Groupes,DC=tssr,DC=local'\nNew-ADGroup -Name 'DL-Commercial-FC' -GroupScope DomainLocal -GroupCategory Security -Path 'OU=_Groupes,DC=tssr,DC=local'\nAdd-ADGroupMember -Identity 'DL-Commercial-FC' -Members 'G-Commerciaux'\nGet-ADOrganizationalUnit -Filter *",
+      "p": [
+        "Groupe avec le mauvais scope",
+        "AGDLP inversé",
+        "Permission sur personne"
+      ],
+      "w": "Conclusion : AGDLP se défend à l'oral.",
+      "resume": "CP2 - AGDLP : A pour comptes, G pour groupes globaux métier, DL pour groupes de ressources, P pour permission.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP2 - AGDLP : A pour comptes, G pour groupes globaux métier, DL pour groupes de ressources, P pour permission. | Objectif professionnel : déléguer et maintenir une structure lisible. | Cas réel : OU _Usuarios, _Grupos, _Computadoras, puis une OU Commerciale contenant les utilisateurs. | Fonctionnement détaillé : OU pour GPO et délégation, groupes pour l'accès aux ressources. | Procédure GUI : Util"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP2 - AGDLP : A pour comptes, G pour groupes globaux métier, DL pour groupes de ressources, P pour permission. | Objectif professionnel : déléguer et maintenir une structure lisible. | Cas réel : OU _Usuarios, _Grupos, _Computadoras, puis une OU Commerciale contenant les utilisateurs. | Fonctionnement détaillé : OU pour GPO et délégation, groupes pour l'accès aux ressources. | Procédure GUI : Utilisateurs et ordinateurs Active Directory > Nouvelle unité d'organisation. | Procédure CLI : New-ADOrganizationalUnit, New-ADGroup. | Vérification : Get-ADOrganizationalUnit, Get-ADGroup. | Pièges : OU profondes sans besoin, groupe directement sur dossier, permissions non testées. | Questions jury : différence compte global et ressource, pourquoi AGDLP. | À retenir : les comptes ne portent pas les permissions directement."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Créer les OU\nCréer le groupe global\nCréer le groupe de domaine local\nAjouter le groupe global dans le groupe DL\nAjouter l'utilisateur au groupe global"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "New-ADOrganizationalUnit -Name '_Utilisateurs' -Path 'DC=tssr,DC=local'\nNew-ADOrganizationalUnit -Name '_Groupes' -Path 'DC=tssr,DC=local'\nNew-ADGroup -Name 'G-Commerciaux' -GroupScope Global -GroupCategory Security -Path 'OU=_Groupes,DC=tssr,DC=local'\nNew-ADGroup -Name 'DL-Commercial-FC' -GroupScope DomainLocal -GroupCategory Security -Path 'OU=_Groupes,DC=tssr,DC=local'\nAdd-ADGroupMember -Identity 'DL-Commercial-FC' -Members 'G-Commerciaux'\nGet-ADOrganizationalUnit -Filter *"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Groupe avec le mauvais scope\nAGDLP inversé\nPermission sur personne"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : AGDLP se défend à l'oral."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP2 - AGDLP : A pour comptes, G pour groupes globaux métier, DL pour groupes de ressources, P pour permission. | Objectif professionnel : déléguer et maintenir une structure lisible. | Cas réel : OU _"
+        }
+      ]
+    },
+    {
+      "id": "mig-legacy-cp2-users",
+      "t": "Création d'un utilisateur et attribution des groupes",
+      "level": "debutant",
+      "cli": true,
+      "r": "CP2 - Utilisateur : créer le compte, définir le mot de passe et l'ajouter au groupe métier. | Objectif professionnel : préparer l'expérience à un test réel. | Cas réel : nouveau collaborateur Commercial. | Fonctionnement détaillé : UPN, profils, mot de passe initial, expiration, appartenance au groupe. | Procédure GUI : Utilisateurs et ordinateurs Active Directory > Nouvel utilisateur. | Procédure CLI : New-ADUser puis Enable-ADAccount si nécessaire. | Vérification : Get-ADUser, Get-ADGroupMember, Test-ADAccount. | Pièges : compte désactivé, groupe faux, mot de passe expiré. | Questions jury : UPN, mandatory profile, password policy. | À retenir : compte test, groupe test.",
+      "tags": [
+        "cp2",
+        "ad",
+        "utilisateurs",
+        "powershell"
+      ],
+      "g": [
+        "Ouvrir dsa.msc",
+        "Créer l'utilisateur",
+        "Définir le mot de passe",
+        "Décocher 'le mot de passe n'expire jamais' si requis",
+        "Ajouter au groupe G-Commerciaux"
+      ],
+      "c": "New-ADUser -Name 'Jean Dupont' -SamAccountName jdupont -UserPrincipalName jdupont@tssr.local -GivenName Jean -Surname Dupont -DisplayName 'Jean Dupont' -Path 'OU=Utilisateurs,DC=tssr,DC=local' -AccountPassword (ConvertTo-SecureString 'P@ssw0rd!' -AsPlainText -Force) -Enabled $true\nAdd-ADGroupMember -Identity 'G-Commerciaux' -Members 'jdupont'\nGet-ADUser -Identity jdupont -Properties MemberOf\nGet-ADGroupMember -Identity 'G-Commerciaux'",
+      "p": [
+        "Compte créé sans mot de passe",
+        "Ouvert dans la mauvaise OU"
+      ],
+      "w": "Conclusion : un compte sans test ne prouve rien.",
+      "resume": "CP2 - Utilisateur : créer le compte, définir le mot de passe et l'ajouter au groupe métier.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP2 - Utilisateur : créer le compte, définir le mot de passe et l'ajouter au groupe métier. | Objectif professionnel : préparer l'expérience à un test réel. | Cas réel : nouveau collaborateur Commercial. | Fonctionnement détaillé : UPN, profils, mot de passe initial, expiration, appartenance au groupe. | Procédure GUI : Utilisateurs et ordinateurs Active Directory > Nouvel utilisateur. | Procédure"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP2 - Utilisateur : créer le compte, définir le mot de passe et l'ajouter au groupe métier. | Objectif professionnel : préparer l'expérience à un test réel. | Cas réel : nouveau collaborateur Commercial. | Fonctionnement détaillé : UPN, profils, mot de passe initial, expiration, appartenance au groupe. | Procédure GUI : Utilisateurs et ordinateurs Active Directory > Nouvel utilisateur. | Procédure CLI : New-ADUser puis Enable-ADAccount si nécessaire. | Vérification : Get-ADUser, Get-ADGroupMember, Test-ADAccount. | Pièges : compte désactivé, groupe faux, mot de passe expiré. | Questions jury : UPN, mandatory profile, password policy. | À retenir : compte test, groupe test."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Ouvrir dsa.msc\nCréer l'utilisateur\nDéfinir le mot de passe\nDécocher 'le mot de passe n'expire jamais' si requis\nAjouter au groupe G-Commerciaux"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "New-ADUser -Name 'Jean Dupont' -SamAccountName jdupont -UserPrincipalName jdupont@tssr.local -GivenName Jean -Surname Dupont -DisplayName 'Jean Dupont' -Path 'OU=Utilisateurs,DC=tssr,DC=local' -AccountPassword (ConvertTo-SecureString 'P@ssw0rd!' -AsPlainText -Force) -Enabled $true\nAdd-ADGroupMember -Identity 'G-Commerciaux' -Members 'jdupont'\nGet-ADUser -Identity jdupont -Properties MemberOf\nGet-ADGroupMember -Identity 'G-Commerciaux'"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Compte créé sans mot de passe\nOuvert dans la mauvaise OU"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : un compte sans test ne prouve rien."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP2 - Utilisateur : créer le compte, définir le mot de passe et l'ajouter au groupe métier. | Objectif professionnel : préparer l'expérience à un test réel. | Cas réel : nouveau collaborateur Commerci"
+        }
+      ]
+    },
+    {
+      "id": "mig-legacy-cp2-dns",
+      "t": "DNS Windows : zones et enregistrements",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP2 - DNS : créer une zone primaire, ajouter les enregistrements et vérifier la résolution DHCP/clients. | Objectif professionnel : permettre la réussite de plusieurs services AD. | Fonctionnement détaillé : zone de recherche directe, zone inverse, A, CNAME, SRV automatiques, TTL. | Procédure GUI : DNS Manager > ajouter une zone. | Procédure CLI : Add-DnsServerPrimaryZone et Add-DnsServerResourceRecord. | Vérification : Resolve-DnsName, Get-DnsServerResourceRecord et nslookup. | Pièges : mauvais apex, TTL trop court, forwarder manquant. | Questions jury : zone inverse, enregistrements SRV, cache DNS. | À retenir : penser application et client.",
+      "tags": [
+        "cp2",
+        "dns",
+        "windows"
+      ],
+      "g": [
+        "Ouvrir la console DNS",
+        "Créer une zone primaire",
+        "Ajouter un enregistrement A",
+        "Ajouter un alias CNAME",
+        "Tester avec nslookup"
+      ],
+      "c": "Add-DnsServerPrimaryZone -Name 'tssr.local' -ZoneFile 'tssr.local.dns'\nAdd-DnsServerResourceRecordA -Name 'web' -ZoneName 'tssr.local' -IPv4Address '192.168.10.20'\nAdd-DnsServerResourceRecordCName -Name 'intranet' -ZoneName 'tssr.local' -HostNameAlias 'web.tssr.local'\nResolve-DnsName intranet.tssr.local\nGet-DnsServerResourceRecord -ZoneName 'tssr.local'",
+      "p": [
+        "Zone secondaire confondue",
+        "TTL inadapté",
+        "Forwarder incorrect"
+      ],
+      "w": "Conclusion : DNS doit précéder beaucoup d'autres services.",
+      "resume": "CP2 - DNS : créer une zone primaire, ajouter les enregistrements et vérifier la résolution DHCP/clients.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP2 - DNS : créer une zone primaire, ajouter les enregistrements et vérifier la résolution DHCP/clients. | Objectif professionnel : permettre la réussite de plusieurs services AD. | Fonctionnement détaillé : zone de recherche directe, zone inverse, A, CNAME, SRV automatiques, TTL. | Procédure GUI : DNS Manager > ajouter une zone. | Procédure CLI : Add-DnsServerPrimaryZone et Add-DnsServerResourceR"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP2 - DNS : créer une zone primaire, ajouter les enregistrements et vérifier la résolution DHCP/clients. | Objectif professionnel : permettre la réussite de plusieurs services AD. | Fonctionnement détaillé : zone de recherche directe, zone inverse, A, CNAME, SRV automatiques, TTL. | Procédure GUI : DNS Manager > ajouter une zone. | Procédure CLI : Add-DnsServerPrimaryZone et Add-DnsServerResourceRecord. | Vérification : Resolve-DnsName, Get-DnsServerResourceRecord et nslookup. | Pièges : mauvais apex, TTL trop court, forwarder manquant. | Questions jury : zone inverse, enregistrements SRV, cache DNS. | À retenir : penser application et client."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Ouvrir la console DNS\nCréer une zone primaire\nAjouter un enregistrement A\nAjouter un alias CNAME\nTester avec nslookup"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Add-DnsServerPrimaryZone -Name 'tssr.local' -ZoneFile 'tssr.local.dns'\nAdd-DnsServerResourceRecordA -Name 'web' -ZoneName 'tssr.local' -IPv4Address '192.168.10.20'\nAdd-DnsServerResourceRecordCName -Name 'intranet' -ZoneName 'tssr.local' -HostNameAlias 'web.tssr.local'\nResolve-DnsName intranet.tssr.local\nGet-DnsServerResourceRecord -ZoneName 'tssr.local'"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Zone secondaire confondue\nTTL inadapté\nForwarder incorrect"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : DNS doit précéder beaucoup d'autres services."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP2 - DNS : créer une zone primaire, ajouter les enregistrements et vérifier la résolution DHCP/clients. | Objectif professionnel : permettre la réussite de plusieurs services AD. | Fonctionnement dét"
+        }
+      ]
+    },
+    {
+      "id": "mig-legacy-cp2-dhcp",
+      "t": "DHCP Windows : étendue, options et exclusions",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP2 - DHCP : créer une étendue avec options obligatoires pour les clients. | Objectif professionnel : attribuer IP, DNS et passerelle sans conflit. | Fonctionnement détaillé : DORA, bail, scope, exclusions, options 003 passerelle, 006 DNS, 015 suffixe. | Procédure GUI : Console DHCP > nouvelle étendue. | Procédure CLI : Add-DhcpServerv4Scope puis options. | Vérification : Get-DhcpServerv4Scope, Get-DhcpServerv4Lease et ipconfig /renew. | Pièges : étendue sur mauvaise interface, IP conflicting, options incomplètes. | Questions jury : DORA, bail, exclusions. | À retenir : IP statique avant services clés.",
+      "tags": [
+        "cp2",
+        "dhcp",
+        "windows"
+      ],
+      "g": [
+        "Installer le rôle DHCP",
+        "Créer une étendue",
+        "Définir les exclusions",
+        "Définir le routeur",
+        "Définir les DNS et le suffixe",
+        "Tester ipconfig /renew"
+      ],
+      "c": "Install-WindowsFeature DHCP -IncludeManagementTools\nAdd-DhcpServerv4Scope -Name 'Postes' -StartRange 192.168.10.100 -EndRange 192.168.10.200 -SubnetMask 255.255.255.0 -LeaseDuration 8.00:00:00\nAdd-DhcpServerv4ExclusionRange -ScopeId 192.168.10.0 -StartRange 192.168.10.150 -EndRange 192.168.10.160\nSet-DhcpServerv4OptionValue -ScopeId 192.168.10.0 -Router 192.168.10.1 -DnsServer 192.168.10.10 -DnsDomain tssr.local\nGet-DhcpServerv4Scope\nGet-DhcpServerv4Lease -ScopeId 192.168.10.0",
+      "p": [
+        "Étendue sans DNS",
+        "Exclusion inutile",
+        "DHCP autorisé trop tôt"
+      ],
+      "w": "Conclusion : DHCP s'administre avec les options.",
+      "resume": "CP2 - DHCP : créer une étendue avec options obligatoires pour les clients.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP2 - DHCP : créer une étendue avec options obligatoires pour les clients. | Objectif professionnel : attribuer IP, DNS et passerelle sans conflit. | Fonctionnement détaillé : DORA, bail, scope, exclusions, options 003 passerelle, 006 DNS, 015 suffixe. | Procédure GUI : Console DHCP > nouvelle étendue. | Procédure CLI : Add-DhcpServerv4Scope puis options. | Vérification : Get-DhcpServerv4Scope, Ge"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP2 - DHCP : créer une étendue avec options obligatoires pour les clients. | Objectif professionnel : attribuer IP, DNS et passerelle sans conflit. | Fonctionnement détaillé : DORA, bail, scope, exclusions, options 003 passerelle, 006 DNS, 015 suffixe. | Procédure GUI : Console DHCP > nouvelle étendue. | Procédure CLI : Add-DhcpServerv4Scope puis options. | Vérification : Get-DhcpServerv4Scope, Get-DhcpServerv4Lease et ipconfig /renew. | Pièges : étendue sur mauvaise interface, IP conflicting, options incomplètes. | Questions jury : DORA, bail, exclusions. | À retenir : IP statique avant services clés."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Installer le rôle DHCP\nCréer une étendue\nDéfinir les exclusions\nDéfinir le routeur\nDéfinir les DNS et le suffixe\nTester ipconfig /renew"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Install-WindowsFeature DHCP -IncludeManagementTools\nAdd-DhcpServerv4Scope -Name 'Postes' -StartRange 192.168.10.100 -EndRange 192.168.10.200 -SubnetMask 255.255.255.0 -LeaseDuration 8.00:00:00\nAdd-DhcpServerv4ExclusionRange -ScopeId 192.168.10.0 -StartRange 192.168.10.150 -EndRange 192.168.10.160\nSet-DhcpServerv4OptionValue -ScopeId 192.168.10.0 -Router 192.168.10.1 -DnsServer 192.168.10.10 -DnsDomain tssr.local\nGet-DhcpServerv4Scope\nGet-DhcpServerv4Lease -ScopeId 192.168.10.0"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Étendue sans DNS\nExclusion inutile\nDHCP autorisé trop tôt"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : DHCP s'administre avec les options."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP2 - DHCP : créer une étendue avec options obligatoires pour les clients. | Objectif professionnel : attribuer IP, DNS et passerelle sans conflit. | Fonctionnement détaillé : DORA, bail, scope, exclu"
+        }
+      ]
+    },
+    {
+      "id": "mig-legacy-cp2-fsrm",
+      "t": "Quotas et FSRM (si pertinent)",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP2 - FSRM : poser des quotas sur un dossier partagé pour éviter la saturation. | Objectif professionnel : maîtriser les risques de capacité. | Fonctionnement détaillé : installation du rôle, quota, seuil, action email. | Procédure GUI : Gestionnaire de ressources du serveur de fichiers. | Procédure CLI : Install-WindowsFeature et New-FsrmQuota. | Vérification : Get-FsrmQuota et test de création d'un fichier. | Pièges : quota sur mauvais dossier, absence de notification, capacité trop basse. | Questions jury : quota dur versus seuil alerte. | À retenir : capacity et notification.",
+      "tags": [
+        "cp2",
+        "fsrm",
+        "stockage",
+        "windows"
+      ],
+      "g": [
+        "Installer le rôle FSRM",
+        "Créer un quota",
+        "Définir un seuil",
+        "Lier une action",
+        "Tester"
+      ],
+      "c": "Install-WindowsFeature FS-Resource-Manager -IncludeManagementTools\nNew-FsrmQuota -Path 'D:\\Partages\\Commercial' -Size '5GB'\nGet-FsrmQuota -Path 'D:\\Partages\\Commercial'",
+      "p": [
+        "Quota trop bas",
+        "Alerte non testée"
+      ],
+      "w": "Conclusion : planifier la capacité avant saturation.",
+      "resume": "CP2 - FSRM : poser des quotas sur un dossier partagé pour éviter la saturation.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP2 - FSRM : poser des quotas sur un dossier partagé pour éviter la saturation. | Objectif professionnel : maîtriser les risques de capacité. | Fonctionnement détaillé : installation du rôle, quota, seuil, action email. | Procédure GUI : Gestionnaire de ressources du serveur de fichiers. | Procédure CLI : Install-WindowsFeature et New-FsrmQuota. | Vérification : Get-FsrmQuota et test de création d"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP2 - FSRM : poser des quotas sur un dossier partagé pour éviter la saturation. | Objectif professionnel : maîtriser les risques de capacité. | Fonctionnement détaillé : installation du rôle, quota, seuil, action email. | Procédure GUI : Gestionnaire de ressources du serveur de fichiers. | Procédure CLI : Install-WindowsFeature et New-FsrmQuota. | Vérification : Get-FsrmQuota et test de création d'un fichier. | Pièges : quota sur mauvais dossier, absence de notification, capacité trop basse. | Questions jury : quota dur versus seuil alerte. | À retenir : capacity et notification."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Installer le rôle FSRM\nCréer un quota\nDéfinir un seuil\nLier une action\nTester"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Install-WindowsFeature FS-Resource-Manager -IncludeManagementTools\nNew-FsrmQuota -Path 'D:\\Partages\\Commercial' -Size '5GB'\nGet-FsrmQuota -Path 'D:\\Partages\\Commercial'"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Quota trop bas\nAlerte non testée"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : planifier la capacité avant saturation."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP2 - FSRM : poser des quotas sur un dossier partagé pour éviter la saturation. | Objectif professionnel : maîtriser les risques de capacité. | Fonctionnement détaillé : installation du rôle, quota, s"
+        }
+      ]
+    },
+    {
+      "id": "mig-legacy-cp2-adinstall",
+      "t": "Installer AD DS et créer une forêt",
+      "level": "intermediaire",
+      "r": "Un DC = ADDS + DNS + heure synchronisée. Prévoir 2 contrôleurs minimum pour la résilience et la réplication.",
+      "tags": [
+        "ad",
+        "windows server",
+        "dns",
+        "dsrm"
+      ],
+      "g": [
+        "Gestionnaire de serveur > Ajouter rôles : AD DS + DNS",
+        "Promouvoir en contrôleur : nouvelle forêt ex. tssr.local",
+        "Définir mot de passe DSRM et niveau fonctionnel",
+        "Vérifier DNS, Sites et services, réplication"
+      ],
+      "c": "Install-WindowsFeature AD-Domain-Services -IncludeManagementTools\nInstall-ADDSForest -DomainName tssr.local -InstallDns -DomainNetbiosName TSSR\nGet-ADDomainController\ndcdiag /q /s:DC1",
+      "p": [
+        "NetBIOS <=15 caractères",
+        "Niveau fonctionnel le plus haut compatible avec les plus vieux DC",
+        "NTP : l'émulateur PDC est la source de temps de la forêt"
+      ],
+      "w": "Jamais un seul DC en production. Toujours tester la restauration AD avant le premier incident.",
+      "cp": "cp9",
+      "resume": "Un DC = ADDS + DNS + heure synchronisée.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Un DC = ADDS + DNS + heure synchronisée. Prévoir 2 contrôleurs minimum pour la résilience et la réplication."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Un DC = ADDS + DNS + heure synchronisée. Prévoir 2 contrôleurs minimum pour la résilience et la réplication."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Gestionnaire de serveur > Ajouter rôles : AD DS + DNS\nPromouvoir en contrôleur : nouvelle forêt ex. tssr.local\nDéfinir mot de passe DSRM et niveau fonctionnel\nVérifier DNS, Sites et services, réplication"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Install-WindowsFeature AD-Domain-Services -IncludeManagementTools\nInstall-ADDSForest -DomainName tssr.local -InstallDns -DomainNetbiosName TSSR\nGet-ADDomainController\ndcdiag /q /s:DC1"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "NetBIOS <=15 caractères\nNiveau fonctionnel le plus haut compatible avec les plus vieux DC\nNTP : l'émulateur PDC est la source de temps de la forêt"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Jamais un seul DC en production. Toujours tester la restauration AD avant le premier incident."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Un DC = ADDS + DNS + heure synchronisée. Prévoir 2 contrôleurs minimum pour la résilience et la réplication."
+        }
+      ]
+    },
+    {
+      "id": "mig-legacy-cp2-fsmo",
+      "t": "Les 5 rôles FSMO",
+      "level": "intermediaire",
+      "r": "Forêt : Schéma + Nom de domaine. Domaine : PDCe, RID, Infrastructure. Chaque rôle a une fonction précise.",
+      "tags": [
+        "fsmo",
+        "ad",
+        "roles"
+      ],
+      "g": [
+        "ADUC : voir Maîtres d'opérations (RID/PDC/Infrastructure)",
+        "Domaines et approbations : maître nom de domaine",
+        "Schéma : regsvr32 schmmgmt puis console du schéma"
+      ],
+      "c": "netdom query fsmo\nMove-ADDirectoryServerOperationMasterRole -Identity DC2 -OperationMasterRole PDCEmulator,RIDMaster -Force\nGet-ADForest | Select SchemaMaster,DomainNamingMaster\nGet-ADDomain | Select PDCEmulator,RIDMaster,InfrastructureMaster",
+      "p": [
+        "PDC = temps, verrouillage et mot de passe prioritaires",
+        "Transfert gracieux si le DC est disponible, saisie (seize) si panne",
+        "Documenter l'emplacement des rôles dans la matrice d'infrastructure"
+      ],
+      "w": "Déplacer les rôles sans planification peut perturber la réplication et le temps Kerberos.",
+      "cp": "cp9",
+      "resume": "Forêt : Schéma + Nom de domaine.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Forêt : Schéma + Nom de domaine. Domaine : PDCe, RID, Infrastructure. Chaque rôle a une fonction précise."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Forêt : Schéma + Nom de domaine. Domaine : PDCe, RID, Infrastructure. Chaque rôle a une fonction précise."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "ADUC : voir Maîtres d'opérations (RID/PDC/Infrastructure)\nDomaines et approbations : maître nom de domaine\nSchéma : regsvr32 schmmgmt puis console du schéma"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "netdom query fsmo\nMove-ADDirectoryServerOperationMasterRole -Identity DC2 -OperationMasterRole PDCEmulator,RIDMaster -Force\nGet-ADForest | Select SchemaMaster,DomainNamingMaster\nGet-ADDomain | Select PDCEmulator,RIDMaster,InfrastructureMaster"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "PDC = temps, verrouillage et mot de passe prioritaires\nTransfert gracieux si le DC est disponible, saisie (seize) si panne\nDocumenter l'emplacement des rôles dans la matrice d'infrastructure"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Déplacer les rôles sans planification peut perturber la réplication et le temps Kerberos."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Forêt : Schéma + Nom de domaine. Domaine : PDCe, RID, Infrastructure. Chaque rôle a une fonction précise."
+        }
+      ]
+    },
+    {
+      "id": "mig-legacy-cp2-agdlp",
+      "t": "Groupes AGDLP et GPO",
+      "level": "intermediaire",
+      "r": "AGDLP : User → Global → DomainLocal → Permission. GPO : Ordinateur vs Utilisateur selon LSDOU (Local, Site, Domaine, OU).",
+      "tags": [
+        "groupes",
+        "gpo",
+        "permissions",
+        "ad"
+      ],
+      "g": [
+        "ADUC : créer OU puis groupes Global (métier) et DomainLocal (ressource)",
+        "Partage : ajouter le groupe LD en autorisation NTFS/Partage",
+        "GPMC : lier GPO à OU, filtrer par groupe de sécurité",
+        "Tester : gpupdate /force puis gpresult /r"
+      ],
+      "c": "New-ADGroup -Name G_Compta -GroupScope Global -GroupCategory Security\nNew-ADGroup -Name LD_PartageCompta -GroupScope DomainLocal -GroupCategory Security\nAdd-ADGroupMember -Identity LD_PartageCompta -Members G_Compta\ngpupdate /force\ngpresult /r | Out-File C:\\temp\\gpo.txt",
+      "p": [
+        "Bouclage de stratégie pour les sessions RDS",
+        "Permissions NTFS + Partage : la plus restrictive gagne",
+        "Toujours tester sur un poste pilote avec gpresult /h rapport.html"
+      ],
+      "w": "Ajouter un utilisateur directement au groupe DomainLocal contourne la méthode AGDLP et complique les audits.",
+      "cp": "cp9",
+      "resume": "AGDLP : User → Global → DomainLocal → Permission.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "AGDLP : User → Global → DomainLocal → Permission. GPO : Ordinateur vs Utilisateur selon LSDOU (Local, Site, Domaine, OU)."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "AGDLP : User → Global → DomainLocal → Permission. GPO : Ordinateur vs Utilisateur selon LSDOU (Local, Site, Domaine, OU)."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "ADUC : créer OU puis groupes Global (métier) et DomainLocal (ressource)\nPartage : ajouter le groupe LD en autorisation NTFS/Partage\nGPMC : lier GPO à OU, filtrer par groupe de sécurité\nTester : gpupdate /force puis gpresult /r"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "New-ADGroup -Name G_Compta -GroupScope Global -GroupCategory Security\nNew-ADGroup -Name LD_PartageCompta -GroupScope DomainLocal -GroupCategory Security\nAdd-ADGroupMember -Identity LD_PartageCompta -Members G_Compta\ngpupdate /force\ngpresult /r | Out-File C:\\temp\\gpo.txt"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Bouclage de stratégie pour les sessions RDS\nPermissions NTFS + Partage : la plus restrictive gagne\nToujours tester sur un poste pilote avec gpresult /h rapport.html"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Ajouter un utilisateur directement au groupe DomainLocal contourne la méthode AGDLP et complique les audits."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "AGDLP : User → Global → DomainLocal → Permission. GPO : Ordinateur vs Utilisateur selon LSDOU (Local, Site, Domaine, OU)."
+        }
+      ]
+    },
+    {
+      "id": "mig-legacy-cp2-dnsdhcp",
+      "t": "DNS et DHCP Windows Server",
+      "level": "intermediaire",
+      "r": "DNS AD intégré avec zones directes/inverses et dynamic DNS sécurisé. DHCP : étendue, options, réservations, bascule.",
+      "tags": [
+        "dns",
+        "dhcp",
+        "windows server"
+      ],
+      "g": [
+        "DNS : créer zones directe tssr.local et inverse, activer scavenging",
+        "DHCP : nouvelle étendue avec masque, passerelle (003), DNS (006)",
+        "Réservation par MAC pour imprimantes/serveurs",
+        "Sauvegarder et répliquer la configuration"
+      ],
+      "c": "Add-DnsServerPrimaryZone -Name tssr.local -ZoneFile tssr.local.dns -DynamicUpdate Secure\nAdd-DhcpServerv4Scope -Name LAN -StartRange 192.168.1.100 -EndRange 192.168.1.200 -SubnetMask 255.255.255.0\nSet-DhcpServerv4OptionValue -Router 192.168.1.1 -DnsServer 192.168.1.10\nAdd-DhcpServerv4Reservation -ScopeId 192.168.1.0 -IPAddress 192.168.1.50 -ClientId 00-11-22-33-44-55\nGet-DhcpServerv4Lease -ScopeId 192.168.1.0",
+      "p": [
+        "Bail court pour Wi-Fi invités, normal pour LAN",
+        "Mettre en place une bascule DHCP (failover) pour la continuité",
+        "Réserver les adresses serveurs hors étendue"
+      ],
+      "w": "Un serveur AD doit utiliser son propre DNS ; pointer ailleurs casse Kerberos.",
+      "cp": "cp9",
+      "resume": "DNS AD intégré avec zones directes/inverses et dynamic DNS sécurisé.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "DNS AD intégré avec zones directes/inverses et dynamic DNS sécurisé. DHCP : étendue, options, réservations, bascule."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "DNS AD intégré avec zones directes/inverses et dynamic DNS sécurisé. DHCP : étendue, options, réservations, bascule."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "DNS : créer zones directe tssr.local et inverse, activer scavenging\nDHCP : nouvelle étendue avec masque, passerelle (003), DNS (006)\nRéservation par MAC pour imprimantes/serveurs\nSauvegarder et répliquer la configuration"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Add-DnsServerPrimaryZone -Name tssr.local -ZoneFile tssr.local.dns -DynamicUpdate Secure\nAdd-DhcpServerv4Scope -Name LAN -StartRange 192.168.1.100 -EndRange 192.168.1.200 -SubnetMask 255.255.255.0\nSet-DhcpServerv4OptionValue -Router 192.168.1.1 -DnsServer 192.168.1.10\nAdd-DhcpServerv4Reservation -ScopeId 192.168.1.0 -IPAddress 192.168.1.50 -ClientId 00-11-22-33-44-55\nGet-DhcpServerv4Lease -ScopeId 192.168.1.0"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Bail court pour Wi-Fi invités, normal pour LAN\nMettre en place une bascule DHCP (failover) pour la continuité\nRéserver les adresses serveurs hors étendue"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Un serveur AD doit utiliser son propre DNS ; pointer ailleurs casse Kerberos."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "DNS AD intégré avec zones directes/inverses et dynamic DNS sécurisé. DHCP : étendue, options, réservations, bascule."
+        }
+      ]
+    },
+    {
+      "id": "mig-legacy-cp2-file",
+      "t": "Serveur de fichiers, partages et DFS",
+      "level": "intermediaire",
+      "r": "Partages SMB avec permissions NTFS + partage, quotas FSRM, DFS-N pour l'abstraction et la haute disponibilité.",
+      "tags": [
+        "fichiers",
+        "smb",
+        "dfs",
+        "fsrm",
+        "partages"
+      ],
+      "g": [
+        "Créer dossiers avec structure par service",
+        "Définir permissions NTFS selon AGDLP",
+        "Créer partage avec \\serveur\\ressource",
+        "Mettre en place DFS-N et espaces de noms"
+      ],
+      "c": "New-SmbShare -Name Compta -Path D:\\Shares\\Compta -FullAccess \"TSSR\\LD_PartageCompta\"\nGrant-SmbShareAccess -Name Compta -AccountName \"TSSR\\G_Compta\" -AccessRight Change\nGet-SmbShare\n# DFS\nNew-DfsnRoot -Path \\\\tssr.local\\partages -TargetPath \\\\DC1\\partages -Type DomainV2\ndfsutil /addftroot:domain",
+      "p": [
+        "Indexation et recherche par Windows Search sur serveur de fichiers",
+        "FSRM : quotas par dossier et filtrage d'extensions (ransomware)",
+        "Sauvegarder les listes ACL exportées"
+      ],
+      "w": "La suppression d'un partage n'efface pas les fichiers; vérifier les permissions minimales.",
+      "cp": "cp9",
+      "resume": "Partages SMB avec permissions NTFS + partage, quotas FSRM, DFS-N pour l'abstraction et la haute disponibilité.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Partages SMB avec permissions NTFS + partage, quotas FSRM, DFS-N pour l'abstraction et la haute disponibilité."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Partages SMB avec permissions NTFS + partage, quotas FSRM, DFS-N pour l'abstraction et la haute disponibilité."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Créer dossiers avec structure par service\nDéfinir permissions NTFS selon AGDLP\nCréer partage avec \\serveur\\ressource\nMettre en place DFS-N et espaces de noms"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "New-SmbShare -Name Compta -Path D:\\Shares\\Compta -FullAccess \"TSSR\\LD_PartageCompta\"\nGrant-SmbShareAccess -Name Compta -AccountName \"TSSR\\G_Compta\" -AccessRight Change\nGet-SmbShare\n# DFS\nNew-DfsnRoot -Path \\\\tssr.local\\partages -TargetPath \\\\DC1\\partages -Type DomainV2\ndfsutil /addftroot:domain"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Indexation et recherche par Windows Search sur serveur de fichiers\nFSRM : quotas par dossier et filtrage d'extensions (ransomware)\nSauvegarder les listes ACL exportées"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "La suppression d'un partage n'efface pas les fichiers; vérifier les permissions minimales."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Partages SMB avec permissions NTFS + partage, quotas FSRM, DFS-N pour l'abstraction et la haute disponibilité."
+        }
+      ]
+    },
+    {
+      "id": "mig-legacy-cp2-print",
+      "t": "Serveur d'impression et déploiement GPO",
+      "level": "debutant",
+      "r": "Centraliser les files d'attente et déployer les imprimantes par OU ou groupe avec GPO.",
+      "tags": [
+        "impression",
+        "gpo",
+        "printer"
+      ],
+      "g": [
+        "Ajouter le rôle Impression et documents",
+        "Installer le pilote signé x64 et x86",
+        "Créer la file d'attente par imprimante",
+        "Déployer via GPO Computers/Users"
+      ],
+      "c": "Install-WindowsFeature Print-Services\nAdd-Printer -Name \"Impr-Compta\" -DriverName \"HP Universal PCL6\" -PortName \"IP_192.168.1.50\"\n# Déploiement GPO côté utilisateur\nSet-GPRegistryValue -Name \"Deploiement Imprimantes\" -Key \"HKCU\\Software\\...\"",
+      "p": [
+        "Pilotes PCL vs PS selon l'équipement",
+        "Désactiver l'impression directe pour les postes via GPO",
+        "Surveiller les files bloquées (spouleur)"
+      ],
+      "w": "La spooler.exe bloquée se répare souvent en vidant SPOOL\\PRINTERS puis en redémarrant le service.",
+      "cp": "cp9",
+      "resume": "Centraliser les files d'attente et déployer les imprimantes par OU ou groupe avec GPO.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Centraliser les files d'attente et déployer les imprimantes par OU ou groupe avec GPO."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Centraliser les files d'attente et déployer les imprimantes par OU ou groupe avec GPO."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Ajouter le rôle Impression et documents\nInstaller le pilote signé x64 et x86\nCréer la file d'attente par imprimante\nDéployer via GPO Computers/Users"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Install-WindowsFeature Print-Services\nAdd-Printer -Name \"Impr-Compta\" -DriverName \"HP Universal PCL6\" -PortName \"IP_192.168.1.50\"\n# Déploiement GPO côté utilisateur\nSet-GPRegistryValue -Name \"Deploiement Imprimantes\" -Key \"HKCU\\Software\\...\""
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Pilotes PCL vs PS selon l'équipement\nDésactiver l'impression directe pour les postes via GPO\nSurveiller les files bloquées (spouleur)"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "La spooler.exe bloquée se répare souvent en vidant SPOOL\\PRINTERS puis en redémarrant le service."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Centraliser les files d'attente et déployer les imprimantes par OU ou groupe avec GPO."
+        }
+      ]
+    },
+    {
+      "id": "mig-legacy-cp2-powershell",
+      "t": "Administration AD en PowerShell",
+      "level": "intermediaire",
+      "r": "Le module ActiveDirectory expose une API complète. Préférer les cmdlets aux clics pour tracer et automatiser.",
+      "tags": [
+        "powershell",
+        "ad",
+        "automatisation"
+      ],
+      "g": [
+        "Importer le module sur un poste admin",
+        "Lire avant d'écrire (Get- avant Set-)",
+        "Tester sur un objet pilote",
+        "Exporter les résultats pour audit"
+      ],
+      "c": "Import-Module ActiveDirectory\nGet-ADUser -Filter \"Enabled -eq 'True'\" -Properties LastLogonDate | Select Name, SamAccountName, LastLogonDate\nNew-ADUser -Name \"Jean Martin\" -SamAccountName jmartin -Enabled $true -Path \"OU=Users,DC=tssr,DC=local\"\nDisable-ADAccount -Identity jmartin\nSearch-ADAccount -LockedOut | Unlock-ADAccount",
+      "p": [
+        "Lecture/export régulier des utilisateurs inactifs",
+        "Utiliser try/catch et -ErrorAction Stop dans les scripts",
+        "Minimiser les droits du compte de service"
+      ],
+      "w": "Les cmdlets AD s'exécutent par défaut contre le DC le plus proche ; forcer avec -Server si besoin.",
+      "cp": "cp9",
+      "resume": "Le module ActiveDirectory expose une API complète.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Le module ActiveDirectory expose une API complète. Préférer les cmdlets aux clics pour tracer et automatiser."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Le module ActiveDirectory expose une API complète. Préférer les cmdlets aux clics pour tracer et automatiser."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Importer le module sur un poste admin\nLire avant d'écrire (Get- avant Set-)\nTester sur un objet pilote\nExporter les résultats pour audit"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Import-Module ActiveDirectory\nGet-ADUser -Filter \"Enabled -eq 'True'\" -Properties LastLogonDate | Select Name, SamAccountName, LastLogonDate\nNew-ADUser -Name \"Jean Martin\" -SamAccountName jmartin -Enabled $true -Path \"OU=Users,DC=tssr,DC=local\"\nDisable-ADAccount -Identity jmartin\nSearch-ADAccount -LockedOut | Unlock-ADAccount"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Lecture/export régulier des utilisateurs inactifs\nUtiliser try/catch et -ErrorAction Stop dans les scripts\nMinimiser les droits du compte de service"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Les cmdlets AD s'exécutent par défaut contre le DC le plus proche ; forcer avec -Server si besoin."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Le module ActiveDirectory expose une API complète. Préférer les cmdlets aux clics pour tracer et automatiser."
+        }
+      ]
+    },
+    {
+      "id": "mig-legacy-cp2-ad-debutant",
+      "t": "Active Directory : domaine, OU, GPO, objets (débutant)",
+      "level": "debutant",
+      "r": "AD centralise utilisateurs/machines dans un domaine. OU = dossiers, groupes = droits, GPO = paramètres poussés.",
+      "tags": [
+        "ad",
+        "windows",
+        "gpo",
+        "debutant"
+      ],
+      "g": [
+        "Créer user/group/OU",
+        "Déplacer objet puis lier GPO",
+        "gpupdate /force et gpresult"
+      ],
+      "c": "# Objets AD courants\nUtilisateur, Groupe, Ordinateur, OU\n# GPO\ngpupdate /force\ngpresult /r",
+      "p": [
+        "AGDLP pour les droits",
+        "LSDOU : Local, Site, Domaine, OU",
+        "Compte local vs compte domaine"
+      ],
+      "w": "Un mauvais placement d'OU casse l'héritage des GPO.",
+      "cp": "cp9",
+      "resume": "AD centralise utilisateurs/machines dans un domaine.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "AD centralise utilisateurs/machines dans un domaine. OU = dossiers, groupes = droits, GPO = paramètres poussés."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "AD centralise utilisateurs/machines dans un domaine. OU = dossiers, groupes = droits, GPO = paramètres poussés."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Créer user/group/OU\nDéplacer objet puis lier GPO\ngpupdate /force et gpresult"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "# Objets AD courants\nUtilisateur, Groupe, Ordinateur, OU\n# GPO\ngpupdate /force\ngpresult /r"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "AGDLP pour les droits\nLSDOU : Local, Site, Domaine, OU\nCompte local vs compte domaine"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Un mauvais placement d'OU casse l'héritage des GPO."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "AD centralise utilisateurs/machines dans un domaine. OU = dossiers, groupes = droits, GPO = paramètres poussés."
+        }
+      ]
+    },
+    {
+      "id": "mig-legacy-cp2-join-2",
+      "t": "Joindre un poste au domaine",
+      "level": "debutant",
+      "r": "Le DNS du poste doit pointer vers le DC. Compte administrateur domaine requis. Horloge <5 minutes d'écart.",
+      "tags": [
+        "domaine",
+        "poste",
+        "join",
+        "dns"
+      ],
+      "g": [
+        "Renommer le PC selon convention",
+        "Accès professionnel/établissement > Joindre le domaine",
+        "Entrer admin domaine puis redémarrer",
+        "Ouvrir session domaine et vérifier application des GPO"
+      ],
+      "c": "Rename-Computer -NewName PC-012 -Restart\nAdd-Computer -DomainName tssr.local -Credential (Get-Credential) -Restart\nTest-ComputerSecureChannel\nnltest /dsgetdc:tssr.local\ngpresult /r",
+      "p": [
+        "Supprimer l'ancien compte ordinateur en cas de doublon",
+        "Vérifier l'OU de destination via GPO de jonction",
+        "Garder le compte local admin en secours"
+      ],
+      "w": "Jonction réussie mais GPO absentes = vérifier DNS et emplacement de l'ordinateur dans l'AD.",
+      "cp": "cp9",
+      "resume": "Le DNS du poste doit pointer vers le DC.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Le DNS du poste doit pointer vers le DC. Compte administrateur domaine requis. Horloge <5 minutes d'écart."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Le DNS du poste doit pointer vers le DC. Compte administrateur domaine requis. Horloge <5 minutes d'écart."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Renommer le PC selon convention\nAccès professionnel/établissement > Joindre le domaine\nEntrer admin domaine puis redémarrer\nOuvrir session domaine et vérifier application des GPO"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Rename-Computer -NewName PC-012 -Restart\nAdd-Computer -DomainName tssr.local -Credential (Get-Credential) -Restart\nTest-ComputerSecureChannel\nnltest /dsgetdc:tssr.local\ngpresult /r"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Supprimer l'ancien compte ordinateur en cas de doublon\nVérifier l'OU de destination via GPO de jonction\nGarder le compte local admin en secours"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Jonction réussie mais GPO absentes = vérifier DNS et emplacement de l'ordinateur dans l'AD."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Le DNS du poste doit pointer vers le DC. Compte administrateur domaine requis. Horloge <5 minutes d'écart."
+        }
+      ]
+    },
+    {
+      "id": "pedagogie-cp2-serveurs",
+      "t": "Fiche pedagogique de reference - CP5 serveurs Windows/Linux",
+      "level": "intermediaire",
+      "r": "Definition : installer et exploiter des serveurs. Contexte : mise en production AD/DNS/DHCP. Objectif : securiser et superviser. Details : AD DS, GPO, Linux systemd, journaux, patch et permissions. Exemple : creation DC et test GPO. Erreurs : compte admin unique, patch sans test. Jury : difference OU et groupe, GPO, reset mot de passe.",
       "tags": [
         "pedagogie",
-        "virtualisation"
+        "systemes"
       ],
       "g": [
-        "Provisionner",
-        "Snapshot avant modification",
+        "Installer",
+        "Configurer",
+        "Securiser",
         "Tester",
-        "Sauvegarder",
-        "Valider"
+        "Superviser"
       ],
-      "c": "Get-VM; esxcli system version get",
+      "c": "server-manager ; dcdiag; Get-ADUser",
       "p": [
-        "Snapshot unique consideré comme sauvegarde",
-        "Datastore unique"
+        "Permissions excessives",
+        "Sauvegarde absente"
       ],
-      "w": "Conclusion : preuve de restauration indispensable.",
-      "cp": "cp5"
+      "w": "Conclusion : la documentation fait partie de l'exploitation.",
+      "cp": "cp3",
+      "resume": "Definition : installer et exploiter des serveurs.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Definition : installer et exploiter des serveurs. Contexte : mise en production AD/DNS/DHCP. Objectif : securiser et superviser. Details : AD DS, GPO, Linux systemd, journaux, patch et permissions. Exemple : creation DC et test GPO. Erreurs : compte admin unique, patch sans test. Jury : difference OU et groupe, GPO, reset mot de passe."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Definition : installer et exploiter des serveurs. Contexte : mise en production AD/DNS/DHCP. Objectif : securiser et superviser. Details : AD DS, GPO, Linux systemd, journaux, patch et permissions. Exemple : creation DC et test GPO. Erreurs : compte admin unique, patch sans test. Jury : difference OU et groupe, GPO, reset mot de passe."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Installer\nConfigurer\nSecuriser\nTester\nSuperviser"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "server-manager ; dcdiag; Get-ADUser"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Permissions excessives\nSauvegarde absente"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : la documentation fait partie de l'exploitation."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Definition : installer et exploiter des serveurs. Contexte : mise en production AD/DNS/DHCP. Objectif : securiser et superviser. Details : AD DS, GPO, Linux systemd, journaux, patch et permissions. Ex"
+        }
+      ]
     },
     {
-      "id": "cp5-hyp",
-      "t": "Hyperviseur",
+      "id": "mig-legacy-cp3-legacy-cp5-linux",
+      "t": "Services Linux",
       "level": "intermediaire",
       "cli": true,
-      "r": "CP6 - Définition : abstraire matériel. | Objectif : mutualiser. | Cas réel : serveur legacy. | Fonctionnement détaillé : accès matériel, vswitch. | Exemple : ESXi Free. | Procédure : installation, réseau, storage. | Erreurs : dépendances. | Jury : bare metal vs hosted. | Retenir : ressources.",
+      "r": "CP5 - Définition : services Linux. | Objectif : faire tourner application. | Cas réel : SSH inopérant. | Fonctionnement détaillé : systemd, ports, logs. | Exemple : activation nginx. | Procédure : démarrer, tester, journiser. | Erreurs : dependencies. | Jury : systemctl. | Retenir : logs.",
       "tags": [
-        "cp6",
-        "virtualisation",
-        "hypervisor"
+        "cp5",
+        "serveurs",
+        "linux"
       ],
       "g": [
-        "Installer hyperviseur",
-        "Réseau",
-        "Storage",
+        "Start",
+        "Enable",
+        "Test",
+        "Logs"
+      ],
+      "c": "systemctl status ssh; journalctl -xe",
+      "p": [
+        "Unit en erreur",
+        "Port bind"
+      ],
+      "w": "Conclusion : service santé.",
+      "img": "images/active-directory-schema.svg",
+      "alt": "Schéma serveurs",
+      "cp": "cp3",
+      "resume": "CP5 - Définition : services Linux."
+    },
+    {
+      "id": "mig-legacy-cp3-legacy-cp5-ssh",
+      "t": "Administration SSH sécurisée",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP5 - Définition : accès sécurisé. | Objectif : administrer Linux. | Cas réel : root direct. | Fonctionnement détaillé : clés, PasswordAuthentication. | Exemple : clé RSA. | Procédure : générer clés, désactiver password. | Erreurs : verrouillage. | Jury : hardening ssh. | Retenir : clés.",
+      "tags": [
+        "cp5",
+        "serveurs",
+        "ssh"
+      ],
+      "g": [
+        "Générer clés",
+        "Copier",
+        "Configurer",
+        "Tester"
+      ],
+      "c": "sshd_config; systemctl reload sshd",
+      "p": [
+        "Verrouillage self"
+      ],
+      "w": "Conclusion : ssh durci.",
+      "img": "images/active-directory-schema.svg",
+      "alt": "Schéma serveurs",
+      "cp": "cp3",
+      "resume": "CP5 - Définition : accès sécurisé."
+    },
+    {
+      "id": "mig-legacy-cp3-linux-base",
+      "t": "Base Linux : arborescence et configuration",
+      "level": "debutant",
+      "r": "/etc pour la config, /var/log pour les logs, /home pour les utilisateurs, /opt pour les applications tierces. Toujours lire avant d'??diter.",
+      "tags": [
+        "linux",
+        "fichiers",
+        "base"
+      ],
+      "g": [
+        "Terminal ou Explorateur GNOME pour parcourir",
+        "??diter avec nano/vim les fichiers sous /etc",
+        "V??rifier l'OS et la version",
+        "Tester la modification et red??marrer le service d??pendant"
+      ],
+      "c": "ls -la /etc/*.conf\ncat /etc/os-release\ncat /etc/passwd | cut -d: -f1\ncat /etc/hosts\ncat /etc/resolv.conf\nchmod 640 fichier\nchown user:group fichier\nfind /var/log -type f -size +10M",
+      "p": [
+        "/etc/passwd liste les utilisateurs, /etc/shadow les hash",
+        "/etc/fstab monte les syst??mes au boot",
+        "chmod r=4, w=2, x=1 ; ??viter 777"
+      ],
+      "w": "Ne jamais chmod 777 sur un fichier sensible ; pr??f??rer les ACL POSIX (setfacl).",
+      "cp": "cp1",
+      "resume": "/etc pour la config, /var/log pour les logs, /home pour les utilisateurs, /opt pour les applications tierces."
+    },
+    {
+      "id": "mig-legacy-cp3-linux-users",
+      "t": "Utilisateurs, groupes et sudo",
+      "level": "debutant",
+      "r": "useradd/usermod, groupes secondaires avec -aG (sinon ??crasement), sudo pour la d??l??gation.",
+      "tags": [
+        "linux",
+        "users",
+        "sudo"
+      ],
+      "g": [
+        "Param??tres > Utilisateurs pour l'approche GUI",
+        "V??rifier l'appartenance aux groupes",
+        "Cockpit (port 9090) si install?? pour g??rer ?? distance",
+        "Journaliser les ??l??vations (sudo.log)"
+      ],
+      "c": "useradd -m -s /bin/bash jdupont\npasswd jdupont\nusermod -aG sudo,adm jdupont\nid jdupont\ngroups jdupont\nchage -l jdupont\nvisudo -c",
+      "p": [
+        "-aG ajoute sans ??craser les groupes existants",
+        "umask 027 pour masquer les fichiers nouveaux",
+        "D??sactiver le login root direct (PermitRootLogin no)"
+      ],
+      "w": "Oublier -a dans -G remplace tous les groupes secondaires et peut bloquer un admin.",
+      "cp": "cp1",
+      "resume": "useradd/usermod, groupes secondaires avec -aG (sinon ??crasement), sudo pour la d??l??gation."
+    },
+    {
+      "id": "mig-legacy-cp3-linux-reseau",
+      "t": "R??seau Linux, Netplan et NetworkManager",
+      "level": "intermediaire",
+      "r": "ip remplace ifconfig. Netplan/NM selon la distribution. Configuration persistante obligatoire.",
+      "tags": [
+        "reseau",
+        "ip",
+        "netplan",
+        "linux"
+      ],
+      "g": [
+        "NetworkManager GUI pour les postes graphiques",
+        "V??rifier l'IP, la route et les DNS",
+        "??diter YAML Netplan avec indentation correcte",
+        "Appliquer et tester la connectivit??"
+      ],
+      "c": "ip a\nip r\nping -c4 8.8.8.8\nss -tulpn\ncat /etc/netplan/*.yaml\nnetplan apply\nnmcli device status\nnmcli connection modify eth0 ipv4.addresses 192.168.1.10/24 ipv4.gateway 192.168.1.1",
+      "p": [
+        "ss remplace netstat",
+        "Netplan sensible aux espaces YAML",
+        "Penser ?? tester hors bande pour les serveurs distants"
+      ],
+      "w": "Une erreur YAML peut couper le r??seau ; garder une console distante ouverte.",
+      "cp": "cp1",
+      "resume": "ip remplace ifconfig."
+    },
+    {
+      "id": "mig-legacy-cp3-linux-paquets",
+      "t": "Paquets, d??p??ts et maintenance",
+      "level": "debutant",
+      "r": "APT/YUM/DNF selon distro. Mettre ?? jour r??guli??rement, nettoyer les paquets et v??rifier les origines.",
+      "tags": [
+        "apt",
+        "dnf",
+        "packages",
+        "linux"
+      ],
+      "g": [
+        "Logiciels via GNOME Software ou Synaptic",
+        "D??p??ts officiels vs tiers ; signature GPG",
+        "Nettoyage des paquets obsol??tes",
+        "Planification unattended-upgrades"
+      ],
+      "c": "apt update && apt upgrade -y\ndpkg -l | grep ssh\napt autoremove --purge\ndnf check-update\ndnf install -y httpd\nrpm -qa | grep -i httpd\nunattended-upgrade -d",
+      "p": [
+        "apt-cache madison pour comparer les versions",
+        "Pinning Debian pour figer une version",
+        "Auditer les d??p??ts avec apt-cache policy"
+      ],
+      "w": "Ne jamais m??langer les d??p??ts de versions majeures (ex. Jammy/Bookworm) sans n??cessit??.",
+      "cp": "cp1",
+      "resume": "APT/YUM/DNF selon distro."
+    },
+    {
+      "id": "mig-legacy-cp3-linux-ssh",
+      "t": "SSH : administration distante s??curis??e",
+      "level": "intermediaire",
+      "r": "SSH chiffre la session. Authentification par cl?? et d??sactivation root direct = base de la s??curit??.",
+      "tags": [
+        "ssh",
+        "securite",
+        "remote"
+      ],
+      "g": [
+        "Installer openssh-server si absent",
+        "G??n??rer des cl??s c??t?? client",
+        "Copier la cl?? publique (ssh-copy-id)",
+        "D??sactiver root et password si cl??s pr??sentes"
+      ],
+      "c": "ssh-keygen -t ed25519 -C \"admin@tssr\"\nssh-copy-id -i ~/.ssh/id_ed25519.pub jdupont@192.168.1.10\n# /etc/ssh/sshd_config :\nPermitRootLogin no\nPasswordAuthentication no\nPubkeyAuthentication yes\nsystemctl reload sshd",
+      "p": [
+        "ed25519 recommand??",
+        "sshd_config.d/ pour les overrides modernes",
+        "Authentification ?? deux facteurs pour les acc??s sensibles"
+      ],
+      "w": "Se couper l'acc??s SSH en d??sactivant le password avant d'avoir test?? la cl?? est l'erreur classique.",
+      "cp": "cp1",
+      "resume": "SSH chiffre la session."
+    },
+    {
+      "id": "mig-legacy-cp3-linux-cron",
+      "t": "Planification avec cron et systemd timers",
+      "level": "debutant",
+      "r": "Cron simple pour les t??ches p??riodiques ; systemd timers pour d??pendances, logs et red??marrages automatiques.",
+      "tags": [
+        "cron",
+        "planification",
+        "automation"
+      ],
+      "g": [
+        "crontab -e pour ??diter",
+        "Utiliser des chemins absolus",
+        "Rediriger la sortie vers un fichier de log",
+        "Tester le script ?? la main"
+      ],
+      "c": "crontab -e\n# minute heure jour mois jourSemaine commande\n30 2 * * * /opt/scripts/backup.sh >> /var/log/backup.log 2>&1\n@reboot /opt/scripts/startup.sh\n# systemd timer\nsystemctl enable --now backup.timer",
+      "p": [
+        "SHELL=/bin/bash et PATH explicites dans crontab",
+        "Ne jamais lancer en root sans justification",
+        "Journaliser les ??checs avec mail ou monitoring"
+      ],
+      "w": "Les scripts cron n'h??ritent pas de l'environnement interactif ; tester avec env -i.",
+      "cp": "cp1",
+      "resume": "Cron simple pour les t??ches p??riodiques ; systemd timers pour d??pendances, logs et red??marrages automatiques."
+    },
+    {
+      "id": "mig-legacy-cp3-linux-linux-debutant",
+      "t": "Linux : utilisateurs, droits, SSH, services, disque (d??butant)",
+      "level": "debutant",
+      "r": "Linux g??re utilisateurs/groupes, droits rwx, services via systemd, r??seau via ip/Netplan et SSH ?? s??curiser.",
+      "tags": [
+        "linux",
+        "ssh",
+        "droits",
+        "debutant"
+      ],
+      "g": [
+        "Cr??er user, groupes, cl??s SSH",
+        "D??sactiver root direct",
+        "Surveiller services et logs"
+      ],
+      "c": "useradd -m -s /bin/bash alice\nusermod -aG sudo alice\nsystemctl status sshd\njournalctl -u sshd -n 20\nip a; ss -tulpn",
+      "p": [
+        "chmod 640 = rw-r-----",
+        "Netplan sensible ?? l'indentation",
+        "Logs : /var/log"
+      ],
+      "w": "Oublier -a dans -G ??crase les groupes existants.",
+      "cp": "cp1",
+      "resume": "Linux g??re utilisateurs/groupes, droits rwx, services via systemd, r??seau via ip/Netplan et SSH ?? s??curiser."
+    },
+    {
+      "id": "mig-legacy-cp4-legacy-ccp4-trunk",
+      "t": "VLAN trunk, routage inter-VLAN et OSPF",
+      "level": "avance",
+      "r": "Trunk = 802.1Q multi-VLAN. OSPF = routage dynamique interne. DHCP par routeur pour multi-site.",
+      "tags": [
+        "trunk",
+        "ospf",
+        "routing",
+        "dhcp"
+      ],
+      "g": [
+        "Packet Tracer : trunk entre switches via GUI",
+        "Vérifier connectivité inter-VLAN via SVI/routeur",
+        "Observer les voisins OSPF"
+      ],
+      "c": "interface g0/1\n switchport mode trunk\n switchport trunk allowed vlan 10,20\n switchport trunk native vlan 99\n!\ninterface g0/0.10\n encapsulation dot1Q 10\n ip address 192.168.10.1 255.255.255.0\n!\nrouter ospf 1\n network 192.168.10.0 0.0.0.255 area 0\n network 192.168.20.0 0.0.0.255 area 0\nshow ip ospf neighbor\nip dhcp pool LAN10\n network 192.168.10.0 255.255.255.0\n default-router 192.168.10.1\n dns-server 8.8.8.8",
+      "p": [
+        "Natif VLAN à changer pour la sécurité",
+        "OSPF Hello 10s, Dead 40s",
+        "Cost OSPF = 10^8/bande passante"
+      ],
+      "w": "Un trunk mal autorisé bloque un VLAN silencieusement ; show interfaces trunk pour vérifier.",
+      "cp": "cp4",
+      "resume": "Trunk = 802."
+    },
+    {
+      "id": "mig-legacy-cp4-legacy-ccp4-nat",
+      "t": "NAT/PAT et adressage public",
+      "level": "intermediaire",
+      "r": "PAT avec une IP publique pour sortie Internet ; NAT statique pour serveur publié ; pool pour grand volume.",
+      "tags": [
+        "nat",
+        "pat",
+        "routeur"
+      ],
+      "g": [
+        "Définir inside/outside sur les interfaces",
+        "ACL source et overload pour PAT",
+        "Règles statiques pour serveurs DMZ",
+        "Tester depuis l'extérieur"
+      ],
+      "c": "interface g0/0\n ip nat inside\ninterface g0/1\n ip nat outside\nip access-list standard NAT-SOURCES\n permit 192.168.10.0 0.0.0.255\nip nat inside source list NAT-SOURCES interface g0/1 overload\nip nat inside source static 192.168.10.20 203.0.113.20\nshow ip nat translations",
+      "p": [
+        "Pool NAT pour plusieurs IP publiques",
+        "no-alias et overload",
+        "Tester la résolution DNS externe après NAT"
+      ],
+      "w": "Un serveur exposé sans pare-feu = compromission probable.",
+      "cp": "cp4",
+      "resume": "PAT avec une IP publique pour sortie Internet ; NAT statique pour serveur publié ; pool pour grand volume."
+    },
+    {
+      "id": "mig-legacy-cp4-legacy-ccp4-dns-dhcp-debutant",
+      "t": "DNS/DHCP : résolution et baux (débutant)",
+      "level": "debutant",
+      "r": "DNS traduit nom→IP. DHCP attribue IP/gateway/DNS. TTL, A, PTR, enregistrements. Bail à renouveler.",
+      "tags": [
+        "dns",
+        "dhcp",
+        "debutant"
+      ],
+      "g": [
+        "Créer zones directe/inverse",
+        "Étendue DHCP + options",
+        "Tester nslookup et bail"
+      ],
+      "c": "Add-DnsServerPrimaryZone -Name tssr.local -DynamicUpdate Secure\nAdd-DhcpServerv4Scope -Name LAN -StartRange 192.168.1.100 -EndRange 192.168.1.200 -SubnetMask 255.255.255.0\nnslookup intranet.local",
+      "p": [
+        "DNS pointe vers le DC en AD",
+        "Scavenging évite les enregistrements obsolètes",
+        "Bail court pour Wi-Fi invité"
+      ],
+      "w": "Mauvais DNS côté client casse Kerberos/AD.",
+      "cp": "cp4",
+      "resume": "DNS traduit nom→IP."
+    },
+    {
+      "id": "mig-legacy-cp4-dhcp",
+      "t": "DHCP",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP4 - Définition : attribution dynamique IP. | Objectif : standardiser. | Cas réel : conflit IP. | Fonctionnement détaillé : DORA, scope, lease. | Exemple : ajouter scope. | Procédure : config scope, option DNS, test. | Erreurs : rogue DHCP. | Jury : DORA process. | À retenir : option DNS.",
+      "tags": [
+        "cp4",
+        "reseau",
+        "dhcp"
+      ],
+      "g": [
+        "Scope",
+        "Options",
+        "Pools",
         "Test"
       ],
-      "c": "vim-cmd vmsvc/getallvms; esxcli",
+      "c": "ipconfig /renew; show ip dhcp binding; Get-DhcpServerv4Scope",
       "p": [
-        "Performance bridg"
+        "Conflit IP",
+        "Rogue"
       ],
-      "w": "Conclusion : virtualiser avec contrôle.",
-      "img": "images/virtualisation-schema.svg",
-      "alt": "Schéma virtualisation",
-      "cp": "cp5"
+      "w": "Conclusion : DHCP contrôlé.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Schéma réseau",
+      "cp": "cp4",
+      "resume": "CP4 - Définition : attribution dynamique IP."
     },
     {
-      "id": "cp5-storage",
-      "t": "Stockage virtuel",
+      "id": "mig-legacy-cp4-dns",
+      "t": "DNS",
       "level": "intermediaire",
       "cli": true,
-      "r": "CP6 - Définition : stockage mutualisé. | Objectif : redondance et iOPS. | Cas réel : iSCSI. | Fonctionnement détaillé : SAN, datastore, RAID. | Exemple : datastore shared. | Procédure : configurer adaptateur, présentation. | Erreurs : mauvaise latence. | Jury : datastore. | Retenir : backup.",
+      "r": "CP4 - Définition : résolution de noms. | Objectif : joindre les services. | Cas réel : resolution lente. | Fonctionnement détaillé : zone, cache, forwarding. | Exemple : A record. | Procédure : créer zone, ajouter enregistrement, tester. | Erreurs : mauvais TTL. | Jury : enregistrements. | À retenir : cache.",
       "tags": [
-        "cp6",
-        "virtualisation",
-        "storage"
+        "cp4",
+        "reseau",
+        "dns"
       ],
       "g": [
-        "Stockage présent",
-        "Datastore",
-        "Test perf"
+        "Zone",
+        "Enregistrement",
+        "Cache",
+        "Test"
       ],
-      "c": "esxcli storage core device list; lvdisplay",
+      "c": "nslookup; Resolve-DnsName lab.local; ipconfig /flushdns",
       "p": [
-        "Lent iOPS"
+        "Mauvais TTL",
+        "Forwarding error"
       ],
-      "w": "Conclusion : storage oversight.",
-      "img": "images/virtualisation-schema.svg",
-      "alt": "Schéma virtualisation",
-      "cp": "cp5"
+      "w": "Conclusion : DNS essentiel.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Schéma réseau",
+      "cp": "cp4",
+      "resume": "CP4 - Définition : résolution de noms."
     },
     {
-      "id": "cp5-vm",
-      "t": "Création et template VM",
+      "id": "mig-legacy-cp4-wlan",
+      "t": "WLAN et sécurité radio",
       "level": "intermediaire",
       "cli": true,
-      "r": "CP6 - Définition : provisioning VM. | Objectif : standard. | Cas réel : template server. | Fonctionnement détaillé : snapshot, template, customization. | Exemple : VM clone. | Procédure : créer VM, sysprep, convertir. | Erreurs : clone sans sysprep. | Jury : template. | Retenir : Sysprep.",
+      "r": "CP4 - Définition : réseau sans fil. | Objectif : connectivité mobile. | Cas réel : mauvaise couverture. | Fonctionnement détaillé : SSID, 802.1X, WPA3. | Exemple : guest wifi. | Procédure : AP, VLAN, AAA, test. | Erreurs : PSK partagé. | Jury : 802.1X. | À retenir : sécurité.",
       "tags": [
-        "cp6",
-        "virtualisation",
-        "vm"
+        "cp4",
+        "reseau",
+        "wlan"
       ],
       "g": [
-        "Créer VM",
-        "Template",
-        "Customization",
-        "Déployer"
+        "SSID",
+        "VLAN guest",
+        "802.1X",
+        "Test"
       ],
-      "c": "Get-VM; Clone-VM",
+      "c": "show wlan summary; Get-NetAdapter -Physical",
       "p": [
-        "Clone SID dupliqué"
+        "Clé partagée",
+        "Mauvaise couverture"
       ],
-      "w": "Conclusion : templates corrects.",
-      "img": "images/virtualisation-schema.svg",
-      "alt": "Schéma virtualisation",
-      "cp": "cp5"
+      "w": "Conclusion : WLAN sécurisé.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Schéma réseau",
+      "cp": "cp4",
+      "resume": "CP4 - Définition : réseau sans fil."
     },
     {
-      "id": "cp5-snap",
-      "t": "Snapshots",
+      "id": "mig-legacy-cp4-ipv4",
+      "t": "Adressage IPv4 et subnetting",
       "level": "intermediaire",
       "cli": true,
-      "r": "CP6 - Définition : snapshot et impact. | Objectif : test sécurisé. | Cas réel : patch serveur. | Fonctionnement détaillé : delta vmdk, chaîne. | Exemple : snapshot avant patch. | Procédure : snapshot, modifier, supprimer. | Erreurs : abandon de snapshot. | Jury : consolidatio. | Retenir : court durée.",
+      "r": "CP4 - Définition : calcul sous-réseaux. | Objectif : alloc. | Cas réel : plan IP. | Fonctionnement détaillé : masques, broadcast, passerelle. | Exemple : /24. | Procédure : plan, allocation, test. | Erreurs : chevauchement. | Jury : VLSM. | À retenir : subnet.",
       "tags": [
-        "cp6",
-        "virtualisation",
-        "snapshots"
+        "cp4",
+        "reseau",
+        "ipv4"
       ],
       "g": [
-        "Snapshot",
-        "Modifier",
-        "Valider",
-        "Supprimer"
+        "Plan",
+        "Masque",
+        "Validation routing",
+        "Test"
       ],
-      "c": "vmware-cmd snapshot; Get-VMSnapshot",
+      "c": "ipcalc; Get-NetIPConfiguration",
       "p": [
-        "Snapshot orphelin"
+        "Chevauchement"
       ],
-      "w": "Conclusion : snapshot contrôle.",
-      "img": "images/virtualisation-schema.svg",
-      "alt": "Schéma virtualisation",
-      "cp": "cp5"
+      "w": "Conclusion : planifier adresse.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Schéma réseau",
+      "cp": "cp4",
+      "resume": "CP4 - Définition : calcul sous-réseaux."
     },
     {
-      "id": "cp5-backup",
-      "t": "Sauvegarde VM",
+      "id": "toip-fiche-9",
+      "t": "DHCP option 150",
       "level": "intermediaire",
       "cli": true,
-      "r": "CP6 - Définition : backup machines virtuelles. | Objectif : protection. | Cas réel : plan hypervisor. | Fonctionnement détaillé : snapshot consistency, VSS, app-aware. | Exemple : sauvegarde nocturne. | Procédure : job, test restore. | Erreurs : snapshot abandonné. | Jury : restauration. | Retenir : preuve restore.",
+      "r": "Définition : L'option 150 indique l'adresse TFTP/Cisco que l'IP phone doit interroger au boot. | Cas réel en entreprise : Cas réel : des téléphones bootent en mode initial car le pool DHCP Data manque l'option 150. | Objectif : maîtriser ce composant pour diagnostiquer et configurer. | Fonctionnement détaillé : voir la définition, ordre paquet et options de signaling/média. | Procédure pas à pas : Ajouter option 150 sur le pool VLAN Voix, tester boot, valider les clients. | Erreurs fréquentes : option mal typée; DHCP relay absent; Pool VOICE vide. | Questions du jury : expliquer le flux; citer les ports et rels; justifier choix technique. | À retenir : QoS, VLAN, configuration VLAN option 150, diagnostic couche par couche. | Commandes pour lab : ip dhcp pool VOICE; option 150 ip 10.10.10.1; show ip dhcp binding",
       "tags": [
-        "cp6",
-        "virtualisation",
-        "backup"
+        "toip",
+        "ccna",
+        "dhcp-option-150"
       ],
       "g": [
-        "Planifier backup",
-        "Application-aware",
-        "Tester restore"
+        "Ajouter option 150 sur le pool VLAN Voix",
+        "tester boot",
+        "valider les clients."
       ],
-      "c": "Get-VMBackup; wbadmin",
+      "c": "ip dhcp pool VOICE\noption 150 ip 10.10.10.1\nshow ip dhcp binding",
       "p": [
-        "Snapshot orphan"
+        "option mal typée",
+        "DHCP relay absent",
+        "Pool VOICE vide"
       ],
-      "w": "Conclusion : sauvegarder VM.",
-      "img": "images/virtualisation-schema.svg",
-      "alt": "Schéma virtualisation",
-      "cp": "cp5"
+      "w": "Conclusion : DHCP option 150 se maîtrise par configuration, validation de service et tests bout à bout.",
+      "img": "images/toip-schema.svg",
+      "alt": "Schéma pédagogique ToIP",
+      "cp": "cp4",
+      "resume": "Définition : L'option 150 indique l'adresse TFTP/Cisco que l'IP phone doit interroger au boot."
     },
     {
-      "id": "cp5-ha",
+      "id": "cp5-windows-server",
+      "t": "Windows Server",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp5",
+          "title": "CP5 — Installer et assurer l'exploitation de serveurs Windows et Linux"
+        },
+        "windows-server"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp5-active-directory",
+      "t": "Active Directory",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp5",
+          "title": "CP5 — Installer et assurer l'exploitation de serveurs Windows et Linux"
+        },
+        "active-directory"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp5-dns-microsoft",
+      "t": "DNS Microsoft",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp5",
+          "title": "CP5 — Installer et assurer l'exploitation de serveurs Windows et Linux"
+        },
+        "dns-microsoft"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp5-dhcp-microsoft",
+      "t": "DHCP Microsoft",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp5",
+          "title": "CP5 — Installer et assurer l'exploitation de serveurs Windows et Linux"
+        },
+        "dhcp-microsoft"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp5-gpo",
+      "t": "GPO",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp5",
+          "title": "CP5 — Installer et assurer l'exploitation de serveurs Windows et Linux"
+        },
+        "gpo"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp5-powershell",
+      "t": "PowerShell",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp5",
+          "title": "CP5 — Installer et assurer l'exploitation de serveurs Windows et Linux"
+        },
+        "powershell"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp5-gestion-utilisateurs",
+      "t": "Gestion utilisateurs",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp5",
+          "title": "CP5 — Installer et assurer l'exploitation de serveurs Windows et Linux"
+        },
+        "gestion-utilisateurs"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp5-gestion-groupes",
+      "t": "Gestion groupes",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp5",
+          "title": "CP5 — Installer et assurer l'exploitation de serveurs Windows et Linux"
+        },
+        "gestion-groupes"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp5-roles-et-fonctionnalites",
+      "t": "Rôles et fonctionnalités",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp5",
+          "title": "CP5 — Installer et assurer l'exploitation de serveurs Windows et Linux"
+        },
+        "roles-et-fonctionnalites"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp5-sauvegarde",
+      "t": "Sauvegarde",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp5",
+          "title": "CP5 — Installer et assurer l'exploitation de serveurs Windows et Linux"
+        },
+        "sauvegarde"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp5-haute-disponibilite",
       "t": "Haute disponibilité",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "CP6 - Définition : HA et redondance. | Objectif : continuité. | Cas réel : hôte HS. | Fonctionnement détaillé : heartbeat, vmrestart. | Exemple : métrique HA. | Procédure : cluster, datastore, test. | Erreurs : split brain. | Jury : HA vs DRS. | Retenir : quorum.",
+      "level": "debutant",
+      "r": "À compléter.",
       "tags": [
-        "cp6",
-        "virtualisation",
-        "ha"
+        {
+          "id": "cp5",
+          "title": "CP5 — Installer et assurer l'exploitation de serveurs Windows et Linux"
+        },
+        "haute-disponibilite"
       ],
-      "g": [
-        "Cluster",
-        "Datastore partagé",
-        "Heartbeat",
-        "Test"
-      ],
-      "c": "Set-VMHost -EnableHa; cluster overview",
-      "p": [
-        "Split brain"
-      ],
-      "w": "Conclusion : HA testée.",
-      "img": "images/virtualisation-schema.svg",
-      "alt": "Schéma virtualisation",
-      "cp": "cp5"
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
     },
     {
-      "id": "cp5-drs",
-      "t": "DRS et répartition",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "CP6 - Définition : répartition automatique. | Objectif : équilibrage. | Cas réel : charge. | Fonctionnement détaillé : metrics host. | Exemple : affinité. | Procédure : règles, mode automatique, suivi. | Erreurs : migrations non autorisées. | Jury : DRS. | Retenir : affinité.",
+      "id": "cp5-virtualisation-hyper-v",
+      "t": "Virtualisation Hyper-V",
+      "level": "debutant",
+      "r": "À compléter.",
       "tags": [
-        "cp6",
-        "virtualisation",
-        "drs"
+        {
+          "id": "cp5",
+          "title": "CP5 — Installer et assurer l'exploitation de serveurs Windows et Linux"
+        },
+        "virtualisation-hyper-v"
       ],
-      "g": [
-        "Activer DRS",
-        "Règles",
-        "Mode",
-        "Suivi"
-      ],
-      "c": "Get-DrsVMHostRule; Set-VMHost -EnableDRS",
-      "p": [
-        "Régression service"
-      ],
-      "w": "Conclusion : DRS maîtrisé.",
-      "img": "images/virtualisation-schema.svg",
-      "alt": "Schéma virtualisation",
-      "cp": "cp5"
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
     },
     {
-      "id": "cp5-motion",
-      "t": "vMotion live",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "CP6 - Définition : migration à chaud. | Objectif : continuité. | Cas réel : patch hypervisor. | Fonctionnement détaillé : RAM, stato. | Exemple : vMotion. | Procédure : precheck, migration, validation. | Erreurs : vswitch inconsistent. | Jury : prérequis. | Retenir : config cohérent.",
+      "id": "cp5-linux",
+      "t": "Linux",
+      "level": "debutant",
+      "r": "À compléter.",
       "tags": [
-        "cp6",
-        "virtualisation",
-        "motion"
+        {
+          "id": "cp5",
+          "title": "CP5 — Installer et assurer l'exploitation de serveurs Windows et Linux"
+        },
+        "linux"
       ],
-      "g": [
-        "Precheck",
-        "Migrer",
-        "Valider"
-      ],
-      "c": "Move-VM -Destination host; Get-VMSwapfilePolicy",
-      "p": [
-        "Switch config"
-      ],
-      "w": "Conclusion : vMotion rodé.",
-      "img": "images/virtualisation-schema.svg",
-      "alt": "Schéma virtualisation",
-      "cp": "cp5"
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
     },
     {
-      "id": "cp5-network",
-      "t": "Switch virtuel",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "CP6 - Définition : réseau virtuel. | Objectif : connectivité VM. | Cas réel : VM isolate. | Fonctionnement détaillé : port groups, VLAN. | Exemple : port group prod. | Procédure : créer switch, port group, tester. | Erreurs : mauvais VLAN. | Jury : uplink. | Retenir : standardisation.",
+      "id": "cp5-apache",
+      "t": "Apache",
+      "level": "debutant",
+      "r": "À compléter.",
       "tags": [
-        "cp6",
-        "virtualisation",
-        "vswitch"
+        {
+          "id": "cp5",
+          "title": "CP5 — Installer et assurer l'exploitation de serveurs Windows et Linux"
+        },
+        "apache"
       ],
-      "g": [
-        "Switch virtuel",
-        "Port group",
-        "VLAN",
-        "Test"
-      ],
-      "c": "Get-VSSwitch; Add-VMSwitch",
-      "p": [
-        "VLAN manquant"
-      ],
-      "w": "Conclusion : réseau virtuel fiable.",
-      "img": "images/virtualisation-schema.svg",
-      "alt": "Schéma virtualisation",
-      "cp": "cp5"
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
     },
     {
-      "id": "cp5-check",
-      "t": "Health check datastore",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "CP6 - Définition : vérification santé. | Objectif : prévenir. | Cas réel : datastore plein. | Fonctionnement détaillé : capacity, alert. | Exemple : alert 80%. | Procédure : seuil, alert, action. | Erreurs : pas d'alert. | Jury : indicateurs. | Retenir : capacity mgmt.",
+      "id": "cp5-nginx",
+      "t": "Nginx",
+      "level": "debutant",
+      "r": "À compléter.",
       "tags": [
-        "cp6",
-        "virtualisation",
-        "health"
+        {
+          "id": "cp5",
+          "title": "CP5 — Installer et assurer l'exploitation de serveurs Windows et Linux"
+        },
+        "nginx"
       ],
-      "g": [
-        "Capacité",
-        "Seuil",
-        "Alerte",
-        "Action"
-      ],
-      "c": "esxcli storage filesystem list; Get-Datastore",
-      "p": [
-        "Pas d'alert"
-      ],
-      "w": "Conclusion : capacités surveillées.",
-      "img": "images/virtualisation-schema.svg",
-      "alt": "Schéma virtualisation",
-      "cp": "cp5"
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
     },
     {
-      "id": "cp5-security",
-      "t": "Sécurité hyperviseur",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "CP6 - Définition : durcir hyperviseur. | Objectif : protéger control plane. | Cas réel : SSH ouvert. | Fonctionnement détaillé : LHR, firewall, lock mode. | Exemple : lock mode strict. | Procédure : baseline, test, audit. | Erreurs : bloquer accès. | Jury : hardening. | Retenir : moindre accès.",
+      "id": "cp5-ssh",
+      "t": "SSH",
+      "level": "debutant",
+      "r": "À compléter.",
       "tags": [
-        "cp6",
-        "virtualisation",
-        "security"
+        {
+          "id": "cp5",
+          "title": "CP5 — Installer et assurer l'exploitation de serveurs Windows et Linux"
+        },
+        "ssh"
       ],
-      "g": [
-        "Baseline",
-        "Lockdown",
-        "Firewall",
-        "Audit"
-      ],
-      "c": "esxcli system security get; Get-VMHostFirewallException",
-      "p": [
-        "Perte accès admin"
-      ],
-      "w": "Conclusion : hypervisor durci.",
-      "img": "images/virtualisation-schema.svg",
-      "alt": "Schéma virtualisation",
-      "cp": "cp5"
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
     },
     {
-      "id": "cp5-synthese",
-      "t": "Synthèse examen CP6",
-      "level": "intermediaire",
-      "cli": false,
-      "r": "CP6 - Définition : synthèse pour l'oral. | Objectif : expliquer. | Cas réel : jury demande VM. | Fonctionnement détaillé : hyperviseur, stockage, backup. | Exemple : cluster. | Procédure : décrire architecture. | Erreurs : omettre RTO. | Jury : questions. | Retenir : preuves.",
+      "id": "cp5-bash",
+      "t": "Bash",
+      "level": "debutant",
+      "r": "À compléter.",
       "tags": [
-        "cp6",
-        "virtualisation",
-        "synthese"
+        {
+          "id": "cp5",
+          "title": "CP5 — Installer et assurer l'exploitation de serveurs Windows et Linux"
+        },
+        "bash"
       ],
-      "g": [
-        "Architecture",
-        "Risque",
-        "Backup",
-        "Conclusion"
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp5-scripts",
+      "t": "Scripts",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp5",
+          "title": "CP5 — Installer et assurer l'exploitation de serveurs Windows et Linux"
+        },
+        "scripts"
       ],
-      "c": "Aucune commande native pertinente.",
-      "p": [
-        "Omission RTO"
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp5-mariadb",
+      "t": "MariaDB",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp5",
+          "title": "CP5 — Installer et assurer l'exploitation de serveurs Windows et Linux"
+        },
+        "mariadb"
       ],
-      "w": "Conclusion : virtualisation maîtrisée.",
-      "img": "images/virtualisation-schema.svg",
-      "alt": "Schéma virtualisation",
-      "cp": "cp5"
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp5-docker",
+      "t": "Docker",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp5",
+          "title": "CP5 — Installer et assurer l'exploitation de serveurs Windows et Linux"
+        },
+        "docker"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp5-supervision",
+      "t": "Supervision",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp5",
+          "title": "CP5 — Installer et assurer l'exploitation de serveurs Windows et Linux"
+        },
+        "supervision"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp5-centreon",
+      "t": "Centreon",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp5",
+          "title": "CP5 — Installer et assurer l'exploitation de serveurs Windows et Linux"
+        },
+        "centreon"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp5-grafana",
+      "t": "Grafana",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp5",
+          "title": "CP5 — Installer et assurer l'exploitation de serveurs Windows et Linux"
+        },
+        "grafana"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp5-sauvegarde-linux",
+      "t": "Sauvegarde Linux",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp5",
+          "title": "CP5 — Installer et assurer l'exploitation de serveurs Windows et Linux"
+        },
+        "sauvegarde-linux"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
     }
   ],
   "quiz": []

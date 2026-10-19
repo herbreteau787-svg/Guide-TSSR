@@ -1,951 +1,681 @@
 {
   "id": "cp1",
-  "title": "CP1 — Réseau (réécriture)",
+  "title": "CP1 — Exploiter l'intelligence artificielle et encadrer son usage",
   "fiches": [
     {
       "id": "cp1-essentiel",
-      "t": "CP1 — L'essentiel (réseau)",
+      "t": "CP1 — Exploiter l'intelligence artificielle et encadrer son usage — L'essentiel",
       "level": "exam",
-      "r": "Objectif : maîtriser les fondamentaux réseau pour l'examen TSSR. Tableau GUI/CLI/vérification, diagnostic express, pièges, index.",
+      "r": "Fiche essentielle : objectifs, notions, tableau, diagnostic, pièges, index.",
       "tags": [
-        "cp1",
+        {
+          "id": "cp1",
+          "title": "CP1 — Exploiter l'intelligence artificielle et encadrer son usage"
+        },
         "essentiel"
       ],
       "g": [
-        "Objectif et compétence",
-        "Notions à connaître",
-        "Tableau GUI/CLI/Vérification",
-        "À connaître par cœur",
-        "Diagnostic express",
+        "Objectif",
+        "Notions",
+        "Tableau",
+        "Diagnostic",
         "Pièges",
-        "Ce que le jury peut demander",
         "Index"
       ],
-      "c": "Commandes usuelles : ping, traceroute, ipconfig, show interfaces, show vlan brief, show ip route.",
+      "c": "À compléter.",
       "p": [
-        "Confondre couche 2 et 3",
-        "Oublier le masque",
-        "Négliger le VLAN natif"
+        "À compléter."
       ],
-      "w": "L'essentiel résume ; les fiches détaillées précisent.",
-      "resume": "Fiche essentielle CP1 : fondamentaux réseau.",
+      "w": "À compléter.",
+      "resume": "Fiche essentielle du CP.",
       "couvre": [
-        "cp1-archi-osi",
-        "cp1-tcpip",
-        "cp1-vlan",
-        "cp1-routage",
-        "cp1-dhcpdns",
-        "cp1-wifi",
-        "cp1-securite",
-        "cp1-vpn"
+        "mig-legacy-cp2-gpo",
+        "mig-legacy-cp2-events",
+        "mig-legacy-cp2-repl",
+        "mig-legacy-cp4-legacy-ccp4-reseau-debutant",
+        "mig-legacy-cp4-legacy-ccp10-toip",
+        "toip-fiche-4",
+        "toip-fiche-20",
+        "cyber-users",
+        "mig-legacy-cp8-bia",
+        "cp1-introduction-a-l-ia",
+        "cp1-prompt-engineering",
+        "cp1-copilot",
+        "cp1-chatgpt",
+        "cp1-claude",
+        "cp1-securite-des-donnees-dans-l-ia",
+        "cp1-rgpd-et-ia",
+        "cp1-usage-professionnel-de-l-ia",
+        "cp1-automatisation",
+        "cp1-ia-generative",
+        "cp1-limites-de-l-ia",
+        "cp1-bonnes-pratiques"
       ],
       "sections": [
         {
           "title": "Introduction",
-          "body": "Synthèse des fondamentaux réseau pour l'examen TSSR."
-        },
-        {
-          "title": "Mémo révision",
-          "body": "OSI, TCP/IP, VLAN, routage, NAT, DHCP, DNS, Wi-Fi, sécurité, VPN."
+          "body": "À compléter."
         }
       ]
     },
     {
-      "id": "cp1-archi-osi",
-      "t": "Architecture réseau et modèle OSI",
+      "id": "mig-legacy-cp2-gpo",
+      "t": "GPO : création, liaison et vérification",
       "level": "intermediaire",
       "cli": true,
-      "r": "Le modèle OSI organise la communication en 7 couches. Chaque couche a un rôle précis et des protocoles associés.",
+      "r": "CP2 - GPO : créer une stratégie, la lier à une OU, puis vérifier son application. | Objectif professionnel : standardiser les postes sans toucher manuellement chaque machine. | Cas réel : imposer le firewall et mapper un disque Z. | Fonctionnement détaillé : CSE, ordre LSDOU, filtrage de sécurité, blocage d'héritage. | Procédure GUI : GPMC puis gpmc.msc > Nouvelle GPO > Modifier > lier. | Procédure CLI : New-GPO, New-GPLink, gpupdate, gpresult. | Vérification : gpresult /R et Get-GPO report. | Pièges : GPO liée à un mauvais niveau, ordre inversé, filtre trop large. | Questions jury : LSDOU, héritage bloqué, GPO de sécurité. | À retenir : créer, lier, tester, audit.",
       "tags": [
-        "cp1",
-        "osi",
-        "reseau"
+        "cp2",
+        "gpo",
+        "windows"
       ],
-      "g": [],
-      "c": "Voir section Commandes utiles.",
+      "g": [
+        "Ouvrir gpmc.msc",
+        "Créer une nouvelle GPO",
+        "Modifier la GPO",
+        "Lier à l'OU",
+        "Lancer gpupdate /force",
+        "Vérifier avec gpresult /R"
+      ],
+      "c": "New-GPO -Name 'GPO-Postes-Base'\nNew-GPLink -Name 'GPO-Postes-Base' -Target 'OU=Postes,DC=tssr,DC=local'\ngpupdate /force\ngpresult /R\nGet-GPO -All\nGet-GPResultantSetOfPolicy -ReportType Html -Path C:\\temp\\rsop.html",
       "p": [
-        "Erreur de configuration",
-        "Oubli de vérification"
+        "Lier au mauvais objet",
+        "Oublier gpupdate",
+        "Conflit de paramètres"
       ],
-      "w": "Le test seul ne prouve pas la cause.",
-      "resume": "Modèle OSI : 7 couches, encapsulation, équipements par couche.",
+      "w": "Conclusion : une GPO utile est testable et auditable.",
+      "resume": "CP2 - GPO : créer une stratégie, la lier à une OU, puis vérifier son application.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "Le modèle OSI (Open Systems Interconnection) est un modèle conceptuel en 7 couches qui standardise les fonctions de communication d'un système informatique."
+          "body": "CP2 - GPO : créer une stratégie, la lier à une OU, puis vérifier son application. | Objectif professionnel : standardiser les postes sans toucher manuellement chaque machine. | Cas réel : imposer le firewall et mapper un disque Z. | Fonctionnement détaillé : CSE, ordre LSDOU, filtrage de sécurité, blocage d'héritage. | Procédure GUI : GPMC puis gpmc.msc > Nouvelle GPO > Modifier > lier. | Procédur"
         },
         {
           "title": "Définitions essentielles",
-          "body": "Couche 1 Physique : bits et support. Couche 2 Liaison : trames, MAC, commutation. Couche 3 Réseau : paquets, IP, routage. Couche 4 Transport : segments, TCP/UDP. Couche 5 Session. Couche 6 Présentation. Couche 7 Application."
-        },
-        {
-          "title": "Fonctionnement détaillé",
-          "body": "L'encapsulation ajoute des en-têtes à chaque couche. Le PDU change de nom : bit, trame, paquet, segment. Le désencapsulation inverse le processus côté récepteur."
-        },
-        {
-          "title": "Architecture et concepts",
-          "body": "Équipements par couche : hub (1), switch (2), routeur (3), pare-feu (3/4+). Protocoles : Ethernet, IP, TCP, UDP, HTTP, DNS."
-        },
-        {
-          "title": "Cas pratique",
-          "body": "Un ping échoue : vérifier couche 1 (câble), couche 2 (VLAN), couche 3 (IP/masque), couche 4 (firewall)."
+          "body": "CP2 - GPO : créer une stratégie, la lier à une OU, puis vérifier son application. | Objectif professionnel : standardiser les postes sans toucher manuellement chaque machine. | Cas réel : imposer le firewall et mapper un disque Z. | Fonctionnement détaillé : CSE, ordre LSDOU, filtrage de sécurité, blocage d'héritage. | Procédure GUI : GPMC puis gpmc.msc > Nouvelle GPO > Modifier > lier. | Procédure CLI : New-GPO, New-GPLink, gpupdate, gpresult. | Vérification : gpresult /R et Get-GPO report. | Pièges : GPO liée à un mauvais niveau, ordre inversé, filtre trop large. | Questions jury : LSDOU, héritage bloqué, GPO de sécurité. | À retenir : créer, lier, tester, audit."
         },
         {
           "title": "Procédure pas à pas",
-          "body": "1. Vérifier le lien physique. 2. Vérifier la configuration IP. 3. Tester le ping passerelle. 4. Tester le ping distant. 5. Tracer la route."
+          "body": "Ouvrir gpmc.msc\nCréer une nouvelle GPO\nModifier la GPO\nLier à l'OU\nLancer gpupdate /force\nVérifier avec gpresult /R"
         },
         {
           "title": "Commandes utiles",
-          "body": "ping, tracert/traceroute, ipconfig/ifconfig, show interfaces."
+          "body": "New-GPO -Name 'GPO-Postes-Base'\nNew-GPLink -Name 'GPO-Postes-Base' -Target 'OU=Postes,DC=tssr,DC=local'\ngpupdate /force\ngpresult /R\nGet-GPO -All\nGet-GPResultantSetOfPolicy -ReportType Html -Path C:\\temp\\rsop.html"
         },
         {
           "title": "Points de vigilance",
-          "body": "Confondre couche 2 et 3 ; oublier le masque ; ignorer le VLAN natif."
+          "body": "Lier au mauvais objet\nOublier gpupdate\nConflit de paramètres"
         },
         {
-          "title": "Questions pièges",
-          "body": "Quelle couche gère le routage ? (3). Quelle couche gère la commutation ? (2)."
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : une GPO utile est testable et auditable."
         },
         {
           "title": "Mémo révision",
-          "body": "OSI = 7 couches ; encapsulation ; équipements par couche."
+          "body": "CP2 - GPO : créer une stratégie, la lier à une OU, puis vérifier son application. | Objectif professionnel : standardiser les postes sans toucher manuellement chaque machine. | Cas réel : imposer le f"
         }
       ]
     },
     {
-      "id": "cp1-tcpip",
-      "t": "TCP/IP, IPv4 et IPv6",
+      "id": "mig-legacy-cp2-events",
+      "t": "Observateur d'événements : IDs 4624, 4625 et 41",
       "level": "intermediaire",
       "cli": true,
-      "r": "TCP/IP est la suite de protocoles d'Internet. IPv4 utilise 32 bits, IPv6 128 bits.",
+      "r": "CP2 - Événements : lire les journaux de sécurité pour prouver les connexions et les refus. | Objectif professionnel : diagnostiquer et auditer. | Fonctionnement détaillé : ID 4624 pour une connexion réussie, 4625 pour un échec de connexion, ID 41 à vérifier selon le journal et le contexte système pour identifier un arrêt anormal ou une panne. | Procédure GUI : eventvwr.msc > Journal Windows > Sécurité. | Procédure CLI : Get-WinEvent ou Get-EventLog. | Vérification : le journal montre heure, compte et poste source. | Pièges : chercher uniquement 4625 et oublier 4624, temps incorrect. | Questions jury : où trouver les connexions, différence sécurité/système. | À retenir : heure et compte. À VÉRIFIER : ID 41 selon l'environnement.",
       "tags": [
-        "cp1",
-        "tcpip",
-        "ipv4",
-        "ipv6"
+        "cp2",
+        "events",
+        "diagnostic"
       ],
-      "g": [],
-      "c": "Voir section Commandes utiles.",
+      "g": [
+        "Ouvrir eventvwr.msc",
+        "Filtrer l'ID 4624",
+        "Filtrer l'ID 4625",
+        "Filtrer l'ID 41",
+        "Consigner l'heure et le compte"
+      ],
+      "c": "Get-WinEvent -FilterHashtable @{LogName='Security'; Id=4624,4625} -MaxEvents 20 | Format-Table TimeCreated,Id,Message -Wrap\nGet-EventLog -LogName System -InstanceId 41 | Select-Object TimeGenerated,EventID,Message",
       "p": [
-        "Erreur de configuration",
-        "Oubli de vérification"
+        "Heure erronée",
+        "Droits insuffisants",
+        "Journal filtré trop vite"
       ],
-      "w": "Le test seul ne prouve pas la cause.",
-      "resume": "TCP/IP : IPv4/IPv6, TCP fiable, UDP rapide.",
+      "w": "Conclusion : les événements prouvent.",
+      "resume": "CP2 - Événements : lire les journaux de sécurité pour prouver les connexions et les refus.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "TCP/IP est la suite de protocoles fondamentale des réseaux modernes."
+          "body": "CP2 - Événements : lire les journaux de sécurité pour prouver les connexions et les refus. | Objectif professionnel : diagnostiquer et auditer. | Fonctionnement détaillé : ID 4624 pour une connexion réussie, 4625 pour un échec de connexion, ID 41 à vérifier selon le journal et le contexte système pour identifier un arrêt anormal ou une panne. | Procédure GUI : eventvwr.msc > Journal Windows > Sécu"
         },
         {
           "title": "Définitions essentielles",
-          "body": "IPv4 : adressage 32 bits, notation décimale pointée. IPv6 : 128 bits, notation hexadécimale. TCP : fiable, connecté. UDP : rapide, sans connexion."
-        },
-        {
-          "title": "Fonctionnement détaillé",
-          "body": "TCP établit une connexion (three-way handshake), gère les acquittements et la retransmission. UDP envoie sans garantie. IP route les paquets."
-        },
-        {
-          "title": "Architecture et concepts",
-          "body": "Adresses privées RFC1918, CIDR, sous-réseaux, loopback, multicast, link-local."
-        },
-        {
-          "title": "Cas pratique",
-          "body": "Un serveur web inaccessible : vérifier IP, port 80/443, firewall, DNS."
+          "body": "CP2 - Événements : lire les journaux de sécurité pour prouver les connexions et les refus. | Objectif professionnel : diagnostiquer et auditer. | Fonctionnement détaillé : ID 4624 pour une connexion réussie, 4625 pour un échec de connexion, ID 41 à vérifier selon le journal et le contexte système pour identifier un arrêt anormal ou une panne. | Procédure GUI : eventvwr.msc > Journal Windows > Sécurité. | Procédure CLI : Get-WinEvent ou Get-EventLog. | Vérification : le journal montre heure, compte et poste source. | Pièges : chercher uniquement 4625 et oublier 4624, temps incorrect. | Questions jury : où trouver les connexions, différence sécurité/système. | À retenir : heure et compte. À VÉRIFIER : ID 41 selon l'environnement."
         },
         {
           "title": "Procédure pas à pas",
-          "body": "1. Vérifier l'IP. 2. Tester le ping. 3. Tester le port. 4. Vérifier le firewall. 5. Vérifier le DNS."
+          "body": "Ouvrir eventvwr.msc\nFiltrer l'ID 4624\nFiltrer l'ID 4625\nFiltrer l'ID 41\nConsigner l'heure et le compte"
         },
         {
           "title": "Commandes utiles",
-          "body": "ipconfig, ping, Test-NetConnection, netstat, ss."
+          "body": "Get-WinEvent -FilterHashtable @{LogName='Security'; Id=4624,4625} -MaxEvents 20 | Format-Table TimeCreated,Id,Message -Wrap\nGet-EventLog -LogName System -InstanceId 41 | Select-Object TimeGenerated,EventID,Message"
         },
         {
           "title": "Points de vigilance",
-          "body": "Confondre TCP et UDP ; oublier le masque ; ignorer IPv6."
+          "body": "Heure erronée\nDroits insuffisants\nJournal filtré trop vite"
         },
         {
-          "title": "Questions pièges",
-          "body": "TCP est-il fiable ? Oui. UDP est-il connecté ? Non."
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : les événements prouvent."
         },
         {
           "title": "Mémo révision",
-          "body": "IPv4 32 bits, IPv6 128 bits, TCP fiable, UDP rapide."
+          "body": "CP2 - Événements : lire les journaux de sécurité pour prouver les connexions et les refus. | Objectif professionnel : diagnostiquer et auditer. | Fonctionnement détaillé : ID 4624 pour une connexion r"
         }
       ]
     },
     {
-      "id": "cp1-vlan",
-      "t": "VLAN, trunk 802.1Q et STP",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Les VLAN segmentent le réseau de couche 2. Le trunk transporte plusieurs VLAN. STP évite les boucles.",
+      "id": "mig-legacy-cp2-repl",
+      "t": "Réplication AD et diagnostic",
+      "level": "avance",
+      "r": "Multi-DC = réplication toutes les 15 s (intra-site) et planifiée inter-site. Les échecs laissent des objets incohérents.",
       "tags": [
-        "cp1",
-        "vlan",
-        "trunk",
-        "stp"
+        "ad",
+        "repliation",
+        "dcdiag",
+        "sites"
       ],
-      "g": [],
-      "c": "Voir section Commandes utiles.",
+      "g": [
+        "Sites et services AD : vérifier liens inter-sites, coût et horaires",
+        "Forcer la réplication depuis DC1 vers DC2",
+        "Surveiller le backlog et les conflits d'attributs",
+        "Documenter la topologie dans le dossier pro"
+      ],
+      "c": "repadmin /showrepl\nrepadmin /syncall /AdeP\nrepadmin /replsummary\ndcdiag /test:replications /s:DC1\nGet-ADReplicationPartnerMetadata -Target DC1",
       "p": [
-        "Erreur de configuration",
-        "Oubli de vérification"
+        "USN rollback possible après restauration VM non Autorité",
+        "KCC recalcule automatiquement les connexions",
+        "Un partenariat d'origine unique suffit dans la plupart des sites"
       ],
-      "w": "Le test seul ne prouve pas la cause.",
-      "resume": "VLAN/trunk/STP : segmentation, transport, anti-boucle.",
+      "w": "Restaurer un DC depuis un snapshot sans sauvegarde AD autorité peut créer une divergence irréversible.",
+      "cp": "cp9",
+      "resume": "Multi-DC = réplication toutes les 15 s (intra-site) et planifiée inter-site.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "Les VLAN permettent de segmenter un réseau physique en plusieurs réseaux logiques."
+          "body": "Multi-DC = réplication toutes les 15 s (intra-site) et planifiée inter-site. Les échecs laissent des objets incohérents."
         },
         {
           "title": "Définitions essentielles",
-          "body": "VLAN : réseau local virtuel. Trunk : lien transportant plusieurs VLAN (802.1Q). STP : Spanning Tree Protocol, évite les boucles."
-        },
-        {
-          "title": "Fonctionnement détaillé",
-          "body": "Un port access appartient à un VLAN. Un trunk tagge les trames avec l'ID VLAN. STP élit un root bridge et bloque les ports redondants."
-        },
-        {
-          "title": "Architecture et concepts",
-          "body": "Native VLAN, allowed list, root bridge, portfast, BPDU guard."
-        },
-        {
-          "title": "Cas pratique",
-          "body": "Deux VLAN ne communiquent pas : vérifier trunk, allowed list, sous-interfaces routeur."
+          "body": "Multi-DC = réplication toutes les 15 s (intra-site) et planifiée inter-site. Les échecs laissent des objets incohérents."
         },
         {
           "title": "Procédure pas à pas",
-          "body": "1. Créer les VLAN. 2. Assigner les ports. 3. Configurer le trunk. 4. Vérifier show vlan brief et show interfaces trunk."
+          "body": "Sites et services AD : vérifier liens inter-sites, coût et horaires\nForcer la réplication depuis DC1 vers DC2\nSurveiller le backlog et les conflits d'attributs\nDocumenter la topologie dans le dossier pro"
         },
         {
           "title": "Commandes utiles",
-          "body": "show vlan brief, show interfaces trunk, show spanning-tree."
+          "body": "repadmin /showrepl\nrepadmin /syncall /AdeP\nrepadmin /replsummary\ndcdiag /test:replications /s:DC1\nGet-ADReplicationPartnerMetadata -Target DC1"
         },
         {
           "title": "Points de vigilance",
-          "body": "Native VLAN mismatch ; trunk non autorisé ; boucle STP."
+          "body": "USN rollback possible après restauration VM non Autorité\nKCC recalcule automatiquement les connexions\nUn partenariat d'origine unique suffit dans la plupart des sites"
         },
         {
-          "title": "Questions pièges",
-          "body": "Quel protocole évite les boucles ? STP. Quel tag identifie le VLAN ? 802.1Q."
+          "title": "Ce que le test ne prouve pas",
+          "body": "Restaurer un DC depuis un snapshot sans sauvegarde AD autorité peut créer une divergence irréversible."
         },
         {
           "title": "Mémo révision",
-          "body": "VLAN segmente, trunk transporte, STP évite les boucles."
+          "body": "Multi-DC = réplication toutes les 15 s (intra-site) et planifiée inter-site. Les échecs laissent des objets incohérents."
         }
       ]
     },
     {
-      "id": "cp1-routage",
-      "t": "Routage IP et NAT",
+      "id": "mig-legacy-cp4-legacy-ccp4-reseau-debutant",
+      "t": "Réseau : IP, masque, gateway, VLAN, diagnostic (débutant)",
+      "level": "debutant",
+      "r": "Un réseau, c'est des machines qui échangent des paquets. IP identifie la machine, masque sépare réseau/hôte, passerelle sort du LAN, VLAN isole.",
+      "tags": [
+        "reseau",
+        "debutant",
+        "ip",
+        "vlan"
+      ],
+      "g": [
+        "Trouver son IP/masque/gateway (ipconfig / ip a)",
+        "Ping loopback → gateway → IP externe → nom DNS",
+        "Créer VLAN et trunk, inter-VLAN via routeur/Switch L3"
+      ],
+      "c": "# Configuration typique\nIP: 192.168.1.10\nMasque: 255.255.255.0 (/24)\nGateway: 192.168.1.1\nDNS: 192.168.1.1\n\n# Diagnostic étape par étape\nping 127.0.0.1\nping 192.168.1.1\nping 8.8.8.8\nping google.com",
+      "p": [
+        "IP privées : 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16",
+        "Si ping OK mais HTTP KO : service, port ou DNS",
+        "Sans gateway, pas d'Internet"
+      ],
+      "w": "Ne mélange pas couche 3 (IP) et couche 7 (application) : ping ne prouve pas qu'un site répond.",
+      "cp": "cp4",
+      "resume": "Un réseau, c'est des machines qui échangent des paquets."
+    },
+    {
+      "id": "mig-legacy-cp4-legacy-ccp10-toip",
+      "t": "Asterisk / FreePBX et diagnostic SIP",
+      "level": "intermediaire",
+      "r": "SIP 5060, RTP 10000-20000, codecs G.711/G.729. QoS et VLAN voix.",
+      "tags": [
+        "voip",
+        "sip",
+        "asterisk",
+        "qos"
+      ],
+      "g": [
+        "FreePBX : extensions, trunk, routes entrantes/sortantes",
+        "Provisionner téléphones SIP",
+        "Tester appel interne puis externe",
+        "QoS : prioriser la voix (DSCP EF)"
+      ],
+      "c": "asterisk -rvvv\nsip show peers\npjsip show endpoints\nrtp set debug on\n# ports\n# SIP 5060 UDP/TCP, RTP 10000-20000 UDP\nasterisk -rx \"core show channels\"",
+      "p": [
+        "NAT = audio unidirectionnel fréquent",
+        "VLAN voix séparé",
+        "RTCP pour la qualité"
+      ],
+      "w": "Les ALG SIP des routeurs peuvent casser la signalisation.",
+      "cp": "cp4",
+      "resume": "SIP 5060, RTP 10000-20000, codecs G."
+    },
+    {
+      "id": "toip-fiche-4",
+      "t": "VoIP signalisation et média",
       "level": "intermediaire",
       "cli": true,
-      "r": "Le routage transfère les paquets entre réseaux. Le NAT traduit les adresses privées en publiques.",
+      "r": "Définition : SIP pour signalisation (ports TCP/UDP 5060/0-1), RTP pour média (UDP 16384-32767). | Cas réel en entreprise : Cas réel : un appel est établi mais la voix est unidirectionnelle à cause d'ACL. | Objectif : maîtriser ce composant pour diagnostiquer et configurer. | Fonctionnement détaillé : voir la définition, ordre paquet et options de signaling/média. | Procédure pas à pas : Analyser le sens des paquets, valider les ports, tester entre deux postes, capturer si besoin. | Erreurs fréquentes : Bloquer RTP; NAT sans ALG; oublier les ports UDP. | Questions du jury : expliquer le flux; citer les ports et rels; justifier choix technique. | À retenir : QoS, VLAN, configuration VLAN option 150, diagnostic couche par couche. | Commandes pour lab : show sip map rtp; show voice call status; debug ip packet",
       "tags": [
-        "cp1",
-        "routage",
-        "nat"
+        "toip",
+        "ccna",
+        "voip-signalisation-et-m-dia"
+      ],
+      "g": [
+        "Analyser le sens des paquets",
+        "valider les ports",
+        "tester entre deux postes",
+        "capturer si besoin."
+      ],
+      "c": "show sip map rtp\nshow voice call status\ndebug ip packet",
+      "p": [
+        "Bloquer RTP",
+        "NAT sans ALG",
+        "oublier les ports UDP"
+      ],
+      "w": "Conclusion : VoIP signalisation et média se maîtrise par configuration, validation de service et tests bout à bout.",
+      "img": "images/toip-schema.svg",
+      "alt": "Schéma pédagogique ToIP",
+      "cp": "cp4",
+      "resume": "Définition : SIP pour signalisation (ports TCP/UDP 5060/0-1), RTP pour média (UDP 16384-32767)."
+    },
+    {
+      "id": "toip-fiche-20",
+      "t": "Diagnostic avancé ToIP",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Définition : Diagnostiquer par couches : physique, DHCP, CDP, SIP, RTP, codec. | Cas réel en entreprise : Cas réel : IP phone reste connected mais ne fait pas d'appel après restart. | Objectif : maîtriser ce composant pour diagnostiquer et configurer. | Fonctionnement détaillé : voir la définition, ordre paquet et options de signaling/média. | Procédure pas à pas : Collecter status DHCP/CDP/SIP/RTP, valider voice frames et codec compliance, capturer. | Erreurs fréquentes : multicast loop; codec mismatch; RTP holes. | Questions du jury : expliquer le flux; citer les ports et rels; justifier choix technique. | À retenir : QoS, VLAN, configuration VLAN option 150, diagnostic couche par couche. | Commandes pour lab : show voice register pool all; debug ccsip all; show interfaces counter",
+      "tags": [
+        "toip",
+        "ccna",
+        "diagnostic-avanc-toip"
+      ],
+      "g": [
+        "Collecter status DHCP/CDP/SIP/RTP",
+        "valider voice frames",
+        "codec compliance",
+        "capturer."
+      ],
+      "c": "show voice register pool all\ndebug ccsip all\nshow interfaces counter",
+      "p": [
+        "multicast loop",
+        "codec mismatch",
+        "RTP holes"
+      ],
+      "w": "Conclusion : Diagnostic avancé ToIP se maîtrise par configuration, validation de service et tests bout à bout.",
+      "img": "images/toip-schema.svg",
+      "alt": "Schéma pédagogique ToIP",
+      "cp": "cp4",
+      "resume": "Définition : Diagnostiquer par couches : physique, DHCP, CDP, SIP, RTP, codec."
+    },
+    {
+      "cp": "cp7",
+      "id": "cyber-users",
+      "t": "Gestion des identités et privilèges (réparti depuis ccp12)",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "Comptes nominatifs, groupes, moindre privilège, comptes de service dédiés, revue périodique.",
+      "tags": [
+        "iam",
+        "privilèges",
+        "migre-ccp12"
+      ],
+      "g": [
+        "Séparer comptes admin et user",
+        "PAM pour élévation",
+        "Revue trimestrielle des membres DA",
+        "Désactiver anciens comptes"
+      ],
+      "c": "Get-ADGroupMember \"Domain Admins\"\nsudo -l\n# PIM/JIT pour activations temporaires",
+      "p": [
+        "Compte break-glass sous coffre",
+        "Logs d'admin centralisés",
+        "Attestation manager"
+      ],
+      "w": "Les droits cumulés sont la cause la plus fréquente d'escalade.",
+      "alt": "",
+      "resume": "Comptes nominatifs, groupes, moindre privilège, comptes de service dédiés, revue périodique."
+    },
+    {
+      "id": "mig-legacy-cp8-bia",
+      "t": "Analyse d'impact",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP8 - Définition : impact sur processus. | Objectif : prioriser. | Cas réel : ERP critique. | Fonctionnement détaillé : impact, dépendances. | Exemple : BIA. | Procédure : interview, scoring, priorité. | Erreurs : sous-estimation. | Jury : BIA. | Retenir : impact.",
+      "tags": [
+        "cp8",
+        "continuite"
       ],
       "g": [],
-      "c": "Voir section Commandes utiles.",
-      "p": [
-        "Erreur de configuration",
-        "Oubli de vérification"
+      "c": "Aucune commande native pertinente.",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Continuité",
+      "cp": "cp8",
+      "resume": "CP8 - Définition : impact sur processus."
+    },
+    {
+      "id": "cp1-introduction-a-l-ia",
+      "t": "Introduction à l'IA",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp1",
+          "title": "CP1 — Exploiter l'intelligence artificielle et encadrer son usage"
+        },
+        "introduction-a-l-ia"
       ],
-      "w": "Le test seul ne prouve pas la cause.",
-      "resume": "Routage et NAT : table de routage, route par défaut, traduction.",
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "Le routage permet la communication entre réseaux distincts."
-        },
-        {
-          "title": "Définitions essentielles",
-          "body": "Route statique, route dynamique (OSPF, RIP), table de routage, passerelle par défaut, NAT, PAT."
-        },
-        {
-          "title": "Fonctionnement détaillé",
-          "body": "Le routeur consulte sa table de routage et choisit la meilleure route. Le NAT masque les adresses privées."
-        },
-        {
-          "title": "Architecture et concepts",
-          "body": "Métrique, distance administrative, next-hop, interface de sortie."
-        },
-        {
-          "title": "Cas pratique",
-          "body": "Pas d'accès Internet : vérifier route par défaut, NAT, DNS."
-        },
-        {
-          "title": "Procédure pas à pas",
-          "body": "1. Vérifier la table de routage. 2. Ajouter une route par défaut. 3. Configurer le NAT. 4. Tester."
-        },
-        {
-          "title": "Commandes utiles",
-          "body": "show ip route, ip route, show nat translations."
-        },
-        {
-          "title": "Points de vigilance",
-          "body": "Route par défaut manquante ; NAT mal configuré ; masque erroné."
-        },
-        {
-          "title": "Questions pièges",
-          "body": "Quelle route a la distance administrative la plus basse ? Connectée."
-        },
-        {
-          "title": "Mémo révision",
-          "body": "Routage = table + meilleure route ; NAT = traduction d'adresse."
+          "body": "À compléter."
         }
       ]
     },
     {
-      "id": "cp1-dhcpdns",
-      "t": "DHCP et DNS",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "DHCP attribue automatiquement les adresses IP. DNS résout les noms en adresses IP.",
+      "id": "cp1-prompt-engineering",
+      "t": "Prompt Engineering",
+      "level": "debutant",
+      "r": "À compléter.",
       "tags": [
-        "cp1",
-        "dhcp",
-        "dns"
+        {
+          "id": "cp1",
+          "title": "CP1 — Exploiter l'intelligence artificielle et encadrer son usage"
+        },
+        "prompt-engineering"
       ],
       "g": [],
-      "c": "Voir section Commandes utiles.",
-      "p": [
-        "Erreur de configuration",
-        "Oubli de vérification"
-      ],
-      "w": "Le test seul ne prouve pas la cause.",
-      "resume": "DHCP/DNS : DORA, zones, enregistrements, cache.",
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "DHCP et DNS sont des services IP essentiels."
-        },
-        {
-          "title": "Définitions essentielles",
-          "body": "DHCP : attribution automatique (DORA). DNS : résolution de noms. Zone, enregistrement A, CNAME, MX, PTR."
-        },
-        {
-          "title": "Fonctionnement détaillé",
-          "body": "DHCP Discover/Offer/Request/Acknowledge. DNS requête récursive/itérative, cache."
-        },
-        {
-          "title": "Architecture et concepts",
-          "body": "Étendue, exclusions, options (passerelle, DNS), TTL, forwarders."
-        },
-        {
-          "title": "Cas pratique",
-          "body": "Un poste n'a pas d'IP : vérifier DHCP, VLAN, relay. Nom ne résout pas : vérifier DNS."
-        },
-        {
-          "title": "Procédure pas à pas",
-          "body": "1. Vérifier l'étendue. 2. Vérifier les exclusions. 3. Tester ipconfig /renew. 4. Tester nslookup."
-        },
-        {
-          "title": "Commandes utiles",
-          "body": "ipconfig /all, ipconfig /renew, nslookup, dig."
-        },
-        {
-          "title": "Points de vigilance",
-          "body": "DHCP sur mauvais VLAN ; DNS mal pointé ; bail expiré."
-        },
-        {
-          "title": "Questions pièges",
-          "body": "DORA = ? Discover, Offer, Request, Acknowledge."
-        },
-        {
-          "title": "Mémo révision",
-          "body": "DHCP attribue, DNS résout, DORA, TTL."
+          "body": "À compléter."
         }
       ]
     },
     {
-      "id": "cp1-wifi",
-      "t": "Wi-Fi et sécurité radio",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Le Wi-Fi utilise des ondes radio. Sécurité via WPA2/WPA3 et segmentation.",
+      "id": "cp1-copilot",
+      "t": "Copilot",
+      "level": "debutant",
+      "r": "À compléter.",
       "tags": [
-        "cp1",
-        "wifi",
-        "radio"
+        {
+          "id": "cp1",
+          "title": "CP1 — Exploiter l'intelligence artificielle et encadrer son usage"
+        },
+        "copilot"
       ],
       "g": [],
-      "c": "Voir section Commandes utiles.",
-      "p": [
-        "Erreur de configuration",
-        "Oubli de vérification"
-      ],
-      "w": "Le test seul ne prouve pas la cause.",
-      "resume": "Wi-Fi : SSID, canaux, WPA2/WPA3, segmentation.",
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "Le Wi-Fi (IEEE 802.11) fournit un accès réseau sans fil."
-        },
-        {
-          "title": "Définitions essentielles",
-          "body": "SSID, canal, bande 2.4/5/6 GHz, WPA2, WPA3, 802.1X, PSK."
-        },
-        {
-          "title": "Fonctionnement détaillé",
-          "body": "Association et authentification. Le chiffrement protège les données. Le roaming permet le passage d'un AP à un autre."
-        },
-        {
-          "title": "Architecture et concepts",
-          "body": "AP, contrôleur, VLAN voix/data, QoS, site survey."
-        },
-        {
-          "title": "Cas pratique",
-          "body": "Wi-Fi lent : vérifier canal, interférence, nombre de clients."
-        },
-        {
-          "title": "Procédure pas à pas",
-          "body": "1. Choisir le canal. 2. Configurer WPA3. 3. Segmenter par VLAN. 4. Tester le débit."
-        },
-        {
-          "title": "Commandes utiles",
-          "body": "show wlan, show ap summary."
-        },
-        {
-          "title": "Points de vigilance",
-          "body": "Canal encombré ; WPA2-PSK faible ; pas de segmentation."
-        },
-        {
-          "title": "Questions pièges",
-          "body": "WPA3 améliore quoi ? SAE, protection contre brute force."
-        },
-        {
-          "title": "Mémo révision",
-          "body": "Wi-Fi = radio + sécurité + segmentation."
+          "body": "À compléter."
         }
       ]
     },
     {
-      "id": "cp1-securite",
-      "t": "Sécurité réseau et pare-feu",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "La sécurité réseau protège contre les menaces. Le pare-feu filtre le trafic selon des règles.",
+      "id": "cp1-chatgpt",
+      "t": "ChatGPT",
+      "level": "debutant",
+      "r": "À compléter.",
       "tags": [
-        "cp1",
-        "securite",
-        "firewall"
+        {
+          "id": "cp1",
+          "title": "CP1 — Exploiter l'intelligence artificielle et encadrer son usage"
+        },
+        "chatgpt"
       ],
       "g": [],
-      "c": "Voir section Commandes utiles.",
-      "p": [
-        "Erreur de configuration",
-        "Oubli de vérification"
-      ],
-      "w": "Le test seul ne prouve pas la cause.",
-      "resume": "Sécurité réseau : pare-feu, ACL, IDS/IPS, segmentation.",
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "La sécurité réseau est essentielle pour protéger les données."
-        },
-        {
-          "title": "Définitions essentielles",
-          "body": "Pare-feu, ACL, zone DMZ, IDS/IPS, VPN, MFA, segmentation, moindre privilège."
-        },
-        {
-          "title": "Fonctionnement détaillé",
-          "body": "Le pare-feu inspecte les paquets et applique des règles. L'IDS détecte, l'IPS bloque."
-        },
-        {
-          "title": "Architecture et concepts",
-          "body": "Zones trust/untrust/DMZ, règles inbound/outbound, NAT, journalisation."
-        },
-        {
-          "title": "Cas pratique",
-          "body": "Un service bloqué : vérifier la règle, la direction, le port."
-        },
-        {
-          "title": "Procédure pas à pas",
-          "body": "1. Identifier le flux. 2. Créer la règle. 3. Tester. 4. Journaliser."
-        },
-        {
-          "title": "Commandes utiles",
-          "body": "show access-lists, show firewall."
-        },
-        {
-          "title": "Points de vigilance",
-          "body": "Règle trop permissive ; ordre des règles ; oubli de log."
-        },
-        {
-          "title": "Questions pièges",
-          "body": "IDS vs IPS : détection vs prévention."
-        },
-        {
-          "title": "Mémo révision",
-          "body": "Pare-feu filtre, IDS détecte, IPS bloque."
+          "body": "À compléter."
         }
       ]
     },
     {
-      "id": "cp1-vpn",
-      "t": "VPN et accès distant",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Le VPN crée un tunnel sécurisé sur un réseau non fiable.",
+      "id": "cp1-claude",
+      "t": "Claude",
+      "level": "debutant",
+      "r": "À compléter.",
       "tags": [
-        "cp1",
-        "vpn",
-        "remote"
+        {
+          "id": "cp1",
+          "title": "CP1 — Exploiter l'intelligence artificielle et encadrer son usage"
+        },
+        "claude"
       ],
       "g": [],
-      "c": "Voir section Commandes utiles.",
-      "p": [
-        "Erreur de configuration",
-        "Oubli de vérification"
-      ],
-      "w": "Le test seul ne prouve pas la cause.",
-      "resume": "VPN : tunnel chiffré, IPsec/SSL, certificats.",
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "Le VPN (Virtual Private Network) sécurise les communications à distance."
-        },
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp1-securite-des-donnees-dans-l-ia",
+      "t": "Sécurité des données dans l'IA",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
         {
-          "title": "Définitions essentielles",
-          "body": "Tunnel, IPsec, SSL/TLS, site-to-site, remote access, split tunneling."
+          "id": "cp1",
+          "title": "CP1 — Exploiter l'intelligence artificielle et encadrer son usage"
         },
+        "securite-des-donnees-dans-l-ia"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
         {
-          "title": "Fonctionnement détaillé",
-          "body": "Le trafic est chiffré et encapsulé. L'authentification utilise certificats ou MFA."
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp1-rgpd-et-ia",
+      "t": "RGPD et IA",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp1",
+          "title": "CP1 — Exploiter l'intelligence artificielle et encadrer son usage"
         },
+        "rgpd-et-ia"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
         {
-          "title": "Architecture et concepts",
-          "body": "Concentrateur VPN, client, certificats, PKI, RADIUS."
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp1-usage-professionnel-de-l-ia",
+      "t": "Usage professionnel de l'IA",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp1",
+          "title": "CP1 — Exploiter l'intelligence artificielle et encadrer son usage"
         },
+        "usage-professionnel-de-l-ia"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
         {
-          "title": "Cas pratique",
-          "body": "VPN ne monte pas : vérifier certificat, port, authentification."
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp1-automatisation",
+      "t": "Automatisation",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp1",
+          "title": "CP1 — Exploiter l'intelligence artificielle et encadrer son usage"
         },
+        "automatisation"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
         {
-          "title": "Procédure pas à pas",
-          "body": "1. Installer le client. 2. Importer le certificat. 3. Configurer le profil. 4. Tester."
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp1-ia-generative",
+      "t": "IA générative",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp1",
+          "title": "CP1 — Exploiter l'intelligence artificielle et encadrer son usage"
         },
+        "ia-generative"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
         {
-          "title": "Commandes utiles",
-          "body": "show vpn-sessiondb, debug crypto isakmp."
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp1-limites-de-l-ia",
+      "t": "Limites de l'IA",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp1",
+          "title": "CP1 — Exploiter l'intelligence artificielle et encadrer son usage"
         },
+        "limites-de-l-ia"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
         {
-          "title": "Points de vigilance",
-          "body": "Certificat expiré ; port bloqué ; split tunneling mal configuré."
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp1-bonnes-pratiques",
+      "t": "Bonnes pratiques",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp1",
+          "title": "CP1 — Exploiter l'intelligence artificielle et encadrer son usage"
         },
+        "bonnes-pratiques"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
         {
-          "title": "Questions pièges",
-          "body": "IPsec vs SSL VPN : couche 3 vs application."
-        },
-        {
-          "title": "Mémo révision",
-          "body": "VPN = tunnel chiffré + authentification."
+          "title": "Introduction",
+          "body": "À compléter."
         }
       ]
     }
   ],
-  "quiz": [
-    {
-      "id": "cp1-qcm-01",
-      "fiche": "cp1-essentiel",
-      "section": "cp1",
-      "difficulty": "examen",
-      "q": "Quel resultat professionnel attendu du support utilisateur TSSR ?",
-      "choices": [
-        "Resoudre seul sans tracer",
-        " Servir l'utilisateur et tracer le ticket"
-      ],
-      "answer": 1,
-      "explain": "Objectif du support : accueillir, diagnostiquer, tracer et valider."
-    },
-    {
-      "id": "cp1-qcm-02",
-      "fiche": "cp1-essentiel",
-      "section": "cp1",
-      "difficulty": "moyen",
-      "q": "Qu est ce qu un incident ?",
-      "choices": [
-        "Un besoin prevu",
-        "Un service degrade a retablir vite",
-        "Une cause racine encore inconnue",
-        "Un changement approuve"
-      ],
-      "answer": 1,
-      "explain": "Incident = interruption ou degradation de service a retablir au plus vite."
-    },
-    {
-      "id": "cp1-qcm-03",
-      "fiche": "cp1-essentiel",
-      "section": "cp1",
-      "difficulty": "moyen",
-      "q": "Quel symptome oriente vers un probleme DHCP ?",
-      "choices": [
-        "IP 169.254.x.x",
-        "Nom resolu mais HTTP refuse",
-        "Ping passerelle OK",
-        "DNS absent seulement"
-      ],
-      "answer": 0,
-      "explain": "169.254.x.x (APIPA) indique pas de reponse DHCP."
-    },
-    {
-      "id": "cp1-qcm-04",
-      "fiche": "cp1-essentiel",
-      "section": "cp1",
-      "difficulty": "moyen",
-      "q": "Teams se lance mais n echoue pas en web : premier reflexe ?",
-      "choices": [
-        "Supprimer tout le profil Windows",
-        " Vider le cache Teams et tester en web"
-      ],
-      "answer": 1,
-      "explain": "Vider le cache Teams et comparer client/web sans reinstall."
-    },
-    {
-      "id": "cp1-qcm-05",
-      "fiche": "cp1-essentiel",
-      "section": "cp1",
-      "difficulty": "debutant",
-      "q": "Un utilisateur ne recoit pas les appels Teams : que verifier en plus du reseau ?",
-      "choices": [
-        "Les licences et l affectation modele/tel",
-        " Uniquement le cable reseau"
-      ],
-      "answer": 0,
-      "explain": "Licences, telephonie et profil M365 a verifier cote collaboration."
-    },
-    {
-      "id": "cp1-qcm-06",
-      "fiche": "cp1-essentiel",
-      "section": "cp1",
-      "difficulty": "moyen",
-      "q": "Un telephone IP sans tonalite : premier controle ?",
-      "choices": [
-        "Alimentation PoE, boot, enregistrement",
-        " Remplacer le telephone immediatement"
-      ],
-      "answer": 0,
-      "explain": "PoE, boot et enregistrement avant remplacement materiel."
-    },
-    {
-      "id": "cp1-qcm-07",
-      "fiche": "cp1-essentiel",
-      "section": "cp1",
-      "difficulty": "moyen",
-      "q": "Comment anonymiser des donnees pour l IA ?",
-      "choices": [
-        "Supprimer donnees personnelles et identifiants",
-        " Ajouter plus d historique utilisateur"
-      ],
-      "answer": 0,
-      "explain": "Supprimer donnees personnelles et identifiants avant prompt."
-    },
-    {
-      "id": "cp1-qcm-08",
-      "fiche": "cp1-essentiel",
-      "section": "cp1",
-      "difficulty": "debutant",
-      "q": " apres une action via GUI, que faire ?",
-      "choices": [
-        "Rien, car l interface suffit",
-        " Documenter le resultat et prouver"
-      ],
-      "answer": 1,
-      "explain": "Documenter le resultat pour la tracabilite."
-    },
-    {
-      "id": "cp1-qcm-09",
-      "fiche": "cp1-essentiel",
-      "section": "cp1",
-      "difficulty": "moyen",
-      "q": "Que prouve Test-NetConnection ... -Port 443 ?",
-      "choices": [
-        "Port distant accessible",
-        " Authentification applicative reussie"
-      ],
-      "answer": 0,
-      "explain": "Port joignable, pas authentification applicative."
-    },
-    {
-      "id": "cp1-qcm-10",
-      "fiche": "cp1-essentiel",
-      "section": "cp1",
-      "difficulty": "debutant",
-      "q": "Une ping OK par IP mais KO par nom indique quoi ?",
-      "choices": [
-        "DNS defectueux",
-        " Cable debranche"
-      ],
-      "answer": 0,
-      "explain": "DNS defectueux, a verifier avec Resolve-DnsName."
-    },
-    {
-      "id": "cp1-qcm-11",
-      "fiche": "cp1-essentiel",
-      "section": "cp1",
-      "difficulty": "moyen",
-      "q": "Que doit contenir un ticket bien clos ?",
-      "choices": [
-        "Symptome, cause, action et preuve",
-        "Uniquement le numero"
-      ],
-      "answer": 0,
-      "explain": "Symptome, cause, action et preuve dans le ticket."
-    },
-    {
-      "id": "cp1-qcm-12",
-      "fiche": "cp1-essentiel",
-      "section": "cp1",
-      "difficulty": "debutant",
-      "q": "En entonnoir, quelle couche verifier d abord ?",
-      "choices": [
-        "Physique/cable",
-        " Application"
-      ],
-      "answer": 0,
-      "explain": "Physique d abord, sans sauter d etapes."
-    },
-    {
-      "id": "cp1-qcm-13",
-      "fiche": "cp1-essentiel",
-      "section": "cp1",
-      "difficulty": "moyen",
-      "q": "Qu est ce qu un bon ticket d incident ?",
-      "choices": [
-        "Service coupe a retablir rapidement",
-        " Un besoin prevu",
-        " Une cause racine definitive"
-      ],
-      "answer": 0,
-      "explain": "Incident = service coupe a retablir rapidement."
-    },
-    {
-      "id": "cp1-qcm-14",
-      "fiche": "cp1-essentiel",
-      "section": "cp1",
-      "difficulty": "debutant",
-      "q": "Premier reflexe dans l entretien avec l utilisateur ?",
-      "choices": [
-        "Ecouter et clarifier les symptomes",
-        " Accuser le materiel"
-      ],
-      "answer": 0,
-      "explain": "Ecoute active et clarification des symptomes."
-    },
-    {
-      "id": "cp1-qcm-15",
-      "fiche": "cp1-essentiel",
-      "section": "cp1",
-      "difficulty": "moyen",
-      "q": "Impression echouee : quel premier controle ?",
-      "choices": [
-        "Imprimante par defaut et file d attente",
-        " Reinstallation complete"
-      ],
-      "answer": 0,
-      "explain": "Verifier l imprimante par defaut et la file d attente."
-    },
-    {
-      "id": "cp1-qcm-16",
-      "fiche": "cp1-essentiel",
-      "section": "cp1",
-      "difficulty": "moyen",
-      "q": "Profil Outlook errorne : premier reflexe ?",
-      "choices": [
-        "Controler profil et cache",
-        " Supprimer compte sans sauvegarde"
-      ],
-      "answer": 0,
-      "explain": "Controler le profil et le cache avec sauvegarde."
-    },
-    {
-      "id": "cp1-qcm-17",
-      "fiche": "cp1-essentiel",
-      "section": "cp1",
-      "difficulty": "moyen",
-      "q": "Quel evenement confirme ou non le VPN ?",
-      "choices": [
-        "Le port distant repond et la resolution marche",
-        " Le poste s allume"
-      ],
-      "answer": 0,
-      "explain": "Verifier port distant et DNS avant portail."
-    },
-    {
-      "id": "cp1-qcm-18",
-      "fiche": "cp1-essentiel",
-      "section": "cp1",
-      "difficulty": "moyen",
-      "q": "Quand escalader ?",
-      "choices": [
-        "Quand PC1 n a pas la competence ou l autorite",
-        " Quand l utilisateur est contrarie"
-      ],
-      "answer": 0,
-      "explain": "Escalader selon competence et autorite, pas emotion."
-    },
-    {
-      "id": "cp1-qcm-19",
-      "fiche": "cp1-essentiel",
-      "section": "cp1",
-      "difficulty": "moyen",
-      "q": "Quelle commande verifie l etat Defender ?",
-      "choices": [
-        "Get-MpComputerStatus",
-        " net user",
-        " Test-NetConnection 8.8.8.8",
-        " ipconfig /all"
-      ],
-      "answer": 0,
-      "explain": "Get-MpComputerStatus verifie Defender."
-    },
-    {
-      "id": "cp1-qcm-20",
-      "fiche": "cp1-essentiel",
-      "section": "cp1",
-      "difficulty": "debutant",
-      "q": "Quel geste renforce l hygiene poste ?",
-      "choices": [
-        "Activer BitLocker et patchs automatiques",
-        " Desactiver les maj"
-      ],
-      "answer": 0,
-      "explain": "BitLocker et mises a jour automatiques pour l hygiene."
-    },
-    {
-      "id": "cp1-qcm-21",
-      "fiche": "cp1-essentiel",
-      "section": "cp1",
-      "difficulty": "debutant",
-      "q": "Quel prerequis de securite basique sur le poste ?",
-      "choices": [
-        "Patchs, moindre privilege, pare-feu hote",
-        " Navigateur par defaut seul"
-      ],
-      "answer": 0,
-      "explain": "Patchs, moindre privilege et pare-feu hote pour posture de base."
-    },
-    {
-      "id": "cp1-qcm-22",
-      "fiche": "cp1-essentiel",
-      "section": "cp1",
-      "difficulty": "moyen",
-      "q": "La priorite est generalement calculee selon ?",
-      "choices": [
-        "Impact x Urgence",
-        " Le nom du manager"
-      ],
-      "answer": 0,
-      "explain": "Priorite = Impact et Urgence combinees."
-    },
-    {
-      "id": "cp1-qcm-23",
-      "fiche": "cp1-essentiel",
-      "section": "cp1",
-      "difficulty": "moyen",
-      "q": "Avant de reinitialiser un mot de passe AD, que verifier ?",
-      "choices": [
-        "L identite du demandeur et la politique",
-        " Le bureau seul"
-      ],
-      "answer": 0,
-      "explain": "Verifier l identite et la politique de reinitialisation."
-    },
-    {
-      "id": "cp1-qcm-24",
-      "fiche": "cp1-essentiel",
-      "section": "cp1",
-      "difficulty": "moyen",
-      "q": "Quel journal donnera la trace d un refus d acces ?",
-      "choices": [
-        "Securite",
-        " Application"
-      ],
-      "answer": 0,
-      "explain": "Le journal Securite trace l echec d acces et la connexion."
-    },
-    {
-      "id": "cp1-qcm-25",
-      "fiche": "cp1-essentiel",
-      "section": "cp1",
-      "difficulty": "moyen",
-      "q": "Comment risque-t-on en prod sur WSUS ?",
-      "choices": [
-        "Sans anneaux de test",
-        " En testant toujours d abord"
-      ],
-      "answer": 0,
-      "explain": "Deployer sans anneaux de test risque une panne massive."
-    },
-    {
-      "id": "cp1-qcm-26",
-      "fiche": "cp1-essentiel",
-      "section": "cp1",
-      "difficulty": "debutant",
-      "q": "Un bon outil de support sert a ?",
-      "choices": [
-        "Structurer diagnostic et communication",
-        " Éviter de documenter"
-      ],
-      "answer": 0,
-      "explain": "Structurer diagnostic, communication et trajectoire."
-    },
-    {
-      "id": "cp1-qcm-27",
-      "fiche": "cp1-essentiel",
-      "section": "cp1",
-      "difficulty": "moyen",
-      "q": "Une IP 169.254.x.x indique quoi ?",
-      "choices": [
-        "DHCP KO (APIPA)",
-        " Câble debranche"
-      ],
-      "answer": 0,
-      "explain": "APIPA indique pas de reponse DHCP, voir ipconfig."
-    },
-    {
-      "id": "cp1-qcm-28",
-      "fiche": "cp1-essentiel",
-      "section": "cp1",
-      "difficulty": "debutant",
-      "q": "L IA decorre les procedures : quelle precaution ?",
-      "choices": [
-        "La verifier et conserver la responsabilite",
-        " Publier sans relecture"
-      ],
-      "answer": 0,
-      "explain": "L IA assiste, l humain reste responsable."
-    },
-    {
-      "id": "cp1-qcm-29",
-      "fiche": "cp1-essentiel",
-      "section": "cp1",
-      "difficulty": "moyen",
-      "q": "Un telephone IP sans VLAN voie configure quoi ?",
-      "choices": [
-        "Souvent pas d enregistrement",
-        " Sonnerie impossible seulement"
-      ],
-      "answer": 0,
-      "explain": "Le telephone peut ne pas s enregistrer sans VLAN voix."
-    },
-    {
-      "id": "cp1-qcm-30",
-      "fiche": "cp1-essentiel",
-      "section": "cp1",
-      "difficulty": "moyen",
-      "q": "Injection de prompt : premier mecanisme de defense ?",
-      "choices": [
-        "Ne jamais executer les instructions cachees",
-        " Donner plus de contexte sensible"
-      ],
-      "answer": 0,
-      "explain": "Ne pas executer les instructions cachees issues de la donnee."
-    }
-  ]
+  "quiz": []
 }

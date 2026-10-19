@@ -1,10 +1,154 @@
 {
   "id": "cp7",
-  "group": "cp7",
-  "icon": "🔒",
-  "title": "CP7 — Accès Internet et interconnexions sécurisés",
-  "desc": "DMZ, pare-feu, VPN, proxy, identité hybridée, Zero Trust, durcissement.",
+  "title": "CP7 — Gérer les accès et la sécurité dans un environnement hybride",
   "fiches": [
+    {
+      "id": "cp7-essentiel",
+      "t": "CP7 — Gérer les accès et la sécurité dans un environnement hybride — L'essentiel",
+      "level": "exam",
+      "r": "Fiche essentielle : objectifs, notions, tableau, diagnostic, pièges, index.",
+      "tags": [
+        {
+          "id": "cp7",
+          "title": "CP7 — Gérer les accès et la sécurité dans un environnement hybride"
+        },
+        "essentiel"
+      ],
+      "g": [
+        "Objectif",
+        "Notions",
+        "Tableau",
+        "Diagnostic",
+        "Pièges",
+        "Index"
+      ],
+      "c": "À compléter.",
+      "p": [
+        "À compléter."
+      ],
+      "w": "À compléter.",
+      "resume": "Fiche essentielle du CP.",
+      "couvre": [
+        "mig-legacy-cp2-hard",
+        "mig-legacy-cp4-vlan",
+        "cp7-legacy-ccp7-firewall",
+        "cp7-legacy-ccp7-natvpn",
+        "pedagogie-ccp7",
+        "cp7-identity",
+        "cp7-mfa",
+        "cp7-rbac",
+        "cp7-zt",
+        "cp7-network",
+        "cp7-hardening",
+        "cp7-vuln",
+        "cp7-siem",
+        "cp7-synthese",
+        "cp7-legacy-cp1-vpn",
+        "cyber-reseau",
+        "cyber-mfa",
+        "cyber-malware",
+        "cyber-cloud",
+        "cp7-identite-hybride",
+        "cp7-mfa-2",
+        "cp7-rbac-2",
+        "cp7-zero-trust",
+        "cp7-segmentation-reseau",
+        "cp7-durcissement",
+        "cp7-gestion-des-vulnerabilites",
+        "cp7-siem-2",
+        "cp7-ids-ips",
+        "cp7-journalisation"
+      ],
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "mig-legacy-cp2-hard",
+      "t": "Durcissement serveur (contenu migré)",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : réduire surface attaque. | Objectif : sécuriser. | Cas réel : port inutile. | Fonctionnement détaillé : firewall, comptes, patch, logs. | Exemple : fermer port. | Procédure : baseline, test, audit. | Erreurs : fermer production. | Jury : baseline. | Retenir : moindre priv de service.",
+      "tags": [
+        "cp5",
+        "serveurs",
+        "hardening",
+        "migre-legacy"
+      ],
+      "g": [
+        "Inventaire ports",
+        "Firewall",
+        "Comptes",
+        "Audit"
+      ],
+      "c": "Invoke-AzVMRunCommand; chronyc tracking",
+      "p": [
+        "Fermeture production"
+      ],
+      "w": "Conclusion : durcir progressivement.",
+      "alt": "Schéma serveurs",
+      "resume": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : réduire surface attaque.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : réduire surface attaque. | Objectif : sécuriser. | Cas réel : port inutile. | Fonctionnement détaillé : firewall, comptes, patch, logs. | Exemple : fermer port. | Procédure : baseline, test, audit. | Erreurs : fermer production. | Jury : baseline. | Retenir : moindre priv de service."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : réduire surface attaque. | Objectif : sécuriser. | Cas réel : port inutile. | Fonctionnement détaillé : firewall, comptes, patch, logs. | Exemple : fermer port. | Procédure : baseline, test, audit. | Erreurs : fermer production. | Jury : baseline. | Retenir : moindre priv de service."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Inventaire ports\nFirewall\nComptes\nAudit"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Invoke-AzVMRunCommand; chronyc tracking"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Fermeture production"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : durcir progressivement."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : CP5 - Définition : réduire surface attaque. | Objectif : sécuriser. | Cas réel : port inutile. | Fonctionnement détaillé : firewall, comptes, patch,"
+        }
+      ]
+    },
+    {
+      "id": "mig-legacy-cp4-vlan",
+      "t": "VLAN et segmentation",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP4 - Définition : segmentation logique. | Objectif : isolation. | Cas réel : VLAN Voix. | Fonctionnement détaillé : 802.1Q, native VLAN. | Exemple : ajouter VLAN 10. | Procédure : créer VLAN, affecter port. | Erreurs : trunk errors. | Jury : native VLAN. | À retenir : trunk.",
+      "tags": [
+        "cp4",
+        "reseau",
+        "vlan"
+      ],
+      "g": [
+        "Créer VLAN",
+        "Affecter port",
+        "Trunk",
+        "Tester"
+      ],
+      "c": "show vlan brief; switchport access vlan 10",
+      "p": [
+        "Native VLAN mistake"
+      ],
+      "w": "Conclusion : segmentation.",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Schéma réseau",
+      "cp": "cp4",
+      "resume": "CP4 - Définition : segmentation logique."
+    },
     {
       "id": "cp7-legacy-ccp7-firewall",
       "t": "Règles de pare-feu et ordre d'évaluation",
@@ -28,7 +172,8 @@
         "Alias pour regrouper IP/services"
       ],
       "w": "Les règles sont appliquées par interface entrante ; la direction est source de confusion.",
-      "cp": "cp7"
+      "cp": "cp7",
+      "resume": "Évaluées haut→bas, première qui matche gagne."
     },
     {
       "id": "cp7-legacy-ccp7-natvpn",
@@ -55,33 +200,8 @@
         "VPN : désynchroniser les plages LAN distantes"
       ],
       "w": "Le VPN sans test externe laisse des erreurs de NAT/masquage inaperçues.",
-      "cp": "cp7"
-    },
-    {
-      "id": "cp7-legacy-ccp7-ids",
-      "t": "IDS/IPS et supervision sécurité",
-      "level": "avance",
-      "r": "Suricata/Snort pour détecter et bloquer ; corréler alertes et logs, éviter les faux positifs.",
-      "tags": [
-        "ids",
-        "ips",
-        "suricata",
-        "securite"
-      ],
-      "g": [
-        "Activer le package Suricata",
-        "Choisir les règles ET open",
-        "Alerte puis block en mode legacy/block",
-        "Suivre les stats et top signatures"
-      ],
-      "c": "# pfSense Suricata\n# Services > Suricata > Interfaces > Add\n# Blocage via pfctl table\npfctl -t snort2c -T show | head\n# Mise à jour des règles\n# Suricata update",
-      "p": [
-        "Les sondes mirror/triple n'impactent pas la latence",
-        "Tuner les règles par groupe",
-        "Corréler avec SIEM pour vue globale"
-      ],
-      "w": "Une règle trop large peut bloquer le trafic légitime de production.",
-      "cp": "cp7"
+      "cp": "cp7",
+      "resume": "PAT = 1 IP publique."
     },
     {
       "id": "pedagogie-ccp7",
@@ -106,7 +226,8 @@
         "Absence de MFA"
       ],
       "w": "Conclusion : securite par couche et moindre privilege.",
-      "cp": "cp7"
+      "cp": "cp7",
+      "resume": "Definition : gerer identites, MFA, groupes, VPN et durcissement dans un environnement hybride."
     },
     {
       "id": "cp7-identity",
@@ -132,7 +253,8 @@
       "w": "Conclusion : identité hybride.",
       "img": "images/active-directory-schema.svg",
       "alt": "Schéma hybride",
-      "cp": "cp7"
+      "cp": "cp7",
+      "resume": "CP7 - Définition : AD + Entra ID."
     },
     {
       "id": "cp7-mfa",
@@ -158,7 +280,8 @@
       "w": "Conclusion : MFA sécurité.",
       "img": "images/active-directory-schema.svg",
       "alt": "Schéma hybride",
-      "cp": "cp7"
+      "cp": "cp7",
+      "resume": "CP7 - Définition : authentification renforcée."
     },
     {
       "id": "cp7-rbac",
@@ -184,7 +307,8 @@
       "w": "Conclusion : rôles maîtrisés.",
       "img": "images/active-directory-schema.svg",
       "alt": "Schéma hybride",
-      "cp": "cp7"
+      "cp": "cp7",
+      "resume": "CP7 - Définition : rôles d'administration."
     },
     {
       "id": "cp7-zt",
@@ -209,7 +333,8 @@
       "w": "Conclusion : ZT.",
       "img": "images/active-directory-schema.svg",
       "alt": "Schéma hybride",
-      "cp": "cp7"
+      "cp": "cp7",
+      "resume": "CP7 - Définition : ne pas faire confiance implicite."
     },
     {
       "id": "cp7-network",
@@ -234,7 +359,8 @@
       "w": "Conclusion : segmentation.",
       "img": "images/active-directory-schema.svg",
       "alt": "Schéma hybride",
-      "cp": "cp7"
+      "cp": "cp7",
+      "resume": "CP7 - Définition : micro-segmentation."
     },
     {
       "id": "cp7-hardening",
@@ -252,25 +378,8 @@
       "w": "",
       "img": "images/active-directory-schema.svg",
       "alt": "Schéma hybride",
-      "cp": "cp7"
-    },
-    {
-      "id": "cp7-monitoring",
-      "t": "Supervision sécurité",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "CP7 - Définition : collecte logs. | Objectif : détecter. | Cas réel : login failed. | Fonctionnement détaillé : SIEM, alert. | Exemple : brute force. | Procédure : centraliser, corréler, alert. | Erreurs : alert spam. | Jury : SIEM. | Retenir : corrélation.",
-      "tags": [
-        "cp7",
-        "securite"
-      ],
-      "g": [],
-      "c": "Get-WinEvent -FilterHashtable @{LogName='Security'}",
-      "p": [],
-      "w": "",
-      "img": "images/active-directory-schema.svg",
-      "alt": "Schéma hybride",
-      "cp": "cp7"
+      "cp": "cp7",
+      "resume": "CP7 - Définition : hardening endpoint."
     },
     {
       "id": "cp7-vuln",
@@ -288,7 +397,8 @@
       "w": "",
       "img": "images/active-directory-schema.svg",
       "alt": "Schéma hybride",
-      "cp": "cp7"
+      "cp": "cp7",
+      "resume": "CP7 - Définition : vulnérabilités."
     },
     {
       "id": "cp7-siem",
@@ -306,25 +416,8 @@
       "w": "",
       "img": "images/active-directory-schema.svg",
       "alt": "Schéma hybride",
-      "cp": "cp7"
-    },
-    {
-      "id": "cp7-backup",
-      "t": "Sauvegarde safety",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "CP7 - Définition : backup et protection anti-ransomware. | Objectif : restorer. | Cas réel : ransom. | Fonctionnement détaillé : immutable backup. | Exemple : backup offline. | Procédure : stratégie, airgap, test. | Erreurs : online only. | Jury : 3-2-1. | Retenir : airgap.",
-      "tags": [
-        "cp7",
-        "securite"
-      ],
-      "g": [],
-      "c": "cleaner verify",
-      "p": [],
-      "w": "",
-      "img": "images/active-directory-schema.svg",
-      "alt": "Schéma hybride",
-      "cp": "cp7"
+      "cp": "cp7",
+      "resume": "CP7 - Définition : centraliser logs."
     },
     {
       "id": "cp7-synthese",
@@ -342,252 +435,8 @@
       "w": "",
       "img": "images/active-directory-schema.svg",
       "alt": "Schéma hybride",
-      "cp": "cp7"
-    },
-    {
-      "id": "cp7-legacy-ccp10-dmz",
-      "t": "DMZ, Apache et filtrage IP",
-      "level": "intermediaire",
-      "r": "DMZ = zone tampon. LAN→DMZ OK, WAN→DMZ seulement 80/443, DMZ→LAN refusé.",
-      "tags": [
-        "dmz",
-        "apache",
-        "firewall",
-        "iptables"
-      ],
-      "g": [
-        "Apache : sites-available, a2ensite intranet",
-        "Restreindre : Require ip 192.168.1.0/24",
-        "Pare-feu : règles LAN/DMZ/WAN",
-        "Activer TLS interne"
-      ],
-      "c": "apt install apache2 -y\na2ensite intranet\nsystemctl reload apache2\n# restriction\n# <Directory /var/www/intranet> Require ip 192.168.1.0/24 </Directory>\niptables -A FORWARD -i eth0 -o dmz -j ACCEPT\niptables -A FORWARD -i wan -o dmz -p tcp --dport 443 -j ACCEPT\niptables -A FORWARD -i dmz -o lan -j DROP",
-      "p": [
-        "Reverse proxy en DMZ, données en LAN",
-        "Logs + rotation + TLS",
-        "HSTS et redirection 80→443"
-      ],
-      "w": "Exposer le SSH de la DMZ vers Internet est une erreur classique.",
-      "cp": "cp7"
-    },
-    {
-      "id": "cp7-legacy-ccp10-durc",
-      "t": "Durcissement Linux et web",
-      "level": "avance",
-      "r": "Réduire la surface d'attaque : services minimaux, permissions, fail2ban, HTTPS forcé.",
-      "tags": [
-        "hardening",
-        "securite",
-        "web"
-      ],
-      "g": [
-        "Désactiver les services inutiles",
-        "Mettre à jour et reboot planifié",
-        "Configurer fail2ban pour SSH",
-        "Scanner avec lynis"
-      ],
-      "c": "systemctl disable --now telnet.socket\napt install fail2ban -y\ncp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local\nsystemctl enable --now fail2ban\nlynis audit system",
-      "p": [
-        "Headers de sécurité Apache (CSP, HSTS)",
-        "Sudo avec groupes et logs",
-        "Chiffrement des certificats"
-      ],
-      "w": "Le durcissement sans communication peut casser des applications métier.",
-      "cp": "cp7"
-    },
-    {
-      "id": "pedagogie-ccp10",
-      "t": "Fiche pedagogique de reference - CP10 infrastructure supervisionnee",
-      "level": "intermediaire",
-      "r": "Definition : maintenir, mettre a jour et superviser le parc de maniere professionnelle. Contexte : inventaire, reporting, documentation et demonstration au jury. Objectif : assurer le suivi. Details : KPI, carnet de maintenance, scripts, tableau de bord. Exemple : rapport mensuel d'etat des services. Erreurs : KPI non mesurables, documentation non mise a jour, absence de tracabilite. Jury : quels KPI, comment documentez-vous, comment ameliorez-vous la supervision.",
-      "tags": [
-        "pedagogie",
-        "operations",
-        "reporting"
-      ],
-      "g": [
-        "Collecter les indicateurs",
-        "Produire le tableau de bord",
-        "Proposer des actions",
-        "Archiver"
-      ],
-      "c": "PowerShell reporting, export CSV et Excel",
-      "p": [
-        "Inventaire incomplet",
-        "Documentation non mise a jour"
-      ],
-      "w": "Conclusion : le suivi et la preuve sont indispensables au titre.",
-      "cp": "cp7"
-    },
-    {
-      "id": "cp7-legacy-cp10-dmz",
-      "t": "DMZ architecture",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "CP10 - Définition : zone démilitarisée. | Objectif : protéger. | Cas réel : web public. | Fonctionnement détaillé : ingress, reverse proxy. | Exemple : port 443. | Procédure : zone, ACL, test. | Erreurs : flat. | Jury : DMZ. | Retenir : principe.",
-      "tags": [
-        "cp10"
-      ],
-      "g": [],
-      "c": "show access-list; firewall rule",
-      "p": [],
-      "w": "",
-      "img": "images/topologie-reseau.svg",
-      "alt": "DMZ/Intranet",
-      "cp": "cp7"
-    },
-    {
-      "id": "cp7-legacy-cp10-waf",
-      "t": "WAF et protection",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "CP10 - Définition : filtrage web. | Objectif : bloquer attaques. | Cas réel : injection. | Fonctionnement détaillé : ruleset. | Exemple : OWASP. | Procédure : audit, blocage. | Erreurs : FP. | Jury : WAF. | Retenir : tuning.",
-      "tags": [
-        "cp10"
-      ],
-      "g": [],
-      "c": "Get-WAF rule; ModSecurity audit",
-      "p": [],
-      "w": "",
-      "img": "images/topologie-reseau.svg",
-      "alt": "DMZ/Intranet",
-      "cp": "cp7"
-    },
-    {
-      "id": "cp7-legacy-cp10-proxy",
-      "t": "Reverse proxy",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "CP10 - Définition : reverse proxy. | Objectif : abstraction. | Cas réel : SSL. | Fonctionnement détaillé : terminaison SSL. | Exemple : Nginx. | Procédure : conf, test. | Erreurs : route mauvaise. | Jury : proxy. | Retenir : log.",
-      "tags": [
-        "cp10"
-      ],
-      "g": [],
-      "c": "nginx -t; systemctl reload nginx",
-      "p": [],
-      "w": "",
-      "img": "images/topologie-reseau.svg",
-      "alt": "DMZ/Intranet",
-      "cp": "cp7"
-    },
-    {
-      "id": "cp7-legacy-cp10-intranet",
-      "t": "Intranet",
-      "level": "intermediaire",
-      "cli": false,
-      "r": "CP10 - Définition : intranet. | Objectif : communication interne. | Cas réel : portal. | Fonctionnement détaillé : auth SSO, DNS. | Exemple : SharePoint. | Procédure : DNS, certificats. | Erreurs : DNS externe. | Jury : SSO. | Retenir : SSO.",
-      "tags": [
-        "cp10"
-      ],
-      "g": [],
-      "c": "Aucune commande native pertinente.",
-      "p": [],
-      "w": "",
-      "img": "images/topologie-reseau.svg",
-      "alt": "DMZ/Intranet",
-      "cp": "cp7"
-    },
-    {
-      "id": "cp7-legacy-cp10-extranet",
-      "t": "Extranet",
-      "level": "intermediaire",
-      "cli": false,
-      "r": "CP10 - Définition : accès partenaires. | Objectif : collaboration. | Cas réel : partenaire. | Fonctionnement détaillé : auth, ACL. | Exemple : portail. | Procédure : scope et audits. | Erreurs : exposé. | Jury : contrôle. | Retenir : moindre accès.",
-      "tags": [
-        "cp10"
-      ],
-      "g": [],
-      "c": "Aucune commande native pertinente.",
-      "p": [],
-      "w": "",
-      "img": "images/topologie-reseau.svg",
-      "alt": "DMZ/Intranet",
-      "cp": "cp7"
-    },
-    {
-      "id": "cp7-legacy-cp10-dns",
-      "t": "DNS interne/externe",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "CP10 - Définition : DNS split-horizon. | Objectif : résoudre. | Cas réel : interne. | Fonctionnement détaillé : views. | Exemple : intranet. | Procédure : zones. | Erreurs : leakage. | Jury : split DNS. | Retenir : vues.",
-      "tags": [
-        "cp10"
-      ],
-      "g": [],
-      "c": "dnscmd; Resolve-DnsName intranet.local",
-      "p": [],
-      "w": "",
-      "img": "images/topologie-reseau.svg",
-      "alt": "DMZ/Intranet",
-      "cp": "cp7"
-    },
-    {
-      "id": "cp7-legacy-cp10-firewall",
-      "t": "Pare-feu et règles",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "CP10 - Définition : firewall. | Objectif : prévenir. | Cas réel : opening. | Fonctionnement détaillé : ACL. | Exemple : 443. | Procédure : least priv. | Erreurs : wide open. | Jury : policy. | Retenir : documenter.",
-      "tags": [
-        "cp10"
-      ],
-      "g": [],
-      "c": "show run; New-NetFirewallRule",
-      "p": [],
-      "w": "",
-      "img": "images/topologie-reseau.svg",
-      "alt": "DMZ/Intranet",
-      "cp": "cp7"
-    },
-    {
-      "id": "cp7-legacy-cp10-tls",
-      "t": "TLS et certificats",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "CP10 - Définition : TLS. | Objectif : chiffrement. | Cas réel : cert expiré. | Fonctionnement détaillé : chain, SAN, expiry. | Exemple : renew. | Procédure : renouvellement. | Erreurs : chain missing. | Jury : SAN. | Retenir : monitoring.",
-      "tags": [
-        "cp10"
-      ],
-      "g": [],
-      "c": "openssl x509 -in cert.pem; Get-ChildItem Cert:",
-      "p": [],
-      "w": "",
-      "img": "images/topologie-reseau.svg",
-      "alt": "DMZ/Intranet",
-      "cp": "cp7"
-    },
-    {
-      "id": "cp7-legacy-cp10-ha",
-      "t": "Disponibilité web",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "CP10 - Définition : HA web. | Objectif : disponibilité. | Cas réel : failover. | Fonctionnement détaillé : LB, health. | Exemple : IP virtuelle. | Procédure : pool, probe. | Erreurs : session. | Jury : LB. | Retenir : health check.",
-      "tags": [
-        "cp10"
-      ],
-      "g": [],
-      "c": "Load balancer config",
-      "p": [],
-      "w": "",
-      "img": "images/topologie-reseau.svg",
-      "alt": "DMZ/Intranet",
-      "cp": "cp7"
-    },
-    {
-      "id": "cp10-synthese",
-      "t": "Synthèse examen CP10",
-      "level": "intermediaire",
-      "cli": false,
-      "r": "CP10 - Définition : synthèse. | Objectif : expliquer. | Cas réel : jury demande DMZ. | Fonctionnement détaillé : sécurité, disponibilité. | Exemple : architecture. | Procédure : présentation. | Erreurs : over expose. | Jury : questions. | Retenir : principe.",
-      "tags": [
-        "cp10"
-      ],
-      "g": [],
-      "c": "Aucune commande native pertinente.",
-      "p": [],
-      "w": "",
-      "img": "images/topologie-reseau.svg",
-      "alt": "DMZ/Intranet",
-      "cp": "cp7"
+      "cp": "cp7",
+      "resume": "CP7 - Définition : synthèse."
     },
     {
       "id": "cp7-legacy-cp1-vpn",
@@ -615,36 +464,8 @@
         "MFA non reçu"
       ],
       "w": "Conclusion : le VPN se valide par couches.",
-      "cp": "cp7"
-    },
-    {
-      "id": "mig-legacy-cp1-vpn",
-      "t": "Support accès distant (contenu migré)",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : problème VPN et accès distant. | Objectif : rétablir la continuité pour usager. | Cas réel : VPN coupe en roaming. | Fonctionnement détaillé : certificat, identifiants, DNS/UDP, proxy. | Exemple : certificat expiré. | Procédure : vérifier client, identifiants, routage et certificat. | Erreurs : mot de passe expiré. | Jury : split tunnel, zero trust. | À retenir : contexte nat.",
-      "tags": [
-        "cp3",
-        "support",
-        "vpn",
-        "migre"
-      ],
-      "g": [
-        "Client VPN",
-        "Identifiants",
-        "Certificat",
-        "Routage",
-        "DNS"
-      ],
-      "c": "rasdial; tracert vpn.example.com; Get-NetAdapter",
-      "p": [
-        "Certificat expire",
-        "Split tunnel erroné"
-      ],
-      "w": "Conclusion : vérifier tout le chaînage.",
-      "alt": "Schéma CP1",
       "cp": "cp7",
-      "doublon_de": "cp7-legacy-cp1-vpn"
+      "resume": "CP1 - Accès distant : accès sécurisé depuis le domicile ou la mobilité."
     },
     {
       "cp": "cp7",
@@ -673,35 +494,8 @@
       ],
       "w": "Les flat networks augmentent le rayon d'impact d'un incident.",
       "alt": "",
-      "doublon_de": "cp7-network"
-    },
-    {
-      "cp": "cp7",
-      "id": "cyber-users",
-      "t": "Gestion des identités et privilèges (réparti depuis ccp12)",
-      "level": "intermediaire",
-      "cli": false,
-      "r": "Comptes nominatifs, groupes, moindre privilège, comptes de service dédiés, revue périodique.",
-      "tags": [
-        "iam",
-        "privilèges",
-        "migre-ccp12"
-      ],
-      "g": [
-        "Séparer comptes admin et user",
-        "PAM pour élévation",
-        "Revue trimestrielle des membres DA",
-        "Désactiver anciens comptes"
-      ],
-      "c": "Get-ADGroupMember \"Domain Admins\"\nsudo -l\n# PIM/JIT pour activations temporaires",
-      "p": [
-        "Compte break-glass sous coffre",
-        "Logs d'admin centralisés",
-        "Attestation manager"
-      ],
-      "w": "Les droits cumulés sont la cause la plus fréquente d'escalade.",
-      "alt": "",
-      "doublon_de": "cp7-identity"
+      "doublon_de": "cp7-network",
+      "resume": "Segmenter par VLAN, limiter les flux, journaliser, surveiller les connexions anormales."
     },
     {
       "cp": "cp7",
@@ -729,7 +523,8 @@
       ],
       "w": "MFA sans plan de secours bloque en cas de perte.",
       "alt": "",
-      "doublon_de": "cp7-mfa"
+      "doublon_de": "cp7-mfa",
+      "resume": "Activer MFA sur accès distants, admin et cloud."
     },
     {
       "cp": "cp7",
@@ -756,65 +551,8 @@
         "Allowlisting pour serveurs"
       ],
       "w": "L'antivirus seul ne suffit pas; l'EDR détecte les comportements.",
-      "alt": ""
-    },
-    {
-      "cp": "cp7",
-      "id": "cyber-ids",
-      "t": "IDS/IPS et supervision sécurité (réparti depuis ccp12)",
-      "level": "avance",
-      "cli": false,
-      "r": "Suricata/Snort, corrélation, blocage et tuning pour éviter faux positifs.",
-      "tags": [
-        "ids",
-        "ips",
-        "siem",
-        "migre-ccp12"
-      ],
-      "g": [
-        "Déployer Suricata",
-        "Activer règles communautaires",
-        "Mode alerte puis block",
-        "Corréler avec SIEM"
-      ],
-      "c": "# pfSense Suricata package\npfctl -t snort2c -T show | head\nlynis audit system",
-      "p": [
-        "Sondes réseau stratégiques",
-        "Tuning par groupe",
-        "Retention logs"
-      ],
-      "w": "Une règle trop large bloque la production.",
       "alt": "",
-      "doublon_de": "cp7-siem"
-    },
-    {
-      "cp": "cp7",
-      "id": "cyber-logs",
-      "t": "Journalisation et réponse incident (réparti depuis ccp12)",
-      "level": "intermediaire",
-      "cli": false,
-      "r": "Centraliser, conserver, analyser, chaîne de custody, playbooks d'incident.",
-      "tags": [
-        "incident",
-        "logs",
-        "response",
-        "migre-ccp12"
-      ],
-      "g": [
-        "Centraliser syslog",
-        "Conserver 90+ jours",
-        "Playbook d'incident",
-        "Post-mortem"
-      ],
-      "c": "# Linux syslog forward\n*.* @siem:514\n# Collecter preuves",
-      "p": [
-        "Horodatage NTP",
-        "Intégrité des logs",
-        "Communication crise"
-      ],
-      "w": "Sans logs, l'analyse post-incident est impossible.",
-      "alt": "",
-      "doublon_de": "cp7-monitoring"
+      "resume": "Protection résidente, analyse, isolation d'hôte, réponse automatique."
     },
     {
       "cp": "cp7",
@@ -842,35 +580,247 @@
         "Sensibilisation données mobiles"
       ],
       "w": "Les erreurs de config cloud sont la cause majeure de fuites.",
-      "alt": ""
+      "alt": "",
+      "resume": "IAM cloud, MFA, accès conditionnels, chiffrement au repos/transit, MDM pour mobiles."
     },
     {
-      "id": "cp7-renvoi-reseau-ccp12",
-      "t": "Renvoi vers CP4 — cyber-réseau, cyber-ids, cyber-logs",
-      "level": "exam",
-      "cli": false,
-      "r": "Renfort CCP12 réparti : segmentation, firewall, DMZ, IDS/IPS et journalisation. Voir CP7 pour le détail durci; fondements réseau (syslog/SNMP, VLAN) en CP4.",
+      "id": "cp7-identite-hybride",
+      "t": "Identité hybride",
+      "level": "debutant",
+      "r": "À compléter.",
       "tags": [
-        "renvoi",
-        "cp7",
-        "ccp12",
-        "cp4"
+        {
+          "id": "cp7",
+          "title": "CP7 — Gérer les accès et la sécurité dans un environnement hybride"
+        },
+        "identite-hybride"
       ],
-      "g": [
-        "Lire CP4 fondements",
-        "Lire CP7 sécurité",
-        "Appliquer ACL"
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp7-mfa-2",
+      "t": "MFA",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp7",
+          "title": "CP7 — Gérer les accès et la sécurité dans un environnement hybride"
+        },
+        "mfa"
       ],
-      "c": "Aucune commande native.",
-      "p": [
-        "Éparpiller"
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp7-rbac-2",
+      "t": "RBAC",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp7",
+          "title": "CP7 — Gérer les accès et la sécurité dans un environnement hybride"
+        },
+        "rbac"
       ],
-      "w": "Conclusion : fondements CP4, durcissement CP7.",
-      "cp": "cp7",
-      "renvoi_vers": [
-        "cp7-network",
-        "cp7-siem",
-        "cp7-monitoring"
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp7-zero-trust",
+      "t": "Zero Trust",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp7",
+          "title": "CP7 — Gérer les accès et la sécurité dans un environnement hybride"
+        },
+        "zero-trust"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp7-segmentation-reseau",
+      "t": "Segmentation réseau",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp7",
+          "title": "CP7 — Gérer les accès et la sécurité dans un environnement hybride"
+        },
+        "segmentation-reseau"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp7-durcissement",
+      "t": "Durcissement",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp7",
+          "title": "CP7 — Gérer les accès et la sécurité dans un environnement hybride"
+        },
+        "durcissement"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp7-gestion-des-vulnerabilites",
+      "t": "Gestion des vulnérabilités",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp7",
+          "title": "CP7 — Gérer les accès et la sécurité dans un environnement hybride"
+        },
+        "gestion-des-vulnerabilites"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp7-siem-2",
+      "t": "SIEM",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp7",
+          "title": "CP7 — Gérer les accès et la sécurité dans un environnement hybride"
+        },
+        "siem"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp7-ids-ips",
+      "t": "IDS/IPS",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp7",
+          "title": "CP7 — Gérer les accès et la sécurité dans un environnement hybride"
+        },
+        "ids-ips"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp7-journalisation",
+      "t": "Journalisation",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp7",
+          "title": "CP7 — Gérer les accès et la sécurité dans un environnement hybride"
+        },
+        "journalisation"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
       ]
     }
   ],

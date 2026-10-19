@@ -1,10 +1,616 @@
 {
   "id": "cp9",
-  "group": "cp9",
-  "icon": "🧩",
-  "title": "CP9 — Déploiement des postes de travail",
-  "desc": "Cycle de vie, images, MDT, GPO, M365, collaboratif, inventaire, accompagnement.",
+  "title": "CP9 — Assurer la continuité et la reprise de l'infrastructure",
   "fiches": [
+    {
+      "id": "cp9-essentiel",
+      "t": "CP9 — Assurer la continuité et la reprise de l'infrastructure — L'essentiel",
+      "level": "exam",
+      "r": "Fiche essentielle : objectifs, notions, tableau, diagnostic, pièges, index.",
+      "tags": [
+        {
+          "id": "cp9",
+          "title": "CP9 — Assurer la continuité et la reprise de l'infrastructure"
+        },
+        "essentiel"
+      ],
+      "g": [
+        "Objectif",
+        "Notions",
+        "Tableau",
+        "Diagnostic",
+        "Pièges",
+        "Index"
+      ],
+      "c": "À compléter.",
+      "p": [
+        "À compléter."
+      ],
+      "w": "À compléter.",
+      "resume": "Fiche essentielle du CP.",
+      "couvre": [
+        "mig-legacy-cp2-backup",
+        "mig-legacy-cp3-renvoi-patch-ccp12",
+        "mig-legacy-cp5-snap",
+        "mig-legacy-cp5-backup",
+        "mig-legacy-cp6-bash-backup",
+        "mig-legacy-cp6-ps-backup",
+        "mig-legacy-cp7-backup",
+        "mig-legacy-cp8-legacy-ccp8-321",
+        "mig-legacy-cp8-legacy-ccp8-outils",
+        "mig-legacy-cp8-legacy-ccp8-zfs",
+        "mig-legacy-cp8-rpo",
+        "mig-legacy-cp8-backup321",
+        "mig-legacy-cp8-replication",
+        "mig-legacy-cp8-snapshot",
+        "mig-legacy-cp8-testdr",
+        "mig-legacy-cp8-dns-fail",
+        "mig-legacy-cp8-sitered",
+        "mig-legacy-cp8-communication",
+        "mig-legacy-cp8-data-validation",
+        "mig-legacy-cp8-isolement",
+        "mig-legacy-cp8-synthese",
+        "cyber-backup",
+        "cp9-cycle",
+        "cp9-image",
+        "cp9-mdt",
+        "cp9-legacy-domain-join",
+        "cp9-collab",
+        "cp9-entra",
+        "cp9-intune",
+        "cp9-pilotes",
+        "cp9-patch",
+        "cp9-inventaire",
+        "cp9-backup",
+        "cp9-com",
+        "cp9-change",
+        "cp9-secu",
+        "cp9-synthese",
+        "cp9-analyse-d-impact",
+        "cp9-rpo-et-rto",
+        "cp9-regle-3-2-1",
+        "cp9-replication",
+        "cp9-snapshots-et-restauration",
+        "cp9-test-de-reprise",
+        "cp9-communication-de-crise",
+        "cp9-validation-de-restauration",
+        "cp9-isolation-et-containment"
+      ],
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "mig-legacy-cp2-backup",
+      "t": "Sauvegarde et snapshot de VM (contenu migré)",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "Contenu migré de l'ancienne fiche sans réécriture : Protection avec Veeam/Azure ? à tester, snapshot pour maintenance, sauvegarde pour reprise.",
+      "tags": [
+        "backup",
+        "snapshot",
+        "vmware",
+        "migre-legacy"
+      ],
+      "g": [
+        "Définir SLA par machine (RPO/RTO)",
+        "Planification des sauvegardes incrémentielles",
+        "Test de restauration trimestriel",
+        "Nettoyage des snapshots > 72 h"
+      ],
+      "c": "# Veeam CLI / PowerCLI examples\nBackup-VM -Name SRV1 -Repository \"Repo-NAS\"\nRestore-VM -Name SRV1 -RestorePoint (Get-RestorePoint SRV1 | Select -Last 1)\nGet-Snapshot SRV1 | Where Created -lt (Get-Date).AddDays(-3)",
+      "p": [
+        "Snapshot chaîne fragile si trop long",
+        "Application-consistent avec guest processing",
+        "Chiffrer les sauvegardes"
+      ],
+      "w": "Un snapshot resté ouvert trop longtemps dégrade fortement les performances I/O.",
+      "alt": "Schéma CP2",
+      "resume": "Contenu migré de l'ancienne fiche sans réécriture : Protection avec Veeam/Azure ? à tester, snapshot pour maintenance, sauvegarde pour reprise.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : Protection avec Veeam/Azure ? à tester, snapshot pour maintenance, sauvegarde pour reprise."
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : Protection avec Veeam/Azure ? à tester, snapshot pour maintenance, sauvegarde pour reprise."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Définir SLA par machine (RPO/RTO)\nPlanification des sauvegardes incrémentielles\nTest de restauration trimestriel\nNettoyage des snapshots > 72 h"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "# Veeam CLI / PowerCLI examples\nBackup-VM -Name SRV1 -Repository \"Repo-NAS\"\nRestore-VM -Name SRV1 -RestorePoint (Get-RestorePoint SRV1 | Select -Last 1)\nGet-Snapshot SRV1 | Where Created -lt (Get-Date).AddDays(-3)"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Snapshot chaîne fragile si trop long\nApplication-consistent avec guest processing\nChiffrer les sauvegardes"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Un snapshot resté ouvert trop longtemps dégrade fortement les performances I/O."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Contenu migré de l'ancienne fiche sans réécriture : Protection avec Veeam/Azure ? à tester, snapshot pour maintenance, sauvegarde pour reprise."
+        }
+      ]
+    },
+    {
+      "id": "mig-legacy-cp3-renvoi-patch-ccp12",
+      "t": "Renvoi vers CP9 — cyber-patch",
+      "level": "exam",
+      "cli": false,
+      "r": "Répartition CCP12 : vue Linux (apt/dnf) détaillée en CP9, fondements serveur Linux en CP3.",
+      "tags": [
+        "renvoi",
+        "cp3",
+        "cp9",
+        "ccp12"
+      ],
+      "g": [
+        "Lire CP3 fondements",
+        "Lire CP9 deployment"
+      ],
+      "c": "Aucune commande native.",
+      "p": [
+        "Sans note"
+      ],
+      "w": "Conclusion : fondements en CP3, patching en CP9.",
+      "cp": "cp3",
+      "renvoi_vers": [
+        "cp9-patch"
+      ],
+      "resume": "Répartition CCP12 : vue Linux (apt/dnf) détaillée en CP9, fondements serveur Linux en CP3."
+    },
+    {
+      "id": "mig-legacy-cp5-snap",
+      "t": "Snapshots",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP6 - Définition : snapshot et impact. | Objectif : test sécurisé. | Cas réel : patch serveur. | Fonctionnement détaillé : delta vmdk, chaîne. | Exemple : snapshot avant patch. | Procédure : snapshot, modifier, supprimer. | Erreurs : abandon de snapshot. | Jury : consolidatio. | Retenir : court durée.",
+      "tags": [
+        "cp6",
+        "virtualisation",
+        "snapshots"
+      ],
+      "g": [
+        "Snapshot",
+        "Modifier",
+        "Valider",
+        "Supprimer"
+      ],
+      "c": "vmware-cmd snapshot; Get-VMSnapshot",
+      "p": [
+        "Snapshot orphelin"
+      ],
+      "w": "Conclusion : snapshot contrôle.",
+      "img": "images/virtualisation-schema.svg",
+      "alt": "Schéma virtualisation",
+      "cp": "cp5",
+      "resume": "CP6 - Définition : snapshot et impact."
+    },
+    {
+      "id": "mig-legacy-cp5-backup",
+      "t": "Sauvegarde VM",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP6 - Définition : backup machines virtuelles. | Objectif : protection. | Cas réel : plan hypervisor. | Fonctionnement détaillé : snapshot consistency, VSS, app-aware. | Exemple : sauvegarde nocturne. | Procédure : job, test restore. | Erreurs : snapshot abandonné. | Jury : restauration. | Retenir : preuve restore.",
+      "tags": [
+        "cp6",
+        "virtualisation",
+        "backup"
+      ],
+      "g": [
+        "Planifier backup",
+        "Application-aware",
+        "Tester restore"
+      ],
+      "c": "Get-VMBackup; wbadmin",
+      "p": [
+        "Snapshot orphan"
+      ],
+      "w": "Conclusion : sauvegarder VM.",
+      "img": "images/virtualisation-schema.svg",
+      "alt": "Schéma virtualisation",
+      "cp": "cp5",
+      "resume": "CP6 - Définition : backup machines virtuelles."
+    },
+    {
+      "id": "mig-legacy-cp6-bash-backup",
+      "t": "Bash : sauvegarde incrémentale et contrôle rotatif",
+      "level": "intermediaire",
+      "r": "rsync + journal, contrôle de retour, rotation simple des sauvegardes. Expliquer : arguments en majuscules, guillemets, code retour $?.",
+      "tags": [
+        "bash",
+        "rsync",
+        "backup",
+        "cron"
+      ],
+      "g": [
+        "Sauvegarder /srv/data vers /backup/data",
+        "Conserver les logs dans /var/log/backup-data.log",
+        "Planifier à 02:30 dans crontab avec crontab -e",
+        "Vérifier le code de retour après exécution"
+      ],
+      "c": "#!/bin/bash\nset -euo pipefail\nSRC=\"/srv/data\"\nDEST=\"/backup/data\"\nLOG=\"/var/log/backup-data.log\"\nDATE=\"$(date +%F-%H%M%S)\"\nmkdir -p \"$DEST\"\necho \"[$DATE] Début sauvegarde $SRC vers $DEST\" >> \"$LOG\"\nrsync -av --delete --stats \"$SRC/\" \"$DEST/\" >> \"$LOG\" 2>&1\nSTATUS=$?\necho \"[$DATE] Terminé avec code $STATUS\" >> \"$LOG\"\nexit $STATUS",
+      "p": [
+        "Utiliser des guillemets autour de \"$SRC/\" et \"$DEST/\" pour éviter les espaces",
+        "Tester un fichier à la main avant cron",
+        "Exporter le log dans ELK/Graylog en production"
+      ],
+      "w": "Si $SRC est vide suite à une erreur de montage, --delete efface la sauvegarde. Ajouter une vérification de source non vide avant rsync.",
+      "cp": "cp5",
+      "resume": "rsync + journal, contrôle de retour, rotation simple des sauvegardes."
+    },
+    {
+      "id": "mig-legacy-cp6-ps-backup",
+      "t": "PowerShell : sauvegarde Windows (robocopy)",
+      "level": "intermediaire",
+      "r": "Robocopy avec journal et codes retour. On explique : /MIR pour miroir, risque de suppression, et contrôle code 1-7.",
+      "tags": [
+        "powershell",
+        "robocopy",
+        "backup",
+        "windows"
+      ],
+      "g": [
+        "Sauvegarder C:\\data vers E:\\backup\\data",
+        "Vérifier le code retour",
+        "Garder le log dans un dossier audit",
+        "Planifier via le Planificateur de tâches"
+      ],
+      "c": "$Source = \"C:\\data\"\n$Cible = \"E:\\backup\\data\"\n$Log = \"C:\\logs\\robocopy-data.log\"\nrobocopy $Source $Cible /MIR /Z /R:3 /W:5 /LOG:$Log /NDL /NP\n$Code = $LASTEXITCODE\nif ($Code -lt 8) {\n    Write-Host \"Sauvegarde terminée, code $Code\" -ForegroundColor Green\n} else {\n    Write-Warning \"Sauvegarde échouée, code $Code\"\n}\nexit $Code",
+      "p": [
+        "/MIR supprime ce qui a disparu source, comme rsync --delete",
+        "/Z pour reprise réseau",
+        "Mettre /XD pour exclure caches"
+      ],
+      "w": "Ne pas utiliser /MIR sans stratégie de versioning ; cela efface les fichiers vieille version côté cible.",
+      "cp": "cp5",
+      "resume": "Robocopy avec journal et codes retour."
+    },
+    {
+      "id": "mig-legacy-cp7-backup",
+      "t": "Sauvegarde safety",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP7 - Définition : backup et protection anti-ransomware. | Objectif : restorer. | Cas réel : ransom. | Fonctionnement détaillé : immutable backup. | Exemple : backup offline. | Procédure : stratégie, airgap, test. | Erreurs : online only. | Jury : 3-2-1. | Retenir : airgap.",
+      "tags": [
+        "cp7",
+        "securite"
+      ],
+      "g": [],
+      "c": "cleaner verify",
+      "p": [],
+      "w": "",
+      "img": "images/active-directory-schema.svg",
+      "alt": "Schéma hybride",
+      "cp": "cp7",
+      "resume": "CP7 - Définition : backup et protection anti-ransomware."
+    },
+    {
+      "id": "mig-legacy-cp8-legacy-ccp8-321",
+      "t": "3-2-1, RPO/RTO et stratégie",
+      "level": "intermediaire",
+      "r": "Trois copies, deux supports, une hors site. RPO = perte max acceptable, RTO = durée panne acceptable.",
+      "tags": [
+        "backup",
+        "321",
+        "pra",
+        "rpo",
+        "rto"
+      ],
+      "g": [
+        "Windows Server Backup : sauvegarder volumes",
+        "Veeam : job, repository, planification, test restore",
+        "Tester restauration fichier + VM complète",
+        "Chiffrer et vérifier"
+      ],
+      "c": "wbadmin start backup -backupTarget:E: -include:C: -quiet\nwbadmin get versions\n# Linux\ntar -czf /backup/etc-$(date +%F).tgz /etc\nrsync -av --delete /data/ /backup/data/\nborg create /backup/repo::etc-$(date +%F) /etc",
+      "p": [
+        "Complète + incrémentielle/différentielle",
+        "Vérifier l'intégrité avec checksums",
+        "Détention hors ligne pour se protéger du ransomware"
+      ],
+      "w": "Une sauvegarde non testée n'est pas une sauvegarde.",
+      "cp": "cp8",
+      "resume": "Trois copies, deux supports, une hors site."
+    },
+    {
+      "id": "mig-legacy-cp8-legacy-ccp8-outils",
+      "t": "Outils et reprise bare-metal",
+      "level": "intermediaire",
+      "r": "Image système, Veeam B&R, Bacula, Proxmox Backup Server, test de restore sur hardware différent.",
+      "tags": [
+        "backup",
+        "bare metal",
+        "restore"
+      ],
+      "g": [
+        "Créer un média de secours",
+        "Documenter la procédure de reprise",
+        "Tester la restauration sur une VM distincte",
+        "Valider les applications après restore"
+      ],
+      "c": "# Veeam\nveeamconfig repository list\n# Proxmox\nproxmox-backup-client backup /etc pxar:etc --repository pbs@192.168.1.5:store\n# Test restore\nqemu-img convert disk.qcow2 -O raw /dev/sdb",
+      "p": [
+        "RTO d'un serveur = souvent dépendant des licences",
+        "Rétention légale selon activité",
+        "Versioning et immutabilité"
+      ],
+      "w": "La sauvegarde d'une base vivante doit être cohérente applicative (dump, VSS).",
+      "cp": "cp8",
+      "resume": "Image système, Veeam B&R, Bacula, Proxmox Backup Server, test de restore sur hardware différent."
+    },
+    {
+      "id": "mig-legacy-cp8-legacy-ccp8-zfs",
+      "t": "ZFS et sauvegarde cohérente",
+      "level": "avance",
+      "r": "Snapshots atomiques, réplication send/receive, détection de corruption par checksum.",
+      "tags": [
+        "zfs",
+        "snapshot",
+        "replication"
+      ],
+      "g": [
+        "Créer un pool et des datasets",
+        "Snapshot avant MAJ",
+        "Répliquer vers un NAS",
+        "Surveiller scrub"
+      ],
+      "c": "zpool create tank /dev/sdb\nzfs create tank/data\nzfs snapshot tank/data@avant-maj\nzfs send tank/data@avant-maj | ssh backup zfs recv tank/data\nzpool scrub tank",
+      "p": [
+        "ARC RAM pour cache de lecture",
+        "Ne pas utiliser ZFS sur disques non ECC pour production critique",
+        "Compression lz4 par défaut"
+      ],
+      "w": "Un scrub régulier révèle la dégradation silencieuse.",
+      "cp": "cp8",
+      "resume": "Snapshots atomiques, réplication send/receive, détection de corruption par checksum."
+    },
+    {
+      "id": "mig-legacy-cp8-rpo",
+      "t": "RPO et RTO",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP8 - Définition : données et temps max. | Objectif : budget. | Cas réel : RTO 4h. | Fonctionnement détaillé : sauvegarde, réplication. | Exemple : perte 15 min. | Procédure : définir RPO/RTO par app. | Erreurs : confondre. | Jury : RPO/RTO. | Retenir : budgets.",
+      "tags": [
+        "cp8",
+        "continuite"
+      ],
+      "g": [],
+      "c": "Aucune commande native pertinente.",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Continuité",
+      "cp": "cp8",
+      "resume": "CP8 - Définition : données et temps max."
+    },
+    {
+      "id": "mig-legacy-cp8-backup321",
+      "t": "Règle 3-2-1",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP8 - Définition : 3 copies 2 supports 1 offsite. | Objectif : résilience. | Cas réel : sauvegarde locale. | Fonctionnement détaillé : airgap. | Exemple : cloud immutable. | Procédure : copies, supports, offsite. | Erreurs : même volume. | Jury : 3-2-1. | Retenir : airgap.",
+      "tags": [
+        "cp8",
+        "continuite"
+      ],
+      "g": [],
+      "c": "Clean-Backup; Get-NetBackup",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Continuité",
+      "cp": "cp8",
+      "resume": "CP8 - Définition : 3 copies 2 supports 1 offsite."
+    },
+    {
+      "id": "mig-legacy-cp8-replication",
+      "t": "Réplication et DR",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP8 - Définition : réplication. | Objectif : continuité. | Cas réel : site distant. | Fonctionnement détaillé : sync / async. | Exemple : DRP. | Procédure : topologie, RPO, test. | Erreurs : dérive. | Jury : réplication. | Retenir : test.",
+      "tags": [
+        "cp8",
+        "continuite"
+      ],
+      "g": [],
+      "c": "zfs send | receive; DR sync",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Continuité",
+      "cp": "cp8",
+      "resume": "CP8 - Définition : réplication."
+    },
+    {
+      "id": "mig-legacy-cp8-snapshot",
+      "t": "Snapshots et restauration",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP8 - Définition : snapshots. | Objectif : rapidité. | Cas réel : pré-patch. | Fonctionnement détaillé : chaîne, capacité. | Exemple : snapshot à 20h. | Procédure : snapshot, test, suppression. | Erreurs : oubli. | Jury : snapshot pas backup. | Retenir : délétion.",
+      "tags": [
+        "cp8",
+        "continuite"
+      ],
+      "g": [],
+      "c": "zfs snapshot; Get-VMSnapshot",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Continuité",
+      "cp": "cp8",
+      "resume": "CP8 - Définition : snapshots."
+    },
+    {
+      "id": "mig-legacy-cp8-testdr",
+      "t": "Test de reprise",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP8 - Définition : exercice DR. | Objectif : prouver. | Cas réel : DR annuel. | Fonctionnement détaillé : scénario, roles. | Exemple : failover. | Procédure : scénario, durée, rapport. | Erreurs : pas de test. | Jury : DR testing. | Retenir : preuve.",
+      "tags": [
+        "cp8",
+        "continuite"
+      ],
+      "g": [],
+      "c": "Start-DRTTest; Verify-R ( placeholder)",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Continuité",
+      "cp": "cp8",
+      "resume": "CP8 - Définition : exercice DR."
+    },
+    {
+      "id": "mig-legacy-cp8-dns-fail",
+      "t": "Failover DNS",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP8 - Définition : basculement. | Objectif : rediriger utilisateurs. | Cas réel : crash. | Fonctionnement détaillé : TTL, records. | Exemple : DNS failover. | Procédure : plan, correction, test. | Erreurs : TTL long. | Jury : DNS TTL. | Retenir : TTL bas.",
+      "tags": [
+        "cp8",
+        "continuite"
+      ],
+      "g": [],
+      "c": "Get-DnsServerScavenging; conditional forwarder",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Continuité",
+      "cp": "cp8",
+      "resume": "CP8 - Définition : basculement."
+    },
+    {
+      "id": "mig-legacy-cp8-sitered",
+      "t": "Redundancy application",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP8 - Définition : site secondaire. | Objectif : availability. | Cas réel : app multi-region. | Fonctionnement détaillé : active-passive. | Exemple : second site. | Procédure : runbook, failover test. | Erreurs : exutoire. | Jury : plan. | Retenir : runbook.",
+      "tags": [
+        "cp8",
+        "continuite"
+      ],
+      "g": [],
+      "c": "Aucune commande native pertinente.",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Continuité",
+      "cp": "cp8",
+      "resume": "CP8 - Définition : site secondaire."
+    },
+    {
+      "id": "mig-legacy-cp8-communication",
+      "t": "Communication de crise",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP8 - Définition : communication. | Objectif : gestion. | Cas réel : outage majeur. | Fonctionnement détaillé : plan crise, status page. | Exemple : hotline. | Procédure : canal, message, fréquence. | Erreurs : silence. | Jury : communication. | Retenir : transparence.",
+      "tags": [
+        "cp8",
+        "continuite"
+      ],
+      "g": [],
+      "c": "Aucune commande native pertinente.",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Continuité",
+      "cp": "cp8",
+      "resume": "CP8 - Définition : communication."
+    },
+    {
+      "id": "mig-legacy-cp8-data-validation",
+      "t": "Validation de restauration",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP8 - Définition : tester restauration. | Objectif : prouver. | Cas réel : corrupt DB. | Fonctionnement détaillé : random restore. | Exemple : test DB. | Procédure : restore complet, check. | Erreurs : sans validation. | Jury : proof. | Retenir : restore.",
+      "tags": [
+        "cp8",
+        "continuite"
+      ],
+      "g": [],
+      "c": "Test-Restore; verify backup",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Continuité",
+      "cp": "cp8",
+      "resume": "CP8 - Définition : tester restauration."
+    },
+    {
+      "id": "mig-legacy-cp8-isolement",
+      "t": "Isolation et containment",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP8 - Définition : protection. | Objectif : éviter propagation. | Cas réel : ransomware. | Fonctionnement détaillé : segmentation, breaker. | Exemple : isolation. | Procédure : plan, execution. | Erreurs : pas de procédure. | Jury : containment. | Retenir : procédure.",
+      "tags": [
+        "cp8",
+        "continuite"
+      ],
+      "g": [],
+      "c": "Aucune commande native pertinente.",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Continuité",
+      "cp": "cp8",
+      "resume": "CP8 - Définition : protection."
+    },
+    {
+      "id": "mig-legacy-cp8-synthese",
+      "t": "Synthèse examen CP8",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP8 - Définition : synthèse. | Objectif : expliquer. | Cas réel : jury demande DR. | Fonctionnement détaillé : BIA, RPO/RTO. | Exemple : scénario. | Procédure : présentation. | Erreurs : oubli preuve. | Jury : questions. | Retenir : process.",
+      "tags": [
+        "cp8",
+        "continuite"
+      ],
+      "g": [],
+      "c": "Aucune commande native pertinente.",
+      "p": [],
+      "w": "",
+      "img": "images/topologie-reseau.svg",
+      "alt": "Continuité",
+      "cp": "cp8",
+      "resume": "CP8 - Définition : synthèse."
+    },
+    {
+      "cp": "cp8",
+      "id": "cyber-backup",
+      "t": "Sauvegarde anti-ransomware (réparti depuis ccp12)",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "Copies hors ligne, immuables, testées, séparées des credentials de production.",
+      "tags": [
+        "backup",
+        "ransomware",
+        "migre-ccp12"
+      ],
+      "g": [
+        "Copies offsite et hors ligne",
+        "Immutabilité",
+        "Test de restore",
+        "Comptes de backup isolés"
+      ],
+      "c": "# Veeam immuable (Linux hardened repo)\n# Borg with append-only",
+      "p": [
+        "RPO/RTO documentés",
+        "Snapshots à court terme + backup long terme",
+        "Alerte sur suppression"
+      ],
+      "w": "Les sauvegardes connectées sont cibles prioritaires.",
+      "alt": "",
+      "resume": "Copies hors ligne, immuables, testées, séparées des credentials de production."
+    },
     {
       "id": "cp9-cycle",
       "t": "Cycle de vie du poste",
@@ -31,7 +637,8 @@
       "w": "Conclusion : gérer tout le cycle.",
       "img": "images/topologie-reseau.svg",
       "alt": "Schéma CP2",
-      "cp": "cp9"
+      "cp": "cp9",
+      "resume": "CP2 - Définition : phases de la commande au recyclage."
     },
     {
       "id": "cp9-image",
@@ -59,7 +666,8 @@
       "w": "Conclusion : image standard testée.",
       "img": "images/topologie-reseau.svg",
       "alt": "Schéma CP2",
-      "cp": "cp9"
+      "cp": "cp9",
+      "resume": "CP2 - Définition : image généralisée Sysprep."
     },
     {
       "id": "cp9-mdt",
@@ -86,7 +694,8 @@
       "w": "Conclusion : infrastructure DHCP testée.",
       "img": "images/topologie-reseau.svg",
       "alt": "Schéma CP2",
-      "cp": "cp9"
+      "cp": "cp9",
+      "resume": "CP2 - Définition : déploiement automatisé via PXE."
     },
     {
       "id": "cp9-legacy-domain-join",
@@ -115,7 +724,7 @@
       "img": "images/topologie-reseau.svg",
       "alt": "Schéma CP2",
       "cp": "cp9",
-      "doublon_de": "cp2-join"
+      "resume": "CP2 - Définition : intégration du poste à Active Directory."
     },
     {
       "id": "cp9-collab",
@@ -143,7 +752,8 @@
       "w": "Conclusion : technique et change ensemble.",
       "img": "images/topologie-reseau.svg",
       "alt": "Schéma CP2",
-      "cp": "cp9"
+      "cp": "cp9",
+      "resume": "CP2 - Définition : mettre à disposition Teams, SharePoint, OneDrive."
     },
     {
       "id": "cp9-entra",
@@ -170,7 +780,8 @@
       "w": "Conclusion : identité maîtrisée.",
       "img": "images/topologie-reseau.svg",
       "alt": "Schéma CP2",
-      "cp": "cp9"
+      "cp": "cp9",
+      "resume": "CP2 - Définition : identité cloud et authentification."
     },
     {
       "id": "cp9-intune",
@@ -197,7 +808,8 @@
       "w": "Conclusion : mobiles sous politique.",
       "img": "images/topologie-reseau.svg",
       "alt": "Schéma CP2",
-      "cp": "cp9"
+      "cp": "cp9",
+      "resume": "CP2 - Définition : gérer des terminaux mobiles et postes."
     },
     {
       "id": "cp9-pilotes",
@@ -224,7 +836,8 @@
       "w": "Conclusion : déployer après test.",
       "img": "images/topologie-reseau.svg",
       "alt": "Schéma CP2",
-      "cp": "cp9"
+      "cp": "cp9",
+      "resume": "CP2 - Définition : installation de drivers stable."
     },
     {
       "id": "cp9-patch",
@@ -251,7 +864,8 @@
       "w": "Conclusion : patch sous contrôle.",
       "img": "images/topologie-reseau.svg",
       "alt": "Schéma CP2",
-      "cp": "cp9"
+      "cp": "cp9",
+      "resume": "CP2 - Définition : maintenir le parc."
     },
     {
       "id": "cp9-inventaire",
@@ -278,7 +892,8 @@
       "w": "Conclusion : inventaire comme vérité.",
       "img": "images/topologie-reseau.svg",
       "alt": "Schéma CP2",
-      "cp": "cp9"
+      "cp": "cp9",
+      "resume": "CP2 - Définition : connaître le parc."
     },
     {
       "id": "cp9-backup",
@@ -305,7 +920,8 @@
       "w": "Conclusion : backup contrôlé.",
       "img": "images/topologie-reseau.svg",
       "alt": "Schéma CP2",
-      "cp": "cp9"
+      "cp": "cp9",
+      "resume": "CP2 - Définition : sauvegarder avant changement."
     },
     {
       "id": "cp9-com",
@@ -332,7 +948,8 @@
       "w": "Conclusion : accompagnement clé.",
       "img": "images/topologie-reseau.svg",
       "alt": "Schéma CP2",
-      "cp": "cp9"
+      "cp": "cp9",
+      "resume": "CP2 - Définition : communication et formation."
     },
     {
       "id": "cp9-change",
@@ -360,7 +977,8 @@
       "w": "Conclusion : valider le changement.",
       "img": "images/topologie-reseau.svg",
       "alt": "Schéma CP2",
-      "cp": "cp9"
+      "cp": "cp9",
+      "resume": "CP2 - Définition : validation des changements."
     },
     {
       "id": "cp9-secu",
@@ -387,7 +1005,8 @@
       "w": "Conclusion : collaboration sécurisée.",
       "img": "images/topologie-reseau.svg",
       "alt": "Schéma CP2",
-      "cp": "cp9"
+      "cp": "cp9",
+      "resume": "CP2 - Définition : intégrer Microsoft 365 et sécuriser."
     },
     {
       "id": "cp9-synthese",
@@ -414,116 +1033,224 @@
       "w": "Conclusion : plan et preuve.",
       "img": "images/topologie-reseau.svg",
       "alt": "Schéma CP2",
-      "cp": "cp9"
-    },
-    {
-      "id": "mig-legacy-cp1-hardware",
-      "t": "Panne matérielle suspectée (contenu migré)",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : diagnostic matériel. | Objectif : identifier panne. | Cas réel : écran bleu répétitif. | Fonctionnement détaillé : SMART, mémoire, température, événements. | Exemple : disque défaillant. | Procédure : événement, test, garantie, remplacement. | Erreurs : réinstaller OS sans test. | Jury : diagnostic couche physique. | À retenir : preuves matériel.",
-      "tags": [
-        "cp3",
-        "support",
-        "hardware",
-        "migre"
-      ],
-      "g": [
-        "Événements",
-        "SMART",
-        "Mémoire",
-        "Remplacement"
-      ],
-      "c": "wmic cpu get; chkdsk /scan; Test-NetAdapter\n# À VÉRIFIER : wmic peut être absent sur les versions récentes; chkdsk /scan et Test-NetAdapter disponibles\n",
-      "p": [
-        "Réinstaller à l'aveugle",
-        "Perdre données"
-      ],
-      "w": "Conclusion : tester avant remplacement.",
-      "alt": "Schéma CP1",
-      "cp": "cp9"
-    },
-    {
-      "id": "mig-legacy-cp1-licence",
-      "t": "Litige licence et activation (contenu migré)",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : activation et licence Windows/M365. | Objectif : rétablir accès. | Cas réel : Windows not activated. | Fonctionnement détaillé : clé, KMS, Entra ID. | Exemple : poste mobilisé sans licence. | Procédure : vérifier, corriger compte, réattribuer licence. | Erreurs : manipulation hors procédure. | Jury : mode d'activation. | À retenir : connaître KMS/CSP.",
-      "tags": [
-        "cp3",
-        "support",
-        "licence",
-        "migre"
-      ],
-      "g": [
-        "Identifier erreur",
-        "Vérifier compte",
-        "Réattribuer",
-        "Tester"
-      ],
-      "c": "slmgr /xpr",
-      "p": [
-        "Mauvaise KMS",
-        "Compte non provisionné"
-      ],
-      "w": "Conclusion : licence et identité liés.",
-      "alt": "Schéma CP1",
-      "cp": "cp9"
-    },
-    {
-      "id": "mig-legacy-cp1-parc",
-      "t": "Connaissance du parc (contenu migré)",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Definitions : connaitre les equipements. | Objectif : contextualiser le support. | Cas reel : poste hors standard. | Fonctionnement detaille : modele, OS, date achat, CMDB. | Exemple : rechercher un poste par hostname. | Procedure : consulter inventaire, verifier donnees, mettre a jour, tracer incident. | Erreurs : CMDB obsolete. | Jury : asset. | A retenir : inventaire.",
-      "tags": [
-        "cp3",
-        "support",
-        "parc",
-        "migre"
-      ],
-      "g": [
-        "Consulter inventaire",
-        "Verifier",
-        "Mettre a jour",
-        "Tracer"
-      ],
-      "c": "Get-ADComputer -Filter * | Select Name,OperatingSystem",
-      "p": [
-        "CMDB obsolete"
-      ],
-      "w": "Conclusion : connaitre son parc.",
-      "alt": "Schéma CP1",
-      "cp": "cp9"
-    },
-    {
       "cp": "cp9",
-      "id": "cyber-patch",
-      "t": "Gestion des vulnérabilités et patching (réparti depuis ccp12)",
-      "level": "intermediaire",
-      "cli": false,
-      "r": "Recensement actifs, scans, priorisation CVSS, fenêtres maintenance, rollback.",
+      "resume": "CP2 - Définition : synthèse pour l'oral."
+    },
+    {
+      "id": "cp9-analyse-d-impact",
+      "t": "Analyse d'impact",
+      "level": "debutant",
+      "r": "À compléter.",
       "tags": [
-        "vuln",
-        "patch",
-        "cve",
-        "migre-ccp12"
+        {
+          "id": "cp9",
+          "title": "CP9 — Assurer la continuité et la reprise de l'infrastructure"
+        },
+        "analyse-d-impact"
       ],
-      "g": [
-        "Inventaire matériel/logiciel",
-        "Scan régulier",
-        "Prioriser CVE critiques",
-        "Planifier patch"
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp9-rpo-et-rto",
+      "t": "RPO et RTO",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp9",
+          "title": "CP9 — Assurer la continuité et la reprise de l'infrastructure"
+        },
+        "rpo-et-rto"
       ],
-      "c": "# Scan\nnmap -sV --script vuln 192.168.1.10\n# WSUS / unattended-upgrades",
-      "p": [
-        "VE (Vulnerability Exploitability)",
-        "Exceptions documentées",
-        "Maintenance windows"
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp9-regle-3-2-1",
+      "t": "Règle 3-2-1",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp9",
+          "title": "CP9 — Assurer la continuité et la reprise de l'infrastructure"
+        },
+        "regle-3-2-1"
       ],
-      "w": "Des vulnérabilités non patchées restent ouvertes des mois.",
-      "alt": "",
-      "doublon_de": "cp9-patch"
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp9-replication",
+      "t": "Réplication",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp9",
+          "title": "CP9 — Assurer la continuité et la reprise de l'infrastructure"
+        },
+        "replication"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp9-snapshots-et-restauration",
+      "t": "Snapshots et restauration",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp9",
+          "title": "CP9 — Assurer la continuité et la reprise de l'infrastructure"
+        },
+        "snapshots-et-restauration"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp9-test-de-reprise",
+      "t": "Test de reprise",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp9",
+          "title": "CP9 — Assurer la continuité et la reprise de l'infrastructure"
+        },
+        "test-de-reprise"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp9-communication-de-crise",
+      "t": "Communication de crise",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp9",
+          "title": "CP9 — Assurer la continuité et la reprise de l'infrastructure"
+        },
+        "communication-de-crise"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp9-validation-de-restauration",
+      "t": "Validation de restauration",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp9",
+          "title": "CP9 — Assurer la continuité et la reprise de l'infrastructure"
+        },
+        "validation-de-restauration"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp9-isolation-et-containment",
+      "t": "Isolation et containment",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp9",
+          "title": "CP9 — Assurer la continuité et la reprise de l'infrastructure"
+        },
+        "isolation-et-containment"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
     }
   ],
   "quiz": []

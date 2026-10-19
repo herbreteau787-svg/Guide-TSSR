@@ -1,0 +1,2 @@
+const fs=require('fs');const m=JSON.parse(fs.readFileSync('content/manifest.json','utf8'));
+for(const f of m.files){ if(!/^cp\d\.json$/.test(f)) continue; const d=JSON.parse(fs.readFileSync('content/'+f,'utf8')); console.log(f, d.fiches.length); }

@@ -76,7 +76,7 @@ for(const file of manifest.files){
       if(f&&f.sections!==undefined){ if(!Array.isArray(f.sections)) issues.push(p+": sections non array "+f.id); else for(const sec of f.sections){ if(!sec||typeof sec.title!=="string"||!sec.title) issues.push(p+": section sans titre "+f.id); if(!sec||typeof sec.body!=="string"||!sec.body) issues.push(p+": section sans body "+f.id); } }
    }
  }
-    if(base==="cp1"||base==="cp2"){
+    if(/^cp\d$/.test(base)){
       const ess=(sec.fiches||[]).find(f=>f&&f.id===base+"-essentiel");
       if(ess){
         if(!Array.isArray(ess.couvre)) issues.push(p+": essentiel sans couvre");

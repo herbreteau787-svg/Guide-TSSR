@@ -1,35 +1,624 @@
 {
   "id": "cp6",
-  "group": "cp6",
-  "icon": "⚙️",
-  "title": "CP6 — Automatisation par scripts",
-  "desc": "PowerShell et Bash, procédures, IA encadrée, accompagnement utilisateurs.",
+  "title": "CP6 — Exploiter des serveurs dans une infrastructure virtualisée",
   "fiches": [
     {
-      "id": "cp6-bash-backup",
-      "t": "Bash : sauvegarde incrémentale et contrôle rotatif",
-      "level": "intermediaire",
-      "r": "rsync + journal, contrôle de retour, rotation simple des sauvegardes. Expliquer : arguments en majuscules, guillemets, code retour $?.",
+      "id": "cp6-essentiel",
+      "t": "CP6 — Exploiter des serveurs dans une infrastructure virtualisée — L'essentiel",
+      "level": "exam",
+      "r": "Fiche essentielle : objectifs, notions, tableau, diagnostic, pièges, index.",
       "tags": [
-        "bash",
-        "rsync",
-        "backup",
-        "cron"
+        {
+          "id": "cp6",
+          "title": "CP6 — Exploiter des serveurs dans une infrastructure virtualisée"
+        },
+        "essentiel"
       ],
       "g": [
-        "Sauvegarder /srv/data vers /backup/data",
-        "Conserver les logs dans /var/log/backup-data.log",
-        "Planifier à 02:30 dans crontab avec crontab -e",
-        "Vérifier le code de retour après exécution"
+        "Objectif",
+        "Notions",
+        "Tableau",
+        "Diagnostic",
+        "Pièges",
+        "Index"
       ],
-      "c": "#!/bin/bash\nset -euo pipefail\nSRC=\"/srv/data\"\nDEST=\"/backup/data\"\nLOG=\"/var/log/backup-data.log\"\nDATE=\"$(date +%F-%H%M%S)\"\nmkdir -p \"$DEST\"\necho \"[$DATE] Début sauvegarde $SRC vers $DEST\" >> \"$LOG\"\nrsync -av --delete --stats \"$SRC/\" \"$DEST/\" >> \"$LOG\" 2>&1\nSTATUS=$?\necho \"[$DATE] Terminé avec code $STATUS\" >> \"$LOG\"\nexit $STATUS",
+      "c": "À compléter.",
       "p": [
-        "Utiliser des guillemets autour de \"$SRC/\" et \"$DEST/\" pour éviter les espaces",
-        "Tester un fichier à la main avant cron",
-        "Exporter le log dans ELK/Graylog en production"
+        "À compléter."
       ],
-      "w": "Si $SRC est vide suite à une erreur de montage, --delete efface la sauvegarde. Ajouter une vérification de source non vide avant rsync.",
-      "cp": "cp5"
+      "w": "À compléter.",
+      "resume": "Fiche essentielle du CP.",
+      "couvre": [
+        "mig-legacy-cp2-dc",
+        "mig-legacy-cp2-share",
+        "mig-legacy-cp2-drive",
+        "mig-legacy-cp3-legacy-cp5-lvm",
+        "mig-legacy-cp3-linux-stockage",
+        "mig-legacy-cp4-legacy-ccp4-stp",
+        "pedagogie-cp5-virt",
+        "mig-legacy-cp5-hyp",
+        "mig-legacy-cp5-storage",
+        "mig-legacy-cp5-vm",
+        "mig-legacy-cp5-ha",
+        "mig-legacy-cp5-drs",
+        "mig-legacy-cp5-motion",
+        "mig-legacy-cp5-network",
+        "mig-legacy-cp5-check",
+        "mig-legacy-cp5-security",
+        "mig-legacy-cp5-synthese",
+        "cp6-bash-check",
+        "cp6-bash-inventory",
+        "cp6-ps-users",
+        "cp6-ps-inactive",
+        "cp6-ps-perm",
+        "mig-legacy-cp1-hardware",
+        "cp6-hyperviseur",
+        "cp6-vm",
+        "cp6-stockage-virtuel",
+        "cp6-snapshot",
+        "cp6-sauvegarde-vm",
+        "cp6-haute-disponibilite",
+        "cp6-drs",
+        "cp6-vmotion",
+        "cp6-switch-virtuel",
+        "cp6-securite-hyperviseur"
+      ],
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "mig-legacy-cp2-dc",
+      "t": "Installation et promotion du contrôleur de domaine",
+      "level": "debutant",
+      "cli": true,
+      "r": "CP2 - Contrôleur de domaine : vérifier l'IP fixe, le nom DNS du serveur, l'heure, puis installer la fonctionnalité et promouvoir le domaine. | Cas réel : un serveur Windows Server 2022 devient le premier DC de tssr.local. | Fonctionnement détaillé : DNS est installé avec AD DS, SYSVOL est créé, la zone intégrée AD est créée, les rôles FSMO sont placés sur ce premier DC. | Procédure GUI : Gestionnaire de serveur > Ajouter rôles et fonctionnalités > Services AD DS et DNS > Configurer les services AD DS > Assistant promotion. | Procédure CLI : installer la fonctionnalité, puis promouvoir. | Vérification : Get-ADDomain, Get-ADDomainController, nslookup pour les enregistrements SRV. | Pièges : répromouvoir un serveur mal nommé, oublier l'heure, DNS client pointant vers Internet. | Questions jury : rôle FSMO, pourquoi DNS doit être sain, différence promotion d'un nouveau domaine et ajout d'un DC. | À retenir : IP fixe, nom clair, DNS, puis promotion.",
+      "tags": [
+        "cp2",
+        "windows",
+        "ad",
+        "dns"
+      ],
+      "g": [
+        "Configurer une IP fixe",
+        "Vérifier le nom du serveur",
+        "Ajouter AD DS et DNS",
+        "Promouvoir le domaine",
+        "Redémarrer et valider"
+      ],
+      "c": "Get-NetIPConfiguration\nRename-Computer -NewName DC01 -Restart\nInstall-WindowsFeature AD-Domain-Services -IncludeManagementTools\nInstall-ADDSForest -DomainName tssr.local -DomainNetbiosName TSSR -InstallDns:$true -SafeModeAdministratorPassword (ConvertTo-SecureString 'P@ssw0rd!' -AsPlainText -Force) -Force\nGet-ADDomain\nGet-ADDomainController -Discover",
+      "p": [
+        "IP non fixe",
+        "DNS mal configuré",
+        "Heure désynchronisée"
+      ],
+      "w": "Conclusion : la promotion n'est fiable que si le serveur est déjà propre.",
+      "resume": "CP2 - Contrôleur de domaine : vérifier l'IP fixe, le nom DNS du serveur, l'heure, puis installer la fonctionnalité et promouvoir le domaine.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP2 - Contrôleur de domaine : vérifier l'IP fixe, le nom DNS du serveur, l'heure, puis installer la fonctionnalité et promouvoir le domaine. | Cas réel : un serveur Windows Server 2022 devient le premier DC de tssr.local. | Fonctionnement détaillé : DNS est installé avec AD DS, SYSVOL est créé, la zone intégrée AD est créée, les rôles FSMO sont placés sur ce premier DC. | Procédure GUI : Gestionna"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP2 - Contrôleur de domaine : vérifier l'IP fixe, le nom DNS du serveur, l'heure, puis installer la fonctionnalité et promouvoir le domaine. | Cas réel : un serveur Windows Server 2022 devient le premier DC de tssr.local. | Fonctionnement détaillé : DNS est installé avec AD DS, SYSVOL est créé, la zone intégrée AD est créée, les rôles FSMO sont placés sur ce premier DC. | Procédure GUI : Gestionnaire de serveur > Ajouter rôles et fonctionnalités > Services AD DS et DNS > Configurer les services AD DS > Assistant promotion. | Procédure CLI : installer la fonctionnalité, puis promouvoir. | Vérification : Get-ADDomain, Get-ADDomainController, nslookup pour les enregistrements SRV. | Pièges : répromouvoir un serveur mal nommé, oublier l'heure, DNS client pointant vers Internet. | Questions jury : rôle FSMO, pourquoi DNS doit être sain, différence promotion d'un nouveau domaine et ajout d'un DC. | À retenir : IP fixe, nom clair, DNS, puis promotion."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Configurer une IP fixe\nVérifier le nom du serveur\nAjouter AD DS et DNS\nPromouvoir le domaine\nRedémarrer et valider"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "Get-NetIPConfiguration\nRename-Computer -NewName DC01 -Restart\nInstall-WindowsFeature AD-Domain-Services -IncludeManagementTools\nInstall-ADDSForest -DomainName tssr.local -DomainNetbiosName TSSR -InstallDns:$true -SafeModeAdministratorPassword (ConvertTo-SecureString 'P@ssw0rd!' -AsPlainText -Force) -Force\nGet-ADDomain\nGet-ADDomainController -Discover"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "IP non fixe\nDNS mal configuré\nHeure désynchronisée"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : la promotion n'est fiable que si le serveur est déjà propre."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP2 - Contrôleur de domaine : vérifier l'IP fixe, le nom DNS du serveur, l'heure, puis installer la fonctionnalité et promouvoir le domaine. | Cas réel : un serveur Windows Server 2022 devient le prem"
+        }
+      ]
+    },
+    {
+      "id": "mig-legacy-cp2-share",
+      "t": "Partages SMB et permissions NTFS",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP2 - Partage : créer un dossier commercial avec une matrice de droits, puis appliquer AGDLP. | Objectif professionnel : donner l'accès autorisé et refuser le non-autorisé. | Cas réel : le dossier Commercial est accessible aux commerciaux en lecture/écriture, et aux dirigeants en lecture et écriture. | Fonctionnement détaillé : partage SMB, ACL NTFS, ordre d'évaluation, permission effective, DENY prioritaire. | Procédure GUI : propriétés du dossier > Partage et Sécurité. | Procédure CLI : New-SmbShare puis icacls. | Vérification : Test-NetConnection série, Test-Path, Get-Item avec RunAs d'un utilisateur. | Pièges : croire que les permissions se cumulent, donner Full Control au groupe Everyone, oublier l'héritage. | Questions jury : permission effective, héritage, DENY. | À retenir : NTFS le plus restrictif, partage le moins restrictif.",
+      "tags": [
+        "cp2",
+        "smb",
+        "ntfs",
+        "partages"
+      ],
+      "g": [
+        "Créer le dossier",
+        "Créer les groupes",
+        "Définir les ACL",
+        "Créer le partage",
+        "Tester authorized",
+        "Tester denied"
+      ],
+      "c": "New-Item -ItemType Directory -Path 'D:\\Partages\\Commercial'\nNew-SmbShare -Name 'Commercial' -Path 'D:\\Partages\\Commercial' -FullAccess 'TSSR\\DL-Commercial-FC'\nicacls 'D:\\Partages\\Commercial' /grant 'TSSR\\G-Commerciaux:(OI)(CI)(RX)'\nicacls 'D:\\Partages\\Commercial' /grant 'TSSR\\G-Direction:(OI)(CI)F'\nGet-SmbShare -Name 'Commercial'\nGet-SmbShareAccess -Name 'Commercial'\nicacls 'D:\\Partages\\Commercial'",
+      "p": [
+        "Groupe Everyone présent",
+        "ACL sans héritage",
+        "Test avec administrateur"
+      ],
+      "w": "Conclusion : la permission se valide en agissant.",
+      "resume": "CP2 - Partage : créer un dossier commercial avec une matrice de droits, puis appliquer AGDLP.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP2 - Partage : créer un dossier commercial avec une matrice de droits, puis appliquer AGDLP. | Objectif professionnel : donner l'accès autorisé et refuser le non-autorisé. | Cas réel : le dossier Commercial est accessible aux commerciaux en lecture/écriture, et aux dirigeants en lecture et écriture. | Fonctionnement détaillé : partage SMB, ACL NTFS, ordre d'évaluation, permission effective, DENY "
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP2 - Partage : créer un dossier commercial avec une matrice de droits, puis appliquer AGDLP. | Objectif professionnel : donner l'accès autorisé et refuser le non-autorisé. | Cas réel : le dossier Commercial est accessible aux commerciaux en lecture/écriture, et aux dirigeants en lecture et écriture. | Fonctionnement détaillé : partage SMB, ACL NTFS, ordre d'évaluation, permission effective, DENY prioritaire. | Procédure GUI : propriétés du dossier > Partage et Sécurité. | Procédure CLI : New-SmbShare puis icacls. | Vérification : Test-NetConnection série, Test-Path, Get-Item avec RunAs d'un utilisateur. | Pièges : croire que les permissions se cumulent, donner Full Control au groupe Everyone, oublier l'héritage. | Questions jury : permission effective, héritage, DENY. | À retenir : NTFS le plus restrictif, partage le moins restrictif."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Créer le dossier\nCréer les groupes\nDéfinir les ACL\nCréer le partage\nTester authorized\nTester denied"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "New-Item -ItemType Directory -Path 'D:\\Partages\\Commercial'\nNew-SmbShare -Name 'Commercial' -Path 'D:\\Partages\\Commercial' -FullAccess 'TSSR\\DL-Commercial-FC'\nicacls 'D:\\Partages\\Commercial' /grant 'TSSR\\G-Commerciaux:(OI)(CI)(RX)'\nicacls 'D:\\Partages\\Commercial' /grant 'TSSR\\G-Direction:(OI)(CI)F'\nGet-SmbShare -Name 'Commercial'\nGet-SmbShareAccess -Name 'Commercial'\nicacls 'D:\\Partages\\Commercial'"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Groupe Everyone présent\nACL sans héritage\nTest avec administrateur"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : la permission se valide en agissant."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP2 - Partage : créer un dossier commercial avec une matrice de droits, puis appliquer AGDLP. | Objectif professionnel : donner l'accès autorisé et refuser le non-autorisé. | Cas réel : le dossier Com"
+        }
+      ]
+    },
+    {
+      "id": "mig-legacy-cp2-drive",
+      "t": "Mappage de lecteurs et GPO DriveMaps",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP2 - Mappage : notre lecteur réseau doit persister et se reconnecter. | Objectif professionnel : simplifier l'expérience et maîtriser l'approvisionnement. | Fonctionnement détaillé : profil utilisateur, scripts de connexion, GPO Preferences, GPP. | Procédure GUI : Poste de travail > connecter un lecteur réseau. | Procédure CLI : net use ou New-SmbMapping. | Vérification : Get-SmbMapping et Test-Path Z:\\. | Pièges : mapper avec une lettre occupée, oublier /persistent, groupe faux. | Questions jury : GPO Preference drive map versus script. | À retenir : utilisateur et lettre.",
+      "tags": [
+        "cp2",
+        "gpo",
+        "share",
+        "windows"
+      ],
+      "g": [
+        "Ouvrir les préférences GPO",
+        "Créer un drive map",
+        "Définir la lettre et le chemin",
+        "Cible le groupe",
+        "Tester gpupdate"
+      ],
+      "c": "net use Z: '\\\\Serveur\\Commercial' /persistent:yes\nNew-SmbMapping -LocalPath Z: -RemotePath '\\\\Serveur\\Commercial' -Persistent $true\nGet-SmbMapping\nTest-Path Z:\\",
+      "p": [
+        "Lettre occupée",
+        "GPP non appliqué",
+        "Lettre oubliée"
+      ],
+      "w": "Conclusion : le lecteur n'est utile que s'il se reconnecte.",
+      "resume": "CP2 - Mappage : notre lecteur réseau doit persister et se reconnecter.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "CP2 - Mappage : notre lecteur réseau doit persister et se reconnecter. | Objectif professionnel : simplifier l'expérience et maîtriser l'approvisionnement. | Fonctionnement détaillé : profil utilisateur, scripts de connexion, GPO Preferences, GPP. | Procédure GUI : Poste de travail > connecter un lecteur réseau. | Procédure CLI : net use ou New-SmbMapping. | Vérification : Get-SmbMapping et Test-P"
+        },
+        {
+          "title": "Définitions essentielles",
+          "body": "CP2 - Mappage : notre lecteur réseau doit persister et se reconnecter. | Objectif professionnel : simplifier l'expérience et maîtriser l'approvisionnement. | Fonctionnement détaillé : profil utilisateur, scripts de connexion, GPO Preferences, GPP. | Procédure GUI : Poste de travail > connecter un lecteur réseau. | Procédure CLI : net use ou New-SmbMapping. | Vérification : Get-SmbMapping et Test-Path Z:\\. | Pièges : mapper avec une lettre occupée, oublier /persistent, groupe faux. | Questions jury : GPO Preference drive map versus script. | À retenir : utilisateur et lettre."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "Ouvrir les préférences GPO\nCréer un drive map\nDéfinir la lettre et le chemin\nCible le groupe\nTester gpupdate"
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "net use Z: '\\\\Serveur\\Commercial' /persistent:yes\nNew-SmbMapping -LocalPath Z: -RemotePath '\\\\Serveur\\Commercial' -Persistent $true\nGet-SmbMapping\nTest-Path Z:\\"
+        },
+        {
+          "title": "Points de vigilance",
+          "body": "Lettre occupée\nGPP non appliqué\nLettre oubliée"
+        },
+        {
+          "title": "Ce que le test ne prouve pas",
+          "body": "Conclusion : le lecteur n'est utile que s'il se reconnecte."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "CP2 - Mappage : notre lecteur réseau doit persister et se reconnecter. | Objectif professionnel : simplifier l'expérience et maîtriser l'approvisionnement. | Fonctionnement détaillé : profil utilisate"
+        }
+      ]
+    },
+    {
+      "id": "mig-legacy-cp3-legacy-cp5-lvm",
+      "t": "Linux stockage LVM",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP5 - Définition : gestion volumes. | Objectif : flexibilité. | Cas réel : ajout disques. | Fonctionnement détaillé : PV, VG, LV. | Exemple : extend LV. | Procédure : pvcreate, vgextend, lvextend. | Erreurs : perte données. | Jury : LVM. | Retenir : snapshot.",
+      "tags": [
+        "cp5",
+        "serveurs",
+        "linux",
+        "storage"
+      ],
+      "g": [
+        "PV",
+        "VG",
+        "LV",
+        "Resize"
+      ],
+      "c": "pvcreate; vgextend; lvextend",
+      "p": [
+        "Mauvaise commande",
+        "No backup"
+      ],
+      "w": "Conclusion : LVM utile.",
+      "img": "images/active-directory-schema.svg",
+      "alt": "Schéma serveurs",
+      "cp": "cp3",
+      "resume": "CP5 - Définition : gestion volumes."
+    },
+    {
+      "id": "mig-legacy-cp3-linux-stockage",
+      "t": "Stockage : LVM, partitions et fstab",
+      "level": "avance",
+      "r": "LVM abstraction (PV/VG/LV) pour redimensionner et snapshotter sans tout r??installer.",
+      "tags": [
+        "lvm",
+        "stockage",
+        "fstab",
+        "disque"
+      ],
+      "g": [
+        "lsblk pour visualiser les disques et partitions",
+        "Cr??er PV, VG puis LV",
+        "Formater (ext4/xfs) et monter",
+        "Ajouter ?? /etc/fstab puis tester"
+      ],
+      "c": "lsblk -o NAME,SIZE,FSTYPE,MOUNTPOINT\npvcreate /dev/sdb1\nvgcreate vg_data /dev/sdb1\nlvcreate -L 20G -n lv_app vg_data\nmkfs.ext4 /dev/vg_data/lv_app\nmount /dev/vg_data/lv_app /opt/app\necho \"/dev/vg_data/lv_app /opt/app ext4 defaults 0 2\" >> /etc/fstab\nmount -a",
+      "p": [
+        "snapshot LVM pour sauvegardes coh??rentes",
+        "XFS pour gros volumes, ext4 pour souplesse",
+        "Ne jamais fsck un volume mont??"
+      ],
+      "w": "Modifier fstab sans tester avec mount -a peut emp??cher le boot au prochain red??marrage.",
+      "cp": "cp1",
+      "resume": "LVM abstraction (PV/VG/LV) pour redimensionner et snapshotter sans tout r??installer."
+    },
+    {
+      "id": "mig-legacy-cp4-legacy-ccp4-stp",
+      "t": "STP, RSTP et EtherChannel",
+      "level": "avance",
+      "r": "STP empêche les boucles et bloque des ports ; RSTP accélère la convergence ; EtherChannel agrège des liens.",
+      "tags": [
+        "stp",
+        "rstp",
+        "etherchannel",
+        "switching"
+      ],
+      "g": [
+        "Définir la priorité du root bridge (root primaire/secondaire)",
+        "Activer RSTP",
+        "Créer le channel-group et vérifier sa cohérence"
+      ],
+      "c": "spanning-tree mode rapid-pvst\nspanning-tree vlan 1 root primary\nshow spanning-tree\ninterface range g0/1-2\n channel-group 1 mode active\n channel-protocol lacp\nshow etherchannel summary\nshow interfaces trunk",
+      "p": [
+        "Root bridge = ID le plus bas (priorité.MAC)",
+        "BPDU Guard sur ports edge",
+        "LACP actif/passif, PAgP desirable/auto"
+      ],
+      "w": "Une incohérence de VLAN sur un EtherChannel fait tomber tout le bundle.",
+      "cp": "cp4",
+      "resume": "STP empêche les boucles et bloque des ports ; RSTP accélère la convergence ; EtherChannel agrège des liens."
+    },
+    {
+      "id": "pedagogie-cp5-virt",
+      "t": "Fiche pedagogique de reference - CP6 virtualisation",
+      "level": "intermediaire",
+      "r": "Definition : mutualiser des serveurs virtuels avec haute disponibilite. Contexte : VMware, Hyper-V ou Proxmox. Objectif : provisionner, sauvegarder et restaurer. Details : vSwitch, storage, snapshots vs sauvegardes, cluster HA/DRS. Exemple : creation VM puis sauvegarde pro. Erreurs : confondre snapshot et sauvegarde, ignorer ressources. Jury : pourquoi deux vSwitch, hotes vs invites, sauvegarde.",
+      "tags": [
+        "pedagogie",
+        "virtualisation"
+      ],
+      "g": [
+        "Provisionner",
+        "Snapshot avant modification",
+        "Tester",
+        "Sauvegarder",
+        "Valider"
+      ],
+      "c": "Get-VM; esxcli system version get",
+      "p": [
+        "Snapshot unique consideré comme sauvegarde",
+        "Datastore unique"
+      ],
+      "w": "Conclusion : preuve de restauration indispensable.",
+      "cp": "cp5",
+      "resume": "Definition : mutualiser des serveurs virtuels avec haute disponibilite."
+    },
+    {
+      "id": "mig-legacy-cp5-hyp",
+      "t": "Hyperviseur",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP6 - Définition : abstraire matériel. | Objectif : mutualiser. | Cas réel : serveur legacy. | Fonctionnement détaillé : accès matériel, vswitch. | Exemple : ESXi Free. | Procédure : installation, réseau, storage. | Erreurs : dépendances. | Jury : bare metal vs hosted. | Retenir : ressources.",
+      "tags": [
+        "cp6",
+        "virtualisation",
+        "hypervisor"
+      ],
+      "g": [
+        "Installer hyperviseur",
+        "Réseau",
+        "Storage",
+        "Test"
+      ],
+      "c": "vim-cmd vmsvc/getallvms; esxcli",
+      "p": [
+        "Performance bridg"
+      ],
+      "w": "Conclusion : virtualiser avec contrôle.",
+      "img": "images/virtualisation-schema.svg",
+      "alt": "Schéma virtualisation",
+      "cp": "cp5",
+      "resume": "CP6 - Définition : abstraire matériel."
+    },
+    {
+      "id": "mig-legacy-cp5-storage",
+      "t": "Stockage virtuel",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP6 - Définition : stockage mutualisé. | Objectif : redondance et iOPS. | Cas réel : iSCSI. | Fonctionnement détaillé : SAN, datastore, RAID. | Exemple : datastore shared. | Procédure : configurer adaptateur, présentation. | Erreurs : mauvaise latence. | Jury : datastore. | Retenir : backup.",
+      "tags": [
+        "cp6",
+        "virtualisation",
+        "storage"
+      ],
+      "g": [
+        "Stockage présent",
+        "Datastore",
+        "Test perf"
+      ],
+      "c": "esxcli storage core device list; lvdisplay",
+      "p": [
+        "Lent iOPS"
+      ],
+      "w": "Conclusion : storage oversight.",
+      "img": "images/virtualisation-schema.svg",
+      "alt": "Schéma virtualisation",
+      "cp": "cp5",
+      "resume": "CP6 - Définition : stockage mutualisé."
+    },
+    {
+      "id": "mig-legacy-cp5-vm",
+      "t": "Création et template VM",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP6 - Définition : provisioning VM. | Objectif : standard. | Cas réel : template server. | Fonctionnement détaillé : snapshot, template, customization. | Exemple : VM clone. | Procédure : créer VM, sysprep, convertir. | Erreurs : clone sans sysprep. | Jury : template. | Retenir : Sysprep.",
+      "tags": [
+        "cp6",
+        "virtualisation",
+        "vm"
+      ],
+      "g": [
+        "Créer VM",
+        "Template",
+        "Customization",
+        "Déployer"
+      ],
+      "c": "Get-VM; Clone-VM",
+      "p": [
+        "Clone SID dupliqué"
+      ],
+      "w": "Conclusion : templates corrects.",
+      "img": "images/virtualisation-schema.svg",
+      "alt": "Schéma virtualisation",
+      "cp": "cp5",
+      "resume": "CP6 - Définition : provisioning VM."
+    },
+    {
+      "id": "mig-legacy-cp5-ha",
+      "t": "Haute disponibilité",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP6 - Définition : HA et redondance. | Objectif : continuité. | Cas réel : hôte HS. | Fonctionnement détaillé : heartbeat, vmrestart. | Exemple : métrique HA. | Procédure : cluster, datastore, test. | Erreurs : split brain. | Jury : HA vs DRS. | Retenir : quorum.",
+      "tags": [
+        "cp6",
+        "virtualisation",
+        "ha"
+      ],
+      "g": [
+        "Cluster",
+        "Datastore partagé",
+        "Heartbeat",
+        "Test"
+      ],
+      "c": "Set-VMHost -EnableHa; cluster overview",
+      "p": [
+        "Split brain"
+      ],
+      "w": "Conclusion : HA testée.",
+      "img": "images/virtualisation-schema.svg",
+      "alt": "Schéma virtualisation",
+      "cp": "cp5",
+      "resume": "CP6 - Définition : HA et redondance."
+    },
+    {
+      "id": "mig-legacy-cp5-drs",
+      "t": "DRS et répartition",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP6 - Définition : répartition automatique. | Objectif : équilibrage. | Cas réel : charge. | Fonctionnement détaillé : metrics host. | Exemple : affinité. | Procédure : règles, mode automatique, suivi. | Erreurs : migrations non autorisées. | Jury : DRS. | Retenir : affinité.",
+      "tags": [
+        "cp6",
+        "virtualisation",
+        "drs"
+      ],
+      "g": [
+        "Activer DRS",
+        "Règles",
+        "Mode",
+        "Suivi"
+      ],
+      "c": "Get-DrsVMHostRule; Set-VMHost -EnableDRS",
+      "p": [
+        "Régression service"
+      ],
+      "w": "Conclusion : DRS maîtrisé.",
+      "img": "images/virtualisation-schema.svg",
+      "alt": "Schéma virtualisation",
+      "cp": "cp5",
+      "resume": "CP6 - Définition : répartition automatique."
+    },
+    {
+      "id": "mig-legacy-cp5-motion",
+      "t": "vMotion live",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP6 - Définition : migration à chaud. | Objectif : continuité. | Cas réel : patch hypervisor. | Fonctionnement détaillé : RAM, stato. | Exemple : vMotion. | Procédure : precheck, migration, validation. | Erreurs : vswitch inconsistent. | Jury : prérequis. | Retenir : config cohérent.",
+      "tags": [
+        "cp6",
+        "virtualisation",
+        "motion"
+      ],
+      "g": [
+        "Precheck",
+        "Migrer",
+        "Valider"
+      ],
+      "c": "Move-VM -Destination host; Get-VMSwapfilePolicy",
+      "p": [
+        "Switch config"
+      ],
+      "w": "Conclusion : vMotion rodé.",
+      "img": "images/virtualisation-schema.svg",
+      "alt": "Schéma virtualisation",
+      "cp": "cp5",
+      "resume": "CP6 - Définition : migration à chaud."
+    },
+    {
+      "id": "mig-legacy-cp5-network",
+      "t": "Switch virtuel",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP6 - Définition : réseau virtuel. | Objectif : connectivité VM. | Cas réel : VM isolate. | Fonctionnement détaillé : port groups, VLAN. | Exemple : port group prod. | Procédure : créer switch, port group, tester. | Erreurs : mauvais VLAN. | Jury : uplink. | Retenir : standardisation.",
+      "tags": [
+        "cp6",
+        "virtualisation",
+        "vswitch"
+      ],
+      "g": [
+        "Switch virtuel",
+        "Port group",
+        "VLAN",
+        "Test"
+      ],
+      "c": "Get-VSSwitch; Add-VMSwitch",
+      "p": [
+        "VLAN manquant"
+      ],
+      "w": "Conclusion : réseau virtuel fiable.",
+      "img": "images/virtualisation-schema.svg",
+      "alt": "Schéma virtualisation",
+      "cp": "cp5",
+      "resume": "CP6 - Définition : réseau virtuel."
+    },
+    {
+      "id": "mig-legacy-cp5-check",
+      "t": "Health check datastore",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP6 - Définition : vérification santé. | Objectif : prévenir. | Cas réel : datastore plein. | Fonctionnement détaillé : capacity, alert. | Exemple : alert 80%. | Procédure : seuil, alert, action. | Erreurs : pas d'alert. | Jury : indicateurs. | Retenir : capacity mgmt.",
+      "tags": [
+        "cp6",
+        "virtualisation",
+        "health"
+      ],
+      "g": [
+        "Capacité",
+        "Seuil",
+        "Alerte",
+        "Action"
+      ],
+      "c": "esxcli storage filesystem list; Get-Datastore",
+      "p": [
+        "Pas d'alert"
+      ],
+      "w": "Conclusion : capacités surveillées.",
+      "img": "images/virtualisation-schema.svg",
+      "alt": "Schéma virtualisation",
+      "cp": "cp5",
+      "resume": "CP6 - Définition : vérification santé."
+    },
+    {
+      "id": "mig-legacy-cp5-security",
+      "t": "Sécurité hyperviseur",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "CP6 - Définition : durcir hyperviseur. | Objectif : protéger control plane. | Cas réel : SSH ouvert. | Fonctionnement détaillé : LHR, firewall, lock mode. | Exemple : lock mode strict. | Procédure : baseline, test, audit. | Erreurs : bloquer accès. | Jury : hardening. | Retenir : moindre accès.",
+      "tags": [
+        "cp6",
+        "virtualisation",
+        "security"
+      ],
+      "g": [
+        "Baseline",
+        "Lockdown",
+        "Firewall",
+        "Audit"
+      ],
+      "c": "esxcli system security get; Get-VMHostFirewallException",
+      "p": [
+        "Perte accès admin"
+      ],
+      "w": "Conclusion : hypervisor durci.",
+      "img": "images/virtualisation-schema.svg",
+      "alt": "Schéma virtualisation",
+      "cp": "cp5",
+      "resume": "CP6 - Définition : durcir hyperviseur."
+    },
+    {
+      "id": "mig-legacy-cp5-synthese",
+      "t": "Synthèse examen CP6",
+      "level": "intermediaire",
+      "cli": false,
+      "r": "CP6 - Définition : synthèse pour l'oral. | Objectif : expliquer. | Cas réel : jury demande VM. | Fonctionnement détaillé : hyperviseur, stockage, backup. | Exemple : cluster. | Procédure : décrire architecture. | Erreurs : omettre RTO. | Jury : questions. | Retenir : preuves.",
+      "tags": [
+        "cp6",
+        "virtualisation",
+        "synthese"
+      ],
+      "g": [
+        "Architecture",
+        "Risque",
+        "Backup",
+        "Conclusion"
+      ],
+      "c": "Aucune commande native pertinente.",
+      "p": [
+        "Omission RTO"
+      ],
+      "w": "Conclusion : virtualisation maîtrisée.",
+      "img": "images/virtualisation-schema.svg",
+      "alt": "Schéma virtualisation",
+      "cp": "cp5",
+      "resume": "CP6 - Définition : synthèse pour l'oral."
     },
     {
       "id": "cp6-bash-check",
@@ -54,32 +643,8 @@
         "exit codes 1 = usage, 2 = fichier, 3 = autres erreurs"
       ],
       "w": "Sans validation, un script peut écrire dans le mauvais dossier.",
-      "cp": "cp5"
-    },
-    {
-      "id": "cp6-bash-monitor",
-      "t": "Bash : vérification d'un service et alerte simple",
-      "level": "debutant",
-      "r": "systemctl + journalisation, boucle while, timeout. Expliquer : commandes courtes et codes de retour.",
-      "tags": [
-        "bash",
-        "systemd",
-        "monitoring",
-        "service"
-      ],
-      "g": [
-        "Vérifier le statut SSH toutes les 5 minutes via cron",
-        "Journaliser les indisponibilités",
-        "Envoyer un mail avec msmtp si le service est down"
-      ],
-      "c": "#!/bin/bash\nset -u\nSERVICE=\"sshd\"\nLOG=\"/var/log/check-service-sshd.log\"\nif systemctl is-active --quiet \"$SERVICE\"; then\n  status=\"OK\"\nelse\n  status=\"ERREUR\"\n  systemctl restart \"$SERVICE\"\nfi\necho \"$(date '+%F %T') - $SERVICE : $status\" >> \"$LOG\"",
-      "p": [
-        "Utiliser systemctl is-active rather than grep ps",
-        "Ajouter un lock pour éviter les redémarrages en boucle",
-        "Intégrer à Zabbix pour notification réelle"
-      ],
-      "w": "Alerter sans action peut masquer une panne ; toujours envisager automatique + escalade.",
-      "cp": "cp5"
+      "cp": "cp5",
+      "resume": "Valider le nombre d'arguments, tester l'existence et le type avant d'agir, afficher un usage clair."
     },
     {
       "id": "cp6-bash-inventory",
@@ -105,7 +670,8 @@
         "Sortie CSV ASCII pour éviter les accents illisibles"
       ],
       "w": "Les noms de fichiers avec retours de ligne cassent le parsing ; -print0 + traitement adapté est recommandé.",
-      "cp": "cp5"
+      "cp": "cp5",
+      "resume": "find, awk, comptage par extension, fichier CSV."
     },
     {
       "id": "cp6-ps-users",
@@ -131,7 +697,8 @@
         "Renseigner aussi l'UPN pour les connexions e-mail"
       ],
       "w": "New-ADUser ne modifie pas mot de passe automatiquement si l'option -ChangePasswordAtLogon n'est pas posée.",
-      "cp": "cp5"
+      "cp": "cp5",
+      "resume": "Import-Csv + ForEach-Object + New-ADUser."
     },
     {
       "id": "cp6-ps-inactive",
@@ -157,7 +724,8 @@
         "Valider avec le manager avant désactivation"
       ],
       "w": "Les comptes de service n'ont pas toujours de LastLogonDate ; ne pas les désactiver sans vérification.",
-      "cp": "cp5"
+      "cp": "cp5",
+      "resume": "Get-ADUser + LastLogonDate, Export-Csv."
     },
     {
       "id": "cp6-ps-perm",
@@ -183,58 +751,276 @@
         "Ne jamais donner Full Control par défaut"
       ],
       "w": "Le droit NTFS le plus restrictif gagne lorsqu'il est combiné avec la permission de partage.",
-      "cp": "cp5"
+      "cp": "cp5",
+      "resume": "Get-Acl + ACL, affichage des groupes et niveaux d'accès."
     },
     {
-      "id": "cp6-ps-service",
-      "t": "PowerShell : surveillance et redémarrage contrôlé",
-      "level": "debutant",
-      "r": "Get-Service + boucle While + Start-Service. Expliquer : état Running/Stopped et tentatives de relance.",
-      "tags": [
-        "powershell",
-        "services",
-        "supervision"
-      ],
-      "g": [
-        "Vérifier le spooler et l'agent GLPI toutes les 15 minutes",
-        "Redémarrer si stopped",
-        "Journaliser la relance",
-        "Alerter l'utilisateur en cas d'échec"
-      ],
-      "c": "$Services = @(\"Spooler\",\"GLPI-Agent\")\nforeach ($Nom in $Services) {\n    $Svc = Get-Service -Name $Nom -ErrorAction SilentlyContinue\n    if ($null -eq $Svc) {\n        Write-Warning \"Le service $Nom n'existe pas\"\n        continue\n    }\n    if ($Svc.Status -ne \"Running\") {\n        Write-Host \"$Nom est arrêté : tentative de redémarrage\"\n        Start-Service -Name $Nom\n        Start-Sleep -Seconds 3\n        (Get-Service -Name $Nom).Status\n    } else {\n        Write-Host \"$Nom OK\"\n    }\n}",
-      "p": [
-        "Utiliser Invoke-Command pour exécuter sur plusieurs serveurs",
-        "Ajouter un timeout et un nombre max d'essais",
-        "Journaliser dans Windows Event Log"
-      ],
-      "w": "Un redémarrage automatique sans analyse peut masquer une panne récurrente.",
-      "cp": "cp5"
-    },
-    {
-      "id": "cp6-ps-backup",
-      "t": "PowerShell : sauvegarde Windows (robocopy)",
+      "id": "mig-legacy-cp1-hardware",
+      "t": "Panne matérielle suspectée (contenu migré)",
       "level": "intermediaire",
-      "r": "Robocopy avec journal et codes retour. On explique : /MIR pour miroir, risque de suppression, et contrôle code 1-7.",
+      "cli": true,
+      "r": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : diagnostic matériel. | Objectif : identifier panne. | Cas réel : écran bleu répétitif. | Fonctionnement détaillé : SMART, mémoire, température, événements. | Exemple : disque défaillant. | Procédure : événement, test, garantie, remplacement. | Erreurs : réinstaller OS sans test. | Jury : diagnostic couche physique. | À retenir : preuves matériel.",
       "tags": [
-        "powershell",
-        "robocopy",
-        "backup",
-        "windows"
+        "cp3",
+        "support",
+        "hardware",
+        "migre"
       ],
       "g": [
-        "Sauvegarder C:\\data vers E:\\backup\\data",
-        "Vérifier le code retour",
-        "Garder le log dans un dossier audit",
-        "Planifier via le Planificateur de tâches"
+        "Événements",
+        "SMART",
+        "Mémoire",
+        "Remplacement"
       ],
-      "c": "$Source = \"C:\\data\"\n$Cible = \"E:\\backup\\data\"\n$Log = \"C:\\logs\\robocopy-data.log\"\nrobocopy $Source $Cible /MIR /Z /R:3 /W:5 /LOG:$Log /NDL /NP\n$Code = $LASTEXITCODE\nif ($Code -lt 8) {\n    Write-Host \"Sauvegarde terminée, code $Code\" -ForegroundColor Green\n} else {\n    Write-Warning \"Sauvegarde échouée, code $Code\"\n}\nexit $Code",
+      "c": "wmic cpu get; chkdsk /scan; Test-NetAdapter\n# À VÉRIFIER : wmic peut être absent sur les versions récentes; chkdsk /scan et Test-NetAdapter disponibles\n",
       "p": [
-        "/MIR supprime ce qui a disparu source, comme rsync --delete",
-        "/Z pour reprise réseau",
-        "Mettre /XD pour exclure caches"
+        "Réinstaller à l'aveugle",
+        "Perdre données"
       ],
-      "w": "Ne pas utiliser /MIR sans stratégie de versioning ; cela efface les fichiers vieille version côté cible.",
-      "cp": "cp5"
+      "w": "Conclusion : tester avant remplacement.",
+      "alt": "Schéma CP1",
+      "cp": "cp9",
+      "resume": "Contenu migré de l'ancienne fiche sans réécriture : CP3 - Définition : diagnostic matériel."
+    },
+    {
+      "id": "cp6-hyperviseur",
+      "t": "Hyperviseur",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp6",
+          "title": "CP6 — Exploiter des serveurs dans une infrastructure virtualisée"
+        },
+        "hyperviseur"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp6-vm",
+      "t": "VM",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp6",
+          "title": "CP6 — Exploiter des serveurs dans une infrastructure virtualisée"
+        },
+        "vm"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp6-stockage-virtuel",
+      "t": "Stockage virtuel",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp6",
+          "title": "CP6 — Exploiter des serveurs dans une infrastructure virtualisée"
+        },
+        "stockage-virtuel"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp6-snapshot",
+      "t": "Snapshot",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp6",
+          "title": "CP6 — Exploiter des serveurs dans une infrastructure virtualisée"
+        },
+        "snapshot"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp6-sauvegarde-vm",
+      "t": "Sauvegarde VM",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp6",
+          "title": "CP6 — Exploiter des serveurs dans une infrastructure virtualisée"
+        },
+        "sauvegarde-vm"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp6-haute-disponibilite",
+      "t": "Haute disponibilité",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp6",
+          "title": "CP6 — Exploiter des serveurs dans une infrastructure virtualisée"
+        },
+        "haute-disponibilite"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp6-drs",
+      "t": "DRS",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp6",
+          "title": "CP6 — Exploiter des serveurs dans une infrastructure virtualisée"
+        },
+        "drs"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp6-vmotion",
+      "t": "vMotion",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp6",
+          "title": "CP6 — Exploiter des serveurs dans une infrastructure virtualisée"
+        },
+        "vmotion"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp6-switch-virtuel",
+      "t": "Switch virtuel",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp6",
+          "title": "CP6 — Exploiter des serveurs dans une infrastructure virtualisée"
+        },
+        "switch-virtuel"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
+    },
+    {
+      "id": "cp6-securite-hyperviseur",
+      "t": "Sécurité hyperviseur",
+      "level": "debutant",
+      "r": "À compléter.",
+      "tags": [
+        {
+          "id": "cp6",
+          "title": "CP6 — Exploiter des serveurs dans une infrastructure virtualisée"
+        },
+        "securite-hyperviseur"
+      ],
+      "g": [],
+      "c": "Aucune.",
+      "p": [],
+      "w": "À compléter.",
+      "resume": "Fiche à développer.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "À compléter."
+        }
+      ]
     }
   ],
   "quiz": []

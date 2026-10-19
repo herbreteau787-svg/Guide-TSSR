@@ -1,1324 +1,1601 @@
 {
   "id": "cp4",
-  "group": "cp4",
-  "icon": "🌐",
-  "title": "CP4 — Réseau IP (dont ToIP / CME)",
-  "desc": "Adressage, VLAN, routage, NAT, DNS/DHCP, VPN, ToIP Cisco CME, VLAN Voix, diagnostic.",
+  "title": "CP4 — Exploiter un réseau IP",
   "fiches": [
     {
-      "id": "cp4-legacy-ccp4-modele",
-      "t": "Modèle OSI vs TCP/IP",
-      "level": "debutant",
-      "r": "7 couches OSI vs 4 couches TCP/IP. Identifier la couche d'un symptôme guide le diagnostic.",
-      "tags": [
-        "osi",
-        "tcp/ip",
-        "reseau"
-      ],
-      "g": [
-        "Associer l'outil à la couche (ping=L3, curl=L7)",
-        "Penser aux équipements intermédiaires (switch=L2, routeur=L3)",
-        "Wireshark pour observer"
-      ],
-      "c": "# Couches OSI\n# 7 Application 6 Presentation 5 Session 4 Transport 3 Réseau 2 Liaison 1 Physique\n# TCP par port ; IP par adresse\nTracert google.com\ntcpdump -i eth0 -n\nipconfig /all",
-      "p": [
-        "TCP orienté connexion, UDP rapide pour DNS/VoIP",
-        "Ports <1024 réservés",
-        "MTU 1500 par défaut pour Ethernet"
-      ],
-      "w": "Le travail d'une couche inférieure ne suffit pas si la supérieure échoue.",
-      "cp": "cp4"
-    },
-    {
-      "id": "cp4-legacy-ccp4-ports",
-      "t": "Ports et protocoles à connaître",
-      "level": "debutant",
-      "r": "Répertoire des ports usuels pour l'examen et l'exploitation : web, mail, fichiers, admin, sécurité.",
-      "tags": [
-        "ports",
-        "protocoles",
-        "tcp",
-        "udp"
-      ],
-      "g": [
-        "Pare-feu Windows : autoriser le port via GUI avec règle entrante",
-        "pfSense : Firewall > Rules > Add",
-        "Tester via navigateur ou telnet/Test-NetConnection"
-      ],
-      "c": "# Web 80/443, DNS 53, DHCP 67/68\n# Mail SMTP 25/587, IMAP 143/993, POP3 110/995\n# FTP 20-21, SMB 445, SSH 22, RDP 3389, SNMP 161, LDAP 389/636\nss -tlnp\nTest-NetConnection srv -Port 443\nnmap -sV 192.168.1.10",
-      "p": [
-        "TCP handshake SYN-SYN/ACK-ACK ; UDP sans handshake",
-        "Ports éphémères > 1024",
-        "SMB 445 = SMB direct, plus sécurisé que NetBIOS 139"
-      ],
-      "w": "Ouvrir un port sans restriction source est une mauvaise pratique.",
-      "cp": "cp4"
-    },
-    {
-      "id": "cp4-legacy-ccp4-subnet",
-      "t": "Subnetting / CIDR",
-      "level": "intermediaire",
-      "r": "Formule : 2^(bits hôtes)-2. /24 = 254, /25 = 126, /26 = 62, /27 = 30. VLSM pour découper selon besoin réel.",
-      "tags": [
-        "subnetting",
-        "cidr",
-        "vlsm",
-        "ip"
-      ],
-      "g": [
-        "Calculatrice sipcalc / tableau",
-        "Plan d'adressage : VLAN/utilisateurs + passerelle",
-        "Vérifier le masque sur switch/routeur et postes"
-      ],
-      "c": "ipcalc 192.168.1.0/26\n# /26 : masque 255.255.255.192, bloc 64\n# ex. 192.168.1.0-63 : .1 gw, .2-62 hosts, .63 broadcast\npython3 -c \"import ipaddress; n=ipaddress.ip_network('192.168.10.0/26'); print(list(n.hosts())[:5])\"\n# VLSM\nsipcalc 10.0.0.0/24",
-      "p": [
-        "Réseau + broadcast non utilisables",
-        "/31 point à point (RFC3021), /32 hôte",
-        "Supernetting pour agrégation"
-      ],
-      "w": "Apprendre la table /24→/30 par cœur pour l'examen.",
-      "cp": "cp4"
-    },
-    {
-      "id": "cp4-legacy-ccp4-cisco",
-      "t": "Cisco IOS : base, VLAN et sécurité",
-      "level": "intermediaire",
-      "r": "Modes User> Enable# Conf(t). Hostname, IP, VLAN, OSPF ; sécuriser par enable secret et SSH.",
-      "tags": [
-        "cisco",
-        "switch",
-        "router",
-        "ios"
-      ],
-      "g": [
-        "Packet Tracer : glisser switch/router, onglet CLI",
-        "Câbler cuivre droit PC-switch, croisé si besoin",
-        "Desktop > IP Configuration pour IP PC",
-        "Vérifier show run et sauvegarder"
-      ],
-      "c": "enable\nconfigure terminal\nhostname SW1\nno ip domain-lookup\nenable secret Str0ngPass!\nusername admin privilege 15 secret adminpass\nvlan 10\n name COMPTA\nexit\ninterface vlan 10\n ip address 192.168.10.1 255.255.255.0\n no shutdown\ninterface range f0/1-10\n switchport mode access\n switchport access vlan 10\nshow vlan brief\nshow ip interface brief\ncopy running-config startup-config",
-      "p": [
-        "show run / show ip route / show vlan brief",
-        "crypto key generate rsa modulus 2048 pour SSH",
-        "service password-encryption pour obscurcir"
-      ],
-      "w": "Toujours sauvegarder startup-config ; un reboot non sauvegardé efface la config.",
-      "cp": "cp4"
-    },
-    {
-      "id": "cp4-legacy-ccp4-trunk",
-      "t": "VLAN trunk, routage inter-VLAN et OSPF",
-      "level": "avance",
-      "r": "Trunk = 802.1Q multi-VLAN. OSPF = routage dynamique interne. DHCP par routeur pour multi-site.",
-      "tags": [
-        "trunk",
-        "ospf",
-        "routing",
-        "dhcp"
-      ],
-      "g": [
-        "Packet Tracer : trunk entre switches via GUI",
-        "Vérifier connectivité inter-VLAN via SVI/routeur",
-        "Observer les voisins OSPF"
-      ],
-      "c": "interface g0/1\n switchport mode trunk\n switchport trunk allowed vlan 10,20\n switchport trunk native vlan 99\n!\ninterface g0/0.10\n encapsulation dot1Q 10\n ip address 192.168.10.1 255.255.255.0\n!\nrouter ospf 1\n network 192.168.10.0 0.0.0.255 area 0\n network 192.168.20.0 0.0.0.255 area 0\nshow ip ospf neighbor\nip dhcp pool LAN10\n network 192.168.10.0 255.255.255.0\n default-router 192.168.10.1\n dns-server 8.8.8.8",
-      "p": [
-        "Natif VLAN à changer pour la sécurité",
-        "OSPF Hello 10s, Dead 40s",
-        "Cost OSPF = 10^8/bande passante"
-      ],
-      "w": "Un trunk mal autorisé bloque un VLAN silencieusement ; show interfaces trunk pour vérifier.",
-      "cp": "cp4"
-    },
-    {
-      "id": "cp4-legacy-ccp4-stp",
-      "t": "STP, RSTP et EtherChannel",
-      "level": "avance",
-      "r": "STP empêche les boucles et bloque des ports ; RSTP accélère la convergence ; EtherChannel agrège des liens.",
-      "tags": [
-        "stp",
-        "rstp",
-        "etherchannel",
-        "switching"
-      ],
-      "g": [
-        "Définir la priorité du root bridge (root primaire/secondaire)",
-        "Activer RSTP",
-        "Créer le channel-group et vérifier sa cohérence"
-      ],
-      "c": "spanning-tree mode rapid-pvst\nspanning-tree vlan 1 root primary\nshow spanning-tree\ninterface range g0/1-2\n channel-group 1 mode active\n channel-protocol lacp\nshow etherchannel summary\nshow interfaces trunk",
-      "p": [
-        "Root bridge = ID le plus bas (priorité.MAC)",
-        "BPDU Guard sur ports edge",
-        "LACP actif/passif, PAgP desirable/auto"
-      ],
-      "w": "Une incohérence de VLAN sur un EtherChannel fait tomber tout le bundle.",
-      "cp": "cp4"
-    },
-    {
-      "id": "cp4-legacy-ccp4-acl",
-      "t": "ACL et sécurité réseau",
-      "level": "intermediaire",
-      "r": "ACL standard près de la destination, étendue près de la source. Évaluées de haut en bas ; première qui matche gagne.",
-      "tags": [
-        "acl",
-        "securite",
-        "cisco"
-      ],
-      "g": [
-        "Définir la politique deny par défaut",
-        "Créer ACL nommée, ajouter les règles",
-        "Appliquer inbound/outbound selon besoin",
-        "Vérifier avec show access-lists et debug conditionnel"
-      ],
-      "c": "ip access-list extended LAN-OUT\n permit tcp 192.168.10.0 0.0.0.255 any eq 443\n deny ip 192.168.10.0 0.0.0.255 192.168.20.0 0.0.0.255\n permit ip any any\n!\ninterface g0/1\n ip access-group LAN-OUT out\nshow access-lists\n",
-      "p": [
-        " deny any any implicite à la fin",
-        "Standard ACL = seul source ; Extended = source/dest/proto/port",
-        "Time-range pour restrictions horaires"
-      ],
-      "w": "Appliquer une ACL sur la mauvaise interface/direction provoque des blocages inexpliqués.",
-      "cp": "cp4"
-    },
-    {
-      "id": "cp4-legacy-ccp4-nat",
-      "t": "NAT/PAT et adressage public",
-      "level": "intermediaire",
-      "r": "PAT avec une IP publique pour sortie Internet ; NAT statique pour serveur publié ; pool pour grand volume.",
-      "tags": [
-        "nat",
-        "pat",
-        "routeur"
-      ],
-      "g": [
-        "Définir inside/outside sur les interfaces",
-        "ACL source et overload pour PAT",
-        "Règles statiques pour serveurs DMZ",
-        "Tester depuis l'extérieur"
-      ],
-      "c": "interface g0/0\n ip nat inside\ninterface g0/1\n ip nat outside\nip access-list standard NAT-SOURCES\n permit 192.168.10.0 0.0.0.255\nip nat inside source list NAT-SOURCES interface g0/1 overload\nip nat inside source static 192.168.10.20 203.0.113.20\nshow ip nat translations",
-      "p": [
-        "Pool NAT pour plusieurs IP publiques",
-        "no-alias et overload",
-        "Tester la résolution DNS externe après NAT"
-      ],
-      "w": "Un serveur exposé sans pare-feu = compromission probable.",
-      "cp": "cp4",
-      "doublon_de": "cp4-nat"
-    },
-    {
-      "id": "cp4-legacy-ccp4-ipv6",
-      "t": "IPv6, routage et transitions",
-      "level": "avance",
-      "r": "Adresses /64 pour LAN, link-local fe80::, EUI-64. OSPFv3 et DHCPv6/SLAAC.",
-      "tags": [
-        "ipv6",
-        "ospf",
-        "slaac"
-      ],
-      "g": [
-        "Activer IPv6 sur les interfaces",
-        "Configurer SLAAC ou DHCPv6",
-        "Tester ping6 et connectivité",
-        "Documenter le plan d'adressage IPv6"
-      ],
-      "c": "ipv6 unicast-routing\ninterface g0/0\n ipv6 address 2001:db8:10::1/64\n ipv6 nd other-config-flag\nipv6 router ospf 1\n router-id 1.1.1.1\ninterface g0/0\n ipv6 ospf 1 area 0\nshow ipv6 route\nping ipv6.google.com",
-      "p": [
-        "fe80:: = link-local, non routable",
-        "Stateless (SLAAC) vs stateful (DHCPv6)",
-        "Dual-stack pendant la transition"
-      ],
-      "w": "Oublier ipv6 unicast-routing rend les paquets routables localement seulement.",
-      "cp": "cp4",
-      "doublon_de": "cp4-ipv6"
-    },
-    {
-      "id": "cp4-legacy-ccp4-reseau-debutant",
-      "t": "Réseau : IP, masque, gateway, VLAN, diagnostic (débutant)",
-      "level": "debutant",
-      "r": "Un réseau, c'est des machines qui échangent des paquets. IP identifie la machine, masque sépare réseau/hôte, passerelle sort du LAN, VLAN isole.",
-      "tags": [
-        "reseau",
-        "debutant",
-        "ip",
-        "vlan"
-      ],
-      "g": [
-        "Trouver son IP/masque/gateway (ipconfig / ip a)",
-        "Ping loopback → gateway → IP externe → nom DNS",
-        "Créer VLAN et trunk, inter-VLAN via routeur/Switch L3"
-      ],
-      "c": "# Configuration typique\nIP: 192.168.1.10\nMasque: 255.255.255.0 (/24)\nGateway: 192.168.1.1\nDNS: 192.168.1.1\n\n# Diagnostic étape par étape\nping 127.0.0.1\nping 192.168.1.1\nping 8.8.8.8\nping google.com",
-      "p": [
-        "IP privées : 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16",
-        "Si ping OK mais HTTP KO : service, port ou DNS",
-        "Sans gateway, pas d'Internet"
-      ],
-      "w": "Ne mélange pas couche 3 (IP) et couche 7 (application) : ping ne prouve pas qu'un site répond.",
-      "cp": "cp4"
-    },
-    {
-      "id": "cp4-legacy-ccp4-dns-dhcp-debutant",
-      "t": "DNS/DHCP : résolution et baux (débutant)",
-      "level": "debutant",
-      "r": "DNS traduit nom→IP. DHCP attribue IP/gateway/DNS. TTL, A, PTR, enregistrements. Bail à renouveler.",
-      "tags": [
-        "dns",
-        "dhcp",
-        "debutant"
-      ],
-      "g": [
-        "Créer zones directe/inverse",
-        "Étendue DHCP + options",
-        "Tester nslookup et bail"
-      ],
-      "c": "Add-DnsServerPrimaryZone -Name tssr.local -DynamicUpdate Secure\nAdd-DhcpServerv4Scope -Name LAN -StartRange 192.168.1.100 -EndRange 192.168.1.200 -SubnetMask 255.255.255.0\nnslookup intranet.local",
-      "p": [
-        "DNS pointe vers le DC en AD",
-        "Scavenging évite les enregistrements obsolètes",
-        "Bail court pour Wi-Fi invité"
-      ],
-      "w": "Mauvais DNS côté client casse Kerberos/AD.",
-      "cp": "cp4"
-    },
-    {
-      "id": "pedagogie-ccp4",
-      "t": "Fiche pedagogique de reference - CP4 réseau IP",
-      "level": "intermediaire",
-      "r": "Definition : comprendre adressage, routage, VLAN et services réseau. Contexte : poste isole dans un VLAN mal affecte. Objectif : analyser et retablir. Details : OSI, segmentation, ACL, DNS, DHCP. Exemple : documentation plan d'adressage et VLAN voie/data. Erreurs : modifier IP sans comprendre VLAN, masque incorrect. Jury : VLAN, routage statique/dynamique, DNS.",
-      "tags": [
-        "pedagogie",
-        "reseau",
-        "ccna"
-      ],
-      "g": [
-        "Analyser les symptômes",
-        "Verifier physique",
-        "Verifier IP/passerelle/DNS",
-        "Corriger",
-        "Documenter"
-      ],
-      "c": "ping; tracert; nslookup; show running-config",
-      "p": [
-        "Confusion masque/VLAN",
-        "Changements multiples"
-      ],
-      "w": "Conclusion : toujours expliquer la cause, pas seulement la solution.",
-      "cp": "cp4"
-    },
-    {
-      "id": "cp4-dhcp",
-      "t": "DHCP",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "CP4 - Définition : attribution dynamique IP. | Objectif : standardiser. | Cas réel : conflit IP. | Fonctionnement détaillé : DORA, scope, lease. | Exemple : ajouter scope. | Procédure : config scope, option DNS, test. | Erreurs : rogue DHCP. | Jury : DORA process. | À retenir : option DNS.",
+      "id": "cp4-essentiel",
+      "t": "CP4 — L'essentiel (réseau IP)",
+      "level": "exam",
+      "r": "Objectif : maîtriser les fondamentaux réseau pour l'examen TSSR.",
       "tags": [
         "cp4",
-        "reseau",
-        "dhcp"
+        "essentiel"
       ],
       "g": [
-        "Scope",
-        "Options",
-        "Pools",
-        "Test"
+        "Objectif",
+        "Notions",
+        "Tableau",
+        "Diagnostic",
+        "Pièges",
+        "Index"
       ],
-      "c": "ipconfig /renew; show ip dhcp binding; Get-DhcpServerv4Scope",
+      "c": "Commandes usuelles : ping, traceroute, ipconfig, show interfaces, show vlan brief, show ip route.",
       "p": [
-        "Conflit IP",
-        "Rogue"
+        "Confondre couche 2 et 3",
+        "Oublier le masque",
+        "Négliger le VLAN natif"
       ],
-      "w": "Conclusion : DHCP contrôlé.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Schéma réseau",
-      "cp": "cp4"
+      "w": "L'essentiel résume ; les fiches détaillées précisent.",
+      "resume": "Fiche essentielle CP4 : fondamentaux réseau.",
+      "couvre": [
+        "cp4-osi",
+        "cp4-tcpip",
+        "cp4-ipv4",
+        "cp4-ipv6",
+        "cp4-vlan",
+        "cp4-trunk",
+        "cp4-stp",
+        "cp4-etherchannel",
+        "cp4-routage",
+        "cp4-rip",
+        "cp4-ospf",
+        "cp4-nat-pat",
+        "cp4-dhcp",
+        "cp4-dns",
+        "cp4-wifi",
+        "cp4-vpn",
+        "cp4-acl",
+        "cp4-firewall",
+        "cp4-lab-vlan",
+        "cp4-lab-routage",
+        "cp4-lab-dhcp",
+        "cp4-lab-nat",
+        "cp4-quiz",
+        "cp4-entretien-jury",
+        "cp4-cheatsheet"
+      ],
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Synthèse des fondamentaux réseau."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "OSI, TCP/IP, VLAN, routage, NAT, DHCP, DNS, Wi-Fi, VPN, pare-feu."
+        }
+      ]
     },
     {
-      "id": "cp4-dns",
-      "t": "DNS",
+      "id": "cp4-osi",
+      "t": "Modèle OSI",
       "level": "intermediaire",
       "cli": true,
-      "r": "CP4 - Définition : résolution de noms. | Objectif : joindre les services. | Cas réel : resolution lente. | Fonctionnement détaillé : zone, cache, forwarding. | Exemple : A record. | Procédure : créer zone, ajouter enregistrement, tester. | Erreurs : mauvais TTL. | Jury : enregistrements. | À retenir : cache.",
+      "r": "Le modèle OSI organise la communication en 7 couches.",
       "tags": [
         "cp4",
-        "reseau",
-        "dns"
+        "osi"
       ],
-      "g": [
-        "Zone",
-        "Enregistrement",
-        "Cache",
-        "Test"
-      ],
-      "c": "nslookup; Resolve-DnsName lab.local; ipconfig /flushdns",
+      "g": [],
+      "c": "Voir section Commandes utiles.",
       "p": [
-        "Mauvais TTL",
-        "Forwarding error"
+        "Erreur de configuration",
+        "Oubli de vérification"
       ],
-      "w": "Conclusion : DNS essentiel.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Schéma réseau",
-      "cp": "cp4"
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Modèle OSI : 7 couches, encapsulation, équipements.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Le modèle OSI (Open Systems Interconnection) standardise les fonctions de communication."
+        },
+        {
+          "title": "Définitions",
+          "body": "Couche 1 Physique, 2 Liaison, 3 Réseau, 4 Transport, 5 Session, 6 Présentation, 7 Application."
+        },
+        {
+          "title": "Théorie détaillée",
+          "body": "Encapsulation et désencapsulation ; PDU : bit, trame, paquet, segment."
+        },
+        {
+          "title": "Architecture",
+          "body": "Équipements par couche : hub (1), switch (2), routeur (3), pare-feu (3/4+)."
+        },
+        {
+          "title": "Cas concret entreprise",
+          "body": "Un ping échoue : vérifier câble, VLAN, IP, firewall."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "1. Vérifier lien. 2. Vérifier IP. 3. Ping passerelle. 4. Ping distant. 5. Traceroute."
+        },
+        {
+          "title": "Dépannage",
+          "body": "Câble défectueux, VLAN erroné, IP incorrecte, ACL bloquante."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Documenter, tester chaque couche, utiliser les bons outils."
+        },
+        {
+          "title": "Questions de jury",
+          "body": "Quelle couche pour le routage ? (3). Pour la commutation ? (2)."
+        },
+        {
+          "title": "Pièges d'examen",
+          "body": "Confondre couche 2 et 3 ; oublier le masque."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "OSI = 7 couches ; encapsulation ; équipements par couche."
+        },
+        {
+          "title": "Schéma Mermaid",
+          "body": "graph TD; L1[Physique]-->L2[Liaison]; L2-->L3[Réseau]; L3-->L4[Transport];"
+        },
+        {
+          "title": "Sources de référence",
+          "body": "RFC, Cisco Networking Academy, documentation officielle."
+        }
+      ]
     },
     {
-      "id": "cp4-vlan",
-      "t": "VLAN et segmentation",
+      "id": "cp4-tcpip",
+      "t": "TCP/IP",
       "level": "intermediaire",
       "cli": true,
-      "r": "CP4 - Définition : segmentation logique. | Objectif : isolation. | Cas réel : VLAN Voix. | Fonctionnement détaillé : 802.1Q, native VLAN. | Exemple : ajouter VLAN 10. | Procédure : créer VLAN, affecter port. | Erreurs : trunk errors. | Jury : native VLAN. | À retenir : trunk.",
+      "r": "TCP/IP est la suite de protocoles d'Internet.",
       "tags": [
         "cp4",
-        "reseau",
-        "vlan"
+        "tcpip"
       ],
-      "g": [
-        "Créer VLAN",
-        "Affecter port",
-        "Trunk",
-        "Tester"
-      ],
-      "c": "show vlan brief; switchport access vlan 10",
+      "g": [],
+      "c": "Voir section Commandes utiles.",
       "p": [
-        "Native VLAN mistake"
+        "Erreur de configuration",
+        "Oubli de vérification"
       ],
-      "w": "Conclusion : segmentation.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Schéma réseau",
-      "cp": "cp4"
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "TCP/IP : IPv4/IPv6, TCP fiable, UDP rapide.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "TCP/IP est la suite fondamentale des réseaux modernes."
+        },
+        {
+          "title": "Définitions",
+          "body": "IPv4 32 bits, IPv6 128 bits. TCP fiable connecté, UDP rapide sans connexion."
+        },
+        {
+          "title": "Théorie détaillée",
+          "body": "Three-way handshake, acquittements, retransmission, routage IP."
+        },
+        {
+          "title": "Architecture",
+          "body": "Adresses privées RFC1918, CIDR, sous-réseaux, loopback."
+        },
+        {
+          "title": "Cas concret entreprise",
+          "body": "Serveur web inaccessible : vérifier IP, port, firewall, DNS."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "1. Vérifier IP. 2. Ping. 3. Tester port. 4. Firewall. 5. DNS."
+        },
+        {
+          "title": "Dépannage",
+          "body": "IP incorrecte, port bloqué, DNS en panne."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Utiliser CIDR, documenter le plan d'adressage."
+        },
+        {
+          "title": "Questions de jury",
+          "body": "TCP est-il fiable ? Oui. UDP connecté ? Non."
+        },
+        {
+          "title": "Pièges d'examen",
+          "body": "Confondre TCP/UDP ; oublier masque."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "IPv4 32 bits, IPv6 128 bits, TCP fiable, UDP rapide."
+        },
+        {
+          "title": "Schéma Mermaid",
+          "body": "sequenceDiagram; Client->>Serveur: SYN; Serveur->>Client: SYN-ACK; Client->>Serveur: ACK;"
+        },
+        {
+          "title": "Sources de référence",
+          "body": "RFC 791, 2460, 793."
+        }
+      ]
     },
     {
-      "id": "cp4-routing",
-      "t": "Routage et passerelle",
+      "id": "cp4-ipv4",
+      "t": "IPv4 et subnetting",
       "level": "intermediaire",
       "cli": true,
-      "r": "CP4 - Définition : routage des paquets. | Objectif : connectivité. | Cas réel : route manquante. | Fonctionnement détaillé : table, statique, dynamique. | Exemple : ajout route statique. | Procédure : analyser, ajouter, tester. | Erreurs : boucle. | Jury : metrics. | À retenir : table.",
+      "r": "IPv4 utilise 32 bits. Le subnetting découpe en sous-réseaux.",
       "tags": [
         "cp4",
-        "reseau",
-        "routing"
+        "ipv4"
       ],
-      "g": [
-        "Table route",
-        "Ajout route",
-        "Metric",
-        "Test"
-      ],
-      "c": "show ip route; Get-NetRoute",
+      "g": [],
+      "c": "Voir section Commandes utiles.",
       "p": [
-        "Boucle",
-        "Route noire"
+        "Erreur de configuration",
+        "Oubli de vérification"
       ],
-      "w": "Conclusion : routage maîtrisé.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Schéma réseau",
-      "cp": "cp4"
-    },
-    {
-      "id": "cp4-nat",
-      "t": "NAT et connectivité internet",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "CP4 - Définition : traduction d'adresse. | Objectif : accès sortant. | Cas réel : natchoupe. | Fonctionnement détaillé : masquerade, PAT. | Exemple : NAT LAN. | Procédure : activation, règle, test. | Erreurs : ACL bloquant. | Jury : PAT. | À retenir : associations.",
-      "tags": [
-        "cp4",
-        "reseau"
-      ],
-      "g": [
-        "Activation",
-        "Règle",
-        "Test",
-        "Audit"
-      ],
-      "c": "show ip nat translations; Get-NetNat",
-      "p": [
-        "Règle mauvaise",
-        "ACL"
-      ],
-      "w": "Conclusion : NAT utile.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Schéma réseau",
-      "cp": "cp4"
-    },
-    {
-      "id": "cp4-firewall",
-      "t": "Pare-feu et ACL",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "CP4 - Définition : filtrage et politique. | Objectif : protection. | Cas réel : ouverture port. | Fonctionnement détaillé : stateful, règles. | Exemple : ouvrir port 443. | Procédure : règle, test, log. | Erreurs : wide allow. | Jury : stateful. | À retenir : moindre privilège.",
-      "tags": [
-        "cp4",
-        "reseau",
-        "firewall"
-      ],
-      "g": [
-        "Règle",
-        "Application",
-        "Test",
-        "Log"
-      ],
-      "c": "show access-list; New-NetFirewallRule",
-      "p": [
-        "Trop permissif"
-      ],
-      "w": "Conclusion : filtrer strict.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Schéma réseau",
-      "cp": "cp4"
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "IPv4 : adressage, CIDR, VLSM.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "L'adressage IPv4 est fondamental pour l'exploitation réseau."
+        },
+        {
+          "title": "Définitions",
+          "body": "Adresse, masque, CIDR, réseau, broadcast, hôtes utilisables."
+        },
+        {
+          "title": "Théorie détaillée",
+          "body": "Conversion binaire, calcul de sous-réseau, VLSM."
+        },
+        {
+          "title": "Architecture",
+          "body": "Classes A/B/C, privées RFC1918."
+        },
+        {
+          "title": "Cas concret entreprise",
+          "body": "Découper 192.168.1.0/24 en 4 sous-réseaux /26."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "1. Identifier le besoin. 2. Choisir le masque. 3. Calculer les sous-réseaux. 4. Assigner."
+        },
+        {
+          "title": "Dépannage",
+          "body": "Masque incorrect, IP hors plage, conflit."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Documenter le plan, éviter le gaspillage."
+        },
+        {
+          "title": "Questions de jury",
+          "body": "Combien d'hôtes dans un /26 ? 62."
+        },
+        {
+          "title": "Pièges d'examen",
+          "body": "Oublier -2 pour réseau/broadcast."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "IPv4 32 bits, CIDR, VLSM, -2."
+        },
+        {
+          "title": "Schéma Mermaid",
+          "body": "graph LR; A[192.168.1.0/24]-->B[/26];"
+        },
+        {
+          "title": "Sources de référence",
+          "body": "RFC 791, Cisco."
+        }
+      ]
     },
     {
       "id": "cp4-ipv6",
       "t": "IPv6",
       "level": "intermediaire",
       "cli": true,
-      "r": "CP4 - Définition : IPv6 et adresse. | Objectif : anticiper. | Cas réel : double pile. | Fonctionnement détaillé : SLAAC, DHCPv6. | Exemple : ping6. | Procédure : activation, autoconfig, test. | Erreurs : DNSv6 absent. | Jury : ND. | À retenir : double pile.",
+      "r": "IPv6 utilise 128 bits.",
       "tags": [
         "cp4",
-        "reseau",
         "ipv6"
       ],
-      "g": [
-        "Activation",
-        "SLAAC",
-        "Test",
-        "DNSv6"
-      ],
-      "c": "ping -6; Get-NetIPv6Protocol",
+      "g": [],
+      "c": "Voir section Commandes utiles.",
       "p": [
-        "DNSv6 absent"
+        "Erreur de configuration",
+        "Oubli de vérification"
       ],
-      "w": "Conclusion : préparer IPv6.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Schéma réseau",
-      "cp": "cp4"
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "IPv6 : adressage, SLAAC, NDP.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "IPv6 répond à l'épuisement d'IPv4."
+        },
+        {
+          "title": "Définitions",
+          "body": "Adresse globale, link-local (fe80::/10), multicast (ff00::/8), EUI-64."
+        },
+        {
+          "title": "Théorie détaillée",
+          "body": "Compression, SLAAC, NDP remplace ARP."
+        },
+        {
+          "title": "Architecture",
+          "body": "Préfixes /64, zones, double pile."
+        },
+        {
+          "title": "Cas concret entreprise",
+          "body": "Activer IPv6 sur un VLAN et vérifier la connectivité."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "1. Activer IPv6. 2. Configurer le préfixe. 3. Tester ping6. 4. Vérifier NDP."
+        },
+        {
+          "title": "Dépannage",
+          "body": "Préfixe incorrect, firewall IPv6, NDP bloqué."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Utiliser /64, documenter."
+        },
+        {
+          "title": "Questions de jury",
+          "body": "Qu'est-ce qu'un link-local ? fe80::/10."
+        },
+        {
+          "title": "Pièges d'examen",
+          "body": "Oublier le scope, confondre multicast."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "IPv6 128 bits, SLAAC, NDP, /64."
+        },
+        {
+          "title": "Schéma Mermaid",
+          "body": "graph TD; A[Global]-->B[Subnet /64];"
+        },
+        {
+          "title": "Sources de référence",
+          "body": "RFC 2460, 4861."
+        }
+      ]
     },
     {
-      "id": "cp4-wlan",
-      "t": "WLAN et sécurité radio",
+      "id": "cp4-vlan",
+      "t": "VLAN et segmentation",
       "level": "intermediaire",
       "cli": true,
-      "r": "CP4 - Définition : réseau sans fil. | Objectif : connectivité mobile. | Cas réel : mauvaise couverture. | Fonctionnement détaillé : SSID, 802.1X, WPA3. | Exemple : guest wifi. | Procédure : AP, VLAN, AAA, test. | Erreurs : PSK partagé. | Jury : 802.1X. | À retenir : sécurité.",
+      "r": "Les VLAN segmentent le réseau de couche 2.",
       "tags": [
         "cp4",
-        "reseau",
-        "wlan"
+        "vlan"
       ],
-      "g": [
-        "SSID",
-        "VLAN guest",
-        "802.1X",
-        "Test"
-      ],
-      "c": "show wlan summary; Get-NetAdapter -Physical",
+      "g": [],
+      "c": "Voir section Commandes utiles.",
       "p": [
-        "Clé partagée",
-        "Mauvaise couverture"
+        "Erreur de configuration",
+        "Oubli de vérification"
       ],
-      "w": "Conclusion : WLAN sécurisé.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Schéma réseau",
-      "cp": "cp4"
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "VLAN : segmentation, ports access/trunk.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Les VLAN créent des domaines de broadcast séparés."
+        },
+        {
+          "title": "Définitions",
+          "body": "VLAN ID, port access, trunk, native VLAN."
+        },
+        {
+          "title": "Théorie détaillée",
+          "body": "802.1Q tag, port access/ trunk, allowed list."
+        },
+        {
+          "title": "Architecture",
+          "body": "Switch, routeur on a stick, sous-interfaces."
+        },
+        {
+          "title": "Cas concret entreprise",
+          "body": "Séparer comptabilité et informatique par VLAN."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "1. Créer VLAN. 2. Assigner ports. 3. Configurer trunk. 4. Vérifier."
+        },
+        {
+          "title": "Dépannage",
+          "body": "Port non assigné, trunk non autorisé, native mismatch."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Nommer les VLAN, documenter."
+        },
+        {
+          "title": "Questions de jury",
+          "body": "Quel protocole tagge ? 802.1Q."
+        },
+        {
+          "title": "Pièges d'examen",
+          "body": "Oublier allowed list."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "VLAN segmente, access/trunk, 802.1Q."
+        },
+        {
+          "title": "Schéma Mermaid",
+          "body": "graph TD; SW[Switch]-->|trunk|RT[Routeur];"
+        },
+        {
+          "title": "Sources de référence",
+          "body": "IEEE 802.1Q."
+        }
+      ]
+    },
+    {
+      "id": "cp4-trunk",
+      "t": "Trunk 802.1Q",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Le trunk transporte plusieurs VLAN sur un lien.",
+      "tags": [
+        "cp4",
+        "trunk"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Trunk : transport multi-VLAN, native VLAN.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Le trunk interconnecte les switches."
+        },
+        {
+          "title": "Définitions",
+          "body": "Trunk, native VLAN, allowed VLAN list."
+        },
+        {
+          "title": "Théorie détaillée",
+          "body": "Tag 802.1Q, DTP, encapsulation."
+        },
+        {
+          "title": "Architecture",
+          "body": "Switch-to-switch, switch-to-router."
+        },
+        {
+          "title": "Cas concret entreprise",
+          "body": "Trunk entre deux switches pour VLAN 10/20."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "1. Configurer trunk. 2. Vérifier allowed. 3. Tester."
+        },
+        {
+          "title": "Dépannage",
+          "body": "DTP désactivé, native mismatch, allowed incomplet."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Désactiver DTP, fixer native VLAN."
+        },
+        {
+          "title": "Questions de jury",
+          "body": "Qu'est-ce que le native VLAN ? VLAN non taggé."
+        },
+        {
+          "title": "Pièges d'examen",
+          "body": "Native VLAN mismatch."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Trunk transporte, native VLAN, allowed list."
+        },
+        {
+          "title": "Schéma Mermaid",
+          "body": "graph LR; SW1--trunk-->SW2;"
+        },
+        {
+          "title": "Sources de référence",
+          "body": "IEEE 802.1Q, Cisco."
+        }
+      ]
+    },
+    {
+      "id": "cp4-stp",
+      "t": "STP et RSTP",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "STP évite les boucles de couche 2.",
+      "tags": [
+        "cp4",
+        "stp"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "STP/RSTP : anti-boucle, root bridge.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Le Spanning Tree Protocol bloque les liens redondants."
+        },
+        {
+          "title": "Définitions",
+          "body": "Root bridge, BPDU, port roles, blocking/forwarding."
+        },
+        {
+          "title": "Théorie détaillée",
+          "body": "Élection du root bridge, calcul du chemin le plus court."
+        },
+        {
+          "title": "Architecture",
+          "body": "Switchs, liens redondants."
+        },
+        {
+          "title": "Cas concret entreprise",
+          "body": "Boucle réseau due à un lien redondant non protégé."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "1. Vérifier root bridge. 2. Vérifier ports bloqués. 3. Activer RSTP."
+        },
+        {
+          "title": "Dépannage",
+          "body": "Root bridge mal placé, BPDU manquant."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Fixer le root bridge, activer BPDU guard."
+        },
+        {
+          "title": "Questions de jury",
+          "body": "Quel protocole évite les boucles ? STP."
+        },
+        {
+          "title": "Pièges d'examen",
+          "body": "Oublier portfast sur accès."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "STP élit root, bloque redondance."
+        },
+        {
+          "title": "Schéma Mermaid",
+          "body": "graph TD; R[Root Bridge]-->S1; R-->S2;"
+        },
+        {
+          "title": "Sources de référence",
+          "body": "IEEE 802.1D, 802.1w."
+        }
+      ]
+    },
+    {
+      "id": "cp4-etherchannel",
+      "t": "EtherChannel",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "EtherChannel agrège plusieurs liens.",
+      "tags": [
+        "cp4",
+        "etherchannel"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "EtherChannel : agrégation de liens.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "L'agrégation de liens augmente la bande passante."
+        },
+        {
+          "title": "Définitions",
+          "body": "EtherChannel, LACP, PAgP."
+        },
+        {
+          "title": "Théorie détaillée",
+          "body": "Négociation, load balancing, configuration identique."
+        },
+        {
+          "title": "Architecture",
+          "body": "Switch-to-switch, switch-to-router."
+        },
+        {
+          "title": "Cas concret entreprise",
+          "body": "Agréger 2 liens 1 Gbps en 2 Gbps."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "1. Configurer les ports. 2. Activer EtherChannel. 3. Vérifier."
+        },
+        {
+          "title": "Dépannage",
+          "body": "Incompatibilité, VLAN mismatch."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Utiliser LACP, documenter."
+        },
+        {
+          "title": "Questions de jury",
+          "body": "LACP est-il standard ? Oui (802.3ad)."
+        },
+        {
+          "title": "Pièges d'examen",
+          "body": "Configuration non identique."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "EtherChannel agrège, LACP/PAgP."
+        },
+        {
+          "title": "Schéma Mermaid",
+          "body": "graph LR; SW1--2 liens-->SW2;"
+        },
+        {
+          "title": "Sources de référence",
+          "body": "IEEE 802.3ad."
+        }
+      ]
+    },
+    {
+      "id": "cp4-routage",
+      "t": "Routage IP",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Le routage transfère les paquets entre réseaux.",
+      "tags": [
+        "cp4",
+        "routage"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Routage : table, route par défaut, next-hop.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Le routage est essentiel pour l'interconnexion."
+        },
+        {
+          "title": "Définitions",
+          "body": "Route statique, dynamique, table de routage, passerelle."
+        },
+        {
+          "title": "Théorie détaillée",
+          "body": "Consultation de table, métrique, next-hop."
+        },
+        {
+          "title": "Architecture",
+          "body": "Routeurs, sous-réseaux, interfaces."
+        },
+        {
+          "title": "Cas concret entreprise",
+          "body": "Ajouter une route statique vers un réseau distant."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "1. Vérifier table. 2. Ajouter route. 3. Tester."
+        },
+        {
+          "title": "Dépannage",
+          "body": "Route manquante, masque erroné, interface down."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Documenter, utiliser le routage dynamique si besoin."
+        },
+        {
+          "title": "Questions de jury",
+          "body": "Quelle route par défaut ? 0.0.0.0/0."
+        },
+        {
+          "title": "Pièges d'examen",
+          "body": "Oublier la route par défaut."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Routage = table + meilleure route."
+        },
+        {
+          "title": "Schéma Mermaid",
+          "body": "graph TD; R1-->R2;"
+        },
+        {
+          "title": "Sources de référence",
+          "body": "RFC 791."
+        }
+      ]
+    },
+    {
+      "id": "cp4-rip",
+      "t": "RIP",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "RIP est un protocole de routage à vecteur de distance.",
+      "tags": [
+        "cp4",
+        "rip"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "RIP : distance vector, max 15 hops.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "RIP est simple mais limité."
+        },
+        {
+          "title": "Définitions",
+          "body": "Distance vector, hop count, max 15."
+        },
+        {
+          "title": "Théorie détaillée",
+          "body": "Mises à jour périodiques, split horizon."
+        },
+        {
+          "title": "Architecture",
+          "body": "Routeurs RIP."
+        },
+        {
+          "title": "Cas concret entreprise",
+          "body": "Petit réseau avec RIP v2."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "1. Activer RIP. 2. Annoncer réseaux. 3. Vérifier."
+        },
+        {
+          "title": "Dépannage",
+          "body": "Hop count dépassé, version mismatch."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Préférer OSPF en production."
+        },
+        {
+          "title": "Questions de jury",
+          "body": "Max hop count RIP ? 15."
+        },
+        {
+          "title": "Pièges d'examen",
+          "body": "RIP v1 vs v2 (multicast)."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "RIP = distance vector, max 15."
+        },
+        {
+          "title": "Schéma Mermaid",
+          "body": "graph LR; R1--RIP-->R2;"
+        },
+        {
+          "title": "Sources de référence",
+          "body": "RFC 2453."
+        }
+      ]
+    },
+    {
+      "id": "cp4-ospf",
+      "t": "OSPF",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "OSPF est un protocole à état de lien.",
+      "tags": [
+        "cp4",
+        "ospf"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "OSPF : link-state, areas, DR/BDR.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "OSPF est scalable et rapide."
+        },
+        {
+          "title": "Définitions",
+          "body": "Area, LSA, LSDB, DR/BDR, coût."
+        },
+        {
+          "title": "Théorie détaillée",
+          "body": "Découverte de voisins, élection DR, inondation LSA."
+        },
+        {
+          "title": "Architecture",
+          "body": "Zones, backbone area 0."
+        },
+        {
+          "title": "Cas concret entreprise",
+          "body": "OSPF single-area entre 3 routeurs."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "1. Activer OSPF. 2. Annoncer réseaux. 3. Vérifier voisins. 4. Tester."
+        },
+        {
+          "title": "Dépannage",
+          "body": "Area mismatch, MTU mismatch, passive-interface."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Utiliser area 0, documenter."
+        },
+        {
+          "title": "Questions de jury",
+          "body": "Qu'est-ce qu'un DR ? Routeur désigné."
+        },
+        {
+          "title": "Pièges d'examen",
+          "body": "MTU mismatch."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "OSPF = link-state, area, DR/BDR."
+        },
+        {
+          "title": "Schéma Mermaid",
+          "body": "graph TD; R1--area0-->R2;"
+        },
+        {
+          "title": "Sources de référence",
+          "body": "RFC 2328."
+        }
+      ]
+    },
+    {
+      "id": "cp4-nat-pat",
+      "t": "NAT et PAT",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "NAT traduit les adresses. PAT utilise les ports.",
+      "tags": [
+        "cp4",
+        "nat-pat"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "NAT/PAT : traduction d'adresse.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "NAT permet l'accès Internet depuis un réseau privé."
+        },
+        {
+          "title": "Définitions",
+          "body": "NAT statique, dynamique, PAT (overload)."
+        },
+        {
+          "title": "Théorie détaillée",
+          "body": "Traduction d'adresse source/destination."
+        },
+        {
+          "title": "Architecture",
+          "body": "Routeur NAT, inside/outside."
+        },
+        {
+          "title": "Cas concret entreprise",
+          "body": "Mettre en place PAT pour un LAN."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "1. Définir inside/outside. 2. Créer ACL. 3. Activer PAT. 4. Tester."
+        },
+        {
+          "title": "Dépannage",
+          "body": "ACL incorrecte, interface mal définie."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Documenter, limiter les ports."
+        },
+        {
+          "title": "Questions de jury",
+          "body": "PAT = ? Port Address Translation."
+        },
+        {
+          "title": "Pièges d'examen",
+          "body": "Oublier overload."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "NAT traduit, PAT utilise les ports."
+        },
+        {
+          "title": "Schéma Mermaid",
+          "body": "graph LR; LAN-->|NAT|WAN;"
+        },
+        {
+          "title": "Sources de référence",
+          "body": "RFC 1631."
+        }
+      ]
+    },
+    {
+      "id": "cp4-dhcp",
+      "t": "DHCP",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "DHCP attribue automatiquement les adresses IP.",
+      "tags": [
+        "cp4",
+        "dhcp"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "DHCP : DORA, étendue, options.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "DHCP simplifie l'adressage."
+        },
+        {
+          "title": "Définitions",
+          "body": "DORA, étendue, exclusions, options."
+        },
+        {
+          "title": "Théorie détaillée",
+          "body": "Discover, Offer, Request, Acknowledge."
+        },
+        {
+          "title": "Architecture",
+          "body": "Serveur DHCP, relay."
+        },
+        {
+          "title": "Cas concret entreprise",
+          "body": "Configurer une étendue DHCP pour un VLAN."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "1. Créer étendue. 2. Définir exclusions. 3. Options. 4. Tester."
+        },
+        {
+          "title": "Dépannage",
+          "body": "Étendue épuisée, relay manquant."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Documenter, réserver pour serveurs."
+        },
+        {
+          "title": "Questions de jury",
+          "body": "DORA = ? Discover, Offer, Request, Acknowledge."
+        },
+        {
+          "title": "Pièges d'examen",
+          "body": "Oublier le relay."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "DHCP = DORA, étendue, options."
+        },
+        {
+          "title": "Schéma Mermaid",
+          "body": "sequenceDiagram; Client->>DHCP: Discover; DHCP->>Client: Offer;"
+        },
+        {
+          "title": "Sources de référence",
+          "body": "RFC 2131."
+        }
+      ]
+    },
+    {
+      "id": "cp4-dns",
+      "t": "DNS",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "DNS résout les noms en adresses IP.",
+      "tags": [
+        "cp4",
+        "dns"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "DNS : zones, enregistrements, TTL.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "DNS est essentiel pour la navigation."
+        },
+        {
+          "title": "Définitions",
+          "body": "Zone, enregistrement A, CNAME, MX, PTR, TTL."
+        },
+        {
+          "title": "Théorie détaillée",
+          "body": "Requête récursive/itérative, cache."
+        },
+        {
+          "title": "Architecture",
+          "body": "Serveurs DNS, forwarders."
+        },
+        {
+          "title": "Cas concret entreprise",
+          "body": "Créer une zone DNS pour un domaine."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "1. Créer zone. 2. Ajouter enregistrements. 3. Tester nslookup."
+        },
+        {
+          "title": "Dépannage",
+          "body": "Zone incorrecte, TTL, cache."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Documenter, utiliser des forwarders."
+        },
+        {
+          "title": "Questions de jury",
+          "body": "Qu'est-ce qu'un CNAME ? Alias."
+        },
+        {
+          "title": "Pièges d'examen",
+          "body": "Confondre A et CNAME."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "DNS = zone, enregistrements, TTL."
+        },
+        {
+          "title": "Schéma Mermaid",
+          "body": "graph TD; Client-->DNS; DNS-->IP;"
+        },
+        {
+          "title": "Sources de référence",
+          "body": "RFC 1034, 1035."
+        }
+      ]
+    },
+    {
+      "id": "cp4-wifi",
+      "t": "Wi-Fi",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Le Wi-Fi utilise des ondes radio.",
+      "tags": [
+        "cp4",
+        "wifi"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Wi-Fi : SSID, canaux, WPA2/WPA3.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Le Wi-Fi fournit un accès sans fil."
+        },
+        {
+          "title": "Définitions",
+          "body": "SSID, canal, 2.4/5/6 GHz, WPA2, WPA3, 802.1X."
+        },
+        {
+          "title": "Théorie détaillée",
+          "body": "Association, authentification, chiffrement."
+        },
+        {
+          "title": "Architecture",
+          "body": "AP, contrôleur, VLAN voix/data."
+        },
+        {
+          "title": "Cas concret entreprise",
+          "body": "Déployer un Wi-Fi sécurisé."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "1. Choisir canal. 2. Configurer WPA3. 3. Segmenter. 4. Tester."
+        },
+        {
+          "title": "Dépannage",
+          "body": "Interférence, canal encombré."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Utiliser WPA3, segmenter."
+        },
+        {
+          "title": "Questions de jury",
+          "body": "WPA3 améliore quoi ? SAE."
+        },
+        {
+          "title": "Pièges d'examen",
+          "body": "WPA2-PSK faible."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Wi-Fi = radio + sécurité."
+        },
+        {
+          "title": "Schéma Mermaid",
+          "body": "graph TD; AP-->Client;"
+        },
+        {
+          "title": "Sources de référence",
+          "body": "IEEE 802.11."
+        }
+      ]
     },
     {
       "id": "cp4-vpn",
-      "t": "VPN site à site",
+      "t": "VPN",
       "level": "intermediaire",
       "cli": true,
-      "r": "CP4 - Définition : connexion sécurisée inter-sites. | Objectif : confidentialité. | Cas réel : site distant. | Fonctionnement détaillé : IKE, phase1/2, tunnel. | Exemple : ipsec PSK. | Procédure : périmètre, crypto, test. | Erreurs : mismatch crypto. | Jury : IKE. | À retenir : crypto cohérent.",
+      "r": "Le VPN crée un tunnel sécurisé.",
       "tags": [
         "cp4",
-        "reseau",
         "vpn"
       ],
-      "g": [
-        "Périmètre",
-        "Crypto policy",
-        "Tunnel",
-        "Test"
-      ],
-      "c": "show crypto ipsec sa; Get-VpnConnection",
+      "g": [],
+      "c": "Voir section Commandes utiles.",
       "p": [
-        "Crypto mismatch",
-        "NAT traversal"
+        "Erreur de configuration",
+        "Oubli de vérification"
       ],
-      "w": "Conclusion : VPN cohérent.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Schéma réseau",
-      "cp": "cp4"
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "VPN : tunnel chiffré, IPsec/SSL.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Le VPN sécurise les communications à distance."
+        },
+        {
+          "title": "Définitions",
+          "body": "Tunnel, IPsec, SSL/TLS, site-to-site, remote access."
+        },
+        {
+          "title": "Théorie détaillée",
+          "body": "Chiffrement, encapsulation, authentification."
+        },
+        {
+          "title": "Architecture",
+          "body": "Concentrateur VPN, client, PKI."
+        },
+        {
+          "title": "Cas concret entreprise",
+          "body": "Mettre en place un VPN site-to-site."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "1. Configurer le tunnel. 2. Authentifier. 3. Tester."
+        },
+        {
+          "title": "Dépannage",
+          "body": "Certificat expiré, port bloqué."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Utiliser MFA, documenter."
+        },
+        {
+          "title": "Questions de jury",
+          "body": "IPsec vs SSL VPN ? Couche 3 vs application."
+        },
+        {
+          "title": "Pièges d'examen",
+          "body": "Certificat expiré."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "VPN = tunnel chiffré + auth."
+        },
+        {
+          "title": "Schéma Mermaid",
+          "body": "graph LR; SiteA--VPN-->SiteB;"
+        },
+        {
+          "title": "Sources de référence",
+          "body": "RFC 4301."
+        }
+      ]
     },
     {
-      "id": "cp4-wifi6",
-      "t": "Supervision réseau",
+      "id": "cp4-acl",
+      "t": "ACL",
       "level": "intermediaire",
       "cli": true,
-      "r": "CP4 - Définition : surveiller utilisation. | Objectif : anticiper saturation. | Cas réel : lien WAN saturé. | Fonctionnement détaillé : SNMP, flow, graph. | Exemple : alerte bande. | Procédure : agent, dashboard, seuil. | Erreurs : polling trop dense. | Jury : NMS. | À retenir : seuils.",
+      "r": "Les ACL filtrent le trafic.",
       "tags": [
         "cp4",
-        "reseau",
-        "monitor"
-      ],
-      "g": [
-        "Agent",
-        "Dashboard",
-        "Seuil",
-        "Alerte"
-      ],
-      "c": "show interface; Get-NetAdapterStatistics",
-      "p": [
-        "Polling excessif",
-        "Pas de seuil"
-      ],
-      "w": "Conclusion : supervision proactive.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Schéma réseau",
-      "cp": "cp4"
-    },
-    {
-      "id": "cp4-cables",
-      "t": "Physique et câblage",
-      "level": "intermediaire",
-      "cli": false,
-      "r": "CP4 - Définition : couche physique. | Objectif : éviter les pannes. | Cas réel : câble défectueux. | Fonctionnement détaillé : catégorie, PoE, longueur. | Exemple : testeur. | Procédure : inspecter, remplacer, tester. | Erreurs : mauvaise catégorie. | Jury : catégories. | À retenir : test.",
-      "tags": [
-        "cp4",
-        "reseau",
-        "physique"
-      ],
-      "g": [
-        "Inspection",
-        "Remplacement",
-        "Test",
-        "Documentation"
-      ],
-      "c": "Aucune commande native pour cette notion.",
-      "p": [
-        "Mauvaise catégorie"
-      ],
-      "w": "Conclusion : respecter normes.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Schéma réseau",
-      "cp": "cp4"
-    },
-    {
-      "id": "cp4-ipv4",
-      "t": "Adressage IPv4 et subnetting",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "CP4 - Définition : calcul sous-réseaux. | Objectif : alloc. | Cas réel : plan IP. | Fonctionnement détaillé : masques, broadcast, passerelle. | Exemple : /24. | Procédure : plan, allocation, test. | Erreurs : chevauchement. | Jury : VLSM. | À retenir : subnet.",
-      "tags": [
-        "cp4",
-        "reseau",
-        "ipv4"
-      ],
-      "g": [
-        "Plan",
-        "Masque",
-        "Validation routing",
-        "Test"
-      ],
-      "c": "ipcalc; Get-NetIPConfiguration",
-      "p": [
-        "Chevauchement"
-      ],
-      "w": "Conclusion : planifier adresse.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Schéma réseau",
-      "cp": "cp4"
-    },
-    {
-      "id": "cp4-synthese",
-      "t": "Synthèse examen CP4",
-      "level": "intermediaire",
-      "cli": false,
-      "r": "CP4 - Définition : synthèse pour l'oral. | Objectif : correct. | Cas réel : jury demande réseau. | Fonctionnement détaillé : modèle OSI, service. | Exemple : diagnostic simple. | Procédure : layers, DHCP, DNS, firewall. | Erreurs : sauter couches. | Jury : questions. | À retenir : méthode.",
-      "tags": [
-        "cp4",
-        "reseau",
-        "synthese"
-      ],
-      "g": [
-        "Couches",
-        "Citer commande",
-        "Risque",
-        "Conclusion"
-      ],
-      "c": "Aucune commande native pour cette notion.",
-      "p": [
-        "Saut de couches"
-      ],
-      "w": "Conclusion : réseau maîtrisé.",
-      "img": "images/topologie-reseau.svg",
-      "alt": "Schéma réseau",
-      "cp": "cp4"
-    },
-    {
-      "id": "cp4-legacy-ccp10-toip",
-      "t": "Asterisk / FreePBX et diagnostic SIP",
-      "level": "intermediaire",
-      "r": "SIP 5060, RTP 10000-20000, codecs G.711/G.729. QoS et VLAN voix.",
-      "tags": [
-        "voip",
-        "sip",
-        "asterisk",
-        "qos"
-      ],
-      "g": [
-        "FreePBX : extensions, trunk, routes entrantes/sortantes",
-        "Provisionner téléphones SIP",
-        "Tester appel interne puis externe",
-        "QoS : prioriser la voix (DSCP EF)"
-      ],
-      "c": "asterisk -rvvv\nsip show peers\npjsip show endpoints\nrtp set debug on\n# ports\n# SIP 5060 UDP/TCP, RTP 10000-20000 UDP\nasterisk -rx \"core show channels\"",
-      "p": [
-        "NAT = audio unidirectionnel fréquent",
-        "VLAN voix séparé",
-        "RTCP pour la qualité"
-      ],
-      "w": "Les ALG SIP des routeurs peuvent casser la signalisation.",
-      "cp": "cp4",
-      "doublon_de": "cp4-legacy-cp10-toip"
-    },
-    {
-      "id": "cp4-legacy-cp10-toip",
-      "t": "ToIP dans DMZ",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "CP10 - Définition : intégration voix. | Objectif : continuité. | Cas réel : SIP externe. | Fonctionnement détaillé : NAT, ports sécurité. | Exemple : Teams direct. | Procédure : WAF, firewall. | Erreurs : ports. | Jury : NAT traversal. | Retenir : sécurité.",
-      "tags": [
-        "cp10"
+        "acl"
       ],
       "g": [],
-      "c": "SIP debug; RTP analyze",
-      "p": [],
-      "w": "",
-      "img": "images/topologie-reseau.svg",
-      "alt": "DMZ/Intranet",
-      "cp": "cp4"
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "ACL : filtrage, implicit deny.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Les ACL contrôlent l'accès réseau."
+        },
+        {
+          "title": "Définitions",
+          "body": "ACL standard/étendue, wildcard mask, inbound/outbound."
+        },
+        {
+          "title": "Théorie détaillée",
+          "body": "Évaluation séquentielle, implicit deny."
+        },
+        {
+          "title": "Architecture",
+          "body": "Routeur, interface."
+        },
+        {
+          "title": "Cas concret entreprise",
+          "body": "Bloquer SSH depuis un VLAN."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "1. Créer ACL. 2. Ajouter règles. 3. Appliquer. 4. Tester."
+        },
+        {
+          "title": "Dépannage",
+          "body": "Ordre des règles, wildcard erroné."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Documenter, utiliser des ACL nommées."
+        },
+        {
+          "title": "Questions de jury",
+          "body": "Implicit deny = ? Refus par défaut."
+        },
+        {
+          "title": "Pièges d'examen",
+          "body": "Ordre des règles."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "ACL filtre, implicit deny."
+        },
+        {
+          "title": "Schéma Mermaid",
+          "body": "graph TD; ACL-->Permit; ACL-->Deny;"
+        },
+        {
+          "title": "Sources de référence",
+          "body": "Cisco IOS."
+        }
+      ]
     },
     {
-      "id": "toip-fiche-1",
-      "t": "Téléphonie analogique",
+      "id": "cp4-firewall",
+      "t": "Pare-feu",
       "level": "intermediaire",
       "cli": true,
-      "r": "Définition : Signal audio analogique acheminé sur cuivre RJ11, signalisation loop start/ground start et tonalité. | Cas réel en entreprise : Cas réel : un site doit garder des fax et une alarme d'ascenseur en analogique même après migration ToIP. | Objectif : maîtriser ce composant pour diagnostiquer et configurer. | Fonctionnement détaillé : voir la définition, ordre paquet et options de signaling/média. | Procédure pas à pas : Choisir le codec et l'interface analogique, câbler les prises, tester tonalité et appels, documenter les numéros. | Erreurs fréquentes : Mauvais câblage FXO/FXS; Niveau de gain trop fort; absence de tonalité. | Questions du jury : expliquer le flux; citer les ports et rels; justifier choix technique. | À retenir : QoS, VLAN, configuration VLAN option 150, diagnostic couche par couche. | Commandes pour lab : debug voice ccapi inout; show voice port summary",
+      "r": "Le pare-feu filtre le trafic selon des règles.",
       "tags": [
-        "toip",
-        "ccna",
-        "t-l-phonie-analogique"
-      ],
-      "g": [
-        "Choisir le codec",
-        "l'interface analogique",
-        "câbler les prises",
-        "tester tonalité",
-        "appels",
-        "documenter les numéros."
-      ],
-      "c": "debug voice ccapi inout\nshow voice port summary",
-      "p": [
-        "Mauvais câblage FXO/FXS",
-        "Niveau de gain trop fort",
-        "absence de tonalité"
-      ],
-      "w": "Conclusion : Téléphonie analogique se maîtrise par configuration, validation de service et tests bout à bout.",
-      "img": "images/toip-schema.svg",
-      "alt": "Schéma pédagogique ToIP",
-      "cp": "cp4"
-    },
-    {
-      "id": "toip-fiche-2",
-      "t": "RNIS et flux numériques",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Définition : RNIS (ISDN) fournit des circuits numériques dédiés, accès de base BRI ou primaire PRI. | Cas réel en entreprise : Cas réel : un collège garde une PRI pour la télésurveillance et l'envoi fax dans une zone sensible. | Objectif : maîtriser ce composant pour diagnostiquer et configurer. | Fonctionnement détaillé : voir la définition, ordre paquet et options de signaling/média. | Procédure pas à pas : Choisir BRI/PRI, configurer le contrôleur E1/T1, tester ISDN Q.931 et appels entrants/sortants. | Erreurs fréquentes : Mauvais framing/clocking; Alias de routage; Appel entrant sans routing. | Questions du jury : expliquer le flux; citer les ports et rels; justifier choix technique. | À retenir : QoS, VLAN, configuration VLAN option 150, diagnostic couche par couche. | Commandes pour lab : isdn switch-type primary-net5; show isdn status; debug isdn q931",
-      "tags": [
-        "toip",
-        "ccna",
-        "rnis-et-flux-num-riques"
-      ],
-      "g": [
-        "Choisir BRI/PRI",
-        "configurer le contrôleur E1/T1",
-        "tester ISDN Q.931",
-        "appels entrants/sortants."
-      ],
-      "c": "isdn switch-type primary-net5\nshow isdn status\ndebug isdn q931",
-      "p": [
-        "Mauvais framing/clocking",
-        "Alias de routage",
-        "Appel entrant sans routing"
-      ],
-      "w": "Conclusion : RNIS et flux numériques se maîtrise par configuration, validation de service et tests bout à bout.",
-      "img": "images/toip-schema.svg",
-      "alt": "Schéma pédagogique ToIP",
-      "cp": "cp4"
-    },
-    {
-      "id": "toip-fiche-3",
-      "t": "ToIP et convergence voix",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Définition : La ToIP encapsule la voix dans IP et mutualise une même infrastructure réseau. | Cas réel en entreprise : Cas réel : remplacement de 40 postes PABX par un routeur Cisco CME et un switch VoIP en 48h. | Objectif : maîtriser ce composant pour diagnostiquer et configurer. | Fonctionnement détaillé : voir la définition, ordre paquet et options de signaling/média. | Procédure pas à pas : Évaluer débit et QoS, définir le VLAN Voix, installer le service téléphonique, migrer les numéros, tester. | Erreurs fréquentes : Sous-dimensionnement de bande passante; QoS absente; aucun plan de migration. | Questions du jury : expliquer le flux; citer les ports et rels; justifier choix technique. | À retenir : QoS, VLAN, configuration VLAN option 150, diagnostic couche par couche. | Commandes pour lab : show voip tftp bindings; debug ccsip messages",
-      "tags": [
-        "toip",
-        "ccna",
-        "toip-et-convergence-voix"
-      ],
-      "g": [
-        "Évaluer débit",
-        "QoS",
-        "définir le VLAN Voix",
-        "installer le service téléphonique",
-        "migrer les numéros",
-        "tester."
-      ],
-      "c": "show voip tftp bindings\ndebug ccsip messages",
-      "p": [
-        "Sous-dimensionnement de bande passante",
-        "QoS absente",
-        "aucun plan de migration"
-      ],
-      "w": "Conclusion : ToIP et convergence voix se maîtrise par configuration, validation de service et tests bout à bout.",
-      "img": "images/toip-schema.svg",
-      "alt": "Schéma pédagogique ToIP",
-      "cp": "cp4"
-    },
-    {
-      "id": "toip-fiche-4",
-      "t": "VoIP signalisation et média",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Définition : SIP pour signalisation (ports TCP/UDP 5060/0-1), RTP pour média (UDP 16384-32767). | Cas réel en entreprise : Cas réel : un appel est établi mais la voix est unidirectionnelle à cause d'ACL. | Objectif : maîtriser ce composant pour diagnostiquer et configurer. | Fonctionnement détaillé : voir la définition, ordre paquet et options de signaling/média. | Procédure pas à pas : Analyser le sens des paquets, valider les ports, tester entre deux postes, capturer si besoin. | Erreurs fréquentes : Bloquer RTP; NAT sans ALG; oublier les ports UDP. | Questions du jury : expliquer le flux; citer les ports et rels; justifier choix technique. | À retenir : QoS, VLAN, configuration VLAN option 150, diagnostic couche par couche. | Commandes pour lab : show sip map rtp; show voice call status; debug ip packet",
-      "tags": [
-        "toip",
-        "ccna",
-        "voip-signalisation-et-m-dia"
-      ],
-      "g": [
-        "Analyser le sens des paquets",
-        "valider les ports",
-        "tester entre deux postes",
-        "capturer si besoin."
-      ],
-      "c": "show sip map rtp\nshow voice call status\ndebug ip packet",
-      "p": [
-        "Bloquer RTP",
-        "NAT sans ALG",
-        "oublier les ports UDP"
-      ],
-      "w": "Conclusion : VoIP signalisation et média se maîtrise par configuration, validation de service et tests bout à bout.",
-      "img": "images/toip-schema.svg",
-      "alt": "Schéma pédagogique ToIP",
-      "cp": "cp4"
-    },
-    {
-      "id": "toip-fiche-5",
-      "t": "SIP protocole détaillé",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Définition : SIP initie, modifie et termine les sessions voix/vidéo via messages INVITE, ACK, BYE. | Cas réel en entreprise : Cas réel : un téléphone SIP_INVALID ne s'enregistre pas car les credentials sont faux. | Objectif : maîtriser ce composant pour diagnostiquer et configurer. | Fonctionnement détaillé : voir la définition, ordre paquet et options de signaling/média. | Procédure pas à pas : Vérifier l'enregistrement, tester avec debug ccsip, configurer ACL et vérifier la durée de timeout. | Erreurs fréquentes : Précis de l'enregistrement; Code erreur 403/401; expirer registration. | Questions du jury : expliquer le flux; citer les ports et rels; justifier choix technique. | À retenir : QoS, VLAN, configuration VLAN option 150, diagnostic couche par couche. | Commandes pour lab : show sip register status; debug ccsip events; show sip-ua status",
-      "tags": [
-        "toip",
-        "ccna",
-        "sip-protocole-d-taill-"
-      ],
-      "g": [
-        "Vérifier l'enregistrement",
-        "tester avec debug ccsip",
-        "configurer ACL",
-        "vérifier la durée de timeout."
-      ],
-      "c": "show sip register status\ndebug ccsip events\nshow sip-ua status",
-      "p": [
-        "Précis de l'enregistrement",
-        "Code erreur 403/401",
-        "expirer registration"
-      ],
-      "w": "Conclusion : SIP protocole détaillé se maîtrise par configuration, validation de service et tests bout à bout.",
-      "img": "images/toip-schema.svg",
-      "alt": "Schéma pédagogique ToIP",
-      "cp": "cp4"
-    },
-    {
-      "id": "toip-fiche-6",
-      "t": "SCCP (Skinny)",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Définition : Protocole propriétaire Cisco à signalisation séparée pour IP phone CallManager/CME. | Cas réel en entreprise : Cas réel : fichier firmware incorrect téléchargé par l'IP Phone sur TFTP. | Objectif : maîtriser ce composant pour diagnostiquer et configurer. | Fonctionnement détaillé : voir la définition, ordre paquet et options de signaling/média. | Procédure pas à pas : Activer le service CME, déclarer les ephones, ctl files/rw-file, valider codecs et firmware. | Erreurs fréquentes : firmware incompatible; ePhone non déclaré; dongle USB non authorized. | Questions du jury : expliquer le flux; citer les ports et rels; justifier choix technique. | À retenir : QoS, VLAN, configuration VLAN option 150, diagnostic couche par couche. | Commandes pour lab : telephony-service; show ephone registered; show voice register pool",
-      "tags": [
-        "toip",
-        "ccna",
-        "sccp-skinny-"
-      ],
-      "g": [
-        "Activer le service CME",
-        "déclarer les ephones",
-        "ctl files/rw-file",
-        "valider codecs",
-        "firmware."
-      ],
-      "c": "telephony-service\nshow ephone registered\nshow voice register pool",
-      "p": [
-        "firmware incompatible",
-        "ePhone non déclaré",
-        "dongle USB non authorized"
-      ],
-      "w": "Conclusion : SCCP (Skinny) se maîtrise par configuration, validation de service et tests bout à bout.",
-      "img": "images/toip-schema.svg",
-      "alt": "Schéma pédagogique ToIP",
-      "cp": "cp4"
-    },
-    {
-      "id": "toip-fiche-7",
-      "t": "RTP et qualité temps réel",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Définition : RTP encapsule le média audio avec séquence et timestamp pour ordonner et reconstituer le flux. | Cas réel en entreprise : Cas réel : jitter élevé quand une sauvegarde SMB sature le lien montant. | Objectif : maîtriser ce composant pour diagnostiquer et configurer. | Fonctionnement détaillé : voir la définition, ordre paquet et options de signaling/média. | Procédure pas à pas : Monter la QoS, mesurer le jitter avec MOS, segmenter VLAN, limiter l'écoulement non temps réel. | Erreurs fréquentes : absence priorité; perte de paquets; mixte DSCP sans confiance. | Questions du jury : expliquer le flux; citer les ports et rels; justifier choix technique. | À retenir : QoS, VLAN, configuration VLAN option 150, diagnostic couche par couche. | Commandes pour lab : show voice call statistics; debug rtp-all; show access-lists",
-      "tags": [
-        "toip",
-        "ccna",
-        "rtp-et-qualit-temps-r-el"
-      ],
-      "g": [
-        "Monter la QoS",
-        "mesurer le jitter avec MOS",
-        "segmenter VLAN",
-        "limiter l'écoulement non temps réel."
-      ],
-      "c": "show voice call statistics\ndebug rtp-all\nshow access-lists",
-      "p": [
-        "absence priorité",
-        "perte de paquets",
-        "mixte DSCP sans confiance"
-      ],
-      "w": "Conclusion : RTP et qualité temps réel se maîtrise par configuration, validation de service et tests bout à bout.",
-      "img": "images/toip-schema.svg",
-      "alt": "Schéma pédagogique ToIP",
-      "cp": "cp4"
-    },
-    {
-      "id": "toip-fiche-8",
-      "t": "TFTP pour firmware",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Définition : TFTP est un service léger sans authentification ; doit être disponibles en réseau segment VoLAN. | Cas réel en entreprise : Cas réel : le téléphone affiche upgrade failed car le fichier n'est pas à la racine TFTP/CME. | Objectif : maîtriser ce composant pour diagnostiquer et configurer. | Fonctionnement détaillé : voir la définition, ordre paquet et options de signaling/média. | Procédure pas à pas : Mettre le firmware au bon chemin, charger le premier boot loader, configurer DHCP option 150, reboot. | Erreurs fréquentes : mauvais répertoire; blocage ACL; drop léger par firewall. | Questions du jury : expliquer le flux; citer les ports et rels; justifier choix technique. | À retenir : QoS, VLAN, configuration VLAN option 150, diagnostic couche par couche. | Commandes pour lab : tftp-server flash:phone_load.gz; show tftp transfers; show voip application",
-      "tags": [
-        "toip",
-        "ccna",
-        "tftp-pour-firmware"
-      ],
-      "g": [
-        "Mettre le firmware au bon chemin",
-        "charger le premier boot loader",
-        "configurer DHCP option 150",
-        "reboot."
-      ],
-      "c": "tftp-server flash:phone_load.gz\nshow tftp transfers\nshow voip application",
-      "p": [
-        "mauvais répertoire",
-        "blocage ACL",
-        "drop léger par firewall"
-      ],
-      "w": "Conclusion : TFTP pour firmware se maîtrise par configuration, validation de service et tests bout à bout.",
-      "img": "images/toip-schema.svg",
-      "alt": "Schéma pédagogique ToIP",
-      "cp": "cp4"
-    },
-    {
-      "id": "toip-fiche-9",
-      "t": "DHCP option 150",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Définition : L'option 150 indique l'adresse TFTP/Cisco que l'IP phone doit interroger au boot. | Cas réel en entreprise : Cas réel : des téléphones bootent en mode initial car le pool DHCP Data manque l'option 150. | Objectif : maîtriser ce composant pour diagnostiquer et configurer. | Fonctionnement détaillé : voir la définition, ordre paquet et options de signaling/média. | Procédure pas à pas : Ajouter option 150 sur le pool VLAN Voix, tester boot, valider les clients. | Erreurs fréquentes : option mal typée; DHCP relay absent; Pool VOICE vide. | Questions du jury : expliquer le flux; citer les ports et rels; justifier choix technique. | À retenir : QoS, VLAN, configuration VLAN option 150, diagnostic couche par couche. | Commandes pour lab : ip dhcp pool VOICE; option 150 ip 10.10.10.1; show ip dhcp binding",
-      "tags": [
-        "toip",
-        "ccna",
-        "dhcp-option-150"
-      ],
-      "g": [
-        "Ajouter option 150 sur le pool VLAN Voix",
-        "tester boot",
-        "valider les clients."
-      ],
-      "c": "ip dhcp pool VOICE\noption 150 ip 10.10.10.1\nshow ip dhcp binding",
-      "p": [
-        "option mal typée",
-        "DHCP relay absent",
-        "Pool VOICE vide"
-      ],
-      "w": "Conclusion : DHCP option 150 se maîtrise par configuration, validation de service et tests bout à bout.",
-      "img": "images/toip-schema.svg",
-      "alt": "Schéma pédagogique ToIP",
-      "cp": "cp4"
-    },
-    {
-      "id": "toip-fiche-10",
-      "t": "VLAN Voix et priorisation",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Définition : Le VLAN Voix sépare le trafic voix du Data et inclut la confiance CoS sur le switch. | Cas réel en entreprise : Cas réel : un port trunking incorrect fait arriver les paquets VoIP non marqués et le téléphone redémarre. | Objectif : maîtriser ce composant pour diagnostiquer et configurer. | Fonctionnement détaillé : voir la définition, ordre paquet et options de signaling/média. | Procédure pas à pas : Utiliser switchport voice vlan 100, valider trunk et téléphonies | Erreurs fréquentes : voice vlan non trust; trunk sans native; access port erroné. | Questions du jury : expliquer le flux; citer les ports et rels; justifier choix technique. | À retenir : QoS, VLAN, configuration VLAN option 150, diagnostic couche par couche. | Commandes pour lab : switchport voice vlan 100; show vlan brief; show interfaces switchport",
-      "tags": [
-        "toip",
-        "ccna",
-        "vlan-voix-et-priorisation"
-      ],
-      "g": [
-        "Utiliser switchport voice vlan 100",
-        "valider trunk",
-        "téléphonies"
-      ],
-      "c": "switchport voice vlan 100\nshow vlan brief\nshow interfaces switchport",
-      "p": [
-        "voice vlan non trust",
-        "trunk sans native",
-        "access port erroné"
-      ],
-      "w": "Conclusion : VLAN Voix et priorisation se maîtrise par configuration, validation de service et tests bout à bout.",
-      "img": "images/toip-schema.svg",
-      "alt": "Schéma pédagogique ToIP",
-      "cp": "cp4"
-    },
-    {
-      "id": "toip-fiche-11",
-      "t": "CDP pour VoIP",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Définition : CDP découvre VoIX device et annonce le VLAN Voix pour auto-configuration. | Cas réel en entreprise : Cas réel : un téléphone Cisco redescendre sur le VLAN 1 si CDP est désactivé sur le port trunk. | Objectif : maîtriser ce composant pour diagnostiquer et configurer. | Fonctionnement détaillé : voir la définition, ordre paquet et options de signaling/média. | Procédure pas à pas : Activer CDP globally et sur interface, remonter les voisins, valider le voice VLAN. | Erreurs fréquentes : désactivation interface; passage access;  absence tagged VLAN. | Questions du jury : expliquer le flux; citer les ports et rels; justifier choix technique. | À retenir : QoS, VLAN, configuration VLAN option 150, diagnostic couche par couche. | Commandes pour lab : cdp run; cdp enable; show cdp neighbors detail",
-      "tags": [
-        "toip",
-        "ccna",
-        "cdp-pour-voip"
-      ],
-      "g": [
-        "Activer CDP globally",
-        "sur interface",
-        "remonter les voisins",
-        "valider le voice VLAN."
-      ],
-      "c": "cdp run\ncdp enable\nshow cdp neighbors detail",
-      "p": [
-        "désactivation interface",
-        "passage access",
-        " absence tagged VLAN"
-      ],
-      "w": "Conclusion : CDP pour VoIP se maîtrise par configuration, validation de service et tests bout à bout.",
-      "img": "images/toip-schema.svg",
-      "alt": "Schéma pédagogique ToIP",
-      "cp": "cp4"
-    },
-    {
-      "id": "toip-fiche-12",
-      "t": "LLDP et interopérabilité",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Définition : LLDP est standard (IEEE 802.1AB) pour une découverte voisins multi-vendeurs. | Cas réel en entreprise : Cas réel : un téléphone SIP non Cisco préfère LLDP-MED pour signaler le VLAN Voix. | Objectif : maîtriser ce composant pour diagnostiquer et configurer. | Fonctionnement détaillé : voir la définition, ordre paquet et options de signaling/média. | Procédure pas à pas : Activer LLDP sur les ports, auditer les TLVs, améliorer l'interop. | Erreurs fréquentes : remplacement CDP; non activation TLV; mismatch policy. | Questions du jury : expliquer le flux; citer les ports et rels; justifier choix technique. | À retenir : QoS, VLAN, configuration VLAN option 150, diagnostic couche par couche. | Commandes pour lab : lldp run; lldp transmit / receive; show lldp neighbors detail",
-      "tags": [
-        "toip",
-        "ccna",
-        "lldp-et-interop-rabilit-"
-      ],
-      "g": [
-        "Activer LLDP sur les ports",
-        "auditer les TLVs",
-        "améliorer l'interop."
-      ],
-      "c": "lldp run\nlldp transmit / receive\nshow lldp neighbors detail",
-      "p": [
-        "remplacement CDP",
-        "non activation TLV",
-        "mismatch policy"
-      ],
-      "w": "Conclusion : LLDP et interopérabilité se maîtrise par configuration, validation de service et tests bout à bout.",
-      "img": "images/toip-schema.svg",
-      "alt": "Schéma pédagogique ToIP",
-      "cp": "cp4"
-    },
-    {
-      "id": "toip-fiche-13",
-      "t": "QoS pour ToIP",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Définition : La priorisation voix (EF/CS3) et le LLQ évitent jitter, latence et perte de paquets. | Cas réel en entreprise : Cas réel : appel haché chaque après-midi à cause du backup cloud saturant le lien WAN. | Objectif : maîtriser ce composant pour diagnostiquer et configurer. | Fonctionnement détaillé : voir la définition, ordre paquet et options de signaling/média. | Procédure pas à pas : Marquer audio, appliquer service-policy sortie, valider avec mos/jitter, choisir guarantie minima. | Erreurs fréquentes : surallocation de bande; confiance DSCP falsifiée; pas de réservation. | Questions du jury : expliquer le flux; citer les ports et rels; justifier choix technique. | À retenir : QoS, VLAN, configuration VLAN option 150, diagnostic couche par couche. | Commandes pour lab : policy-map QOS-VOICE; class VOICE; priority percent 30",
-      "tags": [
-        "toip",
-        "ccna",
-        "qos-pour-toip"
-      ],
-      "g": [
-        "Marquer audio",
-        "appliquer service-policy sortie",
-        "valider avec mos/jitter",
-        "choisir guarantie minima."
-      ],
-      "c": "policy-map QOS-VOICE\nclass VOICE\npriority percent 30",
-      "p": [
-        "surallocation de bande",
-        "confiance DSCP falsifiée",
-        "pas de réservation"
-      ],
-      "w": "Conclusion : QoS pour ToIP se maîtrise par configuration, validation de service et tests bout à bout.",
-      "img": "images/toip-schema.svg",
-      "alt": "Schéma pédagogique ToIP",
-      "cp": "cp4"
-    },
-    {
-      "id": "toip-fiche-14",
-      "t": "ATA gateway analogique",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Définition : L'ATA convertit la signalisation analogique en flux SIP et encapsule en IP. | Cas réel en entreprise : Cas réel : maintenir un fax et un interphone d'ascenseur sans changer de support. | Objectif : maîtriser ce composant pour diagnostiquer et configurer. | Fonctionnement détaillé : voir la définition, ordre paquet et options de signaling/média. | Procédure pas à pas : Provisionner ATA, tester FXS, valider codec G.711/G.729, monitorer registre et qualité. | Erreurs fréquentes : payload fax défaillant; codec non compatible; T.38 non activé. | Questions du jury : expliquer le flux; citer les ports et rels; justifier choix technique. | À retenir : QoS, VLAN, configuration VLAN option 150, diagnostic couche par couche. | Commandes pour lab : show registration status; show voip rtp connections; debug voice ccapi",
-      "tags": [
-        "toip",
-        "ccna",
-        "ata-gateway-analogique"
-      ],
-      "g": [
-        "Provisionner ATA",
-        "tester FXS",
-        "valider codec G.711/G.729",
-        "monitorer registre",
-        "qualité."
-      ],
-      "c": "show registration status\nshow voip rtp connections\ndebug voice ccapi",
-      "p": [
-        "payload fax défaillant",
-        "codec non compatible",
-        "T.38 non activé"
-      ],
-      "w": "Conclusion : ATA gateway analogique se maîtrise par configuration, validation de service et tests bout à bout.",
-      "img": "images/toip-schema.svg",
-      "alt": "Schéma pédagogique ToIP",
-      "cp": "cp4"
-    },
-    {
-      "id": "toip-fiche-15",
-      "t": "Softphone",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Définition : Le softphone est un client logiciel SIP qui dépend de CPU, A/V et QoS réseau. | Cas réel en entreprise : Cas réel : un agent hybride utilise un softphone sur son PC portable en fibre et 4G. | Objectif : maîtriser ce composant pour diagnostiquer et configurer. | Fonctionnement détaillé : voir la définition, ordre paquet et options de signaling/média. | Procédure pas à pas : Installer voix client, configurer SIP fallback, tester casque et Bluetooth, superviser expérience. | Erreurs fréquentes : bande passante mobile; absence headset; latence WAN. | Questions du jury : expliquer le flux; citer les ports et rels; justifier choix technique. | À retenir : QoS, VLAN, configuration VLAN option 150, diagnostic couche par couche. | Commandes pour lab : show sip-ua calls; debug ccsip all",
-      "tags": [
-        "toip",
-        "ccna",
-        "softphone"
-      ],
-      "g": [
-        "Installer voix client",
-        "configurer SIP fallback",
-        "tester casque",
-        "Bluetooth",
-        "superviser expérience."
-      ],
-      "c": "show sip-ua calls\ndebug ccsip all",
-      "p": [
-        "bande passante mobile",
-        "absence headset",
-        "latence WAN"
-      ],
-      "w": "Conclusion : Softphone se maîtrise par configuration, validation de service et tests bout à bout.",
-      "img": "images/toip-schema.svg",
-      "alt": "Schéma pédagogique ToIP",
-      "cp": "cp4"
-    },
-    {
-      "id": "toip-fiche-16",
-      "t": "Plan de numérotation",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Définition : Le plan numerique attribue plages (100-...), règles class of restriction et routage. | Cas réel en entreprise : Cas réel : site Paris 2XX-299, site Lille 3XX-399, bureaux 4XX-599. | Objectif : maîtriser ce composant pour diagnostiquer et configurer. | Fonctionnement détaillé : voir la définition, ordre paquet et options de signaling/média. | Procédure pas à pas : Documenter les plages, créer dial-plan et routing, tester locaux et inter-site. | Erreurs fréquentes : chevauchement numéros; mauvais SRST; absence routage inter-site. | Questions du jury : expliquer le flux; citer les ports et rels; justifier choix technique. | À retenir : QoS, VLAN, configuration VLAN option 150, diagnostic couche par couche. | Commandes pour lab : country; translation-rule; show dial-peer voice summary; show dial-number-map",
-      "tags": [
-        "toip",
-        "ccna",
-        "plan-de-num-rotation"
-      ],
-      "g": [
-        "Documenter les plages",
-        "créer dial-plan",
-        "routing",
-        "tester locaux",
-        "inter-site."
-      ],
-      "c": "country\ntranslation-rule\nshow dial-peer voice summary\nshow dial-number-map",
-      "p": [
-        "chevauchement numéros",
-        "mauvais SRST",
-        "absence routage inter-site"
-      ],
-      "w": "Conclusion : Plan de numérotation se maîtrise par configuration, validation de service et tests bout à bout.",
-      "img": "images/toip-schema.svg",
-      "alt": "Schéma pédagogique ToIP",
-      "cp": "cp4"
-    },
-    {
-      "id": "toip-fiche-17",
-      "t": "Cisco CME call manager express",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Définition : CME installé sur routeur, configure phones, DN et services (park, pickup, paging). | Cas réel en entreprise : Cas réel : PME déployant 25 IP phone Cisco avec routeur CME + PRI. | Objectif : maîtriser ce composant pour diagnostiquer et configurer. | Fonctionnement détaillé : voir la définition, ordre paquet et options de signaling/média. | Procédure pas à pas : Activer telephony-service, créer dn/ephone-plan, configurer codecs et services, ctl/cnf files, test. | Erreurs fréquentes : license manquant; image wrong; CNF generation fail. | Questions du jury : expliquer le flux; citer les ports et rels; justifier choix technique. | À retenir : QoS, VLAN, configuration VLAN option 150, diagnostic couche par couche. | Commandes pour lab : telephony-service; max-dn; max-ephones; create cnf-files",
-      "tags": [
-        "toip",
-        "ccna",
-        "cisco-cme-call-manager-express"
-      ],
-      "g": [
-        "Activer telephony-service",
-        "créer dn/ephone-plan",
-        "configurer codecs",
-        "services",
-        "ctl/cnf files",
-        "test."
-      ],
-      "c": "telephony-service\nmax-dn\nmax-ephones\ncreate cnf-files",
-      "p": [
-        "license manquant",
-        "image wrong",
-        "CNF generation fail"
-      ],
-      "w": "Conclusion : Cisco CME call manager express se maîtrise par configuration, validation de service et tests bout à bout.",
-      "img": "images/toip-schema.svg",
-      "alt": "Schéma pédagogique ToIP",
-      "cp": "cp4"
-    },
-    {
-      "id": "toip-fiche-18",
-      "t": "TP complet Cisco CME",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Définition : Atelier intégrant schéma, switch, DHCP option 150, routeur CME et tests. | Cas réel en entreprise : Cas réel : VM avec routeur, switch, CME, 3 phones et VLAN Voix pour formation. | Objectif : maîtriser ce composant pour diagnostiquer et configurer. | Fonctionnement détaillé : voir la définition, ordre paquet et options de signaling/média. | Procédure pas à pas : Établir schéma pilot, config switch, config DHCP, config CME, tester registration et appels. | Erreurs fréquentes : Causes multiples; diagnostic insuffisant; perte de focus; on oublie les tests. | Questions du jury : expliquer le flux; citer les ports et rels; justifier choix technique. | À retenir : QoS, VLAN, configuration VLAN option 150, diagnostic couche par couche. | Commandes pour lab : 802.1q; VLAN Voix; DHCP Option 150; telephony-service; CME commands",
-      "tags": [
-        "toip",
-        "ccna",
-        "tp-complet-cisco-cme"
-      ],
-      "g": [
-        "Établir schéma pilot",
-        "config switch",
-        "config DHCP",
-        "config CME",
-        "tester registration",
-        "appels."
-      ],
-      "c": "802.1q\nVLAN Voix\nDHCP Option 150\ntelephony-service\nCME commands",
-      "p": [
-        "Causes multiples",
-        "diagnostic insuffisant",
-        "perte de focus",
-        "on oublie les tests"
-      ],
-      "w": "Conclusion : TP complet Cisco CME se maîtrise par configuration, validation de service et tests bout à bout.",
-      "img": "images/toip-schema.svg",
-      "alt": "Schéma pédagogique ToIP",
-      "cp": "cp4"
-    },
-    {
-      "id": "toip-fiche-19",
-      "t": "Déploiement ToIP - accueil entrant",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Définition : Pilote contrôle routeur et plan numérotation pour un PABX de secours. | Cas réel en entreprise : Cas réel : stratégie backup SIP vers PSTN pour garantir continuité. | Objectif : maîtriser ce composant pour diagnostiquer et configurer. | Fonctionnement détaillé : voir la définition, ordre paquet et options de signaling/média. | Procédure pas à pas : Configurer dial peer vers PRI, defining primary/secondary, tests 1500 appels | Erreurs fréquentes : routing default invisible; CPT tonalité absent; camp-on absent. | Questions du jury : expliquer le flux; citer les ports et rels; justifier choix technique. | À retenir : QoS, VLAN, configuration VLAN option 150, diagnostic couche par couche. | Commandes pour lab : show dial-peer voice; show call history voice; voice port status",
-      "tags": [
-        "toip",
-        "ccna",
-        "d-ploiement-toip-accueil-entrant"
-      ],
-      "g": [
-        "Configurer dial peer vers PRI",
-        "defining primary/secondary",
-        "tests 1500 appels"
-      ],
-      "c": "show dial-peer voice\nshow call history voice\nvoice port status",
-      "p": [
-        "routing default invisible",
-        "CPT tonalité absent",
-        "camp-on absent"
-      ],
-      "w": "Conclusion : Déploiement ToIP - accueil entrant se maîtrise par configuration, validation de service et tests bout à bout.",
-      "img": "images/toip-schema.svg",
-      "alt": "Schéma pédagogique ToIP",
-      "cp": "cp4"
-    },
-    {
-      "id": "toip-fiche-20",
-      "t": "Diagnostic avancé ToIP",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Définition : Diagnostiquer par couches : physique, DHCP, CDP, SIP, RTP, codec. | Cas réel en entreprise : Cas réel : IP phone reste connected mais ne fait pas d'appel après restart. | Objectif : maîtriser ce composant pour diagnostiquer et configurer. | Fonctionnement détaillé : voir la définition, ordre paquet et options de signaling/média. | Procédure pas à pas : Collecter status DHCP/CDP/SIP/RTP, valider voice frames et codec compliance, capturer. | Erreurs fréquentes : multicast loop; codec mismatch; RTP holes. | Questions du jury : expliquer le flux; citer les ports et rels; justifier choix technique. | À retenir : QoS, VLAN, configuration VLAN option 150, diagnostic couche par couche. | Commandes pour lab : show voice register pool all; debug ccsip all; show interfaces counter",
-      "tags": [
-        "toip",
-        "ccna",
-        "diagnostic-avanc-toip"
-      ],
-      "g": [
-        "Collecter status DHCP/CDP/SIP/RTP",
-        "valider voice frames",
-        "codec compliance",
-        "capturer."
-      ],
-      "c": "show voice register pool all\ndebug ccsip all\nshow interfaces counter",
-      "p": [
-        "multicast loop",
-        "codec mismatch",
-        "RTP holes"
-      ],
-      "w": "Conclusion : Diagnostic avancé ToIP se maîtrise par configuration, validation de service et tests bout à bout.",
-      "img": "images/toip-schema.svg",
-      "alt": "Schéma pédagogique ToIP",
-      "cp": "cp4"
-    },
-    {
-      "id": "toip-fiche-21",
-      "t": "Sécurité ToIP",
-      "level": "intermediaire",
-      "cli": true,
-      "r": "Définition : Segmenter VLAN, ACL sur le SIP RTP, secure SRTP/TLS selon actifs | Cas réel en entreprise : Cas réel : attaque DDoS SIP scan vers Internet sans restriction. | Objectif : maîtriser ce composant pour diagnostiquer et configurer. | Fonctionnement détaillé : voir la définition, ordre paquet et options de signaling/média. | Procédure pas à pas : Appliquer ACL, NAT fort, TLS, locks et monitore logs | Erreurs fréquentes : exposition ports SIP; CME sans mot de passe; pas de logs logs. | Questions du jury : expliquer le flux; citer les ports et rels; justifier choix technique. | À retenir : QoS, VLAN, configuration VLAN option 150, diagnostic couche par couche. | Commandes pour lab : transport-tcp; sip-ua; crypto enforce",
-      "tags": [
-        "toip",
-        "ccna",
-        "s-curit-toip"
-      ],
-      "g": [
-        "Appliquer ACL",
-        "NAT fort",
-        "TLS",
-        "locks",
-        "monitore logs"
-      ],
-      "c": "transport-tcp\nsip-ua\ncrypto enforce",
-      "p": [
-        "exposition ports SIP",
-        "CME sans mot de passe",
-        "pas de logs logs"
-      ],
-      "w": "Conclusion : Sécurité ToIP se maîtrise par configuration, validation de service et tests bout à bout.",
-      "img": "images/toip-schema.svg",
-      "alt": "Schéma pédagogique ToIP",
-      "cp": "cp4"
-    },
-    {
-      "id": "cp4-renvoi-ids-logs",
-      "t": "Renvoi depuis CP7 — surveillance, IDS/IPS et journaux",
-      "level": "exam",
-      "cli": false,
-      "r": "Renfort CCP12 : fondements réseau (syslog/SNMP, VLAN) en CP4; supervision et IDS/IPS détaillés en CP7. Voir CP7 pour stratégie et corrélation.",
-      "tags": [
-        "renvoi",
         "cp4",
-        "ccp12",
-        "cp7"
+        "firewall"
       ],
-      "g": [
-        "Comprendre syslog",
-        "Comprendre SNMP",
-        "Lire CP7"
-      ],
-      "c": "Aucune commande native.",
+      "g": [],
+      "c": "Voir section Commandes utiles.",
       "p": [
-        "Confondre fondement et stratégie"
+        "Erreur de configuration",
+        "Oubli de vérification"
       ],
-      "w": "Conclusion : CP4 prépare, CP7 sécurise",
-      "cp": "cp4",
-      "renvoi_vers": [
-        "cp7-network",
-        "cp7-siem",
-        "cp7-monitoring"
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Pare-feu : zones, règles, stateful.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Le pare-feu protège le réseau."
+        },
+        {
+          "title": "Définitions",
+          "body": "Zone, règle, stateful, DMZ."
+        },
+        {
+          "title": "Théorie détaillée",
+          "body": "Inspection de paquets, suivi de connexion."
+        },
+        {
+          "title": "Architecture",
+          "body": "Zones trust/untrust/DMZ."
+        },
+        {
+          "title": "Cas concret entreprise",
+          "body": "Bloquer un port entrant."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "1. Créer zone. 2. Créer règle. 3. Tester."
+        },
+        {
+          "title": "Dépannage",
+          "body": "Règle trop stricte, direction inversée."
+        },
+        {
+          "title": "Bonnes pratiques",
+          "body": "Moindre privilège, journaliser."
+        },
+        {
+          "title": "Questions de jury",
+          "body": "Stateful vs stateless ?"
+        },
+        {
+          "title": "Pièges d'examen",
+          "body": "Règle trop permissive."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Pare-feu filtre, zones, stateful."
+        },
+        {
+          "title": "Schéma Mermaid",
+          "body": "graph TD; Z1[Trust]-->FW; FW-->Z2[DMZ];"
+        },
+        {
+          "title": "Sources de référence",
+          "body": "Cisco, pfSense."
+        }
+      ]
+    },
+    {
+      "id": "cp4-lab-vlan",
+      "t": "Lab VLAN et trunk",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Créer VLAN et trunk.",
+      "tags": [
+        "cp4",
+        "lab-vlan"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Lab VLAN et trunk.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Lab pratique VLAN."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "1. Créer VLAN. 2. Assigner. 3. Trunk. 4. Vérifier."
+        },
+        {
+          "title": "Dépannage",
+          "body": "Port non assigné, trunk non autorisé."
+        }
+      ]
+    },
+    {
+      "id": "cp4-lab-routage",
+      "t": "Lab routage inter-VLAN",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Routage inter-VLAN.",
+      "tags": [
+        "cp4",
+        "lab-routage"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Lab routage inter-VLAN.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Lab routage."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "1. Sous-interfaces. 2. IP. 3. Tester ping."
+        },
+        {
+          "title": "Dépannage",
+          "body": "Encapsulation incorrecte."
+        }
+      ]
+    },
+    {
+      "id": "cp4-lab-dhcp",
+      "t": "Lab DHCP",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Configurer DHCP.",
+      "tags": [
+        "cp4",
+        "lab-dhcp"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Lab DHCP.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Lab DHCP."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "1. Étendue. 2. Options. 3. Tester."
+        },
+        {
+          "title": "Dépannage",
+          "body": "Étendue épuisée."
+        }
+      ]
+    },
+    {
+      "id": "cp4-lab-nat",
+      "t": "Lab NAT/PAT",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Configurer NAT.",
+      "tags": [
+        "cp4",
+        "lab-nat"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Lab NAT/PAT.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Lab NAT."
+        },
+        {
+          "title": "Procédure pas à pas",
+          "body": "1. Inside/outside. 2. ACL. 3. PAT. 4. Tester."
+        },
+        {
+          "title": "Dépannage",
+          "body": "ACL incorrecte."
+        }
+      ]
+    },
+    {
+      "id": "cp4-quiz",
+      "t": "Quiz d'entraînement CP4",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Quiz d'entraînement réseau.",
+      "tags": [
+        "cp4",
+        "quiz"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Quiz réseau.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Quiz d'entraînement réseau."
+        },
+        {
+          "title": "Mémo révision",
+          "body": "Réviser les notions clés."
+        }
+      ]
+    },
+    {
+      "id": "cp4-entretien-jury",
+      "t": "Entretien jury CP4",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Questions jury réseau.",
+      "tags": [
+        "cp4",
+        "entretien-jury"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Entretien jury réseau.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Questions typiques du jury."
+        },
+        {
+          "title": "Questions de jury",
+          "body": "Expliquer VLAN, routage, NAT, DHCP, DNS."
+        }
+      ]
+    },
+    {
+      "id": "cp4-cheatsheet",
+      "t": "Cheat sheet CP4",
+      "level": "intermediaire",
+      "cli": true,
+      "r": "Aide-mémoire réseau.",
+      "tags": [
+        "cp4",
+        "cheatsheet"
+      ],
+      "g": [],
+      "c": "Voir section Commandes utiles.",
+      "p": [
+        "Erreur de configuration",
+        "Oubli de vérification"
+      ],
+      "w": "Le test seul ne prouve pas la cause.",
+      "resume": "Cheat sheet réseau.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "body": "Commandes et concepts clés."
+        },
+        {
+          "title": "Commandes utiles",
+          "body": "ping, traceroute, show vlan brief, show ip route, ipconfig."
+        }
       ]
     }
   ],
