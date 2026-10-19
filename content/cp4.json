@@ -1259,7 +1259,7 @@
       "t": "DHCP",
       "level": "intermediaire",
       "cli": true,
-      "r": "DHCP attribue automatiquement les adresses IP.",
+      "r": "Le DHCP attribue automatiquement les adresses IP et les paramètres réseau aux équipements.",
       "tags": [
         "cp4",
         "dhcp"
@@ -1271,71 +1271,123 @@
         "Oubli de vérification"
       ],
       "w": "Le test seul ne prouve pas la cause.",
-      "resume": "DHCP attribue automatiquement les adresses IP.",
+      "resume": "DHCP : DORA, bail, réservation, exclusion, relay.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "DHCP attribue automatiquement les adresses IP."
+          "body": "Le DHCP (Dynamic Host Configuration Protocol) est le service qui attribue automatiquement les adresses IP et les paramètres réseau aux équipements. Sans DHCP, chaque poste devrait être configuré manuellement, ce qui est impossible à grande échelle. Pour un candidat TSSR, maîtriser le DHCP est essentiel car il est au cœur des mises en situation et des questions du jury.  Le DHCP (Dynamic Host Configuration Protocol) est le service qui attribue automatiquement les adresses IP et les paramètres réseau aux équipements. Sans DHCP, chaque poste devrait être configuré manuellement, ce qui est impossible à grande échelle. Pour un candidat TSSR, maîtriser le DHCP est essentiel car il est au cœur des mises en situation et des questions du jury."
         },
         {
-          "title": "Définitions",
-          "body": "DHCP attribue automatiquement les adresses IP."
+          "title": "Pourquoi DHCP existe",
+          "body": "Dans un réseau d'entreprise, les équipements sont nombreux. L'attribution manuelle des adresses IP est fastidieuse et source d'erreurs (conflits, oublis). Le DHCP automatise cette tâche, garantit la cohérence et facilite la gestion du parc. Il distribue aussi la passerelle, le DNS et le domaine."
         },
         {
-          "title": "Théorie détaillée",
-          "body": "DHCP attribue automatiquement les adresses IP. Fonctionnement interne et concepts."
+          "title": "Attribution manuelle vs automatique",
+          "body": "L'attribution manuelle nécessite de configurer chaque poste individuellement. C'est long, source d'erreurs et difficile à maintenir. L'attribution automatique via DHCP centralise la gestion, évite les conflits et s'adapte aux changements (nouveaux postes, VLAN)."
         },
         {
-          "title": "Fonctionnement interne",
-          "body": "DHCP attribue automatiquement les adresses IP."
+          "title": "Fonctionnement DHCP",
+          "body": "Le DHCP fonctionne en 4 étapes (DORA) : Discover, Offer, Request, Acknowledge. Le client diffuse un DHCP Discover. Le serveur répond avec un DHCP Offer. Le client confirme avec un DHCP Request. Le serveur valide avec un DHCP Acknowledge. Le bail est alors attribué.  Le DHCP fonctionne en 4 étapes (DORA) : Discover, Offer, Request, Acknowledge. Le client diffuse un DHCP Discover. Le serveur répond avec un DHCP Offer. Le client confirme avec un DHCP Request. Le serveur valide avec un DHCP Acknowledge. Le bail est alors attribué. Le processus est automatique et transparent."
         },
         {
-          "title": "Architecture",
-          "body": "DHCP attribue automatiquement les adresses IP."
+          "title": "Processus DORA",
+          "body": "Le DHCP fonctionne en 4 étapes (DORA) : Discover, Offer, Request, Acknowledge. Le client diffuse un DHCP Discover. Le serveur répond avec un DHCP Offer. Le client confirme avec un DHCP Request. Le serveur valide avec un DHCP Acknowledge. Le bail est alors attribué."
         },
         {
-          "title": "Cas concret entreprise",
-          "body": "DHCP attribue automatiquement les adresses IP. Cas pratique."
+          "title": "DHCP Discover",
+          "body": "Le DHCP Discover est un message broadcast envoyé par le client pour trouver un serveur DHCP. Il contient l'adresse MAC du client et la demande de paramètres."
         },
         {
-          "title": "Procédure pas à pas",
-          "body": "1. Vérifier. 2. Configurer. 3. Tester."
+          "title": "DHCP Offer",
+          "body": "Le DHCP Offer est la réponse du serveur. Il propose une adresse IP, un masque, une passerelle, un DNS et la durée du bail. Le serveur réserve l'adresse temporairement."
         },
         {
-          "title": "Dépannage",
-          "body": "DHCP attribue automatiquement les adresses IP. Dépannage."
+          "title": "DHCP Request",
+          "body": "Le DHCP Request est la confirmation du client. Il accepte l'offre et demande l'attribution définitive. Il est aussi broadcast pour informer les autres serveurs."
         },
         {
-          "title": "Commandes CLI",
-          "body": "Commandes usuelles."
+          "title": "DHCP Acknowledgement",
+          "body": "Le DHCP Acknowledge est la validation finale du serveur. Le bail est accordé. Le client configure son interface avec les paramètres reçus."
+        },
+        {
+          "title": "Bail DHCP",
+          "body": "Le bail DHCP est la période pendant laquelle l'adresse IP est attribuée au client. À 50% du bail, le client tente de renouveler (DHCP Request). À 87.5%, il tente de contacter n'importe quel serveur. À expiration, l'adresse est libérée.  Le bail DHCP est la période pendant laquelle l'adresse IP est attribuée au client. À 50% du bail, le client tente de renouveler (DHCP Request). À 87.5%, il tente de contacter n'importe quel serveur. À expiration, l'adresse est libérée. Le bail doit être adapté au réseau."
+        },
+        {
+          "title": "Durée du bail",
+          "body": "La durée du bail est configurable. Pour les réseaux stables, un bail long (8 jours) réduit le trafic. Pour les réseaux mobiles (Wi-Fi invités), un bail court (1 heure) libère les adresses. Le compromis est entre stabilité et disponibilité des adresses.  La durée du bail est configurable. Pour les réseaux stables, un bail long (8 jours) réduit le trafic. Pour les réseaux mobiles (Wi-Fi invités), un bail court (1 heure) libère les adresses. Le compromis est entre stabilité et disponibilité des adresses."
+        },
+        {
+          "title": "Réservation DHCP",
+          "body": "La réservation DHCP associe une adresse IP à une adresse MAC. Elle garantit qu'un équipement (serveur, imprimante) reçoit toujours la même IP tout en restant géré par DHCP.  La réservation DHCP associe une adresse IP à une adresse MAC. Elle garantit qu'un équipement (serveur, imprimante) reçoit toujours la même IP tout en restant géré par DHCP. Les réservations sont essentielles pour les serveurs."
+        },
+        {
+          "title": "Exclusions DHCP",
+          "body": "Les exclusions DHCP réservent des adresses pour les équipements statiques (serveurs, routeurs). Les adresses exclues ne sont jamais attribuées par DHCP.  Les exclusions DHCP réservent des adresses pour les équipements statiques (serveurs, routeurs). Les adresses exclues ne sont jamais attribuées par DHCP. Les exclusions évitent les conflits."
+        },
+        {
+          "title": "DHCP Relay",
+          "body": "Le DHCP Relay (ip helper-address) transfère les requêtes DHCP broadcast vers un serveur DHCP distant. Il est indispensable dans un réseau multi-VLAN où le serveur DHCP n'est pas sur le même VLAN.  Le DHCP Relay (ip helper-address) transfère les requêtes DHCP broadcast vers un serveur DHCP distant. Il est indispensable dans un réseau multi-VLAN où le serveur DHCP n'est pas sur le même VLAN. Sans relay, pas de DHCP inter-VLAN."
+        },
+        {
+          "title": "DHCP dans une infrastructure multi-VLAN",
+          "body": "Dans une infrastructure multi-VLAN, le serveur DHCP est centralisé. Chaque VLAN a sa propre étendue. Le relay sur le routeur/switch L3 transfère les requêtes. Les options (passerelle, DNS) sont spécifiques à chaque VLAN.  Dans une infrastructure multi-VLAN, le serveur DHCP est centralisé. Chaque VLAN a sa propre étendue. Le relay sur le routeur/switch L3 transfère les requêtes. Les options (passerelle, DNS) sont spécifiques à chaque VLAN."
+        },
+        {
+          "title": "Architecture entreprise",
+          "body": "Architecture entreprise : serveur DHCP sur un VLAN dédié (serveurs), étendues par VLAN, relay sur les routeurs/switchs L3, réservations pour les serveurs, exclusions pour les équipements statiques.  Architecture entreprise : serveur DHCP sur un VLAN dédié (serveurs), étendues par VLAN, relay sur les routeurs/switchs L3, réservations pour les serveurs, exclusions pour les équipements statiques."
+        },
+        {
+          "title": "Cas concret PME",
+          "body": "Scénario PME : un serveur DHCP sur le VLAN serveurs, étendue pour les postes, réservation pour l'imprimante.  Scénario PME : un serveur DHCP sur le VLAN serveurs, étendue pour les postes, réservation pour l'imprimante. Scénario école : étendue pour les élèves, bail court, exclusion pour les AP. Scénario mairie : multi-sites avec DHCP centralisé et relay."
+        },
+        {
+          "title": "Cas concret école",
+          "body": "Scénario école : étendue pour les élèves, bail court, exclusion pour les AP."
+        },
+        {
+          "title": "Cas concret mairie",
+          "body": "Scénario mairie : multi-sites avec DHCP centralisé et relay."
+        },
+        {
+          "title": "Configuration Cisco IOS",
+          "body": "1. Créer l'étendue. 2. Définir les exclusions. 3. Configurer les options (passerelle, DNS, domaine). 4. Activer l'étendue. 5. Tester avec un poste. 6. Vérifier le bail. Configuration Cisco IOS :\nip dhcp pool VLAN10\n network 192.168.10.0 255.255.255.0\n default-router 192.168.10.1\n dns-server 192.168.10.10\n lease 8\n\nip dhcp excluded-address 192.168.10.1 192.168.10.20\n\ninterface gi0/0.10\n ip helper-address 192.168.100.10\n\nConfiguration Windows Server :\n- Ouvrir la console DHCP.\n- Créer une étendue.\n- Définir les exclusions.\n- Configurer les options.\n- Activer l'étendue.\n\nCommandes de vérification :\nshow ip dhcp pool\nshow ip dhcp binding\nshow running-config\ndebug ip dhcp server events\n\nExplication :\nshow ip dhcp pool affiche les étendues.\nshow ip dhcp binding affiche les baux attribués.\ndebug ip dhcp server events affiche les événements DHCP."
+        },
+        {
+          "title": "Configuration Windows Server",
+          "body": "Ouvrir la console DHCP. Créer une étendue. Définir les exclusions. Configurer les options. Activer l'étendue."
         },
         {
           "title": "Vérification",
-          "body": "Vérifier la configuration."
+          "body": "show ip dhcp pool doit afficher l'étendue active. show ip dhcp binding doit afficher les baux. Un poste doit obtenir une IP automatiquement. ipconfig /all doit afficher la passerelle et le DNS."
+        },
+        {
+          "title": "Dépannage",
+          "body": "Poste en APIPA 169.254.x.x : pas de serveur DHCP, vérifier le VLAN et le relay. Conflit d'adresse IP : vérifier les réservations et les équipements statiques. Étendue saturée : augmenter la plage ou réduire le bail. DHCP Relay absent : configurer ip helper-address. Passerelle incorrecte : vérifier les options DHCP. DNS incorrect : vérifier les options DHCP.  Poste en APIPA 169.254.x.x : pas de serveur DHCP, vérifier le VLAN et le relay. Conflit d'adresse IP : vérifier les réservations et les équipements statiques. Étendue saturée : augmenter la plage ou réduire le bail. DHCP Relay absent : configurer ip helper-address. Passerelle incorrecte : vérifier les options DHCP. DNS incorrect : vérifier les options DHCP."
         },
         {
           "title": "Questions de jury",
-          "body": "Questions typiques."
+          "body": "Expliquer le DHCP. Qu'est-ce que DORA ? Qu'est-ce qu'un bail ? Qu'est-ce qu'une réservation ? Qu'est-ce qu'un relay ? Comment fonctionne le renouvellement ?"
         },
         {
           "title": "Pièges d'examen",
-          "body": "Pièges fréquents."
+          "body": "Confondre DORA. Oublier le relay. Oublier les exclusions. Étendue saturée. Bail trop court ou trop long. Passerelle incorrecte. DNS incorrect."
         },
         {
           "title": "Bonnes pratiques",
-          "body": "Bonnes pratiques."
+          "body": "Documenter les étendues. Utiliser des réservations pour les serveurs. Configurer les exclusions. Utiliser un relay dans les VLAN. Monitorer l'utilisation des étendues. Sauvegarder la configuration."
         },
         {
-          "title": "Mémo révision",
-          "body": "DHCP attribue automatiquement les adresses IP."
+          "title": "Mémo de révision",
+          "body": "DHCP = DORA (Discover, Offer, Request, Acknowledge). Bail = durée. Réservation = IP fixe par MAC. Exclusion = IP réservée. Relay = ip helper-address. Options = passerelle, DNS, domaine.  DHCP = DORA (Discover, Offer, Request, Acknowledge). Bail = durée. Réservation = IP fixe par MAC. Exclusion = IP réservée. Relay = ip helper-address. Options = passerelle, DNS, domaine. Étendue = plage d'adresses."
         },
         {
-          "title": "Schéma Mermaid",
-          "body": "graph TD; A-->B;"
+          "title": "Schémas Mermaid",
+          "body": "sequenceDiagram; Client->>DHCP: Discover; DHCP->>Client: Offer; Client->>DHCP: Request; DHCP->>Client: Ack;"
         },
         {
           "title": "Sources de référence",
-          "body": "Documentation officielle."
+          "body": "RFC 2131, documentation Cisco IOS, Microsoft DHCP."
         }
       ]
     },
