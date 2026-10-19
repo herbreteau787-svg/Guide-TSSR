@@ -8,7 +8,7 @@ async function loadContentSections(){
     const sections = [];
     if (!Array.isArray(G.quizzesLoaded)) G.quizzesLoaded = [];
     for (const file of files){
-      const r = await fetch('./content/' + file);
+      const r = await fetch('./content/' + file + '?v=' + (manifest.version || 1));
       if (!r.ok) throw new Error(file);
       const sec = await r.json();
       if (Array.isArray(sec.quiz)) {
@@ -736,10 +736,10 @@ function renderAnglais(){
   html += "</div></div>";
   if (mode === "list"){
     const groups = {};
-    for (const e of pool){ const k=e.category||"Autres"; if (!groups[k]) groups[k]=[]; groups[k].push(e); }
+    for (const e of pool){ const k=e.section||"Autres"; if (!groups[k]) groups[k]=[]; groups[k].push(e); }
     const cats = Object.keys(groups).sort();
     for (const cat of cats){
-      html += "<div class=\"card\"><h3>"+escapeHtml(cat)+"</h3><table class=\"cheat-table\"><thead><tr><th>English</th><th>Français</th></tr></thead><tbody>";
+      html += "<div class=\"card\"><h3>"+escapeHtml(cat)+"</h3><table class=\"cheat-table\"><thead><tr><th>English</th><th>Traduction</th></tr></thead><tbody>";
       for (const e of groups[cat]){
         html += "<tr><td><code>"+escapeHtml(e.en)+"</code></td><td>"+escapeHtml(e.fr)+"</td></tr>";
       }
@@ -790,6 +790,7 @@ function renderAnglais(){
       }
     }
   }
+  html += "<p class=\"muted small\">Source : Manuel Anglais IT TSSR AIS (chapitres 1 à 26, hors chapitre 27). Traductions incertaines marquées a_verifier dans les données.</p>";
   panel.innerHTML = html;
   const sinput = document.getElementById("vocabSearch");
   if (sinput){ sinput.oninput = function(ev){ vocabSearch(ev.target.value); if (document.getElementById("vocabSearch") === sinput) sinput.focus(); }; }
@@ -815,8 +816,6 @@ function ensureExternalScript(src){
   });
 }
 const PDFJS_VERSION = '3.11.174';
-const JSZIP_VERSION = '3.10.1';
-const DOCX_PREVIEW_VERSION = '0.1.7';
 function pdfLoadSupport(item){
   cleanupSupportReader();
   const viewer = document.getElementById('supportViewer');
@@ -992,68 +991,9 @@ function pdfSearch(direction){
   if (found < 0){ const el=document.getElementById('supportSearch'); if (el) el.style.outline='1px solid var(--danger,#ef4444)'; setTimeout(function(){ if (el) el.style.outline=''; },900); return; }
   supportState.currentPage=found; pdfJump(found);
 }
-async function loadDocxSupport(item){
-  cleanupSupportReader();
-  const viewer=document.getElementById('supportViewer');
-  viewer.innerHTML = '<div class="support-reader"><div class="support-toolbar"></div><div class="support-scroll" id="supportScroll"><div class="muted small">Chargement du document DOCX...</div></div></div>';
-  buildDocxToolbar(item);
-  try {
-    await ensureExternalScript('https://cdnjs.cloudflare.com/ajax/libs/jszip/' + JSZIP_VERSION + '/jszip.min.js');
-    await ensureExternalScript('https://unpkg.com/docx-preview@' + DOCX_PREVIEW_VERSION + '/dist/docx-preview.umd.js');
-    const res=await fetch(item.fichier);
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const buffer = await res.arrayBuffer();
-    const scroll=document.getElementById('supportScroll'); scroll.innerHTML='';
-    let renderer=null;
-    if (window.docx && typeof window.docx.renderAsync==='function') renderer=window.docx;
-    else if (window.DocxRenderer && typeof window.DocxRenderer.renderAsync==='function') renderer=window.DocxRenderer;
-    else throw new Error('docx-preview non chargé');
-    await renderer.renderAsync(buffer, scroll, null, { breakPages: true, inWrapper: true });
-    const info=document.createElement('div');
-    info.className='muted small';
-    info.style.marginTop='8px';
-    info.textContent='Document DOCX rendu avec docx-preview. Recherche via Ctrl+F du navigateur.';
-    scroll.appendChild(info);
-    applyDocxZoom();
-  } catch (e){
-    try {
-      await fallbackMammothDocx(item);
-    } catch (e2){
-      const scroll=document.getElementById('supportScroll');
-      if (scroll) scroll.innerHTML='<div class="card"><p class="muted">Rendu DOCX impossible (' + escapeHtml(String(e2)) + ').</p><div class="button-row"><a class="ghost-btn" href="' + escapeHtml(item.fichier) + '" download>Télécharger l original</a></div></div>';
-    }
-  }
-}
-function buildDocxToolbar(item){
-  const bar=document.querySelector('#supportViewer .support-toolbar');
-  if (!bar) return;
-  bar.innerHTML = '<div class="button-row" style="flex-wrap:wrap;gap:6px;align-items:center">' +
-    '<button class="ghost-btn" id="docxZoomOut">Zoom -</button>' +
-    '<button class="ghost-btn" id="docxZoomIn">Zoom +</button>' +
-    '<button class="ghost-btn" id="docxZoomFit">Ajuster</button>' +
-    '<span class="muted small">Ctrl+F pour la recherche navigateur</span>' +
-    '<a class="ghost-btn" href="' + escapeHtml(item.fichier) + '" download>Télécharger l original</a>' +
-    '</div>';
-  document.getElementById('docxZoomOut').onclick = function(){ supportState.docxZoom=Math.max(0.6,supportState.docxZoom-0.12); applyDocxZoom(); };
-  document.getElementById('docxZoomIn').onclick = function(){ supportState.docxZoom=Math.min(2.5,supportState.docxZoom+0.12); applyDocxZoom(); };
-  document.getElementById('docxZoomFit').onclick = function(){ supportState.docxZoom=1; applyDocxZoom(); };
-}
-function applyDocxZoom(){
-  const scroll=document.getElementById('supportScroll');
-  if (!scroll) return;
-  const scale=supportState.docxZoom || 1;
-  const wrap=scroll.querySelector('.docx-wrapper, .docx-container, section.docx');
-  if (wrap){ wrap.style.transform='scale('+scale+')'; wrap.style.transformOrigin='top left'; wrap.style.width=(100/scale)+'%'; }
-}
-async function fallbackMammothDocx(item){
-  await ensureExternalScript('https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.8.0/mammoth.browser.min.js');
-  const res=await fetch(item.fichier);
-  if (!res.ok) throw new Error('HTTP '+res.status);
-  const buffer=await res.arrayBuffer();
-  const result=await window.mammoth.convertToHtml({arrayBuffer:buffer, includeEmbeddedStyleMap:true});
-  const scroll=document.getElementById('supportScroll');
-  if (!scroll) return;
-  scroll.innerHTML = '<div class="card"><h2>' + escapeHtml(item.titre) + '</h2><div class="docx-content">' + result.value + '</div><div class="muted small" style="margin-top:6px">Repli sur mammoth.js.</div></div>';
+function openDocxSupport(item){
+  const viewer = document.getElementById('supportViewer');
+  if (viewer) viewer.innerHTML = '<div class="card"><p class="muted">Ce support est maintenant au format PDF et utilise le lecteur PDF.js.</p></div>';
 }
 function renderSupport(){
   const panel = document.querySelector('[data-panel="support"]');
@@ -1075,7 +1015,7 @@ function supportViewerOpen(id){
   const viewer=document.getElementById('supportViewer');
   if (!item || !viewer) return;
   viewer.innerHTML = '<div class="button-row" style="margin-bottom:10px"><a class="ghost-btn" href="' + escapeHtml(item.fichier) + '" download>Telecharger l original</a> <span class="muted small">' + escapeHtml(item.cp||'') + '</span></div><div class="support-reader"><div class="support-toolbar"></div><div class="support-scroll" id="supportScroll"><div class="muted small">Preparation...</div></div></div>';
-  if (item.type==='pdf') openPdfSupport(item); else openDocxSupport(item);
+  openPdfSupport(item);
 }
 function openPdfSupport(item){ pdfLoadSupport(item); }
 function openDocxSupport(item){ loadDocxSupport(item); }

@@ -13,10 +13,10 @@
     {
       "id": "support-itnv7",
       "titre": "Fiche révision ITNv7",
-      "fichier": "supports/fiche-revision-itnv7.docx",
-      "type": "docx",
+      "fichier": "supports/fiche-revision-itnv7.pdf",
+      "type": "pdf",
       "cp": "CCNA",
-      "description": "Fiche révision ITN v7 (rendu DOCX navigateur)."
+      "description": "Fiche révision ITN v7 (15 pages A4 portrait)."
     }
   ]
 }

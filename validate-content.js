@@ -14,13 +14,14 @@ for(const file of manifest.files){
  if(!sec||typeof sec.title!=="string") issues.push(p+": title invalide");
  if(base==="vocab"){
    if(!sec||!Array.isArray(sec.entries)) { issues.push(p+": entries non array"); continue; }
+   const sectionEn=new Set();
    for(const e of sec.entries){
      if(!e||typeof e.id!=="string"||!e.id) issues.push(p+": entry sans id");
      if(!e||typeof e.en!=="string"||!e.en) issues.push(p+": entree sans en "+(e.id||"?"));
      if(!e||typeof e.fr!=="string"||!e.fr) issues.push(p+": entree sans fr "+(e.id||"?"));
-     if(!e||typeof e.cp!=="string"||!/^(cp[1-9])$/.test(e.cp)) issues.push(p+": cp invalide "+(e.cp||"?"));
+     if(!e||typeof e.section!=="string"||!/^Chapitre \d+ \u2014 .+$/.test(e.section)) issues.push(p+": section invalide "+(e.section||"?"));
      if(e&&e.id){ if(globalIds.has(e.id)) issues.push(p+": id duplique "+e.id); globalIds.add(e.id); }
-     const key=String(e&&e.en||"").toLowerCase().trim(); if(key){ if(vocabEn.has(key)) issues.push(p+": terme EN doublon "+e.en); vocabEn.add(key); }
+     const key=String(e&&e.en||"").toLowerCase().trim(); if(key){ if(sectionEn.has(key)) issues.push(p+": terme EN doublon dans la section "+e.section+" : "+e.en); sectionEn.add(key); }
    }
    continue;
  }
@@ -39,9 +40,7 @@ for(const file of manifest.files){
  if(sec && Array.isArray(sec.fiches)){
    for(const f of sec.fiches){
      total++;
-     if(!f||typeof f.id!=="string"||!f.id){issues.push(p+": fiche sans id"); continue;
-  // sections push moved
-}
+     if(!f||typeof f.id!=="string"||!f.id){issues.push(p+": fiche sans id"); continue; }
      if(!f||typeof f.t!=="string"||!f.t) issues.push(p+": fiche sans titre");
      if(globalIds.has(f.id)) issues.push(p+": id duplique "+f.id);
      globalIds.add(f.id);
@@ -52,12 +51,12 @@ for(const file of manifest.files){
          ok=id.startsWith(base+"-");
        }
        if(!ok) issues.push(p+": prefixe ID non conforme "+f.id);
-      const ficheText=JSON.stringify(f||{}).toLowerCase(); if(ficheText.includes("qcm")) issues.push(p+": fiche contient un QCM : "+f.id);
      }
+     const ficheText=JSON.stringify(f||{}).toLowerCase(); if(ficheText.includes("qcm")) issues.push(p+": fiche contient un QCM : "+f.id);
    }
  }
  sections.push({file,sec});
-if(sec && Array.isArray(sec.quiz)){
+ if(sec && Array.isArray(sec.quiz)){
    for(const q of sec.quiz){
      if(!q||typeof q!=="object") {issues.push(p+": question invalide"); continue;}
      if(typeof q.id!=="string"||!q.id) issues.push(p+": question sans id");
@@ -92,29 +91,27 @@ const encodingChecks = [
  { name:"mojibake tiret/cote (â)", regex:/\u00E2[\u20AC\u2013\u2014\u2019\u00A0]/ },
  { name:"mojibake emoji (ð)", regex:/\u00F0\u009F[\u0080-\u00BF][\u0080-\u00BF]/ },
  { name:"point d'interrogation entre deux lettres", regex:/(?<=\p{L})\?(?=\p{L})/u },
- { name:"é isolé entre espaces", regex:/ \u00E9 / }, 
- { name:"Franéais", regex:/Franéais/i },
- { name:"mettre é jour", regex:/mettre \u00E9 jour/i },
- { name:"é partir de", regex:/\u00E9 partir de/i },
- { name:"é distance", regex:/\u00E9 distance/i },
+ { name:"é isolé entre espaces", regex:/ \u00E9 / },
+ { name:"Français", regex:/Français/i },
+ { name:"mettre à jour", regex:/mettre \u00E9 jour/i },
+ { name:"à partir de", regex:/\u00E9 partir de/i },
+ { name:"à distance", regex:/\u00E9 distance/i },
  { name:"titre commencant par é", regex:/^\u00E9\b/ }
 ];
 for(const fp of encodingPaths){
-  const full=path.join(".", fp);
-  if (!fs.existsSync(full)) continue;
-  const txt=fs.readFileSync(full, "utf8");
-  if (txt.charCodeAt(0)===0xFEFF) issues.push(fp+": BOM UTF-8 en tete");
-  const ls=txt.split(/\r?\n/);
-  ls.forEach((line, idx)=>{
-    for(const c of encodingChecks){
-      if (c.regex.test(line)){
-        const pat=c.regex.toString();
-        // reset regex lastIndex for global? not global
-        issues.push(fp+": Ligne "+(idx+1)+" - "+c.name+" : "+line.trim().slice(0,140));
-        break;
-      }
-    }
-  });
+ const full=path.join(".", fp);
+ if (!fs.existsSync(full)) continue;
+ const txt=fs.readFileSync(full, "utf8");
+ if (txt.charCodeAt(0)===0xFEFF) issues.push(fp+": BOM UTF-8 en tete");
+ const ls=txt.split(/\r?\n/);
+ ls.forEach((line, idx)=>{
+   for(const c of encodingChecks){
+     if (c.regex.test(line)){
+       issues.push(fp+": Ligne "+(idx+1)+" - "+c.name+" : "+line.trim().slice(0,140));
+       break;
+     }
+   }
+ });
 }
 for(const id of quizIds){ if(globalIds.has(id)) issues.push("id question deja utilise comme fiche: "+id); }
 console.log("MANIFEST", manifest.files.length, "fichiers");
