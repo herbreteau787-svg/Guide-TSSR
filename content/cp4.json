@@ -827,7 +827,7 @@
       "t": "Routage IP",
       "level": "intermediaire",
       "cli": true,
-      "r": "Le routage transfère les paquets entre réseaux.",
+      "r": "Le routage IP transfère les paquets entre réseaux distincts en utilisant la table de routage.",
       "tags": [
         "cp4",
         "routage"
@@ -839,71 +839,111 @@
         "Oubli de vérification"
       ],
       "w": "Le test seul ne prouve pas la cause.",
-      "resume": "Le routage transfère les paquets entre réseaux.",
+      "resume": "Routage : table, route par défaut, statique/dynamique, métrique.",
       "sections": [
         {
           "title": "Introduction",
-          "body": "Le routage transfère les paquets entre réseaux."
+          "body": "Le routage IP est l'un des piliers de l'exploitation réseau. Il permet de transférer des paquets entre des réseaux distincts, de choisir le meilleur chemin et de garantir la connectivité de bout en bout. Pour un candidat TSSR, maîtriser le routage est indispensable car il est au cœur des mises en situation professionnelles et des questions du jury. Cette fiche détaille le fonctionnement d'un routeur, les tables de routage, les routes statiques et dynamiques, les métriques et les méthodes de diagnostic.  Le routage IP est l'un des piliers de l'exploitation réseau. Il permet de transférer des paquets entre des réseaux distincts, de choisir le meilleur chemin et de garantir la connectivité de bout en bout. Pour un candidat TSSR, maîtriser le routage est indispensable car il est au cœur des mises en situation professionnelles et des questions du jury. Cette fiche détaille le fonctionnement d'un routeur, les tables de routage, les routes statiques et dynamiques, les métriques et les méthodes de diagnostic. Le routage est omniprésent dans l'examen : configuration, dépannage, vérification."
         },
         {
-          "title": "Définitions",
-          "body": "Le routage transfère les paquets entre réseaux."
+          "title": "Définition du routage",
+          "body": "Le routage est le processus par lequel un routeur transfère un paquet IP d'une interface à une autre en fonction de sa table de routage. La commutation (switching) opère au niveau 2 (liaison) et transfère des trames au sein d'un même VLAN. Le routage opère au niveau 3 (réseau) et transfère des paquets entre des réseaux différents. Un routeur possède une interface par réseau. La table de routage contient les chemins connus vers les destinations.  Le routage est le processus par lequel un routeur transfère un paquet IP d'une interface à une autre en fonction de sa table de routage. La commutation (switching) opère au niveau 2 (liaison) et transfère des trames au sein d'un même VLAN. Le routage opère au niveau 3 (réseau) et transfère des paquets entre des réseaux différents. Un routeur possède une interface par réseau. La table de routage contient les chemins connus vers les destinations. Le routage est la base de l'interconnexion réseau."
         },
         {
-          "title": "Théorie détaillée",
-          "body": "Le routage transfère les paquets entre réseaux. Fonctionnement interne et concepts."
+          "title": "Pourquoi le routage est nécessaire",
+          "body": "Dans un réseau d'entreprise, les équipements sont répartis en plusieurs sous-réseaux (VLAN, sites distants, DMZ). Sans routage, les postes d'un VLAN ne peuvent pas communiquer avec un autre VLAN ou avec Internet. Le routage permet l'interconnexion, la segmentation et la sécurité. Il est indispensable pour l'accès aux services (DNS, DHCP, messagerie, ERP)."
         },
         {
-          "title": "Fonctionnement interne",
-          "body": "Le routage transfère les paquets entre réseaux."
+          "title": "Différence entre commutation et routage",
+          "body": "La commutation utilise les adresses MAC et opère au niveau 2. Elle est rapide et se fait au sein d'un même domaine de broadcast. Le routage utilise les adresses IP et opère au niveau 3. Il traverse les domaines de broadcast. Un switch commute ; un routeur route. Dans un réseau moderne, on combine les deux : switch de couche 2 pour l'accès, routeur ou switch de couche 3 pour l'inter-VLAN."
         },
         {
-          "title": "Architecture",
-          "body": "Le routage transfère les paquets entre réseaux."
+          "title": "Fonctionnement d'un routeur",
+          "body": "Un routeur reçoit un paquet sur une interface, consulte sa table de routage, détermine l'interface de sortie et le next-hop, décrémente le TTL, recalcule le checksum et transmet le paquet. Le processus est répété à chaque saut. Le routeur utilise l'ARP pour résoudre l'adresse MAC du next-hop si nécessaire.  Le routeur décrémente le TTL à chaque saut. Si le TTL atteint 0, le paquet est détruit et un message ICMP Time Exceeded est envoyé. Le routeur recalcule le checksum IP. Il utilise la table ARP pour résoudre l'adresse MAC du next-hop. Le processus est répété à chaque saut jusqu'à la destination. Le routage est stateless pour IPv4.  Le routeur décrémente le TTL à chaque saut. Si le TTL atteint 0, le paquet est détruit et un message ICMP Time Exceeded est envoyé. Le routeur recalcule le checksum IP. Il utilise la table ARP pour résoudre l'adresse MAC du next-hop. Le processus est répété à chaque saut jusqu'à la destination. Le routage est stateless pour IPv4. Le routeur ne conserve pas d'état de connexion. Le forwarding est basé sur la table de routage. La décision est prise à chaque paquet."
+        },
+        {
+          "title": "Tables de routage",
+          "body": "La table de routage contient les routes connues. Chaque entrée indique le réseau destination, le masque, le next-hop, l'interface de sortie et la métrique. La route par défaut (0.0.0.0/0) est utilisée si aucune route spécifique ne correspond. Les routes sont classées par préfixe le plus long (longest prefix match).  La table de routage contient les routes connectées (C), statiques (S), OSPF (O), RIP (R), BGP (B). Chaque route a une distance administrative et une métrique. La route par défaut est 0.0.0.0/0. Le longest prefix match choisit la route la plus spécifique. En cas d'égalité, la métrique départage. En cas d'égalité de métrique, l'ECMP fait du load balancing.  La table de routage contient les routes connectées (C), statiques (S), OSPF (O), RIP (R), BGP (B). Chaque route a une distance administrative et une métrique. La route par défaut est 0.0.0.0/0. Le longest prefix match choisit la route la plus spécifique. En cas d'égalité, la métrique départage. En cas d'égalité de métrique, l'ECMP fait du load balancing. La table est mise à jour dynamiquement par les protocoles de routage."
+        },
+        {
+          "title": "Routes connectées",
+          "body": "Les routes connectées sont automatiquement ajoutées pour les réseaux directement attachés aux interfaces du routeur. Elles ont une distance administrative de 0. Elles disparaissent si l'interface est down."
+        },
+        {
+          "title": "Routes statiques",
+          "body": "Les routes statiques sont configurées manuellement. Elles sont simples et prévisibles mais ne s'adaptent pas aux pannes. Syntaxe : ip route réseau masque next-hop. La route par défaut est une route statique vers 0.0.0.0/0.  Les routes statiques sont configurées manuellement avec ip route. Elles sont simples et prévisibles mais ne s'adaptent pas aux pannes. On les utilise pour les petits réseaux, les routes par défaut, les routes récapitulatives. La route par défaut est une route statique vers 0.0.0.0/0. Les routes statiques flottantes ont une distance administrative élevée pour servir de backup."
+        },
+        {
+          "title": "Routes dynamiques",
+          "body": "Les routes dynamiques sont apprises via des protocoles (RIP, OSPF, EIGRP, BGP). Elles s'adaptent aux changements de topologie. OSPF est un protocole à état de lien, RIP à vecteur de distance.  Les routes dynamiques sont apprises via des protocoles. RIP est à vecteur de distance (max 15 sauts). OSPF est à état de lien (rapide, scalable). EIGRP est hybride. BGP est pour l'Internet. Chaque protocole a ses avantages et ses limites. OSPF est le plus utilisé en entreprise."
+        },
+        {
+          "title": "Métriques de routage",
+          "body": "La métrique indique le coût d'une route. Pour RIP, c'est le nombre de sauts (max 15). Pour OSPF, c'est le coût (basé sur la bande passante). Pour EIGRP, c'est le composite (bande passante, délai). Plus la métrique est basse, meilleure est la route.  La métrique indique le coût d'une route. RIP : nombre de sauts. OSPF : coût (10^8 / bande passante). EIGRP : composite (bande passante, délai). Plus la métrique est basse, meilleure est la route. La métrique est utilisée pour départager les routes du même protocole.  La métrique indique le coût d'une route. Pour RIP, c'est le nombre de sauts (max 15). Pour OSPF, c'est le coût (basé sur la bande passante). Pour EIGRP, c'est le composite (bande passante, délai). Plus la métrique est basse, meilleure est la route. La métrique est utilisée pour départager les routes du même protocole. La distance administrative départage les protocoles différents."
+        },
+        {
+          "title": "Choix du meilleur chemin",
+          "body": "Le routeur choisit la route avec le préfixe le plus long (longest prefix match). En cas d'égalité, il choisit la route avec la métrique la plus basse. En cas d'égalité de métrique, il peut faire du load balancing (ECMP). La distance administrative départage les protocoles.  Le routeur choisit la route avec le préfixe le plus long (longest prefix match). En cas d'égalité, il choisit la route avec la métrique la plus basse. En cas d'égalité de métrique, il peut faire du load balancing (ECMP). La distance administrative départage les protocoles (connected 0, static 1, eBGP 20, EIGRP 90, OSPF 110, RIP 120)."
+        },
+        {
+          "title": "Default Route",
+          "body": "La route par défaut (0.0.0.0/0) est utilisée lorsque aucune route spécifique ne correspond à la destination. Elle est essentielle pour l'accès à Internet. Elle est souvent configurée comme route statique ou apprise par OSPF (default-information originate).  La route par défaut (0.0.0.0/0) est utilisée lorsque aucune route spécifique ne correspond à la destination. Elle est essentielle pour l'accès à Internet. Elle est souvent configurée comme route statique ou apprise par OSPF (default-information originate). Sans route par défaut, pas d'accès hors du réseau local."
+        },
+        {
+          "title": "Passerelle par défaut",
+          "body": "La passerelle par défaut (default gateway) est l'adresse IP du routeur sur le sous-réseau local. Les postes l'utilisent pour envoyer le trafic vers d'autres réseaux. Sans passerelle, pas de communication externe.  La passerelle par défaut (default gateway) est l'adresse IP du routeur sur le sous-réseau local. Les postes l'utilisent pour envoyer le trafic vers d'autres réseaux. Sans passerelle, pas de communication externe. La passerelle doit être dans le même sous-réseau que le poste."
+        },
+        {
+          "title": "Routage inter-VLAN",
+          "body": "Le routage inter-VLAN permet la communication entre VLAN. Il nécessite un routeur (router on a stick) ou un switch de couche 3. Chaque VLAN est un sous-réseau. Le routeur a une sous-interface par VLAN avec encapsulation 802.1Q. Le switch de couche 3 fait du routage matériel.  Le routage inter-VLAN permet la communication entre VLAN. Il nécessite un routeur (router on a stick) ou un switch de couche 3. Chaque VLAN est un sous-réseau. Le routeur a une sous-interface par VLAN avec encapsulation 802.1Q. Le switch de couche 3 fait du routage matériel. Le routage inter-VLAN est la base de la segmentation réseau."
+        },
+        {
+          "title": "Architecture réseau d'entreprise",
+          "body": "Architecture d'entreprise type : accès (switches L2), distribution (switches L3, routage inter-VLAN), cœur (routage haute capacité), services (DNS, DHCP, firewall), sécurité (pare-feu, IDS/IPS). Les sites distants sont connectés par VPN ou MPLS. La redondance est assurée par HSRP/VRRP et OSPF.  Architecture type : accès (switches L2), distribution (switches L3, routage inter-VLAN), cœur (routage haute capacité), services (DNS, DHCP, firewall), sécurité (pare-feu, IDS/IPS). Les sites distants sont connectés par VPN ou MPLS. La redondance est assurée par HSRP/VRRP et OSPF. Le cœur utilise des liens haut débit. La distribution fait le routage inter-VLAN. L'accès connecte les postes. Les services sont centralisés. La sécurité est en profondeur."
         },
         {
           "title": "Cas concret entreprise",
-          "body": "Le routage transfère les paquets entre réseaux. Cas pratique."
+          "body": "Scénario PME : un routeur avec des sous-interfaces pour 3 VLAN et une route par défaut vers Internet. Scénario école : VLAN élèves/profs/admin avec routage inter-VLAN et firewall. Scénario mairie : multi-sites avec VPN et OSPF. Scénario multi-sites : routeurs avec OSPF et liens redondants.  Scénario PME : un routeur avec des sous-interfaces pour 3 VLAN et une route par défaut vers Internet. Scénario école : VLAN élèves/profs/admin avec routage inter-VLAN et firewall. Scénario mairie : multi-sites avec VPN et OSPF. Scénario multi-sites : routeurs avec OSPF et liens redondants. Dans tous les cas, le plan d'adressage doit être documenté et le routage testé.  Scénario PME : un routeur avec des sous-interfaces pour 3 VLAN et une route par défaut vers Internet. Scénario école : VLAN élèves/profs/admin avec routage inter-VLAN et firewall. Scénario mairie : multi-sites avec VPN et OSPF. Scénario multi-sites : routeurs avec OSPF et liens redondants. Dans tous les cas, le plan d'adressage doit être documenté et le routage testé. Le jury attend une méthode claire de diagnostic."
         },
         {
-          "title": "Procédure pas à pas",
-          "body": "1. Vérifier. 2. Configurer. 3. Tester."
+          "title": "Commandes Cisco IOS",
+          "body": "Commandes de diagnostic :\nshow ip route\nshow running-config\nshow ip interface brief\nshow cdp neighbors\nshow arp\nshow interfaces\nping\ntraceroute\n\nCommandes de configuration :\nip route 0.0.0.0 0.0.0.0 <next-hop>\nip route <réseau> <masque> <next-hop>\n\nExplication :\nshow ip route affiche la table de routage (C, S, O, etc.).\nshow running-config affiche la configuration active.\nshow ip interface brief affiche l'état des interfaces.\nshow cdp neighbors affiche les voisins Cisco.\nshow arp affiche la table ARP.\nshow interfaces affiche les détails des interfaces.\nping teste la connectivité.\ntraceroute trace le chemin.\nip route configure une route statique.  Commandes de diagnostic :\nshow ip route\nshow running-config\nshow ip interface brief\nshow cdp neighbors\nshow arp\nshow interfaces\nping\ntraceroute\n\nCommandes de configuration :\nip route 0.0.0.0 0.0.0.0 <next-hop>\nip route <réseau> <masque> <next-hop>\n\nExplication :\nshow ip route affiche la table de routage (C, S, O, etc.).\nshow running-config affiche la configuration active.\nshow ip interface brief affiche l'état des interfaces.\nshow cdp neighbors affiche les voisins Cisco.\nshow arp affiche la table ARP.\nshow interfaces affiche les détails des interfaces.\nping teste la connectivité.\ntraceroute trace le chemin.\nip route configure une route statique."
         },
         {
-          "title": "Dépannage",
-          "body": "Le routage transfère les paquets entre réseaux. Dépannage."
-        },
-        {
-          "title": "Commandes CLI",
-          "body": "Commandes usuelles."
+          "title": "Configuration Cisco IOS",
+          "body": "1. Vérifier la table de routage (show ip route). 2. Vérifier l'interface de sortie. 3. Vérifier le next-hop (ARP). 4. Tester le ping vers la passerelle. 5. Tester le ping distant. 6. Tracer la route. 7. Vérifier les ACL et le firewall. 8. Vérifier le NAT si accès Internet."
         },
         {
           "title": "Vérification",
-          "body": "Vérifier la configuration."
+          "body": "show ip route : vérifier la présence des routes. show ip interface brief : vérifier que les interfaces sont up/up. show arp : vérifier la résolution. ping : tester la connectivité. traceroute : localiser le blocage."
+        },
+        {
+          "title": "Dépannage",
+          "body": "Route absente : ajouter la route. Mauvaise passerelle : corriger la gateway. Mauvaise route par défaut : corriger 0.0.0.0/0. Réseau inaccessible : vérifier la connectivité et le routage. Boucle : vérifier les routes et TTL. Erreur de masque : recalculer. Problème d'adressage IP : vérifier IP/masque/gateway.  Route absente : ajouter la route avec ip route. Mauvaise passerelle : corriger la gateway. Mauvaise route par défaut : corriger 0.0.0.0/0. Réseau inaccessible : vérifier la connectivité et le routage. Boucle : vérifier les routes et TTL. Erreur de masque : recalculer. Problème d'adressage IP : vérifier IP/masque/gateway. Interface down : vérifier le câble et la configuration.  Route absente : ajouter la route avec ip route. Mauvaise passerelle : corriger la gateway. Mauvaise route par défaut : corriger 0.0.0.0/0. Réseau inaccessible : vérifier la connectivité et le routage. Boucle : vérifier les routes et TTL. Erreur de masque : recalculer. Problème d'adressage IP : vérifier IP/masque/gateway. Interface down : vérifier le câble et la configuration. ACL bloquante : vérifier les règles. NAT mal configuré : vérifier la traduction."
         },
         {
           "title": "Questions de jury",
-          "body": "Questions typiques."
+          "body": "Expliquer le routage. Qu'est-ce qu'une table de routage ? Qu'est-ce qu'une route par défaut ? Différence entre route statique et dynamique. Qu'est-ce que le longest prefix match ? Qu'est-ce qu'une métrique ?  Expliquer le routage. Qu'est-ce qu'une table de routage ? Qu'est-ce qu'une route par défaut ? Différence entre route statique et dynamique. Qu'est-ce que le longest prefix match ? Qu'est-ce qu'une métrique ? Qu'est-ce que la distance administrative ?"
         },
         {
           "title": "Pièges d'examen",
-          "body": "Pièges fréquents."
+          "body": "Confondre routage et commutation. Oublier la route par défaut. Mauvais masque. Next-hop inaccessible. Interface down. ACL bloquante. NAT mal configuré.  Confondre routage et commutation. Oublier la route par défaut. Mauvais masque. Next-hop inaccessible. Interface down. ACL bloquante. NAT mal configuré. Confondre distance administrative et métrique."
         },
         {
           "title": "Bonnes pratiques",
-          "body": "Bonnes pratiques."
+          "body": "Documenter les routes. Utiliser le routage dynamique pour les grands réseaux. Vérifier la connectivité à chaque étape. Utiliser les ACL pour la sécurité. Éviter les routes statiques inutiles.  Documenter les routes. Utiliser le routage dynamique pour les grands réseaux. Vérifier la connectivité à chaque étape. Utiliser les ACL pour la sécurité. Éviter les routes statiques inutiles. Utiliser HSRP/VRRP pour la redondance. Monitorer les routes. Tester le failover."
         },
         {
-          "title": "Mémo révision",
-          "body": "Le routage transfère les paquets entre réseaux."
+          "title": "Mémo de révision",
+          "body": "Routage = transfert inter-réseaux via table de routage. Route par défaut = 0.0.0.0/0. Longest prefix match. Métrique = coût. Route statique = manuelle. Route dynamique = protocole. Passerelle = routeur local.  Routage = transfert inter-réseaux via table de routage. Route par défaut = 0.0.0.0/0. Longest prefix match. Métrique = coût. Route statique = manuelle. Route dynamique = protocole. Passerelle = routeur local. Distance administrative : connected 0, static 1, eBGP 20, EIGRP 90, OSPF 110, RIP 120."
         },
         {
-          "title": "Schéma Mermaid",
-          "body": "graph TD; A-->B;"
+          "title": "Schémas Mermaid",
+          "body": "graph TD; R1[Routeur1]-->R2[Routeur2]; R2-->Internet; PC1-->R1; PC2-->R2;  graph TD; R1[Routeur1]-->R2[Routeur2]; R2-->Internet; PC1-->R1; PC2-->R2; R1-->|OSPF|R2;"
         },
         {
           "title": "Sources de référence",
-          "body": "Documentation officielle."
+          "body": "RFC 791, Cisco Networking Academy, documentation Cisco IOS."
         }
       ]
     },
